@@ -1,0 +1,31 @@
+<div> <!-- main content here -->
+  <p> Welcome to the ontology builder.<p>
+
+  <% form_tag :action => :search, :controller => :ontology do -%>
+  <%= hidden_field_tag "hidden_field_class_name"  -%>
+
+  <div style="margin-top: 3em; margin-bottom: 6em; font-size: larger; text-align: center;">
+
+    <label for="ontology_search">
+      Search for <span class="ont_class" style="padding: 2px;">classes</span>,  
+      <span style="padding: 2px;" class="ont_label">labels</span> or  <span style="padding:2px;" class="ont_tag">tags</span>  
+
+    </label>
+    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+      :controller => 'ontology',
+      :object => 'onto_search',
+      :method => 'search_id',
+      :use_proj => true,
+      :tag_id => "ontology_search",
+      :display => '',
+      :size => 50,} -%> </span>
+
+    <%= submit_tag 'show' -%>
+    <% end -%>
+
+  </div>
+
+  <div><p> Who did what?!</p><br />
+    <%= render(:partial => 'activity_runner') -%>
+  </div>
+</div>

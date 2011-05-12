@@ -1,0 +1,72 @@
+<div> <%# don't (re)move me! -%>
+  <% if @part == 'center' %>
+    
+  <div style="margin-bottom: 3.1em;">
+
+    <div style="float:left;"> <b> OTUs: </b> <%= @otus.length -%>, <b>Characters:</b> <%= @chrs.length -%></div>
+   
+    <div style="font-size: smaller; float:right; padding: .2em;" class="box4">
+      <%= form_tag(:action => 'show_grid_coding', :id => @mx.id) do -%>
+        Resize interleave length to: <%= text_field_tag(:interleave_size,  session[:interleave_size], {:size => 3, :maxlength => 3}) -%> characters. <%= submit_tag('resize', :html => {:style => "font-size: smaller;"}) %>  
+      <% end %>
+    </div> 
+    <br style="clear:both;" />
+  </div>
+
+  <div style="font-size: smaller;">
+    <div><b>OTU:</b> <span id="cell_otu"> <i> Click a cell to update. </i> </span></div>
+    <div><b>Character:</b> <span id="cell_chr"> </span></div>
+    <div><b>State:</b> <span id="cell_state"> </span></div>  
+  </div>
+
+      <% @chrs.in_groups_of( session[:interleave_size].to_i, false) do |int| %>
+        
+        <table class="mx" style="font-size: 87%">
+          <tr>
+            <th>&nbsp;</th>
+            <% for chr in int -%>
+              <th><%= link_to chr.short_name || "-", {:controller => 'chr', :action => 'show', :id => chr.id}, {:alt => chr.name, :title => chr.name} -%></th>
+            <% end -%>      
+          </tr>
+
+          <% i = 0 -%>
+          <% for otu in @otus -%> 
+          <tr class="<%= i == 0 ? "" : "odd" -%>">
+            <td><%= otu.has_public_content? ? link_to(otu.display_name, :action => 'show', :controller => 'public_content', :id => otu.id) : otu.display_name -%></td>
+            <% for chr in int -%>
+              <% url = "/projects/#{@proj.id}/mx/code/#{@mx.id}/#{otu.id}/#{chr.id}" -%>
+              <td class="mx_cell">
+
+                
+                <% if @codings_mx[chr.id][otu.id] -%>
+                <% @cs = ''; @cstxt = ''; -%>        
+                <% for c in @codings_mx[chr.id][otu.id] -%><% @cs += c.chr_state_state; @cstxt += " [#{c.chr_state_state}:#{c.chr_state_name}] " -%><% end -%>
+
+                  <%= link_to_function(@cs, nil, :id => "more_link") do |page|
+                      page[:cell_otu].replace_html   otu.display_name
+                      page[:cell_chr].replace_html   chr.display_name
+                      page[:cell_state].replace_html   @cstxt
+                    end
+                  %>
+
+                
+       
+                <% else -%>
+                <span class="empty"> - </span>
+                <% end %>
+               
+               </td>
+              <% end -%>          
+            </tr>
+            <% i == 0 ? i = 1 : i = 0 -%>
+          <% end -%>
+        </table>   
+        <br/>
+      <% end %>
+
+      
+  <% end -%>
+</div>
+
+
+

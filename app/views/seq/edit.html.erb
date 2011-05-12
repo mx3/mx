@@ -1,0 +1,12 @@
+<h3 style="display: inline;">Editing sequence</h3> <span  class="small_grey"><%= "id: #{@seq.id}" %> </span> <br />
+<%= link_to 'Show', :action => 'show', :id => @seq %> 
+<%= error_messages_for 'seq' %>
+<div class="subform">
+  <%= form_tag :action => 'update', :id => @seq do -%>
+  <%= render :partial => 'form' -%> 
+    <br style="clear: both;">
+   <%= submit_tag "Submit" %>
+  <% end -%>
+</div>
+
+

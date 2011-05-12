@@ -1,0 +1,21 @@
+<%= render :partial =>("news/brief_display") if @news.size > 0 %>
+<%= form_tag :action=> "login" do %>
+  <div title="Account login" id="loginform" class="form">
+      <% if @message %>
+        <div id="message"><%= @message %></div>
+      <% end %>
+ 
+  <div class="fr"><label for="person_login" class="lbl4">Login:</label>
+    <span class="fld"><input type="text" name="person_login" id="person_login" size="30" value=""/></span>
+  </div>
+  
+   <div class="fr"><label for="person_password" class="lbl4">Password:</label>
+     <span class="fld"><input type="password" name="person_password" id="person_password" size="30"/></span>
+   </div>
+   
+  <div class="fr">
+     <span class="fld"><input type="submit" name="login" value="Login &#187;" class="primary" /></span>
+  </div>
+  <br style="clear: both;" />
+  </div>
+<% end %>

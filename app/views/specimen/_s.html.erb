@@ -1,0 +1,16 @@
+<tr id="specimen_<%= s.id -%>" >
+  <td> <%= s.id -%> </td>
+  <td> <%= s.display_name(:type => :identifiers) -%> </td>
+
+  <td>
+    <% if (self.controller.controller_name == 'otu') && !(self.controller.controller_name == 'specimen') -%> 
+    <%= s.display_name(:type => :ce_for_list)  -%> 
+    <% elsif (self.controller.controller_name == 'ce') && !(self.controller.controller_name == 'specimen')   -%>
+      <%= s.display_name -%>  
+    <% else  -%> 
+      <i> new </i>
+    <% end -%>
+  </td>
+
+  <td style="text-align:right;" > <%= link_to('show', :action => :show, :controller => :specimen, :id => s.id) -%> </td>
+</tr>

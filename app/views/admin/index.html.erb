@@ -1,0 +1,45 @@
+<%= link_to "Back to list of existing projects", :controller => '/proj' -%>
+
+<div style="text-align: center; width:100%; color: red;">Hey, you're an admin! Now aren't you special. Don't go wrecking things!</div>
+
+<div class="show_category">Projects</div>
+<div class="show_row"><span class="show_data"><%= link_to "Create a new project", :action => 'new_proj' -%></span></div>
+<div class="show_row"><span class="show_data"><%= link_to "Delete a project", :action => 'nuke_proj' -%></span></div>
+
+<div class="show_category">Reports</div>
+<div class="show_row"><span class="show_data"><%= link_to "Database content statistics", :action => 'stats' -%></span></div>
+<div class="show_row"><span class="show_data"><%= link_to "Debug", :action => 'debug' -%></span></div>
+
+<div class="show_row"><span class="show_data"><%= link_to "All EOL XML", :action => :eol_dump -%></span></div>
+
+<div class="show_category">Accounts</div>
+<div class="show_row"><%= link_to "Reset a password", :action => 'reset_password' -%></div>
+
+<div class="show_category">Cross-project data/settings</div>
+<div class="show_row"><%= link_to 'Administrative news', :controller => "news", :action => 'list_admin' -%></div>
+<div class="show_row"><%= link_to 'Namespaces', :controller => "namespace" -%></div>
+<div class="show_row"><%= link_to 'Image views', :controller => "image_view" -%></div>
+<div class="show_row"><%= link_to "Orphaned Images", :action => :orphaned_images  -%></div>
+
+<div class="show_category">Taxon names</div>
+
+<p>Choose editable taxon names for:</p>
+  <table>  
+    <% @people.in_groups_of(6, false).each do |grp| -%>
+    <tr>
+      <% grp.each do |p| -%>
+        <%= content_tag(:td, link_to( h(p.full_name), :action => 'people_tn', :id => p )) -%>
+     <% end -%> 
+    </tr>
+  <% end -%>
+</table>
+
+<!--
+<i> Unless your taxon names tree is small the following three functions will likely fail.  See the wiki for how to rebuild your left/right indices.</i><br />
+<p><%= link_to "Perform a <strong>quick</strong> check of taxon name numbering.", :action => "check_all_quick_taxon_names" -%></p>
+<p><%= link_to "Perform a <strong>detailed</strong> check of taxon name numbering.", :action => "check_all_taxon_names" -%></p>
+<p><%= link_to "Renumber (reindex) all taxon names (also rebuilds display_name).", :action => "renumber_taxon_names" -%></p>
+-->
+
+
+

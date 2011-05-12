@@ -1,0 +1,74 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: projs
+#
+#  id                            :integer(4)      not null, primary key
+#  name                          :string(255)     not null
+#  hidden_tabs                   :text
+#  public_server_name            :string(255)
+#  unix_name                     :string(32)
+#  public_controllers            :text
+#  public_tn_criteria            :string(32)
+#  repository_id                 :integer(4)
+#  starting_tab                  :string(32)      default("otu")
+#  default_ontology_id           :integer(4)
+#  default_content_template_id   :integer(4)
+#  gmaps_API_key                 :string(90)
+#  creator_id                    :integer(4)      not null
+#  updator_id                    :integer(4)      not null
+#  updated_on                    :timestamp       not null
+#  created_on                    :timestamp       not null
+#  ontology_namespace            :string(32)
+#  default_ontology_term_id      :integer(4)
+#  obo_remark                    :text
+#  ontology_inclusion_keyword_id :integer(4)
+#  ontology_exclusion_keyword_id :integer(4)
+#
+
+--- 
+projs1: 
+  name: Hymenoptera horror show
+  creator_id: "1"
+  updator_id: 1
+  id: "1"
+  public_server_name: 'foo.things.stuff'
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+projs2: 
+  name: The best project ever!
+  creator_id: "1"
+  id: "2"
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+projs3: 
+  name: Matt only
+  id: "7"
+  creator_id: "1"
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+projs4: 
+  id: "8"
+  name: Diapriid Morphospecies
+  creator_id: "1"
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+projs5: 
+  id: "9"
+  name: Parasitoids of Fruit-Infesting Tephritidae
+  creator_id: "1"
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>
+proj_with_ontology_namespace: 
+  id: "55"
+  name: Ontology
+  ontology_namespace: NS
+  creator_id: "1"
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+

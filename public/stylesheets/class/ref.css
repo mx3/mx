@@ -1,0 +1,39 @@
+div.ref { /* the full citation, fancy */
+  padding: .2em;
+  border: 1px solid gray;
+  background: #DDDDFF;
+  text-align: left;
+  margin: .2em;
+}
+
+div.ref_list { 
+  margin-left: 2em;
+}
+
+div.ref_list .ref {
+  padding: .2em;
+}
+
+td.citation {
+  padding-left: 2em; /* prevents overlap from negative below */
+  margin-left: 2em; 
+  text-indent: -2em;
+}
+
+
+/********* alphabetical headers styling  ***********/
+div.alphabet_links {
+  padding: 1em;
+  margin-left: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.alphabet_letter {
+  padding: .2em;
+}
+
+.alphabet_current_letter {
+  padding: .2em;
+  background-color: #b5ebc7;
+}

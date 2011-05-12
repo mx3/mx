@@ -1,0 +1,6 @@
+<h3>Editing content type</h3> <span class="small_grey">(id: <%= @content_type.id %>)</span>
+
+<%= form_tag :action => 'update', :id => @content_type do -%>
+  <%= render :partial => "form" %>
+  <%= submit_tag "Update" %>
+<% end -%>

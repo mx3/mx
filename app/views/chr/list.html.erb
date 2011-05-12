@@ -1,0 +1,8 @@
+<% if @chr_group %>
+  <p><h3 style="display:inline;">Listing characters filterd by group:</h3> <%= @chr_group.display_name -%><p>
+<% else -%>
+  <h3>Listing characters <%= @by_header ? @by_header : '' -%></h3>
+<% end -%>
+<div id='search_results'>
+  <%= render(:partial => 'ajax_list') -%>
+</div>

@@ -1,0 +1,8 @@
+<div class="box4">
+  <span class="text_title"> <%= @list_title -%> (<%= @refs.size -%>) </span>
+  <div class="content">
+   <%= render(:partial => '/public/ref/refs', :locals => {:refs => @refs}) -%>
+  </div>
+</div>
+
+

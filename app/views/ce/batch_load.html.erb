@@ -1,0 +1,11 @@
+<h3>Batch load collecting events</h3>
+
+<p> This function loads a batch of collecting events taken from a text formatted file. 
+A <strong>blank line</strong> indicates a new collecting event.  <em>Within</em> a collecting event you may use the shortform "<strong>++</strong>" for a blank line or "<strong>||</strong>" for a new line. The labels are verified before being written to the database.  Labels are verbatim only, they are not parsed into individual fields. See the wiki help link for additional explanation of the batch loader, including information on supported file formats.</p>
+
+<% form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'ce_batch_upload'}) do %>
+
+<p><label for="temp_file">Text file containing collecting events: </label>
+<%= file_field 'temp_file', 'file', :size => 70  %></p>
+    <%= submit_tag "Verify" -%>
+<% end -%> 

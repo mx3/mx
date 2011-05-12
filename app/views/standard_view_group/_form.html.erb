@@ -1,0 +1,14 @@
+<%= error_messages_for 'standard_view_group' %>
+
+<!--[form:standard_view_group]-->
+<p><label for="standard_view_group_name">Name</label><br/>
+<%= text_field 'standard_view_group', 'name', 'title' => 'name of standard view group'  %></p>
+
+<p><label for="standard_view_group_notes">Notes</label><br/>
+<%= text_area 'standard_view_group', 'notes', 'title' => 'notes about this standard view group', :cols => 60, :rows => 5  %></p>
+
+<p><label for="standard_view_group_other_identifier">Other identifier</label><br/>
+<%= text_field 'standard_view_group', 'other_identifier', 'title' => 'other identifier for this standard view group'  %></p>
+
+<!--[eoform:standard_view_group]-->
+

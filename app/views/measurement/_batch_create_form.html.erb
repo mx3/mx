@@ -1,0 +1,48 @@
+<% form_tag :action => :batch_create do -%>
+
+<div>
+  <%= hidden_field_tag :units, @units -%><strong>Units:</strong> <%= @units-%> <br />
+  <%= hidden_field_tag :conversion_factor,  @conversion_factor -%><strong>Conversion factor:</strong> <%= @conversion_factor -%> <br />
+</div>
+
+  <%= submit_tag 'add/upate' -%>
+
+<table style="border: 1px dotted silver; margin: 0.5em; padding:0.1em;">
+
+  <tr>
+    <th> </th>
+    <% @standard_view_group.standard_views.each do |sv| -%><%= content_tag :th, sv.display_name -%><% end -%> 
+  </tr>
+
+  <% @specimens.each do |s| -%>
+    <tr>
+      <td> <%= s.display_name(:type => :identifiers) -%> </td>
+      <% @standard_view_group.standard_views.each do |sv| -%>
+      <td>
+
+        <!-- lock these out if they don't match the units/conversion factor -->     
+        <% m = s.measurement_for(:standard_view_id => sv.id, :units => @units, :conversion_factor => @conversion_factor.to_f) -%>
+        <% if m || s.measurements.size == 0 -%> 
+          <%= hidden_field_tag "specimens[#{s.id}][measurement_attributes][][id]", (m.nil? ? nil :  m.id) -%>
+          <%= text_field_tag   "specimens[#{s.id}][measurement_attributes][][measurement]", {}, :value => (m.nil? ? nil : m.measurement) -%>
+          <%= hidden_field_tag "specimens[#{s.id}][measurement_attributes][][standard_view_id]", sv.id -%>
+          <%= hidden_field_tag "specimens[#{s.id}][measurement_attributes][][units]", @units -%>
+          <%= hidden_field_tag "specimens[#{s.id}][measurement_attributes][][conversion_factor]", @conversion_factor -%>
+        <% elsif s.measurements.by_standard_view(sv).size > 0 -%>
+        <strong class="failed"> measurement exist under different units and/or conversion factor</strong>
+        <% else -%>
+          <strong class="failed"> ERROR! </strong>
+        <% end -%>
+
+
+      </td>
+      <% end -%> 
+    </tr>
+  <% end -%>
+
+
+</table>
+
+  <%= submit_tag 'add/update' -%>
+
+<% end -%>

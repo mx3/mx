@@ -1,0 +1,12 @@
+<% content_for :center do -%>
+<div class="show_rec"> 
+    <div class="show_row"><span class="show_lbl">Name: </span><span class="show_data"><%= @mx.name -%></span></span></div>
+
+    <div class="show_category"> Settings </div>
+    <div class="show_row"><span class="show_lbl">Public?: </span><span class="show_data"><%= @mx.is_public -%></span></div>
+    <div class="show_row"><span class="show_lbl">Usable as multikey?: </span><span class="show_data"><%= @mx.is_multikey -%></span></div>
+
+    <%= render(:partial => '/shared/show/notes', :locals => {:obj => @mx}) -%>
+    <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @mx}) -%>
+</div>
+<% end -%>

@@ -1,0 +1,28 @@
+<%= form_tag :action=> "signup" do -%>
+
+<div title="Account signup" id="signupform" class="form">
+
+  <%= render_errors @person %><br/>
+  
+  <label for="person_first_name">First name:</label><br/>
+  <%= text_field "person", "first_name", :size => 30 %><br/>
+  <label for="person_middle_name">Middle name or initial:</label><br/>
+  <%= text_field "person", "middle_name", :size => 30 %><br/>
+  <label for="person_last_name">Last name:</label><br/>
+  <%= text_field "person", "last_name", :size => 30 %><br/>
+  <label for="person_login">Desired login:</label><br/>
+  <%= text_field "person", "login", :size => 30 %><br/>
+  <label for="person_password">Choose password:</label><br/>
+  <%= password_field "person", "password", :size => 30 %><br/>
+  <label for="person_password_confirmation">Confirm password:</label><br/>
+  <%= password_field "person", "password_confirmation", :size => 30 %><br/>
+
+  <label for="person_email">Email (not publicly displayed):</label><br/>
+  <%= text_field "person", "email", :size => 30 %><br/>
+
+  
+<input type="submit" value="Signup &#187;" class="primary" />
+
+<% end %>
+
+</div>

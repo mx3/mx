@@ -1,0 +1,21 @@
+<div style="clear: both;"><h3> Remaining OTUs are Coded as: </h3></div>
+
+<div id="figs_holder" style="clear: both; text-align: center;"></div>
+
+<div class="box5"> 
+  <% if @size_chrs_remn > 0 and @size_chrs_remn > @mk.display_windows['chr_remn']['size']  -%>
+
+  <div id="remaining_otus" style="min-width: 200px; margin: 0px; float: left; ">
+
+    <div style="text-align: center;">
+      <%= render(:partial => "cycle_nav", :locals => {:div_to_update => 'by_chr', :ctrl_name => '_cycle_remn_chr_txt_choices',  :partial_to_render => 'cmp_by_chr'}) -%>
+    </div>
+    <div id="by_chr" >
+      <%= render(:partial => 'cmp_by_chr', :collection => @chrs_remn) -%>  
+    </div>
+  </div>
+
+  <% else  -%>
+    <div class="failed"> Nothing to show. </div>
+  <% end -%>
+</div>

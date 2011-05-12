@@ -1,0 +1,11 @@
+<%= link_to('back', :action => :index) %>
+
+<h3> All orphaned images (without image descriptions) on this server </h3>
+
+<% Image.without_image_descriptions.each do |i| -%>
+
+<div>
+<%= image_thumb_tag(i) -%> <%= link_to('x', {:action => :destroy_image, :id => i}, :method => "post" ) -%>
+</div>
+
+<% end %>

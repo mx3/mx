@@ -1,0 +1,13 @@
+<% differentia_distinguisher = UUID.create.to_s %>
+<% row_id = "differentia-#{differentia_distinguisher}" %>
+<% differentia_property_id = "differentia_property-#{differentia_distinguisher}" %>
+<% differentia_class_id = "differentia_class-#{differentia_distinguisher}" %>
+<tr id="<%= row_id %>">
+	<td id="<%= differentia_property_id %>"><%= select(nil, nil, Differentia.available_properties.collect{|p| [p.label, p.id]}, {}, {:id => differentia_property_id + "_id", :name => differentia_property_id}) %></td>
+	<td id="<%= differentia_class_id %>"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => nil, :term => differentia.value, :role => differentia_class_id, :pc_edit_area => pc_edit_area, :pc_level_id => pc_level_id}) -%>
+	</td>
+	<td style="display: none;">
+	<%= hidden_field_tag "#{differentia_class_id}_hidden_id", (differentia.value.id if differentia.value) %>
+	<%= hidden_field_tag "#{differentia_class_id}_hidden_class", (differentia.value.class if differentia.value) %>
+	</td>
+</tr>

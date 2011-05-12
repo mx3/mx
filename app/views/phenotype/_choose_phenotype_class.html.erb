@@ -1,0 +1,9 @@
+<div id="choose_phenotype_kind_form">
+<div class="header">Add ontological description:</div>
+<%= form_tag :remote => true, :url => { :action => :new_concrete_phenotype, :chr_state => @chr_state } do %>
+<div class="fr"> <label class="lbl4">Choose a kind of phenotype</label>
+<span class="fld"><%= select("phenotype", "kind", Phenotype.kinds.keys) -%></span>
+</div>
+<%= submit_tag "Create phenotype" -%>
+<% end %>
+</div>

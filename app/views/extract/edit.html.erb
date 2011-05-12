@@ -1,0 +1,9 @@
+<h3>Editing extract</h3>
+
+<%= form_tag :action => 'update', :id => @extract do -%>
+  <%= render :partial => "form" %>
+  <%= submit_tag "Edit" %>
+<% end -%>
+
+<%= link_to 'Show', :action => 'show', :id => @extract %> |
+

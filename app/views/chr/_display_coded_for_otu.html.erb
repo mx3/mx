@@ -1,0 +1,25 @@
+<%# probably not currently used -%>
+<div class="box4" style="<%= style %>">
+  <div class="header">Coded characters:</div>
+  <div class="content">
+  <% @codings.each_pair {|chr, ar_codings| %>
+  <%= chr.name %>&nbsp;&nbsp;
+    <% for c in ar_codings %>
+      <%= c.chr_state_state + ": " + c.chr_state_name %> 
+    <% end %>
+    <br />
+  <% } %>
+  </div>
+  
+  <div class="header">Uncoded characters:</div>
+  <div class="content">
+  <% if @uncoded_chrs.empty? %>
+    <i> all coded </i>
+  
+  <% else %>
+    <% for chr in @uncoded_chrs %>
+      <%= chr.name %><br />
+    <% end %>
+  <% end %>
+  </div>
+</div>

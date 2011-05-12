@@ -1,0 +1,7 @@
+<div class="view">
+  <span class="header">Pulse</span>
+  <div style="padding: 2em; text-align: center; width: 100%;">
+    <div>Get this feed as <%= link_to("RSS", :action => :pulse_rss) -%>. <%= link_to(image_tag('feed-icon-14x14.png', :style => 'border:none;'), {:action => :pulse_rss}, :style => 'text-decoration: none;') -%> </div>
+    <%= render(:partial => '/ontology/activity_runner') -%>
+  </div>
+</div>

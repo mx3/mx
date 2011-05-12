@@ -1,0 +1,8 @@
+<h3><%= "#{@list_title}  (#{@ontology_classes.size})" -%></h3>
+<div>
+  <% @ontology_classes.each do |o| -%>
+    <div style ='padding:6px; border-bottom:1px dotted silver; margin-bottom: 4px;'>
+      <%= ontology_class_postfixed_with_label(o, o.id)  -%> | <%= tag_link_for_show(o) -%> 
+    </div>
+  <% end -%>
+</div>

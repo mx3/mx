@@ -1,0 +1,11 @@
+<!-- towards a DRY list (not working/used) --!>
+
+<div id='search_results'>
+   
+  <% unless @pages.first == @pages.last -%><%= @pages.current.first_item %> to <%= @pages.current.last_item %> of <%= @pages.item_count %> <br /> <br />
+  <% end -%>
+
+  <%= render(:partial => "#{@view}/ajax_list") %>
+
+  <b>View Page:</b> <%= pagination_links_with_ajax(@pages, { :element_name => 'search_results', :action =>  'list'}) -%>
+</div>

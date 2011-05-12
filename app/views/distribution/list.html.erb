@@ -1,0 +1,22 @@
+<h3>Listing distributions</h3>
+
+<table class="list_table">
+  <%= t_col_heads([ "geography", "otu", "reference", "verbatim geography", "introduced", "confidence", "id", "mod on", "mod by"]) %>
+  <% for d in @distributions %>
+  <%= t_row({ 'obj' => d, 
+  'cell_data' => [d.geog ? d.geog.display_name : '',
+    d.otu.display_name,
+    d.ref.display_name,
+    d.verbatim_geog,
+    d.display_introduced,
+    d.confidence_id ? d.confidence.display_name : '',
+    d.id,
+    d.c_on,
+    d.m_on] }) %>
+  <% end %>
+</table>
+
+
+<% unless @distribution_pages.first == @distribution_pages.last %>
+  <strong>View page <%= pagination_links @distribution_pages, :window_size => 3 %></strong>
+<% end %>

@@ -1,0 +1,13 @@
+<% content_for :head do -%>
+   <%= javascript_include_tag('bioportal_form_complete') -%>
+<% end %>
+
+<h3>New image</h3>
+<% form_tag({:action => 'create'}, {:multipart => true, :name => 'img_form'}) do %>
+  <%= render :partial => "form" %>
+  <div class="subform">
+    <div class="header">Description (additional descriptions can be added by showing the image)</div>
+      <%= render :partial => "image_description/form" -%>
+  </div>
+  <%= submit_tag "Create", :style => 'margin-left: 25%' -%>
+<% end -%>

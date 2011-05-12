@@ -1,0 +1,11 @@
+<div class='navigator'>
+  <%= navigator2(:obj => @ce, :do =>  session['ce_view'], :ord => "id") %>
+
+  <div class="item"> <%= session['ce_view'] == 'show_material' ? '<span class="navigator_current">material</span>' :  link_to('material', :action => 'show_material', :id => @ce)  %> </div>  
+ 
+ 
+  <div class="category">reports</div>
+  <%= link_to("Clone", {:action => :clone, :id => @ce.id}, :confirm => "Clone this CE?  You will be taken to the new clone.") -%>
+  <%= fig_link(@ce) -%>
+
+</div>

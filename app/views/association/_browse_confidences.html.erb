@@ -1,0 +1,12 @@
+<div> 
+  <% if @part == 'center' %>
+    <h3> Confidence Levels </h3>
+    <p>This project uses the following confidence levels for each supporting evidence record.  They are listed in order of confidence (most confident at top).  The total unique associations recorded at each level are listed at right.  Note that some associations may be unsupported by references or specimens.  Clicking a record will return all associations at that confidence level.</p> 
+    <table>
+      <% for conf in @confidences %>
+      <tr><td style = "text-align: right;"><%= conf.short_name? ? conf.short_name : "<i> no abbreviation </i>" %></td><td> <%= link_to(conf.name, :action => 'browse_by_confidence', :confidence_id => conf.id) %></td><td> <%= conf.count %></td></tr>
+      <% end %>
+    </table> 
+
+  <% end %>
+</div>

@@ -1,0 +1,6 @@
+<%# assumes that a @content_type is available -%>
+
+<div>
+  <%= otu.display_name(:type => :multi_name) %><br/>
+  <textarea class="rc_markup" cols="40" rows="30" id="<%= side -%>_content" name="<%= side -%>_content"><%= content ? content.text : '' %></textarea>
+</div>

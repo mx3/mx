@@ -1,0 +1,16 @@
+
+<div class='subform'>
+  <%= form_tag :action => 'search_by_identifier' do -%>
+    <label> Find by identifier(s): </label> <%= text_field("search", "string", "size" => 50) -%>
+    <%= submit_tag "show" -%> <i>enter 1 or more identifiers or partial identifiers seperated by spaces </i>
+  <% end -%>
+</div>
+
+<div> 
+  <div style="padding:0.5em;border:1px dotted silver;margin:0.5em;"> 
+
+    <div id="result">results</div>
+
+  </div>
+</div>
+

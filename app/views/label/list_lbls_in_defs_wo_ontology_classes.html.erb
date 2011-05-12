@@ -1,0 +1,16 @@
+<h3> A list of labels that have no definitions (are not classes) but that are used in definitions </h3>
+
+<p><em> Descriptions without the highlighted term contain that word embedded within another word.  </em></p>
+
+<% if @result_hash.keys.size == 0 -%>
+  <em>none</em>
+<% end -%>
+
+<% @result_hash.keys.sort{|a,b| a.name <=> b.name}.each do |l| -%>
+  <div style="border-bottom: 1px dotted silver;" >
+    <div style="font-weight: bolder;"> <%= link_to l.display_name, :action => :show, :controller => :label, :id => l -%></div>
+    <% @result_hash[l].each do |oc| -%>
+    <div style="margin-left: 20px; padding: 3px">  <%= hilight_string_in_text(:text => oc.definition, :string => l.name) -%> <span class="small_grey"><%= link_to "show", :action => :show, :controller => :ontology_class, :id => l.id -%></span> </div>  
+    <% end -%>
+  </div>
+<% end -%>

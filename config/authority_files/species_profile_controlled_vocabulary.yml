@@ -1,0 +1,79 @@
+---
+agent:
+- Animator
+- Author
+- Compiler
+- Composer
+- Creator
+- Director
+- Editor
+- Illustrator
+- Photographer
+- Project
+- Publication
+- Publisher
+- Recorder
+- Source
+audience:
+- Children
+- General Public
+- Expert Users
+data_type: 
+- Moving Image
+- Sound
+- Still Image
+- Text
+license:
+- Public Domain Dedication
+- CC-BY (Attribution)
+- CC-BY-SA (Attribution Share Alike)
+- CC-BY-NC (Attribution Non-commercial)
+- CC-BY-NC-SA (Attribution Non-commercial Share Alike)
+mimeType:
+- Images:
+  - image/bmp
+  - image/gif
+  - image/jpeg
+  - image/png
+  - image/svg+xml
+  - image/tiff
+- Text:
+  - text/html
+  - text/plain
+  - text/richtext
+  - text/rtf
+  - text/xml
+subject:
+- Associations
+- Behaviour
+- Conservation Status
+- Cyclicity
+- Cytology
+- Diagnostic Description
+- Diseases
+- Dispersal
+- Distribution
+- Evolution
+- General Description
+- Genetics
+- Growth
+- Habitat
+- Legislation
+- Life Cycle
+- Life Expectancy
+- Look Alikes
+- Management
+- Migration
+- Molecular Biology
+- Morphology
+- Physiology
+- Population Biology
+- Procedures
+- Reproduction
+- Risk Statement
+- Size
+- Taxon Biology
+- Threats
+- Trends
+- Trophic Strategy
+- Uses

@@ -1,0 +1,18 @@
+<h3>Listing namespaces</h3>
+<p><i> You should not alter these unless you understand the consequences!! </i></p>
+<table >
+  <%= t_col_heads(['name','short name/collection code', 'owner', 'notes', 'id', 'mod on', 'creator']) %>
+  <% @namespaces.each_with_index do |n, i| -%>
+  <%= t_row({ 'obj' => n, 'tr_css' => i, 
+  'cell_data' => [
+  n.name,
+  n.short_name,
+  n.owner,
+  n.notes,
+  n.id,
+  time_ago_in_words(n.updated_on) + ' ago',
+  n.m_by ]}) -%>
+  <% end -%>
+</table>
+<%= link_to "Previous page", { :page => @namespace_pages.current.previous } if @namespace_pages.current.previous %>
+<%= link_to "Next page", { :page => @namespace_pages.current.next } if @namespace_pages.current.next %> 

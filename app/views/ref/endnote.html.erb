@@ -1,0 +1,17 @@
+<div class="subform">
+  <div class="header">Paste endnote file to import</div>
+  <div class="content"> 
+    <div id="endnote_form" -%> 
+      <%= render :partial => 'endnote_form', :locals => {:button => "verify", :txt => nil} -%> 
+    </div>
+    <%= spinner_tag("endnote_search") -%>
+  </div>
+</div>
+
+<div class="box4">
+  <div class="header"> Results </div>
+    <div id="result"> 
+      <em> Submit some endnote text </em>
+    </div>
+</div>
+

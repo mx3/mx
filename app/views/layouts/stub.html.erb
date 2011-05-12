@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>MX - <%= self.controller.controller_name.pluralize.gsub("_", " ") -%></title>
+    <%= stylesheet_link_tag "standard" -%>
+    <%= class_css -%>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />  
+    <%= javascript_src_tag "svg_web/svg.js", "data-path" => "/javascripts/svg_web" -%><!-- this must come first -->
+    <%= javascript_include_tag 'mx_svgweb' -%>
+    <%= javascript_include_tag :defaults, :include_google_js => true, :versions => {:scriptaculous => "1.8.1", :prototype => "1.6.1"} -%>
+    <%= javascript_include_tag "accordion" if needs_accordion -%>
+    <%= render(:partial => '/shared/colorPicker_header') if needs_colorPicker -%>
+    <%= render(:partial => '/shared/gmaps_header') if needs_gmaps -%>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header"> THIS LAYOUT IS A STUB - This content below this header will be displayed within the layout placed in <em>public/site/your_site/layout.html.erb</em>.
+        <p><em>debugging parameters</em><br />
+        @public: <strong><%= @public ? "true" : "false" -%> </strong><br />
+        @server_name: <strong><%= @server_name -%> </strong><br />
+        @proj.public_server_name: <strong><%= @proj.public_server_name -%> </strong><br />
+        HOME_SERVER: <strong><%= HOME_SERVER -%> </strong><br />
+        </p>
+      </div>
+      <div id="content">
+        <%= yield -%>
+      </div>
+      <div id="footer" style="clear:both;"></div>
+    </div>
+  </body>
+</html>

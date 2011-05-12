@@ -1,0 +1,14 @@
+<!-- remember we only have @otu in otu/page partials --> 
+<% @distributions = @otu.distributions.ordered_by_geog_name(:include => :geogs)  -%>
+
+<a name="distribution"></a>
+<div class="box4">
+  <div class="header">Distribution</div>
+  <div class="box4sub">
+    <table style="width:100%;">
+    <% @distributions.collect{|d| d.geog ? d.geog.display_name : d.verbatim_geog }.uniq.sort.in_groups_of(5, false) do |grp| -%>
+      <tr><%= grp.collect{|d| "<td>#{d}</td>"}.join -%></tr>
+    <% end -%>
+    </table>
+    </div>
+</div>

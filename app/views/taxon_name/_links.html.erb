@@ -1,0 +1,6 @@
+<%= content_tag :li, content_tag(:span, 'Advanced search' , :class => 'link_section') -%>
+<%= content_tag :li, link_to('search', :action => 'search') %>
+<%= content_tag :li, content_tag(:span, 'Settings' , :class => 'link_section') -%>
+<%= content_tag :li, link_to('visibility', :action => 'visibility') %> 
+<%= content_tag :li, content_tag(:span, 'Batch' , :class => 'link_section') -%>
+<%= content_tag :li, link_to('load from file', :action => 'batch_load') %>

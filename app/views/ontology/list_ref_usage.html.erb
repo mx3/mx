@@ -1,0 +1,5 @@
+<h3>Summary reference usage</h3>
+<% @result.keys.sort{|a,b| a.to_s <=> b.to_s}.each do |t| -%>
+<%= t.to_s.humanize -%>
+<ol><%= @result[t].collect{|r| content_tag :li, r.display_name }.join -%></ol>
+<% end -%>

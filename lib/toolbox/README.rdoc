@@ -1,0 +1,2 @@
+#== Toolbox 
+# Libraries within should stand alone from mx (but perhaps not Rails?!), but aren't plugins, gems etc. yet.  There is much borrowed code here.

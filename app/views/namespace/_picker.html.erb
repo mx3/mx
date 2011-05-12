@@ -1,0 +1,1 @@
+<%= select(c_name, f_name, Namespace.find(:all).collect  {|o| [ o.name, o.id ] }, { :include_blank => true } ) %>

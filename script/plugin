@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+# require File.dirname(__FILE__) + '/../config/boot'
+
+require File.expand_path('../../config/boot', __FILE__) # Ruby 1.9.2
+
+require 'commands/plugin'

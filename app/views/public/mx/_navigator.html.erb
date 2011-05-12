@@ -1,0 +1,14 @@
+<div class='navigator'>
+  <%= navigator(@mx,  session['mx_view'], "name") %>
+
+  <div class="category">views</div>
+  <div class="item"> <%= session['mx_view'] == 'show_grid_coding' ? '<span class="navigator_current">matrix</span>' :  link_to('grid coding', :action => 'show_grid_coding', :id => @mx.id)  %> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_otus' ? '<span class="navigator_current">OTUs</span>' :  link_to('OTUs', :action => 'show_otus', :id => @mx.id)  %> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_chrs' ? '<span class="navigator_current">characters</span>' :  link_to('characters', :action => 'show_chrs', :id => @mx.id)  %> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_grid_tags' ? '<span class="navigator_current">grid tags</span>' :  link_to('grid tags', :action => 'show_grid_tags', :id => @mx.id)  %> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_trees' ? '<span class="navigator_current">trees</span>' :  link_to('trees', :action => 'show_trees', :id => @mx.id)  %> </div>  
+
+  <%= render(:partial => '/mx/export/navigator_options') -%><!-- private nav here -->
+</div>
+
+

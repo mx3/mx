@@ -1,0 +1,20 @@
+<% content_for(:center) do -%>
+<p> This form generates Newick formatted trees with this class (<%= @ontology_class.label_name(:type => :preferred) -%>) as the root.  These trees can be visualized in Figtree. </p>
+
+<div class="subform">
+  <div class="header">Generate newick tree</div>
+  <% form_remote_tag(:url => {:action => :_render_newick, :id => @ontology_class.id}, :loading => "Element.show('newick')", :complete => "Element.hide('newick')" ) do -%>
+  <div class="fld"> <label class="lbl4">max depth </label><%= select_tag("max_depth",options_for_select( (1..100))) -%></div>
+  <div class="fld"> <label class="lbl4">hilight depth </label><%= select_tag("hilight_depth", options_for_select( (1..100))) -%><em> must be less than or equal to max depth</em></div>
+  <div class="fld"> <label class="lbl4">color mode</label><%= select_tag("color", options_for_select( Ontology::Visualize::Newick::ONTOLOGY_COLOR_MODES )) -%></div>
+  <div class="fld"> <label class="lbl4">tree structure </label><%= select_tag("object_relationship_id", options_from_collection_for_select(@proj.object_relationships, 'id', 'interaction') ) -%></div>
+  <div class="fld"> <label class="lbl4">highlight clades</label><%= check_box_tag("annotate_clades") -%></div>
+  <div class="fld"> <label class="lbl4">highlight branches</label><%= check_box_tag("annotate_branches") -%></div>
+  <div class="fld"> <label class="lbl4">annotate value</label><%= check_box_tag("annotate_value") -%></div>
+  <div class="fld"> <label class="lbl4">annotate index</label><%= check_box_tag("annotate_index") -%></div>
+  <%= submit_tag 'submit' -%><%= spinner_tag('newick') -%> 
+  <% end -%>
+</div>
+
+<div id="tree" style="border: 1px solid silver; padding: 5px; overflow: auto; width: 100%;"></div>
+<% end -%>

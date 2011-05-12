@@ -1,0 +1,9 @@
+<h3>Editing geographical name</h3>
+
+<%= form_tag :action => 'update', :id => @geog do -%>
+  <%= render :partial => "form" %>
+  <%= submit_tag "Edit" %>
+<% end -%>
+
+<%= link_to 'Show', :action => 'show', :id => @geog %> |
+<%= link_to 'Back', :action => 'list' %>

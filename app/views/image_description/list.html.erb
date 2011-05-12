@@ -1,0 +1,25 @@
+
+<h3>Listing image descriptions</h3>
+
+<table>
+  <tr>
+  <% for column in ImageDescription.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for image_description in @image_descriptions %>
+  <tr>
+  <% for column in ImageDescription.content_columns %>
+    <td><%=h image_description.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => image_description %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => image_description %></td>
+    <td><%= link_to 'Destroy', {:action => 'destroy', :id => image_description}, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @image_description_pages.current.previous } if @image_description_pages.current.previous %>
+<%= link_to 'Next page', { :page => @image_description_pages.current.next } if @image_description_pages.current.next %> 
+

@@ -1,0 +1,3 @@
+class CountPhenotype < CardinalPhenotype
+  
+end

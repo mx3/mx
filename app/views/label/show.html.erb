@@ -1,0 +1,41 @@
+<div id="inner_wrapper">
+  <div id="inner_header" style="text-align: center;"> 
+    <%= error_messages_for 'label' -%>
+    <%= show_header_tag(@label) -%>
+  </div>
+
+  <div id="inner_container" <%= 'style="padding-right: 0px;"' if @no_right_col -%> >
+
+    <%# CENTER COLUMN -%> 
+    <div id="inner_center" class="column"> 
+      <% @part = 'center' -%>
+      <% for s in @show -%>      <%# we might render multiple parts in one column -%> 
+      <%= render :partial =>(s) -%>
+      <% end -%>
+    </div>
+
+    <%# LEFT COLUMN -%>
+    <div id="inner_left" class="column">
+      <%= render(:partial => 'navigator') -%> 
+    </div>
+
+    <%# RIGHT COLUMN -%>
+
+    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col -%> >
+      <% @part = 'right' -%>
+      <%# we might render multiple parts in one column -%> 
+      <% for s in @show -%>
+      <%= render :partial =>(s) -%>
+      <% end -%>
+    </div>
+
+  </div> <%# end inner_container -%> 
+
+  <div id="inner_footer"> 
+  </div>
+</div>
+
+
+
+
+

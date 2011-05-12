@@ -1,0 +1,10 @@
+<div class="box4">
+  <h3> <%= @otu.display_name == '' ? '<i>no public name</i>': @otu.display_name %> </h3>
+  <% for o in @otu_cons %>
+    <div class="header"><%= o.content.content_type.display_name %></div>
+      <div style="padding: 0em .2em;" >
+        <%= htmlize(link_refs(:text => o.text)) %>
+        <%= render_figs_for_obj(o, 'thumb', false) -%>
+    </div>
+  <% end %>
+</div>

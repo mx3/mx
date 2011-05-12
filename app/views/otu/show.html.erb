@@ -1,0 +1,35 @@
+<div id="inner_wrapper">
+  <div id="inner_header" style="text-align: center;"> 
+    <h3 style="display: inline"><%= @otu.display_name(:type => :multi_name) %> <span class='small_grey'>id:<%= @otu.id %></span></h3>
+    <%= "(<i>linked to an ICZN name</i>)" if @otu.taxon_name %>
+  </div>
+
+  <div id="inner_container"  <%= 'style="padding-right: 0px;"' if @no_right_col -%>>
+
+    <%# CENTER COLUMN (must be rendered here for CSS to work!) %> 
+    <div id="inner_center" class="column">  
+      <% @part = 'center' %>
+      <% for s in @show %>      <%# we might render multiple parts in one column %> 
+        <%= render :partial =>(s) %>
+      <% end %>
+    </div>
+
+    <%# LEFT COLUMN %>
+    <div id="inner_left" class="column">
+      <% @part = 'left' %>
+      <%= render :partial => "navigator" -%> 
+    </div>
+
+    <%# RIGHT COLUMN %>
+
+    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col -%> >
+      <% @part = 'right' %>
+    
+      <% for s in @show %> <%# we might render multiple parts in one column %> 
+        <%= render :partial =>(s) %> <%# renders the yield code %>
+      <% end %>
+    </div>
+
+    <br style="clear: both;" />
+  </div> <%# end inner_container %> 
+</div>

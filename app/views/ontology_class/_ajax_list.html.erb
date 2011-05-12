@@ -1,0 +1,22 @@
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @ontology_class_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @ontology_class_pages}) -%>
+<table class="list_table">
+  <%= t_col_heads(['definition', 'OBO label','written by',  'xref',  'public?', 'applicable taxon', 'id', 'modified', 'modifier', 'creator']) %>
+  <% @ontology_classes.each_with_index do |l, i| %>
+  <%= t_row({ 'obj' => l,  'tr_css' => i,
+  'cell_data' => [
+	link_to(l.display_name, :action => :show, :id => l),
+	obo_label_tag(l),
+    l.written_by.blank? ? 'ERROR' : l.written_by.display_name,
+	l.xref,
+	is_public_tag(l),
+	l.taxon_name.blank? ? '-' : l.taxon_name.display_name,
+    l.id,
+    time_ago_in_words(l.updated_on),
+    l.c_by,
+    l.m_by] }) %>
+  <% end %>
+</table>
+<br />
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @ontology_class_pages}) -%>
+

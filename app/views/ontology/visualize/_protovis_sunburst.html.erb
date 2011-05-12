@@ -1,0 +1,37 @@
+<script type="text/javascript+protovis">
+      var flare = <%= @tree_root.js_hash(:max_depth => 20, :relationship_type => @isa.id) -%>;
+      var sunburst = pv.Layout.sunburst(flare).root("flare");
+      var vis = new pv.Panel()
+          .width(1024)
+          .height(1024)
+          .top(0)
+        .add(pv.Wedge)
+          .extend(sunburst)
+          .fillStyle(pv.Colors.category19()
+              .by(function(n) n.children ? n.keys : n.keys.slice(0, -1)))
+          .strokeStyle("#222")
+          .lineWidth(1)
+          .title(function(n) n.keys.join(".") + ": " + n.size)
+          .cursor("pointer")
+          .event("click", function(n) self.location
+              = "/projects/<%= @proj.id -%>/ontology/protovis_sunburst/" + n.keys[n.keys.length -1] )
+        .anchor("center").add(pv.Label)
+          .visible(function(n) n.angle * n.depth > .05)
+          .text(function(n) n.keys[n.keys.length - 1])
+        .root;
+
+      vis.render();
+     // menu.focus();
+
+
+      
+      function update(method) {
+        switch (method) {
+          case "byte": sunburst.size(Number); break;
+          case "file": sunburst.size(function(n) isNaN(n) ? NaN : 1); break;
+        }
+        vis.render();
+      }
+    </script>
+
+

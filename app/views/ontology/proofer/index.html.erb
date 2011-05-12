@@ -1,0 +1,14 @@
+<div class="subform">
+    <div class="header"> Type or paste text to proof </div>
+    <div class="content"> 
+      <% form_remote_tag(:html => {}, :url => url_for(:controller => "ontology", :action => "proofer"), :loading => "Element.show('proofer_spinner')", :complete => "Element.hide('proofer_spinner')") do %>
+        <%= text_area_tag(:txt, nil, :cols => 60, :rows => 10, :style => 'width: 100%;') %> <br/>
+        <%= check_box_tag(:exclude_common_words) -%> Exclude common words?
+        <%= submit_tag "Submit" %><%= render(:partial => '/shared/spinner', :locals => {:spinner_id => 'proofer_spinner'}) -%>
+      <% end %>
+    </div>
+</div>
+
+<div id="proofed_text">
+  <%= render(:partial => 'ontology/proofer/proofed') if !@text.blank? -%> 
+</div>

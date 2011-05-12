@@ -1,0 +1,21 @@
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @content_type_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @content_type_pages}) -%>
+<table>
+  <%= t_col_heads( ["name", "display_name", 'subject',  "id","publishable?", "markup?", "subheading?", "times used", "mod by", "mod on"] ) -%>
+  <% @content_types.each_with_index do |con_type, i| -%>
+    <%=  t_row({ 'obj' => con_type, 'tr_css' => i, 'inc_actions' => false,
+    'cell_data' => [ 
+    (con_type.name.blank? ? content_tag(:em, 'built in') : link_to(con_type.name, :action => :show, :id => con_type)),
+    con_type.display_name,
+    con_type.display_subject, 
+    con_type.id,
+    (con_type.is_public ? {'yes' => 'passed'} : {'no' => 'failed'}),
+    (con_type.can_markup ? {'yes' => 'passed'} : {'no' => 'failed'}), 
+    (con_type.render_as_subheading? ? {'yes' => 'passed'} : {'no' => 'failed'}), 
+    (con_type.sti_type == "TextContent" ? link_to(con_type.contents.size, :action => :list_by_type, :id => con_type) : "n/a"),
+    (con_type.sti_type == "TextContent" ?  con_type.m_by : "n/a"),
+    (con_type.sti_type == "TextContent" ?  con_type.m_on : "n/a")] }) -%>
+  <% end -%>
+</table>
+<br />
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @content_type_pages}) -%>

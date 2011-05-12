@@ -1,0 +1,7 @@
+<div class='navigator' style ="text-align: center;">
+  <%= navigator(@sensu,  session['sensu_view'], "id") -%>
+
+<%# the links to various views, should likely show them versus hidden tabs or not !! -%>
+  <div class="item"> <%= session['sensu_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @sensu)  %> </div>  
+
+</div>

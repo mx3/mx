@@ -1,0 +1,5 @@
+- if level <= max_depth
+  %div{:class => 'ont_tree_level', :id => 'level_' + parent_node.id.to_s}  
+    = render(:partial => 'ontology/tree/tree_node', :object => parent_node, :locals => { :parent => parent_node, :level => level, :open => (level < max_depth ? false : true ), :parent_relationship => relationship, :relationship_type => relationship_type })
+    - parent_node.child_ontology_relationships(:relationship_type => relationship_type).each do |node|
+      = render(:partial => 'ontology/tree/tree_recurser', :locals => {:level => (level + 1), :max_depth => max_depth, :parent_node => node.ontology_class1, :relationship => node.object_relationship, :relationship_type => relationship_type})

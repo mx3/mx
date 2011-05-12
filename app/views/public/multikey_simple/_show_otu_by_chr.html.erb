@@ -1,0 +1,19 @@
+<h3> Remaining OTUs are Coded as: </h3>
+
+<div id="figs_holder" style=""></div>
+
+<div style="padding: 2px;"> 
+  <% if @size_chrs_remn > 0 and @size_chrs_remn > @mk.display_windows['chr_remn']['size']  -%>
+
+  <div >
+    <div id="by_chr" >
+      <%= render(:partial => 'cmp_by_chr', :collection => @chrs_remn) -%>  
+    </div>
+  </div>
+
+  <% else  -%>
+    <div class="failed" style="padding: 15px; font-size: larger; text-align: center;"> No characters remaining to show.  See "main" for the OTU selected. </div>
+  <% end -%>
+
+  <br style="clear:right;" />
+</div>

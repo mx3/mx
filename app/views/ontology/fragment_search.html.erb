@@ -1,0 +1,15 @@
+<div class="subform">
+  <div class="header"> Search by fragment</div>
+    <div class="content"> 
+      <% form_remote_tag(:loading => "Element.show('filter_spinner')", :complete => "Element.hide('filter_spinner')", :url => {:action => 'fragment_search'}) do |f| -%> 
+        <span class="lbl4"> 
+          <%= text_field_tag(:search_string) -%>
+        <%= submit_tag("filter") -%><%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'filter_spinner', :style => "display: none; vertical-align:middle;"  ) %> </span>
+
+    <% end -%>
+  </div>
+</div>
+
+<div id="term_list">
+  <%= render(:partial => "list") -%>
+</div>

@@ -1,0 +1,25 @@
+<html>
+ <head>
+  <script type="application/x-javascript">
+    function draw() {
+      var canvas = document.getElementById("canvas");
+      if (canvas.getContext) {
+        var ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = "rgb(0,0,200)";
+       
+        <% @mx.chrs.each_with_index do |c,i| -%> 
+          <% @mx.otus.each_with_index do |o,j| -%> 
+            ctx.fillRect (<%= (i * 10) -%>, <%= (j * 10) -%>, 8 , 8);
+          <% end %> 
+        <% end %> 
+          
+      }
+    }
+  </script>
+ </head>
+ <body onload="draw();">
+   <canvas id="canvas" width="500" height="500"></canvas>
+ </body>
+</html>
+

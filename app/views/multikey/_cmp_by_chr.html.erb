@@ -1,0 +1,12 @@
+<%# label header for character links, with link to show figures if there %>
+<div class="no_decision" style="margin: .2em 0em; padding: .2em; clear: both;">
+  <span style="float: right; background: #FF9933; padding: 0 .2em;"><%= link_to('?', :action => 'show', :controller =>'chr', :id => cmp_by_chr) -%></span>
+  <% if  @mk.figures_by_chr(cmp_by_chr.id.to_i).size > 0 -%>
+    <span class="small_grey" style="float:right; margin: 0 .2em;">
+      &nbsp;&nbsp;<%= link_to_remote("figures", :url => { :action => '_popup_figs_for_chr', :id => cmp_by_chr.id }) -%>  
+    </span>
+  <% end -%>    
+  <%= cmp_by_chr.display_name -%>
+</div>
+
+<%= render(:partial => 'otus_by_state', :collection => cmp_by_chr.chr_states) -%>

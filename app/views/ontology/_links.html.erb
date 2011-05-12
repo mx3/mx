@@ -1,0 +1,25 @@
+<%= content_tag :li, content_tag(:span, 'Search and filter' , :class => 'link_section') -%>
+<%= content_tag :li, link_to("tree", :action => "tree")-%>
+
+<%= content_tag :li, content_tag(:span, 'Upload, download, proof', :class => 'link_section') -%>
+<%= content_tag :li, link_to("analyze text", :action => "analyze") -%>
+<%= content_tag :li, link_to("proof", :action => "proofer") -%>
+
+
+<%= content_tag :li, content_tag(:span, 'Other', :class => 'link_section') -%>
+<%= content_tag :li, link_to("stats", :action => "stats") -%>
+
+<%= content_tag :li, content_tag(:span, 'OBO', {:style => 'color: silver;'}) -%>
+<%= content_tag :li, link_to("generate OBO file", :action => "show_OBO_file") -%>
+<%= content_tag :li, link_to("analyze labels against OBO file", :action => "show_external_OBO_file") -%>
+
+<%= content_tag :li, content_tag(:span, 'Visualize', :class => 'link_section') -%>
+<%= content_tag :li, link_to("generate DOT", :action => "visualize_dot") -%>
+
+<%= content_tag :li, "BELOW NOT YET RE-IMPLEMENTED" -%>
+
+<%= content_tag :li, link_to("OBO batch", :action => "batch_OBO") -%>
+<%= content_tag :li, link_to("simple batch", :action => "batch_simple") -%>
+<%= content_tag :li, content_tag(:span, "Admin", {:style => 'color: silver;'}) -%>
+<%= content_tag :li, link_to("Manage", :action => "admin")-%>
+

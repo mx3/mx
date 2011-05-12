@@ -1,0 +1,5 @@
+<h3>New data source</h3>
+<%= form_tag({:action => 'create'}, {:multipart => true}) do -%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create", :style => "margin-left: 25%;" %>
+<% end %>

@@ -1,0 +1,28 @@
+<!-- content is a ContentTemplate.content_by_otu result,  -->
+<div class='description'>
+<% @content_template.content_types.each do |ct| -%>
+  <div class="section">
+  <% if ct.renders_as_text? -%>
+    <%= content_tag(:div, ct.display_name, :class => (ct.render_as_subheading? ? 'subheading' : 'header')) if ct.render_header? %> 
+    
+    <% if ct.class == TextContent -%> 
+      <div class="content">
+        <% if content.include?(ct) -%>
+            <%= render_content(
+            :text => content[ct].text,
+            :public => @public,
+            :content_template_id => @content_template.id )
+            -%>
+        <% else %>
+            <em>INCOMPLETE</em>
+        <% end -%>
+      </div>
+
+    <% else %>
+      <%= render(:partial => "#{ct.partial}_text") -%> <!-- all these partials require only @otu -->
+    <% end -%>
+
+    <% end -%>
+  </div>
+<% end -%>
+</div>

@@ -1,0 +1,12 @@
+<p><h3> Ontology classes with > 1 label </h3></p>
+
+<% @ontology_classes.each do |oc| -%>
+  <% if oc.total_labels.to_i > 1 -%>
+  <div style="border-bottom: 1px dotted silver; padding: 1px; font-size: larger; background-color: #eee;">
+    <%= content_tag(:span, "#{oc.xref}: ", :style => 'font-weight: bold;') if !oc.xref.blank? -%>
+    <%= content_tag(:span, "mx ID #{oc.id}: ", :style => 'font-weight: bold;') if oc.xref.blank? -%>
+    <%= oc.display_name -%>
+  </div>
+    <div style="padding: 1em"> <%= oc.labels.ordered_by_name.collect{|l| l.display_name}.join(", ") -%> </div> 
+  <% end -%>
+<% end -%>

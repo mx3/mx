@@ -1,0 +1,18 @@
+<h3>Listing content templates</h3>
+<table class="list_table">
+  <%= t_col_heads( ["name",  "id", "is public option?", "mod on", "mod by", "", "", "", "", "make default"] ) -%>
+  <% for c in @con_templates -%>
+  <%=  t_row({ 'obj' => c, 'close_tr' => false,
+    'cell_data' =>[
+    link_to(c.name, :action => :show, :id => c),
+    c.id,
+    (c.is_public ? {'yes' => 'passed'} : {'no' => 'failed'}),
+    c.m_on,
+    c.m_by]}) %>
+    <td><% my_url = url_for :action => 'make_default', :id => c.id -%>
+      <%= check_box("c", "is_default", {:onclick => "document.location.href='#{my_url}'"}) -%> </td>
+    <% end -%>
+</table>
+
+
+

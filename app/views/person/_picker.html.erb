@@ -1,0 +1,1 @@
+<%= select(c_name, f_name, Person.find(:all).collect  {|o| [ o.display_name, o.id ] }, { :include_blank => true } ) %>

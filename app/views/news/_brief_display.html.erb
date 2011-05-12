@@ -1,0 +1,8 @@
+<div class="box4">
+  <div style="text-align: center;"><span class="lbl2">news</span></div>
+  <% for news in @news %>    
+    <div class="header"><%= news.title -%></div>
+    <div class="small_grey" style="text-align: center; padding: .2em;"><%= news.created_on %></div>
+    <div class="content <%= news.news_type == 'warning' ? 'failed' : '' %>"><%= news.body -%></div><br/>
+  <% end %>
+</div>

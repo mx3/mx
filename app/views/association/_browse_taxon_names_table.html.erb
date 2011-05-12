@@ -1,0 +1,25 @@
+<table>
+  <% @taxon_names.each_with_index do |tn, i| -%>
+    <% pf = (@tn.iczn_group == 'family' ? tn.obj_at_rank('subfamily') : tn.obj_at_rank('family') ) ; pg = tn.obj_at_rank('genus') -%>
+    <%  Association.by_taxon_name(tn, @proj.id).each_with_index do |a, x| -%>
+      <tr>
+        <td> <%="#{i+1},#{x+1}"-%> </td>
+        <td>
+          <%= (pf.blank? ? '' : pf.name) -%>
+        </td>
+
+        <td>
+          <%= (pg.blank? ? '' : pg.name) -%>
+        </td>
+
+    <%# Specific name/Genus name %>
+
+        <td><!-- # = "#{'&nbsp;' * rank_n(tn.iczn_group) * 5 }" %> --><%= tn.display_name -%> </td>
+        <td style="width: 400px;"><%= a.display_name(:type => :short_display_name_first_family) -%></td>
+        <td style="width: 400px;"><%= a.display_name(:type => :short_display_name_first_relationship) -%></td>
+        <td style="width: 400px;"><%= a.display_name(:type => :short_display_name) -%></td>
+        <td style="width: 200px;"><%= a.supporting_refs.collect{|r| r ? r.text_citation : "ERROR"}.join("; ") -%>  </td>
+      </tr>
+    <% end -%>
+  <% end  -%>
+</table>

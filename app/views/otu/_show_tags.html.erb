@@ -1,0 +1,16 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag("accordion") -%>
+<% end %>
+
+<div> 
+<%= render(:partial => 'shared/code_accordion') -%>
+
+  <% if @part == 'center' %>
+  <strong>Tags on this OTU</strong> | <%= render(:partial => "tag/tag_link", :locals => { :tag_obj_id => @otu.id, :tag_obj_class => @otu.class.to_s, :msg => '', :link_text => "Tag"}) %><br/><br/>
+      <br/><br/>
+    <%= link_to('table format', :action => :show_tags_no_layout, :id => @otu.id) -%>
+
+    <%= render(:partial => 'tag/tags_by_keyword') %>
+  <% end %>
+</div>
+

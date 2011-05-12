@@ -1,0 +1,15 @@
+<style type="text/css">
+<!--
+
+* {font-size:9pt;font-family:verdana, helvetica, arial, sans-serif; line-height: 1.7em; }
+p { margin: 0 }
+-->
+</style>
+
+<h2>Sanitize report from <%= Time.now %></h2>
+
+<h3>Bad text</h3>
+<p><%= h @old %></p>
+
+<h3>Converted to</h3>
+<p><%= h @new %></p>

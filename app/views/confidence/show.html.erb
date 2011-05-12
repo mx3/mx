@@ -1,0 +1,26 @@
+
+<%= render_show(@confidence, true, true) %>
+<div class="subform">
+  <div class="header"> Merge then destroy this confidence </div>
+  <div class="content"> 
+    <p><em> This form will update everything that is associated with this confidence to the confidence selected.  It will leave this confidence here, you can delete it afterwards.</em> </p>
+    <%= form_tag :action => :merge, :id => @confidence.id, :controller => :confidence -%>
+    <div class="fr"> <label for="otu_taxon_name_id" class="lbl4">Update to confidence</label>
+      <span class="fld"><%= render :partial => "shared/picker", :locals => {
+        :controller => 'confidence',
+        :object => 'merge_with',
+        :method => 'id',
+        :tag_id => "confidence_to_find_for_merge",
+        :display => "",
+        :size => 40,} -%> 
+       <%= submit_tag 'update', :confirm => "Are you sure you want to do this update?" -%>
+      </span>
+    </div>
+    <br style="clear:both;" />
+  </div>
+</div> 
+
+<p> Used on: <br/>
+<%= debug(has_many_summary_hash(@confidence)) -%>
+</p>
+

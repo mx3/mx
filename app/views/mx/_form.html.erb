@@ -1,0 +1,8 @@
+<%= error_messages_for 'mx' %>
+<div class="fr"><label for="mx_name"  class="lbl4">Name</label><span class="fld"><%= text_field 'mx', 'name', :size => 70  %></span></div>
+<div class="fr"><label for="mx_notes"  class="lbl4">Notes</label> <span class="fld"><%= text_area 'mx', 'notes'  , :rows => 5, :cols => 70  %></span></div>
+<div class="fr"><label for="mx_web_description"  class="lbl4">Web description</label><span class="fld"><%= text_area 'mx', 'web_description', :rows => 5, :cols => 70  %></span></div>
+<div class="fr"><label for="mx_is_multi_key"  class="lbl4">Useable as a multi-entry key?</label> <span class="fld"><%= check_box 'mx', 'is_multikey' %></span></div>
+<div class="fr"><label for="mx_is_public"  class="lbl4">Public?</label> <span class="fld"><%= check_box 'mx', 'is_public' %><i>Matrix can be seen by public.</i></span></div>
+<!--<p><label for="mx_revision_history">Revision history</label><br /><%= text_area 'mx', 'revision_history'  %></p>-->
+<br style="clear: both;" />

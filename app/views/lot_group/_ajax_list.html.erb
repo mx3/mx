@@ -1,0 +1,21 @@
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @lot_group_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @lot_group_pages}) -%>
+<table style="width:100%">
+  <%= t_col_heads(["name", "id",  "loan", "outgoing?", "trans code", "date recieved", "date due", 'loan closed',  "mod on", "mod by"]) -%>
+  <% @lot_groups.each_with_index  do |l, i| -%>
+  <%= t_row({ 'obj' => l, 'tr_css' => i,
+  'cell_data' => [
+    link_to(l.name, :action => 'show', :id => l),
+    l.id,
+    l.is_loan? ? {'yes' => 'passed'} : {'no' => 'no_decision'},
+    l.outgoing_loan? ? {'yes' => 'passed'} : {'no' => 'highlight'},
+    l.incoming_transaction_code,
+    l.date_recieved,
+    l.loan_end_date,
+    l.loan_closed? ? {'yes' => 'passed'} : {'no' => 'failed'},
+    l.m_on,
+    l.m_by ] }) -%>
+  <% end -%>
+</table>
+<br />
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @lot_group_pages}) -%>

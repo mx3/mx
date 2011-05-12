@@ -1,0 +1,10 @@
+<h3>Editing taxon name</h3>
+<%= @taxon_name.display_name %>  <span style="color: gray"> id: <%= @taxon_name.id %></span> 
+
+<%= form_tag :action => 'update', :id => @taxon_name do -%>
+<div style="padding:1em;"> 
+  <%= submit_tag 'Edit' %>
+  <%= render :partial => 'form' %>
+  <%= render :partial => '/identifier/subform' -%>
+</div>
+<% end -%>

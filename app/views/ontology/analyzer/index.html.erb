@@ -1,0 +1,18 @@
+<% form_remote_tag(:html => {}, :url => url_for(:controller => "ontology", :action => "analyze"), :loading => "Element.show('analyzer_spinner')", :complete => "Element.hide('analyzer_spinner')", :method => :post) do %>
+<div class="subform">
+   <div class="header"> Type or paste text to analyze </div>
+  <div class="content"> 
+  
+    <%= text_area_tag(:text_to_analyze, nil, :cols => 60, :rows => 10, :style => 'width: 100%;') %> <br />
+    <%= check_box_tag(:match_type) -%> Perform heuristic match? <br />
+    <div class="header"> Heuristic options </div>
+    <%= check_box_tag(:exclude_common_words) -%> Exclude common words? <br />
+    <%= select_tag(:adjacent_words_to_fuse, options_for_select( ['0','1','2','3','4','5'], '3' )) -%> Adjacent words to fuse <br />
+    <%= submit_tag "Submit" %><%= render(:partial => '/shared/spinner', :locals => {:spinner_id => 'analyzer_spinner'}) -%>
+  </div>
+</div>
+<% end %>
+
+
+<div id="result">
+</div>

@@ -1,0 +1,17 @@
+<% acts = acts_of_synonymy.acts_of_synonymy_for_ref -%> 
+
+<% if acts.size > 0 -%>
+  <div style="border-bottom: 1px dotted silver; padding: 2px; margin: 2px;" >
+    <div><%= acts_of_synonymy.ontology_class.definition -%> </div>
+    <div>
+      <ol>
+        <% acts.each do |klass| -%>
+          <li>
+           <%= klass.collect{|p| p.name}.join(", ") -%>
+          </li>
+        <% end -%>
+      </ol>
+    </div>
+  </div>
+<% end -%>
+

@@ -1,0 +1,13 @@
+<% content_for(:center) do -%>
+<%- end -%>
+<div class='navigator'>
+  <%= navigator2(:obj => @image, :do => session['image_view'], :ord => 'id') -%> 
+  <div class="item"> <%= session['image_view'] == 'show_figures' ? '<span class="navigator_current">figures</span>' :  link_to('figures', :action => 'show_figures', :id => @image.id)  %> </div>  
+
+  <% if @with_figure_markers.length > 0 -%>
+    <div class="item"> <%= session['image_view'] == 'show_figure_markers' ? '<span class="navigator_current">figure markers</span>' :  link_to('figure markers', :action => 'show_figure_markers', :id => @image.id)  %> </div>  
+  <% end -%>
+
+  <div class="item"> <%= session['image_view'] == 'show_image_descriptions' ? '<span class="navigator_current">image descriptions</span>' :  link_to('image descriptions', :action => 'show_image_descriptions', :id => @image.id)  %> </div>  
+ 
+</div>

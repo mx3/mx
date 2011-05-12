@@ -1,0 +1,7 @@
+<table >
+  <% otus.each do |otu| -%>
+  <tr>
+    <td>'<%= otu.display_name(:type => :matrix_name) %>'&nbsp;</td <% chrs.each do |chr| -%><td><%= Mx.print_codings(codings, chr, otu, format) %></td><% end %>          
+  </tr>
+  <% end %>
+</table>

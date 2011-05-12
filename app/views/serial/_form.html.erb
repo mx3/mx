@@ -1,0 +1,64 @@
+<%= error_messages_for 'serial' -%>
+
+<!--[form:serial]-->
+
+
+<div class="fr"> <label for="serial_name" class="lbl4">Name</label>
+  <span class="fld"><%= text_area 'serial', 'name', 'title' => 'name of serial', :cols => 60, :rows=>2  -%></span>
+</div>
+
+<div class="fr"> <label for="serial_abbreviation" class="lbl4">Abbreviation</label>
+  <span class="fld"><%= text_field 'serial', 'abbreviation', 'title' => 'abbreviation for serial', :size => 50   -%></span>
+</div>
+
+<div class="fr"> <label for="serial_language_id" class="lbl4">Language</label>
+  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    :controller => 'language',
+		:object => 'serial',
+		:size => 50,
+		:method => 'language_id',
+    :tag_id => "serial_language_id",
+    :display =>  (@serial.language.display_name if @serial.language) } -%></span>
+</div>
+
+<div class="fr"> <label for="serial_city" class="lbl4">City</label>
+  <span class="fld"><%= text_field 'serial', 'city', 'title' => 'city of publication', :size => 50  -%></span>
+</div>
+
+<div class="fr"> <label for="serial_call_num" class="lbl4">Call number</label>
+  <span class="fld"><%= text_field 'serial', 'call_num', 'title' => 'call number in library', :size => 50  -%></span>
+</div>
+
+<div class="fr"> <label for="serial_issn_print" class="lbl4">print ISSN</label>
+  <span class="fld"><%= text_field 'serial', 'issn_print', 'title' => 'print ISSN number', :size => 50  -%></span>
+</div>
+
+<div class="fr"> <label for="serial_issn_digital" class="lbl4">digital ISSN</label>
+  <span class="fld"><%= text_field 'serial', 'issn_digital', 'title' => 'digital ISSN number', :size => 50  -%></span>
+</div>
+
+<div class="fr"> <label for="serial_URL" class="lbl4">URL</label>
+  <span class="fld"><%= text_field 'serial', 'URL', 'title' => 'URL to journals homepage', :size => 50  -%></span>
+</div>
+
+<div class="fr"> <label for="serial_notes" class="lbl4">Notes</label>
+  <span class="fld"><%= text_area 'serial', 'notes', 'title' => 'notes about serial', :cols => 60, :rows=>3 -%></span>
+</div>
+
+<div class="fr"> <label for="serial_synonymous_with_id" class="lbl4">Synonymous with / use this serial</label>
+  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    :controller => 'serial',
+		:object => 'serial',
+		:method => 'synonymous_with_id',
+    :tag_id => "synonymous_name",
+    :size => 61,
+    :display => (@serial.synonymous_with.name if @serial.synonymous_with) } -%></span>
+</div>
+
+<div class="fr"> <label for="serial_atTAMU" class="lbl4">At tamu?</label>
+  <span class="fld"><%= select('serial', 'atTAMU', ["unchecked", "yes", "no"], :include_blank => true )  -%></span>
+</div>
+
+<br style="clear: both;">
+<!--[eoform:serial]-->
+

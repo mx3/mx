@@ -1,0 +1,97 @@
+# mx mapping to TDWG Standards, note that many other fields/methods available within mx are not mapped here
+# see standards_mapping.yaml in /db for the most recent version of this file
+# this is intended to be a YAML legal file
+#
+# single quote -> fixed strings
+# ALL_CAPS -> an environment.rb constant
+# nil -> not yet mapped
+# Note that in most cases a lot object can be swapped for a specimen object 
+
+# standards linked here:
+# http://wiki.tdwg.org/twiki/bin/view/DarwinCore/DarwinCoreDraftStandard
+# http://www.bgbm.org/TDWG/CODATA/Schema/Mappings/DwCAndExtensions.htm
+Darwin_Core_1.4:
+  GlobalUniqueIdentifier: [InstitutionCode]:[CollectionCode]:specimen.id # or a URN environment.rb setting for LSIDs
+  DateLastModified: specimens.updated_on # ACTION NEEDED: after update ces, dets, ids to touch specimen(s)
+  BasisOfRecord: 'PreservedSpecimen' # at present this is fixed, easily extendable to variable 
+  InstitutionCode:  repositories.coden # ACTION NEEDED: update db field name to 'coden' (silly) 
+  CollectionCode: COLLECTION_CODE
+  CatalogNumber: specimen.id
+  InformationWithheld: # free text, extend TagEngine with 'dc info witheld' keyword to fill this
+  Remarks:  # free text, extend TagEngine with 'dc remarks' keyword to fill this
+  ScientificName: specimen.most_recent_determination.display_name
+  HigherTaxon: specimen.most_recent_determination.all_names # ACTION NEEDED: write the method in TaxonNames
+  Kingdom: nil
+  Phylum: nil
+  Class: nil
+  Order: nil
+  Family: specimen.most_recent_determination.name_at_rank('family')
+  Genus: specimen.most_recent_determination.name_at_rank('genus')
+  SpecificEpithet: specimen.most_recent_determination.name_at_rank('species')
+  InfraspecificRank: specimen.most_recent_determination.name_at_rank('subspecies')
+  InfraspecificEpithet: specimen.most_recent_determination.name
+  AuthorYearOfScientificName: specimen.most_recent_determination.display_author_year
+  NomenclaturalCode: 'ICZN' 
+  IdentificationQualifier: specimen.most_recent_determination.confidence.display_name
+  HigherGeography: specimen.ce.geography # this is VERBATIM!, not the geog chain
+  Continent: nil # pointless at the level of data we will serve
+  WaterBody: # ? specimen.geog.water_body
+  IslandGroup: # ? specimen.geog.water_body
+  Island: # ? specimen.geog.water_body
+  Country:  specimen.ce.geog.country
+  StateProvince: specimen.ce.geog.state
+  County: specimen.ce.geog.county
+  Locality: specimen.ce.geog.locality
+  MinimumElevationInMeters: specimen.ce.elev_min
+  MaximumElevationInMeters: specimen.ce.elev_max
+  MinimumDepthInMeters: nil # not presently included, an easy addition
+  MaximumDepthInMeters: nil # not presently included, an easy addition
+  CollectingMethod: specimen.ce.mthd
+  ValidDistributionFlag: nil # not presently recorded, add as a tag via TagEngine if needed
+  EarliestDateCollected: specimen.ce.start_date
+  LatestDateCollected: specimen.ce.end_date
+  DayOfYear: nil # easily added function if necessary
+  Collector: specimen.ce.collectors
+  Sex: specimen.sex
+  LifeStage: specimen.stage
+  Attributes: # could concat measurements here, or tags or whatever, many possibilities
+  ImageURL: # many possibilities here
+  RelatedInformation: # could use tags etc., or extend to specimen.public_notes etc.
+Darwin_Core_1.4_curatorial_extension:
+  CatalogNumberNumeric: specimen.id # unclear if this is really the id
+  IdentifiedBy: specimen.most_recent_determination.determiner
+  DateIdentified: specimen.most_recent_determination.det_year 
+  CollectorNumber: specimen.ce.trip_code
+  FieldNumber: specimen.ce.trip_namespace
+  FieldNotes: specimen.ce.verbatim_label
+  VerbatimCollectingDate: nil # could provide verbatim label, otherwise it's extracted
+  VerbatimElevation: nil # could provide verbatim label, otherwise it's extracted   
+  VerbatimDepth: nil # see core
+  Preparations: nil # add TagEngine 'dc disposition'
+  TypeStatus: specimen.type_specimens.type_type
+  GenBankNumber: specimen.seq.genbank # 
+  OtherCatalogNumbers: specimen.display_identifiers
+  RelatedCatalogedItems: # coming with the polymorphic relationship table
+  Disposition: specimen.lost # add TagEngine 'dc disposition' to extend possibilities
+  IndividualCount: lot.total_specimens
+Darwin_Core_1.4_geospatial_extension:
+  DecimalLatitude: specimen.ce.lat
+  DecimalLongitude: specimen.ce.long
+  GeodeticDatum: 
+  CoordinateUncertaintyInMeters: specimen.ce.lat_lon_error_m 
+  PointRadiusSpatialFit:
+  VerbatimCoordinates:
+  VerbatimLatitude: specimen.ce.label_lat 
+  VerbatimLongitude: specimen.ce.label_long
+  VerbatimCoordinateSystem: 'decimal degrees'
+  GeoreferenceProtocol: 
+  GeoreferenceSources:
+  GeoreferenceVerificationStatus: specimen.ce.err_checked
+  GeoreferenceRemarks:   
+  FootprintWKT:
+  FootprintSpatialFit:
+Darwin_Core_1.4_interaction_extension:
+  RelationshipType: specimen_support.association.is_a 
+  GlobalUniqueIdentifier: specimen_support.specimen.id 
+  BasisOfRecord: PreservedSpecimen|HumanObservation # would have to tease this out
+  Taxonomic Elements: # SEE CORE 

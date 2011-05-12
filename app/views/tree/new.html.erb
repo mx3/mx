@@ -1,0 +1,6 @@
+<h3>New tree</h3>
+<p> <i>The tree string must be strict Newick, e.g.:</i> <b>((A,B),(C,D));</b> <i>Branch lengths are allowed, and recorded, e.g.:</i> <b> (B:6.0,(A:5.0,C:3.0,E:4.0)Ancestor1:5.0,:11.0);</b></p>
+<%= form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create", :style => "margin-left: 26%;" %>
+<% end %>

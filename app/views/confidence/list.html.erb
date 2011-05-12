@@ -1,0 +1,18 @@
+<h3>Listing confidences</h3>
+<div>
+  <p><i> Drag to sort, topmost is most confident. </i>  <%= image_tag('/images/spinner.gif', :alt => 'Updating', :id => 'move_spinner', :style => "display: none; vertical-align:middle;"  ) -%> </p>
+
+  <ul id="confidences">
+    <% @confidences.each do |c| -%>
+      <% content_tag_for :li, c do -%>
+        <span class="handle">[drag]</span><span> &nbsp; <%= c.id -%></span> &nbsp;   
+        <span style="background-color:<%= c.html_color.blank? ? '#ffffff' :  "##{c.html_color}" -%>;">
+          <%= link_to(c.display_name, :action => :show,  :id => c.id) -%></span>
+        <%= "(#{c.short_name})" if c.short_name -%>
+        &nbsp; <%= link_to 'Edit', :action => 'edit', :id => c -%>
+        &nbsp; <%= link_to 'x', {:action => 'destroy', :id => c}, :confirm => "Are you sure?" -%>
+     <% end -%>
+   <% end -%>
+  </ul>
+</div>
+<%= sortable_element("confidences", :url => {:action => 'sort_confidences'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>

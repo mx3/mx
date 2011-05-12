@@ -1,0 +1,9 @@
+<div style="clear: both;">
+  <span><%= @chr.display_name -%></span>
+  <% if @figures.blank? %>
+    <p><i>No attached figures </i></p>
+  <%else %> 
+    <%= render(:partial => 'f', :collection => @figures, :locals => {:view => @mk.view}) -%> 
+  <% end %>
+    <p style="clear: left">&nbsp;</p>
+</div>

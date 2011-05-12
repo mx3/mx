@@ -1,0 +1,16 @@
+<%= link_to 'New chr', :action => 'new' %> |
+<%= link_to 'Detailed list', :action => 'list_states' %> |
+
+<% if @chr_groups.size > 0 %>
+
+<% for chr_grp in @chr_groups %>
+  <div>
+    <h3> <%=h chr_grp.name %> </h3>
+    <% for chr in chr_grp.chrs %>
+     <%= link_to h("#{chr.doc_char_code} #{chr.name}"), :action => 'show', :id => chr.id %>; &nbsp;
+   <% end %>
+  </div>
+  <% end %>
+<% else %>
+  <i> No character groups defined </i>
+<% end %>

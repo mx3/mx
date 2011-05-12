@@ -1,0 +1,27 @@
+<%= link_to('back', :action => 'list') -%>
+
+<div class="box5">
+  <p> This sort order is specific to the overall projects only, it may or may not be implemented in your matrices or character groups.  Before ordering your characters make sure each has a position.</p>
+
+  <% form_tag(:action => 'reset_order') do -%>
+
+  Rebuild the sort field sorting on: <%= select('sort', 'field', ['id', 'name', 'cited_in', 'short_name', 'updator_id', 'creator_id', 'created_on', 'updated_on']) -%> &nbsp;
+  In  <%= select('sort', 'order', ['ascending', 'descending']) -%> order.
+  <%= submit_tag('Reorder') -%> <i style="color:red;"> Your  previous customized order will be permanently lost! </i>
+  <% end -%>
+
+</div>
+
+<table>
+  <%= t_col_heads( ["move", "", "", "", "name", "position", "mx_id" ] ) %>
+  <% for chr in @chrs %>
+  <%=  t_row( { 'obj' => chr, 'tr_css' => chr.display_number_states_coded == 0 ? 'failed' : '',
+    'cell_data' => [  link_to("up", :controller => 'chr', :action => 'position_chr', :move => 'move_higher', :id => chr.id) ,
+      link_to("down", :controller => 'chr', :action => 'position_chr',  :move => 'move_lower',:id => chr.id)  ,
+      link_to("top", :controller => 'chr', :action => 'position_chr',  :move => 'move_to_top',:id => chr.id) ,
+      link_to("bottom", :controller => 'chr', :action => 'position_chr',  :move => 'move_to_bottom',:id => chr.id) ,
+      chr.name,
+      chr.position,
+      chr.id] }) %>
+      <% end %>
+    </table>

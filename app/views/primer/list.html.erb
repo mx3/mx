@@ -1,0 +1,32 @@
+<h3>Listing primers</h3>
+
+<% if @primer_pages %>
+  <% unless @primer_pages.first == @primer_pages.last %>
+    <%= @primer_pages.current.first_item %> to <%= @primer_pages.current.last_item %> of <%= @primer_pages.item_count %> <br /> <br />
+  <% end %>
+<% end %>
+
+<table style="width:100%">
+  <%= t_col_heads( [ {'name' => "name", 'style' => 'width: 15%;'},  {'name' => "gene", 'style' => 'width: 10%;'}, {'name' => "sequence", 'style' => 'width: 20%;'} , 'otu', { 'name' => "notes" , 'style' => 'width: 30%;'}, "id", "mod on", "mod by" ] ) %>
+  <% for primer in @primers %>
+  <%=  t_row({ 'obj' => primer,
+    'cell_data' => [
+    primer.name,
+    primer.gene ? primer.gene.name : "unattached",
+    {primer.sequence =>  'smaller_font'},
+    primer.target_otu ? primer.target_otu.display_name : "", 
+    {primer.notes => 'smaller_font'},
+    primer.id,
+    primer.m_on,
+    primer.m_by
+    ] }) %>
+  <% end %>
+</table>
+
+<% if @primer_pages %>
+  <% unless @primer_pages.first == @primer_pages.last %>
+    <strong>View page <%= pagination_links @primer_pages, :window_size => 3 %></strong>
+  <% end %>
+<% end %>
+
+

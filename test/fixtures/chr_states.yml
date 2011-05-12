@@ -1,0 +1,152 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: chr_states
+#
+#  id               :integer(4)      not null, primary key
+#  chr_id           :integer(4)      not null
+#  state            :string(8)       not null
+#  name             :string(255)
+#  cited_polarity   :string(15)      default("none")
+#  hh_id            :integer(4)
+#  revision_history :text
+#  notes            :text
+#  creator_id       :integer(4)      not null
+#  updator_id       :integer(4)      not null
+#  updated_on       :timestamp       not null
+#  created_on       :timestamp       not null
+#
+
+--- 
+cs1: 
+  id: "1"
+  name: 'test 1'
+  chr_id: "1"
+  state: "0"
+  cited_polarity: plesiomorphic
+  updated_on: 2005-03-10 10:39:29
+  created_on: 0000-00-00 00:00:00
+  notes: ''
+  updator_id: "1"
+  creator_id: "1"
+cs2: 
+  id: "2"
+  name: 'test 2'
+  state: "1"
+  chr_id: "1"
+  cited_polarity: apomorphic
+  created_on: 0000-00-00 00:00:00
+  updated_on: 2005-03-10 10:39:29
+  notes: ''
+  updator_id: "1"
+  creator_id: "1"
+mk1:
+  id: "11"
+  state: 0 
+  name: absent
+  created_on: 2005-03-10 12:43:52
+  chr_id: "15"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk2:
+  id: "12"
+  state: 1 
+  name: present
+  created_on: 2005-03-10 12:43:52
+  chr_id: "15"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk3:
+  id: "13"
+  state: 0
+  name: absent
+  created_on: 2005-03-10 12:43:52
+  chr_id: "16"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk4:
+  id: "14"
+  state: 1
+  name: present
+  created_on: 2005-03-10 12:43:52
+  chr_id: "16"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk5:
+  state: 0
+  id: "15"
+  name: absent
+  created_on: 2005-03-10 12:43:52
+  chr_id: "17"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk6: 
+  state: 1
+  id: "16"
+  chr_id: "17"
+  name: present
+  created_on: 2005-03-10 12:43:52
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk7: 
+  state: 0
+  name: absent
+  created_on: 2005-03-10 12:43:52
+  chr_id: "18"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  id: "17"
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk8: 
+  state: 1
+  name: absent
+  created_on: 2005-03-10 12:43:52
+  chr_id: "18"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  id: "18"
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk9: 
+  id: "19"
+  state: 0
+  name: absent
+  created_on: 2005-03-10 12:43:52
+  chr_id: "19"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"
+mk10: 
+  state: 1
+  name: present
+  created_on: 2005-03-10 12:43:52
+  chr_id: "19"
+  cited_polarity: none
+  updated_on: 2005-03-10 12:43:52
+  id: "20"
+  notes: polarity = none
+  updator_id: "1"
+  creator_id: "1"

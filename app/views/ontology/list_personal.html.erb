@@ -1,0 +1,20 @@
+<div class="subform">
+   <div class="header"> Personally edited or updated terms filter </div>
+   <div class="content"> 
+     <% form_remote_tag(:loading => "Element.show('filter_spinner')", :complete => "Element.hide('filter_spinner')", :url => {:action => 'list_personal'}, :update => "term_list") do -%> 
+       <span class="lbl4"> 
+         <%= check_box_tag(:edited, "1", {:checked => true}) -%> Self edited (unclick for others)?  | 
+         <%= check_box_tag(:definition, "1", {:checked => true}) -%>  Definition present?  | 
+         <%= check_box_tag(:without_relationships, "1", {:checked => true}) -%>  Without relationships present?  | 
+         <%= check_box_tag(:xref, "1", {:checked => true}) -%> xref present? | 
+        in previous  <%= select_tag("time_ago", options_for_select([1,2,3,4,5,10,20,52]), :default_value=> 1 )  -%> weeks |
+        order <%= select_tag("sort_order", options_for_select(['name', 'id', 'updated_on', 'created_on']),:default_value=> 'name')  -%> weeks 
+        <%= submit_tag("filter") -%><%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'filter_spinner', :style => "display: none; vertical-align:middle;"  ) %> </span>
+
+     <% end -%>
+   </div>
+ </div>
+
+ <div id="term_list">
+     <%= render(:partial => "list") -%>
+ </div>

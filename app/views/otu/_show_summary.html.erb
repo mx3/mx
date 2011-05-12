@@ -1,0 +1,8 @@
+<div> <!-- # leave div here -->
+  <% if @part == 'center' -%>
+    <p>This summarizes the variously related records tied to this object.</p>
+    <% if @part == 'center' -%>
+      <%= render(:partial => '/shared/obj_summary', :locals => {:obj => @otu, :klass => @klass}) -%>
+    <% end -%>
+  <% end -%>
+</div>

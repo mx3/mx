@@ -1,0 +1,10 @@
+<div> <%# don't (re)move me! %>
+  <% if @part == 'center' %>
+  	<%= render_show(@sensu, true, false) -%>
+  <% elsif @part == 'right' %>
+
+	<%= render :partial => 'label/synonyms_by_ontology_class', :locals => {:label => @sensu.label, :ontology_class => @sensu.ontology_class} -%>
+	<%= render :partial => 'label/homonymous_ontology_classes', :locals => {:label => @sensu.label, :ontology_class => @sensu.ontology_class} -%>
+    
+  <% end %>
+</div>

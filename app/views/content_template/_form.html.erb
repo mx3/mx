@@ -1,0 +1,10 @@
+<%= error_messages_for 'content_template' %>
+
+<div class="fr"> <label for="content_template_name" class="lbl4">Name</label>
+  <span class="fld"><%= text_field "content_template", "name", :size => 60 %></span>
+</div>
+
+<div class="fr"> <label for="content_template_is_public" class="lbl4">Public? </label>
+  <span class="fld"><%= check_box "content_template", "is_public", 'title' => 'public content is not publically displayed' %>(option can be may be displayed on public pages)</span>
+</div>
+<br style="clear: both;" />

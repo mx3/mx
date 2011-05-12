@@ -1,0 +1,69 @@
+<!--[form:seq]-->
+
+<div class="fr"> <label for="seq_sequence" class="lbl4">Sequence (5'- 3')</label>
+  <span class="fld">  <%= text_area 'seq', 'sequence', 'title' => 'paste edited sequence here', :cols => 50, :rows => 6 %></span>
+</div>
+
+<br style="clear:both;" />
+<p><em> If you are tracking through specimens to PCRs include only a PCR. OTUs and genes are not allowed in combination with PCRs.</em></p>
+
+<div class="fr"> <label for="seq_pcr_id" class="lbl4">PCR</label>
+  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+    :controller => 'specimen',
+    :object => 'seq',
+    :method => 'pcr_id',
+    :tag_id => "pcr_id_to_find",
+    :display => (@seq.pcr ? @seq.pcr.display_name(:type => :selected) : ''),
+    :size => 80} -%> </span>
+</div>
+
+<br style="clear: both;">
+<p><em> If you have not generated PCRs (e.g. GENBANK seqs), use these. You must include both an OTU and gene in this case. </em></p>
+
+<div class="fr"> <label for="seq_otu_id" class="lbl4">OTU</label>
+  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+        :controller => 'otu',
+        :object => 'seq',
+        :method => 'otu_id',
+        :tag_id => "otu_name",
+        :display => @seq && @seq.otu ? @seq.otu.display_name : "",
+        :size => 40} -%></span>
+</div>
+
+<div class="fr"> <label for="seq_gene_id" class="lbl4">Gene</label>
+  <span class="fld">  <%= select("seq", "gene_id", @proj.genes.collect {|o| [ o.display_name, o.id ] }, { :include_blank => true }) %> </span>
+</div>
+
+<div class="fr"> <label for="seq_specimen_id" class="lbl4">Specimen</label>
+  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+    :controller => 'specimen',
+    :object => 'seq',
+    :method => 'specimen_id',
+    :tag_id => "specimen_id_to_find",
+    :display => @seq.specimen.andand.display_name(:type => :for_select_list),
+    :size => 80} -%> </span>
+</div>
+
+<div class="fr"> <label for="seq_ref_id" class="lbl4">Reference</label>
+  <span class="fld">   <%= render :partial => "ref/picker", :locals => {
+  :object => 'seq', :method => 'ref_id', :tag_id => "ref_to_find", 
+  :display => (@seq.ref.display_name if @seq.ref) } %> </span>
+</div>
+
+<div class="fr"> <label for="seq_genbank_identifier" class="lbl4">Genbank identifier</label>
+  <span class="fld">     <%= text_field 'seq', 'genbank_identifier', 'title' => 'GenBank accession number'  %> </span>
+</div>
+
+<div class="fr"> <label for="seq_attempt_complete" class="lbl4">Attempt complete</label>
+  <span class="fld">   <%= check_box('seq', 'attempt_complete', 'title' => 'check if this sequence is done')   %> </span>
+</div>
+
+<div class="fr"> <label for="seq_status" class="lbl4">Status</label>
+  <span class="fld">  <%= text_field 'seq', 'status', 'title' => 'e.g., "forward only" or "reverse failed"'  %><em> appears in table view </em></span>
+</div>
+
+<div class="fr"> <label for="seq_notes" class="lbl4">Notes</label>
+  <span class="fld"> <%= text_area('seq', 'notes', 'title' => 'notes about this sequence', :cols => 50, :rows => 2) %></span>
+</div>
+
+<!--[eoform:seq]-->

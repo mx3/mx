@@ -1,0 +1,26 @@
+<script type="text/javascript+protovis">
+
+    var flare = <%= @tree_root.js_hash(:max_depth => 20, :relationship_type => Isa.find(:first, :conditions => {:interaction => 'is_a', :proj_id => 32}).id) -%>;
+
+    new pv.Panel()
+        .width(1024)
+        .height(500)
+      .add(pv.Bar)
+        .extend(pv.Layout.icicle(flare).root("flare"))
+        .fillStyle(pv.Colors.category19()
+            .by(function(n) n.children ? n.keys : n.keys.slice(0, -1)))
+        .strokeStyle("#222")
+        .lineWidth(1)
+        .title(function(n) n.keys.join(".") + ": " + n.size)
+        .cursor("pointer")
+        .event("click", function(n) self.location
+            = "http://svn.prefuse.org/flare/trunk/flare/flare/src/"
+            + n.keys.join("/") + (n.children ? "" : ".as"))
+      .anchor("center").add(pv.Label)
+        .visible(function(n) n.width >= 10)
+        .textAngle(-Math.PI / 2)
+        .text(function(n) n.keys[n.keys.length - 1])
+  .root.render();
+
+ </script>
+

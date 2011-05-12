@@ -1,0 +1,27 @@
+<h3>Listing taxon_name_status</h3>
+
+<table>
+  <tr>
+  <% for column in TaxonNameStatus.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for taxon_name_status in @taxon_name_status %>
+  <tr>
+  <% for column in TaxonNameStatus.content_columns %>
+    <td><%=h taxon_name_status.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => taxon_name_status %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => taxon_name_status %></td>
+    <td><%= link_to 'Destroy', {:action => 'destroy', :id => taxon_name_status}, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @taxon_name_status_pages.current.previous } if @taxon_name_status_pages.current.previous %>
+<%= link_to 'Next page', { :page => @taxon_name_status_pages.current.next } if @taxon_name_status_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New taxon_name_status', :action => 'new' %>

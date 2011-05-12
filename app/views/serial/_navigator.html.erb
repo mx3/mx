@@ -1,0 +1,11 @@
+<div class='navigator' style ="text-align: center;">
+  <%= navigator(@serial,  session['serial_view'], "id") -%>
+  <%# the links to various views, should likely show them versus hidden tabs or not !! -%>
+  <div class="item"> <%= session['serial_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @serial)  %> </div>  
+  <div class="item"> <%= session['serial_view'] == 'show_all_refs' ? '<span class="navigator_current">show all refs</span>' :  link_to('all refs', :action => 'show_all_refs', :id => @serial)  %> </div>  
+
+  <br />
+  <div class="item"> <%= link_to('download', :action => :_download_biostor, :id => @serial.id) -%> (biostor format)</div> 
+  
+
+</div>

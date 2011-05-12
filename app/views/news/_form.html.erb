@@ -1,0 +1,28 @@
+<%= error_messages_for 'news' %>
+
+<!--[form:news]-->
+<p><label for="news_news_type">News type</label><br/>
+<%= select('news', 'news_type', ['news', 'notice', 'warning'] ) %>
+</p>
+
+<p><label for="news_title">Title</label> (<i>maximum 255 characters</i>)<br/>
+<%= text_field 'news', 'title', :size => 80  %></p>
+
+<p><label for="news_body">Body</label><br/>
+<%= text_area 'news', 'body', :rows => 6, :cols => 60  %></p>
+
+<p><label for="news_expires_on">Expires on</label><br/>
+<%= date_select 'news', 'expires_on'  %></p>
+
+<p><label for="news_is_public">Is public</label> (makes accesible to public views)<br/>
+<%= check_box 'news', 'is_public'  %></p>
+
+
+<% if @proj %>
+  <%= hidden_field(:news, :proj_id, :value => @proj.id) %>
+ <% else -%>
+    <%= hidden_field(:news, :proj_id, :value => nil) %>
+<% end %>
+
+<!--[eoform:news]-->
+

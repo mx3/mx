@@ -1,0 +1,16 @@
+<table style="text-align: center;">
+  <%= t_col_heads( [{'name' => "specimen", 'style' => 'width: 25%;'}, 'extracts<br/>attempted', 'extract<br/>quality',  'available<br/>specimens', 'chromatograms attempted', 'genes attempted<br/> (from seq records)',   ] ) %>
+  <% @otus.each_with_index do |otu,i| -%>
+    <% d = otu.extract_summary -%>
+    <tr> 
+      <td class="<%= (i % 2 == 0 ? 'stripe' : "") -%>" style="text-align: right;"> <%= otu.display_name(:type => :multi_name) -%></td>
+      <%= t_row({ 'obj' => otu, 'open_tr' => false, 'inc_actions' => false,
+     'cell_data' => [
+        d['attempted'],
+        d['quality'] == 'failed' ? {'failed' => 'failed'} : d['quality'] ,
+        d['available_specimens'] == 0 ? {'none' => 'failed'} : d['available_specimens'],
+        d['chromatograms_attempted'],
+        d['genes_attempted']] } ) %>
+  <% end %>
+</table>
+

@@ -1,0 +1,105 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: association_supports
+#
+#  id              :integer(4)      not null, primary key
+#  association_id  :integer(4)      not null
+#  confidence_id   :integer(4)      not null
+#  type            :string(32)
+#  ref_id          :integer(4)
+#  voucher_lot_id  :integer(4)
+#  specimen_id     :integer(4)
+#  temp_ref        :text
+#  temp_ref_mjy_id :integer(4)
+#  setting         :string(32)
+#  notes           :text
+#  negative        :boolean(1)
+#  proj_id         :integer(4)      not null
+#  creator_id      :integer(4)      not null
+#  updator_id      :integer(4)      not null
+#  updated_on      :timestamp       not null
+#  created_on      :timestamp       not null
+#
+
+--- 
+association_supports1: 
+  created_on: 2005-06-23 16:42:32
+  association_id: "16"
+  negative: "0"
+  updated_on: 2005-06-23 16:43:34
+  creator_id: "1"
+  type: RefSupport
+  id: "1"
+  setting: lab
+  notes: Failed to rear foo from bar. not negative.
+  ref_id: "2744"
+  specimen_id: 
+  voucher_lot_id: 
+  temp_ref: ''
+  confidence_id: "3"
+  temp_ref_mjy_id: 23
+association_supports2: 
+  created_on: 2005-06-23 16:43:11
+  association_id: "16"
+  negative: "0"
+  updated_on: 2005-06-23 16:43:11
+  creator_id: "1"
+  type: RefSupport
+  id: "2"
+  setting: unknown
+  notes: positive
+  ref_id: "121"
+  specimen_id: 
+  voucher_lot_id: 
+  temp_ref: ''
+  confidence_id: "1"
+  temp_ref_mjy_id: 
+association_supports3: 
+  created_on: 2005-06-24 10:22:21
+  association_id: "17"
+  negative: "0"
+  updated_on: 2005-06-24 10:22:21
+  creator_id: "1"
+  type: RefSupport
+  id: "3"
+  setting: lab
+  notes: "Normal support with confidence, setting, and real ref."
+  ref_id: "664"
+  specimen_id: 
+  voucher_lot_id: 
+  temp_ref: ''
+  confidence_id: "1"
+  temp_ref_mjy_id: 
+association_supports4: 
+  created_on: 2005-06-24 10:27:44
+  association_id: "17"
+  negative: "1"
+  updated_on: 2005-06-24 10:27:44
+  creator_id: "1"
+  type: RefSupport
+  id: "4"
+  setting: field
+  notes: This is a refsupport with a temp ref and mjy id.
+  ref_id: 
+  specimen_id: 
+  voucher_lot_id: 
+  temp_ref: Foo Bar 1998
+  confidence_id: "3"
+  temp_ref_mjy_id: 78
+association_supports5: 
+  created_on: 2005-06-24 11:00:15
+  association_id: "17"
+  negative: "0"
+  updated_on: 2005-06-24 11:00:15
+  creator_id: "1"
+  type: RefSupport
+  id: "5"
+  setting: unknown
+  notes: ''
+  ref_id: 
+  specimen_id: 
+  voucher_lot_id: 
+  temp_ref: agfa
+  confidence_id: "1"
+  temp_ref_mjy_id: 

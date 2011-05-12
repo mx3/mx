@@ -1,0 +1,23 @@
+<h3>Listing standard views</h3>
+
+<table>
+  <%= t_col_heads( ["name", "view", "ontology class","sex", "formula", "continuous characters", "mx id", "notes", "mod by", "mod"] ) %>
+  <% for sv in @standard_views %>
+  <%=  t_row({ 'obj' => sv, 
+    'cell_data' => [sv.name,
+    sv.image_view ? sv.image_view.display_name : "",
+    sv.ontology_class ? sv.ontology_class.display_name(:type => :label_first) : content_tag(:em, 'none'),
+    sv.sex,
+    sv.formula,
+    (sv.continuous_characters.size == 0 ? content_tag(:em, 'none') :  sv.continuous_characters.collect{|c| c.display_name}.join("; ")),
+    sv.id,
+    sv.notes,
+    sv.m_by,
+    time_ago_in_words(sv.updated_on) + " ago"
+    ] } ) %>
+  <% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @standard_view_pages.current.previous } if @standard_view_pages.current.previous %>
+<%= link_to 'Next page', { :page => @standard_view_pages.current.next } if @standard_view_pages.current.next %> 
+

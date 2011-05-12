@@ -1,0 +1,9 @@
+<%= content_tag :li, content_tag(:span, 'List', :class => 'link_section') -%>
+<%= content_tag :li, link_to("personally created or updated", :action => "list_by_named_scope", :scope => 'changed_by', :arg => $person_id)  -%>
+<%= content_tag :li, link_to("personally created", :action => "list_by_named_scope", :scope => 'created_by', :arg => $person_id)  -%>
+<%= content_tag :li, link_to('list in range', :action => 'list_in_range', :controller => :pcr) -%>
+
+<%= content_tag :li, content_tag(:span, 'Batch', :class => 'link_section') -%>
+<%= content_tag :li, link_to('new PCR batch', :action => 'batch_pcr', :controller => :pcr) -%>
+
+

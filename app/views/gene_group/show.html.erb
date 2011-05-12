@@ -1,0 +1,18 @@
+<%= render_show(@gene_group, false, true) %>
+
+<h4> Genes in group </h4>
+    <% for gene in @genes_in %>
+      <%= gene.name %> 
+      <%= link_to "x", {:action => 'remove_gene', :id => @gene_group.id, :params => {"gene_id" => gene.id}} %><br />
+    <% end %>            
+
+<div class="subform" >
+  <%= form_tag :action => 'add_gene', :id => @gene_group.id do -%>
+    <%= hidden_field 'gene_group', 'id' %>
+    <select name="gene_id">
+    <option></option>
+    <%= options_from_collection_for_select(@genes_out, 'id', "name") if @genes_out %>
+    </select>
+    <input type="submit" value="Add" />      
+  <% end -%>
+</div>

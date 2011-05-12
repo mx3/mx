@@ -1,0 +1,14 @@
+div.definition { 
+ /* div styling to indicate a number of grouped fields */
+  padding: .5em;
+  border: 1px solid silver;
+/*  background: silver; */
+  text-align: left;
+  margin: .5em;  
+}
+
+a.vb {
+  display: block; width: 11px; height: 11px; 
+}
+  
+ 

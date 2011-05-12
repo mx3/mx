@@ -1,0 +1,17 @@
+<div id="compare_form" style="width: 100%;" >
+  <% if @mk.otus_remaining.size < 2 -%>
+  <br/><br/><br/><br/><br/>
+  <div class="failed" style="padding: 2em;">
+    There is nothing to compare.  You only have one (or no) OTUs left, or there are no chosen states, or you haven't started using the key yet.
+  </div> 
+  <% else -%>
+    <%# yes, redundant, but a [0,1] loop isn't much better ? -%>
+    <div style="float: right;">
+      <%= render(:partial => 'cmp_otu', :collection => [@mk.remaining_otus[1]], :locals => {:i => "2"}) -%>
+    </div>
+
+    <div style="float: left;">
+      <%= render(:partial => 'cmp_otu', :collection => [@mk.remaining_otus[0]], :locals => {:i => "1"}) -%>
+    </div>
+  <% end -%>
+</div>

@@ -1,0 +1,13 @@
+<div class="text_page" style="font-family:Courier New, monospace">
+    <% i = 0 -%>
+  <% @genes.each do |g| -%>
+  <% @otus.each do |o| -%>
+  <% o.sequences(:gene_ids => [g.id]).each do |s| -%>
+  <% i = i + 1 -%>
+  &gt;<%= s.pcr.andand.extract_id ? "#{s.pcr.extract_id.to_s}_" : ""  -%><%= o.display_name(:type => :matrix_name) -%> <%= g.display_name -%><br />
+  <%= display_seq_tag(s) -%><br />
+  <% end %>
+  <% end %>
+  <% end %>
+  <%= i == 0 ? content_tag(:em, 'no sequences found') : '' -%>
+</div>

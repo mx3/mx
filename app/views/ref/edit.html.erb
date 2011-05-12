@@ -1,0 +1,26 @@
+<h3 style="display: inline"> Editing reference </h3> (<%= @ref.id %>) | 
+<%= tag_link_for_show(@ref) -%>
+| <%= link_to 'Show', :action => 'show', :id => @ref %>
+<% if !@ref.in_proj?(@proj) -%>
+| <span class="failed"> THIS REFERENCE HAS NOT YET BEEN ADDED TO THIS PROJECT. </span> 
+<% end -%> 
+
+<% if not @ref.pdf.blank? -%>
+  | <%= link_to('View pdf', @ref.pdf.public_filename) -%>
+  | <%= link_to('Delete pdf', {:action => 'delete_pdf', :id => @ref.id}, {:confirm => "This will delete the pdf.  Remember, refs are shared, so please don't delete other's pdfs! Are you sure you want to continue?"} ) -%>
+<% end -%>
+<p> Current citation rendering: <span class="passed" id="display_name"><%= @ref.display_name -%></span></p>
+
+<% form_for(:ref, :url => {:action => :update, :id => @ref}, :html => { :multipart => true}) do |f| -%>
+  <%= submit_tag 'Update' %>
+  or <%= submit_tag 'Update and next', :name => 'update_and_next' %>
+  or <%= link_to 'Cancel and next', :action => 'edit', :id => next_rec(@ref) %> 
+
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render(:partial => 'identifier/existing_identifier_list', :locals => {:obj => @ref}) -%>
+  <%= render :partial => '/identifier/subform', :locals => {:f => f} -%>
+ 
+  <%= submit_tag 'Update' %>
+  or <%= submit_tag 'Update and next', :name => 'update_and_next' %>
+  or <%= link_to 'Cancel and next', :action => 'edit', :id => next_rec(@ref) %>
+<% end %>

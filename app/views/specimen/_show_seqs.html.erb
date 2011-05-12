@@ -1,0 +1,12 @@
+<% content_for :center do -%>
+<div class="show_rec">
+
+<% @specimen.sequences.each_with_index do |s,i| -%> 
+
+  <div class="show_category"> <%= i + 1 -%> </div>
+  <div class="show_row"><span class="show_lbl">Gene(s):</span><span class="show_data"><%= s.bound_genes.collect{|g| g.name}.join(", ") -%></span></div>
+  <div class="show_row"><div class="show_data" style="font-family:Courier; "><%= display_seq_tag(s) -%></div></div>
+
+<% end -%>
+</div>
+<% end %>

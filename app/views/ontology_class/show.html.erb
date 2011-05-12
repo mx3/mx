@@ -1,0 +1,26 @@
+<% @show.collect{|s| render :partial => (s)} -%>
+<div id="inner_wrapper">
+  <div id="inner_header" style="text-align: center;">
+    <%= error_messages_for 'ontology_class' -%>
+  </div>
+
+  <div id="inner_container" <%= 'style="padding-right: 0px;"' if @no_right_col -%> >
+    <div id="inner_center" class="column">
+      <%= yield :center -%>
+    </div>
+
+    <div id="inner_left" class="column">
+      <% if !@ontology_class.xref.blank? -%>
+        <div style="text-align:center; margin:0 2px; padding:3px; background-color:#ddd; color:gray;">xref: <%= @ontology_class.xref -%> </div>
+      <% end -%>
+
+      <%= render(:partial => 'navigator') -%>
+      <%= yield :left -%>
+    </div>
+
+    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col -%> >
+      <%= yield :right -%>
+    </div>
+
+  </div>
+</div>

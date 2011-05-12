@@ -1,0 +1,64 @@
+<% if @side_nav  == true %>
+
+<div id="inner_wrapper">
+  <div id="inner_header" style="text-align: center;"> 
+    <h3 style="display: inline"><%= @obj.display_name %> <span class='small_grey'> id:<%= @obj.id %></span></h3>
+  </div>
+
+  <div id="inner_container" <%= 'style="padding-right: 0px;"' if @no_right_col -%>>
+
+    <%# CENTER COLUMN (must be rendered here for CSS to work!) -%> 
+    <div id="inner_center" class="column">  
+      <% @part = 'center' -%>
+
+<% end %>
+
+      <%# render the table alone if no call for side navigation  -%>
+      <table>
+
+        <% for column in @obj.class.columns -%>
+          <tr>
+            <% if column.name.rindex('_id') -%>
+              <% r = column.name.gsub('_id','') -%>
+              <% if @obj.respond_to?(r) and @obj.send(r).respond_to?('display_name') -%>
+                <td class="lbl2"><i><%= column.name  -%>:</i></td><td><%= @obj.send(r).display_name -%></td>
+              <% else -%>
+				<%# TODO: reformulate this logic to use the relationships -%>
+                <td class="lbl2"><%= column.name -%></td><td><i><%= @obj.send(column.name).blank? ? "no  value" : @obj.send(column.name) -%></i></td>
+              <% end -%>
+            <% elsif column.name.rindex('_on') -%>
+              <td class="lbl2"><i><%= column.name  -%>:</i></td><td> <%= @obj.send(column.name).to_s -%> </td>
+            <% else -%>
+              <td class="lbl2"><%= column.human_name -%>:</td><td> <%=  @obj.send(column.name).to_s -%></td> 
+            <% end -%>
+          </tr>
+        <% end -%>
+
+        <% if @show_links -%>
+          <tr style="font-size: smaller;">
+            <td></td>
+            <td> 
+              <%= link_to('Edit', :action => 'edit', :id => @obj.id)  -%> |
+              <%= link_to('Back', :action => 'list') -%>  | <%= tag_link_for_show(@obj) -%> |
+              <%= link_to('Destroy', {:action => 'destroy', :id => @obj.id}, :method => "post", :confirm => (@obj.class == Otu ? "WARNING! You are about to delete EVERYTHING in this project that is directly tied to this OTU.  Are you sure you want to do this?" : "Are you sure?")) -%>
+            </td>
+          </tr>
+        <% end -%>
+      </table>
+
+<% if @side_nav == true -%>
+    </div>
+    <%# LEFT COLUMN -%>
+    <div id="inner_left" class="column">
+      <%= render(:partial => 'shared/show_navigator') -%> 
+    </div>
+
+    <%# RIGHT COLUMN -%>
+    <div id="inner_right" class="column" style="width: 0px; margin-right: 0px;">
+    </div>
+  </div> <%# end inner_container -%> 
+
+  <div id="inner_footer"> 
+  </div>
+</div>
+<% end -%>

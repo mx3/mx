@@ -1,0 +1,33 @@
+<table>
+  <tr>
+    <th>Genus</th><th>Species</th><th>Author</th><th>Keyword</th><th>Ref ID</th><th>Ref Author</th><th>Ref Year</th><th>Ref Letter</th><th>Title</th><th>Serial</th><th>Series</th><th>Volume</th><th>Pages</th><th>Pg Start</th><th>Pg End</th><th>Ref Full</th></tr>
+  <% @tags.each do |t| -%>
+  <tr>
+    <td><%= @otu.taxon_name.name_at_rank('genus') -%></td>
+    <td><%= @otu.taxon_name.name_at_rank('species') -%></td>
+    <td><%= @otu.taxon_name.author -%></td>
+    <td><%= t.keyword.display_name -%></td>
+
+    <% if t.ref -%>
+      <td><%= t.ref.id -%></td>
+      <td><%= t.ref.authors_for_display -%></td>
+      <td><%= t.ref.year -%></td>
+      <td><%= t.ref.year_letter -%></td>
+      <td><%= t.ref.title -%></td>
+      <% if t.ref.serial -%>
+        <td><%= t.ref.serial.display_name -%></td>
+      <% else %>
+        <td></td>
+      <% end %>
+      <td><%= t.ref.journal -%></td>
+      <td><%= t.ref.volume -%></td>
+      <td><%= t.ref.pages -%></td>
+      <td><%= t.ref.pg_start -%></td>
+      <td><%= t.ref.pg_end -%></td>
+      <td><%= t.ref.display_name -%></td>
+    <% else %>
+      <td> </td>
+  <% end %>
+  </tr>
+<% end %>
+</table>

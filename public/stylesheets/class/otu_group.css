@@ -1,0 +1,10 @@
+
+td.foo {color: red;}
+
+td.foo meh:hover span {
+   display: block;
+   position: absolute; top: 20px; left: 0;
+   padding: 5px; margin: 0px; z-index: 100;
+
+   font-size: larger;
+}

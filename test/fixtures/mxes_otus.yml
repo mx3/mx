@@ -1,0 +1,117 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: mxes_otus
+#
+#  mx_id      :integer(4)      not null
+#  otu_id     :integer(4)      not null
+#  notes      :text
+#  position   :integer(4)
+#  creator_id :integer(4)      not null
+#  updator_id :integer(4)      not null
+#  updated_on :timestamp       not null
+#  created_on :timestamp       not null
+#  id         :integer(4)      not null, primary key
+#
+
+--- 
+mxes_otus1:
+  id: 1
+  created_on: 2005-02-22 16:28:27
+  otu_id: "1"
+  updated_on: 2005-03-11 10:35:22
+  creator_id: "1"
+  updator_id: "1"
+  notes: 
+  mx_id: "1"
+  position: 1
+mxes_otus2: 
+  id: 2
+  created_on: 2005-02-22 16:43:40
+  otu_id: "2"
+  updated_on: 2005-03-11 10:38:45
+  creator_id: "1"
+  updator_id: "1"
+  notes: 
+  mx_id: "1"
+  position: 2
+mxes_otus3: 
+  id: 3
+  created_on: 2005-02-22 16:43:40
+  otu_id: "3"
+  updated_on: 2005-03-11 10:35:33
+  creator_id: "1"
+  updator_id: "1"
+  notes: 
+  mx_id: "1"
+  position: 3
+mxes_otus4: 
+  id: 4
+  created_on: 2005-03-07 16:42:11
+  otu_id: "4"
+  updated_on: 2005-03-11 10:32:56
+  creator_id: "1"
+  updator_id: "1"
+  notes: 
+  mx_id: "1"
+  position: 4
+mxes_otus5: 
+  id: 5
+  created_on: 2005-03-16 15:22:40
+  otu_id: "5"
+  updated_on: 2005-04-01 14:33:35
+  creator_id: "3"
+  updator_id: "1"
+  notes: 
+  mx_id: "1"
+  position: 5
+mk1: # MULTIKEY
+  id: 6
+  mx_id: "4"
+  otu_id: "6"
+  notes: 
+  created_on: 2005-03-16 15:22:40
+  updated_on: 2005-04-01 14:33:35
+  creator_id: "1"
+  updator_id: "1"
+  position: 1
+mk2: 
+  id: 7
+  mx_id: "4"
+  otu_id: "7"
+  notes: 
+  created_on: 2005-03-16 15:22:40
+  updated_on: 2005-04-01 14:33:35
+  creator_id: "1"
+  updator_id: "1"
+  position: 2  
+mk3: 
+  id: 8
+  mx_id: "4"
+  otu_id: "8"
+  notes: 
+  created_on: 2005-03-16 15:22:40
+  updated_on: 2005-04-01 14:33:35
+  creator_id: "1"
+  updator_id: "1"
+  position: 3
+mk4: 
+  id: 9
+  mx_id: "4"
+  otu_id: "9"
+  notes: 
+  created_on: 2005-03-16 15:22:40
+  updated_on: 2005-04-01 14:33:35
+  creator_id: "1"
+  updator_id: "1"
+  position: 4
+mk5: 
+  id: 10
+  mx_id: "4"
+  otu_id: "10"
+  notes: 
+  created_on: 2005-03-16 15:22:40
+  updated_on: 2005-04-01 14:33:35
+  creator_id: "1"
+  updator_id: "1"
+  position: 5

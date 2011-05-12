@@ -1,0 +1,41 @@
+<div> 
+  <% if @part == 'center' %>
+    <p>
+    <h3 style="display: inline;">Taxon names</h3>
+    <% if not @tn == nil %>
+      (for parent <%= @tn.display_name %>)<br /><br />
+    </p>
+
+
+    <% headsf = {}; headsg = {}; %> <%## headers- crude but functioning, should be moved to a helper %>
+    <% for tn in  @taxon_names  %>
+      <% pf = (@tn.iczn_group == 'family' ? tn.obj_at_rank('subfamily') : tn.obj_at_rank('family') ) ;  pg = tn.obj_at_rank('genus') %>
+
+      <% if pf and not headsf["#{pf.name}"] %>  <%# check for family/subfamily header %>
+
+        <h4 style="padding: 0px; margin-bottom: 0em; margin-top: .5em;"> <%= "#{pf.name}" %>  </h4>
+        <% headsf["#{pf.name}"] = true %>
+
+      <% end %>
+
+      <% if pg and not headsg["#{pg.name}"] %>  <%# check for genus header %>
+        <h4 style="padding: 0px; margin-bottom: 0px; margin-top:.5em;"> &nbsp;&nbsp;&nbsp; <%= "#{pg.name}" %>  </h4>
+        <% headsg["#{pg.name}"] = true %>
+      <% end %>
+
+      <%= "#{'&nbsp;' * rank_n(tn.iczn_group) * 5 }" %> <%= link_to(tn.display_name, :action => 'browse_by_taxon_name', :id => tn.id) %><br />
+    <% end  %>
+  <% else %>
+    <p><i>choose a name at right </i></p>
+  <% end %>
+  <br />
+<% elsif @part == 'right' %>
+  <h4>Delimit by</h4>
+  <h4>Taxon name:</h4>
+  <%= form_tag :action => 'browse_taxon_names' do -%>
+    <%= render :partial => "taxon_name/public_names_picker", :locals => { :c_name => 'taxon_name', :f_name => 'id' }  -%> <br /><br />
+    <%= submit_tag "show" %>
+  <% end -%>
+  <p> Help: the results returned (those that are linked) represent the taxon names that are directly tied to an association through an OTU.</p>
+<% end %>
+</div>

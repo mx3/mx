@@ -1,0 +1,16 @@
+<div class='navigator' style ="text-align: center;">
+  <%= navigator2(:obj => @lot, :do => session['lot_view'], :ord => "id") -%>
+
+  <div class="category">Specimen functions</div>
+
+  <% if @lot.value_specimens.to_i > 0 -%>
+    <div class="item"><%= link_to('create (extract from value)', :action => 'extract_specimen', :id => @lot, :remove_from => 'value') -%> </div>  
+  <% end %> 
+
+  <% if @lot.key_specimens.to_i > 0 -%>
+    <div class="item"><%= link_to('create (extract from key)', :action => 'extract_specimen', :id => @lot, :remove_from => 'key') -%> </div>  
+  <% end %> 
+    
+  <div class="item"><%= link_to('create (clone, no extraction)', :action => 'clone_to_specimen', :id => @lot) -%> </div>  
+
+</div>

@@ -1,0 +1,21 @@
+<h3>Listing associations</h3>
+<% unless @association_pages.first == @association_pages.last %>
+  <%= @association_pages.current.first_item %> to <%= @association_pages.current.last_item %> of <%= @association_pages.item_count %> <br /> <br />
+<% end %>
+
+<table>
+  <%= t_col_heads( [{'name' => "name", 'style' => 'width: 60%;'} , "id", "notes"] ) %>
+  <% @associations.each_with_index do |a, i| %>
+  <%=  t_row({'obj' => a,  'inc_actions' => false,
+    'cell_data' => [
+    link_to(render(:partial =>"part", :collection => a.association_parts), :action => 'show', :id => a),
+    a.id,
+    {a.notes =>  'small_grey'} ,
+    tag_link_for_show(a)] } ) %>
+  <% end %>
+</table>
+
+<% unless @association_pages.first == @association_pages.last %>
+    <strong>View page <%= pagination_links @association_pages, :window_size => 3 %></strong>
+<% end %>
+

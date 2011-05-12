@@ -1,0 +1,1 @@
+<% for isa in @isas %>   <h4><%= "#{isa.interaction} / #{isa.complement}" %></h4>  <ul>    <% for as in isa.association_parts %>    <% @assoc = Association.find(as.association_id) %>    <li>  <%= link_to render(:partial =>"part", :collection => @assoc.association_parts), :action => 'show', :id => @assoc.id %> </li>    <% end %>  </ul><% end %>

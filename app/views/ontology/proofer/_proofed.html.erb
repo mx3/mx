@@ -1,0 +1,92 @@
+<div id="proofed_txt">
+  <% if @l %>
+  <div class="box4">
+    <div class="header"> Parsed text (may be truncated) </div>
+    <div class="content"> 
+      <%= htmlize(@l.linked_text(:adjacent_words_to_fuse => 4, :popup => true, :proj_id => @proj.default_ontology.id.to_i, :is_public => false)) %> 
+    </div>
+  </div>
+
+  <div class="box4">
+    <div class="header"> Add words (<%= @unmatched.size -%> total) </div>
+    <div class="content"> 
+
+      <% form_tag(:action => 'proofer_batch_create') do -%>
+
+      <p><em> Check terms to add then click </em> <%= submit_tag("Add", :style => "display:inline;") -%> </p>
+
+      <p> add a tag to all <strong>labels</strong>:</p>
+      <%= render :partial => 'tag/form_simple' -%>
+
+      <br/>
+
+      <p> include <strong>classes</strong> when adding (reference is required and definition must be provided): </p>
+
+      <div class="fr">
+        <label class="lbl4">reference</label>
+        <span class="fld"><%= render :partial => "shared/picker", :locals => {    
+          :controller => 'ref',
+          :object => 'ontology_class',
+          :method => 'written_by_ref_id',
+          :tag_id => "ref_name_to_find_for_proofer_batch",
+          :display => '' } -%><em>(used in Sensu linking class and label)</em></span>
+      </div>
+
+
+      <div class="fr">
+        <label class="lbl4">highest applicable taxon (sets for all) </label> 
+        <span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+          :controller => 'taxon_name',
+          :object => 'ontology_class',
+          :method => 'highest_applicable_taxon_name_id',
+          :tag_id => "taxon_name_to_find",
+          :display => '' } -%> </span>
+      </div>
+
+
+
+      <br/><br/><hr style="clear: both;" />
+      <p> Fields pairs are label and class.  <strong> Classes will only be created if the reference is provided above</strong>. <em>You can click on an 'x' to remove a term from consideration.</em>  </p>
+
+      <table style="border-spacing: .4em;">
+        <% i = 0 -%>
+        <% @unmatched.each do |g| -%>
+        <tr> 
+          <% g.each do |t| -%>
+          <td style="background-color: #eee;" id="<%= "c#{i}" -%>" >    
+            <%= check_box_tag("check[#{i}]", '0', false) -%>
+            <%= text_field("label", i, :value => t, :style => 'width: 300px; border: none;') -%>  
+            <%= text_field("definition", i, :value => '', :style => 'width: 300px;') -%>  
+            <%= link_to_function('x') do |page| 
+            page["c#{i}"].remove 
+            end -%>
+            <% i += 1 -%>
+          </td>
+          <% end -%>
+        </tr>
+        <% end %>
+      </table>
+
+      <%= submit_tag("Add") -%>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="box4">
+    <div class="header"> Words already in the database </div>
+    <div class="content"> 
+      <p> Click to view. </p>
+      <table>
+        <% @l.link_set(:proj_id => @proj.id).in_groups_of(6, false) do |g| -%>
+        <tr> 
+          <% g.each do |t| -%>
+          <td><%= link_to(t.display_name, :action => :show_term, :controller => :ontology, :id => t) -%></td>
+          <% end %>
+        </tr>
+        <% end -%>
+      </table>
+    </div>
+  </div>
+
+  <% end -%>
+</div>

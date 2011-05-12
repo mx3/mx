@@ -1,0 +1,19 @@
+xml.instruct!
+
+xml.rss "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
+ xml.channel do
+   xml.title        "HAO pulse"
+   xml.link         url_for(:action => :pulse_rss, :controller => 'ontology')
+   xml.description "Track updates to the HAO"
+
+   @active_labels.each do |al|
+     xml.item do
+       xml.title       brief_activity_report_string(al)
+       xml.link        url_for(:only_path => false, :controller => 'label', :action => 'show', :id => al.id)
+       xml.description al.name
+       xml.guid        url_for(:only_path => false, :controller => 'label', :action => 'show', :id => al.id)
+     end
+   end
+
+ end
+end

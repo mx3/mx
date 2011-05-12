@@ -1,0 +1,5 @@
+<% label.ontology_classes.each do |oc| -%>
+  <% if oc.labels.size > 1 -%>
+  <div style="padding: 1em;"><span style="font-weight:bold;"> <%= oc.labels.collect{|lbl| lbl.display_name}.join(", ") -%></span>: <%= oc.display_name -%></div>
+  <% end -%>
+<% end -%>

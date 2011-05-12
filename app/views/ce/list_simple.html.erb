@@ -1,0 +1,4 @@
+<h3><%= "#{@list_title}  (#{@ces.size})" -%></h3>
+<div style ='padding:6px; border-bottom:1px dotted silver; margin-bottom: 4px;'>
+  <%= render(:partial => 'ce', :collection => @ces) -%> 
+</div>

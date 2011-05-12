@@ -1,0 +1,11 @@
+<%# requires a @result which is like {:symbol => [Objects]} Objects must have a #displayname %> 
+
+<h3><%= @title if @title -%></h3>
+
+<% @result.keys.sort{|a,b| a.to_s <=> b.to_s}.each do |t| -%>
+  <h4><%= t.to_s.humanize -%></h4>
+
+  <ol><%= @result[t].collect{|r| content_tag :li, r.display_name }.join -%></ol>
+
+<% end -%>
+

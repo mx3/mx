@@ -1,0 +1,4 @@
+<div id="some figures" class="box4" style=" clear: right;">
+  <%= render_figs_for_obj(@cs, 'thumb') %>
+  <%= link_to_remote('hide', :url => {:action => :_close_popup_figs, :id => @cs} ) %>
+</div>

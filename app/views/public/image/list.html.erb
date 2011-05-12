@@ -1,0 +1,18 @@
+<p> <i> Stay tuned for a snazzier browsing interface. </i> </p>
+
+<% unless @image_description_pages.first == @image_description_pages.last -%>
+ <strong>View page <%= pagination_links @image_description_pages, :window_size => 3 -%></strong>
+<% end -%>
+
+<div>
+  <%= render(:partial => 'i', :collection => @descriptions) -%>
+  <p style="clear: left">&nbsp;</p>
+</div>
+
+<% unless @image_description_pages.first == @image_description_pages.last -%>
+  <strong>View page <%= pagination_links @image_description_pages, :window_size => 3 %></strong>
+
+<% end -%>
+
+<div style="clear: both;">
+<span class="small_grey"> These images are copyright, contact the administrator of this site before using them</span></div>

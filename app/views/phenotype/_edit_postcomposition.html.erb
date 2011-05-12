@@ -1,0 +1,39 @@
+<% pc_edit_area_id = "pc_edit_area#{pc_level_id}" %>
+<% differentiae_id = "differentiae_table#{pc_level_id}" %>
+<% hidden_inputs_id = "hidden_form#{pc_level_id}" %>
+<% genus_el_id = "genus#{pc_level_id}" %>
+<% differentiae_inputs_id = "differentiae_inputs#{pc_level_id}" %>
+<div>
+	<table>
+		<tr class="pc-genus">
+			<td><span class="lbl4">Genus: </span></td>
+			<td id="<%= genus_el_id -%>"><%= render :partial => 'show_ontology_value', :locals => {:term => term.genus, :role => genus_el_id, :pc_edit_area => pc_edit_area_id} -%></td>
+		</tr>
+		<tr>
+			<td><span class="lbl4">Differentiae: </span></td>
+			<td>
+			<table style="width: 100%;">
+				<thead>
+					<tr>
+						<th>Property</th><th>Class</th>
+					</tr>
+				</thead>
+				<tbody id="<%= differentiae_id %>" >
+			    <%= render(:partial => "differentia", :collection => term.differentiae, :locals => {:pc_edit_area => pc_edit_area_id, :pc_level_id => pc_level_id}) %>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</table>
+	<%= link_to_remote "[Add differentia]", :url => {:action => :new_differentia, :pc_edit_area => pc_edit_area_id, :pc_level_id => pc_level_id, :differentiae_id => differentiae_id} %>
+	
+</div>
+<%= form_tag :remote => true, :url => {:action => :create_composition, :id => @phenotype, :role => role, :pc_level_id => pc_level_id} do %>
+<div id="<%= hidden_inputs_id %>">
+<%= hidden_field_tag "#{genus_el_id}_hidden_id", (term.genus.id if term.genus) %>
+<%= hidden_field_tag "#{genus_el_id}_hidden_class", (term.genus.class if term.genus) %>
+<%= hidden_field_tag differentiae_inputs_id %>
+<%= submit_tag "Create", :name => "save", :onclick => %@jQuery('##{differentiae_id} input').appendTo('##{hidden_inputs_id}'); jQuery('##{differentiae_id} select').each(function() { jQuery('##{hidden_inputs_id}').append('<input type="hidden" name="' + this.name + '" value="' + this.value + '"></input>')}); jQuery('##{differentiae_inputs_id}').attr('value', jQuery('##{differentiae_id} tr').map(function() { return this.id; }).get().join(','));@ -%>
+<% end %>
+<div id="<%= pc_edit_area_id -%>"></div>
+

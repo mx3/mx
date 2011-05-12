@@ -1,0 +1,7 @@
+<h3>Editing data source</h3>
+
+<%= form_tag({:action => 'update', :id => @data_source}, {:multipart => true}) do -%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit', :style => "margin-left: 25%;" %>
+<% end %>
+

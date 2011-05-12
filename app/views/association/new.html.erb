@@ -1,0 +1,21 @@
+<h3>New association</h3>
+
+= form_tag :action => 'create' do %>
+
+  <p><label for="first_otu_name">First OTU</label><br/>
+    <%= render :partial => "shared/picker", :locals => {
+                  :controller => 'otu',
+                  :object => 'part1',
+                  :method => 'otu_id',
+                  :tag_id =>  "first_otu_name",
+                  :display =>   (@part1.otu_id? ? @part1.otu.display_name : ''),
+                  :size => 60} -%>
+  </p>
+    
+  <%= render :partial => "new_part", :locals => { :part => @part2 } -%>*
+  <%= render :partial => "form" -%>
+  <%= submit_tag "Create" -%>
+  <% end %>
+
+<%= link_to 'Back', :action => 'list' %>
+<p>* The relationship is stated in terms of the first OTUs interaction with the second OTU. So if A is a parasite of B, you would select 'parasite' from the drop-down instead of 'host'.</p>

@@ -1,0 +1,31 @@
+<% name_group ||= 'all' -%> <%# taxon name specific -%>
+<% use_proj ||= 'true' -%>  <%# taxon name specific -%>
+<% geog_types ||= 'all' -%> <%# geog specific -%>
+<% action ||= "auto_complete_for_#{controller}" -%><%#refs from other projs specific %>
+<% css_class ||= 'ajaxPicker' -%>
+<%# a (near) universal picker %>
+<% url = url_for({:controller => controller, :action => action, :tag_id => tag_id, 
+:name_group => name_group, :use_proj => use_proj, :escape => false, :geog_types => geog_types}) -%> <%# added }, :escape => true %>
+
+<input autocomplete="off" title="find and select <%= controller.pluralize -%>"  class="<%= css_class -%>" id="<%= tag_id %>" name="<%= tag_id %>" <%= (size ||= nil).nil? ? 'style="width:98%;"' : "size=\"#{size}\"" -%> type="text" value="<%= display %>" />
+
+<div class="auto_complete" id="<%= tag_id %>_auto_complete"></div>
+
+<script type="text/javascript">
+function loadResult<%= method -%>(element,selectedElement)
+{
+  $('<%= object %>_<%= method %>').value = selectedElement.id.split('::')[1];
+
+  if (document.getElementById('hidden_field_class_name')) {
+    $('hidden_field_class_name').value = selectedElement.id.split('::')[0];
+  }
+}
+
+new Ajax.Autocompleter('<%= tag_id %>', '<%= tag_id %>_auto_complete', 
+'<%= url %>',
+{ afterUpdateElement: loadResult<%= method %>, indicator: <%= "\"#{object}_#{method}_to_find_spinner\"" -%> })
+</script>
+
+<%= hidden_field object, method -%>
+
+<%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "#{object}_#{method}_to_find_spinner", :style => "display: none; vertical-align:middle;"  ) -%>

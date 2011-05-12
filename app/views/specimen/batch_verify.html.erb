@@ -1,0 +1,55 @@
+
+<h3> Result (<%= @operation -%>) </h3>
+
+<%= link_to("back to verify/create", :action => :batch_load) if @operation == 'verifying' -%>
+
+<% if @result[:unmatched_headers].length > 0 -%>
+<h3 style="color:red"> Unmatched headers </h3>
+<div class="show_comment"> Verify that these headers are not meant to be parsed before continuing. </div>
+<ol><%= @result[:unmatched_headers].collect{|h| content_tag(:li,h)} -%></ol>
+<% end -%>
+
+<h3> Parsing Summary </h3>
+<div class="show_rec">
+  <div class="show_row"><span class="show_lbl">Specimens:</span><span class="show_data"><%= @result[:specimens].size -%></span></div>
+  <div class="show_row"><span class="show_lbl">Lots:</span><span class="show_data"><%= @result[:lots].size -%></span></div>
+  <div class="show_row"><span class="show_lbl">Collecting Events:</span><span class="show_data"><%= @result[:ces].size -%></span></div>
+</div>
+
+<h3> Item Summary </h3>
+
+<div style="margin-left:1em;">
+
+<% if @result[:specimens].size > 0 -%>
+<h3> Specimens </h3>
+<ol>
+  <% @result[:specimens].each do |s| -%>
+  <%= content_tag(:li, (@result[:identifiers][s] ? " #{@result[:identifiers][s].namespace.name} #{@result[:identifiers][s].identifier}" : "No identifier provided." ) + " : " + s.specimen_determinations.first.display_name(:type => :selected)) -%>
+  <% end -%>
+  </ol>
+<% end -%>
+
+<% if @result[:lots].size > 0 -%>
+<h3> Lots </h3>
+<ol>
+  <% @result[:lots].each do |l| -%>
+  <%= content_tag(:li, (@result[:identifiers][l] ? " #{@result[:identifiers][l].namespace.name} #{@result[:identifiers][l].identifier}" : "No identifier provided." ) + " : " + l.otu.display_name(:type => :selected)) -%>
+  <% end -%>
+  </ol>
+<% end -%>
+
+<% if @result[:ces].size > 0 -%>
+<h3> Collecting Events </h3>
+<ol>
+  <% @result[:ces].each do |c| -%>
+  <%= content_tag(:li, c.display_name(:type => :verbose)) -%> 
+  <% end -%>
+  </ol>
+<% end -%>
+
+</div>
+
+
+<h3> File contents </h3>
+
+<%= debug(@file) -%>

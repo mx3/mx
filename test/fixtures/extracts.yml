@@ -1,0 +1,70 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: extracts
+#
+#  id                       :integer(4)      not null, primary key
+#  lot_id                   :integer(4)
+#  specimen_id              :integer(4)
+#  protocol_id              :integer(4)
+#  parts_extracted_from     :text
+#  quality                  :string(12)
+#  notes                    :text
+#  extracted_on             :date
+#  extracted_by             :string(128)
+#  other_extract_identifier :string(128)
+#  proj_id                  :integer(4)      not null
+#  creator_id               :integer(4)      not null
+#  updator_id               :integer(4)      not null
+#  updated_on               :timestamp       not null
+#  created_on               :timestamp       not null
+#
+
+extract1: 
+  id: 1
+  lot_id: 
+  specimen_id: 1 
+  protocol_id:
+  parts_extracted_from: "Head."
+  quality: "good" 
+  notes: "This is a note." 
+  extracted_on: 2005-02-15 10:11:00
+  extracted_by: 2005-02-15 10:11:00
+  other_extract_identifier: "1232X"
+  proj_id: 1
+  creator_id: 1
+  updator_id: 1 
+  updated_on: 2005-02-15 10:11:00
+  created_on: 2005-02-15 10:11:00
+extract2: 
+  id: 2
+  lot_id: 
+  specimen_id: 1 
+  protocol_id:
+  parts_extracted_from: "Thorax."
+  quality: "good" 
+  notes: "This is a note." 
+  extracted_on: 2005-02-15 10:11:00
+  extracted_by: 2005-02-15 10:11:00
+  other_extract_identifier: "1232X"
+  proj_id: 1
+  creator_id: 1
+  updator_id: 1 
+  updated_on: 2005-02-15 10:11:00
+  created_on: 2005-02-15 10:11:00
+extract3: 
+  id: 3
+  lot_id: 
+  specimen_id: 1 
+  protocol_id:
+  parts_extracted_from: "Abdomen."
+  quality: "failed" 
+  notes: "This is a note." 
+  extracted_on: 2005-02-15 10:11:00
+  extracted_by: 2005-02-15 10:11:00
+  other_extract_identifier: "1232X"
+  proj_id: 1
+  creator_id: 1
+  updator_id: 1 
+  updated_on: 2005-02-15 10:11:00
+  created_on: 2005-02-15 10:11:00

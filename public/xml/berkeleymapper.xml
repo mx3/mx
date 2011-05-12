@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<berkeleymapper>
+  <metadata>
+    <name>mx Specimen Map Configuration File</name>
+  <relatedinformation>http://hymenoptera.tamu.edu/wiki/</relatedinformation>
+  <abstract> GIS configuration file for mx specimen mapping</abstract>
+    <mapkeyword keyword="specimens"></mapkeyword>
+  <header location="http://foo.bar.edu/images/mx/mx_pwr.jpg"></header>
+  <linkbackheader location="http://hymenoptera.tamu.edu/wiki"></linkbackheader>
+  <mapwiki organization="mx Taxonomic CMS" email="admin@place.com" />
+    <units key="km"></units>
+  </metadata>
+  <settings>
+    <setting name="landsat" show="0"></setting>
+  </settings>
+  <recordlinkback>
+    <linkback method="root" linkurl="http://foo.bar.com/projects/this_part_busted/public/site/foo/home/show_specimen/" text="View Details" fieldname="Link Back" key1="id" value1="darwin:catalognumbertext" />
+  </recordlinkback>
+  <concepts xmlns:darwin="http://digir.net/schema/conceptual/darwin/2003/1.0">
+    <concept order="4" viewlist="1" datatype="darwin:catalognumbertext" alias="CatalogNumber" />
+    <concept order="3" viewlist="1" datatype="darwin:scientificname" alias="ScientificName" />
+    <concept order="10" viewlist="0" datatype="darwin:country" alias="Country" />
+    <concept order="10" viewlist="0" datatype="darwin:stateprovince" alias="StateProvince" />
+    <concept order="5" viewlist="0" datatype="darwin:county" alias="County" />
+    <concept order="5" viewlist="1" datatype="darwin:locality" alias="Locality"/>
+    <concept order="9" viewlist="0" datatype="darwin:institutioncode" alias="Repository" />
+    <concept order="9" viewlist="1" datatype="darwin:yearcollected" alias="YearCollected" />
+    <concept order="9" viewlist="0" datatype="darwin:identifiedby" alias="Identifier" />
+    <concept order="9" viewlist="1" datatype="darwin:collector" alias="Collector"/>
+    <concept order="9" viewlist="1" datatype="char120_6" alias="Host" />
+   
+    <concept order="9" viewlist="0" datatype="darwin:decimallatitude"  alias="DecimalLatitude" />
+    <concept order="9" viewlist="0" datatype="darwin:decimallongitude" alias="DecimalLongitude" />
+    <concept order="9" viewlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="CoordinateUncertaintyInMeters" />
+    <concept order="20" viewlist="1" datatype="darwin:horizontaldatum"  alias="HorizontalDatum" />
+  </concepts>
+</berkeleymapper>
+

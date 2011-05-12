@@ -1,0 +1,53 @@
+<% content_for(:center) do -%>
+
+<% if @ontology_class.is_obsolete -%>
+  <p class="failed" style="text-align:center; padding: 5px;"> <strong> THIS CLASS IS OBSOLETE </strong> </p>
+<% end -%>
+
+<div> <!-- ontology class base  -->
+  <%= render :partial => 'oc', :object => @ontology_class -%>
+
+  <div style="margin-left: 0.2em; padding:0.2em;"> 
+    <div> Is a parents: <strong> <%= @ontology_class.is_a_parents.sort{|a,b| a.preferred_label.name <=> b.preferred_label.name}.collect{|o| link_to(o.preferred_label.name, :action => :show, :id => o.id) }.join(", ") -%></strong></div>
+    <div> Part of parents: <strong> <%= @ontology_class.part_of_parents.sort{|a,b| a.preferred_label.name <=> b.preferred_label.name}.collect{|o| link_to(o.preferred_label.name, :action => :show, :id => o.id)}.join(", ") -%></strong></div>
+  </div>
+
+  <% if @ontology_class.relationships_are_sufficient %>
+  <div><strong>Note: this class has a logical definition.</strong></div>
+  <% end %>
+
+  <br style="clear:both;" />
+</div>
+
+<%= render :partial => 'sensu/sensus', :locals => {:sensus => @ontology_class.sensus.ordered_by_position, :parent_id => @ontology_class.id, :sensus_for => "class"} -%>
+<% if @ontology_class.relationships_are_sufficient %>
+<div> <!-- necessary and sufficient relationships section -->
+  <%= render :partial => 'ontology_relationship/relationships', :locals => {:relationships => @ontology_class.primary_relationships, :ontology_class => @ontology_class, :intersections => true} -%>
+</div>
+<% end %>
+<div> <!-- the relationship/properties section -->
+  <%= render :partial => 'ontology_relationship/relationships', :locals => {:relationships => @ontology_class.relationships, :ontology_class => @ontology_class, :intersections => false} -%>
+  <div style="width:100%;">
+    <div style="float:left; width: 50%;">
+      <div class="box4">
+        <div class="header">Part of</div>
+        <% if @class_parents.size == 0 -%>
+        <i> none </i>
+        <% else -%>
+        <div class="content"><ol> <%= @class_parents.keys.collect{|t| content_tag :li, link_to(ontology_class_postfixed_with_label(t), :action => :show, :id => t.id, :controller => :ontology_class), :style => (@class_parents[t] ? 'color: red;' : '')} -%></ol> </div>
+        <% end -%>
+      </div>
+    </div>
+
+    <div style="float:left; width: 50%;">
+      <div class="box4">
+        <div class="header">Constituent parts</div>
+        <div class="content" style="text-align: center;" id="constituent_parts"> <%= link_to_remote('show',:loading => "Element.show('child_spinner')", :complete => "Element.hide('child_spinner')", :url => {:action => :_populate_consituent_parts, :controller => :ontology_class, :id => @ontology_class.id}) -%>  <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'child_spinner', :style => "display: none; vertical-align:middle;" ) %> </div> 
+      </div>
+    </div>
+    <br style="clear: both;" />
+  </div>  
+  <br style="clear: both;" />
+</div><!-- end rel section -->
+
+<% end -%>

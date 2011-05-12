@@ -1,0 +1,15 @@
+<%# remember we only have @otu in otu/page partials -%>
+<div class="box4">
+  <div class="header">Public images </div>
+  <div class="content">
+    <% if @otu.image_descriptions.public.size == 0 -%>
+      <i> No public images available. </i>
+    <% else -%> 
+      <%= render :partial => '/image_description/cid', :collection => @otu.image_descriptions.public -%>
+    <% end -%> 
+
+   <br style="clear:both;">   
+  </div>
+</div>
+
+

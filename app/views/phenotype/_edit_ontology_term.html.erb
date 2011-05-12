@@ -1,0 +1,12 @@
+<%= form_tag :remote => true, :url => { :action => 'create_term', :id => @phenotype, :role => role, :pc_edit_area => pc_edit_area } do %>
+<% ontology_ids = BIOPORTAL_AUTOCOMPLETE_ONTOLOGIES['ontology_ids'].join(',') %>
+<input type="text" name=<%= role %> class="<%= "bp_form_complete-#{ontology_ids}-name" -%>" size="75"/>
+<%= link_to_function("[PC]", nil, :class => "edit-pc-link") do |page| 
+ page.replace_html(pc_edit_area, :partial => "postcomposition_popup", :locals => {:term => OntologyComposition.new, :role => role})
+end %>
+<%= submit_tag "Apply" -%>
+<% end %>
+
+<script type="text/javascript">
+formComplete_setup_functions()
+</script>

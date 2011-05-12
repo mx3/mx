@@ -1,0 +1,5 @@
+<h3>New chromatogram</h3>
+<%= form_tag({:action => 'create'}, :enctype => 'multipart/form-data') do -%>
+<%= render :partial => "form" %>
+<%= submit_tag "Create" %>
+<% end -%>

@@ -1,0 +1,60 @@
+<% content_for(:center) do -%>
+
+<div>
+  <div>
+    <div style="width: 300px; float:left; margin-right:0.5em; border-right: 1px dotted silver; padding: 0.5em;">
+      <div class="show_rec">
+        <% if @image.is_morphbank -%>
+        <div class="show_category"> Morphbank image </div>
+        <div class="show_row"><span class="show_lbl">Morphbank ID:</span><span class="show_data"><%= @image.mb_id -%></span></div>
+
+        <% else -%>
+        <div class="show_category"> Original file details </div>
+        <div class="show_row"><span class="show_lbl">User filename:</span><span class="show_data"><%= @image.user_file_name -%></span></div>
+        <div class="show_row"><span class="show_lbl">Original filetype:</span><span class="show_data"><%= @image.file_type -%></span></div>
+        <div class="show_row"><span class="show_lbl">Size:</span><span class="show_data"><%= @image.file_size-%></span></div>
+        <div class="show_row"><span class="show_lbl">Width:</span><span class="show_data"><%= @image.width -%></span></div>
+        <div class="show_row"><span class="show_lbl">Height:</span><span class="show_data"><%= @image.height -%></span></div>
+        <div class="show_row"><span class="show_lbl">MD5:</span><span class="show_data"><%= @image.file_md5 -%></span></div>
+
+        <% end -%>
+
+        <div class="show_category"> Metadata </div>
+
+        <div class="show_row"><span class="show_lbl">Source file:</span><span class="show_data"><%= link_to("click, or right click-&gt;save link as", @image.path_for(:size => :original) ) -%></span></div>
+        <div class="show_row"><span class="show_lbl">Taken on:</span><span class="show_data"><%= @image.taken_on -%></span></div>
+        <div class="show_row"><span class="show_lbl">Database filename:</span><span class="show_data"><%= @image.file_name -%></span></div>
+        <div class="show_row"><span class="show_lbl">Technique:</span><span class="show_data"><%= @image.technique -%></span></div>
+
+        <% if !@image.ref_id.blank? -%>
+        <div class="show_row"><span class="show_lbl">Published in/taken from:</span><span class="show_data"><%= @image.ref.display_name -%></span></div>
+        <% end -%>
+
+        <%= render(:partial => 'shared/show/notes', :locals => {:obj => @image}) -%> 
+
+        <div class="show_category"> Legal </div>
+        <div class="show_row"><span class="show_lbl">Creator/photographer:</span><span class="show_data"><%= @image.maker -%></span></div>
+        <div class="show_row"><span class="show_lbl">Contributor:</span><span class="show_data"><%= @image.contributor -%></span></div>
+        <div class="show_row"><span class="show_lbl">CC license:</span><span class="show_data"><%= @image.license -%></span></div>
+        <div class="show_row"><span class="show_lbl">&copy:</span><span class="show_data"><%= @image.copyright_holder -%></span></div>
+
+        <%= render(:partial => 'shared/show/record_details', :locals => {:obj => @image}) -%> 
+        <div class="show_row"><span class="show_lbl">Parent project:</span><span class="show_data"><%= @image.proj.display_name + " (#{@image.proj.id})" -%></span></div>
+      </div>
+
+      <br style="clear:both;" />
+    </div>
+
+    <div style="width:auto; float:left;">
+      <%= link_to(image_tag(@image.path_for), @image.path_for(:size => :medium)) -%><br /><br />
+
+      <br style="clear:both;" />
+    </div>
+
+    <br style="clear:both;" />
+
+  </div>
+
+</div>
+
+<% end -%>

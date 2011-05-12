@@ -1,0 +1,29 @@
+<h3> Verify addition of taxon names</h3>
+
+ <p><b>Setting parent taxon name to:</b> <%= @taxon_name.display_name -%></p>
+ <p><b>Setting ICZN group to:</b> <%=  @iczn_group -%></p>
+
+ <%= "<p><b>Setting reference to:</b>#{@ref.display_name}</p>" if @ref -%>
+
+ <p> The following names were read (columns are name, author, year).  If you do not wish to import a name leave it unchecked. </p>
+
+ <%= form_tag(:action => 'batch_create') do -%>
+   <%= submit_tag("Create") -%>
+   <%= hidden_field_tag("taxon_name_id",  @taxon_name.id)  -%>
+   <%= hidden_field_tag("iczn_group", @iczn_group)  -%>
+   <%= hidden_field_tag("ref_id",  @ref.id) if @ref -%>
+
+      <% i = 0 -%>
+      <% @taxon_names.each do |t| -%>
+        <% i += 1 -%>
+        <p>
+      
+          <%= text_field("name", i, :value => t.name) -%> 
+          <%= text_field("author", i, :value => t.author) -%> 
+          <%= text_field("year", i, :value => t.year) -%> 
+         
+          <%= check_box_tag("check[#{i}]", '1', true) -%>
+        </p> 
+      <% end -%>
+  <% end -%>
+

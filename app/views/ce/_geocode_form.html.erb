@@ -1,0 +1,8 @@
+<%= res = GoogleGeocoder.reverse_geocode([geocode_form.latitude, geocode_form.longitude]) -%>
+
+<br />
+<br />
+<pre>
+<%= res.to_yaml -%>
+</pre>
+

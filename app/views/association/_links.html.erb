@@ -1,0 +1,7 @@
+<%= content_tag :li, "<span style='color: silver;'>Browse</span>" -%>
+<%= content_tag :li, link_to('browse', :action => 'browse') -%>
+<%= content_tag :li, "<span style='color: silver;'>List (experimental)</span>" -%>
+<%= content_tag :li, link_to('supporting refs', :action => 'list_supporting_refs') %>
+<%= content_tag :li, link_to('by confidence', :action => 'list_associations_by_confidence') %>
+<%= content_tag :li, link_to('by object_relationship', :action => 'list_associations_by_object_relationship') %>
+<%= content_tag :li, link_to('by otu', :action => 'list_associations_by_otu') %>

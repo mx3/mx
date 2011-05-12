@@ -1,0 +1,67 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: content_templates
+#
+#  id         :integer(4)      not null, primary key
+#  name       :string(255)     not null
+#  is_default :boolean(1)      not null
+#  is_public  :boolean(1)      not null
+#  proj_id    :integer(4)      not null
+#  creator_id :integer(4)      not null
+#  updator_id :integer(4)      not null
+#  updated_on :timestamp       not null
+#  created_on :timestamp       not null
+#
+
+--- 
+con_templates1: 
+  name: "Standard Taxon Page"
+  created_on: 2005-03-25 23:46:03
+  is_default: "0"
+  creator_id: "1"
+  updated_on: 2005-04-01 11:51:24
+  id: "1"
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+con_templates2: 
+  name: "BAD BAD"
+  created_on: 0000-00-00 00:00:00
+  is_default: "0"
+  creator_id: "1"
+  updated_on: 2005-03-07 11:15:06
+  id: "2"
+  proj_id: "2"
+  creator_id: "1"
+  updator_id: "1"
+con_templates3: 
+  name: "Biological Control Page"
+  created_on: 2005-03-25 18:09:51
+  is_default: "0"
+  creator_id: "1"
+  updated_on: 2005-03-29 15:36:49
+  id: "3"
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+con_templates4: 
+  name: Bar
+  created_on: 2005-03-24 11:09:47
+  is_default: "0"
+  creator_id: "1"
+  updated_on: 2005-03-25 18:09:51
+  id: "4"
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+con_templates5: 
+  name: Morphospecies Notes
+  created_on: 2005-04-01 11:44:16
+  is_default: "0"
+  creator_id: "3"
+  updated_on: 2005-04-14 18:22:22
+  id: "5"
+  proj_id: "8"
+  creator_id: "1"
+  updator_id: "1"

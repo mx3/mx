@@ -1,0 +1,16 @@
+<div id="taxon_name_nav">
+  <h3><%= link_to 'Families', :action => 'browse', :family => nil, :letter => nil %> 
+    / <%= link_to( h(@family), :action => 'browse', :family => h(@family), :letter => nil) %>
+    / <%= link_to( h(@letter), :action => 'browse', :family => h(@family), :letter => h(@letter)) %>
+    / <em><%=h @genus %></em>
+  </h3>
+
+  <% for t in @taxon_names %>
+    <div class="item">
+      <%= link_to( t.display_name, :action => 'show', :id => t.id) %>
+    <%= t.status ? '<font color="red">*</font>' : "" %>  
+    </div>
+  <% end %>
+</div>
+<br/>
+<p>Note: taxonomic names prefixed with <font color="red">*</font> are not currently valid. </p>

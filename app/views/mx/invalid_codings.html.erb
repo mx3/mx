@@ -1,0 +1,5 @@
+<h3> Debugging - invalid codings </h3>
+<%= @invalid_codings.length -%>
+<% @invalid_codings.each do |c| -%>
+  <%= debug(c) -%><br/>
+<% end %>

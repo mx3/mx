@@ -1,0 +1,8 @@
+<% content_for(:center) do -%>
+  <%= image_thumb_tag(@image)  -%>
+  <br />
+  <div class="show_rec">
+    <div class="show_category"> Image descriptions  <%= spinner_tag('add_description') -%></div>
+    <div id="image_description_list"><%= render(:partial => 'image_description/ajax_list_add') -%></div>
+  </div>
+<% end -%>

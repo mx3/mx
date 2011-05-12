@@ -1,0 +1,6 @@
+<div class='navigator'>
+  <%= navigator(@tree,  session['tree_view'], "id") -%>
+  <div class="item"> <%= session['tree_view'] == 'show' ? '<span class="navigator_current">default</span>' : link_to('default', :action => 'show', :id => @tree)  %> </div>  
+  <div class="item"> <%= session['tree_view'] == 'show_phylowidget' ? '<span class="navigator_current">phylowidget</span>' : link_to('phylowidget', :action => 'show_phylowidget', :id => @tree)  %> </div>  
+  <div class="item"> <%= session['tree_view'] == 'show_nested_set' ? '<span class="navigator_current">nested set</span>' : link_to('nested set', :action => 'show_nested_set', :id => @tree)  %> </div>  
+</div>

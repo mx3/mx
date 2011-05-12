@@ -1,0 +1,8 @@
+<div class='navigator'>
+  <%= navigator(@keyword, session['keyword_view'], "id") -%>
+
+  <div class="item"> <%= session['keyword_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @keyword)  %>     </div>  
+  <div class="item"> <%= session['keyword_view'] == 'show_tags' ? '<span class="navigator_current">tags</span>' :  link_to('tags', :action => 'show_tags', :id => @keyword)  %> </div>
+  
+
+</div>

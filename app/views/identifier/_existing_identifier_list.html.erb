@@ -1,0 +1,13 @@
+<div class="show_category">Existing Identifiers</div>
+<% if obj.identifiers.blank? -%>
+  <i> Record has no attached identifiers. </i>
+<% else %>
+<ul style="list-style-type: disc;" >
+  <% obj.identifiers.each  do |id| -%>
+  <li>
+  <%= id.cached_display_name -%>
+  <%= link_to("delete", {:controller => :identifier, :action => :destroy, :id => id.id }, :method => "post") -%><br /> 
+  </li>
+  <% end -%>
+</ul>
+<% end -%>

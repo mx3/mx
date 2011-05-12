@@ -1,0 +1,49 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: association_parts
+#
+#  id             :integer(4)      not null, primary key
+#  association_id :integer(4)      not null
+#  position       :integer(4)      not null
+#  isa_id         :integer(4)
+#  isa_complement :boolean(1)
+#  otu_id         :integer(4)      not null
+#
+
+--- 
+association_parts1: 
+  association_id: "16"
+  isa_id: 
+  isa_complement: 
+  otu_id: "79"
+  id: "20"
+  position: "1"
+association_parts2: 
+  association_id: "16"
+  isa_id: "1"
+  isa_complement: 
+  otu_id: "98"
+  id: "21"
+  position: "2"
+association_parts3: 
+  association_id: "17"
+  isa_id: 
+  isa_complement: 
+  otu_id: "79"
+  id: "22"
+  position: "1"
+association_parts4: 
+  association_id: "17"
+  isa_id: "1"
+  isa_complement: "0"
+  otu_id: "96"
+  id: "23"
+  position: "2"
+association_parts5: 
+  association_id: "18"
+  isa_id: 
+  isa_complement: 
+  otu_id: "79"
+  id: "25"
+  position: "1"

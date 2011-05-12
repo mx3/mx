@@ -1,0 +1,8 @@
+<h3>New reference</h3>
+<% form_for(:ref, :url => {:action => :create}, :html => { :multipart => true}) do |f| -%>
+ <%= submit_tag "Create" -%>
+ <%= render :partial => 'form', :locals => {:f => f} -%>
+ <%= render :partial => '/identifier/subform' -%>
+  <%= submit_tag "Create" -%>
+<% end -%>
+<%= link_to 'Back', :action => 'list' -%>

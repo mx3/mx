@@ -1,0 +1,41 @@
+<div> 
+
+  <div align="center">
+
+  <fieldset>
+    <legend>Tree view</legend>
+
+    <div class="subform"><%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'tree_spinner', :style => "display: none; vertical-align:middle;") -%>
+     <span class="text_title">Set root of tree:</span> 
+  <div class="content">
+    <%= form_tag :remote => true, :loading => "Element.show('tree_spinner')", :complete => "Element.hide('tree_spinner')", :url => {:action => :_tree_set_root, :controller => :ontology}, :update => :tree  do  -%>
+      <label for="ontology_part_id" class="lbl4">Term</label>
+        <span class="fld"><%= render :partial => "shared/picker", :locals => {    
+          :controller => 'part',
+          :object => 'ontology',
+          :method => 'part_id',
+          :size => 30,
+          :tag_id => "part_for_tree_build",
+          :display => '' } -%>
+        </span> &nbsp; &nbsp;
+        <label for="depth" class="lbl4">Expansion Depth</label><span class="fld"><%= text_field_tag(:max_depth, "2", :size => 1) -%></span> &nbsp; &nbsp;
+        <label for="ontology_part_id" class="lbl4">Limit to</label><span class="fld"><%= select("isa", "id", @all_isas.all.collect {|p| [ p.display_name, p.id ]}, :include_blank => true) -%></span>&nbsp;
+      <%= submit_tag("Show") -%>
+  <% end -%>
+  </div>
+</div>
+
+<hr />
+
+<% if @colored_isas.size > 0 -%>
+  <div style="border: 1px solid silver; padding: 4px;">Relationship colors: <%= @colored_isas.collect{|i| i.colored_display_name}.join(", ") -%></div> 
+<% end -%>
+
+<div id="tree" style="clear: both; padding: 10px;">
+  <%= render(:partial => '/public/ontology/tree_index', :locals => {:max_depth => 2, :relationship_type => 'all'}) -%>
+</div>
+
+</fieldset>
+
+</div>
+</div>

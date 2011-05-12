@@ -1,0 +1,11 @@
+<li class="handle" id="sensu_<%= "#{s.id}" -%>">
+	<div style="padding: 2px; border-bottom: 1px dotted silver; width: 100%;" >
+		<div style="float:left; width: 20%;"> <%= link_to s.label.name, :action => :show, :controller => :label, :id => s.label -%></div>
+		<div style="float:left; width: 38%;" id="<%= "sensu_#{s.id}" -%>"> <%= expandable_caption(s.ontology_class.definition, "sensu_#{s.id}") -%>
+			 <%= content_tag "span", link_to(s.ontology_class.id, :action => :show, :controller => :ontology_class, :id => s.ontology_class), :style => "font-size: smaller; background-color: #dddddd; padding: 1px;" -%>  </div>
+		<div style="float:left; width: 25%;"> <%= link_to s.ref.display_name(:type => :authors_year), :action => :show, :controller => :ref, :id => s.ref -%> </div>
+		<div style="float:left; width: 10%;"> <%= time_ago_in_words(s.updated_on) -%> </div>
+		<div style="float:left; width: 3%;">  <%= link_to_remote('x', :url => {:action => :destroy, :controller => :sensu, :id => s.id}, :method => "post", :confirm => 'Are you sure?') -%></div>
+		<br style="clear: both;">
+	</div>
+</li>

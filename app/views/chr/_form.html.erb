@@ -1,0 +1,88 @@
+<%= error_messages_for 'chr' -%>
+  
+  <table style="width: 100%;">
+    <tr>
+      <td style="width: 480px;">
+
+      <div class="fr"> <label for="chr_name" class="lbl4">Name</label>
+        <span class="fld"><%= text_area 'chr', 'name', 'title' => 'character name', :rows => 2, :cols => 40 -%></span>
+      </div>
+          
+      <div class="fr"> <label for="chr_short_name" class="lbl4">Short name </label>
+        <span class="fld"><%= text_field 'chr', 'short_name', 'title' => 'abbreviated name for the matrix', :size => 6 -%> <i>used in matrix views</i></span>
+      </div>
+          
+      <div class="fr"> <label for="chr_cited_in" class="lbl4">Cited in</label>
+        <span class="fld">  
+            <%= render :partial => "ref/picker", :locals => {
+            :object => 'chr', :method => 'cited_in', :size => 46,  :tag_id => "ref_name", 
+                :display => (@chr.cited_in_ref.display_name if @chr.cited_in_ref) } -%>
+        </span>
+      </div>
+
+      <div class="fr"> <label for="chr_cited_page" class="lbl4">Cited on page</label>
+        <span class="fld"><%= text_field 'chr', 'cited_page', 'title' => 'page(s) where character was cited', :size => 12 -%></span>
+      </div>
+
+      <div class="fr"> <label for="chr_cited_char_no" class="lbl4">Cited as char #</label>
+        <span class="fld">  <%= text_field 'chr', 'cited_char_no', 'title' => 'character number in previous publication', :size => 4 -%></span>
+      </div>
+
+      <div class="fr"> <label for="chr_doc_char_code" class="lbl4">Doc. character #</label>
+        <span class="fld">  <%= text_field 'chr', 'doc_char_code', 'title' => 'character number for your publication', :size => 4 -%></span>
+      </div>
+
+      <% if !@chr.continuous? -%>
+        <div class="fr"> <label for="chr_ordered" class="lbl4">Ordered?</label>
+          <span class="fld"><%= check_box 'chr', 'ordered', 'title' => 'check if character is to be considered ordered', :size => 4 -%></span>
+        </div>
+      <% end %> 
+
+      <div class="fr"> <label for="chr_syn_with" class="lbl4">Synonymous with</label>
+        <span class="fld"><%= render :partial => "shared/picker", :locals => {
+          :controller => 'chr',
+          :object => 'chr',
+          :method => 'syn_with',
+          :tag_id => "chr_syn_with_field",
+          :display => (@chr.syn_with ? @chr.chr_syn_with.display_name : "") ,
+          :size => 46} -%> </span>
+      </div>
+
+     <div class="fr"> <label for="chr_notes" class="lbl4">Notes</label>
+        <span class="fld"><%= text_area( 'chr' , 'notes', 'title' => 'notes about this character', :rows => 3, :cols =>40 ) -%></span>
+     </div>
+
+      <br style="clear: both;" />
+
+      <div style="margin-top: 1em; padding: 0.5em; border-top: 1px dotted silver; width: 100%;">
+        <em> Options for continuous characters, see wiki-help for explanation </em>
+        <% if !@chr.continuous? -%><p style="padding: 1em;"><strong style="color:red;">WARNING: If either option below is set all existing character states AND their codings will be destroyed.</strong></p><% end -%>
+      
+        <div class="fr"> <label for="chr_standard_view_id" class="lbl4">Mapped to:</label>
+          <span class="fld"><%= render :partial => "shared/picker", :locals => {
+            :controller => 'standard_view',
+            :object => 'chr',
+            :method => 'standard_view_id',
+            :tag_id => "standard_view_id_for_chr",
+            :display => (!@chr.standard_view_id.blank? ? @chr.continuous_description.display_name : "") ,
+            :size => 46} -%></span>
+        </div>
+
+        <p><strong>OR</strong></p>
+
+        <div class="fr"> <label for="chr_is_continuous" class="lbl4">Continuous</label>
+          <span class="fld"><%= check_box( 'chr' , 'is_continuous', 'title' => 'character is continuous and user adds individual values to cells') -%><em> free entry</em></span>
+        </div>
+
+        <br style="clear: both;" />
+        
+      </div>
+
+    </td>
+
+    <td>
+      <label for="chr_doc_char_descr" class="lbl4">Document character description</label><br />
+      <%= text_area 'chr', 'doc_char_descr', 'title' => 'verbatim character description from publication', :rows => 23, :cols => 30, :class => 'rc_markup' -%>
+    </td>
+  </tr>
+</table>

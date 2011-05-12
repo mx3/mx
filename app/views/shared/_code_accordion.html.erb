@@ -1,0 +1,195 @@
+<link rel="stylesheet" type="text/css" href="css/default.css" />
+    
+	<script type="text/javascript">
+			
+		//
+    // Accordian code is taken and modified from stickmanlabs at http://stickmanlabs.com/accordion/
+		// 
+		// Event.observe(window, 'load', loadAccordions, false);
+	
+		//
+		//	Set up all accordions
+		//
+   	function loadAccordions() {
+				
+      var verticalAccordion = new accordion('vertical_container');
+			
+			
+			// Open first one
+		 //	verticalAccordion.activate($$('#vertical_container .accordion_toggle')[0]);
+			
+		}
+
+    function loadAccordion(id) {
+    
+			var topAccordion = new accordion( id + '_top', {
+				classNames : {
+          toggle : 'horizontal_accordion_toggle',  // change these names for individual new addtions
+					toggleActive : 'horizontal_accordion_toggle_active',
+					content : 'horizontal_accordion_content'
+				},
+				defaultSize : {
+					width : 525
+				},
+				direction : 'horizontal'
+      });
+
+      var bottomAccordion = new accordion('#' + id + '_bt');
+			
+			// Open first one
+      //  bottomAccordion.activate($$('#bottom_container .accordion_toggle')[0]);
+			
+			// Open second one
+		//	topAccordion.activate($$('#top_container .horizontal_accordion_toggle')[2]);
+		}
+  
+ 
+	</script>
+	
+	<!-- CSS -->
+		<style type="text/css" >
+		
+		/*
+			Vertical Accordions
+		*/
+		
+		.accordion_toggle {
+			display: block;
+			height: 20px;
+			width: 99%;
+			background:  #a9d06a;
+      padding: 0 5px 0 5px;
+			line-height: 20px;
+			color: #ffffff;
+			font-weight: normal;
+			text-decoration: none;
+			outline: none;
+		
+			color: #000000;
+			border-bottom: 1px solid #cde99f;
+			cursor: pointer;
+			margin: 0 0 0 0;
+		}
+		
+		.accordion_toggle_active {
+			background: #e0542f;
+			color: #ffffff;
+			border-bottom: 1px solid #f68263;
+		}
+		
+		.accordion_content {
+			background-color: #ffffff;
+			color: #444444;
+			overflow: hidden;
+		}
+			
+			.accordion_content h2 {
+				margin: 15px 0 5px 10px;
+				color: #0099FF;
+			}
+			
+			.accordion_content p {
+				line-height: 150%;
+				padding: 5px 10px 15px 10px;
+			}
+			
+		.vertical_accordion_toggle {
+			display: block;
+			height: 30px;
+			width: 600px;
+			background:  #a9d06a;
+			padding: 0 10px 0 10px;
+			line-height: 30px;
+			color: #ffffff;
+			font-weight: normal;
+			text-decoration: none;
+			outline: none;
+
+			color: #000000;
+			border-bottom: 1px solid #cde99f;
+			cursor: pointer;
+			margin: 0 0 0 0;
+		}
+
+		.vertical_accordion_toggle_active {
+			background: #e0542f;
+			color: #ffffff;
+			border-bottom: 1px solid #f68263;
+		}
+
+		.vertical_accordion_content {
+			background-color: #ffffff;
+			color: #444444;
+			overflow: hidden;
+		}
+
+			.vertical_accordion_content h2 {
+				margin: 15px 0 5px 10px;
+				color: #0099FF;
+			}
+
+			.vertical_accordion_content p {
+				line-height: 150%;
+				padding: 5px 10px 15px 10px;
+			}
+  			
+		/*
+			Horizontal Accordion
+		*/
+		
+		.horizontal_accordion_toggle {
+			/* REQUIRED */
+			float: left;	/* This make sure it stays horizontal */
+			/* REQUIRED */
+
+			display: block;
+			height: 100px;
+			width: 30px;
+			background:  #a9d06a;
+			color: #ffffff;
+			text-decoration: none;
+			outline: none;
+			border-right: 1px solid #cde99f;
+			cursor: pointer;
+			margin: 0 0 0 0;
+		}
+		
+		.horizontal_accordion_toggle_active {
+			background: #e0542f;
+			border-right: 1px solid #f68263;
+		}
+		
+		.horizontal_accordion_content {
+			/* REQUIRED */
+			height: 100px;	/* We need to define a height for the accordion as it stretches the width */
+			float: left;	/* This make sure it stays horizontal */
+			/* REQUIRED */
+			
+			overflow: hidden;
+			background-color: #ffffff;
+			color: #444444;
+		}
+			
+			.horizontal_accordion_content p {
+				width: 450px;
+				line-height: 150%;
+				padding: 5px 10px 15px 10px;
+			}
+					
+					
+    /* Container styling*/
+    #horizontal_container {
+      margin: 20px auto 20px auto;
+      width: 680px;   
+      height: 100px;    
+    }
+    
+    #vertical_nested_container {
+      margin: 20px auto 20px auto;
+      width: 620px;
+    }
+
+	</style>
+
+
+

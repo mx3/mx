@@ -1,0 +1,6 @@
+<li><span style="color:red;"><%= ts.type_type -%></span> <br />
+<%= ts.specimen.display_name(:type => :identifiers ) -%> <br />
+  <%= ts.specimen.repository.blank? ? "<i>Specimen repository not provided.</i>" : ts.specimen.repository.display_name  -%> <br /> 
+  <%= link_to('dissociate specimen', {:action => 'remove_type', :controller => 'taxon_name', :id => ts}, :confirm => "Remove this specimen as a type of #{@taxon_name.display_name}?") -%> | 
+  <%= link_to('show specimen', :action => 'show', :controller => 'specimen', :id => ts.specimen) -%><br/> 
+</li>

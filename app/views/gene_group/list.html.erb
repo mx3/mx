@@ -1,0 +1,15 @@
+<h3>Listing gene groups</h3>
+<table>
+  <%= t_col_heads( ["id", "name", "notes", "updated on", "updated by" ] ) %>
+  <% for gene_group in @gene_groups %>
+  <%=  t_row({ 'obj' => gene_group, 
+    'cell_data' => [gene_group.id,
+    gene_group.name,
+    gene_group.notes,
+    gene_group.m_on,
+    gene_group.m_by] }) %>
+  <% end %>
+</table>
+
+<%= link_to "Previous page", { :page => @gene_group_pages.current.previous } if @gene_group_pages.current.previous %>
+<%= link_to "Next page", { :page => @gene_group_pages.current.next } if @gene_group_pages.current.next %>

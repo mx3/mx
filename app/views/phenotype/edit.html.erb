@@ -1,0 +1,4 @@
+<%= render(:partial => 'character_and_state') -%>
+<div class="subform" style = "min-width: 460px;" id="phenotype_form_area">
+    <%= render(:partial => ('edit_' + @phenotype.class.to_s.underscore)) -%>
+</div>

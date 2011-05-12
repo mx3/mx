@@ -1,0 +1,28 @@
+<%= render(:partial => 'shared/code_accordion') -%>
+<% @tags.each do |o, addressable_type| %>
+  <div id="vertical_container" >
+    <h3 class="accordion_toggle"> <%= o.pluralize -%></h3>
+    <div class="accordion_content">
+      <% addressable_type.each do |tag| %>
+        <div style="padding: .2em; margin: .2em; background-color: #efefef;">
+          <% if o = tag.tagged_obj -%>
+            <%= link_to(o.display_name, :action => :show, :controller => tag.tagged_obj.class, :id => tag.tagged_obj) %>
+          <% else %>
+            <i class='failed'> WARNING! error - orphaned tag for tag_id: <%= tag.id.to_s + " " + destroy_tag_link(tag) -%> </i>
+          <% end %>
+
+          <% if tag.ref -%>
+            <%= tag.display_name_without_keyword(false) + " " + destroy_tag_link(tag)   %></div> <%# div closes the display_name %>
+        <% else -%>
+          <i>no reference provided</i>
+        <% end -%>
+        <% if !tag.notes.blank? -%>
+          <div style="padding: 4px; margin: 4px; background-color: #dedede;"><%= tag.notes -%> </div>
+        <% end -%>
+      </div>
+    <% end -%>
+  </div>
+<% end -%> 
+<script type="text/javascript">
+  loadAccordions();
+</script>

@@ -1,0 +1,16 @@
+<div style="clear: both; padding: 6px;">
+  <div style="display:inline;float:left; text-align: right; width: 20%; margin-right: 6px;">  <%= link_to(filter_small_form_item.display_name, :action => :edit_term, :id => filter_small_form_item.id) -%></div> 
+  <div style="display:inline; float:left; text-align: left; width: 25%; margin-right: 6px;"><span class="small_grey"> def: </span>
+   <span class="ip_edit" style="padding: 0px; " id="part_def_id<%= filter_small_form_item.id -%>"><%= filter_small_form_item.description.blank? ? '<i> None provided, click to edit </i>' : filter_small_form_item.description -%></span>
+   <%= in_place_editor "part_def_id#{filter_small_form_item.id}", :url => url_for(:controller => :ontology, :action => :_in_place_definition_update, :id => filter_small_form_item.id), :rows => 5, :cols => 60 -%> 
+  </div>
+
+  <div style="display:inline;float:left; text-align: left; width: 200px;"><span class="small_grey"> OBO id: </span>
+    <% if !filter_small_form_item.obo_xref.blank? -%><!-- only display when not present -->
+        <%= filter_small_form_item.obo_xref -%>
+    <% else -%>
+        <i> none </i>   
+     <% end -%>
+  </div>
+  
+</div>

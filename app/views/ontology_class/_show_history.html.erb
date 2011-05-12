@@ -1,0 +1,8 @@
+<% content_for(:center) do -%>
+<div style="padding:0.5em;">
+  <div class="show_category"> History for <%= @ontology_class.preferred_label.name -%> </div>
+  <p><em> Revisions begin after the record is created. </em></p>
+  <%= render(:partial => '/shared/history', :collection => @ontology_class.versions) -%>
+</div>
+<% end -%>
+

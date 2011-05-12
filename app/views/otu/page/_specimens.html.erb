@@ -1,0 +1,16 @@
+<%# remember we only have @otu in otu/page partials -%>
+<div class="header">Specimens</div>
+<div class="content">
+
+  <table style="width: 100%;">
+    <th> identifier(s) </th> <th> repository </th> <th> sex </th> <th> collecting event </th>
+    <% @otu.specimens_most_recently_determined_as.each_with_index do |s,i| -%>
+      <tr  class="<%= (i % 2 == 0 ? 'stripe' : "") %>" >
+        <td> <%= s.display_name(:type => :identifiers) -%>   </td>
+        <td> <%= s.repository.andand.coden -%>   </td>
+        <td> <%= s.sex -%>   </td>
+        <td>  <%= ce_tag(s.ce) -%> </td>
+      </tr>
+    <% end -%>
+  </table>
+</div>

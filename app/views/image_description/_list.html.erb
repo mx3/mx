@@ -1,0 +1,25 @@
+<table style="width: 100%;">
+  <%= t_col_heads( [ "OTU",  "specimen", "label", "xref", "view", "sex", "stage", "notes", "public?",  "mod by", "mod on", "id"] ) -%>
+  <%  @image_descriptions.each do |i| -%>
+  <%=  t_row({ 'obj' => i, 'inc_actions' => false, 'close_tr' => false,
+        'cell_data' => [
+          i.otu ? i.otu.display_name() : '<em>see specimen</em>',
+          i.specimen ? i.specimen.display_name(:type => :identifiers) : '',
+          i.label ? i.label.display_name : '',
+          i.ontology_class_xref,
+          i.image_view ? i.image_view.display_name : '',
+          i.sex,
+          i.stage,
+          i.notes,
+          i.is_public ? content_tag(:span, 'yes', :class => 'passed') :  content_tag(:span, 'no', :class => 'failed'),
+          i.m_by,
+          time_ago_in_words(i.m_on),
+          i.id
+        ] } ) -%>
+
+    <% if (@image_descriptions.size > 1) || ( @image_descriptions.size == 1 && @image.image_descriptions.size> 1)  -%>
+      <td><%= link_to('x', :remote => true, :loading => "Element.show('add_description')", :complete => "Element.hide('add_description')", :url => {:action => 'destroy_from_image', :controller => :image_description, :id => i.id}, :update => 'image_description_list') -%></td><% end -%>
+    <td><%= link_to('edit', :action => :edit, :controller => :image_description, :id => i.id) -%></td>
+  </tr><!-- closes t_row -->
+<% end -%>
+</table>

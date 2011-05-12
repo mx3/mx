@@ -1,0 +1,55 @@
+ <h3> Verify addition/update of terms</h3>
+
+  <%= '<p><b>Setting reference to:</b> ' + @ref.display_name + '</p>' if @ref -%> 
+  <%= '<p><b>Setting taxon name to:</b> ' + @taxon_name.display_name + '</p>' if @taxon_name -%>
+  <%= '<p><b>Creating a relationship for all terms to:</b> ' + @isa.display_name + ' ' + @part_for_isa.display_name + '</p>' if @part_for_isa and @isa -%>
+
+<% if @compare -%>
+
+  <p> The following terms were read and match those in the database.  If you do not wish to update a term leave it unchecked.</p>
+
+  <% form_tag(:action => 'batch_update') do -%>
+    <%= submit_tag("Update") -%>
+    <%= hidden_field_tag("taxon_name_id",  @taxon_name.id) if @taxon_name -%>
+    <%= hidden_field_tag("ref_id",  @ref.id) if @ref -%>
+    <%= hidden_field_tag("isa_id",  @isa.id) if @isa -%>
+    <%= hidden_field_tag("part_for_isa_id",  @part_for_isa.id) if @part_for_isa -%>    
+
+    <% @terms.existing.each do |t| -%>
+      <p>
+         <%= text_field("part", t.part.id, :value => t.word, :rows => t.word.count("\n")) -%>  
+         <%= text_field("xref", t.part.id, :value => t.xref, :rows => t.word.count("\n")) if t.xref && @inc_xref-%>  
+         <%= check_box_tag("check[#{t.part.id}]", '1', true) -%>
+      </p> 
+    <% end -%>
+
+  <% end %>
+
+<% else %> 
+  <p> The following terms were read.  If you do not wish to import a term leave it unchecked.  If this is an OBO file remember that at present words are added, not relationsips. </p>
+<%= '<p>The following terms already exist in this project: ' + @terms.existing.collect{|t| link_to(t.word, :action => :show, :controller => '/ontology', :id => t.id)}.join(", ") + '</p>' if @terms.existing.size > 0 -%>
+
+  <% if @terms.not_present.size > 0 %>
+    <% form_tag(:action => 'batch_create') do -%>
+      <%= submit_tag("Create") -%>
+      <%= hidden_field_tag("taxon_name_id",  @taxon_name.id) if @taxon_name -%>
+      <%= hidden_field_tag("ref_id",  @ref.id) if @ref -%>
+      <%= hidden_field_tag("isa_id",  @isa.id) if @isa -%>
+      <%= hidden_field_tag("part_for_isa_id",  @part_for_isa.id) if @part_for_isa -%>    
+     
+      <% i = 0 -%>
+      <% @terms.not_present.each do |t| -%>
+        <% i += 1 -%>
+        <p>
+           <%= text_field("part", i, :value => t.word, :rows => t.word.count("\n")) -%>  
+           <%= text_field("xref", i, :value => t.xref, :rows => t.word.count("\n")) if t.xref && @inc_xref-%>  
+           <%= check_box_tag("check[#{i}]", '1', true) -%>
+        </p> 
+      <% end -%>
+    <% end -%>
+
+  <% else %>
+    <i> All terms are already in the database, try again in compare/update mode.</i>
+  <% end %>
+
+<% end %>

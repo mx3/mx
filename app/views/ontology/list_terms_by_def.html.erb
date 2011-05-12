@@ -1,0 +1,9 @@
+<div class="subform">
+  <div class="header">Search definitions containing string</div>
+  <div class="content">
+     <% form_tag :action => :list_terms_by_def do -%> 
+      <%= text_field_tag :search_string -%> 
+      <%= submit_tag "Search", {'class' => 'small_form_button'} -%>
+     <% end -%>
+  </div>
+</div>

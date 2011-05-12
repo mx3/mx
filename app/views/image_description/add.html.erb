@@ -1,0 +1,12 @@
+<br/>
+<div class="subform">
+<div class="header"> Pick an image from project: </div>
+   <% form_remote_tag :update => 'search_results', :url => { :action => 'add_list'}, :html => {:id => 'myform'} do %>
+     <%= select('proj_to_search_a', 'id', Person.find($person_id).projs.collect{|o| [o.name, o.id] if  o.id != @proj.id }.compact) -%>
+     <%= submit_tag('search') %> 
+  <% end %> 
+</div>
+
+<div id='search_results'>
+  <%= render(:partial => 'add_list') %>
+</div>

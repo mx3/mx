@@ -1,0 +1,6 @@
+<div id="incoming_items"  class="cart" style="text-align: center; height:15px;margin-top:2px;border:2px solid black;"> <i> drag and drop images here to add </i> </div>
+<%= drop_receiving_element("incoming_items", :url => { :action => "_add_thumb", :controller => "morphbank_image",  :otu_id => @otu.id}, :accept => "mb_thumb",:hoverclass => "cart-active") -%>
+
+<div id="attached_images">
+  <%= render(:partial => 'morphbank_image/search_list', :locals => {:notice => ''}) %>
+</div>

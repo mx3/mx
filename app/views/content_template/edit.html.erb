@@ -1,0 +1,10 @@
+<h3>Edit content template</h3>
+
+<%= form_tag(:action => :update, :id => @content_template) do -%>
+
+<%= render(:partial => 'form') -%>
+<input type="submit" name="submit" value="Update" />
+  
+<% end -%>
+
+

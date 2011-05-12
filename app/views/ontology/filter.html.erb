@@ -1,0 +1,27 @@
+<table>
+  <tr>
+    <th style="width: 50%;"> Search <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'filter_search_spinner', :style => "display: none; vertical-align:middle;"  ) -%> </th>
+    <th> Results                    <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'filter_results_spinner', :style => "display: none; vertical-align:middle;"  ) -%></th>
+  </tr>
+
+  <tr>
+    <td><!-- search --> 
+      <div id="keyword_list"> <%= render(:partial => "filter_kw_for_list_item", :collection => @keywords) -%></div>
+       <div id="incoming_items" class="cart" style="text-align: center; height:15px;margin-top:2px;border:2px solid black;"> <i> drag and drop keywords here to add </i> </div>
+       <%= drop_receiving_element("incoming_items",:loading => "Element.show('filter_search_spinner')", :complete => "Element.hide('filter_search_spinner')", :url => { :action => "_update_filter_results", :controller => "ontology"}, :accept => "keyword", :hoverclass => "cart-active") -%>
+       <%= render(:partial => 'filter_form') -%>
+   </td>
+    
+    <td><!-- results --> 
+      <div id="filter_header" style="border:2px solid silver; padding: 2px;"></div>
+      <% form_remote_tag :loading => "Element.show('filter_results_spinner')", :complete => "Element.hide('filter_results_spinner')", :url => {:controller => :ontology, :action => :_populate_brief_form} do -%>
+        <%= submit_tag "Expand results" -%>
+        <div id="filter_results"> </div> 
+      <% end -%>
+    </td>
+  </tr>
+
+</table>
+
+<hr />
+<div id="extended_results"> </div>

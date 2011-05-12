@@ -1,0 +1,53 @@
+
+<% if !@content_template.nil? %>
+
+<div style="float: right; padding: .2em;">
+<% form_tag({:action => :edit_page, :id => @otu.id, :content_template_id => nil}, :style => 'display:inline;') do -%>
+    Switch to tempate 
+    <%= select_tag(:content_template_id, options_for_select(@templates.collect{|o| [o.name, o.id]}.insert(0,'')), :none => true)  -%>
+    <%= submit_tag('go') -%> 
+ <% end -%>
+|
+<%= link_to('return to OTU home', {:action => :show, :id => @otu.id} ) -%>
+
+</div>
+<br style="clear: both;" />
+
+
+<div style="border-bottom: 1px dotted silver; margin-bottom: .5em; padding: .5em;" >
+  Editing <strong><%= @otu.display_name(:type => :multi_name) %></strong>  for template <strong> <%= @content_template.name -%></strong>.
+
+ </div> 
+
+<div id="form_notice"> </div>
+
+<% form_tag() do -%>
+
+  <%= hidden_field_tag "content_template_id", @content_template.id  -%>
+  <%= hidden_field_tag "otu_id", @otu.id -%>
+
+  <div style="margin-bottom:0.5em; padding:0.5em;">
+    Save changes and
+    <%= submit_to_remote 'button', 'edit', :url => {:action =>  'update_edit_page', :view => 'edit'} , :loading => "Element.show('otu_content_spinner')", :complete => "Element.hide('otu_content_spinner')" -%>  
+    or preview 
+    <%= submit_to_remote 'button', 'working', :url => {:action =>  'update_edit_page', :view => 'working'} , :loading => "Element.show('otu_content_spinner')", :complete => "Element.hide('otu_content_spinner')" -%> or
+    <%= submit_to_remote 'button', 'published', :url => {:action =>  'update_edit_page', :view => 'published'} , :loading => "Element.show('otu_content_spinner')", :complete => "Element.hide('otu_content_spinner')" -%>,  
+    or 
+    <%= submit_to_remote 'button', 'publish', :url => {:action =>  'update_edit_page', :view => 'publish'} , :loading => "Element.show('otu_content_spinner')", :complete => "Element.hide('otu_content_spinner')" -%> (make this content public).
+    <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'otu_content_spinner', :style => "display: none; vertical-align:middle;") -%>
+  </div>
+  
+  <div id="working">
+    <%= render(:partial => 'edit_page_content_form', :locals => {:otu => @otu, :editable_otu_contents => @editable_otu_contents, :content_template => @content_template, :edit => true}) if @edit -%>
+  </div>
+
+
+<% end %>
+
+<% else -%>
+
+<em> Create at least one content template and some content types first. </em> <br />
+
+<%= link_to 'Back', :action => :show, :id => @otu -%>
+
+<% end %>

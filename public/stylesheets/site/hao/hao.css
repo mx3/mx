@@ -1,0 +1,292 @@
+div {
+	border:none; 
+}
+a:link {
+	text-decoration: none;
+	COLOR: #ffffff;
+}
+a:visited {
+	text-decoration: none;
+	COLOR: #ffffff;
+}
+a:hover {
+	text-decoration: none;
+	COLOR: #ffffff;
+}
+a:active {
+	text-decoration: none;
+	COLOR: #ffffff;
+}
+#page {
+	margin-left: auto;
+	margin-right: auto;
+	width: 966px;
+	border: 1px solid black;
+}
+#header {
+	height:60px;
+	text-align:left;
+	color: #ffffff;
+	background: #000000;
+	font-family:garamond;
+	font-size: 40px;
+	font-weight: bold;
+}
+#content {
+}
+#footer {
+	text-align: center;
+	border: 0px none;
+	margin: 20px;
+}
+#HAOtitle {
+	height: 60px;
+	text-align: center;
+	padding: 3px;
+}
+body {
+	background: #eee;
+	font-family: garamond;
+	margin:0px;
+}
+#search_form {
+	text-align:center;
+	margin: 5px;
+}
+.search_header{
+	padding: 10px;
+	font-weight: bolder;
+	font-size: 24px;
+	margin-top: 10px;
+}
+#nav {
+	width:98%;
+}
+#search_form {
+	border: none;
+	border-color: #eee;
+}
+#tabs ul {
+	list-style: none;
+	padding:4px;
+	margin:2px;
+}
+#tabs{
+	background: #000000;
+	float:left;
+	width: 966px;
+}
+#login {
+	float:right;
+	color:#ffffff;
+	background: #000000;
+	padding: 2px;
+	text-align: center;
+	margin:2px;
+	margin-right:5px;
+}
+#tabs li {
+	margin-bottom: 3px;
+	border: 2px solid black;
+	background: #000000;
+	float: left;
+	color: #ffffff;
+	border-width: 2px;
+	border-color: #eee;
+	border-bottom-width: 2px;
+	font-weight: bold;
+	margin: 0 0.5em 0 0;
+	padding: 0 1em;
+}
+.button {
+	font-family: garamond;
+}
+#tabs #selected {
+	top: 0px;
+	background: #666666;
+}
+#results {
+	vertical-align: middle;
+}
+.result {
+	width: 90%;
+	height: 160px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 5px;
+	border-bottom: 2px solid black;
+	padding: 20px;
+}
+#logo {
+	height: 50px;
+	float:left;
+}
+#haologo{
+	float:left;
+	margin:2px;
+}
+#HAO_simple_search {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.def_options1 {
+	vertical-align: middle;
+	float:left;
+	padding:3px;
+	width: 300px;
+	font-size: 16px;
+	text-align: center;
+	margin-left: 100px;
+	margin-top:10px;
+	background: #ffffff;
+	color: #000000;
+	border: 2px solid black;
+}
+.def_options2 {
+	float:right;
+	padding:3px;
+	width: 300px;
+	text-align: center;
+	font-size: 16px;
+	margin-right:100px;
+	margin-top:10px;
+	background: #ffffff;
+	color: #000000;
+	border: 2px solid black;
+}	
+.functions {
+	border: none;
+	float: left;
+	height: 160px;
+	width: 150px;
+	margin: 10px;
+}
+.functions_top_button {
+	width: 100px;
+	margin: 25px;
+	margin-bottom: 5px;
+	text-align: center;
+	background: #ffffff;
+	color: #000000;
+	border: 2px solid black;
+}
+.functions_bottom_button {
+	width: 100px;
+	margin: 25px;
+	margin-top: 30px;
+	text-align:center;
+	background: #ffffff;
+	color: #000000;
+	border: 2px solid black;
+}
+.comment_number {
+	width: 100px;
+	margin: 25px;
+	text-align:center;
+}
+.definition {
+	height: 160px;
+	width: 440px; 
+	float: left;
+}
+.image {
+	float: left;
+	margin: 10px;
+	height: 180px;
+}
+.content_needs_def {
+	width: 666px;
+	height: 180px;
+	margin:10px;
+	float:left;
+}
+fieldset {
+	margin: 1em;
+	padding: 2em;
+}
+.result_options {
+	border: none;
+	text-align:center;
+	margin: 20px;
+}
+.needs_def_box {
+	height: 100px;
+	float:left;
+	border: 1px solid black;
+}
+fieldset legend {
+	font-weight: bolder;
+}
+.content_no_image fieldset {
+	width: auto;
+	float: left;
+}
+.content_no_image {
+	width: 600px;
+	height: 180px;
+	margin: 10px;
+	float: left;
+}
+#explore_header {
+	width:920px;
+	height:28px;
+	padding:2px;
+	margin:20px;
+	margin-bottom:0px;
+	/*border:1px solid black;*/
+	font-size:24px;
+	text-align:center;
+	font-weight:bolder;
+}
+.term_letter_box {
+	margin-bottom:20px;
+	margin-top:20px;
+	margin-left:20px;
+	margin-right:10px;
+	width:220px;
+	height:440px;
+	float:left;
+	border:1px solid black;
+}
+.class_box {
+	margin-bottom:20px;
+	margin-top:20px;
+	margin-left:10px;
+	float:left;
+	margin-right:10px;
+	width:330px;
+	height:440px;
+	border:1px solid black;
+}
+.ref_box {
+	margin-bottom:20px;
+	margin-top:20px;
+	margin-left:10px;
+	float:left;
+	margin-right:20px;
+	width:330px;
+	height:440px;
+	border:1px solid black;
+}
+#show_header {
+	width:920px;
+	height:28px;
+	padding:2px;
+	margin:20px;
+	margin-bottom:0px;
+	border:1px solid black;
+	font-size:24px;
+	text-align:left;
+	font-weight:bolder;
+}
+.show_mylist_button {
+	height:20px;
+	width:100px;
+	font-size:16px;
+	float:right;
+	text-align:center;
+	padding:2px;
+	margin:2px;
+	margin-right:10px;
+	border:1px solid black;
+}

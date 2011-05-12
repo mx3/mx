@@ -1,0 +1,17 @@
+<div class="view">
+
+  <div class="header"> Labels match multiple classes/concepts </div>
+  <% if @ontology_classes.size == 0 -%>
+    <p>"<strong><%= @label.display_name -%></strong>" is a candidate term for the ontology, but is not presently tied to any concept. </p>
+  <% else -%>
+
+    <p>"<strong><%= @label.display_name -%></strong>" is tied to multiple concepts in the ontology, please choose one.</p>
+    <ul> 
+      <% @ontology_classes.each do |oc| -%>
+        <%= content_tag(:li, link_to(oc.display_name, :action => :show, :controller => :ontology_class, :id => oc.id), :style => "margin: 1em;") -%>
+      <% end -%>
+    </ul>
+
+  <% end %>
+
+</div>

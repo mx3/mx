@@ -1,0 +1,25 @@
+format-version: 1.2 
+ontology: <%= @proj.ontology_namespace.downcase %>
+date: <%= "#{@time.strftime("%d")}:#{@time.strftime("%m")}:#{@time.year} #{@time.hour}:#{@time.min}" %>
+<% saved_by = session[:person] -%>
+<% if saved_by -%>
+saved-by: <%= saved_by.display_name %>
+<% end -%>
+auto-generated-by: mx, see http://purl.oclc.org/NET/mx-database
+default-namespace: <%= @proj.ontology_namespace %>
+namespace-id-rule: * <%= @proj.ontology_namespace %>:$sequence(7,0,9999999)$
+default-relationship-id-prefix: OBO_REL
+remark: <%= @proj.obo_remark %>
+
+<% for t in @terms -%>
+[Term]
+id: <%= t.xref %>
+name: <%= t.obo_label.name %>
+<%= ontology_class_definition_tag_for_OBO(t) -%>
+<%= synonyms_tag_for_OBO(t) -%>
+<%= xrefs_for_ontology_class_tag_for_OBO(t) -%>
+<%= relationship_tag_for_OBO(t) -%>
+<%= obsolete_tag_for_OBO(t) -%>
+
+<% end -%>
+<%= typedefs_tag_for_OBO(@proj) %>

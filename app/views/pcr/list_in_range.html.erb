@@ -1,0 +1,25 @@
+<div class="subform">
+  <div class="header">List PCRs in id range</div>
+  <div class="content">
+    <% form_tag({:action => :list_in_range})  do -%>
+
+    <div class="fr"> <label for="start" class="lbl4">range start</label>
+      <span class="fld"><%= text_field_tag :start -%> </span>
+    </div>
+
+    <div class="fr"> <label for="end" class="lbl4">range end</label>
+      <span class="fld"><%= text_field_tag :end -%> </span>
+    </div>
+
+    <%= submit_tag "List" %>
+    <% end -%>
+  </div>
+</div>
+
+<div id="result">
+  <% if @pcrs.size == 0 -%> 
+    <em>search for a range</em>
+  <% else -%>
+    <%= render(:partial => 'pcr_table') -%>
+  <% end %>
+</div>

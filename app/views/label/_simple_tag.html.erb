@@ -1,0 +1,9 @@
+<p>Keyword coverage for <%= keyword.display_name -%>.</p>
+<table>
+    <% labels.in_groups_of(5, false) do |grp| -%>
+    <tr> <%= grp.collect{|t|
+      content_tag(:td,
+      (t.tags.by_keyword(keyword).size > 0 ? "<span style=\"color:silver;\">#{t.name}</span>" : "#{t.name} #{tag_link_for_show(t, keyword.id)}" ) 
+      ) }.join("") -%> </tr> 
+    <% end -%>
+</table>

@@ -1,0 +1,9 @@
+<h3>New ontology class</h3>
+
+<%= form_for(:ontology_class, :url => {:action => :create}) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <div style="clear:both;">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>
+

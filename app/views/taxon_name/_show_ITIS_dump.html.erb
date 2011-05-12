@@ -1,0 +1,42 @@
+<div> <%# don't (re)move me! %>
+
+  <table>
+    <tr>
+      <td> unit_name</td>
+      <td> unit_name1</td>
+      <td> unit_name2</td>
+      <td> unit_name3</td>
+      <td> taxon_author</td>
+      <td> usage</td> 
+      <td> rank_name</td>
+      <td>[parent_name]</td> 
+      <td>reference</td>
+      <td>unacceptability_reason</td>
+       <td>[accepted_name]</td>
+    </tr>
+      <% @list.each do |i| -%> 
+      <tr>
+        <% if i.is_genus_or_species_group %>
+          <td><%= i.name_at_rank('genus') %></td>
+          <td> <%= i.name_at_rank('subgenus') %></td>
+          <td> <%= i.name_at_rank('species') %></td>
+          <td> <%= i.name_at_rank('subspecies') %></td>
+          <% else %>
+          <td><%= i.name%></td> <td></td><td></td><td></td>
+          <% end %>
+          <td> <%= i.display_author_year %></td>
+          <td> <%= i.status ? 'invalid' : 'valid' %> </td>
+          <td> <%= i.iczn_group %> </td>
+          <td> <%= i.parent.name if i.parent %> </td>
+          <td> <%= i.ref.display_name if i.ref %></td>
+          <td> <%= i.status.display_name if i.status%> </td>
+          <td> <%= i.valid_name.display_name if i.valid_name %></td> 
+        </tr>
+        <% end %>
+
+    </table>
+</div>
+
+
+
+

@@ -1,0 +1,3 @@
+<div id="f_<%= "#{fig_obj_class}_#{fig_obj_id}" -%>" style="display: inline;">
+  <span id="fl_<%= "#{fig_obj_class}_#{fig_obj_id}" -%>"><%= link_to("Fig",:remote => true, :url => { :action => 'new', :controller => 'figure', :fig_obj_id => fig_obj_id, :fig_obj_class => fig_obj_class}) -%></span>
+</div>

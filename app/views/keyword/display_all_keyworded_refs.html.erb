@@ -1,0 +1,12 @@
+
+<i> Displaying all keyworded refs </i><br/><br/>
+<% for kw in @keywords %>
+  <b><%=h kw.keyword %></b><br/>
+  <% @refs = kw.refs %>
+    <% if @refs %>
+     <%= render :partial => "ref/ref_list" %>
+    <% else %>
+    <i> no refs attached to this keyword</i><br/>
+  <% end  %>
+<% end %>
+

@@ -1,0 +1,24 @@
+Hi <%= @recipient_person.first_name %>,
+
+I wanted to tell you that <%= @updator.full_name %> has marked <%= @old_ref.display_name %> 
+<%= @new_ref ? "as a duplicate" : "for deletion" %>. However, that reference is linked to one or more 
+taxon names that <%= @updator.full_name %> does not have permission 
+to modify. You have been contacted because you created at least
+one of the taxon names in question.
+
+To view the reference and finish the process, visit: 
+<% if @new_ref -%>
+  <%= url_for :controller => 'ref', :action => 'replace', :id => @old_ref, :replacement_ref_id => @new_ref, 
+       :proj_id => @recipient_person.projs.first.id, :only_path => false, :host => HOME_SERVER %>
+  (click 'replace' if you agree that this is a duplicate)
+<% else -%>
+  <%= url_for :controller => 'ref', :action => 'show', :id => @old_ref, 
+       :proj_id => @recipient_person.projs.first.id, :only_path => false, :host => HOME_SERVER %>
+  (click 'destroy' if you agree that is what should be done)
+<% end -%>
+
+To avoid getting more emails like this, you may want to ensure that
+<%= @updator.full_name %> has permission to modify more taxon names.
+
+Cheers,
+mx

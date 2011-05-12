@@ -1,0 +1,33 @@
+			<div class="fr">
+				<label class="lbl4">Tag keyword</label>
+				<span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+					:controller => 'keyword',
+					:object => 'tag',
+					:method => 'keyword_id',
+          :tag_id => "keyword_to_find_for_simple_batch",
+          :size => 30
+          } -%><em> required if making a tag </em></span>
+				</div>
+
+			<div class="fr">
+				<label class="lbl4">Tag reference</label>
+				<span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+					:controller => 'ref',
+					:object => 'tag',
+					:method => 'ref_id',
+          :tag_id => "ref_to_find_for_tag_simple_batch",
+          :size => 60
+          } -%></span>
+				</div>
+
+			  <div class="fr">
+				<label class="lbl4">Tag notes</label>
+				  <span class="fld">	<%= text_field :tag, :notes -%></span>
+				</div>
+
+			  <div class="fr">
+				<label class="lbl4">Tag referenced object</label>
+				  <span class="fld"><%= text_field :tag, :referenced_object -%></span>
+				</div>
+
+

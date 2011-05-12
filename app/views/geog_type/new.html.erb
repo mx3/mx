@@ -1,0 +1,8 @@
+<h3>New geog type</h3>
+
+<%= form_tag :action => 'create' do -%>
+<%= render :partial => "form" %>
+  <%= submit_tag "Create" %>
+<% end -%>
+
+<%= link_to 'Back', :action => 'list' %>

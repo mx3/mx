@@ -1,0 +1,10 @@
+<div class="box4">
+  <div class="header">Character Details</div>
+  <div class="content">
+      <!-- MOVE Linker creation to controller!! -->
+    <p><span class="lbl4">Character:</span><% l = Linker.new(:incoming_text => @chr.name) %> <%= l.linked_text(:proj_id => @proj.default_ontology_id, :is_public => true) -%> </p>
+    <p><span class="lbl4">Description</span><% l1 = Linker.new(:incoming_text => @chr.doc_char_descr) %> <%= @chr.doc_char_descr? ? l1.linked_text(:proj_id => @proj.default_ontology_id, :is_public => true) : content_tag(:i, 'none provided') -%> </p>
+    <p><span class="lbl4">States</span></p>
+    <p><%= render(:partial => 'cs', :collection => @chr.chr_states) -%> </p>   
+  </div>
+</div>

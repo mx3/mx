@@ -1,0 +1,9 @@
+<p>Keyword coverage for <%= keyword.display_name -%>. <strong> You are tagging classes, not labels. </strong></p>
+<table>
+    <% ontology_classes.in_groups_of(5, false) do |grp| -%>
+    <tr> <%= grp.collect{|t|
+      content_tag(:td,
+      (t.tags.by_keyword(keyword).size > 0 ? "<span style=\"color:silver;\">#{t.display_name(:type => :select)}</span>" : "#{t.display_name(:type => :select)} #{tag_link_for_show(t, keyword.id)}" ) 
+      ) }.join("") -%> </tr> 
+    <% end -%>
+</table>

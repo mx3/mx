@@ -1,0 +1,23 @@
+<% primer_pairs_by_gene = @genes.inject({}){|hsh,g| hsh.merge!(g => g.primer_pairs)} -%>
+<% possible_pcrs_by_extract = @extracts.inject({}){|hsh,e| hsh.merge!(e => e.pcrs)} -%>
+
+
+<table>
+  <tr>
+    <th>extract</th>
+      <%= @genes.collect{|g| content_tag(:th, g.name) + content_tag(:th, '') } -%>
+  </tr>
+
+  <% @extracts.each_with_index do |e, i| -%>
+    <tr class="<%= (i % 2 == 0 ? 'stripe' : "") -%>">
+      <td><%= e.display_name(:type => :list) -%></td>
+      <!-- needs serious optimization -->
+  
+      <% @genes.each do |g| -%>
+        <td style="border-bottom:1px dashed silver;"><% pcrs = primer_pairs_by_gene[g].inject([]){|sum, pair| sum += e.pcrs.by_primer_pair(pair[0], pair[1])}.flatten -%><%= pcrs.sort{|a,b| a.id <=> b.id }.collect{|p| (p.seqs.with_nucleotides.count > 0 ? "<div style='float:left; background-color:orange;font-weight:bold; font-family:courier;'>#{confidence_link(p)}</div>" : confidence_link(p) )}.join(" ") -%></td>
+        <td style= "vertical-align: middle;border-right:1px solid black;border-bottom:1px dashed silver;"><%= gene_extract_status_link(e,g) -%></td>
+
+      <% end -%>
+    </tr> 
+  <% end -%>
+</table>

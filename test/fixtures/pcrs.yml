@@ -1,0 +1,54 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: pcrs
+#
+#  id            :integer(4)      not null, primary key
+#  extract_id    :integer(4)
+#  fwd_primer_id :integer(4)
+#  rev_primer_id :integer(4)
+#  protocol_id   :integer(4)
+#  gel_image_id  :integer(4)
+#  lane          :integer(1)
+#  done_by       :string(255)
+#  result        :string(24)
+#  notes         :text
+#  proj_id       :integer(4)      not null
+#  creator_id    :integer(4)      not null
+#  updator_id    :integer(4)      not null
+#  updated_on    :timestamp       not null
+#  created_on    :timestamp       not null
+#
+
+pcr1: 
+  id: "1"
+  extract_id: 1  
+  fwd_primer_id: 1  
+  rev_primer_id: 2  
+  protocol_id: 1  
+  gel_image_id: 1  
+  lane: 1 
+  done_by: "Smith" 
+  result: "suceeded" # VARCHAR(24), -- ENUM("succeeded", "failed", "reamplify/merge", "reamplify/redo"),  
+  notes: "This is a note."
+  proj_id: 1
+  creator_id: 1 
+  updator_id: 1 
+  updated_on:  2005-02-15 10:11:00
+  created_on: 2005-02-15 10:11:00
+pcr1: 
+  id: 2
+  extract_id: 1  
+  fwd_primer_id: 1  
+  rev_primer_id: 2  
+  protocol_id: 1  
+  gel_image_id: 1  
+  lane: 1 
+  done_by: "Smith" 
+  result: "failed" 
+  notes: "This is a note."
+  proj_id: 1
+  creator_id: 1 
+  updator_id: 1 
+  updated_on:  2005-02-15 10:11:00
+  created_on: 2005-02-15 10:11:00

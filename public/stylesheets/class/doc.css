@@ -1,0 +1,10 @@
+div.doc {
+  background-color: #fff;
+  border: 2px solid #999;
+  padding: 0em 1em 1em 1em;
+  margin-bottom: 1em;
+}
+
+div.doc ul {
+  list-style-type: square;
+}

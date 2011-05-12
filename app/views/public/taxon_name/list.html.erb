@@ -1,0 +1,23 @@
+<% unless @taxon_names.nil? or @taxon_names.empty? %>
+<p> Displaying <%= @taxon_names_pages.current.first_item %>
+   - <%= @taxon_names_pages.current.last_item %>
+   of <%= @taxon_names_pages.item_count %>   </p>
+
+   <p> <%= @head_text ? "<div class=\"lbl2\">#{@head_text}</div>" : "" %> </p>
+   
+  <% for taxon_name in @taxon_names %>
+    <%= link_to taxon_name.display_name, :action => 'show', :id => taxon_name.id %> 
+    <%=h taxon_name.author %> <%=h taxon_name.year %><br/>
+  <% end %>
+
+  <p><%= pagination_links_with_ajax @taxon_names_pages, { :element_name => 'target_id', :action =>  'list'} %></p>
+
+<% else %>
+  <div class="little-grey-text">No matching specimens</div>
+<% end %>
+
+
+
+
+  
+

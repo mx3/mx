@@ -1,0 +1,6 @@
+<div>
+  <p><label for="otu_<%= @otu.id %>_text"><%= @otu.display_name(:type => :multi_name) %></label><br />
+    <textarea class="rc_markup" cols="80" rows="6" id="otu_<%= @otu.id %>_text" name="otu[<%= @otu.id %>][text]"><%= @con.text if @con = @otu_cons.detect {|c| c.otu_id == @otu.id} %></textarea>
+  </p> 
+  <%= render_figs_for_obj(@con, 'thumb') if @con -%>
+</div>

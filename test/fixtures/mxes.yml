@@ -1,0 +1,61 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: mxes
+#
+#  id               :integer(4)      not null, primary key
+#  name             :string(255)
+#  revision_history :text
+#  notes            :text
+#  web_description  :text
+#  is_multikey      :boolean(1)
+#  is_public        :boolean(1)
+#  proj_id          :integer(4)      not null
+#  creator_id       :integer(4)      not null
+#  updator_id       :integer(4)      not null
+#  updated_on       :timestamp       not null
+#  created_on       :timestamp       not null
+#
+
+--- 
+mxes1: 
+  name: First Mx
+  created_on: 2005-03-10 15:47:06
+  updated_on: 2005-03-10 15:47:06
+  creator_id: "1"
+  id: "1"
+  web_description: ''
+  proj_id: "1"
+  revision_history: ''
+  updator_id: 1
+mxes2: 
+  name: Revision of Bumbliwumpicus
+  created_on: 2005-03-11 14:28:30
+  updated_on: 2005-03-11 14:29:44
+  creator_id: "1"
+  id: "2"
+  web_description: ''
+  proj_id: "1"
+  revision_history: ''
+  updator_id: 1
+mxes3: 
+  name: This is a test
+  created_on: 2005-03-27 12:43:03 
+  updated_on: 2005-03-27 12:43:03
+  creator_id: "3"
+  id: "3"
+  web_description: ''
+  proj_id: "1"
+  revision_history: ''
+  updator_id: 1
+mxes4: 
+  name: multikey test
+  created_on: 2005-03-27 12:43:03 
+  updated_on: 2005-03-27 12:43:03
+  creator_id: "3"
+  id: "4"
+  web_description: ''
+  proj_id: "1"
+  revision_history: ''
+  is_multikey: "1"
+  updator_id: 1

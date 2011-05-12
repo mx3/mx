@@ -1,0 +1,18 @@
+<i> An overview of the key, click a # in () to edit that couplet.  </i>
+
+<h3><%= @clave.couplet_text %></h3>
+  
+<% for o in @key.reverse! -%>
+  <div style="padding: .5em;">
+    <%= '&nbsp;&nbsp;' * o[:depth].to_i %> <%= "#{o[:cpl].parent.manual_id.to_s} (mxIDs: #{o[:cpl].id.to_s} / " + link_to('edit ' + o[:cpl].parent.id.to_s, :action => 'edit', :id => o[:cpl].parent) + "): " + o[:cpl].couplet_text -%>
+
+    <% if o[:cpl].otu_id -%>
+     <%= " ... " + link_to(o[:cpl].otu.display_name, :action => 'show', :controller => 'otu', :id => o[:cpl].otu_id) -%>
+    <% end -%>
+
+   <div>
+     <%= render_figs_for_obj(o[:cpl], 'thumb', false) -%>         
+  </div>
+    
+   </div>
+<% end -%>

@@ -1,0 +1,59 @@
+<!--modified to use tables: <div id="inner_container">--> 
+
+  <div id="otu_in" style="padding:4px; font-size: 9pt; border-bottom:1px dotted silver; margin: 5px; border-top:1px dotted silver;">
+    <h3 style="display: inline;">OTUs eliminated</h3>  (<%= @otus_elim.size %>)
+
+    <div id ="otus_eliminated" style="padding: 2px;">
+      <% if @mk.chosen_states.size == 0 -%>
+      <%= render(:partial => "o", :collection => @otus_elim, :spacer_template => '/shared/comma', :locals => {:action => 'return_otu', :link_txt => '', :color => '#555'}) -%>
+      <% else %>
+      <%= render(:partial => "o", :collection => @otus_elim, :spacer_template => '/shared/comma', :locals => {:action => 'return_otu', :link_txt => 'R', :color => '#555'} ) -%>
+      <% end -%>
+    </div>
+   
+  </div>
+
+  <div id="otu_out" style="padding: 4px; font-size: 11pt; border-bottom: 1px dotted silver; margin: 5px;">
+    <h3 style="display: inline; font-size: larger;">OTUs remaining</h3> (<%= @otus_remn.size %>)
+
+    <div id ="otus_remaining" style="padding: 3px;">
+      <%= render(:partial => "o", :collection => @otus_remn, :spacer_template => '/shared/comma', :locals => {:action => 'choose_otu', :link_txt => '', :color => 'black'}) -%>
+    </div>
+    
+  </div>
+
+  <!--
+  <div id="chr_out" style="font-size: 8pt;">
+    <h3 style="display:inline;">Characters eliminated</h3> (<%= @size_chrs_elim %>)
+    <div id ="chrs_eliminated">
+      <%= render(:partial => "c", :collection => @chrs_elim) -%>
+    </div>
+    
+    <% if @size_chrs_elim > 0 and @size_chrs_elim > @mk.display_windows['chr_elim']['size']  %>
+      <%= render(:partial => "cycle_nav", :locals => {:div_to_update => 'chrs_eliminated', :ctrl_name => '_cycle_elim_chr_txt_choices', :partial_to_render => nil}) -%>
+    <% end %>
+    <p> &nbsp; </p>
+  </div>
+  -->
+
+  <div style="width: 100%; text-align: center;"> 
+  
+  <% if @otus_remn.size == 1 -%> 
+    <div id="choices_container" class="box5" style="text-align: center;">
+      <div style="font-weight: bolder; font-size:larger; color: red;"> There is only one remaining OTU! </div>
+      <div><%= render(:partial => "o", :collection => @otus_remn, :locals => {:action => 'choose_otu', :link_txt => "", :color => 'black'}) -%></div>      
+    </div>
+  <% end  -%>
+
+  <div style="padding: 4px;">
+  
+    <h3 style="display:inline; font-size: larger;">Characters remaining</h3> (<%= @mk.chrs_remaining.size %>)
+    <div id="choices">
+      <%= render(:partial => "chr", :collection => @chrs_remn) -%>
+      <br style="clear: right;" />
+    </div>    
+  </div>
+
+  <div style="clear: right;">&nbsp;</div>
+
+</div>

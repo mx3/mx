@@ -1,0 +1,3 @@
+<table class="<%= @s.class.to_s %>" <%= 'style="background-color: #ffdddd;"' if @s.negative %>> 
+  <tr><td class = "lbl1">reference</td><td><%= link_to( @s.ref.display_name, :ref => @s.ref, :action => 'browse_by_ref',  :id => @s.ref.id) %></td></tr>
+</table>

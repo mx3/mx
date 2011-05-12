@@ -1,0 +1,31 @@
+<h3>New collecting event</h3>
+
+<div class="subform">
+  <div class="header"> Populate from lat long </div>
+<%= form_tag :action => :new_from_geocoder do -%>
+
+<label for="latitude">latitude</label> <%= text_field_tag 'lat', {}, :size => 12 %> &nbsp;
+<label for="longitude">longitude</label> <%= text_field_tag 'long', {}, :size => 12  %>
+  <%= submit_tag 'predict' -%>  <em> resets form on submit </em>
+  <% end -%>
+</div>
+
+<%= form_tag({:action => 'create'},  {:multipart => true, :name => 'img_form'}) do -%>
+
+  <%= submit_tag "Create" %>
+  <%= submit_tag "Create and next" %>
+  <%= submit_tag "Create, clone and next" %>
+  <%= submit_tag "Create and new specimen" %>
+  <br />
+
+
+  <%= render :partial => "form" %>
+
+  <%= submit_tag "Create" %>
+  <%= submit_tag "Create and next" %>
+  <%= submit_tag "Create, clone and next" %>
+  <%= submit_tag "Create and new specimen" %>
+  <br />
+
+<% end -%>
+

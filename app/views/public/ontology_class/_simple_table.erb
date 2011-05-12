@@ -1,0 +1,6 @@
+<p> There are <%= @ontology_classes.size -%> results.</p>
+<ol style="list-style-type: decimal;">
+  <% @ontology_classes.each do |oc| -%>
+    <%= content_tag(:li, oc.ontology_class1.display_name(:type => :label_first), :style => 'padding: .2em;') -%> 
+  <% end -%>
+</ol>

@@ -1,0 +1,15 @@
+<div style="padding: 2px; border-bottom: 1px dotted silver;">
+  <div style="float:left; width: 40%;">
+    <%= link_to(material.display_name, :action => :show_material, :controller => :otu, :id => material.id) -%>
+  </div>
+  
+  <div style="float:left; width: 80px;">
+      <%= material.specimens_most_recently_determined_as.size -%>
+  </div>
+
+ <div style="float:left; width: 200px;">
+   <%= material.lots.size  -%> (<%= material.lots.inject(0){|sum, l| sum += (l.key_specimens + l.value_specimens)} -%>) 
+ </div>
+
+ <br style="clear: both;" />
+</div>

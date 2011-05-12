@@ -1,0 +1,7 @@
+<h3>Edit character group</h3>
+
+<% form_tag(:action => :update, :id => @chr_group) do -%>
+  <%= render(:partial => 'form') %>
+  <input type="submit" name="submit" value="Update" />
+<% end -%>
+

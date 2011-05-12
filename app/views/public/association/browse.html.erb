@@ -1,0 +1,35 @@
+<div id="inner_wrapper">
+  <div id="inner_header" style="text-align: center;"> 
+    <h3 style="display: inline"> <%= link_to("associations browser", :action => 'browse') %> </h3>
+  </div>
+
+  <div id="inner_container" <%= 'style="padding-right: 0px;"' if @no_right_col %> >
+
+    <%# CENTER COLUMN (must be rendered here for CSS to work!) %> 
+    <div id="inner_center" class="column">  
+      <% @part = 'center' %>
+      <% for s in @show %>   
+        <%= render :partial => s %>
+      <% end %>
+    </div>
+
+    <%# LEFT COLUMN %>
+    <div id="inner_left" class="column">
+      <%= render :partial => "association/navigator" %>  
+    </div>
+
+    <%# RIGHT COLUMN %>
+    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col -%>>
+      <% @part = 'right' %>
+   
+      <% for s in @show %>
+        <%= render :partial => s %>
+      <% end %>
+    </div>
+      
+  </div> <%# end inner_container %> 
+   
+   <div id="inner_footer"> 
+    <hr width="98%" size="1" style="color: gray;" /> 
+  </div>
+</div>

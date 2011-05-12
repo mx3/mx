@@ -1,0 +1,32 @@
+<%= error_messages_for 'content_type' %>
+<!--[form:content_type]-->
+
+<div class="fr"><label for="content_type_name" class="lbl4">Name</label>
+  <span class="fld"><%= text_field 'content_type', 'name', 'title' => 'name of content type'  %></span>
+</div>
+
+<div class="fr"><label for="content_type_doc_name" class="lbl4">Document Name</label>
+  <span class="fld"><%= text_field 'content_type', 'doc_name', 'title' => 'if provided will be used in place of Name'  %><i> if provided will be used in display in place of name</i></span>
+</div>
+
+<div class="fr"><label for="content_type_subject" class="lbl4">Subject</label>
+  <span class="fld"><%= select 'content_type', 'subject', SPECIES_PROFILE_CONTROLLED_VOCABULARY['subject'], {:include_blank => true}  %><i> required for content exported to EOL</i></span>
+</div>
+
+<div class="fr"><label for="content_type_is_public" class="lbl4">Public? </label>
+  <span class="fld"><%= check_box 'content_type', 'is_public', 'title' => 'non-public content is not publically displayed'  -%> <i>category can be displayed on public pages</i></span>
+</div>
+
+<div class="fr"><label for="content_type_can_markup" class="lbl4">Can markup?</label>
+  <span class="fld"><%= check_box 'content_type', 'can_markup', 'title' => 'public content can be linked to an ontology'  -%> <i>text in category can be linked to an ontology </i></span>
+</div>
+
+<div class="fr"><label for="content_type_render_as_subheading" class="lbl4">Render as subheading?</label>
+  <span class="fld"><%= check_box 'content_type', 'render_as_subheading', 'title' => 'display header in-line with description?'  -%> <i>display header in-line with description?</i></span>
+</div>
+
+
+
+<br style="clear: both;" /
+
+<!--[eoform:content_type]-->

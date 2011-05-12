@@ -1,0 +1,6 @@
+<% @chrs.each do |c| -%>
+<%= "#{c.doc_char_code}: " if !c.doc_char_code.blank? -%> <%= c.name -%><br/>
+<%= c.chr_states.collect{|cs| "&nbsp;&nbsp;#{cs.s_and_m}"}.join("<br/>") -%><br/>
+<%= "#{c.doc_char_descr}<br/>" if !c.doc_char_descr.blank? -%>
+<br/>
+<% end -%>

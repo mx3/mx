@@ -1,0 +1,25 @@
+<div> <%# don't (re)move me! %>
+  <% if @part == 'center' %>
+    <h3 style ="display:inline;"><%= render :partial => "association/part", :collection =>  @association.association_parts -%></h3>
+    <span class="small_grey"><%= "(id: #{@association.id})" %></span>
+
+    <p class="small_grey"><b>Originally cited and (current family):</b>
+      <%= render(:partial => "association/part_by_otu_name", :collection => @association.association_parts) -%> 
+    </p>
+
+    <% if @association.notes.size > 0 %>
+      <table> <tr><td style="text-align: right;"><span class="lbl1">Notes</span></td><td><%= @association.notes %> </td></tr></table>
+    <% end %>
+
+    <h3 style="border-bottom: 1px solid silver; "> support </h3> 
+    <div style="float: right; font-size: smaller;"> Key: 
+      <span class="RefSupport">reference</span>
+      <span class="VoucherLotSupport">lot</span>
+      <span class="SpecimenSupport">specimen</span> 
+      <span class="failed">refuting</span>
+    </div>
+
+    <%= render(:partial => "/association/support_table") -%>
+
+<% end %>
+</div>

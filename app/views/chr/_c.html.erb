@@ -1,0 +1,26 @@
+<div>
+  <b><%= c.id -%>: <%= link_to "#{c.doc_char_code} #{c.name}", {:action => 'show', :id => c.id, :controller => 'chr'} -%></b>
+
+  <div style="padding: .2em 0em .4em 2em;">
+    <% for state in c.chr_states -%>
+      <%= state.state -%>: <%= state.name -%><br/>
+      <% if state.notes? -%>
+      <div style="font-size: smaller; padding: 0em 2em;"><%= state.notes -%></div>
+      <% end -%>
+        <%= render_figs_for_obj(state, 'thumb') -%>
+      <% end -%>
+  </div>
+
+  <% if c.doc_char_descr? -%>
+  <div><span class="lbl4">description:</span><div style="padding: 0em 2em;"><%= htmlize(c.doc_char_descr) -%></div>
+    <%= render_figs_for_obj(c, 'thumb') -%>
+  </div>
+  <% end -%>
+  
+  <% if c.notes? -%>
+  <div><span class="lbl4">notes:</span><div style="padding: 0em 2em; font-size: smaller;"><%= c.notes -%></div></div>
+  <% end -%>
+   
+</div>
+
+<hr/>

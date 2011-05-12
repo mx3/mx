@@ -1,0 +1,24 @@
+<% if @part == 'center' %> 
+  <div>
+    <h3> <%= @tree.display_name -%> </h3>
+    <script type="text/javascript">
+      function $import(src){
+        var scriptElem = document.createElement('script');
+        scriptElem.setAttribute('src',src);
+        scriptElem.setAttribute('type','text/javascript');
+        document.getElementsByTagName('head')[0].appendChild(scriptElem);
+      }
+
+      $import('http://www.phylowidget.org/scripts/phylowidget.js');
+    </script>
+
+    <div id="my_div"></div>
+
+    <script type="text/javascript">
+      PhyloWidget.useLite();
+      var params = { width:640, height:480, tree:'<%= @tree.tree_string %>', search:''  };
+      PhyloWidget.loadWidget('my_div',params);
+    </script>
+  </div>
+  <p style="font-size: 8pt;"> Tree generated with <%=link_to('Phylowidget', 'http://www.phylowidget.org') -%>.  Java 1.5 or higher required to view. </p>
+<% end %>

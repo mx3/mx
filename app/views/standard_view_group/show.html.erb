@@ -1,0 +1,21 @@
+<%= render_show(@standard_view_group) %>
+
+<h3> Currently included views </h3>
+<%= form_tag :action => 'add_standard_view', :id => @standard_view_group.id do -%>
+  <%= hidden_field 'standard_view_group', 'id' %>
+  <% for standard_view in @standard_views_in %>
+    <%= standard_view.display_name %> 
+    <%= link_to "x", {:action => 'remove_standard_view', :id => @standard_view_group.id, :params => {"standard_view_id" => standard_view.id}} %><br />
+  <% end %>    
+
+  <br/>
+  
+<div class="subform">
+  <div class="header"> Add a view to this group </div>    
+  <select name="standard_view_id">
+  <option></option>
+  <%= options_from_collection_for_select(@standard_views_out, 'id', "name") if @standard_views_out %>
+  </select>
+  <input type="submit" value="Add" />      
+  <% end -%>
+</div>

@@ -1,0 +1,58 @@
+<div class='view'>
+
+  <div class="header">Search again</div>
+  <div style="padding: 2em; text-align: center; width: 100%;">
+    <%= render :partial => 'public/ontology/simple_search' -%>
+  </div>
+
+  <div class="header" style="text-align: center;">Expanded result</div>
+  <% if @ontology_class.is_obsolete -%>
+    <p class="failed" style="text-align:center; padding: 5px; background-color: red;color: white;"> <strong> THIS CLASS IS OBSOLETE </strong> </p>
+  <% end -%>
+
+  <!-- ontology class base  -->
+  <div style="color:#aaa; margin:0.5em;"> mx id: <%= @ontology_class.id -%> | OBO id: <%=  @ontology_class.xref.blank? ? content_tag(:em, 'none') : @ontology_class.xref -%> | URI: <%= obo_uri(@ontology_class) ? link_to(obo_uri(@ontology_class), obo_uri(@ontology_class)) : content_tag(:em, 'none')  -%>  </div> 
+
+  <%= render :partial => 'public/ontology_class/oc', :object => @ontology_class -%>
+
+  <% if @figures.size > 1 -%>
+  <div>
+  <div class="header">Additional figures</div>
+    <%= content_tag(:em, 'none') if @figures.size == 0 -%>
+    <%= render(:partial => 'figure/figure', :collection => @figures[1..@figures.size]) -%>
+    <br style="clear: both;" />
+  </div>
+  <% end %>
+
+  <div class="header">Logical relations</div>
+
+  <div class="show_rec">
+    <div class="show_row"><span class="show_lbl">Is a:</span><span class="show_data"><%= public_relationships_banner_tag(:ontology_class => @ontology_class, :type => :is_a_parents) -%></span> </div>
+    <div class="show_row"><span class="show_lbl">Part of:</span><span class="show_data"><%= public_relationships_banner_tag(:ontology_class => @ontology_class, :type => :part_of_parents) -%></span> </div>
+    <div class="show_row"><span class="show_lbl">A <span style="color:#DC6605;"><%= @ontology_class.preferred_label.name -%></span> is attached to:</span> <span class="show_data"><%= public_relationships_banner_tag(:ontology_class =>  @ontology_class, :type => :attached_to_parents) -%></span></div>
+
+
+    <% if false -%>
+      <div class="show_row"><span class="show_lbl">These are a <span style="color:#DC6605;"> <%= @ontology_class.preferred_label.name -%>:</span></span><span class="show_data">  <%= public_relationships_banner_tag(:ontology_class =>  @ontology_class, :type => :is_a_descendants) -%> </span> </div>
+      <div class="show_row"><span class="show_lbl">A <span style="color:#DC6605;"><%= @ontology_class.preferred_label.name -%> has these child parts:</span></span> <span class="show_data"><%= public_relationships_banner_tag(:ontology_class => @ontology_class, :type => :part_of_children) -%></span></div>
+      <div class="show_row"><span class="show_lbl">The following are attached to the <span style="color:#DC6605;"><%= @ontology_class.preferred_label.name -%></span>:</span><span class="show_data"> <%= public_relationships_banner_tag(:ontology_class =>  @ontology_class, :type => :attached_to_children) -%></span> </div>
+      <div class="show_row"><span class="show_lbl">All part_of ancestors: </span>  <span class="show_data"><%= public_relationships_banner_tag(:ontology_class => @ontology_class, :type => :part_of_ancestors) -%></span></div>
+      <div class="show_row"><span class="show_lbl">All is_a ancestors: </span>  <span class="show_data"><%= public_relationships_banner_tag(:ontology_class => @ontology_class, :type => :is_a_ancestors) -%></span></div>
+    <% end %>
+  </div>
+
+
+  <div class="header">Label usage (sensu)</div>
+    <% @ontology_class.sensus.ordered_by_position.each do |s| -%>
+    <%= content_tag(:div, public_sensu_tag(s), :style => 'padding:0.2em; margin-left:0.2em;') -%>
+    <% end -%>
+
+  <div class="header">Comments and tags</div>
+  <% @ontology_class.tags.each do |t| -%>
+  <div style="width:98%"><%= render_meta_tree_for_public(t) -%></div>
+  <% end -%>
+
+  <br style="clear:both;" />
+</div>
+
+<%= render_svged_figures -%>

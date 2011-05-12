@@ -1,0 +1,15 @@
+<div> <%# don't (re)move me! %>
+  <% if @part == 'center' %>
+
+    <h3> Relationships </h3>
+    <p> The following relationship types are defined: </p>
+
+    <table>
+      <tr><th>interaction</th><th>complement</th><th>notes</th><th>count</th></tr>
+      <% for object_relationship in @object_relationships %>
+        <tr><td><%= link_to(object_relationship.interaction, :action => 'browse_by_object_relationship', :object_relationship_id => object_relationship.id) %></td><td> <%= object_relationship.complement %></td><td> <%= object_relationship.notes %></td><td> <%= object_relationship.count %></td></tr>
+      <% end %>
+    </table>
+
+  <% end %>
+</div>

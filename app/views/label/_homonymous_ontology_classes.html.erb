@@ -1,0 +1,8 @@
+<div class="box4">
+  <div class="header"> Homonymous classes for this label</div>
+  <div class="content">
+	<ol>
+      <%= label.ontology_classes.excluding_id(ontology_class.id).collect{|s| content_tag :li, s.definition} -%>
+  	</ol>
+</div>
+</div>

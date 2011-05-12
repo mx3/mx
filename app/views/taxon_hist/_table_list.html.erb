@@ -1,0 +1,18 @@
+<table style="width: 100%;" class="list_table">
+  <%= t_col_heads( [{'name' => "historical", 'style' => 'width: 20%;'}, {'name' => "current use", 'style' => 'width: 20%;'}, "status", "reference", "pages", "notes", "id", "mod by", "mod on"] ) %>
+  <% for th in @taxon_hists %>
+  <%=  t_row({ 'obj' => th, 'tr_css' => ( th.status ? 'failed' : ""),
+    'cell_data' => [
+    th.display_name,
+    th.taxon_name.display_name,
+    th.status ? th.status.display_name : '',
+    th.ref_id ? link_to(th.ref.authors_year, :action => 'show', :id => th.ref.id, :controller => 'ref') : "",
+    th.ref_id ? th.ref_page : "",
+    th.notes,
+    th.id,
+    th.m_by,
+    th.m_on] } ) %>
+  <% end %>
+</table>
+
+

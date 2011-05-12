@@ -1,0 +1,17 @@
+<% url = url_for(:controller => 'part', :action => 'auto_complete_for_part', :tag_id => tag_id) -%>
+
+<input autocomplete="off" title="find and select a part from the database" class="ajaxPicker" id="<%= tag_id %>" name="<%= tag_id %>" size="<%= size ||= 40 %>" type="text" value="<%= display %>" />
+<div class="auto_complete" id="<%= tag_id %>_auto_complete"></div>
+
+<script type="text/javascript">
+function loadResult<%= method %>(element,selectedElement)
+{
+  $('<%= object %>_<%= method %>').value = selectedElement.id.split('::')[1];
+}
+    
+new Ajax.Autocompleter('<%= tag_id %>', '<%= tag_id %>_auto_complete', 
+'<%= url %>',
+ { afterUpdateElement: loadResult<%= method %> })
+</script>
+
+<%= hidden_field object, method -%>

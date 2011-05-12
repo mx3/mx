@@ -1,0 +1,19 @@
+<% content_for :center do -%>
+<div>
+  <%= form_tag(:action => 'refresh') do -%>
+  <div>
+    <h4 style="display: inline;"> show descriptions grid for template </h4>
+    <%= select_tag("content_template_id", options_for_select(@templates.collect{|o| [o.name, o.id]}.insert(0, '')), :none => true)  -%><%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'content_template_search_spinner', :style => "display: none; vertical-align:middle;"  ) %>
+  </div>
+
+  <div id="contents" >
+    <%= render(:partial => "text/descriptions", :locals => {:otus => [], :contents => []}) %>
+  </div>
+
+  <%= observe_field("content_template_id", :with => "Form.Element.serialize('content_template_id')", :update => "contents", :on => "updated", :url => {:action => :show_descriptions, :otu_group_id => @otu_group.id} , :loading => "Element.show('content_template_search_spinner')", :complete => "Element.hide('content_template_search_spinner')"  ) -%>
+
+  <% end -%>
+
+</div>
+<% end -%>
+

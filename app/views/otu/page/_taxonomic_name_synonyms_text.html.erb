@@ -1,0 +1,10 @@
+<!-- remember we only have @otu in otu/page partials -->
+<% if !@otu.taxon_name.blank? -%>
+  <% @synonyms = @otu.taxon_name.synonyms  -%>
+  <% if @synonyms.size > 0 %>
+  <div class="header">Synonyms</div>
+    <div style="padding: 5px;">
+    <%= @synonyms.collect{|s| link_to(s.display_name, :action => :show_taxon, :taxon_name_id => s.id)}.join(", ") -%>
+    </div>
+  <% end -%> 
+<% end -%>

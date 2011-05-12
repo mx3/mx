@@ -1,0 +1,43 @@
+<div class="box4"> 
+  <h3><%= @taxon_name.display_name -%>
+    <% if @taxon_name.ref_id? -%>
+      <%= link_to @taxon_name.display_author_year, :controller => 'ref', :action => 'show', :id => @taxon_name.ref_id %>
+    <% else -%>
+      <%= @taxon_name.display_author_year -%>
+    <% end -%>
+  </h3>
+
+  <table style="margin: 0em;">
+    <%= "<tr><td class=\"lbl1\">status</td><td>#{@taxon_name.status.display_name}</td></tr>" if @taxon_name.taxon_name_status_id %>
+    <% if  @taxon_name.valid_name_id? %>
+      <tr><td class="lbl1">valid name:</td><td><%= link_to("#{@taxon_name.valid_name.display_name}", :action => "show", :id => @taxon_name.valid_name_id) %></td></tr>
+    <% end %>
+    <%= "<tr><td>type lost</td><td></td></tr>" if @taxon_name.type_lost == 1 %>
+    <%= "<tr><td class=\"lbl1\">notes:</td><td>#{h(@taxon_name.notes)}</td></tr>" if @taxon_name.notes? %>
+    <%= "<tr><td class=\"lbl1\">type taxon:</td><td>#{h(@taxon_name.type_taxon.display_name)}</td></tr>" if @taxon_name.type_taxon_id and @taxon_name.iczn_group != 'species' %>
+    <%= "<tr><td class=\"lbl1\">type locality:</td><td>#{h(@taxon_name.display_type_locale)}</td></tr>" if @taxon_name.display_type_locale.size != 0 %>
+    <%= "<tr><td class=\"lbl1\">type sex:</td><td>#{h(@taxon_name.type_sex)}</td></tr>" if @taxon_name.type_sex? %>
+    <%= "<tr><td class=\"lbl1\">type repository:</td><td>#{h(@taxon_name.type_repository.coden)}, #{h(@taxon_name.type_repository.name)}</td></tr>" if @taxon_name.type_repository_id? %>
+    <%= "<tr><td class=\"lbl1\">notes on type:</td><td>#{h(@taxon_name.type_notes)}</td></tr>" if @taxon_name.type_notes? %>
+  </table>
+
+  <% if @taxon_hists.size > 0 %>
+    <hr style="width:80%" /><h3>Taxonomic History</h3>
+    <table style="width: 100%;" cellspacing="0">
+      <tr class="lbl1" style="text-align: center;"><td>name</td><td>reference</td><td>pages</td><td>notes</td><td>status</td>
+      </tr>
+      <% for hi in @taxon_hists %>
+        <tr <%= 'class = "failed"' if hi.status -%>>
+          <td><%= hi.display_name %></td>
+          <td><%= link_to(hi.ref.authors_year, :action => 'show', :controller => 'ref', :id => hi.ref_id) if hi.ref_id? %></td>
+          <td><%= hi.ref_page %></td><td><%= hi.notes %></td>
+          <td><%= hi.status.display_name if hi.taxon_name_status_id %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+</div>
+
+<p><%= link_to 'New search', :action => 'search' -%></p>
+

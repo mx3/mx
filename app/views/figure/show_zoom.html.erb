@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>MX - Figure Zoom </title>
+    <%= javascript_src_tag "svg_web/svg.js", "data-path" => "/javascripts/svg_web" -%><!-- this must come first -->
+    <%= javascript_include_tag 'mx_svgweb' -%>
+    <%= javascript_include_tag :defaults, :include_google_js => true, :versions => {:scriptaculous => "1.8.1", :prototype => "1.6.1"} -%>
+  </head>
+  <body>
+
+    <div style="margin: 2em;"> 
+      <%= content_tag(:div, link_to("zoom again", :size => :big, :action => :show_zoom, :id => @figure))  if @size == :medium -%>
+      <div id="figure_<%= "#{@figure.id}" -%>_img" style="width:<%= @figure.image.width_for_size(@size) -%>px; border: 2px solid silver;">
+        <%= update_page_tag do |page|
+          page.call 'createSvgObjRoot',  'http', *@figure.svgObjRoot_params(:size => @size, :link => nil)
+        end %>
+      </div>
+      <%= caption_tag(@figure, @size) -%> 
+      <%= img_legal_tag(@figure) -%>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,6 @@
+<p><i> This lists all the images that were loaded into this project, those added from other projects are not yet included. </i></p>
+<ul>
+<% @images.each do  |i| %>
+<li><%= i.id %> <%= link_to("thumb", i.path_for(:size => :thumb)) %>, <%= link_to("medium", i.path_for) %>, <%= link_to("big", i.path_for(:size => :big)) -%>, <%= link_to("original", i.path_for(:size => :original)) -%></li>
+<% end %>
+</ul>

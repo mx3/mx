@@ -1,0 +1,20 @@
+<div>
+  <% if @part == 'center' -%>
+    <div class="box4">
+      <div class="header"> Grand summary </div>
+      <div class="content"> 
+        <p><em>This summarizes all specimen records, lot records, and distribution records.</em></p>
+        <p><strong> Total specimens: </strong> <%= @me.total_specimens %></p>
+        <div><%= @me.display_quick -%></div>
+      </div>
+    </div>
+
+    <div class="box4">
+      <div class="header"> Publication summary</div>
+      <div class="content"> 
+        <p><em>This summarizes all specimen records in a format for publication.</em></p>
+        <div><%= @me.full_me_for_specimens -%></div>
+      </div>
+    </div>
+  <% end %>
+</div>

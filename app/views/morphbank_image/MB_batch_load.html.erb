@@ -1,0 +1,11 @@
+<h3>Batch load MB images (BETA!!)</h3>
+<p> This function adds a number of MB images from a text file.  The first column is the ID of the MB image, the second is OTU <i>name</i> which will be matched against.  You'll be asked to verify your results before they are added. <span style="color: red;">Your file must be unix or dos line endings, mac line endings won't work.</span></p>
+<div class="box5">
+  <%= form_tag({:action => 'MB_batch_verify'}, {:multipart => true, :name => 'ce_batch_upload'}) do %>
+    <div class="fr">
+      <label for="temp_file" class="lbl4">text file containing list of images (id TAB otu name)</label>
+      <span class="fld">	<%= file_field 'temp_file', 'file', :size => 50  %>	</span>
+    </div>
+    <%= submit_tag "Verify" -%>
+  <% end -%>
+</div> 

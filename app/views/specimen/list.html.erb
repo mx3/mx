@@ -1,0 +1,15 @@
+<div class='subform'>
+  <%= form_tag :action => 'search_by_identifier' do -%>
+  <label> Find by identifier(s): </label> <%= text_field("search", "string", "size" => 50) -%>
+  <%= submit_tag "show" -%> <i>enter 1 or more identifiers or partial identifiers seperated by spaces </i>
+  <% end -%>
+</div>
+
+<h3>Listing specimens</h3>
+<p><em> Ordered by Identifier, then mx ID.</em></p>
+
+<% @inc_actions = true %>
+
+<div id='search_results'>
+  <%= render(:partial => 'ajax_list') -%>
+</div>

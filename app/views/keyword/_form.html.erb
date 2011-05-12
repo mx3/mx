@@ -1,0 +1,41 @@
+<% content_for :head do -%>
+  <%= render(:partial => '/shared/colorPicker_header')  -%>
+<% end %>
+
+<%= error_messages_for 'keyword' %>
+
+<!--[form:keyword]-->
+
+<div class="fr"> <label for="keyword_keyword" class="lbl4">keyword</label>
+  <span class="fld"><%= text_field 'keyword', 'keyword' -%></span>
+</div>
+
+<div class="fr"> <label for="keyword_short" class="lbl4">Short</label>
+  <span class="fld"><%= text_field 'keyword', 'shortform', :size => 6  -%><i> short form of this keyword</i></span>
+</div>
+
+<div class="fr"> <label for="keyword_explanation" class="lbl4">explanation</label>
+  <span class="fld"><%= text_area 'keyword', 'explanation', :cols => 60, :rows => 5  %><i> what's this for?</i></span>
+</div>
+
+<div class="fr"> <label for="keyword_is_public" class="lbl4">public?</label>
+  <span class="fld"><%= check_box 'keyword', 'is_public' %></span>
+</div>
+
+<div class="fr"> <label for="keyword_is_is_xref" class="lbl4">xref?</label>
+  <span class="fld"><%= check_box 'keyword', 'is_xref' %><i>tags using this keyword should be validated as xrefs</i></span>
+</div>
+
+
+
+<div class="fr"> <label for="keyword_html_color" class="lbl4">html color</label>
+  <span class="fld"><%= text_field 'keyword', 'html_color', :size => 6, :default => 'dddddd' -%> <i> click to pick</i></span>
+</div>
+
+<script type="text/javascript">
+  new Control.ColorPicker("keyword_html_color");
+</script>
+
+
+<!--[eoform:keyword]-->
+

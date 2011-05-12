@@ -1,0 +1,11 @@
+<% for column in News.content_columns -%>
+<p>
+  <b><%= column.human_name -%>:</b> <%=h @news.send(column.name) -%>
+</p>
+<% end %>
+<%= link_to 'Edit', :action => 'edit', :id => @news -%> |
+<% if @proj -%>
+  <%= link_to 'Back', :action => 'list' -%>
+<% else -%>
+  <%= link_to 'Back', :action => 'list_admin' -%>
+<% end -%>

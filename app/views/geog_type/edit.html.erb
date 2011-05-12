@@ -1,0 +1,9 @@
+<h3>Editing geog type</h3>
+
+<%= form_tag :action => 'update', :id => @geog_type do -%>
+<%= render :partial => "form" %>
+  <%= submit_tag "Edit" %>
+<% end -%>
+
+<%= link_to 'Show', :action => 'show', :id => @geog_type %> |
+<%= link_to 'Back', :action => 'list' %>

@@ -1,0 +1,27 @@
+<% unless @taxon_names.nil? or @taxon_names.empty? %>
+<p> Displaying <%= @taxon_names_pages.current.first_item %>
+   - <%= @taxon_names_pages.current.last_item %>
+   of <%= @taxon_names_pages.item_count %>   </p>
+
+   <p> <%= @head_text ? "<div class=\"lbl2\">#{@head_text}</div>" : "" %> </p><br />
+   
+  <% for taxon_name in @taxon_names %>
+    <%= link_to taxon_name.display_name, :action => 'show', :id => taxon_name.id %> 
+    <%=h taxon_name.author %> <%=h taxon_name.year %><br/>
+  <% end %>
+
+
+  <% unless @taxon_names_pages.first == @taxon_names_pages.last %>
+  <p><strong>View page <%= pagination_links(@taxon_names_pages, :window_size => 3, :action => 'list_by_repository', :params => {:repository_id => @r} ) %></strong></p>
+  <% end %>
+
+
+<% else %>
+  <div class="little-grey-text">No matching specimens</div>
+<% end %>
+
+
+
+
+  
+

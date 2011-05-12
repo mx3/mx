@@ -1,0 +1,19 @@
+<% content_for :head do -%>
+<%= render(:partial => '/shared/gmaps_header') -%>
+<% end %>
+
+
+<div id="map" style="width: 100%; height: <%= height -%>px;"></div>
+
+<script type="text/javascript">
+  var centerLatitude = <%= centerLatitude %>;
+  var centerLongitude = <%= centerLongitude %> ;
+  var startZoom = <%= zoom %>;
+ 
+  var markers = [
+  <%= markers.collect{|m| "{'latitude': #{m[:latitude]}, 'longitude': #{m[:longitude]}, 'name': '#{m[:name]}'}"}.join(",") -%>
+  ];
+
+  window.onunload = GUnload;
+
+</script>

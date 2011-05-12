@@ -1,0 +1,22 @@
+--- 
+people_projs1: 
+  proj_id: "1"
+  person_id: "1"
+people_projs2: 
+  proj_id: "2"
+  person_id: "1"
+people_projs3: 
+  proj_id: "8"
+  person_id: "1"
+people_projs4: 
+  proj_id: "9"
+  person_id: "1"
+people_projs5: 
+  proj_id: "1"
+  person_id: "2" 
+people_projs7:
+  proj_id: "1"
+  person_id: "4"   
+people_projs8:  
+  proj_id: "1"
+  person_id: "5"     

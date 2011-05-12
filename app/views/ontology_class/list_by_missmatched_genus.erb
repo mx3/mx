@@ -1,0 +1,13 @@
+<p> This report assumes that Class definitions are in genus-differentia format and start with the word "The".  It checks to see that the genus matches the label of one or more of the logical is_a parents, and reports those that do not match. <em> Only those classes with a xref are checked. </em></p>
+
+Total: <%= @ontology_classes.keys.size -%> <br />
+
+<div> <strong> Is_a preferred label for class : Existing class definition </strong></div>
+
+<ul>
+<% @ontology_classes.keys.sort{|a,b| @ontology_classes[a].preferred_label.name <=> @ontology_classes[b].preferred_label.name}.each do |k|  -%>
+
+<li style="padding:0.2em;"> <%= @ontology_classes[k].preferred_label.name -%> : <%= k.definition -%> <%= link_to(k.id, :action => :show, :id => k.id) -%> </li>
+
+<% end %>
+</ul>

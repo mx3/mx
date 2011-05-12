@@ -1,0 +1,11 @@
+<h3>New collecting event <i>fast</i></h3>
+<p> (e.g., copy and paste from a Word or text file)</p>
+
+<%= form_tag :action => 'create', :target => 'fast' do -%>
+
+<!-- if you change the button names check the controller code -->
+<%= submit_tag "Create and next" %> <%= submit_tag "Create and new specimen" %>  <br />
+    <%= render :partial => "fast_form" %>
+  
+<%= submit_tag "Create and next" %> <%= submit_tag "Create and new specimen" %>  <br />
+<% end -%>

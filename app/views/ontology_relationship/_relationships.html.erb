@@ -1,0 +1,21 @@
+<% title = intersections ? "Necessary and Sufficient Relationships" : "Existing Class Relationships" %>
+<% id_prefix = intersections ? "intersection_relationships_for_ontology_class_" : "ontology_relationships_for_ontology_class_" %>
+<div class="box4">
+  <div class="header"> <%= title -%> <span style="font-size:smaller;"><%= "(#{relationships.size})" -%></span></div>
+  <div class="content">
+    <p><i>new relationships added to bottom of list</i>  &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  <%= link_to('jump to next w/o relationships', :action => :show_next_without, :filter => :without_ontology_relationships, :id => ontology_class.id, :controller => :ontology_class) -%></p>
+    <div id="<%= "#{id_prefix}#{ontology_class.id}" -%>">
+      <div style="padding: 2px; border-bottom: 1px dotted silver; width: 100%; font-weight:bolder;">
+        <div style="float:left; width: 35%;"> class </div> 
+        <div style="float:left; width: 13%;"> relationship </div>
+        <div style="float:left; width: 35%;"> class </div>
+   
+        <div style="float:left; width: 10%;"> modified </div>
+        <div style="float:left; width: 2%;"> </div> 
+       <br style="clear: both;">
+      </div>
+     <%= render(:partial => '/ontology_relationship/r', :collection => relationships, :locals => {:matching_id => ontology_class.id}) -%>
+    </div>
+  </div>
+</div>
+

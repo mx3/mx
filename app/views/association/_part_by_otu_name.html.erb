@@ -1,0 +1,4 @@
+<% if part_by_otu_name.object_relationship %>
+ / 
+<% end %>
+<%= "#{part_by_otu_name.otu.name}" + (part_by_otu_name.otu.taxon_name ? "&nbsp;(#{part_by_otu_name.otu.taxon_name.name_at_rank('family')})" : "&nbsp;(not given)") %>

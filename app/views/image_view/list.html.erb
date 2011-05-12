@@ -1,0 +1,14 @@
+<h3>Listing image views</h3>
+
+<i> These are shared across all projects. </i>
+
+<table>
+  <%= t_col_heads( ["id", "name",  "mod by", "mod on"] ) %>
+  <% @image_views.each do |i| -%>
+  <%=  t_row({ 'obj' => i, 
+    'cell_data' => [i.id,
+    i.name,
+    i.m_by,
+    i.m_on ] } ) -%>
+    <% end -%>
+</table>

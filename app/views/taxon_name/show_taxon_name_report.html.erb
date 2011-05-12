@@ -1,0 +1,8 @@
+<%= link_to('download report', :action => :download_taxon_name_report, :id => @taxon_name.id) -%> | <%= link_to('back', :action => :show, :id => @taxon_name) -%>
+
+<table style="border-collapse: collapse;"  border="1">
+  <tr><%= report_headers.collect{|h| content_tag(:th, h)} -%></tr><!-- see taxon_name_helper -->
+  <% @list.each do |i| -%>
+    <tr><%= report_data(i).collect{|d| content_tag(:td, d)} -%></tr><!-- see taxon_name_helper -->
+  <% end -%>
+</table>

@@ -1,0 +1,23 @@
+<% if not @tree_pages.blank? %>
+  <%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @tree_pages}) -%>
+  <%= render(:partial => 'shared/page_nav', :locals => {:pages => @tree_pages}) -%>
+<% end %>
+<table style="width: 100%;">
+  <%= t_col_heads( ["id", "name", "# nodes",  "depth", "newick string", "source", "notes", "id", "mod by", "mod on"] ) -%>
+  <% @trees.each_with_index do |t, i| -%>
+  <%= t_row({ 'obj' => t, 'tr_css' => i,
+  'cell_data' => [
+    t.id,
+    t.display_name,
+    t.tree_nodes.size,
+    t.max_depth,
+    {truncate(t.tree_string, 100, "...") => 'small_grey'},
+    t.data_source ? t.data_source.display_name : "",
+    t.notes,
+    t.id.to_s,
+    t.m_by,
+    t.m_on] } ) -%>
+  <% end -%>
+</table>
+<br />
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @tree_pages}) if not @tree_pages.blank? -%>

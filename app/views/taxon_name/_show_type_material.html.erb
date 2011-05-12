@@ -1,0 +1,49 @@
+<% content_for :center do -%>
+<%= error_messages_for :type_specimen -%>
+
+<h4> Type specimens for <%= @taxon_name.display_name(:type => :name_with_author_year)  %></h4>
+<ul style = "list-style-type: square;" >
+  <%= render(:partial => "specimen/ts", :collection => @specimens) %>
+</ul>
+<hr />
+
+<div class="subform">
+  <div class="header">Add new type specimen </div>
+  <%= form_tag :action => 'add_type', :controller => 'taxon_name' do -%>
+
+  <%= hidden_field("type_specimen", "taxon_name_id", {:value => @taxon_name.id}) -%>
+
+  <div class="fr"> <label for="type_specimen_specimen_id" class="lbl4">Specimen</label>
+    <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+  :controller => 'specimen',
+  :object => 'type_specimen',
+  :method => 'specimen_id',
+  :tag_id => "type_specimen_specimen_id_to_find",
+  :display => '',
+  :size => 80} -%></span>
+  </div>
+
+  <div class="fr"> <label for="type_specimen_ref_id" class="lbl4">Reference</label>
+    <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+  :controller => 'ref',
+  :object => 'type_specimen',
+  :method => 'ref_id',
+  :tag_id => "type_specimen_ref_id_to_find",
+  :display => '',
+  :size => 80} -%><em>optional</em></span>
+  </div>
+
+  <div class="fr"> <label for="type_specimen_type_type" class="lbl4">Type type</label>
+    <span class="fld"> <%= select("type_specimen", "type_type", TYPE_TYPES, { :include_blank => true }) -%></span>
+  </div>
+
+  <div class="fr"> <label for="type_specimen_notes" class="lbl4">Notes</label>
+    <span class="fld">  <%= text_area("type_specimen", "notes", :cols => 40, :rows => 2) -%></span>
+  </div>
+
+  <%= submit_tag "Add" -%>
+  <% end -%>
+  <br style="clear:both;" />
+</div>
+<% end -%>
+

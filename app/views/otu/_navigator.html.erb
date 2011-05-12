@@ -1,0 +1,29 @@
+<div class='navigator'>
+  <%= navigator2(:obj => @otu,  :do => session['otu_view'], :ord => "id") -%>
+  <div class="item"> <%= session['otu_view'] == 'show_material' ? '<span class="navigator_current">material</span>' : link_to('material', :action => 'show_material', :id => @otu) -%> </div> 
+  <div class="item"> <%= session['otu_view'] == 'show_material_examined' ? '<span class="navigator_current">material examined</span>' : link_to('material examined', :action => 'show_material_examined', :id => @otu) -%> </div>   
+  <div class="item"> <%= session['otu_view'] == 'show_map' ? '<span class="navigator_current">map</span>' : link_to('map', :action => 'show_map', :id => @otu) -%> </div>   
+  <div class="item"> <%= session['otu_view'] == 'show_distribution' ? '<span class="navigator_current">distribution</span>' : link_to('distribution', :action => 'show_distribution', :id => @otu) -%> </div>   
+
+  <div class="item"> <%= session['otu_view'] == 'show_molecular' ? '<span class="navigator_current">molecular</span>' : link_to('molecular', :action => 'show_molecular', :id => @otu) -%> </div> 
+  <div class="item"> <%= session['otu_view'] == 'show_associations' ? '<span class="navigator_current">associations</span>' : link_to('associations', :action => 'show_associations', :id => @otu) -%> </div> 
+  <div class="item"> <%= session['otu_view'] == 'show_images' ? '<span class="navigator_current">images</span>' : link_to('images', :action => 'show_images', :id => @otu) -%> </div> 
+
+  <div class="item"> <%= session['otu_view'] == 'show_matrices' ? '<span class="navigator_current">matrices</span>' : link_to('matrices', :action => 'show_matrices', :id => @otu) -%> </div>   
+
+  <div class="item"> <%= session['otu_view'] == 'show_codings' ? '<span class="navigator_current">codings</span>' : link_to('codings', :action => 'show_codings', :id => @otu) -%> </div> 
+  <div class="item"> <%= session['otu_view'] == 'show_content' ? '<span class="navigator_current">content</span>' : link_to('content', :action => 'edit_page', :id => @otu) -%> </div>   
+  <div class="item"> <%= session['otu_view'] == 'show_groups' ? '<span class="navigator_current">groups</span>' : link_to('groups', :action => 'show_groups', :id => @otu) -%> </div>   
+
+  <div class="item"> <%= session['otu_view'] == 'show_tags' ? '<span class="navigator_current">tags</span>' : link_to('tags', :action => 'show_tags', :id => @otu) -%> </div>
+  <div class="item"> <%= session['otu_view'] == 'show_summary' ? '<span class="navigator_current">summary</span>' : link_to('summary', :action => 'show_summary', :id => @otu) -%> </div>
+
+  <br/>
+  <div class="box4">
+    <div class="header">Edit content for</div>
+    <div class="content">
+      <%= @proj.content_templates.collect{|t| link_to(t.name, :action => :edit_page, :id => @otu.id, :content_template_id => t)}.join(content_tag(:hr, nil, :style => 'width:33%; color:silver;')) -%>
+    </div>
+  </div>
+
+</div>

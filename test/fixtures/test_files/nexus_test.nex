@@ -1,0 +1,234 @@
+#NEXUS
+[written Sun Apr 20 17:45:47 EDT 2008 by Mesquite  version 2.0 (build i69) at procto/192.168.0.100]
+BEGIN AUTHORS;
+AUTHOR  NAME = Jonathan_Coddington CODE = JC;
+END;
+
+
+BEGIN TAXA;
+	TITLE 'Scharff&Coddington_1997_Araneidae';
+	DIMENSIONS NTAX=10;
+	TAXLABELS
+		Dictyna Uloborus Deinopis Nephila&Herennia 'Nephilengys_cruentata' Meta Leucauge_venusta Pachygnatha 'Theridiosoma_01' Tetragnatha 
+	;
+	IDS JC1191fcddc2b128 JC1191fcddc2b129 JC1191fcddc2b130 JC1191fcddc2b131 JC1191fcddc2b132 JC1191fcddc2b133 JC1191fcddc2b134 JC1191fcddc2b135 JC1191fcddc2b137 JC1191fcddc2b136 ;
+	BLOCKID JC1191fcddc0c4;
+
+END;
+
+
+BEGIN CHARACTERS;
+	TITLE  'Scharff&Coddington_1997_Araneidae';
+	DIMENSIONS  NCHAR=10;
+	FORMAT DATATYPE = STANDARD GAP = - MISSING = ? SYMBOLS = "  0 1 2 3 4 5 6 7 8 9 A";
+	CHARSTATELABELS 
+		1 Tibia_II /  norm modified, 2 TII_macrosetae /  '= TI' stronger, 3 Femoral_tuber /  abs pres 'm-setae', 5 Cymbium /  dorsal mesal lateral, 6 Paracymbium /  abs pres, 7 Globular_tegulum /  abs pres, 8  /  entire w_lobe, 9 Conductor_wraps_embolus, 10 Median_apophysis /  pres abs ; 
+	MATRIX
+	Dictyna                0?00201001
+	Uloborus               0?11000000
+	Deinopis               0?01002???
+	Nephila&Herennia       0?21010011
+	'Nephilengys_cruentata'0?(0,1)1010(0,1,2)11
+	Meta                   0?01A10011
+	Leucauge_venusta       ???--?-??-
+	Pachygnatha            0?210(0,1)0011
+	'Theridiosoma_01'      ??????????
+	Tetragnatha            0?01011011
+
+;
+	IDS JC1191fcddc3b425 JC1191fcddc3b426 JC1191fcddc3b427 JC1191fcddc3b428 JC1191fcddc3b429 JC1191fcddc3b430 JC1191fcddc3b431 JC1191fcddc3b432 JC1191fcddc3b433 JC1191fcddc3b434 ;
+	BLOCKID JC1191fcddc0c0;
+
+
+END;
+BEGIN TREES;
+	Title Imported_trees;
+	LINK Taxa = 'Scharff&Coddington_1997_Araneidae';
+	TRANSLATE
+		1 Dictyna,
+		2 Uloborus,
+		3 Deinopis,
+		4 Nephila&Herennia,
+		5 'Nephilengys_cruentata',
+		6 Meta,
+		7 Leucauge_venusta,
+		8 Pachygnatha,
+		9 'Theridiosoma_01',
+		10 Tetragnatha;
+	TREE 'Imported tree 1+' = (1,((2,3),(((4,5),(6,(7,(8,10)))),9)));
+	TREE 'Imported tree 2+' = (1,((2,3),(((4,5),(6,(7,(8,10)))),9)));
+	TREE 'Imported tree 3+' = (1,((2,3),(((6,(4,5)),(7,(8,10))),9)));
+	TREE 'Imported tree 4+' = (1,((2,3),(((4,5),(6,(7,(8,10)))),9)));
+	TREE 'Imported tree 5+' = (1,((2,3),(((6,(4,5)),(7,(8,10))),9)));
+	TREE 'Imported tree 6+' = (1,((2,3),(((4,5),(6,(7,(8,10)))),9)));
+	TREE 'Imported tree 7+' = (1,((2,3),(((6,(4,5)),(7,(8,10))),9)));
+	TREE 'Imported tree 8+' = (1,((2,3),(((6,(4,5)),(7,(8,10))),9)));
+
+END;
+
+
+BEGIN LABELS;
+	CHARGROUPLABEL MM_Genitalia COLOR = (RGB 1.0 0.4 0.4) ;
+	CHARGROUPLABEL Somatic COLOR = (RGB 0.6 1.0 0.33333333) ;
+	CHARGROUPLABEL Spinnerets COLOR = (RGB 0.46666667 0.57254902 1.0) ;
+	CHARGROUPLABEL Behavior COLOR = (RGB 1.0 0.46666667 1.0) ;
+
+
+END;
+
+BEGIN SETS;
+CHARPARTITION * UNTITLED  =  Somatic :  1 -  2 4, MM_Genitalia :  5 -  8 10;
+
+END;
+
+BEGIN ASSUMPTIONS;
+	TYPESET * UNTITLED   =  unord:  1 -  10;
+
+	EXSET * UNTITLED  = ;
+
+	WTSET * UNTITLED  =  1: 1 -  10 ;
+
+END;
+
+BEGIN CODONS;
+CODESET * UNTITLED   =  universal:  1 -  10;
+
+
+END;
+
+BEGIN MESQUITECHARMODELS;
+	ProbModelSet * UNTITLED   =  'Mk1 (est.)':  1 -  10;
+END;
+
+BEGIN NOTES;
+
+	TEXT  TAXA = 'Scharff&Coddington_1997_Araneidae' TAXON = 2 TEXT = 'This is a footnote to taxon 2, Uloborus';
+
+	TEXT   TAXON = 4 CHARACTER = 8 TEXT = This_is_a_footnote_to_a_cell.;
+
+	TEXT   CHARACTER = 10 TEXT = This_is_footnote_to_char_10;
+
+	TEXT  FILE TEXT = 'Scharff, N. and J. A. Coddington. 1997. A phylogenetic analysis of the orb-weaving spider family Araneidae (Arachnida, Araneae). Zool. J. Linn. Soc. 120(4): 355?434';
+
+	AN T = 4  A = JC DC = 2008.4.13.20.31.19 DM = 2008.4.13.20.31.38 ID = 01194a57d0161 I = _ TF = (CM 'This is an "annotation" to taxon 4') ;
+
+	AN C = 4  A = JC DC = 2008.4.13.20.31.50 DM = 2008.4.13.20.32.10 ID = 01194a584b9f2 I = _ TF = (CM 'This is an annotation to charcter 4, that has no name.') ;
+
+	AN T = 9 C = 3  A = 0 DC = 2008.4.20.17.24.36 DM = 2008.4.20.17.25.4 ID = 01196db963874 I = _ TF = (CM 'This is an annotation to chr 3, taxa 9, coded ?') ;
+
+	AN T = 2 C = 6  A = JC DC = 2008.4.13.20.35.20 DM = 2008.4.13.20.35.36 ID = JC1194a5b7e1a3 I = _ TF = (CM 'This is an annotation that haa a hard return in it^n^n^n^nSo there!') ;
+
+	AN T = 7 C = 10  A = 0 DC = 2008.4.20.17.25.11 DM = 2008.4.20.17.26.1 ID = 01196db9ebd25 I = _ TF = (CM 'this is an annotation^nwith several hard returns^nfor a cell of taxa 6, chr 9 (from zero)^ncoded as -') ;
+
+END;
+
+Begin MESQUITE;
+		MESQUITESCRIPTVERSION 2;
+		TITLE AUTO;
+		tell ProjectCoordinator;
+		getEmployee #mesquite.minimal.ManageTaxa.ManageTaxa;
+		tell It;
+			setID 0 6498976404544962919 JC1191fcddc0c4;
+			tell It;
+				setDefaultOrder  0 1 2 3 4 5 6 7 9 8;
+				attachments ;
+			endTell;
+		endTell;
+		getEmployee #mesquite.charMatrices.ManageCharacters.ManageCharacters;
+		tell It;
+			setID 0 2280451364422511229 JC1191fcddc0c0;
+			checksum 0 3839411132 JC1191fcddc0c0;
+		endTell;
+		getEmployee  #mesquite.charMatrices.BasicDataWindowCoord.BasicDataWindowCoord;
+		tell It;
+			showDataWindow #2280451364422511229 #mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindowMaker;
+			tell It;
+				getWindow;
+				tell It;
+					getTable;
+					tell It;
+						columnWidth 6 55;
+						columnWidth 7 23;
+					endTell;
+					setExplanationSize 30;
+					setAnnotationSize 20;
+					setFontIncAnnot 0;
+					setFontIncExp 0;
+					setSize 925 472;
+					setLocation 357 294;
+					setFont SanSerif;
+					setFontSize 10;
+					getToolPalette;
+					tell It;
+						setTool mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindow.ibeam;
+					endTell;
+					setActive;
+					setTool mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindow.ibeam;
+					colorCells  #mesquite.charMatrices.AnnotPanel.AnnotPanel;
+				tell It;
+					togglePanel on;
+				endTell;
+					setBackground White;
+					toggleShowNames off;
+					toggleTight off;
+					toggleShowChanges on;
+					toggleSeparateLines off;
+					toggleShowStates on;
+					toggleAutoWCharNames off;
+					toggleShowDefaultCharNames off;
+					toggleConstrainCW on;
+					setColumnWidth 16;
+					toggleBirdsEye off;
+					toggleColorsPanel off;
+					birdsEyeWidth 2;
+					toggleLinkedScrolling on;
+					toggleScrollLinkedTables off;
+				endTell;
+				showWindow;
+				getEmployee #mesquite.categ.StateNamesEditor.StateNamesEditor;
+				tell It;
+					makeWindow;
+					tell It;
+						setExplanationSize 30;
+						setAnnotationSize 20;
+						setFontIncAnnot 0;
+						setFontIncExp 0;
+						setSize 925 472;
+						setLocation 357 294;
+						setFont SanSerif;
+						setFontSize 10;
+						getToolPalette;
+						tell It;
+							setTool mesquite.categ.StateNamesEditor.StateNamesWindow.ibeam;
+						endTell;
+						rowsAreCharacters on;
+						toggleConstrainChar on;
+						toggleConstrainCharNum 3;
+						togglePanel off;
+						toggleSummaryPanel off;
+					endTell;
+					showWindow;
+				endTell;
+				getEmployee #mesquite.categ.StateNamesStrip.StateNamesStrip;
+				tell It;
+					showStrip off;
+				endTell;
+				getEmployee #mesquite.charMatrices.CharReferenceStrip.CharReferenceStrip;
+				tell It;
+					showStrip off;
+				endTell;
+				getEmployee #mesquite.charMatrices.ColorCells.ColorCells;
+				tell It;
+					setColor Red;
+					removeColor off;
+				endTell;
+				getEmployee #mesquite.charMatrices.QuickKeySelector.QuickKeySelector;
+				tell It;
+					autotabOff;
+				endTell;
+			endTell;
+		endTell;
+		endTell;
+end;
+
+

@@ -1,0 +1,8 @@
+<h3>Editing image_view</h3>
+
+<%= form_tag :action => 'update', :id => @image_view do -%>
+  <%= render :partial  => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end -%>
+
+<%= link_to 'Show', :action => 'show', :id => @image_view %> |

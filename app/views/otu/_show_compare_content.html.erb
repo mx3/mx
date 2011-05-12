@@ -1,0 +1,5 @@
+<div> 
+  <% if @part == 'center' -%>
+    <%= render(:partial => 'content_type/compare_otus', :locals => {:left_otu => @otu, :right_otu => @right_otu}) -%>
+  <% end -%>
+</div>

@@ -1,0 +1,40 @@
+<% @tot = 0 -%>
+
+<div class="box4">
+  <div class="header">Has many</div>
+<% klass.constantize.reflect_on_all_associations(:has_many).collect{|o| o.name}.each_with_index do |r, i| -%>
+  <%= "#{i+1}. #{r.to_s.humanize}" -%>: <% t = obj.send(r).size  -%><% @tot += t -%><%= t > 0 ? "<b>#{t}</b>" : "<i>none</i>" -%><br/>
+<% end %>
+<% if @tot == 0 -%>
+  <p style="color: red;"><em> This object has no "has many" records.</em> </p>
+<% end %>
+</div>
+
+<div class="box4">
+  <div class="header">Has one</div>
+    <% klass.constantize.reflect_on_all_associations(:has_one).collect{|o| o.name}.each_with_index do |r, i| -%>
+      <%= "#{i+1}. #{r.to_s.humanize}" -%>: <%= obj.send(r).display_name if obj.send(r)  -%><br/>
+    <% end %>
+    <% if  klass.constantize.reflect_on_all_associations(:has_one).size == 0 -%>
+      <p style="color: red;"><em> This object has no "has one" relationships. </em> </p>
+    <% end %>
+</div>
+
+<div class="box4">
+  <div class="header">Has and belongs to many</div>
+<% @tot = 0 -%>
+<% klass.constantize.reflect_on_all_associations(:has_and_belongs_to_many).collect{|o| o.name}.each_with_index do |r, i| -%>
+  <%= "#{i+1}. #{r.to_s.humanize}" -%>: <% t = obj.send(r).size  -%><% @tot += t -%><%= t > 0 ? "<b>#{t}</b>" : "<i>none</i>" -%><br/>
+<% end %>
+<% if @tot == 0 -%>
+  <p style="color: red;"><em> This object has no "has and belongs to many" records.</em></p>
+<% end %>
+</div>
+
+<div class="box4">
+  <div class="header">Belongs to</div>
+    <% @tot = 0 -%>
+    <% klass.constantize.reflect_on_all_associations(:belongs_to).collect{|o| o.name}.each_with_index do |r, i| -%>
+      <%= "#{i+1}. #{r.to_s.humanize}" -%>: <b><%=  obj.send(r).display_name if obj.send(r) -%></b><br/>
+    <% end %>
+</div>

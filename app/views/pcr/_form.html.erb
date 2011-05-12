@@ -1,0 +1,92 @@
+<%= error_messages_for 'pcr' %>
+
+<!--[form:pcr]-->
+
+<div class="fr"> <label for="pcr_extract_id" class="lbl4">Extract</label>
+  <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+      :controller => 'extract',
+      :object => 'pcr',
+      :method => 'extract_id',
+      :tag_id => "find_extract_for_pcr",
+      :display => @pcr.extract.andand.display_name(:type => :for_select_list),
+      :size => 50} -%> </span>
+</div>
+
+<div class="fr"> <label for="pcr_fwd_primer_id" class="lbl4">Forward primer</label>
+  <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+      :controller => 'primer',
+      :object => 'pcr',
+      :method => 'fwd_primer_id',
+      :tag_id => "fwd_primer_to_find",
+      :display => (@pcr.fwd_primer ? @pcr.fwd_primer.display_name : ""),
+      :size => 30} -%></span>
+</div>
+
+<div class="fr"> <label for="pcr_rev_primer_id" class="lbl4">Reverse primer</label>
+  <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+      :controller => 'primer',
+      :object => 'pcr',
+      :method => 'rev_primer_id',
+      :tag_id => "rev_primer_to_find",
+      :display => (@pcr.rev_primer ? @pcr.rev_primer.display_name : ""),
+      :size => 30} -%></span>
+</div>
+
+<div class="fr"> <label for="pcr_protocol_id" class="lbl4">via protocol</label>
+  <span class="fld"><%= select("pcr", "protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true } ) %></span>
+</div>
+
+<h4>Upload (and attach) a gel image file  - ALPHA - </h4>
+
+<div style="background-color: #ccc; padding: 1em">
+
+
+  <div class="fr"> <label for="gel_image_file" class="lbl4">File</label>
+    <span class="fld"> <%= file_field 'gel_image', 'file', 'title' => 'browse for gel file', :size => 70  %></span>
+  </div>
+
+  <div class="fr"> <label for="gel_image_name" class="lbl4">Gel image name</label>
+    <span class="fld"> <%= text_field 'gel_image', 'name', 'title' => 'name of gel image', :size => 70  %></span>
+  </div>
+
+  <div class="fr"> <label for="gel_image_notes" class="lbl4">Gel image notes</label>
+    <span class="fld">  <%= text_area 'gel_image', 'notes', {:cols => 69, :rows => 2}  %></span>
+  </div>
+  <br style="clear:both;"/>
+</div>
+
+<h4>or Attach to existing gel image</h4>
+
+<div style="background-color: #ccc; padding: 1em;">
+  <div class="fr"> <label for="pcr_gel_image_id" class="lbl4">Gel image name</label>
+    <span class="fld">   <%= select("pcr", "gel_image_id", @proj.gel_images.collect {|o| [o.display_name(:type => :for_select_list), o.id] }, { :include_blank => true } ) -%></span>
+  </div>
+  <br style="clear:both;"/>
+</div>
+
+<div class="fr"> <label for="pcr_lane" class="lbl4">Lane number</label>
+  <span class="fld">  <%= text_field 'pcr', 'lane', 'title' => 'lane number in gel', :size => 4  %></span>
+</div>
+
+<div class="fr"> <label for="pcr_done_by" class="lbl4">Who did the PCR</label>
+  <span class="fld">  <%= text_field 'pcr', 'done_by', 'title' => 'person who ran this PCR', :size => 40 %></span>
+</div>
+
+<div class="fr"> <label for="pcr_confidence_id" class="lbl4">Confidence/result</label>
+  <span class="fld">  
+    <%= render :partial => "shared/picker", :locals => {
+      :controller => 'confidence',
+      :object => 'pcr',
+      :method => 'confidence_id',
+      :tag_id => "find_confidence_id_for_pcr",
+      :display => @pcr.confidence.andand.display_name(:type => :selected) ,
+      :size => 50} -%>
+
+  </span>
+</div>
+
+<div class="fr"> <label for="pcr_notes" class="lbl4">Notes</label>
+  <span class="fld">    <%= text_area 'pcr', 'notes', {:cols => 69, :rows => 3}  %> </span>
+</div>
+
+<!--[eoform:pcr]-->

@@ -1,0 +1,22 @@
+<div class="box5" style="width: 680px;">
+  <% @chr_state = chr_state %>
+  <%= hidden_field 'chr_state', 'id', "name" => "chr_state[#{@chr_state.id}][id]"  %>
+
+  <div class="fr"> <label for="chr_state_chr_state" class="lbl4">State</label>
+    <span class="fld"> <%= text_field "chr_state", 'state', "size" => 4, "id" => "chr_state_#{@chr_state.id}_chr_state", "name" => "chr_state[#{@chr_state.id}][state]" %></span>
+  </div>
+
+  <div class="fr"> <label for="chr_state_name" class="lbl4">Name</label>
+    <span class="fld"> <%= text_field 'chr_state', 'name', "id" => "chr_state_#{@chr_state.id}_name", "name" => "chr_state[#{@chr_state.id}][name]", :size => 67 %></span>
+  </div>
+
+  <div class="fr"> <label for="chr_state_cited_polarity" class="lbl4">Cited polarity</label>
+    <span class="fld"> <select id="chr_state_<%= @chr_state.id %>_cited_polarity" name="chr_state[<%= @chr_state.id %>][cited_polarity]">
+        <%= options_for_select ChrState.cited_polarities, @chr_state.cited_polarity %></select></span>
+  </div>
+
+  <div class="fr"> <label for="chr_state_notes" class="lbl4">Notes</label>
+    <span class="fld"> <%= text_area 'chr_state', 'notes', "cols" => 50, "rows" => 1, "id" => "chr_state_#{@chr_state.id}_notes", "name" => "chr_state[#{@chr_state.id}][notes]"  %></span>
+  </div>
+  <br style="clear: both;" />
+</div>

@@ -1,0 +1,14 @@
+<%= error_messages_for 'repository' %>
+
+<!--[form:repository]-->
+<p><label for="repository_name">Name and address</label><br/>
+<%= text_area 'repository', 'name', 'title' => 'name and address of repository', :cols => 60, :rows => 5  %></p>
+
+<p><label for="repository_coden">Coden</label><br/>
+<%= text_field 'repository', 'coden', 'title' => '3-5 letter abbreviation for repository', :size => 6 %></p>
+
+<p><label for="repository_url">Url</label><br/>
+<%= text_area 'repository', 'url', 'title' => 'website for repository' , :cols => 60, :rows => 2  %></p>
+
+<!--[eoform:repository]-->
+

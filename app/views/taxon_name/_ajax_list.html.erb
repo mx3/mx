@@ -1,0 +1,19 @@
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @taxon_name_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @taxon_name_pages}) -%>
+<table>
+  <%= t_col_heads( ["name", "author/year", "parent", "valid name", "id", "mod by", "mod on", "","","", "display"] ) %>
+  <% @taxon_names.each_with_index do |tn, i| -%>
+  <%=  t_row({ 'obj' => tn, 'close_tr' => false, 'tr_css' => i,
+    'cell_data' =>[
+    link_to(tn.name, :action => :show, :id => tn),
+    tn.display_author_year,
+    tn.parent_id? ? {tn.parent.name => 'smaller_font'} : "",
+    tn.valid_name_id? ? {tn.valid_name.display_name => 'passed'} : "",
+    tn.id,
+    tn.updator.display_name,
+    tn.m_on]} ) %>
+    <td class="smaller_font"> <%= tn.display_name %></td></tr><!-- closes t_row -->
+  <% end %>
+</table>
+<br />
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @taxon_name_pages}) -%>

@@ -1,0 +1,76 @@
+<script type="text/javascript">
+function checkValidityOfProportion() {
+	alert("yo");
+	var proportionString = $('phenotype_relative_proportion').value;
+	if (proportionString) {
+		var proportion = parseFloat(proportionString);
+		if ((proportion - 1) == 0) {
+			if ($('phenotype_relative_magnitude').value == <%= RelativePhenotype::EQUAL_TO %>) {
+				$('phenotype_relative_proportion').style.color = 'black';
+			} else {
+				$('phenotype_relative_proportion').style.color = 'red';
+			}
+		} else if (proportion > 1) {
+			if ($('phenotype_relative_magnitude').value == <%= RelativePhenotype::GREATER_THAN %>) {
+				$('phenotype_relative_proportion').style.color = 'black';
+			} else {
+				$('phenotype_relative_proportion').style.color = 'red';
+			}
+		} else {
+			if ($('phenotype_relative_magnitude').value == <%= RelativePhenotype::LESS_THAN %>) {
+				$('phenotype_relative_proportion').style.color = 'black';
+			} else {
+				$('phenotype_relative_proportion').style.color = 'red';
+			}
+		}
+	}
+}
+</script>
+
+<% pc_edit_area_id = UUID.create.to_s %>
+<div class="header">Edit relative measurement phenotype:</div>
+<table>
+	<tr>
+		<td><span class="lbl4">Entity: </span></td>
+		<td id="entity"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.entity, :role => :entity, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Quality: </span></td>
+		<td id="quality"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.quality, :role => :quality, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Relative magnitude: </span></td>
+		<td>
+			<%= select(:phenotype, :relative_magnitude, [["> greater than", RelativePhenotype::GREATER_THAN],["= equal to", RelativePhenotype::EQUAL_TO],["< less than", RelativePhenotype::LESS_THAN]], {}, {}) %>
+			<%= observe_field :phenotype_relative_magnitude, :function => "$('relative_magnitude_hidden').value = $('phenotype_relative_magnitude').value;  var proportionString = $('phenotype_relative_proportion').value; if (proportionString) { var proportion = parseFloat(proportionString); if ((proportion - 1) == 0) { if ($('phenotype_relative_magnitude').value == '#{RelativePhenotype::EQUAL_TO}') { $('phenotype_relative_proportion').style.color = 'black'; } else { $('phenotype_relative_proportion').style.color = 'red'; } } else if (proportion > 1) { if ($('phenotype_relative_magnitude').value == '#{RelativePhenotype::GREATER_THAN}') { $('phenotype_relative_proportion').style.color = 'black'; } else { $('phenotype_relative_proportion').style.color = 'red'; } } else { if ($('phenotype_relative_magnitude').value == '#{RelativePhenotype::LESS_THAN}') { $('phenotype_relative_proportion').style.color = 'black'; } else { $('phenotype_relative_proportion').style.color = 'red'; }}};" -%>
+		</td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Proportion (optional): </span></td>
+		<td><%= text_field_tag :phenotype_relative_proportion, @phenotype.relative_proportion, :size => 4 -%>
+		<%= observe_field :phenotype_relative_proportion, :function => "$('relative_proportion_hidden').value = $('phenotype_relative_proportion').value; $('phenotype_relative_proportion').style.color = 'black'; var proportionString = $('phenotype_relative_proportion').value; if (proportionString) { var proportion = parseFloat(proportionString); if ((proportion - 1) == 0) { $('phenotype_relative_magnitude').value = '#{RelativePhenotype::EQUAL_TO}'; } else if (proportion > 1) { $('phenotype_relative_magnitude').value = '#{RelativePhenotype::GREATER_THAN}'; } else { $('phenotype_relative_magnitude').value = '#{RelativePhenotype::LESS_THAN}'; }};" -%></td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Entity: </span></td>
+		<td id="relative_entity"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.relative_entity, :role => :relative_entity, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Quality: </span></td>
+		<td id="relative_quality"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.relative_quality, :role => :relative_quality, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+</table>
+<%= form_tag :action => :update_relative_phenotype, :id => @phenotype do %>
+<%= hidden_field_tag "entity_hidden_id", (@phenotype.entity.id if @phenotype.entity) %>
+<%= hidden_field_tag "entity_hidden_class", (@phenotype.entity.class if @phenotype.entity) %>
+<%= hidden_field_tag "quality_hidden_id", (@phenotype.quality.id if @phenotype.quality) %>
+<%= hidden_field_tag "quality_hidden_class", (@phenotype.quality.class if @phenotype.quality) %>
+<%= hidden_field_tag "relative_magnitude_hidden", (@phenotype.relative_magnitude && !@phenotype.relative_magnitude.empty?) ? @phenotype.relative_magnitude : RelativePhenotype::GREATER_THAN %>
+<%= hidden_field_tag "relative_proportion_hidden", @phenotype.relative_proportion %>
+<%= hidden_field_tag "relative_entity_hidden_id", (@phenotype.relative_entity.id if @phenotype.relative_entity) %>
+<%= hidden_field_tag "relative_entity_hidden_class", (@phenotype.relative_entity.class if @phenotype.relative_entity) %>
+<%= hidden_field_tag "relative_quality_hidden_id", (@phenotype.relative_quality.id if @phenotype.relative_quality) %>
+<%= hidden_field_tag "relative_quality_hidden_class", (@phenotype.relative_quality.class if @phenotype.relative_quality) %>
+<%= hidden_field_tag "chr_state", @chr_state.id %>
+<%= submit_tag "Cancel", :name => "cancel" -%> <%= submit_tag "Save phenotype", :name => "save" -%>
+<% end %>
+<div id="<%= pc_edit_area_id %>"></div>

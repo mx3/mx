@@ -1,0 +1,83 @@
+<% content_for :center do -%>
+<div class="show_rec" -%>
+
+  <div class="show_category"> Locality </div>
+  <div class="show_row"><span class="show_lbl">Geography:</span><span class="show_data"><%= @ce.geography -%></span></div>
+  <div class="show_row"><span class="show_lbl">Tied Geography:</span><span class="show_data"><%= @ce.geog ? @ce.geog.display_name : content_tag(:em, 'none') -%></span></div>
+  <div class="show_row"><span class="show_lbl">Locality:</span><span class="show_data"><%= @ce.locality -%></span><span class="show_comment" style="float:right;"><%= link_to_remote('more like this', :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => { :action => :find_similar, :controller => :ce, :scope => 'with_locality_like', :arg => @ce.locality, :id => @ce.id}) if !@ce.locality.blank? -%></span></div>
+  <div class="show_row"><span class="show_lbl">Elevation</span><span class="show_data"><%= @ce.elevation('meters') -%> (<%= @ce.elevation('feet') -%>)</span></div>
+
+  <div class="show_category"> Date/time </div>
+  <div class="show_row"><span class="show_lbl">Date range:</span><span class="show_data"><%= @ce.date_range -%></span></div>
+  <div class="show_row"><span class="show_lbl">Time start:</span><span class="show_data"><%= @ce.start_time -%></span></div>
+  <div class="show_row"><span class="show_lbl">Time end:</span><span class="show_data"><%= @ce.end_time -%></span></div>
+
+  <div class="show_category"> Collection Method </div>
+  <div class="show_row"><span class="show_lbl">Determined:</span><span class="show_data"><%= @ce.mthd -%></span></div>
+  <div class="show_row"><span class="show_lbl">Verbatim:</span><span class="show_data"><%= @ce.verbatim_method -%></span></div>
+
+  <div class="show_category"> Georeferencing  </div>
+  <div class="show_row"><span class="show_lbl">Verbatim latitude:</span><span class="show_data"><%= @ce.dc_verbatim_latitude -%></span></div>
+  <div class="show_row"><span class="show_lbl">Verbatim longitude:</span><span class="show_data"><%= @ce.dc_verbatim_longitude -%></span></div>
+  <div class="show_row"><span class="show_lbl">Determined lat/long:</span><span class="show_data"><%= @ce.lat_long -%></span></div>
+  <div class="show_row"><span class="show_lbl">Determined uncertainty (m):</span><span class="show_data"><%= @ce.dc_coordinate_uncertainty_in_meters -%></span></div>
+  <div class="show_row"><span class="show_lbl">Lat/long undeterminable:</span><span class="show_data"><%= @ce.undet_ll ? content_tag('yes', :class => 'failed') : '' -%></span></div>
+  <div class="show_row"><span class="show_lbl">Locality accuracy confidence</span><span class="show_data"><%= @ce.locality_confidence.andand.display_name  -%> </span><span class="show_comment" style="float:right;"><%= link_to_remote('more like this', :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => { :action => :find_similar, :controller => :ce, :scope => 'with_locality_accuracy_confidence_id', :arg => @ce.locality, :id => @ce.id}) if !@ce.locality_accuracy_confidence_id.blank? -%></span></div>
+  <div class="show_row"><span class="show_lbl">Georeference sources:</span><span class="show_data"><%= @ce.dc_georeference_sources -%></span></div>
+
+  <div class="show_category"> Identifiers  </div>
+  <div class="show_row"><span class="show_lbl">Trip code:</span><span class="show_data"><%= @ce.trip_code -%></span></div>
+  <div class="show_row"><span class="show_lbl">Trip code namespace:</span><span class="show_data"><%= @ce.trip_namespace.display_name if @ce.trip_namespace -%></span> 
+    <span class="show_comment" style="float:right;"><%= link_to_remote('more like this', :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => {:id => @ce.id, :action => :find_similar, :controller => :ce, :scope => 'with_trip_namespace_id', :arg => @ce.trip_namespace_id}) if @ce.trip_namespace -%></span>  </div>
+
+  <div class="show_row"><span class="show_lbl">External/import namespace:</span><span class="show_data"><%= @ce.external_id -%></span></div>
+  <div class="show_row"><span class="show_lbl">External/import identifer:</span><span class="show_data"><%= @ce.namespace.display_name if @ce.namespace -%></span></div>
+
+  <div class="show_category"> Habitat/hosts </div>
+  <div class="show_row"><span class="show_lbl">Macro habitat:</span><span class="show_data"><%= @ce.macro_habitat -%></span><span class="show_comment" style="float:right;"><%= link_to_remote('more like this', :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')",:url => { :id => @ce.id, :action => :find_similar, :controller => :ce, :scope => 'with_macro_habitat', :arg => @ce.macro_habitat}) if !@ce.macro_habitat.blank? -%></span></div>
+  <div class="show_row"><span class="show_lbl">Micro habitat:</span><span class="show_data"><%= @ce.micro_habitat -%></span></div>
+  <div class="show_row"><span class="show_lbl">Host genus:</span><span class="show_data"><%= @ce.host_genus -%></span></div>
+  <div class="show_row"><span class="show_lbl">Host species:</span><span class="show_data"><%= @ce.host_species -%></span></div>
+
+  <%= render(:partial => '/shared/show/notes', :locals => {:obj => @ce}) -%>
+  
+  <div class="show_category"> Validation/Errors </div>
+  <div class="show_row"><span class="show_lbl">Error in label (not transcription):</span><span class="show_data"><%= @ce.err_label ? content_tag('yes', :class => 'failed') : 'no / unchecked' -%></span></div>
+  <div class="show_row"><span class="show_lbl">Error in transcription (not entered correctly):</span><span class="show_data"><%= @ce.err_entry ? content_tag('yes', :class => 'failed') : 'no / unchecked' -%></span></div>
+  <div class="show_row"><span class="show_lbl">Error free (anything that appears to be error is not):</span><span class="show_data"><%= @ce.err_checked ? content_tag('yes', :class => 'failed') : 'no / unchecked' -%></span></div>
+  <div class="show_row"><span class="show_lbl">Geography undeterminable:</span><span class="show_data"><%= @ce.undetgeog ? content_tag('yes', :class => 'failed') : 'no / unchecked' -%></span></div>
+
+  <% if !@ce.verbatim_label.blank? -%>
+  <div class="show_category" > Verbatim label </div>
+  <div class="show_row"><div class="show_data highlight"  style="padding:0.5em;"><%= @ce.verbatim_label -%></div></div>
+  <div class="show_row"><span class="show_lbl">Verbatim label md5:</span><span class="show_data"><%= @ce.verbatim_label_md5 -%></span></div>
+  <% end -%>
+
+  <% if !@ce.print_label.blank? -%>
+  <div class="show_category" > Print label </div>
+  <div class="show_row"><span class="show_data hilight" style="padding:0.5em;"><%= @ce.print_label -%></span></div>
+  <div class="show_row"><span class="show_lbl">Print cue:</span><span class="show_data"><%= @ce.num_to_print -%></span></div>
+  <% end -%>
+
+  <% if !@ce.doc_label.blank? -%>
+  <div class="show_category" > Document label (form used in manuscripts) </div>
+  <div class="show_row"><span class="show_data hilight" style="padding:0.5em;"><%= @ce.doc_label -%></span></div>
+  <% end -%>
+
+<%= render(:partial => '/shared/show/record_details', :locals => {:obj => @ce}) -%>
+
+</div>
+<% end -%>
+
+
+<% content_for :right do -%>
+    <%= render(:partial => '/shared/tag_cloud', :object => @ce) %>
+    <%= render(:partial => '/shared/gmap_shell', :locals => {:markers => @ce.gmap_array, :zoom => 4}) if @ce.mappable  -%>
+
+    <div class="box4"><div class="header">Similar Collecting Events<%= spinner_tag('sim_ce') -%></div> 
+      <div class="content" id="similar_ces"><em>Click a 'more like this' link.</em> </div>
+    </div>
+<% end -%>
+
+    
+    

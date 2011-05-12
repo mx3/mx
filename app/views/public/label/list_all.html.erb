@@ -1,0 +1,12 @@
+<div class="view">
+
+  <div class="header"> All labels </div>
+  <div style="padding:0.5em;">Total tied labels: <%= @labels.size -%>. Heatmap bullet indicates associated development, with red (hotter) representing a high degree of activity.</div>
+
+  <% @labels.each do |l| -%>
+  <%= content_tag(:div,
+  (content_tag(:span, "&nbsp;&nbsp;", :style => "background-color:##{ColorHelper::palette(:palette => :heat_10, :index => (l.active_index || 0), :hex => true)[2..7]}") + "&nbsp;" + link_to(l.name, {:action => :show, :controller => :label,  :id => l.id}, :style => 'text-decoration: none;')), :style => 'margin:0.2em;')
+  -%>
+  <% end -%>
+
+</div>

@@ -1,0 +1,13 @@
+<p><i> To make a new multikey edit a matrix and click the "usable as multikey" option.  Public multikeys are those that are marked as usable and public.</i></p>
+<h3>Listing multi-entery keys</h3>
+<table>
+  <%= t_col_heads( [ "name", "mx id", "mod by", "mod on" ] ) %>
+  <% for o in @multikeys %>
+  <%=  t_row({ 'obj' => o, 'inc_actions' => false,
+    'cell_data' => [
+    (o.codings.size > 0 ? link_to(o.name, :action => 'show', :id => o) : "<i>#{o.name} - not yet coded.</i>" ),
+    o.id,
+    o.m_by,
+    o.m_on]} ) %>
+    <% end %>
+</table>

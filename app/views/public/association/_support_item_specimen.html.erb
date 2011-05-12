@@ -1,0 +1,9 @@
+<table class="<%= @s.class.to_s %>" <%= 'style="background-color: #ffdddd;"' if @s.negative %>>  
+  <% if @s.specimen %>
+    <tr><td class = "lbl1">specimen</td> <td> <%= @s.specimen.display_name %></td></tr>
+    <tr><td class = "lbl1">repository</td> <td> <%= @s.specimen.repository ? @s.specimen.repository.display_name : "<i>not given</i>" %></td></tr>
+    <tr><td class = "lbl1">collecting event</td> <td> <%= @s.specimen.display_name(:type => :ce_for_list)  %></td></tr>
+  <% else %>
+    <tr> <td> <i class="failed">ASSOCIATION SUPPORT RECORD IS CORRUPT (NO SPECIMEN IS ATTACHED)</i> </td> </tr>
+  <% end %>
+</table>

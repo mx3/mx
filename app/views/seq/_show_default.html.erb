@@ -1,0 +1,67 @@
+<% content_for :center do -%>
+
+<div class="show_rec">
+
+  <div class="show_category"> Source </div>
+  <div class="show_row"><span class="show_lbl">OTU(s):</span><span class="show_data"><%= @seq.bound_otus.collect{|o| o.display_name}.join(", ") -%>  </span></div>
+  <div class="show_row"><span class="show_lbl">Specimen:</span><span class="show_data"><%= link_to(@seq.source_specimen.andand.display_name, :id => @seq.source_specimen.andand.id, :controller => :specimen, :action => :show) -%></span></div>
+  <div class="show_row"><span class="show_lbl">Type of voucher:</span><span class="show_data"><%= @seq.type_of_voucher -%>  </span></div>
+  <div class="show_row"><span class="show_lbl">Published in:</span><span class="show_data"><%= @seq.ref.andand.display_name -%>  </span></div>
+  <div class="show_row"><span class="show_lbl">Genbank ID:</span><span class="show_data"><%= @seq.genbank_identifier-%>  </span></div>
+
+  <div class="show_category"> Target </div>
+  <div class="show_row"><span class="show_lbl">Gene(s):</span><span class="show_data"><%= @seq.bound_genes.collect{|g| g.name}.join(", ") -%></span></div>
+
+  <div class="show_category"> Workflow </div>
+  <div class="show_row"><span class="show_lbl">PCR:</span><span class="show_data"><%= @seq.pcr.andand.display_name(:type => :confidence) -%></span></div>
+  <div class="show_row"><span class="show_lbl">Status:</span><span class="show_data"><%= @seq.status -%>  </span></div>
+  <div class="show_row"><span class="show_lbl">Attempt complete:</span><span class="show_data"><%= @seq.attempt_complete -%>  </span></div>
+
+  <% if !@seq.sequence.blank? -%>
+
+  <div class="show_category"> Nucleotides </div>
+  <div class="show_row"><div class="show_data" style="font-family:Courier; "><%= display_seq_tag(@seq) -%></div></div>
+
+  <div class="show_category"> Protein </div>
+  <div class="show_row"><span class="show_comment">Translating from frame 1, <span id="translation_table">Standard (Eukaryote)</span></span></div>
+  <div class="show_row"><div class="show_data" style="font-family:Courier;" id="protein"><%= display_protein_tag(:seq_obj => @seq) -%></div></div>
+
+  <script>
+  var $translations = [];
+  var $translationType = [];
+    <% Seq::BIORUBY_TRANSLATION_TABLES.keys.each do |k| -%>
+      $translations[<%= k -%>] =  "<%= display_protein_tag(:seq_obj => @seq, :codon_table => k) -%>";
+      $translationType[<%= k -%>] = "<%= Seq::BIORUBY_TRANSLATION_TABLES[k] -%>"; 
+    <% end -%>
+
+	jQuery(function() {
+	jQuery( "#slider" ).slider({
+			value:1,
+			min: 1,
+			max: 23,
+			step: 1,
+			slide: function( event, ui ) {
+       	jQuery( "#protein").empty;
+        jQuery( "#protein").html($translations[ui.value]); 
+        jQuery( "#translation_table").html($translationType[ui.value]); 
+        
+        }
+      });
+
+    jQuery( "#protein" ).val( $translations[$( "#slider" ).slider( "value" )] );
+    jQuery( "#translation_table").html($translationType[ui.value]); 
+    
+    });
+	</script>
+
+  <div class="show_row"><span class="show_lbl">Slide to change protein translation:</span> <div id="slider"></div></div>
+
+  <% end -%>
+
+  <%= render(:partial => '/shared/show/notes', :locals => {:obj => @seq}) -%>
+  <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @seq}) -%>
+
+</div>
+
+
+<% end %>

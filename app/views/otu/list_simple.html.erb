@@ -1,0 +1,5 @@
+<h3> <%= @list_title -%> </h3>
+<% @otus.each do |o| -%>
+          <%= "#{'&nbsp;' * rank_n(o.taxon_name.iczn_group) * 4}" if o.taxon_name  -%> <%= link_to(o.display_name(:type => :multi_name), :action => :show, :id => o) -%><br />
+<% end -%>
+

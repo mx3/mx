@@ -1,0 +1,13 @@
+--- 
+people_taxon_names1: 
+  taxon_name_id: "1"
+  person_id: "1"
+people_taxon_names2: 
+  taxon_name_id: "2"
+  person_id: "2"
+people_taxon_names3: 
+  taxon_name_id: "3"
+  person_id: "2"
+people_taxon_names4: 
+  taxon_name_id: "1"
+  person_id: "4"

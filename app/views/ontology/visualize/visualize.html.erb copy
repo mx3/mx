@@ -1,0 +1,49 @@
+
+<p> For SVG enabled browsers you can try another visualization <%= link_to "here", :action => 'visualize2' -%>, click to view a term.  This may take a LONG time to load. </p>
+
+<p><b>Legend</b>: red: no definition; green: definition present; top: figures; right: tags; bottom: children; left: primary relationships.  Hover over square to see term, click to view. </p>
+
+<table style="margin: 10px; vertical-align: middle; border-spacing: 0px; padding: 10px; background-color: rgb(11, 11, 11);">
+  <% @terms.in_groups_of(40, false).each do |grp| -%>
+    <tr style="vertical-align: middle;">
+      <% grp.each do |t| %>
+
+        <% tags = t.tags.count -%>
+        <% figs = t.figures.count -%>
+        <% rels = t.primary_relationships.count -%>
+        <% chil = t.children.size -%>
+
+        <td>
+          <a class="vb"
+            style="
+            border-bottom: <%= chil -%>px solid <%= chil > 0 ? 'rgb(31,120,180)' : 'white' -%>;
+            border-left: <%= rels -%>px solid <%= rels > 0 ? 'rgb(106,61,154	)' : 'white' -%>;           
+            border-right: <%= tags -%>px solid <%= tags > 0 ? 'rgb(255,127,0)' : 'white' -%>;
+            border-top: <%= figs -%>px solid <%= figs > 0 ? 'rgb(177,89,40)' : 'white' -%>;
+            background-color: <%= t.description.blank? ? 'rgb(251,154,153)' : 'rgb(178,223,138)' -%>;"
+            title="<%= t.display_name -%>" href="/projects/<%= @proj.id -%>/ontology/show_term/<%= t.id -%>" id="p_<%= t.id -%>"></a>
+        </td>
+      <% end -%>
+    </tr>
+    <% end -%>
+  </table>
+
+<br/>
+
+<!-- ColorBrewer colors (google it)
+
+A	166	206	227	
+B	31	120	180	
+C	178	223	138	
+D	51	160	44	
+E	251	154	153	
+F	227	26	28	
+G	253	191	111	
+H	255	127	0	
+I	202	178	214	
+J	106	61	154	
+K	255	255	153	
+L	177	89	40	
+
+-->
+

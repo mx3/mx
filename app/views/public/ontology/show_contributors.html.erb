@@ -1,0 +1,68 @@
+<div> 
+<div align="center">
+  <fieldset>
+    <legend>Contributors</legend>
+    
+      <p> This table summarizes only the creator/modifier fields for the terms and relationships tables.  Contributors who added tags or figures are not included here yet. Note that only the last updator of a record is presently recorded and counted. </p>
+
+    <table cellspacing="6" align="center" class="box1">
+      <tr>
+        <th>&nbsp;</th>
+        <th colspan="2" align="center">terms</th>
+        <th colspan="2" align="center">relationships</th>
+        <th colspan="2" align="center">figures</th>
+        <th colspan="2" align="center">tags</th>
+      </tr>
+      <tr>
+        <th>contributors</th>
+        <th align="center">created</th>
+        <th align="center">updated</th>
+        <th align="center">created</th>
+        <th align="center">updated</th>
+        <th align="center">created</th>
+        <th align="center">updated</th>
+        <th align="center">created</th>
+        <th align="center">updated</th>
+        <% for p in @people %>
+      <tr>
+        <td >
+          <%=  p.full_name %>
+        </td>
+        <td  align="center">
+          <%=  @result[p.full_name][:part][:creator] %>
+        </td>
+        <td  align="center">
+          <%=  @result[p.full_name][:part][:updator] %>
+        </td>
+        <td  align="center">
+          <%=  @result[p.full_name][:ont][:creator] %>
+        </td>
+        <td  align="center">
+          <%=  @result[p.full_name][:ont][:updator] %>
+        </td>
+        <td  align="center">
+          <%=  @result[p.full_name][:fig][:creator] %>
+        </td>
+        <td  align="center">
+          <%=  @result[p.full_name][:fig][:updator] %>
+        </td>
+        <td  align="center">
+          <%=  @result[p.full_name][:tag][:creator] %>
+        </td>
+        <td  align="center">
+          <%=  @result[p.full_name][:tag][:updator] %>
+        </td>
+      </tr>
+      <% end %>
+      </table>
+
+      <br />
+
+      <%= render(:partial => "/public/site/#{@proj.site}/cite_ontology") -%>
+   
+        
+      </fieldset>
+    </div>
+  </div>
+  <br/>
+

@@ -1,0 +1,28 @@
+<p><%= @ref.display_name -%> [id: <%= @ref.id -%> ] </p> 
+
+<p>
+  <em> The OCR is NOT taken from an attached pdf. </em> <%= link_to('proof OCR text', :action => :proofer, :controller => :ontology, :ref_id => @ref.id) if !@ref.ocr_text.blank? -%> | <%= link_to "back", :action => :show, :id => @ref %>
+</p>
+
+<div>
+  <div class="box4" style="float: left; width: 60%;">
+    <div class="header"> OCR text  </div>
+    <div class="content">
+      <%= @ref.ocr_text.blank? ? '<em>none</em>' : @ref.ocr_text.gsub("\n", '<br />') -%>
+    </div>
+  </div>
+
+  <div class="box4" style="float:left; width: 30%;">
+    <div class="header">Term usage</div>
+    <div class="content">
+      <p> <%= link_to_remote('(re)count', :url => { :action => :_count_labels, :id => @ref.id}, :loading => "Element.show('count_labels')", :complete => "Element.hide('count_labels')") -%><%= spinner_tag('count_labels' ) -%> </p>
+      <hr />
+      <div id="term_usage">
+        <%= render(:partial => 'term_usage', :locals => {:labels_refs => @ref.labels_refs}) -%>
+      </div>
+    </div>
+
+    <br style="clear: both;" />
+
+  </div>
+</div>

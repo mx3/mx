@@ -1,0 +1,10 @@
+<%= link_to('back', :action => :index) %>
+<div class="box4">
+  <div class="header">Count of rows</div> 
+  <table>
+
+  <% for s in @stats.keys.sort %>
+    <tr><td style="text-align:right;"><%= s %></td><td> <%= @stats[s] %> </td></tr>
+  <% end %>
+  </table>
+</div>

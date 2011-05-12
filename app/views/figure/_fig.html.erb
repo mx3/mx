@@ -1,0 +1,29 @@
+<% @figure = fig -%>
+<div id="browse_rec_<%= "#{fig.position}" -%>" class="browse_rec" style="height: 320px">  
+  <div id="img_<%= fig.position -%>" class="browse_thumb"> 
+    
+    <%= image_thumb_tag(fig.image) -%><br/>
+    <%= form_tag(:remote => true, :url => {:action => 'update_from_popup', :controller => 'figure', :id => @figure.id, :fig_obj_class => params[:fig_obj_class], :fig_obj_id => params[:fig_obj_id] },
+          :update => "items",
+          :loading => "Element.show('save_spinner_#{@figure.id}')", :complete => "Element.hide('save_spinner_#{@figure.id}')") do -%>
+      <%= hidden_field 'figure', 'id', "name" => "figs[#{@figure.id}][id]"  -%>
+
+      <p><label for="figure_caption">Caption</label><br/>
+        <%= text_area "figure", "caption", {'id' => "figs_#{@figure.id}_caption", 'name' => "figs[#{@figure.id}][caption]" , :rows => 2, :cols => 20 } -%>
+      </p>
+
+       <%= submit_tag "Save", :class => 'small_form_button' -%> <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "save_spinner_#{@figure.id}", :style => "display: none; vertical-align:middle;"  ) %>
+    <% end -%>
+
+    <!-- following must be outside the above form -->
+    <table>
+      <tr>
+        <td><%= link_to("annotate", :action => 'annotate', :controller => 'figure', :id => @figure.id) -%>  </td>
+        <td><%= link_to_remote("up", :url => { :action => 'up', :controller => 'figure', :id => @figure.id}, :update => "items") -%></td>
+        <td><%= link_to_remote("down", :url => { :action => 'down', :controller => 'figure', :id => @figure.id}, :update => "items") -%>  </td>
+        <td style="color: silver;">id: <%= fig.id %></td>
+        <td><%= link_to_remote("destroy", :url => { :action => 'destroy_from_popup', :controller => 'figure', :id => @figure.id, :fig_obj_class => params[:fig_obj_class], :fig_obj_id => params[:fig_obj_id]}, :method => "post", :update => "items" ) -%></td>
+      </tr>
+    </table>      
+  </div> 
+</div>

@@ -1,0 +1,30 @@
+<h3> Analyze existing labels against a OBO file</h3>
+
+<div class="subform">
+  <div class="header">Choose OBO file</div>
+  <div class="content"> 
+  <% form_tag({:action => :show_external_OBO_file}, {:multipart => true} ) do -%>
+  
+    <div class="fr"> <label for="temp_file" class="lbl4">OBO file:</label>
+      <span class="fld"><%= file_field_tag  'file', :size => 80  %></span>
+    </div>
+
+    <div class="fr"> <label for="temp_file" class="lbl4">Restrict to labels tagged with:</label>
+      <span class="fld">
+        <%= render :partial => "shared/picker", :locals => {
+        :controller => 'keyword',
+        :object => 'keyword',
+        :method => 'id',
+        :tag_id => "keyword_id_restriction",
+        :size => 40} -%>
+      </span>
+    </div>
+
+    <%= submit_tag "show" -%>
+    <% end -%>
+  </div>
+</div>
+
+<% if @obo_file -%> 
+  <%= render(:partial => 'ontology/obo/external_vs_db') -%>
+<%- end -%>

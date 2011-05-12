@@ -1,0 +1,34 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: serials
+#
+#  id                 :integer(4)      not null, primary key
+#  name               :string(1024)
+#  city               :string(255)
+#  atTAMU             :string(12)
+#  notes              :text
+#  URL                :text
+#  call_num           :string(255)
+#  abbreviation       :string(255)
+#  synonymous_with_id :integer(4)
+#  language_id        :integer(4)
+#  namespace_id       :integer(4)
+#  external_id        :integer(4)
+#  issn_print         :string(10)
+#  creator_id         :integer(4)      not null
+#  updator_id         :integer(4)      not null
+#  updated_on         :timestamp       not null
+#  created_on         :timestamp       not null
+#  issn_digital       :string(255)
+#
+
+---
+serial_1:
+  id: "1"
+  name: "Journal of Stuff and Things"
+  abbreviation: "J. Stuff Things"
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %>
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>

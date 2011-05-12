@@ -1,0 +1,21 @@
+<%= render(:partial => 'ch', :object => chr) -%>
+
+<div style="float: left;">
+<% for @s in chr.chr_states -%>
+  <% if @mk.ALL_STATES.include?(@s.id) -%>
+  <!-- TODO: helper the logic below -->
+  <div style="float: left; margin:.0em .0em .2em .4em; padding:.0em .4em;
+       background-color:rgb(<%= ColorHelper::ranged_color(1.0 - (@mk.OTUS_BY_STATE[@s.id].size.to_f / @mk.all_otus.size.to_f) , 'green') -%>);
+       <%= @mk.OTUS_BY_STATE[@s.id].size == 1 ? 'border: double gray; ' : '' -%>">
+      <% if @mk.remaining_choices.include?(@s.id) -%>
+        <%= link_to(@s.display_name, :action => 'add_state', :id => @s) -%> 
+      <% else -%>
+        <i><%= @s.display_name -%></i>
+      <% end -%>
+    </div>
+  <% else -%>
+    <div class="small_grey" style="float: left; margin:.0em .2em .2em .4em; padding: 0em .2em; border: .1em solid silver;"><i><%= @s.display_name -%></i></div>
+  <% end -%>
+<% end -%>
+</div>
+<br/>

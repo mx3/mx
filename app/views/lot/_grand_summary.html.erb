@@ -1,0 +1,28 @@
+<%= link_to('back', :action => 'list') %>
+
+<p><%= link_to('download as excel (.xls) file', :action => 'grand_summary_xsl') %> likely only works for Excel 2003 if at all</p>
+
+Total specimens: <%= @tot_specimens %><br/>
+Total unique identifiers: <%= @tot_unique_ids %><br/>
+
+<p>Grouped by Identifier, then OTU.</p>
+
+<table>
+  <tr>
+    <td>Identifier</td>
+    <td>Otu</td>
+    <td>#specimens</td>
+    <td>notes (for lot)</td>
+  </tr>
+  <% for s in @records %>
+  <tr>
+    <td><%= s.i %></td>
+
+    <td><%= Otu.find(s.id).display_name %></td><!-- this previously showed the top syn name- but that's not what we want to do here -->
+    <td><%= s.ns %></td>
+    <td><%= s.notes %></td>
+  </tr>
+  <% end %>
+</table>
+
+

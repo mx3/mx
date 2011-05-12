@@ -1,0 +1,63 @@
+<h3>Batch load terms (BETA!!)</h3>
+
+<p> This function loads a series of terms from a text file.  Each line in the file is considered to be a single term (can be multiple words).  Results will display and you will be asked to confirm the load. During confirmation individual terms can be omitted.</p>
+<div class="box5">
+	<% form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'ce_batch_upload'}) do %>
+
+	<div class="fr">
+		<label for="temp_file" class="lbl4">text file containing terms</label>
+		<span class="fld">	<%= file_field 'temp_file', 'file', :size => 50  %>	</span>
+	</div>
+
+	<div class="fr"> 
+		<label class="lbl4">highest applicable taxon (sets for all) </label> 
+		<span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+			:controller => 'taxon_name',
+			:object => 'term',
+			:method => 'taxon_name_id',
+			:tag_id => "taxon_name_to_find",
+			:display => '' } -%> </span>
+		</div>
+
+		<div class="fr">
+			<label class="lbl4">reference (sets for all) </label>
+			<span class="fld"><%= render :partial => "shared/picker", :locals => {    
+				:controller => 'ref',
+				:object => 'term',
+				:method => 'ref_id',
+				:tag_id => "ref_name_to_find",
+				:display => '' } -%></span>
+			</div>
+
+ 			<div style="padding:1em; clear:both;"> <i>Options for OBO formatted text files: </i> </div>
+
+			<div class="fr">			
+				<label for="obo_include_xref" class="lbl4">include OBO xref id</label>
+        <span class="fld">	<%= check_box_tag('OBO_inc_xref') %></span>
+			</div>
+      
+			<div class="fr">			
+				<label for="obo_include_xref" class="lbl4">compare and update mode</label>
+        <span class="fld">	<%= check_box_tag('OBO_compare') %></span>
+			</div>
+
+			<div style="padding:1em; clear:both;"> <i>Create a single relationship for all terms: </i> </div>
+
+			<div class="fr">			
+				<label for="ontology_isa_id" class="lbl4">relationship </label>
+				<span class="fld">	<%= select('term', 'isa_id', @proj.isas.collect  {|o| [ o.display_name, o.id ] }, { :include_blank => true } ) %></span>
+			</div>
+
+			<div class="fr">
+				<label class="lbl4">term</label>
+				<span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+					:controller => 'part',
+					:object => 'term',
+					:method => 'part_id_for_is_a',
+					:tag_id => "part_to_find",
+					:display => '' } -%></span>
+				</div>
+				<%= submit_tag "Verify" -%>
+
+				<% end -%> 
+			</div> 

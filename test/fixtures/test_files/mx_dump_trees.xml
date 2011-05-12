@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nex:nexml xsi:schemaLocation="http://www.nexml.org/1.0 http://www.nexml.org/nexml/xsd/nexml.xsd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2003/XInclude" version="0.8" xmlns:nex="http://www.nexml.org/1.0" generator="mx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.nexml.org/1.0">
+  <otus label="taxa_block" xlink:href="#taxa1" class="taxset1" xml:lang="EN" xml:id="taxa1" id="taxa1" xml:base="http://foo.bar.org/">
+    <otu label="foo" id="t10655"/>
+    <otu label="bar" id="t10656"/>
+    <otu label="stuff" id="t10657"/>
+    <otu label="things" id="t10658"/>
+    <otu label="test" id="t10659"/>
+    <otu label="some_longer_name" id="t10660"/>
+    <otu label="some_other_name" id="t10661"/>
+    <otu label="Aus bus" id="t10662"/>
+    <otu label="Cus dus Smith (1976)" id="t10663"/>
+    <otu label="Things" id="t10664"/>
+  </otus>
+
+  <trees otus="taxa1" label="simple_test" id="tree_168">
+    <tree label="simple_tree_of_10" xsi:type="nex:IntTree" id="t5">
+      <node label="n275" root="true" id="node_275"/>
+      <node label="n276" id="node_276"/>
+      <node label="n277" otu="t10659" id="node_277"/>
+      <node label="n278" id="node_278"/>
+      <node label="n279" id="node_279"/>
+      <node label="n280" otu="t10660" id="node_280"/>
+      <node label="n281" otu="t10661" id="node_281"/>
+      <node label="n282" otu="t10662" id="node_282"/>
+      <node label="n283" id="node_283"/>
+      <node label="n284" id="node_284"/>
+      <node label="n285" otu="t10664" id="node_285"/>
+      <node label="n286" otu="t10655" id="node_286"/>
+      <node label="n287" otu="t10656" id="node_287"/>
+      <node label="n288" otu="t10657" id="node_288"/>
+      <node label="n289" id="node_289"/>
+      <node label="n290" otu="t10658" id="node_290"/>
+      <node label="n291" otu="t10663" id="node_291"/>
+      <edge target="node_276" source="node_275" length="1" id="e276"/>
+      <edge target="node_277" source="node_276" length="1" id="e277"/>
+      <edge target="node_278" source="node_276" length="1" id="e278"/>
+      <edge target="node_279" source="node_278" length="1" id="e279"/>
+      <edge target="node_280" source="node_279" length="1" id="e280"/>
+      <edge target="node_281" source="node_279" length="1" id="e281"/>
+      <edge target="node_282" source="node_278" length="1" id="e282"/>
+      <edge target="node_283" source="node_276" length="1" id="e283"/>
+      <edge target="node_284" source="node_283" length="1" id="e284"/>
+      <edge target="node_285" source="node_284" length="1" id="e285"/>
+      <edge target="node_286" source="node_284" length="1" id="e286"/>
+      <edge target="node_287" source="node_284" length="1" id="e287"/>
+      <edge target="node_288" source="node_284" length="1" id="e288"/>
+      <edge target="node_289" source="node_283" length="1" id="e289"/>
+      <edge target="node_290" source="node_289" length="1" id="e290"/>
+      <edge target="node_291" source="node_289" length="1" id="e291"/>
+    </tree>
+  </trees>
+    <foo> BAR </foo>
+</nex:nexml>

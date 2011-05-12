@@ -1,0 +1,48 @@
+<% if @keyword -%>
+  <p> Restricted to labels tagged with <%= @keyword.display_name -%>. </p>
+<% end -%>
+
+<p> Total OBO: <%= @obo_file.terms.size -%>.  Shared terms: <%=  @obo_file.terms.size - @obo_minus_labels.size -%>. </p>
+
+<%= link_to('jump to context report', "#context") -%>
+
+<table>
+  <tr>
+    <th> OBO - labels (<%= @obo_minus_labels.size -%>) </th>
+    <th> labels - OBO (<%= @labels_minus_obo.size -%>) </th>
+   
+  </tr>
+  <tr>
+    <td>
+      <%= @obo_minus_labels.join('<br />') -%>
+    </td>
+    <td>
+      <%= @labels_minus_obo.join('<br />') -%>
+    </td>
+
+     </tr>
+</table>
+
+<h3><a name="context"></a>Context for resulting labels that were NOT found in the OBO file</h3> 
+  <p> This report attempts to find the usage of the label listed in the ocr_text stored with a reference within this database. It searches the literal text, and will not hyphenated text or other odd formats.  </p>
+
+<table>
+  <% @labels_minus_obo.each do |l| -%>
+  <tr>
+    <td style="width: 150px;">
+      <%= l -%>
+    </td>
+
+    <td style="width: 650px;" id="result_for_label_<%= l.gsub(/\s/, "_") -%>">
+      <%= link_to_remote("show context", :url => { :action => :_ref_context_for_label, :controller => :ontology, :label_name => l}, :loading => "Element.show('#{l}_spinner')", :complete => "Element.hide('#{l}_spinner')" ) -%>
+      <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "#{l}_spinner", :style => "display: none; vertical-align:middle;"  ) %>
+
+    </td>
+
+    </tr>
+  <% end %> 
+    
+
+</table>
+
+

@@ -1,0 +1,11 @@
+<div id="<%= "specimen_#{result_row.id}"-%>" style="border-bottom:1px dotted silver;padding:0.2em;"> 
+
+  <%= result_row.display_name -%>
+
+<%= link_to_function('x') do |page| 
+page["specimen_#{result_row.id}"].remove 
+page["hidden_#{result_row.id}"].remove 
+end -%>
+
+</div>
+

@@ -1,0 +1,7 @@
+<h3>Editing repository</h3>
+<% form_tag :action => 'update', :id => @repository do -%>
+  <%= render :partial => "form" %>
+  <%= submit_tag "Edit" %>
+  <%= render :partial => '/identifier/subform' -%>
+<% end -%>
+<%= link_to 'Show', :action => 'show', :id => @repository %> |

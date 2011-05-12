@@ -1,0 +1,4 @@
+<% if part.object_relationship %>
+<span style="color:gray;"><%=h part.object_relationship.complement? ? part.object_relationship.complement : part.object_relationship.interaction %></span>
+<% end %>
+<b><%= part.otu.display_name %></b>

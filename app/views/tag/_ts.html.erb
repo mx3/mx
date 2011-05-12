@@ -1,0 +1,11 @@
+<div style="width: 200px; height: 200px; padding: 4px; margin: 2px; border: 1px solid silver; float: left;" id="tag_<%= ts.id -%>">
+  <div style="float:right;" ><span class="small_form_button"><%= link_to('edit', :action => :edit, :controller => :tag, :id => ts.id) -%></span>&nbsp;<span class="failed" style="padding:2px;"><%= destroy_tag_link(ts) -%></span></div>
+  <div style="float:left; width: 165px;">
+    on: <%= content_tag(:strong, link_to_tagged(ts))  -%>  <br/>
+    ref: <strong><%= link_to(ts.ref.authors_year, :action => :show, :id => ts.ref.id) if ts.ref -%> </strong>  <br/>
+    ref_obj: <%= link_to_referenced_object(ts) -%>
+    <br /> 
+    notes: <%= content_tag :strong, truncate(ts.notes, :length => 200) %>  <br/>
+    by: <%= ts.creator.full_name -%> <%= time_ago_in_words(ts.updated_on) %> ago <br/>
+  </div>
+</div>

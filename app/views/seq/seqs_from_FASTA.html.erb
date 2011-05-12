@@ -1,0 +1,10 @@
+<div style="font-style:italic;">
+  <p> Your fasta labels should end with a pcr id like &gt;foo_123.  Your file must have *nix line endings.  After verification you will be able to select which sequences you want to upload.</p>
+  <div class="subform">
+    <div class="header"> Select FASTA file </div>
+    <%= form_tag( {:action => :verify_seqs_from_FASTA, :controller => :seq}, {:multipart => true}) do -%>
+      <label for="file" class="lbl4"> FASTA file: </label> <span class="fld">	<%= file_field_tag 'file', :size => 50  -%>	</span>
+      <%= submit_tag 'verify' -%>
+    <% end -%>
+  </div>
+</div>

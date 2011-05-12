@@ -1,0 +1,21 @@
+<div class="browse_rec">
+<div id ="img_<%= "#{cid.id}" -%>" class="browse_thumb" <%= (cid.image.is_morphbank == true) ? 'style="background-color: #b1c2e6;"' : '' -%> >
+  <%= link_to(image_thumb_tag(cid.image), :action => 'show', :controller => 'image', :id => cid.image) -%> 
+
+<table>
+  <tr>
+    <td>ID:<%= cid.id %></td>
+    <td><%= cid.otu ? cid.otu.display_name : cid.specimen.display_name %></td>
+    <td><%= cid.label ? cid.label.display_name : "" %></td>
+  </tr>
+  <tr>
+    <td><%= cid.stage %></td>
+    <td><%= cid.sex %></td>
+  </tr>
+  <tr>
+    <td><%= cid.specimen ? cid.specimen.display_name : "" %></td>
+  </tr>
+</table>
+</div>
+</div>
+

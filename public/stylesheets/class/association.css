@@ -1,0 +1,17 @@
+.RefSupport {background: #FFFFee; padding: .2em; margin-bottom: .2em;}
+.VoucherLotSupport { background: #eeeeFF; padding: .2em;}
+.SpecimenSupport { background: #ddeedd; padding: .2em;}
+
+div.support_item {
+  margin: .2em;
+}
+
+div.support_item .timestamp {
+  text-align: right;
+}
+
+div.support_item table {
+  width: 100%;
+}
+
+

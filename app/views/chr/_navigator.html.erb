@@ -1,0 +1,22 @@
+<div class='navigator'>
+  
+  <%= navigator(@chr,  session['chr_view'], "position") %>
+
+  <%# the links to various views, should likely show them versus hidden tabs or not !! %>
+  <div class="item"> <%= session['chr_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @chr.id)  %> </div>  
+  <div class="item"> <%= session['chr_view'] == 'show_coded_otus' ? '<span class="navigator_current">coded OTUs</span>' :  link_to('coded OTUs', :action => 'show_coded_otus', :id => @chr.id)  %> </div> 
+  <div class="item"> <%= session['chr_view'] == 'show_groups' ? '<span class="navigator_current">groups</span>' :  link_to('groups', :action => 'show_groups', :id => @chr.id)  %> </div>  
+  <div class="item"> <%= session['chr_view'] == 'show_edit_expanded' ? '<span class="navigator_current">edit expanded</span>' :  link_to('edit expanded', :action => 'show_edit_expanded', :id => @chr.id)  %> </div>  
+  <div class="item"> <%= session['chr_view'] == 'show_mxes' ? '<span class="navigator_current">matrices</span>' :  link_to('matrices', :action => 'show_mxes', :id => @chr.id)  %> </div>  
+  <br/>
+
+  <%= render(:partial => 'shared/nav_functions', :object => @chr) -%>
+  <%= link_to('Clone', {:action => :clone_chr, :id => @chr.id} , :method => :post,  :confirm => "Clone this character? \n    States will be included cloned, figures and tags will not. You will be taken to the new character on confirmation. " ) -%>
+
+  <% if !@chr.continuous? -%>
+  <div class="item"> <%= session['chr_view'] == 'show_merge_states' ? '<span class="navigator_current">Merge states</span>' :  link_to('Merge states', :action => 'show_merge_states', :id => @chr.id)  %> </div>  
+  <% end -%>
+ 
+</div>
+
+

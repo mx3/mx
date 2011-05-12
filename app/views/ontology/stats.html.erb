@@ -1,0 +1,44 @@
+<h3> Stats </h3>
+
+<div class="box4">
+  <div class="header"> Classes </div>
+  <div class="content">
+    Total: <%= @proj.ontology_classes.all.length -%><br />
+    With xrefs: <%= @proj.ontology_classes.with_populated_xref.all.length -%><br />
+    With OBO labels: <%= @proj.ontology_classes.with_obo_label.all.length -%><br />
+    Without sensus: <%= @proj.ontology_classes.without_sensus.all.length -%><br />
+    Without relationships: <%= @proj.ontology_classes.without_ontology_relationships.all.length -%><br />
+    Obsolete: <%= @proj.ontology_classes.that_are_obsolete.all.length -%><br />
+
+  </div>
+
+  <div class="header"> Labels </div>
+  <div class="content">
+    Total: <%= @proj.labels.all.length -%><br />
+    Tied to classes: <%= @proj.labels.with_definitions.all.length -%><br />
+    Without classes: <%= @proj.labels.without_ontology_classes.all.length -%><br />
+    Without plural form: <%= @proj.labels.without_plural_forms.all.length -%><br />
+    Homonymous (with more than one class): <%= @proj.labels.that_are_homonyms.all.length -%><br />
+    Synonymous: <%= @proj.labels.that_are_synonyms.all.length -%><br />
+  </div>
+
+  <div class="header"> References </div>
+  <div class="content">
+    Total: <%= @proj.refs.all.length -%><br />
+    Used in sensus: <%= @proj.refs.used_in_sensus.all.length -%><br />
+    Used in ontology class "written by": <%= @proj.refs.used_in_ontology_class_written_by.all.length -%><br />
+    With pdfs: <%= @proj.refs.with_pdfs.all.length -%><br />
+  </div>
+
+  <div class="header"> Other </div>
+  <div class="content">
+    Relations: <%= @proj.ontology_relationships.all.length -%><br />
+    Sensus: <%= @proj.sensus.all.length -%><br />
+    Relationship types: <%= @proj.object_relationships.all.length -%><br />
+
+    Tags: <%= @proj.tags.all.length -%><br />
+    Images: <%# @proj.images.all.length -%><br /><!-- something very broken from here down -->
+    Figures: <%# @proj.figures.all.length -%><br />
+    Figure markers: <%# @proj.figure_markers.all.length -%><br />
+  </div>
+</div>

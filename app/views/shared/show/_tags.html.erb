@@ -1,0 +1,8 @@
+<% if obj.tags.length > 0 -%>
+  <div class="show_category"> Tags </div>
+  <div>
+    <% obj.tags.each do |t| -%>
+      <%= render(:partial => '/tag/ts', :locals => {:ts => t}) -%>
+    <% end -%>
+  </div>
+<% end -%>

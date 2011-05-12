@@ -1,0 +1,30 @@
+<% form_tag :action => 'create' do -%>
+
+<div  style="margin-left: 25%;">
+<h3>New lot</h3>
+<%= submit_tag "Create" %>
+<%= submit_tag "Create and next" %>
+<%= submit_tag "Create, clone and next"  %>
+</div>
+
+<br/>
+
+  <div class="subform">
+    <div class="header">Identifier (more can be added after creation by using <u>edit</u>)</div>
+     
+    <%= render(:partial => '/identifier/form') -%>
+
+    <br style="clear: both;" />
+  </div>
+
+<%= render :partial => "form" %>
+
+<br/>
+<div  style="margin-left: 25%;">
+<%= submit_tag "Create" %>
+<%= submit_tag "Create and next" %>
+<%= submit_tag "Create, clone and next"  %>
+</div>
+
+<% end -%>
+

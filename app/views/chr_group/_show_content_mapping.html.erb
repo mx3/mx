@@ -1,0 +1,12 @@
+<div> 
+  <% if @part == 'center' %>
+
+    <div class="box4">
+      <div class="header">All possible text in a mapping to content type (<%= @chr_group.content_type_id.blank? ? '<i> not mapped to a content type </i>' :  "mapped to @chr_group.content_type.display_name" -%>)</div>
+      <div class='content'>
+        <%= @l.linked_text(:proj_id => (@proj.default_ontology_id.blank? ? @proj.id : @proj.default_ontology_id)) -%>
+      </div>
+    </div>
+
+  <% end %>
+</div>

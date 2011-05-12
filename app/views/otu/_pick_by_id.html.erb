@@ -1,0 +1,1 @@
+<%= select(c_name, f_name, @proj.otus.collect  {|o| [ o.id.to_s, o.id ] }, { :include_blank => true } ) %>

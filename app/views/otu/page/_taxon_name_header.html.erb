@@ -1,0 +1,4 @@
+<!-- remember we only have @otu in otu/page partials -->
+<div style="width: 100%; text-align: center;">
+  <h3><%= @otu.taxon_name.blank? ? @otu.name : taxon_name_with_linked_author_year(@otu.taxon_name) -%></h3>
+</div>

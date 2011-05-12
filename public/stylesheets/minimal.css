@@ -1,0 +1,116 @@
+body { 
+	font-family: arial, verdana, helvetica, sans-serif;
+	font-size: 14px;
+}
+
+h3 {
+} /* right now h3 and h4 look identical and are used inconsistently (use h3) */
+
+
+img { border: none; }
+
+ul { list-style-type: disc; }
+
+
+/************ Page Structure (the layout for all private pages)  ************/
+
+#header { 
+ border-style: none none solid; 
+ border-width: 0 0 1px; 
+ border-color: #c0c0c0; }
+
+#header p { margin: 0 0 0 2.45em; padding: 0.5em; }
+#header span.links { margin: 0.2em 0.6em; }
+#content { padding: 0.5em 1em 1em }
+
+
+/* blocks of text, like paragraphs */
+.txt1 { text-align: right;
+ vertical-align: top; 
+ color: #666;
+}
+ 
+.box4 {
+	margin: 0.2em 0.2em 0.2em 0.2em;
+	border-width: 2px;
+}
+div.box4 .header {
+	color: #000;
+	font-weight:bold;
+	padding: 0.4em;
+}
+div.box4 .content { margin: .2em; padding: .4em; }
+
+.small_grey {
+	font-weight:normal;
+}
+
+/********** REDCLOTH **************/
+.rc_markup { /* textfields/areas that allow Redcloth (=Textile) markup */
+ background-color: #F7F0F0; 
+ font-family: Geneva, Arial, Helvetica, sans-serif; 
+ font-size: 1.2em;
+}
+
+
+/*********** IMAGES / FIGURES ***********/
+.browse_rec {
+ height: 240px;
+ float: left;
+ padding: 0.5em;
+ border: 1px solid gray;
+ margin: 0.3em;
+ background-color: #ffc;
+ white-space: nowrap;
+}
+
+.fig { background-color:#ffc; margin:0.3em; padding:0.5em; float: left; border:1px solid gray; min-height: 175px; min-width: 160px; font-size: 10px;}
+.fig .image {text-align: center; margin-left: auto; margin-right:auto;}
+.fig a:hover { text-decoration: none; border-bottom: 0 none }
+.attached_figs {
+	clear: right;
+	padding-top: 10px;
+} /* changed from both */
+.fig_edit {
+ height: 260px;
+ float: left;
+ padding: 0.5em;
+ border: 1px solid gray;
+ margin: 0.3em;
+ background-color: #ffc;
+ white-space: nowrap;
+}
+
+
+
+/* Text pages */
+
+.text_page {
+ padding: 2em;
+ background: white;
+ border: 1px solid silver;
+ margin: 1em;
+}
+
+.text_page .header {
+ font-weight: bold;
+ clear: both;
+}
+
+.text_page .subheading {
+ display:inline;
+ font-weight: bold;
+}
+
+.text_page .content {
+ display:inline;
+}
+
+.text_page .section {
+ clear: right;
+ margin-bottom: 2em;
+}
+
+.text_page .description {
+ display:inline;
+}

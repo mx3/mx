@@ -1,0 +1,8 @@
+<div>
+	<p><strong><%= @title -%></strong></p>
+<ul>
+	<% @labels.each do |l| -%>
+	<li> <%= render :partial => 'l', :object => l -%> </li>
+	<% end -%>
+</ul>
+</div>

@@ -1,0 +1,27 @@
+<h3>Listing geog types</h3>
+
+<table>
+  <tr>
+<% for column in GeogType.content_columns %>
+    <th><%= column.human_name %></th>
+<% end %>
+  </tr>
+  
+<% for geog_type in @geog_types %>
+  <tr>
+  <% for column in GeogType.content_columns %>
+    <td><%=h geog_type.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => geog_type %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => geog_type %></td>
+    <td><%= link_to 'Destroy', {:action => 'destroy', :id => geog_type}, :confirm => "Are you sure?" %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to "Previous page", { :page => @geog_type_pages.current.previous } if @geog_type_pages.current.previous %>
+<%= link_to "Next page", { :page => @geog_type_pages.current.next } if @geog_type_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New geog_type', :action => 'new' %>

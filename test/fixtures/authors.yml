@@ -1,0 +1,127 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: authors
+#
+#  id             :integer(4)      not null, primary key
+#  ref_id         :integer(4)      not null
+#  position       :integer(4)
+#  last_name      :string(255)     not null
+#  first_name     :string(255)
+#  title          :string(255)
+#  initials       :string(8)
+#  auth_is        :string(16)      default("author"), not null
+#  use_initials   :boolean(1)
+#  name_with_init :string(255)
+#  join_name      :string(255)
+#  namespace_id   :integer(4)
+#  external_id    :integer(4)
+#  creator_id     :integer(4)      not null
+#  updator_id     :integer(4)      not null
+#  updated_on     :timestamp       not null
+#  created_on     :timestamp       not null
+#
+
+--- 
+author_1: # First in '-' Format, Last, and Initials (used alone with ref)
+  id: 1
+  ref_id: 6
+  position: 1
+  last_name: 'Blorf'
+  first_name: 'Foo-Bar'
+  initials: 'BB'
+  auth_is: 'author'
+  use_initials:
+  name_with_init:
+  join_name:
+  namespace_id:
+  external_id:
+  creator_id: 1
+  updator_id: 1
+  updated_on: 1999-07-01 00:00:00
+  created_on: 1999-07-01 00:00:00
+author_2: # Two First, Last, and Initials (used in pair with ref)
+  id: 2
+  ref_id: 7
+  position: 1
+  last_name: 'Blorf'
+  first_name: 'Foo Bar'
+  initials: 'BB'
+  auth_is: 'author'
+  use_initials:
+  name_with_init:
+  join_name:
+  namespace_id:
+  external_id:
+  creator_id: 1
+  updator_id: 1
+  updated_on: 1999-07-01 00:00:00
+  created_on: 1999-07-01 00:00:00
+author_3:  # First and Last Name (used in pair with ref)
+  id: 3
+  ref_id: 7
+  position: 2
+  last_name: 'Blorf'
+  first_name: 'Foo'
+  initials: ''
+  auth_is: 'author'
+  use_initials:
+  name_with_init:
+  join_name:
+  namespace_id:
+  external_id:
+  creator_id: 1
+  updator_id: 1
+  updated_on: 1999-07-01 00:00:00
+  created_on: 1999-07-01 00:00:00
+author_4:  # only last name (used in triplet with ref)
+  id: 4
+  ref_id: 8
+  position: 3 # note purposefull out of order wrt ID
+  last_name: 'Blorf'
+  first_name: ''
+  initials: ''
+  auth_is: 'author'
+  use_initials:
+  name_with_init:
+  join_name:
+  namespace_id:
+  external_id:
+  creator_id: 1
+  updator_id: 1
+  updated_on: 1999-07-01 00:00:00
+  created_on: 1999-07-01 00:00:00
+author_5: # First in '-' Format, Last (used in triplet with ref)
+  id: 5
+  ref_id: 8
+  position: 1
+  last_name: 'Blorf'
+  first_name: 'Foo-Bar'
+  initials: ''
+  auth_is: 'author'
+  use_initials:
+  name_with_init:
+  join_name:
+  namespace_id:
+  external_id:
+  creator_id: 1
+  updator_id: 1
+  updated_on: 1999-07-01 00:00:00
+  created_on: 1999-07-01 00:00:00
+author_6:  # First and Last Name (used in triplet with ref)
+  id: 6
+  ref_id: 8
+  position: 2
+  last_name: 'Blorf'
+  first_name: 'Foo'
+  initials: ''
+  auth_is: 'author'
+  use_initials:
+  name_with_init:
+  join_name:
+  namespace_id:
+  external_id:
+  creator_id: 1
+  updator_id: 1
+  updated_on: 1999-07-01 00:00:00
+  created_on: 1999-07-01 00:00:00

@@ -1,0 +1,14 @@
+<!-- remember we only have @otu in otu/page partials -->
+<div class="content">
+<table style="width: 100%;">
+  <tr style="text-align:left;"><th style="width: 8em;">Identifier(s) </th> <th style="width: 6em;">Repository </th> <th>Sex</th> <th>Collecting event </th></tr>
+  <% @otu.specimens_most_recently_determined_as.each_with_index do |s,i| -%>
+  <tr>  
+      <td> <%= s.display_name(:type => :identifiers) -%>   </td>
+      <td> <%= s.repository ? s.repository.andand.coden : 'not provided' -%></td>
+      <td> <%= s.sex -%>   </td>
+      <td> <%= s.ce ? s.ce.verbatim_label : content_tag(:em, 'NOT CAPTURED') -%>   </td>
+    </tr>
+  <% end -%>
+</table>
+</div>

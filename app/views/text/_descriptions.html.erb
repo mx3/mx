@@ -1,0 +1,9 @@
+<!-- a wrapper for a group of descriptions in contents = [] -->
+<div class="text_page">
+  <%= content_tag(:em, 'Select a content template that defines your descriptions.') if contents.size == 0 -%>
+  <!-- contents is an Array of ContentTemplate#content_by_otu -->
+  <% otus.each do |@otu| -%>
+    <%= render(:partial => 'text/description', :locals => {:content => contents[@otu]} ) -%>
+  <% end -%>
+  <br style="clear:both;" />
+</div>

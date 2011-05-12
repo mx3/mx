@@ -1,0 +1,14 @@
+<% content_for :center do -%>
+  <p> Showing content <strong><%= @content_type.display_name %></strong>.</p>
+  <% for @otu in @otus %>
+    <p><%= @otu.display_name(:type => :multi_name) %></p>
+    <% @con = @otu_cons.detect {|c| c.otu_id == @otu.id} %>
+    <% if @con %>
+      <div style="padding: 0em .2em;" >
+        <%= htmlize(@con.text) -%>
+        <%= render_figs_for_obj(@con, 'thumb') -%>
+      </div>
+    <% end %>
+    <% end %>
+  <% end %>
+<% end -%>

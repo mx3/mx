@@ -1,0 +1,36 @@
+
+<div class="view">
+  <span class="header">Concept tree</span>
+
+  <div style="text-align:center; padding-bottom:4px;"> <strong>Reset the hierarchy to a new root</strong> <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'tree_spinner', :style => "display: none; vertical-align:middle;") -%></div>
+  <div>
+    <%= form_tag :remote => true, :loading => "Element.show('tree_spinner')", :complete => "Element.hide('tree_spinner')", :url => {:action => :_tree_set_root, :controller => :ontology}, :update => :tree do  -%>
+    <label for="ontology_part_id"> Root concept</label>
+        <span class="fld"><%= render :partial => "shared/picker", :locals => {    
+          :controller => 'ontology_class',
+          :object => 'ontology_class',
+          :method => 'id',
+          :size => 40,
+          :tag_id => "ontology_class_for_tree_build",
+          :display => '' } -%>
+        </span>&nbsp;
+        <label for="depth">Expansion Depth</label> <span class="fld"><%= text_field_tag(:max_depth, "2", :size => 2) -%></span>&nbsp;
+        <label for="ontology_relationship_id">Limit relations to: </label><span class="fld"><%= select("object_relationship", "id", @all_object_relationships.collect {|p| [ p.display_name, p.id ]}, :include_blank => true) -%></span>&nbsp;
+      <%= submit_tag("Set") -%>
+  <% end -%>
+  </div>
+</div>
+
+<% if @colored_object_relationships.size > 0 -%>
+  <div style="padding:1em;; border-bottom: 1px dotted silver;">Underlined terms are related to their immediate parents as identified by underline color: <%= @colored_object_relationships.collect{|i| i.colored_display_name}.join(", ") -%></div>
+<% end -%>
+
+<table style="width: 100%;padding: 1em;">
+  <tr>
+    <td style="width: 50%;"><div id="tree" style="clear: both;"><%= render(:partial => '/ontology/tree/tree_index', :locals => {:max_depth => 2, :relationship_type => 'all'}) -%></div></td>
+    <td style="width: 30%;">
+      <div style="clear: both; padding: 4px;" id="ontology_tree_info_target"></div>
+    </td>
+  </tr>
+</table>
+

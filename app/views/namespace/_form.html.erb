@@ -1,0 +1,20 @@
+<%= error_messages_for 'namespace' %>
+
+<!--[form:namespace]-->
+<p><label for="namespace_name">Name</label><br/>
+<%= text_field 'namespace', 'name'  %></p>
+
+<p><label for="namespace_short_name">Short name/collection code</label><br/>
+<%= text_field 'namespace', 'short_name'  %></p>
+
+<p><label for="namespace_owner">Owner</label><br/>
+<%= text_field 'namespace', 'owner'  %></p>
+
+<p><label for="namespace_owner">Is admin/internal use only?</label><br/>
+<%= check_box 'namespace', 'is_admin_use_only'  %></p>
+
+<p><label for="namespace_notes">Notes</label><br/>
+<%= text_area 'namespace', 'notes', :cols => 60, :rows => 5 %></p>
+
+<!--[eoform:namespace]-->
+

@@ -1,0 +1,123 @@
+<% content_for :center do -%>
+  <div>
+    <div style="width: 48%; float: left;">
+      <div class="subform">
+        <div class="header">add OTU groups, OTU +, OTU -</div>
+          <%= form_tag :action => 'add_otu', :id => @mx.id do -%>
+              <%= hidden_field 'mx', 'id' -%>
+              <div class="fr"> 
+                <label for="otu_group_id" class="lbl4" style="width: 9%;" >group</label>
+                <span class="fld" style="width: 86%;"  >
+                  <select name="otu_group_id" style="font-size: 87%; width: 85%;">
+                    <option></option>
+                     <%= options_from_collection_for_select(@otu_groups_out, 'id', 'name') if @otu_groups_out %>
+                 </select>
+                  <%= submit_tag "add",  {'class' => 'small_form_button'}  -%>
+               </span> 
+            </div>
+          <% end %>
+
+          <%= form_tag :action => 'add_otu', :id => @mx.id do -%>
+            <%= hidden_field 'mx', 'id' -%>
+              <div class="fr"> 
+                <label for="otu_id" class="lbl4" style="width: 9%;">otu +</label>
+                <span class="fld"  style="width: 86%;">    
+                  <%= render :partial => "shared/picker", :locals => {
+                      :controller => 'otu',
+                      :object => 'otu_plus',
+                      :method => 'id',
+                      :tag_id => :plus_otu_id_for_mx,
+                      :size => "40" } -%>
+                      <%= submit_tag "add", {:name => 'add_otu_plus', 'class' => 'small_form_button'}  -%>
+                </span> 
+             </div>
+          <% end %>
+
+        <%= form_tag :action => 'add_otu', :id => @mx.id do -%>
+          <%= hidden_field 'mx', 'id' -%>
+          <div class="fr"> 
+            <label for="minus_otu_id" class="lbl4"  style="width: 9%;" >otu -</label>
+            <span class="fld"  style="width: 86%;">    
+              <%= render :partial => "shared/picker", :locals => {
+                  :controller => 'otu',
+                  :object => 'otu_minus',
+                  :method => 'id',
+                  :tag_id => :minus_otu_id_for_mx,
+                  :size => "40" } -%>
+                  <%= submit_tag "add", {:name => 'add_otu_minus',  'class' => 'small_form_button'}  -%>
+            </span> 
+           </div>   
+      <% end %>
+
+      <br style="clear:both;" />
+    </div>
+
+        <div class="box4">
+          <div class="header" >OTUs in matrix</div> 
+          <div class="content">
+            <%= '<i>none</i>' if @otus.size == 0 -%>
+            <table style="width: 100%;">
+              <% @otus.each do |otu| %>
+              <tr>
+                <td>
+                  <%= otu.display_name(:type => :matrix_name) -%> &nbsp;&nbsp; <%= link_to('(show)', {:action => :show, :controller => :otu, :id => otu.id}, :popup => true) -%> &nbsp;&nbsp;
+                   <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :otu_id => otu, :chr_id => @chr.id, :mode => 'row', :position => '0'}) if @chr -%> 
+                </td>
+                <td style="background-color:rgb(
+                      <%= ColorHelper::ranged_color(@hash_heat[otu.id] || 0, 'green') -%>
+                    );">
+                    <%= ((@hash_heat[otu.id] || 0) * 100).to_i -%>% 
+                </td>
+              </tr>
+              <% end %>
+            </table>
+            <br style="clear: both;" />
+        </div>
+   </div>
+ </div> 
+          
+      <div style="width: 48%; float: right;">
+        <div class="box4">
+          <div class="header" >OTU groups</div> 
+          <div class="content">
+            <%= '<i>none</i>' if @otu_groups_in.size == 0 -%>
+            <ul style="list-style-type:square;">
+              <% @otu_groups_in.each do |otu_group| -%>
+                <li style="color:gray;"><%= otu_group.name -%>&nbsp;<%= link_to "x", {:action => 'remove_otu', :id => @mx.id, :params => {"otu_group_id" => otu_group.id}} -%></li>
+               <% end -%>            
+             </ul>
+           </div>
+        </div>     
+               
+
+      <div class="box4">
+        <div class="header" >OTUs +</div> 
+        <div class="content">
+            <%= '<i>none</i>' if @otus_plus.size == 0 -%>
+          <ul style="list-style-type:square;">
+            <% @otus_plus.each do |otu| -%>
+            <li >
+            <%= otu.display_name(:type => :matrix_name) %>&nbsp;<%= link_to "x", {:action => 'remove_otu', :id => @mx.id, :params => {"otu_id" => otu.id}} -%>
+            </li>
+              <% end -%>            
+            </ul>
+        </div>
+      </div>     
+                       
+      <div class="box4">
+        <div class="header" >OTUs -</div> 
+        <div class="content">  
+         <%= '<i>none</i>' if @otus_minus.size == 0 -%>
+              <ul style="list-style-type:square;">
+                <% @otus_minus.each do |otu| -%>
+                <li>
+                  <%= otu.display_name(:type => :matrix_name) %>&nbsp;<%= link_to "x", {:action => 'remove_otu', :id => @mx.id, :params => {"minus_otu_id" => otu.id}} -%>
+                </li>
+            <% end -%>    
+          </ul>
+      </div>
+      </div>     
+           
+     </div>
+  </div>
+<% end -%>

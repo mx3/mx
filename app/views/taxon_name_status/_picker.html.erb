@@ -1,0 +1,1 @@
+<%= select(c_name, f_name, TaxonNameStatus.find(:all).collect  {|o| [ o.status, o.id ] }, { :include_blank => true } ) %>

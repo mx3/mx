@@ -1,0 +1,108 @@
+
+
+<div class="show_category">Stats</div>
+
+<div class="show_row"><span class="show_lbl">Match type:</span><span class="show_data"><%= @match_type -%></span></div>
+<div class="show_row"><span class="show_lbl">Clarity score:</span><span class="show_data"><%= (@l.matchable_words.keys.length.to_f / @l.matchable_ontology_classes.length.to_f).to_f -%></span>  <span class="show_comment"> Experimental, in development. </span> </div>
+
+<div class="show_category">Original text</div>
+<%= @txt -%>
+
+<div class="show_category">Match map</div>
+<%= @l.linked_text -%>
+
+<div class="show_category">Materials and methods
+  <% form_tag({:action => :download_analyzer_result, :controller => :ontology,  :match_type => @match_type, :exclude_common_words => @exclude_common_words, :adjacent_words_to_fuse => @adjacent_words_to_fuse, :type => :m_and_m, :method => :post}, {:style => 'display:inline;'} ) do -%>
+    <%= hidden_field_tag :text, @txt -%>
+    <%= submit_tag 'download result', :class => 'small_form_button', :style => 'margin: 2px;' -%>
+  <% end -%>  
+</div>
+
+<div style="width: 100%;">
+  <% @l.link_set(:exclude_blank_descriptions => true).sort{|a,b| a.name <=> b.name}.each_with_index do |l,i| -%>
+    <div style="padding:0.5em;" class="<%= (i % 2 == 0 ? 'stripe' : "") -%>" > <!-- 1-->
+      <div style="float:left;width:150px;"><%= l.display_name -%></div><!-- 2 /2 -->
+      <div style="float: left; width:755px;"><!-- 3 -->
+        <% l.ontology_classes.each do |oc| -%>
+          <div style="padding-bottom:0.5em;"><!-- 4 -->
+            <div style="float: left; width:500px;"> <!-- 5 -->
+              <%= oc.display_name -%>
+            </div>
+            <div style="float: left; width: 250px;"><!-- 6 -->
+              <%= Ontology::OntologyMethods.obo_uri(oc) -%>
+            </div>
+          </div><!-- /4 -->
+        <% end %>
+        <br style="clear: both;" />
+      </div>
+      <br style="clear: both;" />
+    </div>
+  <% end -%>
+</div>
+
+<br style="clear: both;" />
+
+<% if @match_type == :predicted -%>
+<div class="show_category">All labels (heuristic)</div>
+<%= @l.all_words.sort.join(", ") %>
+
+<div class="show_category">Unmatched labels (heuristic)</div>
+<%= @l.unmatched.sort.join(", ") %>
+<% end -%>
+
+<div class="show_category">Matched labels</div>
+<%= @l.matchable_words.keys.sort.join(", ") %>
+
+
+<div class="show_category">Matched classes</div>
+<%= @l.matchable_ontology_classes.collect{|oc| oc.display_name(:type => :select)}.join("<br />") %>
+
+<div class="show_category">Homonymous labels</div>
+<table>
+  <% @l.link_set(:result_type => :homonyms).each do |l| -%>
+    <tr>
+      <%= content_tag :td, l.display_name -%>
+      <td>
+        <table>
+          <% l.ontology_classes.each do |oc| -%>
+            <tr><td><%= oc.display_name -%></td></tr>
+          <% end -%>
+        </table>
+      </td>
+    </tr>
+  <% end -%>
+</table>
+
+<div class="show_category">Synonymous labels</div>
+
+<div style="width: 100%;">
+
+  <% @l.link_set(:result_type => :synonyms).each_with_index do |l, i| -%>
+    <div style="padding:0.5em;"  class="<%= (i % 2 == 0 ? 'stripe' : "") -%>" > <!-- 1-->
+      <div style="float:left;width:150px;"><%= l.display_name -%></div><!-- 2 /2 -->
+      <div style="float: left; width:755px;"><!-- 3 -->
+        <% l.ontology_classes.each do |oc| -%>
+          <div><!-- 4 -->
+            <div style="float: left; width:500px;"> <!-- 5 -->
+              <%= oc.display_name -%>
+            </div>
+
+            <div style="float: left; width: 250px;"><!-- 6 -->
+              <% oc.labels.each do |m| -%>
+                <div><%= m.display_name -%></div><!--7 -->
+              <% end %>
+              <br style="clear: both;" />
+            </div><!-- /6 -->
+
+          </div><!-- /4 -->
+        <% end %>
+        <br style="clear: both;" />
+      </div><!-- /3 -->
+      <br style="clear: both;" />
+    </div><!-- /1 -->
+  <% end %>
+</div>
+
+<br style="clear: both;" />
+
+

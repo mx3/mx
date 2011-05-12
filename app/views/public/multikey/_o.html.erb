@@ -1,0 +1,12 @@
+<div style="padding: 0em .2em; margin: .3em 0em;">
+  <% if o.has_public_content? %>
+    <%= link_to(o.display_name, :action => 'show', :controller => 'public_content', :id => o.id) -%>  
+  <% else %>
+     <%= o.display_name -%>
+  <% end %>
+	
+  <% if link_txt != '' %>
+	  <span style="border:1px solid gray; margin: 0px; padding: 0em .2em;" class="failed"><%= link_to(link_txt, :action => action, :id => o) -%></span>
+	<% end %>
+</div>
+

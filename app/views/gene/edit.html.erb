@@ -1,0 +1,10 @@
+<h3>Editing gene</h3>
+
+<%= form_tag :action => 'update', :id => @gene do -%>
+  <%= render :partial => "form" %>
+  <%= submit_tag "Edit" %>
+<% end -%>
+
+<br />
+<%= link_to 'Show', :action => 'show', :id => @gene %> |
+<%= link_to 'Back', :action => 'list' %>

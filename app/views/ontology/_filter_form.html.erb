@@ -1,0 +1,15 @@
+<div class="subform" > 
+  <div class="header">
+    Filter  
+  </div>
+
+  <% form_remote_tag  :loading => "Element.show('filter_search_spinner')", :complete => "Element.hide('filter_search_spinner')", :url => {:controller => :ontology, :action => :_filter_search} do -%>
+    <%= check_box_tag "invert", 1, false -%> Invert results 
+    | <%= check_box_tag "search_with_and", 1, false -%> Use "and" not "or" <%= submit_tag "Filter" -%> 
+    <div class="content" id="filter_form" ></div>
+ 
+  <% end -%>
+
+  <br style="clear:both;" />
+</div>
+

@@ -1,0 +1,21 @@
+<div class='navigator' style="text-align: center;">
+  <%# the links to various views, should likely show them versus hidden tabs or not !! %>
+  <h4>browse</h4>
+  <div class="item"> <%= session['association_view'] == 'browse_taxon_names' ? '<span class="navigator_current">taxon name</span>' : link_to('taxon name', :action => 'browse_taxon_names') %> </div>
+  <div class="item"> <%= session['association_view'] == 'browse_otus' ? '<span class="navigator_current">OTUs</span>' : link_to('OTUs', :action => 'browse_otus') %> </div>
+  <div class="item"> <%= session['association_view'] == 'browse_refs' ? '<span class="navigator_current">references</span>' : link_to('references', :action => 'browse_refs') %> </div> 
+  <div class="item"> <%= session['association_view'] == 'browse_confidences' ? '<span class="navigator_current">confidence</span>' : link_to('confidence', :action => 'browse_confidences') %> </div> 
+  <div class="item"> <%= session['association_view'] == 'browse_object_relationships' ? '<span class="navigator_current">relationships</span>' : link_to('relationships', :action => 'browse_object_relationships') %> </div> 
+  <div class="item"> <%= session['association_view'] == 'browse_chronological' ? '<span class="navigator_current">chronological</span>' : link_to('chronological', :action => 'browse_chronological') %> </div> 
+  <div class="item"> <%= session['association_view'] == 'browse_negatives' ? '<span class="navigator_current">negatives</span>' : link_to('negatives', :action => 'browse_negatives') %> </div>
+  
+  <% if !@public -%>
+    <div class="item"> <%= session['association_view'] == 'browse_unsupported' ? '<span class="navigator_current">browse unsupported</span>' : link_to('unsupported records', :action => 'browse_unsupported') %>  </div>
+    <div class="item"> <%= session['association_view'] == 'browse_untied' ? '<span class="navigator_current">browse untied</span>' : link_to('untied records', :action => 'browse_untied') %>  </div>
+  <% end %>
+    
+  <% if @association %>
+    <%= navigator(@association,  session['association_view']) -%>
+  <% end -%>
+
+</div>

@@ -1,0 +1,5 @@
+<p><h3><%= @title -%></h3></p>
+<% @labels.each do |l| -%>
+  <div style=''border-bottom: 1px dotted silver; padding: 1px; font-size: larger; background-color: #eee;'><%= l.display_name -%></div>
+  <%= render(:partial => 'synonyms', :locals => {:label => l} ) -%>
+<% end -%>

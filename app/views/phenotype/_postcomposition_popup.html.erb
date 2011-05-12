@@ -1,0 +1,15 @@
+<% id_string = "pc_level_" + UUID.create.to_s %>
+<div id="<%= id_string -%>" class="popupform" style="width: 600px;">
+	<div>
+		<span class="small_form_button" style="float: right;" >
+			<%= link_to_function("cancel", nil, :id => "cancel_link") do |page|
+				page[id_string].remove
+			end
+			-%>
+		</span> 
+	</div>
+	<h4>Enter postcomposition</h4>  
+	<br style="clear: both;">
+	<%= render :partial => 'edit_postcomposition', :locals => {:term => term, :role => role, :pc_level_id => id_string} -%>
+</div>
+

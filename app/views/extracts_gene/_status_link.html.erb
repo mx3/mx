@@ -1,0 +1,6 @@
+<div id="status_<%= "#{gene.id}_#{extract.id}" -%>" style="display: inline;">
+  <span id="status_link_<%= "#{gene.id}_#{extract.id}"-%>" >
+    <%= link_to_remote status, :url => { :action => :popup, :controller => :extracts_gene, :gene_id => gene.id, :extract_id => extract.id} -%>
+  </span>
+</div>
+

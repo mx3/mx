@@ -1,0 +1,55 @@
+table.mx {
+  border-collapse: collapse;
+}
+
+table.mx tr.odd {
+  background-color: #ddddff; 
+}
+
+td.mx_cell {
+  border: 1px solid silver;  
+}
+
+td.mx_cell span {
+  display: none;
+}
+
+td.mx_cell a:hover span {
+   display: block; 
+   position: absolute; top:35px; left: 0;
+   padding: 5px; margin: 0px; z-index: 100;
+
+   font-size: larger;
+}
+
+td.mx_cell ul {
+    padding-left: 1em;
+    margin-top:  .2em;
+    margin-bottom:  .2em;
+}
+
+a.empty:link, a.empty:visited {
+  color: red;
+  text-decoration: none;
+}
+
+div.nexus {
+  white-space: pre;
+  margin: 1em;
+  border: 1px dotted silver;
+  font-family: "Courier New", Courier, monospace;
+  padding: 1em;
+  width: 98%; overflow: auto; 
+}
+
+div.nexus td.taxname {
+  padding-right: 2em;
+}
+
+div.nexus td {
+  padding: 0em;
+}
+
+a.quicknavbox {
+  position: relative; display: block; float: left; width: 5px; margin: 1px; border: 1px solid silver; height: 5px;
+}

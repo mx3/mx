@@ -1,0 +1,58 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag("accordion") -%>
+<% end %>
+
+  <% if @otus_remn.size == 1 -%> 
+    <div id="choices_container" class="box5" style="text-align: center;">
+      <div style="font-weight: bolder; font-size:larger; color: red;"> There is only one remaining OTU! </div>
+      <div><%= render(:partial => "o", :collection => @otus_remn, :locals => {:action => 'choose_otu', :link_txt => ''}) -%></div>      
+    </div>
+  <% end  -%>
+
+
+<% if not @tags.blank? %>
+<p> This is a list of tags that exist on remaining OTUs, characters, or character states.</p>
+<div id="img_figs" class="box5">
+  <div id="img" style="clear: both;"> <i>If characters are in the tagged list you can click on "Figures" to view them here.</i> </div>
+</div>
+
+<div id="tag_list">
+
+  <%= render(:partial => 'shared/code_accordion') -%>
+
+  
+  <%@tags.keys.sort_by{|a| a.keyword}.each do |k| %>
+      <div id="vertical_container" >
+   
+        <h3 class="accordion_toggle"> <%= k.keyword -%></h3>
+        
+        <div class="accordion_content"> 
+          <% @tags[k].each do |tag| %>
+          <table style="width:100%;">
+            <tr style="background-color:gray; padding: 2px;">
+              <th> Tag on </th>
+              <th> Name </th>
+              <th> Notes </th>
+              <th> Reference </th>
+            </tr>
+            <tr>
+              <td><%= tag.addressable_type %></td>
+              <td><% if tag.addressable_type == "Chr"-%><%= render(:partial=>'chr', :object => tag.tagged_obj) -%><% else %><%= tag.tagged_obj.display_name %><% end %></td>
+              <td><%= tag.notes %></td>
+              <td><%= tag.ref.blank? ? "<i>none</i>" : tag.ref.display_name %></td>
+            </tr>
+          </table>
+        <% end %>   
+        </div>
+      </div>
+  <% end %> 
+</div>
+
+<script type="text/javascript">
+  loadAccordions();
+</script>
+
+<% else -%>
+
+<i> There are no tags for remaining OTUs, characters, or character states. </i>
+<% end -%>

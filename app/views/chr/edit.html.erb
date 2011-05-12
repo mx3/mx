@@ -1,0 +1,22 @@
+<h3>Editing character</h3>
+
+<% form_tag :action => 'update' do -%>
+  <%= hidden_field 'chr', 'id' %>
+  <%= submit_tag "Update" %> <%= link_to('cancel', :action => :show, :id => @chr) -%>
+  <div style="border-bottom: 1px dotted silver; margin-bottom:1em;"> Character metadata </div>
+  <%= render :partial => "form" %>
+
+  <% if !@chr.continuous? -%>
+    <div style="border-bottom: 1px dotted silver; margin-bottom:1em;"> States </div>
+
+    <% if @chr.chr_states.count > 0 -%>
+      <%= render(:partial => "chr_state", :collection => @chr.chr_states) -%><br />
+    <% else-%>
+      <i> no states added</i>
+    <% end -%>
+
+  <% end -%>
+
+  <%= submit_tag "Update" %>
+<% end -%>
+

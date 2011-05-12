@@ -1,0 +1,20 @@
+<h3>Listing OTU groups</h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Is public?</th>
+    <th>default? <%= link_to "(clear)", :action => 'clear_default' %> </th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+  </tr>
+  <% for otu_group in @otu_groups -%>
+    <tr>
+      <td><%= link_to otu_group.name, :action => 'show', :id => otu_group.id %></td>
+      <td><%= otu_group.is_public ? 'yes' : 'no'  %></td>
+      <% my_url = url_for :action => 'make_default', :id => otu_group.id %>  
+      <td><%= check_box_tag("foo#{otu_group.id}", "1",  session['group_ids'] && session['group_ids']['otu'] == otu_group.id.to_s, {:onclick => "document.location.href='#{my_url}'"}) %></td>
+      <td><%= link_to('Edit', :action => 'edit', :id => otu_group.id) %></td>
+      <td><%= link_to('Destroy', {:action => 'destroy', :id => otu_group.id}, :method => "post", :confirm => 'Destroy this OTU group?') %></td>
+    </tr>
+		<% end -%>
+</table>

@@ -1,0 +1,36 @@
+
+<div class="show_category"> Batch loading steps </div>
+<ol>
+  <li> Select the tab delimited data file formatted as documented in the wiki help (link on top right of this page). </li>
+  <li> Click 'verify.' Files must be verified prior to their loading. Clicking 'create' before 'verify' will NOT create records.</li>
+  <li> <span style="color:red; font-weight:bolder;">CAREFULLY review the expect result.</span> </li>
+  <li> If the file is incorrect make changes to it, return to this form, then verify again. No changes can be made between a successfull verification and a 'create' click. </li>
+  <li> If the result is correct (remember to check for collecting events etc. if you included that data) return to this form, reselect the file, then click 'submit'. <span style="color:red; font-weight:bolder;">RESULTS CAN NOT BE BATCH UNDONE!</span></span></li>
+</ol>
+
+<div class="subform">
+  <div class="header">Batch load</div>
+  <div class="content"> 
+    <%= form_tag({:action => 'batch_verify_or_create'}, {:multipart => true} ) do -%>
+
+    <div class="fr"> <label for="temp_file" class="lbl4">Data file:</label>
+      <span class="fld"><%= file_field_tag  'file', :size => 80  %></span>
+    </div>
+
+    <%= submit_tag "verify", :name => 'verify' -%>    
+    <hr />
+
+    <div class="fr"> <label for="otu_as_cited_in" class="lbl4">Ontology class written by</label>
+      <span class="fld"><%= render :partial => "shared/picker", :locals => {
+        :controller => 'ref',
+        :object => 'ref',
+        :method => 'id',
+        :tag_id => "ref_id_to_find_for_sensu_batch_load",
+        :size => 60 } -%><em> If left empty reference will be set to the reference provided for each row. </em> </span>
+    </div>
+    <%= submit_tag "create", :name => 'create', :confirm => "Unverified files will not be parsed.  Are you sure you want to continue?" -%>
+    <% end -%>
+  </div>
+</div>
+
+

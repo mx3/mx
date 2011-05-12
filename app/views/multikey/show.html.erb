@@ -1,0 +1,30 @@
+<div id="inner_wrapper">
+  <div id="inner_header" style="text-align: center;"> 
+
+    <div style="font-family: fixed_width; margin-bottom: 2px;" class="box5">
+      OTUs- eliminated:<%= @mk.otus_eliminated.size -%> remaining:<%= @mk.otus_remaining.size -%> / Characters- eliminated:<%= @mk.chrs_eliminated.size -%> remaining:<%= @mk.chrs_remaining.size -%>
+      </div>  
+
+    <div style="float:left">
+      <%= link_to("main", :action => 'show_default', :id => @mk.MX_ID) -%> |
+      <%= link_to("compare", :action => 'show_compare', :id => @mk.MX_ID) -%> |
+      <%= link_to("by characters", :action => 'show_otu_by_chr', :id => @mk.MX_ID) -%> |
+      <%= link_to("chosen figures", :action => 'show_chosen_figures', :id => @mk.MX_ID) -%> |
+      <%= link_to("remaining figures", :action => 'show_remaining_figures', :id => @mk.MX_ID) -%> |
+      <%= link_to("chosen states", :action => 'show_chosen_states', :id => @mk.MX_ID) -%> 
+    </div>
+    <div style="float:right"> <%= link_to("reset key", :action => 'reset', :id => @mk.MX_ID) -%></div>
+
+    <div style="clear: both;"></div>
+  </div>
+
+  <%= render :partial => "show_#{@mk.view}" -%>
+
+  <div id="inner_footer"> 
+    <div style="clear: both;">&nbsp;</div>
+  </div>
+</div>
+
+
+
+

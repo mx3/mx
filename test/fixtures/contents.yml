@@ -1,0 +1,34 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: contents
+#
+#  id              :integer(4)      not null, primary key
+#  otu_id          :integer(4)
+#  content_type_id :integer(4)
+#  text            :text
+#  is_public       :boolean(1)      default(TRUE), not null
+#  pub_content_id  :integer(4)
+#  revision        :integer(4)
+#  proj_id         :integer(4)      not null
+#  creator_id      :integer(4)      not null
+#  updator_id      :integer(4)      not null
+#  updated_on      :timestamp       not null
+#  created_on      :timestamp       not null
+#
+
+--- 
+cons1: 
+  otu_id: 1
+  content_type_id: 1
+  text: "yada yada yada. "
+  proj_id: 1
+  creator_id: 1
+  updator_id: 1
+cons2: 
+  otu_id: 1
+  content_type_id: 1
+  text: 'I think that these two genera actually represent a single sub-species.'
+  proj_id: 1
+  creator_id: 1
+  updator_id: 1

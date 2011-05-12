@@ -1,0 +1,21 @@
+<table class="list_table">
+  <%= t_col_heads([ {'name' => "author", 'style' => 'width: 12%;'}, "year" , {'name' => "citation", 'style' => 'width: 50%;'}, "id", "public?", "OCR?", "serial", "mod by", 'PDF', "mod age" ]) -%>
+  <% @refs.each_with_index do |ref, i| -%>
+  <%= t_row({ 'obj' => ref, 'close_tr' => false, 'inc_actions' => false, 'tr_css' => i,
+    'cell_data' => [
+    ref.authors_for_display,
+    ref.year, #.to_s + ( ref.year_letter ? ref.year_letter : "")),
+    {link_to(ref.display_name, :action => :show, :id => ref) => "citation"},
+    ref.id,
+    {(ref.is_public? ? "yes" : "no") => (ref.is_public? ? 'passed' : 'failed')},
+    {(ref.ocr_text.blank? ? "no" : "yes") => (ref.ocr_text.blank? ? 'failed' : 'passed')},
+    {(ref.serial_id? ? "yes" : "no") => (ref.serial_id? ? 'passed' : 'failed')},
+    ref.updator_id ? ref.updator.name : "",
+    ref.pdf.blank? ? '' : link_to('pdf', ref.pdf.public_filename),
+    time_ago_in_words(ref.updated_on),
+   ] }) %>
+
+    <td><%= t_cell_obj_actions(ref) -%></td>
+  </tr><!-- closes t_row -->
+  <% end -%>
+</table>

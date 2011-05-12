@@ -1,0 +1,16 @@
+<h3>Listing genes</h3>
+
+<div>
+  <p><i> Drag to sort. </i>  <%= image_tag('/images/spinner.gif', :alt => 'Updating', :id => 'move_spinner', :style => "display: none; vertical-align:middle;"  ) -%> </p>
+
+  <ul id="genes">
+    <% @genes.each do |g| -%>
+      <% content_tag_for :li, g do -%>
+        <span class="handle">[drag]</span>
+        <span> <%= link_to(g.display_name, :action => :show,  :id => g.id) -%></span>
+     <% end -%>
+   <% end -%>
+  </ul>
+</div>
+<%= sortable_element("genes", :url => {:action => 'sort_genes'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
+

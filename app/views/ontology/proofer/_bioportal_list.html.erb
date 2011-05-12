@@ -1,0 +1,13 @@
+<div class="box4">
+  <div class="header"> BioPortal references </div>
+  <div class="content"> 
+    <p>Links for <a href="http://bioportal.bioontology.org/">BioPortal</a> GUIDs. Includes only parts that have a ontology xrefs. You must include the specific ontology id from BioPortal to return any references.</p>
+    <table>
+      <% @l.link_set(:proj_id => @proj.id).in_groups_of(6, false) do |grp| -%>
+      <% grp.each do |l| -%>
+      <tr><td><strong><%= l.display_name -%></strong></td><td><%= bioportal_link_tag(@ontology_class, @bioportal_id) -%></td></tr>
+      <% end -%>
+      <% end -%>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<h3>Listing protocol_steps</h3>
+
+<table>
+  <tr>
+<% for column in ProtocolStep.content_columns %>
+    <th><%= column.human_name %></th>
+<% end %>
+  </tr>
+  
+<% for protocol_step in @protocol_steps %>
+  <tr>
+  <% for column in ProtocolStep.content_columns %>
+    <td><%=h protocol_step.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => protocol_step %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => protocol_step %></td>
+    <td><%= link_to 'Destroy', {:action => 'destroy', :id => protocol_step}, :confirm => "Are you sure?" %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to "Previous page", { :page => @protocol_step_pages.current.previous } if @protocol_step_pages.current.previous %>
+<%= link_to "Next page", { :page => @protocol_step_pages.current.next } if @protocol_step_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New protocol_step', :action => 'new' %>

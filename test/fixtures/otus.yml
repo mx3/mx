@@ -1,0 +1,174 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: otus
+#
+#  id               :integer(4)      not null, primary key
+#  taxon_name_id    :integer(4)
+#  is_child         :boolean(1)
+#  name             :string(255)
+#  manuscript_name  :string(255)
+#  matrix_name      :string(64)
+#  as_cited_in      :integer(4)
+#  iczn_group       :string(32)
+#  syn_with_otu_id  :integer(4)
+#  sensu            :string(255)
+#  notes            :text
+#  proj_id          :integer(4)      not null
+#  creator_id       :integer(4)      not null
+#  updator_id       :integer(4)      not null
+#  updated_on       :timestamp       not null
+#  created_on       :timestamp       not null
+#
+
+--- 
+otus5: 
+  id: "1"
+  proj_id: "1"
+  name: "blorf" 
+  matrix_name: 
+  creator_id: "1"
+  created_on: 2005-03-16 15:22:40
+  updated_on: 2005-03-25 18:08:29
+  manuscript_name: 
+  iczn_group: species
+  syn_with_otu_id: 
+  taxon_name_id: "7703"
+  as_cited_in: 
+  sensu: 
+  updator_id: "0"
+otus1: 
+  id: "2"
+  name: ''
+  created_on: 2005-02-22 16:28:27
+  matrix_name: ''
+  creator_id: "1"
+  updated_on: 2005-03-16 11:06:01
+  manuscript_name: ''
+  iczn_group: 
+  syn_with_otu_id: 
+  proj_id: "1"
+  taxon_name_id: "7643"
+  as_cited_in: 
+  sensu: 
+  updator_id: "0"
+otus2: 
+  id: "3"
+  name: ''
+  created_on: 2005-02-22 16:43:40
+  matrix_name: ''
+  creator_id: "1"
+  updated_on: 2005-04-01 14:24:53
+  manuscript_name: ''
+  iczn_group: 
+  syn_with_otu_id: 
+  proj_id: "1"
+  taxon_name_id: "7477"
+  as_cited_in: 
+  sensu: 
+  updator_id: "0"
+otus3: 
+  id: "4"
+  name: ''
+  created_on: 2005-02-22 16:43:40
+  matrix_name: ''
+  creator_id: "1"
+  updated_on: 2005-03-17 11:37:35
+  manuscript_name: ''
+  iczn_group: 
+  syn_with_otu_id: 
+  proj_id: "1"
+  taxon_name_id: "7648"
+  as_cited_in: 
+  sensu: 
+  updator_id: "0"
+otus4: 
+  id: "5"
+  name: blsg
+  created_on: 2005-03-07 16:42:11
+  matrix_name: ''
+  creator_id: "1"
+  updated_on: 2005-03-17 11:37:39
+  manuscript_name: ''
+  iczn_group: species
+  syn_with_otu_id: 
+  proj_id: "1"
+  taxon_name_id: "7497"
+  as_cited_in: 
+  sensu: 
+  updator_id: "0"
+mk1:
+  id: "6"
+  name: 'mk_otu1'
+  matrix_name: 'mk1'
+  manuscript_name: 'manuscript_mk1'
+  taxon_name_id: "7497"
+  proj_id: "1"
+  as_cited_in: 
+  sensu: 
+  iczn_group: species
+  syn_with_otu_id: 
+  updator_id: "1"
+  creator_id: "1"
+  created_on: 2005-03-07 16:42:11
+  updated_on: 2005-03-17 11:37:39
+mk2:
+  id: "7"
+  name: 'mk_otu2'
+  matrix_name: 'mk2'
+  manuscript_name: 'manuscript_mk2'
+  taxon_name_id: "7497"
+  proj_id: "1"
+  as_cited_in: 
+  sensu: 
+  iczn_group: species
+  syn_with_otu_id: 
+  updator_id: "1"
+  creator_id: "1"
+  created_on: 2005-03-07 16:42:11
+  updated_on: 2005-03-17 11:37:39
+mk3:
+  id: "8"
+  name: 'mk_otu3'
+  matrix_name: 'mk3'
+  manuscript_name: 'manuscript_mk3'
+  taxon_name_id: "7497"
+  proj_id: "1"
+  as_cited_in: 
+  sensu: 
+  iczn_group: species
+  syn_with_otu_id: 
+  updator_id: "1"
+  creator_id: "1"
+  created_on: 2005-03-07 16:42:11
+  updated_on: 2005-03-17 11:37:39
+mk4:
+  id: "9"
+  name: 'mk_otu4'
+  matrix_name: 'mk4'
+  manuscript_name: 'manuscript_mk4'
+  taxon_name_id: "7497"
+  proj_id: "1"
+  as_cited_in: 
+  sensu: 
+  iczn_group: species
+  syn_with_otu_id: 
+  updator_id: "1"
+  creator_id: "1"
+  created_on: 2005-03-07 16:42:11
+  updated_on: 2005-03-17 11:37:39
+mk5:
+  id: "10"
+  name: 'mk_otu5'
+  matrix_name: 'mk5'
+  manuscript_name: 'manuscript_mk5'
+  taxon_name_id: "7497"
+  proj_id: "1"
+  as_cited_in: 
+  sensu: 
+  iczn_group: species
+  syn_with_otu_id: 
+  updator_id: "1"
+  creator_id: "1"
+  created_on: 2005-03-07 16:42:11
+  updated_on: 2005-03-17 11:37:39

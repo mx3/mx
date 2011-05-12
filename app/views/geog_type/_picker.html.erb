@@ -1,0 +1,1 @@
+<%= select(c_name, "geog_type_id", GeogType.find(:all, :order => :name).collect  {|o| [ o.name, o.id ] }, { :include_blank => true } ) %>

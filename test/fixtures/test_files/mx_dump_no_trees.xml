@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nex:nexml xsi:schemaLocation="http://www.nexml.org/1.0 http://www.nexml.org/nexml/xsd/nexml.xsd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2003/XInclude" version="0.8" xmlns:nex="http://www.nexml.org/1.0" generator="mx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.nexml.org/1.0">
+  <otus label="taxa_block" xlink:href="#taxa1" class="taxset1" xml:lang="EN" xml:id="taxa1" id="taxa1" xml:base="http://foo.bar.org/">
+    <otu label="1" id="t7641"/>
+    <otu label="2" id="t7642"/>
+    <otu label="3" id="t7643"/>
+    <otu label="4" id="t7644"/>
+    <otu label="5" id="t7645"/>
+    <otu label="6" id="t8121"/>
+  </otus>
+  <characters label="characters block" xsi:type="nex:StandardCells" otus="taxa1" id="c0">
+    <format>
+      <states id="states_for_chr_1514">
+        <state label="Absent" symbol="0" id="cs4058"/>
+        <state label="Present" symbol="1" id="cs4059"/>
+        <state label="?" symbol="2" id="missing1514"/>
+      </states>
+      <states id="states_for_chr_1515">
+        <state label="Absent" symbol="0" id="cs4060"/>
+        <state label="Present" symbol="1" id="cs4061"/>
+        <state label="?" symbol="2" id="missing1515"/>
+      </states>
+      <states id="states_for_chr_1516">
+        <state label="Absent" symbol="0" id="cs4062"/>
+        <state label="Present" symbol="1" id="cs4063"/>
+        <state label="?" symbol="2" id="missing1516"/>
+        <uncertain_state_set symbol="3" id="cs1516unc_40624063">
+          <member state="cs4062"/>
+          <member state="cs4063"/>
+        </uncertain_state_set>
+      </states>
+      <states id="states_for_chr_1517">
+        <state label="sparsely punctate" symbol="0" id="cs4064"/>
+        <state label="densely punctate" symbol="1" id="cs4065"/>
+        <state label="uniformly rugose" symbol="2" id="cs4185"/>
+        <state label="?" symbol="3" id="missing1517"/>
+        <uncertain_state_set symbol="4" id="cs1517unc_40644065">
+          <member state="cs4064"/>
+          <member state="cs4065"/>
+        </uncertain_state_set>
+      </states>
+      <states id="states_for_chr_1519">
+        <state label="Absent" symbol="0" id="cs4069"/>
+        <state label="Present" symbol="1" id="cs4070"/>
+        <state label="?" symbol="2" id="missing1519"/>
+      </states>
+      <states id="states_for_chr_1520">
+        <state label="Not Sharp and complete" symbol="0" id="cs4073"/>
+        <state label="Sharp and complete" symbol="1" id="cs4072"/>
+        <state label="?" symbol="2" id="missing1520"/>
+      </states>
+      <states id="states_for_chr_1521">
+        <state label="Sparsely covered with setae" symbol="0" id="cs4074"/>
+        <state label="Densely covered with setae" symbol="1" id="cs4075"/>
+        <state label="?" symbol="2" id="missing1521"/>
+        <uncertain_state_set symbol="3" id="cs1521unc_40744075">
+          <member state="cs4074"/>
+          <member state="cs4075"/>
+        </uncertain_state_set>
+        <uncertain_state_set symbol="4" id="cs1521unc_40744075">
+          <member state="cs4074"/>
+          <member state="cs4075"/>
+        </uncertain_state_set>
+      </states>
+      <states id="states_for_chr_1522">
+        <state label="At least some black" symbol="0" id="cs4076"/>
+        <state label="All Orange" symbol="1" id="cs4077"/>
+        <state label="?" symbol="2" id="missing1522"/>
+      </states>
+      <states id="states_for_chr_1523">
+        <state label="All Black" symbol="0" id="cs4079"/>
+        <state label="One or more parts not black " symbol="1" id="cs4080"/>
+        <state label="?" symbol="2" id="missing1523"/>
+      </states>
+      <states id="states_for_chr_1554">
+        <state label="Shallow" symbol="0" id="cs4186"/>
+        <state label="Deep" symbol="1" id="cs4187"/>
+        <state label="?" symbol="2" id="missing1554"/>
+      </states>
+      <char label="Tall interantennal flange" states="states_for_chr_1514" id="c1514"/>
+      <char label="Y-Shaped flange or carina (branched posteriorly)" states="states_for_chr_1515" id="c1515"/>
+      <char label="Ridge on inner side of frontal bulge" states="states_for_chr_1516" id="c1516"/>
+      <char label="Face punctation" states="states_for_chr_1517" id="c1517"/>
+      <char label="Fore wing areolet" states="states_for_chr_1519" id="c1519"/>
+      <char label="Occipital carina " states="states_for_chr_1520" id="c1520"/>
+      <char label="Setal density on first flagellomere " states="states_for_chr_1521" id="c1521"/>
+      <char label="Color of Mesosoma and Metasoma" states="states_for_chr_1522" id="c1522"/>
+      <char label="Color of petiole, fore tibia, fore tarsi (female only)" states="states_for_chr_1523" id="c1523"/>
+      <char label="Head depression" states="states_for_chr_1554" id="c1554"/>
+    </format>
+    <matrix>
+      <row otu="t7641" id="row7641">
+        <cell char="c1514" state="cs4059"/>
+        <cell char="c1515" state="cs4060"/>
+        <cell char="c1516" state="cs4062"/>
+        <cell char="c1517" state="cs4064"/>
+        <cell char="c1519" state="cs4070"/>
+        <cell char="c1520" state="cs4072"/>
+        <cell char="c1521" state="cs4074"/>
+        <cell char="c1522" state="cs4076"/>
+        <cell char="c1523" state="cs4080"/>
+        <cell char="c1554" state="cs4187"/>
+      </row>
+      <row otu="t7642" id="row7642">
+        <cell char="c1514" state="cs4059"/>
+        <cell char="c1515" state="cs4061"/>
+        <cell char="c1516" state="cs4063"/>
+        <cell char="c1517" state="cs4065"/>
+        <cell char="c1519" state="cs4070"/>
+        <cell char="c1520" state="cs4072"/>
+        <cell char="c1521" state="cs1521unc_40744075"/>
+        <cell char="c1522" state="cs4076"/>
+        <cell char="c1523" state="cs4080"/>
+        <cell char="c1554" state="cs4187"/>
+      </row>
+      <row otu="t7643" id="row7643">
+        <cell char="c1514" state="cs4058"/>
+        <cell char="c1515" state="cs4060"/>
+        <cell char="c1516" state="missing1516"/>
+        <cell char="c1517" state="cs4185"/>
+        <cell char="c1519" state="cs4070"/>
+        <cell char="c1520" state="cs4072"/>
+        <cell char="c1521" state="cs1521unc_40744075"/>
+        <cell char="c1522" state="cs4077"/>
+        <cell char="c1523" state="missing1523"/>
+        <cell char="c1554" state="cs4186"/>
+      </row>
+      <row otu="t7644" id="row7644">
+        <cell char="c1514" state="cs4058"/>
+        <cell char="c1515" state="cs4061"/>
+        <cell char="c1516" state="cs4063"/>
+        <cell char="c1517" state="cs4065"/>
+        <cell char="c1519" state="cs4070"/>
+        <cell char="c1520" state="cs4072"/>
+        <cell char="c1521" state="cs4075"/>
+        <cell char="c1522" state="cs4076"/>
+        <cell char="c1523" state="cs4080"/>
+        <cell char="c1554" state="missing1554"/>
+      </row>
+      <row otu="t7645" id="row7645">
+        <cell char="c1514" state="cs4059"/>
+        <cell char="c1515" state="cs4060"/>
+        <cell char="c1516" state="cs4062"/>
+        <cell char="c1517" state="cs4064"/>
+        <cell char="c1519" state="cs4070"/>
+        <cell char="c1520" state="cs4072"/>
+        <cell char="c1521" state="cs4074"/>
+        <cell char="c1522" state="cs4076"/>
+        <cell char="c1523" state="cs4079"/>
+        <cell char="c1554" state="cs4187"/>
+      </row>
+      <row otu="t8121" id="row8121">
+        <cell char="c1514" state="cs4058"/>
+        <cell char="c1515" state="cs4061"/>
+        <cell char="c1516" state="cs1516unc_40624063"/>
+        <cell char="c1517" state="cs1517unc_40644065"/>
+        <cell char="c1519" state="cs4069"/>
+        <cell char="c1520" state="cs4073"/>
+        <cell char="c1521" state="cs4075"/>
+        <cell char="c1522" state="cs4076"/>
+        <cell char="c1523" state="missing1523"/>
+        <cell char="c1554" state="cs4186"/>
+      </row>
+    </matrix>
+  </characters>
+  <trees label="Westwoodia species matrix" otus="taxa1" id="tree_99">
+  </trees>
+</nex:nexml>

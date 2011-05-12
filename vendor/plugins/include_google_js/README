@@ -1,0 +1,48 @@
+IncludeGoogleJs
+===============
+
+IncludeGoogleJs will over ride javascript_include_tag to use Google's hosted Javascript libraries instead of the local copies, as explained at 
+http://ajaxian.com/archives/announcing-ajax-libraries-api-speed-up-your-ajax-apps-with-googles-infrastructure
+and announced at
+http://googleajaxsearchapi.blogspot.com/2008/05/speed-up-access-to-your-favorite.html
+
+:defaults will load Prototype and Scriptaculous
+:all will load all JS files, looking to see if any of the files matches the name of any Google hosted file.
+named files will load, again looking to see if any of the files matches the name of any Google hosted file.
+
+The JS library version will be requested based on the version of the local file, if it can be determined.
+This can be overridden by passing :versions => {:scriptaculous => "1.5", :jquery => "1.8"} with javascript_include_tag
+
+Checks for a working connection to ajax.googleapis.com before switching over.
+
+Only works in Rails 2.1 so far, will look in to getting it running on older versions soon.
+
+Thanks to Brian Hogan and Jose Fernandez for their help as I put together my first plugin.
+
+Installation
+=======
+
+From git:
+ruby script/plugin install git://github.com/chriswarren/include_google_js.git
+
+
+Example
+=======
+
+Pass 
+
+:include_google_js => true
+
+as an option to javascript_include_tag to use Google's copy instead of the local copy.
+
+---
+Pass 
+
+:versions => {:scriptaculous => "1.8", :prototype => "1.6"}
+
+as an option to javascript_include_tag to specify the version of a library to retrieve.
+If this is not passed, IncludeGoogleJs will try to find the version of the library from the local file.
+If this is not determined, "1" will be passed for the library version.
+
+
+Copyright (c) 2008 Christopher Warren, released under the MIT license

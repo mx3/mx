@@ -1,0 +1,17 @@
+<% i = 0 -%>
+<% for p in @parents -%>
+  <%= '&nbsp;&nbsp;' * i -%>
+  <% unless p.parent_id == nil -%>
+    <%= "[#{p.parent.manual_id.to_s}] " if p.parent.manual_id? -%> <%= link_to(truncate(p.couplet_text, :length => 55), :action => act, :id => p.parent_id) -%> <br/>
+  <% end -%>
+  <% i += 1 -%>
+<% end -%>
+
+<%= '&nbsp;&nbsp;' * i -%>
+<% if @clave.parent_id == nil -%>
+  <%= @clave.couplet_text + " (<i>at the start</i>)" -%>
+<% else -%>
+  <%= "[#{@clave.parent.manual_id.to_s}] " if @clave.parent.manual_id? -%><%= link_to(truncate(@clave.couplet_text, :length => 45), :action => act, :id => @clave.parent_id) -%>  
+<% end -%> 
+
+

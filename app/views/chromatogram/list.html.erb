@@ -1,0 +1,19 @@
+<h3>Listing chromatograms</h3>
+<table>
+  <%= t_col_heads( ["id", 'pcr' , "primer", "result", "file",  "modified on", "modified by" ] ) %>
+  <% for o in @chromatograms %>
+  <%=  t_row( {'obj' => o,
+    'cell_data' => [
+    o.id,
+    o.pcr ? o.pcr.display_name : nil,
+    o.primer_id ? o.primer.name : nil,
+    o.result,
+    link_to(o.filename, :action => 'return_chromatograph_file', :id => o.id),
+    o.m_on,
+    o.m_by] }  ) %>
+  <% end %>
+</table>
+<br />
+<% unless @chromatogram_pages.first == @chromatogram_pages.last %>
+  <strong>View page <%= pagination_links @chromatogram_pages, :window_size => 3 %></strong>
+<% end %>

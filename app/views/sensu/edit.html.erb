@@ -1,0 +1,8 @@
+<h3 style="display: inline;">Editing sensu</h3> 
+<%= form_for(:sensu, :url => {:action => :update, :id => @sensu}) do |f| -%>
+
+<%= render :partial => "form", :locals => {:f => f} %>
+    <br style="clear:both;"/>
+  <div class="fr"><span class="fld"><%= submit_tag "Edit" -%></span></div>
+  <br style="clear:both;"/>
+<% end -%>

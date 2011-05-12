@@ -1,0 +1,13 @@
+<%# no spaces here %>
+<%- labels_refs.in_groups_of(50, false) do |grp| -%>
+<img style="clear: both; padding: 10px;" src="http://chart.apis.google.com/chart?
+&amp;cht=bhs
+&amp;chxt=y,x
+&amp;chs=250x<%= (grp.size.to_i * 16 > 1000) ? "1000" : (grp.size.to_i * 16) + 20 -%>
+&amp;chds=0,100
+&amp;chg=10,0,2,5
+&amp;chbh=10
+&amp;chco=4D89F9
+&amp;chxl=0:|<%= grp.collect{|pr| "#{pr.label.name.gsub(/\s/, "%20").gsub(/[\-|\']/, "_")}"}.reverse.join("|") -%>|
+&amp;chd=t:<%= grp.collect{|pr| "#{pr.total}"}.join(",") -%>" alt="chart"><hr/>   
+<% end -%>

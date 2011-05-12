@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <style type="text/css">
+      .sml {font-size: smaller; color: silver; text-align: center;vertical-align: top;}
+      .hd {font-size:larger; font-weight:bolder; text-align:center;}
+    </style>
+
+
+    <title>PCR worksheet from mx</title>
+
+  </head>
+
+  <body>
+
+    <div style="width: 9in; height: 10in; border: 1px solid silver; font-family: arial; padding: 4px;">
+      <table style="width: 100%; border-bottom: 1px solid silver; padding-bottom: 4px;">
+        <tr> <td style="width: 30%;"> Date: <span style="font-size: smaller;"> <%= Time.now.to_s(:long) -%><%= ", by: #{@done_by}" if !@done_by.blank?  -%> </span> </td> <td rowspan ="3" class="hd"> PCR DATA FORM </td> </tr>
+        <tr> <td style="border-bottom: 1px solid silver;"> Primers: <span style="font-size: smaller;"> <%= "#{@fwd_primer.display_name} / #{@rev_primer.display_name}" -%> </span></td> <td></td> </tr>
+        <tr> <td colspan="2"> Protocol: <%= @protocol.blank? ? '<i> none provided </i>' : @protocol.description -%> </td> </tr>
+      </table>
+
+      <table style="width: 100%; font-size: smaller; border-bottom: 1px solid silver; padding-bottom: 4px; margin-bottom: 4px;">
+        <tr style="vertical-align:top;"> <th></th>
+          <th> PCR # <br/><span class="sml"> mx pcr id </span></th>
+          <th> extract id <br/><span class="sml"> mx extract id </span></th>
+          <th> specimen<br/><span class="sml"> mx specimen id(s) </span></th>
+          <th> water  </th>
+          <th> dNTP   </th>
+          <th> Buffer </th>
+          <th> MgSO4  </th>
+          <th> Primer (F) </th>
+          <th> Primer [R] </th>
+          <th> Taq  </th>
+          <th> Template </th>
+          <th> Other </th>
+          <th> Total vol </th>
+        </tr>
+        <% @pcrs.each_with_index do |p,i| -%>
+          <tr class="sml">
+            <td> <%= i + 1 -%> </td>
+            <td style="color: black;"> <%= p.id -%> </td>
+            <td style="color: black;"> <%= p.extract_id -%> </td>
+            <td style="color: black;"> <%= p.extract.display_source_identifiers -%> </td>
+            <td> <%= format("%.3f",@water_per_single_rxn) -%> </td>
+            <td> <%= @dntp -%> </td>
+            <td> <%= @buffer -%> </td>
+            <td> <%= @mg -%> </td>
+            <td> <%= @primers -%> </td>
+            <td> <%= @primers -%> </td>
+            <td> <%= @taq -%> </td>
+            <td> <%= @templ -%> </td>
+            <td> <%= @other -%> </td>
+            <td> <%= @rxn_vol -%> </td>
+          </tr>
+        <% end -%>
+
+        <tr style="color: silver; font-size: smaller; text-align:center;">
+          <td> - control </td>
+          <td style="color: black;"> - </td>
+          <td style="color: black;"> - </td>
+          <td style="color: black;"> - </td>
+          <td> <%= format("%.3f",@water_per_single_rxn) -%> </td>
+          <td> <%= @dntp -%> </td>
+          <td> <%= @buffer -%> </td>
+          <td> <%= @mg -%> </td>
+          <td> <%= @primers -%> </td>
+          <td> <%= @primers -%> </td>
+          <td> <%= @taq -%> </td>
+          <td> <%= @templ -%> </td>
+          <td> <%= @other -%> </td>
+          <td> <%= @rxn_vol -%> </td>
+        </tr>
+
+      </table>
+
+      <table style="width: 100%;">
+        <tr> <td style="width: 200px;">
+
+            <table style="width: 100%; font-size: smaller;">
+              <tr> <td style="width: 140px; border-bottom: 1px solid silver;"><b>Totals for mix</b> <span class="sml">(rows + 1)</span> </td> <td> </td> </tr>
+              <tr> <td> Water      </td> <td> <%= format("%.3f",@t_water) -%> </td> </tr>
+              <tr> <td> dNTP       </td> <td> <%= @t_dntp -%> </td> </tr>
+              <tr> <td> Buffer     </td> <td> <%= @t_buffer -%> </td> </tr>
+              <tr> <td> MgSO4      </td> <td> <%= @t_mg -%> </td> </tr>
+              <tr> <td> Primer [F] </td> <td> <%= @t_primers -%> </td> </tr>
+              <tr> <td> Primer [R] </td> <td> <%= @t_primers -%> </td> </tr>
+              <tr> <td> Taq        </td> <td> <%= @t_taq -%> </td> </tr>
+              <tr> <td> other      </td> <td> <%= @t_other -%> </td> </tr>
+              <tr> <td style="border-top: 1px solid silver;"> Total </td> <td> <%= @t_water + @t_dntp + @t_buffer + @t_mg + @t_primers * 2 + @t_taq + @t_other -%> </td> </tr>
+            </table>
+          </td>
+
+          <td style="vertical-align: top;  border-left: 1px solid silver; padding-left: 4px; width: 50%;"> <h3> Gel photo: </h3> </td> <td style="vertical-align:top; border-left: 1px solid silver; padding-left: 4px;"> <h3> Misc notes </h3> <%= @notes -%></td></tr>
+      </table>
+
+    </div>
+
+  </body>
+</html>

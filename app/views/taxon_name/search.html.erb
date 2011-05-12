@@ -1,0 +1,23 @@
+<div class="subform">
+  <div class="header" id="nav">Search</div>
+  <div class="content">
+    <i> Search begins automatically. </i>
+  <%= form_tag(:remote => true, :loading => "Element.show('search_spinner')", :complete => "Element.hide('search_spinner')", :update => 'target_id', :url => { :action => 'search_list'}, :html => {:id => 'myform'}) do %>
+    <table id="search_table">
+      <tr>
+        <td>Genus<br/><input type="text" name="genus" size="15" /></td>
+        <td>Species<br/><input type="text" name="species" size="15" /></td>
+        <td>Author<br/><input type="text" name="author" size="15" /></td>
+        <td><br/><%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'search_spinner', :style => "display: none; vertical-align:middle;") -%></td>
+      </tr>
+    </table>
+<% end -%>
+
+
+</div>
+</div>
+
+<%= observe_form 'myform', :loading => "Element.show('search_spinner')", :complete => "Element.hide('search_spinner')", :frequency => 0.2, 
+         :update => 'target_id', :url => 
+         { :controller => 'taxon_name', :action=> 'search_list' } %>
+<div id="target_id"></div>

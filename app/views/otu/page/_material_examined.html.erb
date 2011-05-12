@@ -1,0 +1,12 @@
+<%# remember we only have @otu in otu/page partials -%>
+<div class="box4">
+  <div class="header">Material Examined</div>
+  <div class="content">
+    <% if @otu.specimens.count == 0 -%>
+      <p><i> No specimens currently determined for this OTU. </i></p>
+    <% else -%>
+      <%= MaterialExamined.new(:otu_id => @otu.id).full_me_for_specimens -%>
+    <% end -%>
+  </div>
+</div>
+

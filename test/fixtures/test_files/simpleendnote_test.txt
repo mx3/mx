@@ -1,0 +1,54 @@
+%0 Journal Article
+%T Phylogeny of Aculeata: Chrysidoidea and Vespoidea (Hymenoptera).
+%A Brothers, DJ
+%A Sisters, DJ
+%J Journal of Hymenoptera Research
+%V 2
+%P 227-304
+%D 1993
+
+%0 Journal Article
+%T Something great happened Here again again again
+%A OhBrother, F.
+%J Acarologian
+%V 3
+%P 1-222
+%D 1972
+
+%0 Journal Article
+%T Our stuff
+%A Author, A.
+%J Acta Amazonica
+%V 8
+%P 8-88
+%D 1988
+
+%0 Book
+%T Polar marine diatoms
+%E Medlin, LK
+%E Priddle, J.
+%D 1990
+%I British Antarctic Survey
+%C Cambridge
+%@ 0-85665-140-0
+%F Medlin+Priddle1990
+%O Review
+
+%0 Journal Article
+%T A new microcosm to investigate oxygen dynamics at the sea ice water interface
+%A Mock, T.
+%A Kruse, M.
+%A Dieckmann, GS
+%J Aquatic Microbial Ecology
+%D 2003
+%V 30
+%N 2
+%I Inter-Research
+%C Oldendorf/Luhe
+%@ 0948-3055
+%F Mock++2003
+%O Marine
+%K _Fragilariopsis cylindrus_
+%K Methods
+%U http://int-res.com/abstracts/ame/v30/n2/p197-205.html
+%P 197-205

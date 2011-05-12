@@ -1,0 +1,62 @@
+<%= error_messages_for 'image' %>
+
+<script type="text/javascript">
+/* Changes the value of the date fields */
+function changeDate(y,m,d) {
+  document.img_form.image_taken_on_year.value = y;
+  document.img_form.image_taken_on_month.selectedIndex = m;
+  document.img_form.image_taken_on_day.selectedIndex = d;
+}
+</script>
+
+<!--[form:image]-->
+
+
+<div class="fr"> <label for="image_file" class="lbl4">Choose a file </label>
+  <span class="fld"><i style="clear:both; float: right;">must be &gt;16kb  </i> <%= file_field 'image', 'file', :size => 70  %></span>
+</div>
+
+<br/><br/>
+
+<table style="margin-left: 7.5%;"> 
+  <tr>
+    <td class="lbl4"> taken on (originally)</td>
+    <td><label for="image_taken_on_year" class="lbl4">year</label></td>
+    <td><%= text_field 'image', 'taken_on_year', {:size => 4}  %> </td>
+    <td><label for="image_taken_on_month" class="lbl4">month</label></td>
+    <td><%= select "image", "taken_on_month", [nil] + (1..12).to_a.collect {|i| [Date::MONTHNAMES[i], i]} %> </td>
+    <td><label for="image_taken_on_day" class="lbl4">day</label></td>
+    <td><%= select "image", "taken_on_day", [nil] + (1..31).to_a %></td>
+    <td><a href="javascript:changeDate(<%= "#{Date.today.year}, #{Date.today.month}, #{Date.today.day}" %>)">Today!</a></td>
+  </tr>
+</table>
+ 
+<div class="fr"> <label for="image_technique" class="lbl4">Technique</label>
+  <span class="fld">  <%= select "image", "technique", Image::TECHNIQUES, :include_blank => true %></span>
+</div>
+
+<div class="fr"> <label for="image_maker" class="lbl4">Creator/photographer</label>
+  <span class="fld"><%= text_field_with_auto_complete "image", "maker" %></span>
+</div>
+
+<div class="fr"> <label for="image_copyright_holder" class="lbl4">Copyright holder</label>
+  <span class="fld"><%= text_field_with_auto_complete "image", "copyright_holder" %></span>
+</div>
+
+<div class="fr"> <label for="image_license" class="lbl4">License</label>
+  <span class="fld"> <%= select "image", "license",  CONTENT_LICENSES.keys.sort.collect{|k| [CONTENT_LICENSES[k][:text], k]}, :include_blank => true %><em> required </em> <%= link_to "what's this?", "http://creativecommons.org/choose/", :target => '_blank' -%></span>
+</div>
+
+<div class="fr"> <label for="image_ref_id" class="lbl4">Reference (published in)</label>
+  <span class="fld">  <%= render :partial => "ref/picker", :locals => {
+    :object => 'image', :method => 'ref_id', :tag_id => "ref_name", 
+    :display => (@image.ref.display_name if @image.ref) } %></span>
+</div>
+
+<div class="fr"> <label for="image_notes" class="lbl4">Notes </label>
+  <span class="fld"><i style="clear:both; float: right;">pertaining to image file </i>  <%= text_area 'image', 'notes', :rows => 2, :cols => 60  %></span>
+</div>
+
+<br style="clear: both;"/>
+<!--[eoform:image]-->
+

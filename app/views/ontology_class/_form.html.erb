@@ -1,0 +1,64 @@
+<%= error_messages_for 'ontology_class' %>
+
+<!--[form:ontology_class]-->
+
+<% if !@ontology_class.is_obsolete -%>
+
+<div class="fr"> <label for="ontology_class_definition" class="lbl4">definition</label>
+  <span class="fld"><%= f.text_area :definition, 'title' => 'definition', :cols => 60, :rows => 5 -%></span>
+</div>
+
+<div class="fr"> <label for="ontology_class_obo_label_id" class="lbl4">OBO label</label>
+  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+	    :controller => 'label',
+			:object => 'ontology_class',
+			:size => 50,
+			:method => 'obo_label_id',
+	    :tag_id => "obo_label_id_for_ontology_class",
+	    :display =>  (@ontology_class.obo_label.display_name if @ontology_class.obo_label) } -%></span>
+</div>
+
+<% else -%>
+  <p style="color: red; font-weight: bolder;"> Combination of label "<%= @ontology_class.obo_label.display_name -%>" and "<%= @ontology_class.definition -%>" (<%= @ontology_class.xref -%>) has been marked as obsolete. </p>
+<% end -%>
+
+
+<div class="fr"> <label for="ontology_class_written_by_ref_id" class="lbl4">written by</label>
+  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+	    :controller => 'ref',
+		:object => 'ontology_class',
+		:size => 50,
+		:method => 'written_by_ref_id',
+	    :tag_id => "written_by_ref_id_for_ontology_class",
+	    :display =>  (@ontology_class.written_by.display_name if @ontology_class.written_by) } -%></span>
+</div>
+
+<div class="fr"> <label for="ontology_is_public" class="lbl4">public?</label>
+  <span class="fld"><%= f.check_box :is_public, 'title' => 'Can the public view this class?'-%></span>
+</div>
+
+<% if session[:person].is_ontology_admin -%>
+
+  <div class="fr"> <label for="ontology_is_obsolete" class="lbl4">obsolete for OBO?</label>
+    <span class="fld"><%= f.check_box :is_obsolete, 'title' => 'Is this ontology class obsolete in the sense of an OBO file?'-%></span>
+  </div>
+
+  <div class="fr"> <label for="ontology_is_obsolete_reason" class="lbl4">obsolete reason</label>
+    <span class="fld"><%= f.text_area :is_obsolete_reason, 'title' => 'An explanation for why this class is OBO obsolete.', :cols => 60, :rows => 5 -%></span>
+  </div>
+
+  <br  style="clear:both;" />
+
+<% end -%>
+
+<div class="fr"> <label for="ontology_class_relationships_are_sufficient" class="lbl4">Relationships are necessary and sufficient</label>
+  <span class="fld"><%= f.check_box :relationships_are_sufficient, 'title' => 'Class relationships constitute a necessary and sufficient logical definition'-%></span>
+</div>
+
+<i> not yet used </i>
+<div class="fr"> <label for="ontology_genus_differentia_definition" class="lbl4">genus-differentia definition</label>
+  <span class="fld"><%= f.text_area :genus_differentia_definition, 'title' => 'note yet implmented', :cols => 60, :rows => 5 -%></span>
+</div>
+
+<!--[eoform:ontology_class]-->
+

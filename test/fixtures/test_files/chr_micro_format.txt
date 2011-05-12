@@ -1,0 +1,13 @@
+This is a character
+0: this is a state label
+1: and another
+note: here is a note
+group: place this character in group "group", create it if necessary
+
+Foo is another characters
+a: states can be any 2 characters
+b2: like this
+
+Bar is a character with no states
+
+

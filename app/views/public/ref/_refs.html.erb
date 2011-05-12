@@ -1,0 +1,5 @@
+<ul> 
+  <% refs.each do |r| -%>
+  <%= content_tag :li, r.cached_display_name, :style => 'padding: 2px;' -%>
+  <% end -%>
+</ul>

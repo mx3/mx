@@ -1,0 +1,13 @@
+<%= content_tag :li, content_tag(:span, 'Create', :class => 'link_section') -%>
+<%= content_tag :li, link_to('new fast ce', :action => 'new_fast') -%>
+<%= content_tag :li, link_to('new gmap ce', :action => 'new_from_gmap') -%>
+
+<%= content_tag :li, content_tag(:span, 'List', :class => 'link_section') -%>
+<%= content_tag :li, link_to("personally created", :action => "list_by_named_scope", :scope => 'created_by', :arg => $person_id)  -%>
+
+<%= content_tag :li, content_tag(:span, 'Output', :class => 'link_section') -%>
+<%= content_tag :li, link_to('labels', :action => 'labels') -%>
+
+<%= content_tag :li, content_tag(:span, 'Batch', :class => 'link_section') -%>
+<%= content_tag :li, link_to('batch geocode', :action => 'batch_geocode') -%>
+<%= content_tag :li, link_to('batch load', :action => 'batch_load') -%>

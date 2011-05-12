@@ -1,0 +1,25 @@
+<h3>New specimen</h3>
+
+<%= form_tag({:action => 'create'}, {:name => 'specimen_form'}) do %>
+  <%= submit_tag "Create" -%>
+  <%= submit_tag "Create and next" -%>
+  <%= submit_tag "Create, clone and next"  %>
+  <%= submit_tag "Create, clone, increment identifier" -%>
+
+  <%= render :partial => "/shared/identifier_form" -%>
+  <%= render :partial => "form" -%>
+
+  <div class="subform">
+    <div class="header">Determinations (more can be added after creation by using <u>edit</u>)</div>
+    <%= render(:partial => 'form_specimen_det') -%>
+  </div>
+
+  <%= render(:partial => 'form_types') -%>
+
+  <%= submit_tag "Create" -%>
+  <%= submit_tag "Create and next" -%>
+  <%= submit_tag "Create, clone and next"  -%>
+  <%= submit_tag "Create, clone, increment identifier" -%>
+
+
+<% end -%>

@@ -1,0 +1,81 @@
+<% content_for(:center) do -%>
+  <table> 
+    <tr>
+      <td style="width: 280px; padding-right: 20px;">
+
+        <div style="text-align: center;border: 1px dotted silver; margin: 2px; padding: 2px; font-size:smaller; color: gray;" >
+          move (without saving): <%= link_to('left', :action => :show_code, :id => @mx.id, :chr_id => @adjacent_cells[:left][0], :otu_id => @adjacent_cells[:left][1]) -%>
+          | <%= link_to('right', :action => :show_code, :id => @mx.id, :chr_id => @adjacent_cells[:right][0], :otu_id => @adjacent_cells[:right][1]) -%>
+          | <%= link_to('up', :action => :show_code, :id => @mx.id, :chr_id => @adjacent_cells[:above][0], :otu_id => @adjacent_cells[:above][1]) -%>
+          | <%= link_to('down', :action => :show_code, :id => @mx.id, :chr_id => @adjacent_cells[:below][0], :otu_id => @adjacent_cells[:below][1]) -%>
+
+        </div>
+          
+        <p><b>Coding:</b></p>
+        
+        <p><%=@otu.display_name %> (matrix name: <%= @otu.display_name(:type => :matrix_name) -%>)&nbsp;<span class="small_grey">id: <%= link_to(@otu.id, :action => 'show', :controller => 'otu', :id => @otu) %></span></p>
+
+        <i>for</i>
+        
+        <div>
+          <p><%=@chr.name%> <span class="small_grey"> &nbsp;id: <%= link_to(@chr.id, :action => 'show', :controller => 'chr', :id => @chr) %> </span> </p>
+            <%= form_tag :action => 'show_code', :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id do %>
+
+            <% if @chr.is_continuous -%>
+              <% @c_value = continuous_cell_value(@chr, @otu) -%>
+              <div style="text-align:center;padding:1em;margin:0.5em;"> value: <%= text_field_tag(:continuous_value, @c_value, :size => 6 ) -%> </div>
+
+            <% else -%>
+
+              <% for state in @chr.chr_states %>
+                <div style="border: 1px dotted silver; margin: 2px; padding: 2px;">
+                  <% if @coding = state.coded?(@otu.id) %>
+                    <input type="checkbox" name="state[<%= state.id %>]" value="1" checked="checked"/> <%= state.s_and_m -%><br />
+                  <% else %>
+                    <input type="checkbox" name="state[<%= state.id -%>]" value="1" /> <%= state.s_and_m -%> <br />
+                   <% end -%> 
+
+                  <%- if @confidences.size > 0 -%>
+                    <div style="background-color: #eeeeee; padding: 2px; margin: 2px 0px; text-align: center;">
+                     <span style="color: gray; font-size: smaller;">confidence</span> 
+                      <%= select("coding",  'confidence_id', @confidences.collect {|p| [ p.name, p.id ] }, {:include_blank => true,}, { :name => "confidence[#{state.id}]", :style => 'font-size: smaller; color: red;'}) -%>
+                   </div>
+                  <% end -%>
+
+                <input name="state[<%= state.id -%>]" type="hidden" value="0" />
+
+           <%= render(:partial => 'tag/t', :collection => @coding.tags) if @coding && (@coding.tags.size) > 0  %>     
+
+              </div>
+              <% end %>
+             <br />
+
+            <% end -%>
+
+            <input type="submit" value="submit" />  
+            <% end -%>
+          </div>
+
+          </td>
+
+     
+
+        <!-- break this out to partial -->
+        <td style="border-left: 1px solid silver;">
+          <div class="box4" style="border: none;">
+            <div class="header"> state details and cell tagging </div>
+            <% @chr.chr_states.each do |state| -%>
+              <div class="content" style="border-bottom:1px solid silver;">
+                <b><%= state.s_and_m  -%></b>
+                <% if @s = state.coded?(@otu.id) -%>
+                  <table><tr><td>state is presently coded, tag the coding: <%= tag_link_for_show(@s) %></td></tr></table>
+                <% end -%>
+                <%= render_figs_for_obj(state, 'thumb') -%>
+              </div>
+            <% end -%>
+          </div> 
+        </td>
+    </tr>
+    </table>
+
+    <% end %>

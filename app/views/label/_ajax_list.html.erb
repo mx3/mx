@@ -1,0 +1,20 @@
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @label_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @label_pages}) -%>
+<table class="list_table">
+  <%= t_col_heads(["name", "classes", "plural", "language", "last active", "id", "creator", "updator"]) %>
+  <% @labels.each_with_index do |l, i| %>
+  <%= t_row({ 'obj' => l,  'tr_css' => i,
+  'cell_data' => [
+	link_to(l.display_name, :action => :show, :id => l),
+	is_defined_tag(l),
+    l.plural_form ? l.plural_form.display_name : "-",
+    l.language ? l.language.display_name : "-",
+    l.active_on ? time_ago_in_words(l.active_on) :  "-",
+    l.id,
+    l.c_by,
+    l.m_by] }) %>
+  <% end %>
+</table>
+<br />
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @label_pages}) -%>
+

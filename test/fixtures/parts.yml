@@ -1,0 +1,95 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: parts
+#
+#  id            :integer(4)      not null, primary key
+#  name          :string(128)     not null
+#  abbrev        :string(24)
+#  description   :text
+#  ref_id        :integer(4)
+#  ref_page      :string(25)
+#  notes         :text
+#  taxon_name_id :integer(4)
+#  language_id   :integer(4)
+#  proj_id       :integer(4)      not null
+#  creator_id    :integer(4)      not null
+#  updator_id    :integer(4)      not null
+#  updated_on    :timestamp       not null
+#  created_on    :timestamp       not null
+#  obo_dbxref    :string(255)
+#  is_public     :boolean(1)
+#  is_acronym    :boolean(1)
+#
+
+--- 
+part1: 
+  name: "head"
+  description: "something"
+  is_acronym: false
+  created_on: 2005-02-15 10:11:00
+  creator_id: "1"
+  updator_id: "1"
+  updated_on: 2005-04-14 18:31:33
+  id: "1"
+  proj_id: "1"
+part2: 
+  name: "thorax"
+  description: "something"
+  is_acronym: false
+  created_on: 2005-02-15 10:11:00
+  creator_id: "1"
+  updator_id: "1"
+  updated_on: 2005-04-14 18:31:33
+  id: "2"
+  proj_id: "1"
+part3: 
+  name: "abdomen"
+  description: "something"
+  is_acronym: false
+  created_on: 2005-02-15 10:11:00
+  creator_id: "1"
+  updator_id: "1"
+  updated_on: 2005-04-14 18:31:33
+  id: "3"
+  proj_id: "1"
+part4: 
+  name: "flipper"
+  is_acronym: false
+  description: "something"
+  created_on: 2005-02-15 10:11:00
+  creator_id: "1"
+  updator_id: "1"
+  updated_on: 2005-04-14 18:31:33
+  id: "4"
+  proj_id: "1"
+part5: 
+  name: "head"
+  description: "something"
+  is_acronym: false
+  created_on: 2005-02-15 10:11:00
+  creator_id: "1"
+  updator_id: "1"
+  updated_on: 2005-04-14 18:31:33
+  id: "5"
+  proj_id: "1"
+part6: 
+  name: "green hair"
+  description: "something"
+  is_acronym: false
+  created_on: 2005-02-15 10:11:00
+  creator_id: "1"
+  updator_id: "1"
+  updated_on: 2005-04-14 18:31:33
+  id: "6"
+  proj_id: "1"
+part7: 
+  name: "leaf"
+  description: "something"
+  is_acronym: false
+  created_on: 2005-02-15 10:11:00
+  creator_id: "1"
+  updator_id: "1"
+  updated_on: 2005-04-14 18:31:33
+  id: "7"
+  proj_id: "2"

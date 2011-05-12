@@ -1,0 +1,16 @@
+<% fields_for "figure[figure_marker_attributes][]", figure_marker do |figure_marker_form| -%>
+  <% content_tag_for :li, figure_marker  do -%>
+    <%= error_messages_for 'figure_marker' %>
+    <%= figure_marker_form.hidden_field('id', :index => nil) if !figure_marker.new_record?  %>
+    <%= figure_marker_form.hidden_field('position', :index => nil) if !figure_marker.new_record?  %>
+
+    <span class="handle"> <%= !figure_marker.new_record? ? '[drag]' : 'needs save!' -%>
+      <table style="display:inline; position: relative; top: 5px;">
+        <tr>
+          <td><%= figure_marker_form.text_area :svg, :rows => 6  -%></td>
+          <td><%= link_to_remote("X", :url => {:action => "_destroy_figure_marker", :figure_marker_id => figure_marker.id }) if !figure_marker.new_record? %></td>
+        </tr>
+      </table>
+    </span>
+  <% end %>
+<% end -%>

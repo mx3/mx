@@ -1,0 +1,3 @@
+Partials in this folder should require only an @otu = Otu to be set.  
+They are referenced in ContentType subclasses, but could be used elsewhere as well.
+

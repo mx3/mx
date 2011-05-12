@@ -1,0 +1,33 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: chr_groups_chrs
+#
+#  chr_group_id :integer(4)      not null
+#  chr_id       :integer(4)      not null
+#  position     :integer(4)
+#  id           :integer(4)      not null, primary key
+#
+
+--- 
+mk1: 
+  chr_group_id: "1"
+  chr_id: "15"
+  position: 1
+mk2: 
+  chr_group_id: "1"
+  chr_id: "16"
+  position: 2
+mk3: 
+  chr_group_id: "1"
+  chr_id: "17"
+  position: 3
+mk4: 
+  chr_group_id: "2"
+  chr_id: "18"
+  position: 1
+mk5: 
+  chr_group_id: "2"
+  chr_id: "19"
+  position: 2
+

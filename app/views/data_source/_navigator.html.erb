@@ -1,0 +1,18 @@
+<div class='navigator'>  
+  <%= navigator(@data_source,  session['data_source_view']) %>
+
+  <%# the links to various views, should likely show them versus hidden tabs or not !! %>
+  <div class="item"> <%= session['data_source_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @data_source.id)  %> </div>  
+  <% if @data_source.dataset -%>
+    <div class="item"> <%= session['data_source_view'] == 'show_file_contents' ? '<span class="navigator_current">file contents</span>' :  link_to('file contents', :action => 'show_file_contents', :id => @data_source.id)  %> </div>  
+  <% end %>
+
+  <br/>
+	<div style="text-align: center;"><h4>functions</h4></div>
+
+  <% if @data_source.dataset -%>
+    <div class="item"> <%= session['data_source_view'] == 'show_convert' ? '<span class="navigator_current">convert to db</span>' :  link_to('convert', :action => 'show_convert', :id => @data_source.id)  %> </div>  
+  <% else %>
+    <i> You must attach a file before you can convert this data source. </i>
+  <% end %>
+</div>

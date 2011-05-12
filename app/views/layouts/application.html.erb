@@ -1,0 +1,77 @@
+
+<!DOCTYPE html >
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>MX - <%= self.controller.controller_name.pluralize.gsub("_", " ") -%></title>
+     <%= javascript_src_tag "svg_web/svg.js", "data-path" => "/javascripts/svg_web" -%><!-- this must come first -->
+    <%= javascript_include_tag 'mx_svgweb' -%>
+
+    <%= stylesheet_link_tag "jquery/ui-lightness/jquery-ui-1.8.9.custom" -%>
+    <%= stylesheet_link_tag "standard" -%>
+    <%= class_css -%>
+
+     <%= javascript_include_tag(:defaults) %>
+  
+
+    <%= csrf_meta_tag %>
+
+    <%= yield :head -%>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <% if session && session[:person] -%>
+          <div style="float:right; padding-top: 2px;" class="links">
+            <span class="links">Logged in as <%= session[:person].login -%>
+              (<%= link_to 'logout', :controller => '/account', :action => :logout -%> |
+              <%= link_to "my preferences", :action => 'preferences', :controller => 'person' -%> |
+              <span style="background: #F7B346; padding: 0px 2px 0px 2px; border: 1px;"><%= wiki_help_link -%></span> |
+              <span style="background: #D7D435; padding: 0px 2px 0px 2px; border: 1px;"><%= link_to('SF', 'https://sourceforge.net/tracker/?group_id=175927', :target => "_blank") -%></span>)
+            </span>
+          </div>
+        <% end -%>
+
+        <% if @page_title -%>
+          <p><%= @page_title -%></p>
+        <% elsif @proj -%>
+          <p><%= @proj.name -%><span class="links"> ( <%= link_to "settings", :controller => 'proj', :action => 'show', :id => @proj.id -%> | <%= link_to "change projects", :controller => '/proj', :action => 'list' -%> | <%= link_to "my data", :controller => '/proj', :action => 'my_data' -%>   )</span></p>
+        <% end -%>
+
+        <% if @proj.andand.id -%>
+          <span style="float:right; padding: 0.25em 1em;">&nbsp;</span>
+          <%= menu_tabs("main") -%>
+        <% else %>
+          <%= content_tag(:p) if !@page_title -%>
+        <% end %>
+      </div>
+
+      <div id="content">
+        <div id="notice" class="notice"><%= flash[:notice] -%></div> <%# on all the time for AJAX %>
+
+        <% unless no_subnav.include?(self.controller.controller_name) -%>
+          <div class="subnav">
+            <div style="float:right;"><%= render(:partial => 'shared/class_navigator') unless no_sidenav.include?(self.controller.controller_name) -%></div>
+            <div><%= menu_tabs("subnav") -%></div>
+            <div style="clear:both;"></div>
+          </div>
+        <% end -%>
+
+        <%= yield -%>
+
+
+
+      </div>
+      <div id="footer" style="clear:both;">&nbsp;</div>
+
+  
+
+      
+    </div>
+  </body>
+</html>
+
+
+
+

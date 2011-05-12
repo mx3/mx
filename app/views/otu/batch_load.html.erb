@@ -1,0 +1,39 @@
+<h3>Batch load OTUs</h3>
+
+<p> Creates OTUs from a list of OTUs in a file.  At present one name/line. Name are verified before being written to the database verbatim only.</p>
+
+<div class="subform">
+<div class="header"> Choose file </div>
+
+	<% form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'otu_batch_upload'}) do %>
+
+		<div class="fr"> <label for="temp_file" class="lbl4">Text file containing OTUs: </label>
+		  <span class="fld"><%= file_field 'temp_file', 'file', :size => 50  %></span>
+		</div>
+
+		<div class="fr">
+			<label class="lbl4">As cited in</label>
+			<span class="fld"><%= render :partial => "shared/picker", :locals => {    
+				:controller => 'ref',
+				:object => 'otu',
+				:method => 'ref_id',
+				:tag_id => "ref_name_to_find",
+				:display => '' } -%>(sets reference for all)</span>
+			</div>
+
+		<div class="fr">
+			<label class="lbl4">Add these to OTU group</label>
+			<span class="fld"><%= render :partial => "shared/picker", :locals => {    
+				:controller => 'otu_group',
+				:object => 'otu',
+				:method => 'otu_group_id',
+				:tag_id => "otu_group_id_for_batch_otus",
+				:display => '' } -%></span>
+			</div>
+
+		
+		<%= submit_tag "Verify" -%>
+	<% end -%> 
+
+</div>
+

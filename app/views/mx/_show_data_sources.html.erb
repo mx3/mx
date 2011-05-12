@@ -1,0 +1,7 @@
+<% content_for :center do -%>
+  <h3> Associated with the following data sources </h3>
+  <% @mx.data_sources.each do |d| -%>
+  <%= d.display_name -%>
+  <% end %> 
+<% end %>
+

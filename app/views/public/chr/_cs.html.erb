@@ -1,0 +1,22 @@
+<table style="width: 100%;">
+        <!-- MOVE Linker creation to controller!! -->
+
+    <tr><td> <b><% l = Linker.new(:incoming_text => cs.name) %><%= "#{cs.state}: #{l.linked_text(:proj_id => @proj.default_ontology_id, :is_public => true, :css_class => 'dashed_underline')}" %> </b> </td> </tr>
+    <tr><td><%= render_figs_for_obj(cs, 'thumb') -%></td></tr>
+    <tr><td><span class="lbl4">notes: </span> <span style = "font-size: smaller; margin-left: 1em;"><%= cs.notes %> </span></td> </tr>
+      <tr><td>
+          <span class="lbl4">coded examples: </span>
+          <% egs = cs.all_otus %>
+            <% if egs.size > 0 %>
+              <%= egs[0..4].collect{|o| o.display_name}.join(', ') %> 
+              <% if egs.size > 5 %>
+                <a onclick="Element.toggle('cs_<%= cs.id %>_more'); Element.toggle('cs_<%= cs.id %>_more')">(toggle remainder)</a> 
+                <div id="cs_<%=cs.id%>_more" style="display: inline; display: none;">  
+                  <%= egs[5..6].collect{|o| o.display_name}.join(', ') %> 
+                </div>
+              <% end %>
+          <% else %>
+            <i> none coded </i>
+          <% end %>
+     </td></tr>
+  </table>

@@ -1,0 +1,1 @@
+<% @confidences.each do |conf| %>  <h4><%= conf.name %></h4>  <ul>    <% conf.association_supports.each do |as| %>      <% @assoc = Association.find(as.association_id) %>      <li>  <%= link_to(render(:partial => "part", :collection => @assoc.association_parts), :action => 'show', :id => @assoc.id) -%> </li>    <% end %>  </ul><% end %>

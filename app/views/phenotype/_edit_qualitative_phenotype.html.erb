@@ -1,0 +1,27 @@
+<% pc_edit_area_id = UUID.create.to_s %>
+<div class="header">Edit qualitative phenotype:</div>
+<table>
+	<tr>
+		<td><span class="lbl4">Entity: </span></td>
+		<td id="entity"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.entity, :role => :entity, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Quality: </span></td>
+		<td id="quality"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.quality, :role => :quality, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Dependent Entity: </span></td>
+		<td id="dependent_entity"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.dependent_entity, :role => :dependent_entity, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+</table>
+<%= form_tag :action => :update_qualitative_phenotype, :id => @phenotype do %>
+<%= hidden_field_tag "entity_hidden_id", (@phenotype.entity.id if @phenotype.entity) %>
+<%= hidden_field_tag "entity_hidden_class", (@phenotype.entity.class if @phenotype.entity) %>
+<%= hidden_field_tag "quality_hidden_id", (@phenotype.quality.id if @phenotype.quality) %>
+<%= hidden_field_tag "quality_hidden_class", (@phenotype.quality.class if @phenotype.quality) %>
+<%= hidden_field_tag "dependent_entity_hidden_id", (@phenotype.dependent_entity.id if @phenotype.dependent_entity) %>
+<%= hidden_field_tag "dependent_entity_hidden_class", (@phenotype.dependent_entity.class if @phenotype.dependent_entity) %>
+<%= hidden_field_tag "chr_state", @chr_state.id %>
+<%= submit_tag "Cancel", :name => "cancel" -%> <%= submit_tag "Save phenotype", :name => "save" -%>
+<% end %>
+<div id="<%= pc_edit_area_id %>"></div>

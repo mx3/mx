@@ -1,0 +1,8 @@
+<div> <%# this div must stay here! give it a name sometime and edit childrens as well %>
+  <% if @part == 'center' -%>
+    <h3> Summary </h3>
+    <%= render :partial =>("extract/by_otu_summary") -%>
+    <h3> Sequences </h3>
+    <%= render :partial =>("seq/seqs_for_otu") -%>
+  <% end -%>
+</div>

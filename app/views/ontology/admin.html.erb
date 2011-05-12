@@ -1,0 +1,31 @@
+<h3>Ontology admin</h3>
+
+<% @result.keys.sort{|a,b| a.to_s <=> b.to_s}.each do |t| -%>
+  <% if @result[t].size > 0 -%>
+    <h4><%= t.to_s.humanize -%></h4>
+    <%= '<p><i>These must all have "obsolete" tags. </i></p>' if t == :synonyms_with_xrefs -%>
+    <%= '<p><i>These need to be updated to the project specific namespace.</i></p>' if t == :terms_with_synonym_tags_with_internal_namespace -%>
+
+    <ol><%= @result[t].collect{|r| content_tag :li, render(:partial => 'part/part_with_tags', :object => r)  }.join -%></ol>
+
+    <% if t == :terms_requiring_xrefs && @result[t].size > 0  && !@proj.ontology_namespace.blank? -%>
+      <% form_tag :action => :_admin_update_parts_with_xrefs do  -%>
+          <%= submit_tag "Generate xref ids for these records", :confirm => "Are you sure?" -%>
+      <% end -%> 
+    <% end -%>
+    
+    <% if t == :terms_with_xrefs_AND_candidacy_tags && @result[t].size > 0  && !@proj.ontology_namespace.blank? -%>
+      <% form_tag :action => :_admin_strip_candidacy_tags_from_xrefed_terms do  -%>
+          <%= submit_tag "Strip candidacy tags from these parts", :confirm => "Are you sure?" -%>
+      <% end -%> 
+    <% end -%>
+
+    <% if t == :terms_with_synonym_tags_with_internal_namespace && @result[t].size > 0  && !@proj.ontology_namespace.blank? -%>
+      <% form_tag :action => :_admin_update_internal_references_to_ontology_namespace do  -%>
+        <%= submit_tag "Update these internal references to ontology namespace", :confirm => "Are you sure?" -%>
+      <% end -%> 
+    <% end -%>
+
+  <% end -%>
+
+<% end -%>

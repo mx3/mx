@@ -1,0 +1,13 @@
+<% dragmode ||= true -%>
+<% figure_pick_button ||= false -%>
+
+<div>
+  <% if @descriptions.size > 0 -%>
+    <%= render :partial => "figure/id", :collection => @descriptions, :locals => {:obj => @obj} -%>
+  <% else -%>
+    <div id="none_found">
+      <i style="color: red"> search complete, no results returned </i>
+    </div>
+  <% end -%>
+  <div style="clear: both">&nbsp;</div>
+</div>

@@ -1,0 +1,42 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: confidences
+#
+#  id         :integer(4)      not null, primary key
+#  name       :string(128)
+#  position   :integer(4)
+#  short_name :string(4)
+#  proj_id    :integer(4)      not null
+#  creator_id :integer(4)      not null
+#  updator_id :integer(4)      not null
+#  updated_on :timestamp       not null
+#  created_on :timestamp       not null
+#  html_color :string(8)
+#
+
+--- 
+confidences1: 
+  name: High
+  created_on: 2005-06-23 15:51:14
+  updated_on: 2005-06-23 15:53:53
+  creator_id: "1"
+  id: "1"
+  proj_id: "1"
+  position: "1"
+confidences2: 
+  name: Low
+  created_on: 2005-06-23 15:52:01
+  updated_on: 2005-06-23 15:52:16
+  creator_id: "1"
+  id: "2"
+  proj_id: "1"
+  position: "3"
+confidences3: 
+  name: Medium
+  created_on: 2005-06-23 15:52:10
+  updated_on: 2005-06-23 15:53:53
+  creator_id: "1"
+  id: "3"
+  proj_id: "1"
+  position: "2"

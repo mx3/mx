@@ -1,0 +1,12 @@
+<% if @default_otu_group %>
+  <h3> Listing OTUs for group: </h3>
+  <%= @default_otu_group.display_name %>
+  (total: <%= @otus.length %>)
+<% else %>
+  <h3>Listing OTUs</h3>
+<p><em> Listing taxonomically by tied taxon name, then by OTU name </em> </p>
+<% end %>
+
+<div id='search_results'>
+  <%= render(:partial => 'ajax_list') -%>
+</div>

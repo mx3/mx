@@ -1,0 +1,6 @@
+<%= content_tag :li, content_tag(:span, 'List' , :class => 'link_section') -%>
+<%= content_tag :li, link_to('show all OTUs', :action => 'list_all') -%>
+<%= content_tag :li, link_to("personally created", :action => "list_by_named_scope", :scope => 'created_by', :arg => $person_id)  -%>
+
+<%= content_tag :li, content_tag(:span, 'Batch' , :class => 'link_section') -%>
+<%= content_tag :li, link_to('load from file', :action => 'batch_load') -%>

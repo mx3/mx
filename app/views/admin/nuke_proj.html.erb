@@ -1,0 +1,9 @@
+<%= link_to 'Back', :action => :index, :controller => :admin%>
+<div style="background-color: red">
+  <h2 style="background-color: yellow">This will immediately destroy the project and all associated data</h2>
+  <% for p in @projs %>
+    <% form_tag :action => 'nuke_proj', :id => p do -%>
+      <%= p.name %> (ID <%= p.id %>) <%= submit_tag "Destroy" %>   
+    <% end -%>
+  <% end %>
+</div>

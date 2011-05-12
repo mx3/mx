@@ -1,0 +1,6 @@
+<li>
+<%= link_to otu.display_name(:type => :matrix_name), :controller => 'otu', :action => 'show', :id => otu.id %> 
+<% if @coding = Coding.find_by_otu_id_and_chr_id_and_proj_id(otu.id, @chr.id, @proj.id) %>
+  <%= @coding.chr_state_name %> (<%= @coding.chr_state_state %>)
+<% end %>
+</li>

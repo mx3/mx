@@ -1,0 +1,116 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: chrs_mxes
+#
+#  id         :integer(4)      not null, primary key
+#  chr_id     :integer(4)      not null
+#  mx_id      :integer(4)      not null
+#  position   :integer(4)
+#  notes      :text
+#  creator_id :integer(4)
+#  updator_id :integer(4)
+#  updated_on :datetime
+#  created_on :datetime
+#
+
+--- 
+chrs_mxes2: # matrix 1
+  id: 1
+  mx_id: "1"
+  chr_id: "6"
+  position: 1
+  created_on: 2005-03-10 15:19:30
+  updated_on: 2005-04-01 14:34:02
+  creator_id: "3"
+  updator_id: "3"
+chrs_mxes4: # matrix 1
+  id: 2
+  mx_id: "1"
+  chr_id: "8"
+  position: 2
+  created_on: 2005-03-11 14:33:41
+  updated_on: 2005-04-01 13:09:23
+  creator_id: "3"
+  updator_id: "3"
+chrs_mxes3: 
+  id: 3 
+  created_on: 2005-03-10 15:19:30
+  chr_id: "6"
+  updated_on: 2005-04-12 10:52:30
+  creator_id: "1"
+  mx_id: "2"
+  position: 1
+  updator_id: "3"
+chrs_mxes5: 
+  id: 5
+  created_on: 2005-03-11 14:33:41
+  chr_id: "8"
+  updated_on: 2005-04-12 10:52:51
+  creator_id: "1"
+  mx_id: "2"
+  updator_id: "3"
+  position: 2
+chrs_mxes6: 
+  id: 6
+  created_on: 2005-03-10 12:43:11
+  chr_id: "5"
+  updated_on: 2005-03-27 12:43:17
+  creator_id: "3"
+  position: 1
+  mx_id: "3"
+  updator_id: "3"
+chrs_mxes7:  # multikey test is below
+  id: 7 
+  created_on: 2005-03-10 12:43:11
+  chr_id: "15"
+  position: 1
+  updated_on: 2005-03-27 12:43:17
+  creator_id: "3"
+  mx_id: "4"
+  updator_id: "3"
+chrs_mxes8: 
+  id: 8 
+  created_on: 2005-03-10 12:43:11
+  chr_id: "16"
+  position: 2
+  updated_on: 2005-03-27 12:43:17
+  creator_id: "3"
+  mx_id: "4"
+  updator_id: "3"  
+chrs_mxes9: 
+  id: 9 
+  created_on: 2005-03-10 12:43:11
+  chr_id: "17"
+  updated_on: 2005-03-27 12:43:17
+  creator_id: "3"
+  mx_id: "4"
+  position: 3
+  updator_id: "3"
+chrs_mxes10: 
+  id: 10 
+  created_on: 2005-03-10 12:43:11
+  chr_id: "18"
+  updated_on: 2005-03-27 12:43:17
+  creator_id: "3"
+  position: 4
+  mx_id: "4"
+  updator_id: "3"  
+chrs_mxes11: 
+  id: 11 
+  created_on: 2005-03-10 12:43:11
+  chr_id: "19"
+  updated_on: 2005-03-27 12:43:17
+  creator_id: "3"
+  position: 5
+  mx_id: "4"
+  updator_id: "3"
+chrs_mxes12: # this character is not coded in the matrix 
+  id: 12 
+  created_on: 2005-03-10 12:43:11
+  chr_id: "20"
+  updated_on: 2005-03-27 12:43:17
+  creator_id: "3"
+  position: 6
+  mx_id: "4"
+  updator_id: "3"

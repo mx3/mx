@@ -1,0 +1,20 @@
+<div class="std_cpl_h"><%= @clave.couplet_text %></div><br/>
+  <hr/>
+
+  <% i = 0 %>
+  
+  <div class="std_cpl">
+  
+   <% for o in @key -%>
+      <div class="std_cpl_h" ><%= "#{o[:cpl].parent.manual_id.to_s}" + ( i%2 == 0 ? ''  : "'") + '. ' -%> </div>  
+   
+      <%= htmlize(o[:cpl].couplet_text) -%>
+      <%= ('<div class="std_cpl_h"> ... ' + o[:cpl].manual_id.to_s + '</div>') if o[:cpl].otu_id.blank? -%>   
+      <%= (" ... " + '<div class="std_cpl_h">' +  o[:cpl].otu.display_name + '</div>') if o[:cpl].otu_id -%>
+
+      <%= render_figs_for_obj(o[:cpl], 'medium', false) -%><br/>      
+      
+     <%=  i%2 == 0 ?  '' :  '</div><hr /><div class="std_cpl">' -%> 
+     <% i += 1 -%>
+     <% end -%>
+  </div>

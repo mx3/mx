@@ -1,0 +1,3 @@
+class PresenceAbsencePhenotype < CardinalPhenotype
+  
+end

@@ -1,0 +1,7 @@
+<% if @associations.size > 0 %>
+  <p><%= @associations.size %> recorded association(s). </p>
+    <% for assoc in @associations %>
+    <%= link_to render(:partial => "association/part", :collection => assoc.association_parts), :action => 'browse_show', :controller => 'association', :id => assoc %> &nbsp; 
+      <%= @public ? '' : link_to('edit', :action => 'edit', :controller => 'association', :id => assoc) %> <br />
+    <% end %>
+<% end %>

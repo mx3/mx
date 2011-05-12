@@ -1,0 +1,5 @@
+<%= render_show(@pcr) %>
+<% if @gel_image %>
+  <h4> Gel image </h4>
+  <%= image_tag(@gel_image.path_for(:size => :original)) %>
+<% end %>

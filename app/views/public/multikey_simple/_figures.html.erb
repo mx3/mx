@@ -1,0 +1,8 @@
+<div>
+  <% if @figures.blank? %>
+    <p><i>No attached figures </i></p>
+  <%else %> 
+    <%= render(:partial => 'f', :collection => @figures, :locals => {:view => @mk.view}) -%> 
+  <% end %>
+  <br style="clear:right;" />
+</div>

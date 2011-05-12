@@ -1,0 +1,59 @@
+<% content_for :head do -%>
+  <%= render(:partial => '/shared/colorPicker_header')  -%>
+<% end %>
+
+<%= error_messages_for 'object_relationship' %>
+
+<!--[form:object_relationship]-->
+
+<div class="fr"> <label for="object_relationship_interaction" class="lbl4">Interaction</label>
+  <span class="fld"><%= text_field 'object_relationship', 'interaction'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_complement" class="lbl4">Complement</label>
+  <span class="fld"><%= text_field 'object_relationship', 'complement'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_is_transitive" class="lbl4">Is transitive?</label>
+  <span class="fld"><%= check_box 'object_relationship', 'is_transitive'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_is_symmetric" class="lbl4">Is symmetric?</label>
+  <span class="fld"><%= check_box 'object_relationship', 'is_symmetric'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_is_anti_symmetric" class="lbl4">Is anti symmetric?</label>
+  <span class="fld"><%= check_box 'object_relationship', 'is_anti_symmetric'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_is_reflexive" class="lbl4">Is reflexive?</label>
+  <span class="fld"><%= check_box 'object_relationship', 'is_reflexive'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_is_irreflexive" class="lbl4">Is irreflexive?</label>
+  <span class="fld"><%= check_box 'object_relationship', 'is_irreflexive'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_xref" class="lbl4">Xref</label>
+  <span class="fld"><%= text_field 'object_relationship', 'xref'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_notes" class="lbl4">Notes</label>
+  <span class="fld"><%= text_area 'object_relationship', 'notes'  %></span>
+</div>
+
+<div class="fr"> <label for="object_relationship_html_color" class="lbl4">html color</label>
+  <span class="fld"><%= text_field 'object_relationship', 'html_color', :size => 6, :default => 'dddddd'  %> <i> click to pick</i></span>
+</div>
+
+<script type="text/javascript">
+  new Control.ColorPicker("object_relationship_html_color");
+</script>
+
+
+
+
+
+
+<!--[eoform:object_relationship]-->
+

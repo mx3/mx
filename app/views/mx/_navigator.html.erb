@@ -1,0 +1,33 @@
+<div class="navigator">
+  <%= navigator2(:obj => @mx, :do => session['mx_view'], :ord => "name") %> 
+
+  <div class="item"> <%= session['mx_view'] == 'show_otus' ? '<div class="navigator_current">OTUs</div>' :  link_to('OTUs', :action => 'show_otus', :id => @mx.id) -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_chrs' ? '<div class="navigator_current">characters</div>' :  link_to('characters', :action => 'show_chrs', :id => @mx.id) -%> </div>  
+
+  <div class="item"> <%= link_to('browse', :action => 'browse', :id => @mx.id) -%> </div>  
+  
+  <div class="item"> <%= session['mx_view'] == 'show_sort_chrs' ? '<div class="navigator_current">sort characters</div>' : link_to('sort characters', :action => 'show_sort_chrs', :id => @mx) -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_sort_otus' ? '<div class="navigator_current">sort OTUs</div>' : link_to('sort OTUs', :action => 'show_sort_otus', :id => @mx) -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_trees' ? '<div class="navigator_current">show trees</div>' : link_to('show trees', :action => 'show_trees', :id => @mx) -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_batch_code' ? '<div class="navigator_current">batch code</div>' : link_to('batch code', :action => 'show_batch_code', :id => @mx) -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_data_sources' ? '<div class="navigator_current">show data sources</div>' : link_to('show data sources', :action => 'show_data_sources', :id => @mx) -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_figures' ? '<div class="navigator_current">show figures</div>' : link_to('show figures', :action => 'show_figures', :id => @mx) -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'fast_coding' ? '<div class="navigator_current">one-click coding</div>' : '' -%> </div>  
+
+  <div class="category">clone</div>
+  <div class="item"><%= link_to('simple', :action => :clone, :clone_type => :simple, :id => @mx.id) -%></div>
+
+  <div class="category">generate</div>
+  <div class="item"><%= link_to('character Group', :action => :generate, :generate_type => :chr_group, :id => @mx.id) -%></div>
+  <div class="item"><%= link_to('OTU group', :action => :generate, :generate_type => :otu_group, :id => @mx.id) -%></div>
+  <div class="item"><%= link_to('concensus OTU', :action => :generate, :generate_type => :concensus_otu, :id => @mx.id) -%></div>
+
+  <div class="category">report</div>
+  <div class="item"> <%= session['mx_view'] == 'show_unused_chr_states' ? '<div class="navigator_current">unused character states</div>' :  link_to('unused character states', :action => 'show_unused_chr_states', :id => @mx.id) -%> </div>  
+
+
+  <%= render(:partial => '/mx/export/navigator_options') -%>
+
+
+</div>
+

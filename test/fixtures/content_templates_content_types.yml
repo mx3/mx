@@ -1,0 +1,37 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: content_templates_content_types
+#
+#  foo_id              :integer(4)      not null, primary key
+#  content_type_id     :integer(4)      not null
+#  content_template_id :integer(4)      not null
+#  position            :integer(1)
+#
+
+--- 
+con_templates_con_types1: 
+  foo_id: "9"
+  content_template_id: "1"
+  content_type_id: "2"
+  position: "1"
+con_templates_con_types2: 
+  foo_id: "10"
+  content_template_id: "1"
+  content_type_id: "4"
+  position: "2"
+con_templates_con_types3: 
+  foo_id: "12"
+  content_template_id: "1"
+  content_type_id: "3"
+  position: "3"
+con_templates_con_types4: 
+  foo_id: "13"
+  content_template_id: "1"
+  content_type_id: "6"
+  position: "4"
+con_templates_con_types5: 
+  foo_id: "14"
+  content_template_id: "3"
+  content_type_id: "2"
+  position: "1"

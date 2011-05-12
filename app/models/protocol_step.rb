@@ -1,0 +1,20 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: protocol_steps
+#
+#  id                :integer(4)      not null, primary key
+#  protocol_id       :integer(4)      not null
+#  description       :text
+#  reagent           :string(255)
+#  reagent_quanitity :string(64)
+#  step_time         :string(64)
+#  step_order        :integer(4)
+#  step_temp         :float
+#  step_cycles       :integer(4)
+#
+
+class ProtocolStep < ActiveRecord::Base
+  belongs_to :protocols
+  validates_presence_of :description
+end

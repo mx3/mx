@@ -1,0 +1,61 @@
+<%= error_messages_for 'distribution' -%>
+
+<!--[form:distribution]-->
+
+
+<div class="fr">
+  <label for="distribution_geog_id" class="lbl4">Geography</label>
+  <span class="fld"><%= render :partial => "geog/picker", :locals => {
+  :object => 'distribution', :method => 'geog_id', :tag_id => "geog_name",
+  :display => (@distribution.geog.display_name if @distribution.geog) } -%><i>required</i></span>
+</div>
+
+
+<div class="fr">
+  <label for="distribution_otu_id" class="lbl4">OTU</label>
+  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+            :controller => 'otu',
+            :object => 'distribution',
+            :method => 'otu_id',
+            :tag_id =>  "otu_to_find",
+            :display =>  @distribution.otu.andand.display_name(:type => :for_select_list),
+            :size => 80} -%></span>
+</div>
+
+<div class="fr">
+  <label for="distribution_ref_id" class="lbl4">Reference</label>
+  <span class="fld"><%= render :partial => "ref/picker", :locals => {
+  :object => 'distribution', :method => 'ref_id', :tag_id => "ref_to_find", 
+  :display => ("#{@distribution.ref.display_name}" if @distribution.ref) } -%></span>
+</div>
+
+<div class="fr">
+  <label for="distribution_introduced" class="lbl4">Introduced</label>
+  <span class="fld"><%= select(:distribution, :introduced, Distribution::STATUS) %> </span>
+</div>
+
+<div class="fr">
+  <label for="distribution_introduced" class="lbl4">Confidence</label>
+   <span class="fld"><%= select("distribution", "confidence_id", @proj.confidences.collect {|c| [c.name, c.id] }, { :include_blank => true }) -%></span>
+</div>
+
+<div class="fr">
+  <label for="distribution_notes" class="lbl4">Notes</label>
+   <span class="fld"><%= text_area 'distribution', 'notes', 'title' => 'notes about this distribution', :cols => 60, :rows => 3 -%></span>
+</div>
+
+<br style="clear: both;" /> 
+
+<hr />
+
+<div class="fr">
+  <label for="distribution_verbatim_geog" class="lbl4">Verbatim geog</label>
+  <span class="fld"><%= text_field 'distribution', 'verbatim_geog', 'title' => 'as stated in reference or if not avaliable in geography box above'  -%><em style="color:red;"> This field is legacy only.  Do not use it for new data. </em>
+</span>
+</div>
+
+
+
+
+<!--[eoform:distribution]-->
+

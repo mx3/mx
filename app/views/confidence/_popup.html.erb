@@ -1,0 +1,21 @@
+<!-- with some hints from http://demo.script.aculo.us/ajax/update_element -->
+<div id="<%= "cp_#{obj.class.to_s}_#{obj.id}" -%>" class="popupform" style="width: auto; ">
+  <div>
+    <span class="small_form_button" style="float: right;" >
+      <%= link_to_remote("cancel",  :url => { :action => 'cancel_from_popup', :controller => 'confidence', :confidence_o_class => params[:confidence_obj_class], :confidence_o_id => params[:confidence_obj_id]}) -%>
+    </span> 
+    <span style="float: left;">Confidence for: <%= params[:confidence_obj_id] %></span>   
+  </div>
+  <br style="clear: both;" />
+  <% if confidences.size > 0 -%>
+  <%= form_for 'confidence', :html => {:id => "cpf_#{obj.class.to_s}_#{obj.id}"},  :url =>  {} do |f| %>
+      <p><%= f.radio_button :id, -1, :checked => (obj.confidence_id.blank? ? true : false) -%> none </p>
+      <% confidences.each do |c| -%>
+        <p><%= f.radio_button :id, c.id, :checked => (obj.confidence_id == c.id ? true : false) -%> <%= c.display_name -%></p>
+      <% end -%>
+    <% end -%>
+   <%= observe_form "cpf_#{obj.class.to_s}_#{obj.id}", :url => { :action => :apply_from_popup, :controller => :confidence,:obj_class => obj.class.to_s, :obj_id => obj.id}, :frequency => "0.25" %>
+   <% else -%>
+     <em> First create some Confidences like "<%= @obj.class.to_s.downcase -%>: foo" </em>
+   <% end -%>
+</div>

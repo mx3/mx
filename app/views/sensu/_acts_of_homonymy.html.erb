@@ -1,0 +1,17 @@
+<% acts = acts_of_homonymy.acts_of_homonymy_for_ref -%> 
+
+<% if acts.size > 0 -%>
+  <div style="border-bottom: 1px dotted silver; padding: 2px; margin: 2px;" >
+    <div><%= acts_of_homonymy.label.display_name -%> </div>
+    <div>
+      <ol>
+        <% acts.each do |klass|  -%>
+          <li>
+           <%= klass.collect{|p| p.definition}.join(" / ") -%>
+          </li>
+        <% end -%>
+      </ol>
+    </div>
+  </div>
+<% end -%>
+

@@ -1,0 +1,22 @@
+<%=  @diff_hash.to_yaml %>
+
+Hi <%= @recipient_person.first_name %>, 
+The changes made to the reference are described above in the form of
+
+  attribute: 
+  - old value
+  - new value
+
+Visit <%= url_for :proj_id => @project.id, :controller => 'ref', :action => 'show', :id => @ref, :only_path => false, :host => HOME_SERVER %> 
+to view this reference or to make changes.
+
+Current form:
+<%= @ref.display_name %>
+
+You received this email because you are a member of an mx project that is using 
+this reference, and someone other than you, in another project, changed it. 
+If you have questions or complaints, please contact <%= NOTIFICATION_RECIPIENTS.join(" or ") -%>.
+
+Cheers,
+mx
+

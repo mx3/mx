@@ -1,0 +1,29 @@
+<div class='navigator'>
+  <%= navigator2(:obj => @ontology_class, :do =>  session['ontology_class_view'], :ord => 'id') -%>
+
+  <div class="item"> <%= session['ontology_class_view'] == 'show_tags' ? '<span class="navigator_current">tags</span>' :  link_to('tags', :action => 'show_tags', :id => @ontology_class)  %> </div>  
+  <div class="item"> <%= session['ontology_class_view'] == 'show_figures' ? '<span class="navigator_current">figures</span>' :  link_to('figures', :action => 'show_figures', :id => @ontology_class)  %> </div>  
+  <div class="item"> <%= session['ontology_class_view'] == 'show_visualize_newick' ? '<span class="navigator_current">visualize</span>' :  link_to('visualize', :action => :show_visualize_newick, :controller => :ontology_class, :id => @ontology_class.id) %> </div> 
+
+  <div class="item"> <%= session['ontology_class_view'] == 'show_history' ? '<span class="navigator_current">history</span>' :  link_to('history', :action => :show_history, :controller => :ontology_class, :id => @ontology_class.id) %> </div> 
+
+  <br />
+  <%= render(:partial => 'shared/nav_functions', :object => @ontology_class) -%>
+  <div class="item"> <%= sensu_link_for_show(:ontology_class_id => @ontology_class.id, :div_id => "new_sensu_on_#{@ontology_class.id}") -%></div>
+  <div class="item"> <%= ontology_relationship_link_for_show(:ontology_class_id => @ontology_class.id, :div_id => "new_ontology_relationship_on_#{@ontology_class.id}") -%></div>
+  
+</div>
+
+<br />
+
+<%= render(:partial => 'shared/tag_cloud', :object => @ontology_class) -%>
+
+<br />
+
+<!-- admin -->
+<div class="navigator">
+  <strong> admin </strong><br/>
+  <div class="item"> <%= destroy_ontology_class_link_tag(@ontology_class, session[:person]) -%> </div>
+  <div class="item"> <%= add_xref_to_ontology_class_tag(@ontology_class, session[:person]) -%> </div>
+</div>
+

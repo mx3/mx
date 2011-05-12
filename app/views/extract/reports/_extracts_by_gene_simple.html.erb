@@ -1,0 +1,2 @@
+<%= "OTU\textract_id\talt_extract_id\t#{@genes.collect{|g| g.name + "\t\t"}.join}" + "\n" -%>
+<% @extracts.each do |e| -%><%= "#{(e.tied_determination ? e.tied_determination : "no determination!")}\t#{e.id}" + "\t" + "#{e.other_extract_identifier}" + "\t" -%><%= @genes.collect{|g| e.count_seqs_with_nucs_by_gene(g).to_s + "\t" + gene_extract_status(e,g)}.join("\t") + "\n" -%><% end -%>

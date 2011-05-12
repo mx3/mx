@@ -1,0 +1,11 @@
+meh
+<% for h in @heads.keys %>
+
+<p style="background:red;"><%= @heads[h][:name] %></p>
+
+	<% for o in @heads[h][:otus] %>
+			<%= o.display_name %>
+		<br/>
+		<% end -%>
+		
+<% end %>

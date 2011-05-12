@@ -1,0 +1,14 @@
+<div id="otu_<%= i %>" class="box5" style="width: 350px;">
+
+  <%= form_tag(:action => 'refresh') do %>
+    <div style="text-align: right">
+      compare OTU: <%=  select("choice", "#{i}", @mk.remaining_otus(@mk.otus_remaining).collect{|o| [o.display_name, o.id]})  -%>
+    </div>
+    <div id="contents_<%= "#{i}" %>">
+        <%= render(:partial => 'otu_and_states', :collection => [cmp_otu]) %>
+    </div>
+    <%= observe_field("choice_#{i}", :update => "contents_#{i}", :on => "changed", :url =>
+      {:action => '_update_otu_for_compare'}) %>
+  <% end %>
+ 
+</div>

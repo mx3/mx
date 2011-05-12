@@ -1,0 +1,7 @@
+
+
+
+# ** IMPORTANT If you use faster_csv you must now include the :environment like 'task :mytask => [:environment]' 
+# require 'faster_csv' <- this does not work with RubyGems 1.3.6
+
+# Similarly, require 'ruby-debug' will break rake tasks if left in uncommented

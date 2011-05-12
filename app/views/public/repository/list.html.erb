@@ -1,0 +1,22 @@
+﻿<div>
+
+  <p>
+    List taxa in that repository by clicking on the coden.  Visit the repository homepage (leaves site) by clicking on the name. 
+    Some syntype series may be distributed across multiple museums. If you are looking for types at ZMPA (Warsaw), ZMUB (Berlin), or DEI (Müncheberg) 
+    try checking all three repositories. If you are looking for types at OXUM (Oxford) or BMNH (London) try checking both of these repositories.
+  </p>
+  
+  <table>
+  <% for r in @repositories %>
+  <tr>
+    <td class="coden">
+      <%= link_to(r.coden, :action => "list_by_repository", :repository_id => r.id, :controller => 'taxon_name' )  %>
+    </td>
+    <td>
+      <%=  r.url ? link_to(r.name, r.url) : r.name %>
+    </td>
+  </tr> 
+  <% end %>
+  </table>
+
+</div>

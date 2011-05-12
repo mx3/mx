@@ -1,0 +1,7 @@
+<h3>Editing standard view</h3>
+<%= form_tag :action => 'update', :id => @standard_view do -%>
+  <%= render :partial => 'form' -%>
+   <div  style="margin-left: 25%;"><%= submit_tag "Edit" %></div>
+  <%= submit_tag 'Edit' %>
+<% end -%>
+

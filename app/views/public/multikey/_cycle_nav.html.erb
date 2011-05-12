@@ -1,0 +1,4 @@
+<%= link_to_remote("&lt;=", :loading => "Element.show('multikey_spinner')", :complete => "Element.hide('multikey_spinner')", :update => div_to_update, :url => { :action => ctrl_name, :direction => 'down', :partial_to_render => partial_to_render }) -%>&nbsp;
+more&nbsp;
+<%= link_to_remote("=&gt;", :loading => "Element.show('multikey_spinner')", :complete => "Element.hide('multikey_spinner')", :update => div_to_update, :url => { :action => ctrl_name, :direction => 'up', :partial_to_render => partial_to_render }) -%>
+

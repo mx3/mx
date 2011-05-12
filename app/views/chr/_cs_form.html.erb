@@ -1,0 +1,26 @@
+<div class="header">Add new state:</div>
+<% form_tag :action => 'add_state' do -%>
+<%= hidden_field 'chr_state', 'id' -%>
+<%= hidden_field 'chr_state', 'chr_id', 'value' => @chr.id -%>
+
+<div class="fr"> <label for="chr_state_state" class="lbl4">State</label>
+<span class="fld"><%= text_field 'chr_state', 'state', "size" => 4 -%></span>
+</div>
+
+<div class="fr"> <label for="chr_state_state" class="lbl4">Name</label>
+<span class="fld"><%= text_field 'chr_state', 'name', :size => 53  -%></span>
+</div>
+
+<div class="fr"> <label for="chr_state_state" class="lbl4">Cited polarity</label>
+<span class="fld"><%= select("chr_state", "cited_polarity", ChrState.cited_polarities) -%></span>
+</div>
+
+<div class="fr"> <label for="chr_state_notes" class="lbl4">Notes</label>
+<span class="fld">  <%= text_area 'chr_state', 'notes', "cols" => 40, "rows" => 2  -%></span>
+</div>
+
+<input type="submit" value="Add state" style="margin-left: 26%; clear: both;" />
+<% end -%>
+
+
+

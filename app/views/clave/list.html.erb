@@ -1,0 +1,23 @@
+<%= error_messages_for 'clave' -%>
+<h3>Listing Keys</h3>
+<table class='list_table'>
+  <%= t_col_heads( [ "name", "# couplets", "id", "is public", "mod on", "mod by" ] ) -%>
+  <% for c in @claves -%>
+  <%=  t_row( { 'obj' =>  c, 'close_tr' => false, 
+  'cell_data' => [c.couplet_text,
+    c.all_children.size / 2,
+    c.id,
+    (c.is_public ? '<span class="passed">yes</span>' : '<span class="failed">no</span>'),
+    c.m_on,
+    c.m_by] }) -%>
+    <td><span class="small_grey"><%= link_to('Duplicate', {:action => 'duplicate', :id => c}, :method => "post", :confirm => 'Duplicate this key?') -%></span></td>
+    <td><span class="small_grey"><%= link_to('Edit meta', {:action => 'edit_meta', :id => c}) -%></span></td>
+    <td><span class="small_grey"><%= link_to('Show all', {:action => 'show_all', :id => c}) -%></span></td>
+    <td><span class="small_grey"><%= link_to('Print', {:action => 'show_all_print', :id => c}) -%></span></td>
+  </tr><!-- not error, closes t_row -->
+  <% end -%>
+</table>
+
+<% unless @clave_pages.first == @clave_pages.last -%>
+  <strong>View page <%= pagination_links @clave_pages, :window_size => 3 -%></strong>
+<% end -%>

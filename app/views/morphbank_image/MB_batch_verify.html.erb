@@ -1,0 +1,40 @@
+<h3> Verify addition of MB images</h3>
+
+<% if @existing.size > 0 %>
+  <p>The following images already exist in this project, or could not be matched to an OTU name (not taxon name): </p>
+  <%= @existing.join(" / ") %>
+<% end %>
+
+<% if @images.size > 0 %>
+
+<p> <i> <%= @images.size %> images match.   If you do not wish to import an image leave it unchecked.  </i> </p>
+
+<%= form_tag(:action => 'MB_batch_create') do %>
+
+    <%= submit_tag("Create") %>
+
+    <% i = 0 %>
+    <% @images.each do |img, otu| %>
+      <% i += 1 %>
+    
+      <%= hidden_field_tag("img[#{i}]", img) %>
+      <%= hidden_field_tag("otu[#{i}]", otu.id) %>
+      
+      <div class="fr">  <label for="mb_id" class="lbl4">img</label>  
+           <span class="fld"><img src="http://images.morphbank.net/?id=<%= img %>&imgType=thumbs" alt="morphbank image" /> Morphbank id:  <%= img %></span>
+        </div>
+          
+        <div class="fr"> <label for="otu_id" class="lbl4">otu</label>
+          <span class="fld"><%= otu.display_name %> </span>
+        </div>
+
+        <div class="fr">  <label for="include" class="lbl4">include?</label>   <span class="fld">
+            <%= check_box_tag("check[#{i}]", '1', true ) %> </span>
+        </div>
+        
+        <div class="fr" style="border-bottom: 1px dotted silver;"> </div>
+     <% end %>
+  <%= submit_tag("Create") %>
+  <% end %>
+
+<% end %>

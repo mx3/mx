@@ -1,0 +1,33 @@
+<% if @file_serials  -%>
+  <h3> Results </h3>
+  <table>
+    <tr><th>in file</th><th>serial match</th><th>mx serial id</th></tr>
+    <% @file_serials.each do |s| -%>
+      <% serials = Serial.find(:all, :conditions => "name like \"%#{s}\"") -%>
+      <tr>
+        <td><%= serials.size == 0 ? '<b class="failed">' + s + '</b>' : s -%></td>
+
+        <%= serials.collect{|ser| "<td>#{ser.name}</td><td>#{ser.id}</td>"}.join("") -%>
+      </tr>
+  <% end %>
+</table>
+  <br/>
+  <%= link_to("match another file", :action => :match) -%>
+<% else %>
+
+  <p> This function matches a text file of serial titles against those in the database, highlighting those without matches. </p>
+  
+  <div class="subform">
+    <div class="header"> Choose a text file </div>
+    <%= form_tag({:action => 'match'}, {:multipart => true, :name => 'serial_match'}) do %>
+      <div class="fr"> <label for="temp_file" class="lbl4">Text file containing serials:</label>
+      <span class="fld"> <%= file_field_tag 'temp_file', :size => 70 -%></span>
+      </div>
+      <%= submit_tag "Match" -%>
+    <% end -%> 
+  </div>
+
+<% end -%>
+
+
+

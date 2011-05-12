@@ -1,0 +1,22 @@
+<div class="view">
+  <span class="header">Result</span>
+
+  <% if @ontology_class.is_obsolete -%>
+    <p style="text-align:center; padding: 5px; color: white; background-color: red;"> <strong> THIS CLASS IS OBSOLETE </strong> </p>
+  <% end -%>
+
+  <div>
+    <!-- ontology class base  -->
+    <%= render :partial => 'public/ontology_class/oc', :object => @ontology_class -%>
+    <div style="margin-left: 48%; text-align:center; display:inline;"> - <%= link_to('more detail', :action => :show_expanded, :id => @ontology_class.id) -%> - </div>
+    <br style="clear:both;" />
+
+    <hr style="width: 80%; color:#ddd;" />
+
+    <div class="header"><span class="text_title">Search again</span></div>
+    <div style="padding: 2em; text-align: center; width: 100%;">
+      <%= render :partial => 'public/ontology/simple_search' -%>
+    </div>
+  </div>
+</div>
+

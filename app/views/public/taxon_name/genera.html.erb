@@ -1,0 +1,14 @@
+<div id="taxon_name_nav">
+  <h3> <%= link_to 'Families', :action => 'browse', :family => nil %> /
+    <%= link_to( h(@family), :action => 'browse', :family => h(@family), :letter => nil) %> /
+    <em><%=h @letter %></em>
+  </h3>
+    
+  <% for g in @genera %>
+  <div class="item">
+  <div class = "genus_page_link">(<%= link_to "genus record", :action => 'show', :id => g.id %>)</div> 
+    <%= link_to "<i>#{h(g.name)}</i>", :action => 'browse', :family => h(@family), :letter => @letter, :genus => h(g.name) %> (<%=h g.count %>)
+  
+  </div>
+  <% end %>
+</div>

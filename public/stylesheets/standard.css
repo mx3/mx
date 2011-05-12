@@ -1,0 +1,475 @@
+body  { font-family: arial, verdana, helvetica, sans-serif; padding: .2em; background-color: #a0c0e0; }
+
+a { color:#08519c; text-decoration: none; }
+a:hover { color: #000; background: #ffc; }
+
+hr  { color: #888; margin-bottom: .2em; margin-top: .2em; }
+
+h3  { border-bottom:1px dotted silver; font-weight:700;  font-size:12px;}
+h4  { margin: 0; } 
+
+img { border: none; }
+
+ul  { list-style-type: none; }
+li .handle { /* ripped from railscasts */
+  cursor:move;
+  color: #777;
+}
+
+table { border-spacing:0}
+td { padding-left: .3em; padding-right: .3em; vertical-align: top; background: none;}
+tr.stripe {background-color: #efefef;}
+
+/*** PAGE STRUCTURE ***/
+/* layout for private pages */
+#container { border: 1px solid #ccc; background: #fff; }
+
+#header { background: rgb(247, 251, 255); 
+  border-style: none none solid; 
+  border-width: 0 0 1px; 
+  border-color: silver; }
+
+#header p { margin: 0 0 0 2.45em; padding: 0.5em; }
+#header span.links { font-size: 70%; margin: 0.2em 0.6em; }
+#content { font-size: 12px; padding: 0.5em 1em 1em }
+
+/* 3 column CSS from http://www.alistapart.com/articles/holygrail */
+#inner_wrapper {
+  min-width: 610px;      /* 2x LC width + RC width */
+}
+
+#inner_container {
+  padding-left: 150px;   /* LC width */
+  padding-right: 260px;  /* RC width */
+}
+#inner_container .column {
+  position: relative;
+  float: left;
+}
+#inner_center {
+  width: 100%;
+  margin-bottom: .5em;
+}
+#inner_left {
+  width: 150px;          /* LC width */
+  right: 150px;          /* LC width */
+  margin-left: -100%;    /* this not in error */
+}
+
+* html #inner_left {     /* IE6 Fix */
+  left: 200px;           /* RC width */
+}
+
+#inner_right {
+  width: 260px;          /* RC width */
+  margin-right: -260px;  /* RC width */
+}
+#inner_footer {
+  clear: both;
+}
+#inner_header {
+  padding-bottom: .2em;
+}
+
+#inner_header a { text-decoration: none; }
+
+/* "Views" */
+
+.view {
+  padding:0.5em;
+}
+
+.view .header {
+  margin:0.5em 0; border-bottom:1px dotted silver;font-size: larger;width: 98%;display:block;
+}
+
+/* Show */
+.show_rec {padding:0.5em;}
+.show_row {margin:0.2em;}
+.show_category {margin:0.5em 0; border-bottom:1px dotted silver;font-size: larger;width: 98%;}
+.show_lbl {margin:0.2em; color: gray}
+.show_data {margin:0.2em;}
+.show_comment {font-style:italic;color:gray;font-size:smaller; }
+
+/* Text ("paper") pages */
+.text_page {
+  padding: 2em;
+  background: #fff;
+  border: 1px solid silver;
+  margin: 1em;
+}
+
+.text_page .header {
+  font-weight: 700;
+  clear: both;
+}
+
+.text_page .subheading {
+  display:inline;
+  font-weight: 700;
+}
+
+.text_page .content {
+  display:inline;
+}
+
+.text_page .section {
+  clear: right;
+  margin-bottom: 2em;
+}
+
+.text_page .description {
+  display:inline;
+}
+
+/*** NAVIGATION ***/
+
+/* Top level tabs */
+#tabs { margin: 0; padding: 0.25em;  margin-left: 1em; font-size: smaller;  width: auto; }
+#tabs a { display: inline-table; margin-bottom: -4px;}
+#tabs a:link, #tabs a:visited {color: #3b3b3b; background: rgb(222, 235, 247); text-decoration: none;  margin-left: 0.3em; padding: 0.2em 0.8em; border: solid 1px #c0c0c0 }
+#tabs a:link.current, #tabs a:visited.current  { color: #000; font-weight:700; background: #fff; border-bottom: 1px solid #fff }
+#tabs a:hover, #tabs a:link.current:hover, #tabs a:visited.current:hover { color: #000; background: #ffc; }
+
+/* Second level navigation */
+div.subnav { border-top: 2px solid rgb(198,219,239); margin-bottom: .3em; width: auto; }
+.subnav a {display: inline-table; }
+.subnav a:link, .subnav a:visited {margin-left: 0.3em; padding: 0 0.8em 0.2em; }
+.subnav a:link.current, .subnav a:visited.current { font-weight:700; color: rgb(8,48,107); background: rgb(198,219,239); }
+
+/* More options links  */
+span.link_section {color:#888;border-bottom: 1px dotted;width: 100%;}
+
+/* 'List' pagination */
+div.list_scope { float: right; color: gray; font-size: smaller} 
+div.list_pagination { margin-left: .2em; margin-bottom: .2em; background: #eee; padding: .1em;}
+td.list_action {font-size: smaller;}
+
+/* Show navigation (left col) */
+div.navigator { padding-top: .4em; text-align: center; }
+div.navigator a { padding: .1em; display: block; }
+div.navigator .navigator_link { margin: .2em; } /* the center edit link */
+div.navigator .navigator_current {display:block; padding: .1em; width: auto; background-color: #bcd }
+div.navigator .item { text-align: center; padding: .1em; margin: .2em; } /* each 'show' link */
+div.navigator_buttons { margin-bottom: .3em; text-align: center; } /* for the row of buttons */
+div.navigator_buttons a { display: inline; }
+div.navigator .navigator_button { padding: .2em; margin-left: 0; font-size: smaller; }
+div.navigator .category {border-bottom: 1px dotted gray; margin-top:1em; margin-bottom: 0.2em; padding:0.1em; margin-left:0.5em; margin-right:0.5em; }
+div.navigator .navigator_button a:link, div.navigator .navigator_button a:visited   { color: #fff; font-weight:700; text-decoration: none; background: navy; margin-left: 0.3em; padding: 0.2em 0.8em; border: solid 1px gray}
+div.navigator .navigator_button a:link.current, div.navigator .navigator_button a:visited.current {border-bottom: 1px solid #fff; background: #fff; font-weight:700; }
+div.navigator .navigator_button a:hover, div.navigator .navigator_button a:link.current:hover, div.navigator .navigator_button a:visited.current:hover {background: #ffc; color: #000;}
+
+/* Top-right navigation - thnx: http://www.htmldog.com/articles/suckerfish/dropdowns/ */
+div.subnav .class_navigator {
+  background-color: rgb(198,219,239);
+  padding:0;
+  margin:0;
+}
+
+div.subnav .class_navigator a:link, .class_navigator a:visited {
+  margin: 0;
+  padding: 0;
+  color: rgb(33,113,181);
+}
+
+div.subnav .class_navigator a:hover {
+  color: rgb(8,48,107);
+  padding: 0;
+  margin: 0;
+}
+
+div.subnav table {
+  border-spacing: 0;
+}
+
+#nav_dd, #nav_dd ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+  background-color: rgb(222, 235, 247);
+  z-index: 500;
+}
+
+#nav_dd a {
+	display: block;
+	width: 20em;
+}
+
+#nav_dd li {
+	float: left;
+	width: 20em;
+  padding: 3px;
+}
+
+#nav_dd li ul {
+	position: absolute;
+	width: 20em;
+	left: -999em;
+}
+
+#nav_dd li:hover ul {
+	left: auto;
+}
+
+/*** GENERAL ***/
+          
+.failed      { background-color: #f6c3d4; }
+.passed      { background-color: #b5ebc7; }
+.no_decision { background-color: #b1c2e6; }
+.highlight   { background-color: #ffc; }
+.ip_edit     { background-color: #f0fff0; padding: 2px;}
+
+.list_table {font-size: 11px; }
+.smaller_font {font-size: smaller; }
+.small_grey {font-size: smaller; color: rgb(113,113,181); }
+
+/* labels for tables (row/column, etc.; e.g., click 'show' for a taxon) */
+.lbl1 { font-size: 9pt; /* variable font */
+      font-variant: small-caps;
+      font-weight:700;
+      text-align: right; /* why? */
+      padding-right: 4px;
+      vertical-align: top; }
+
+.lbl2 { font-weight:700;
+      text-align: right; /* why? */
+      padding-right: 4px;
+      vertical-align: top; }
+
+.lbl3 { font-size: 12px; 
+      font-weight:700;
+      padding: .2em;}
+
+.lbl4 { font-size: 9pt; /* variable font */
+      text-align: right; /* why? */
+      padding-right: 4px;
+      vertical-align: top; }
+
+.box1 { background-color: #fff8dc; padding: .6em; border: solid 1px #707070; } 
+.box4 { margin:0.2em; border-style: solid; border-width: 2px; border-color: #e4e4e4; }
+.box4 .header  { text-align: center;  background-color: #e4e4e4; color: #444;  font-size: 90%; padding: .4em; }
+.box4 .content { font-size: 90%;  margin: .2em; padding: .4em; }
+
+.box5 { padding: .2em; margin: 1em; border: 1px solid silver;}
+
+/*** FORMS AND RELATED ***/
+
+form .header {
+  border-bottom:1px dotted silver;
+  font-weight:bolder;
+  width:95%;
+  margin:0.2em;
+  padding: 2px;
+  clear: both;
+}
+
+.subform { /* indicate a # of grouped fields, typically w habtm */   
+      width: auto;
+      padding: .5em;
+      border: 1px solid gray;
+      background: #DDF;
+      text-align: left;
+      margin: .5em;
+      clear: both;
+}
+
+.form_button {margin-left: 26%;}
+
+.small_form_button {  
+  font-size: smaller; padding:0; 
+  background-color: #a0c0e0;
+  border:1px solid #696;
+}
+
+.small_form_button:hover {  
+  background-color: #ffc;
+}
+
+.inplaceeditor-form textarea {
+  width: 98%;
+}
+
+.inplaceeditor-text {
+  padding:0.5em; background-color: #e0eee0;
+}
+
+.rc_markup { /* redcloth enabled form fields */
+  background-color: #F7F0F0; 
+  font-family: Geneva, Arial, Helvetica, sans-serif; 
+}
+
+.free_text_autocomplete {
+  border:1px dotted orange;
+  background-color: #e4eaff;
+}
+
+div.fr { /* fr = form row */
+  clear: both;
+  padding-top: .45em;
+}
+
+div.fr label {
+ float: left; width: 25%; text-align: right;
+}
+  
+div.fr span.fld {
+ float: right; width: 74%; text-align: left;
+}
+
+/* Auto-complete copied via Rails-generated code  */
+.auto_complete { z-index: 999; width: 350px; background: #fff; }
+.auto_complete input { height: 2px; margin: 0; }
+.auto_complete ul { border:1px solid #888; margin:0; padding:0; width:100%; list-style-type:none;}
+.auto_complete li { margin:0; padding:3px; }
+.auto_complete li.selected { background-color: #ffb; }
+.auto_complete ul strong.highlight { color: #800; margin:0; padding:0; }
+input.ajaxPicker  {background-color: #e4eaff; border-color: #55ff11;}
+input.ajaxPickerSmall  {background-color: #e4eaff; border-color: #55ff11; font-size:smaller; margin: 0;}
+
+/* Pop forms */
+div.cart {
+  clear:both;
+  border:1px solid #E8A400;
+  background-color: #fff;
+  padding: 8px;
+  min-width: 300px;
+}
+
+div.cart-active { background-color: #b5ebc7; }
+
+/* do not mess with this unless you test *all* popups */
+.popupform {
+  padding: .5em;
+  border: 2px solid gray;
+  background: #f6c3d4; text-align: left;
+  margin: .5em;
+  font-size: 10px;
+  font-weight: 700;  
+  /* width: 390px;  defined on form */
+  z-index: 800;
+  position: absolute; 
+  left: 25%;
+
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+/* Field error formatting via scaffold css */
+.fieldWithErrors { padding: 2px; background-color: red; display: table; }
+#errorExplanation  { background-color: #f0f0f0; margin-bottom: 20px; padding: 7px 7px 12px; width: 400px; border: solid 2px #c00 }
+#errorExplanation h2 { text-align: left; font-weight: 700; padding: 5px 5px 5px 15px; font-size: 12px; margin: -7px; background-color: #c00; color: #fff; }
+#errorExplanation p { color: #333; margin-bottom: 0; padding: 5px;}
+#errorExplanation li { font-size: 12px; list-style: square; }
+
+/*** OTHER ***/
+div.notice {
+  background-color: #ffa;
+  padding: 0 0.3em;
+  margin-bottom: 0.4em;
+}
+
+/* display_name logic */
+.dn_select {border-bottom: 1px solid silver;} /* pick list item wrapper */
+.dn_sub_select {margin-left: 5px;}
+.dn_line {display: inline;}
+.dn_list {}
+.dn_header {}
+.dnsid {}
+
+.dn_sub_select .dnsid {display:none; }
+.dn_sub_select .hd { font-size: smaller; color: rgb(113,113,181); }
+
+/* hide post-composition editing for genus terms */
+.pc-genus .edit-pc-link {display: none;}
+
+/*** Ontology tree nav ***/
+.ont_tree_level {
+  margin-left:0;
+  padding-left: 18px;
+  clear: both;
+}
+
+.ont_tree_node {
+  margin-top: 2px;
+  padding-top: 2px;
+}
+
+.ont_tree_node .node_nav {
+ background-color: #b5ebc7;
+ margin-right: 2px;
+ padding: 2px;
+ width: 8px; 
+ float: left;
+ border: 1px solid silver;
+ text-align: center;
+}
+
+.tree_level {
+  margin-left:0;
+  padding-left: 10px;
+  clear: both;
+}
+
+.ont_tree_node .lbl {
+  float: left;
+  padding-left: 2px;
+  padding-top: 3px;
+  margin-left: 2px;
+}
+
+/***  CLASS SPECIFIC  ***/
+
+/* OTU names */
+span.otu_taxon_name { color: #000;}
+span.otu_name { color: blue;}
+span.otu_manuscript_name { color: red;}
+span.otu_matrix_name { color: green;}
+span.otu_id { color: gray;}
+
+/* IMAGES / FIGURES */
+.browse_rec {
+  height: 240px;
+  float: left;
+  padding: 0.5em;
+  border: 1px solid gray;
+  margin: 0.3em;
+  background-color: #ffc;
+  white-space: nowrap;
+}
+
+.browse_thumb { padding: .2em; }
+.fig { background-color:#ffc; margin:0.3em; padding:0.5em; float: left; border:1px solid gray; min-height: 175px; min-width: 160px; font-size: 10px;}
+.fig .image {text-align: center; margin-left: auto; margin-right:auto;}
+.fig a:hover { text-decoration: none; border-bottom: 0 none }
+.attached_figs {clear: right;} /* changed from both */
+
+/* Geog  */
+div .country {margin-left: 0;}
+div .state, .estado, .province  {margin-left: 1em;}
+div .county {margin-left: 2em;}
+
+/* Ontology */
+.ont_class {background-color: #7fc97f;}
+.ont_label {background-color: #BEAED4;}
+.ont_tag {background-color: #FDC086;}
+
+#ontology_activity_runner {
+ width: 80%;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+#ontology_activity_runner .active_item {
+ float: left;
+ margin: .2em;
+ border: 1px solid silver;
+ color:silver;
+ width: 98%;
+ padding: 1em;
+ clear:both;
+}
+
+#ontology_activity_runner .active_item a {
+ color: #f3bf00;
+}
+

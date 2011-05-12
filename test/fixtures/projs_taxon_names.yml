@@ -1,0 +1,13 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: projs_taxon_names
+#
+#  id            :integer(4)      not null, primary key
+#  proj_id       :integer(4)      not null
+#  taxon_name_id :integer(4)      not null
+#  is_public     :boolean(1)      not null
+#
+
+---{}
+

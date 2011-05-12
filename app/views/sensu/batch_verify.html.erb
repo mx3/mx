@@ -1,0 +1,64 @@
+
+<h3> Result (<%= @operation -%>) </h3>
+
+<% if @operation == 'created' -%>
+
+<h3> Sensus </h3>
+
+<% if @result.size > 0 -%>
+
+<div style="margin-left:1em;">
+  <ol>
+    <%= @result.collect{|r| content_tag(:li, r.display_name)} -%>
+  </ol>
+</div>
+
+<% else -%>
+
+<em> No new sensus created. </em>
+
+<% end %>
+
+<% else -%>
+
+<%= link_to("back to verify/create", :action => :batch_load) if @operation == 'verifying' -%>
+
+<h3> Parsing Summary </h3>
+<div class="show_rec">
+  <div class="show_row"><span class="show_lbl">Sensu records to add if new:</span><span class="show_data"><%= @result[:sensus].size -%></span></div>
+  <div class="show_row"><span class="show_lbl">New Labels:</span><span class="show_data"><%= @result[:labels].size > 0 ? @result[:labels].values.inject(0){|sum, i| sum += (i.new_record? ? 1 : 0)} : 0 -%></span></div>
+  <div class="show_row"><span class="show_lbl">New Ontology classes:</span><span class="show_data"><%= @result[:ontology_classes].size > 0 ? @result[:ontology_classes].values.inject(0){|sum, i| sum += (i.new_record? ? 1 : 0)} : 0 -%></span></div>
+  <div class="show_row"><span class="show_lbl">New References:</span><span class="show_data"><%= @result[:references].size > 0 ? @result[:references].values.inject(0){|sum, i| sum += (i.new_record? ? 1 : 0)} : 0 -%></span></div>
+</div>
+
+<h3> New record breakdown </h3>
+<div style="margin-left:1em;">
+  <% [:labels, :ontology_classes, :references].each do |v| -%>
+  <% if @result[v].size > 0 -%>
+    <h3> <%= v.to_s.capitalize %> </h3>
+    <div style="margin-left:1em;">
+      <h3> New </h3>
+      <ol>
+        <% @result[v].values.inject([]){|sum, i| sum << (i.new_record? ? i : nil)}.compact.uniq.each do |s| -%>
+        <%= content_tag(:li, s.name) if v == :labels -%> 
+        <%= content_tag(:li, s.definition) if v == :ontology_classes -%> 
+        <%= content_tag(:li, s.full_citation) if v == :references -%> 
+        <% end -%>
+      </ol>
+
+      <h3> Existing matches </h3>
+      <ol>
+        <% @result[v].values.inject([]){|sum, i| sum << (i.new_record? ? nil : i)}.compact.uniq.each do |s| -%>
+        <%= content_tag(:li, s.display_name) -%> 
+        <% end -%>
+      </ol>
+    </div>
+    <% end -%>
+  <% end %>
+
+</div>
+
+<% end -%>
+
+<h3> File contents </h3>
+<%= debug(@file.read) -%>

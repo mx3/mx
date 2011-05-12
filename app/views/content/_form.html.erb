@@ -1,0 +1,21 @@
+
+<div class="fr"><label for="content_maker" class="lbl4">Creator (=author)</label><span class="fld">
+    <%= text_field 'content', 'maker', 'title' => 'The person who is intelectually responsible for this content.'  %>
+</span></div>
+
+<div class="fr"><label for="content_edito" class="lbl4">Editor</label><span class="fld">
+    <%= text_field 'content', 'editor', 'title' => 'The person who copy-edited the content.'  %>
+</span></div>
+
+<div class="fr"><label for="content_edito" class="lbl4">Copyright holder</label><span class="fld">
+    <%= text_field 'content', 'copyright_holder', 'title' => 'The person or institution that is the copyright holder.'  %>
+</span></div>
+
+<div class="fr"> <label for="content_license" class="lbl4">License</label>
+  <span class="fld"> <%= select "content", "license", CONTENT_LICENSES.keys.sort.collect{|k| [CONTENT_LICENSES[k][:text], k]}, :include_blank => true %><%= link_to "what's this?", "http://creativecommons.org/choose/", :target => '_blank' -%></span>
+</div>
+
+
+
+
+

@@ -1,0 +1,3 @@
+<div class="header"><%= n.title -%></div>
+<div class="small_grey" style="text-align: center; padding: .2em;"><%=  n.created_on.to_date %></div>
+<div class="content <%= n.news_type == 'warning' ? 'failed' : '' %>"><%= n.body -%></div><br/>

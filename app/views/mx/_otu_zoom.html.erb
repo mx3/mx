@@ -1,0 +1,16 @@
+<div style="margin-left:2px;">
+  <h3> <%= @otu.display_name(:type => :multi_name) -%> </h3>
+  <div class="box4" style="width:100%">
+    <div class="header">Uniquely coded for (in any matrix)</div>
+    <div class="content">
+      <% if @unique_codings.size > 0 -%>
+        <% @unique_codings.each do |c| -%>
+          <%= c.chr.display_name -%>:
+          <%= c.chr_state.s_and_m -%><br />
+        <% end -%>
+      <% else -%>
+        <em>None.</em>
+      <% end -%>
+    </div>
+  </div>
+</div>

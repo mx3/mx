@@ -1,0 +1,5 @@
+<div id="some_figures" class="box4" style="clear:right">
+  <div><%= @chr_states.collect{|c| render(:partial => 'f', :collection => c.figures, :locals => {:view => @view})} %> </div> 
+  <br style="clear:both;" />
+  <div style="text-align: center;">  <%= link_to_remote('hide', :url => {:action => :_close_popup_figs} ) %></div>
+</div>

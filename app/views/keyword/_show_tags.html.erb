@@ -1,0 +1,9 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag("accordion") -%>
+<% end %>
+
+<div>
+  <% if @part == 'center' %>
+    <%= render(:partial => 'tag/tags_by_adressable_type')  -%> 
+  <% end %>
+</div>

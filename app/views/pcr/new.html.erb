@@ -1,0 +1,7 @@
+<h3>New PCR</h3>
+
+<% form_tag({:action => 'create'}, {:multipart => true, :name => 'img_form'}) do -%>
+<%= submit_tag "Create" %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create" %>
+<% end -%>

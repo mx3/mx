@@ -1,0 +1,10 @@
+<div> 
+  <% if @part == 'center' %>
+      <h3> Associations for: </h3>
+      <p> <%= @header %> </p> 
+      <%=  link_to("include associations bound to this names children", :action => 'browse_by_taxon_name', :include_children => true) if (@obj.class.to_s == 'TaxonName' and not params[:include_children]  == 'true') %>
+      <h3> Associations </h3>
+      <%= render(:partial => 'list_associations') -%> 
+  <% end %>
+</div>
+

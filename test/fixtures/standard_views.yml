@@ -1,0 +1,64 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: standard_views
+#
+#  id            :integer(4)      not null, primary key
+#  name          :string(64)
+#  part_id       :integer(4)      not null
+#  image_view_id :integer(4)      not null
+#  stage         :string(32)
+#  sex           :string(32)
+#  notes         :text
+#  proj_id       :integer(4)      not null
+#  updated_on    :timestamp       not null
+#  created_on    :timestamp       not null
+#  creator_id    :integer(4)      not null
+#  updator_id    :integer(4)      not null
+#  identifier    :string(255)
+#  namespace_id  :integer(4)
+#
+
+# == Schema Information
+#
+# Table name: standard_views
+#
+#  id            :integer(10)     not null, primary key
+#  name          :string(64)      
+#  part_id       :integer(10)     not null
+#  image_view_id :integer(10)     not null
+#  stage         :string(32)      
+#  sex           :string(32)      
+#  notes         :text            
+#  proj_id       :integer(10)     not null
+#  updated_on    :timestamp       not null
+#  created_on    :timestamp       not null
+#  creator_id    :integer(10)     not null
+#  updator_id    :integer(10)     not null
+#
+
+---
+first_standard_view:
+  id: 1
+  name: "anterolateral adult males"
+  part_id: 1
+  image_view_id: 1
+  stage: "adult"
+  sex: "male"
+  notes: "this is a note"
+  proj_id: 1
+  creator_id: 1
+  updator_id: 1
+  created_on: 2001/02/05
+another_standard_view:
+  id: 2
+  name: "dorsal ventral adult females"
+  part_id: 1
+  image_view_id: 2
+  stage: "adult"
+  sex: "female"
+  notes: "this is a note"
+  proj_id: 1
+  creator_id: 1
+  updator_id: 1
+  created_on: 2001/02/05   

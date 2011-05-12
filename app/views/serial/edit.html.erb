@@ -1,0 +1,7 @@
+<h3 style="display: inline;">Editing serial</h3> <%= "id:#{@serial.id}"%><br/>
+
+<%= form_tag :action => 'update', :id => @serial do -%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end -%>
+

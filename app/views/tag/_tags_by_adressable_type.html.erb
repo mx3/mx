@@ -1,0 +1,15 @@
+<%= render(:partial => 'shared/code_accordion') -%>
+  <% @tags.each do |o, addressable_type| %>
+    <div id="vertical_container" >
+        <h3 class="accordion_toggle"> <%= o.pluralize -%> <span style="font-size:smaller;">(<%= addressable_type.size -%>)</span> </h3>
+        <div class="accordion_content"> 
+          <% addressable_type.each do |tag| %>
+            <%= render :partial => 'tag/ts', :object => tag -%>
+          <% end -%> 
+      </div>
+    </div>
+  <% end -%> 
+
+<script type="text/javascript">
+  loadAccordions();
+</script>

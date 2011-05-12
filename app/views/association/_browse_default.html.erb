@@ -1,0 +1,8 @@
+<div>
+  <% if @part == 'center' %>
+    <% if @public %>
+      <%= render( "/public/site/#{Proj.find(@proj.id).public_server_name}/_associations_browse_text") %>
+    <% end %>
+  <% end %>
+</div>
+

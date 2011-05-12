@@ -1,0 +1,57 @@
+<div>
+  <table>
+    <tr>
+      <td>
+        <%= render :partial => 'figure/svg_anchored', :locals => {:size => :medium, :figure => @figure} -%>
+      </td>
+      <td>
+        <p> Adding markers to figure id: <%= @figure.id -%>, with caption <%= @figure.caption.blank? ? '<em>none</em>' : @figure.caption -%>.</p>
+        <p><em>This figure is attached to:</em><br /><%= figured_object_tag(@figure) -%></p>
+        <p>Attached to image <%= link_to(@figure.image.id, :action => :show, :id => @figure.image.id, :controller => :image) -%>.</p>
+
+        <div class="subform">
+          <div class="header">Move this <em>figure</em> and it's annotations to a new <%= @figure.addressable_type %></div>
+          <%= form_tag :action => :move do -%> &nbsp; <%= submit_tag("move") -%>
+          <%= text_field_tag :move_to_id -%>
+          <%= hidden_field(:figure, :id, :value => @figure.id) -%>
+          <% end %>
+        </div>
+
+
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div id="annotations" style="width:100%;">
+  <div class="box4">
+
+    <div class="header"> Markers <%= spinner_tag('move_spinner') -%> </div>
+
+    <div id="add_marker" style="display:none; padding: 3px;">
+      <%= link_to_function 'add marker' do |page|
+      page.insert_html :bottom, "figure_markers_for_figure_#{@figure.id}", :partial => 'figure_marker/form', :locals => {:figure_marker => FigureMarker.new, :figure_id => @figure.id }
+      page.hide 'add_marker'
+      end %>
+    </div>
+
+    <div id="figure_markers">
+      <div style ="width:100%; border-bottom: 1px dotted silver; clear:both;">
+        <div style="width:75%; float:left;">SVG</div>
+        <div style="width:10%; float:left;">type</div>
+        <div style="width:5%; float:left;"></div>
+        <div style="width:10%; float:left;"></div>
+      </div>
+      <%= render(:partial => "figure_marker/form", :locals => {:figure_marker => FigureMarker.new, :figure_id => @figure.id}) -%>
+
+      <ul id="figure_markers_for_figure_<%= @figure.id -%>" style="border:0px; padding: 0px; list-style-type:none; clear: both;">
+        <%= render(:partial => "figure_marker/fm", :collection => @figure.figure_markers.ordered_by_position) -%>
+      </ul>
+
+      <%= sortable_element("figure_markers_for_figure_#{@figure.id}", :url => {:action => 'sort_figure_markers', :controller => :figure}, :handle => 'handle', :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
+      <br style="clear: both;" />
+    </div>
+
+  </div>
+</div>
+

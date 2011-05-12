@@ -1,0 +1,74 @@
+#NEXUS
+[written Tue Apr 12 22:20:03 EDT 2011 by Mesquite  version 2.74 (build 550) at matt-yoders-macbook-pro-3.local/192.168.1.4]
+
+BEGIN TAXA;
+	TITLE Taxa;
+	DIMENSIONS NTAX=46;
+	TAXLABELS
+		Neoapachella Promyrmekiaphila Entychides Myrmekiaphila Eucteniza Apomastus 'A_atomarius' 'A_stephencolberti' 'A_angelinajolieae' 'A_miwok' 'A_stanfordianus' 'A_dantrippi' 'A_atomus' 'A_asmodaeus' 'A_nateevansi' 'A_chircahua' 'A._icengolei' 'A_cabrillo' 'A_isabella' 'A_tedturneri' 'A_muiri' 'A_hedinorum' 'A_hesperus' 'A_cahuilla' 'A_barackobamai' 'A_serrano' 'A_aguacaliente' 'A_chemehuevi' 'A_sarlacc' 'A_derhamgiulianii' 'A_kumeyaay' 'A_edwardabbeyi' 'A_anzaborrego' 'A_sinnombre' 'A_simus' 'A_elisabethae' 'A_fornax' 'A_satleri' 'A_lucerne' 'A_bonoi' 'A_fisheri' 'A_cajalco' 'A_sierra' 'A_huntington' 'A_dorothealangeae' 'A_chavezi' 
+	;
+
+END;
+
+
+BEGIN CHARACTERS;
+	TITLE  Character_Matrix;
+	LINK TAXA = Taxa;
+	DIMENSIONS  NCHAR=74;
+	FORMAT DATATYPE = STANDARD GAP = - MISSING = ? SYMBOLS = "  0 1 2 3";
+	CHARSTATELABELS 
+		1 thorax /  flat sloping, 2 Carapace_Pubescence /  absent light heavy, 3 male_carapace_setal_fringe /  absent present, 4 female_thorax_sclerotization /  normal light, 5 'AME_-_PME' /  subequal 'AMEs_larger', 6 eye_tubercle /  absent present_low present_high, 7 thoracic_groove /  straight recurved procurved, 8 sternal_shape /  normal wide, 9 rastellum /  on_a_mound not_on_a_mound, 10 rastellar_spines /  normal enlarged, 11 offset_retrolateral_rastellar_s /  absent present, 12 Endite_cuspules /  restricted widespread, 13 male_labium /  no_cuspules cuspules, 14 male_palp_endites /  no_cuspules cuspules, 15 'LBL-LBW' /  'subquadrate_-_half' very_wide, 16 sigilla /  large small, 17 sigilla /  spaced_widely 'close-contiguous', 18 carapace_coloration /  light dark, 19 abdominal_coloration /  solid mottled_striping, 20 abdominal_coloration /  light dark, 21 chelicerae /  single_row_with_denticles two_rows_large_teeth, 22 Pumpkiniform_spigots /  absent present, 23 spigot_bases /  with_invaginations without_invaginations, 24 Tarsus_IV /  short long, 25 tarsus_1 /  pseudosegmented not, 26 tarsus_1 /  straight curved, 27 tarsus_4 /  normal pseudosegmented, 28 tarsus_4 /  straight curved, 29 tarsus_I /  stout slender, 30 male_tarsus_1_spines /  absent present, 31 male_LI_coloration /  even lighter_distally, 32 Tibi_I /  short long, 33 metatarsus_I /  short long, 34 tarsus_I /  short long, 35 male_scopulae /  thin thick, 36 male_scopulae /  present_on_LIV absent_on_LIV, 37 STCI_basal_tooth /  normal bifid, 38 female_scopulae /  light relatively_dense dense, 39 preening_combs_MIV /  absent present, 40 preening_combs_MIII /  absent present, 41 'PTW-PTL' /  greater_than_half less_than_half, 42 Palpal_tibia /  short long, 43 palpal_tibia_spines /  long_ventral short_prolateral, 44 palpal_tibia_megaspine /  present absent, 45 tibI_megaspine /  absent present, 46 'm-_meta_apop' /  absentnondistict flattened pointed pointed_hooked, 47 apophysis_spine /  absent present, 48 male_meta_1 /  straight protenated_retrolaterally, 49 mating_clasper_excavation /  absent present, 50 embolus /  no_serration serrated, 51 embolus_shape /  straight sigmoidal, 52 embolus /  long_thin short_tick, 53 embolus /  normal 'dorsal-ventrally_flattened', 54 embolus_duct /  straight looped, 55 tip_of_embolus /  normal much_thinner, 56 palp_prolat_tibial_spine /  absent present, 57 palpal_bulb /  short long, 58 cymbial_lobe /  normal extended, 59 cymbium_spines /  absent present, 60 cymbium_retrolateral_notch /  absent present, 61 retro_cymbium_spine_row /  absent present, 62 distal_clasper_spines /  absent present, 63 distal_clasper_spines /  absent short long, 64 distal_spines_group /  absent forward offset_proximally, 65 distal_spines /  uniform overlapping, 66 'tib_I_spine_pattern_1-1-1' /  absent present, 67 TSR /  less_than_10 more_than_10, 68 TSP /  less_than_7 more_than_7, 69 prolateral_patella_spines /  none_or_few 'numerous large spines (>7)', 70 spermathecal_lateral_base /  absent present, 71 secondary_bulb /  absent present, 72 median_stalk /  short long, 73 median_bulb /  large small, 74 Spermethecal_stalk /  straight 'mid-stalk bend' ; 
+	MATRIX
+	Neoapachella       00010000100100000101000000000000001101000111100000000000100000002000010000
+	Promyrmekiaphila   01100020000101000101001000000000001001101101000110100000100000002100010000
+	Entychides         01110010000101000101010000000000001010001101000110000000100000002000010000
+	Myrmekiaphila      00100020000011001101001000000000000100100101000001110000000100002100000000
+	Eucteniza          00010020000100001101110100000000101011001101100000100000000000002000000000
+	Apomastus          11100100100000001101010010111001110100111101000000100100000000002001010000
+	'A_atomarius'      12100100100011000111010010111010000101111101030110100100111001210100011000
+	'A_stephencolberti'12000100100011000010010010101010000101111101030110100100111001210100011000
+	'A_angelinajolieae'12000100100011000111010010001010000101111101030110100100111001210100011000
+	'A_miwok'          12000100100011000010010010001010000101111101030110100100111001210100011000
+	'A_stanfordianus'  12000100100011000111010010001010000101111101030110100100111001210100011000
+	'A_dantrippi'      12000100100011000010010010001010000101111101030110100100111001210100011000
+	'A_atomus'         121001001000110??11001001001101000110???11010301100001101110012101000?????
+	'A_asmodaeus'      12100110100011000111010000001010001101111101031110000110111001210100011000
+	'A_nateevansi'     121001001000110001110100000010100011011111010?0110000110111001210200111000
+	'A_chircahua'      121?01001000110??11101001000101000110???11010301101001000110012102001?????
+	'A._icengolei'     12100100100001010111010010101010011101111101011110100100111001210100011000
+	'A_cabrillo'       12100100100011010010010000001010000101111101011110100100111001211100011000
+	'A_isabella'       121001101000010?011101001000101000110???110101111010010011100002?1000?????
+	'A_tedturneri'     1210010010000100011101000000101000110111110102011010010111101002?100011000
+	'A_muiri'          1210010010000101011101001000101000110111110103011010010011101121010001?000
+	'A_hedinorum'      11100120101011000010010010011010010100111101020110100100111001210100010111
+	'A_hesperus'       11100110101011001111010000000010000100111101020110100100111001110100010111
+	'A_cahuilla'       11100100111011010111010000000010000100111101020110100100111001111100010111
+	'A_barackobamai'   11100110111011000111010000000010001100111101020110100100111001111100010111
+	'A_serrano'        11100100111011000010010000000010001100111101020110100100111001110100010111
+	'A_aguacaliente'   11100110101011001010010000000010000100111101021110100100111001211100010111
+	'A_chemehuevi'     111001101010110??01001000000001000110???11010201101001011110011112000?????
+	'A_sarlacc'        111001101010110??01001000000001000110???11010201101001001110111101000?????
+	'A_derhamgiulianii'111001001010110??01001000000001000110???11010201101001001110111111000?????
+	'A_kumeyaay'       11100101111011000111010000000010001100111101020110100100111001111100010111
+	'A_edwardabbeyi'   11100100101011000111010000000010001100111101021110100100111001111100010111
+	'A_anzaborrego'    111?02001010110??01001001000001000110???11010201101001001110011111000?????
+	'A_sinnombre'      111?11000010010??01001101100001000100???11010211101001011110111111000?????
+	'A_simus'          10101110100000000110010111111010000100110011000011011000011100002011010010
+	'A_elisabethae'    10101100100000000110010111011011000100110010000010011010011100002001010010
+	'A_fornax'         11101110100000000100010111111011000100110010000010011000011100002011010010
+	'A_satleri'        111001101000000??11101010111101100010???00100000110110000111000020010?????
+	'A_lucerne'        111011101000000??11001011101111100010???00110000110110000111000020110?????
+	'A_bonoi'          10000110100000000110010011011110000100110011000011011000011100002011010010
+	'A_fisheri'        101001101000000??11001001000111100010???00110000110110010111000020110?????
+	'A_cajalco'        1110011100001001011101010011111001010011001100001101110101110000200(0 1)010010
+	'A_sierra'         111001121000110??11101001111101011010???10000000000001000110000020010?????
+	'A_huntington'     111001121000111??11101011111101011010???10000000000001100110000020010?????
+	'A_dorothealangeae'11100112110011110111010110001010110100101100000000000110011000002001010010
+	'A_chavezi'        11100112010011110111010100101010110100101100000000000110011000002001010010
+
+;
+
+END;
+
+
+

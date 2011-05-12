@@ -1,0 +1,388 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: codings
+#
+#  id               :integer(4)      not null, primary key
+#  otu_id           :integer(4)      not null
+#  chr_id           :integer(4)      not null
+#  chr_state_id     :integer(4)      not null
+#  continuous_state :float
+#  cited_in         :integer(4)
+#  notes            :text
+#  chr_state_state  :string(8)       not null
+#  chr_state_name   :string(255)
+#  qualifier        :text
+#  proj_id          :integer(4)      not null
+#  creator_id       :integer(4)      not null
+#  updator_id       :integer(4)      not null
+#  updated_on       :timestamp       not null
+#  created_on       :timestamp       not null
+#  confidence_id    :integer(4)
+#
+
+--- 
+c1: 
+  id: "1"
+  chr_id: "1"
+  proj_id: "1"
+  otu_id: "1"
+  chr_state_id: "1"
+  chr_state_name: "test 1"
+  chr_state_state: "1"
+  notes: 
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk1: 
+  id: "10"
+  chr_id: "15"
+  otu_id: "6"
+  chr_state_id: "12"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk2: 
+  id: "11"
+  proj_id: "1"
+  chr_id: "15"
+  otu_id: "7"
+  chr_state_id: "12"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk3: 
+  id: "12"
+  proj_id: "1"
+  chr_id: "15"
+  otu_id: "8"
+  chr_state_id: "12"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk4: 
+  id: "13"
+  chr_id: "15"
+  otu_id: "9"
+  chr_state_id: "12"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk5: 
+  id: "14"
+  chr_id: "15"
+  otu_id: "10"
+  chr_state_id: "11"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk6: 
+  id: "15"
+  chr_id: "16"
+  otu_id: "6"
+  chr_state_id: "14"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk7: 
+  id: "16"
+  chr_id: "16"
+  otu_id: "7"
+  chr_state_id: "14"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20 
+  creator_id: "1"
+  updator_id: "1"
+mk8: 
+  id: "17"
+  chr_id: "16"
+  otu_id: "8"
+  chr_state_id: "14"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk9: 
+  id: "18"
+  chr_id: "16"
+  otu_id: "9"
+  chr_state_id: "13"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk10: 
+  id: "19"
+  chr_id: "16"
+  otu_id: "10"
+  chr_state_id: "13"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk11: 
+  id: "20"
+  chr_id: "17"
+  otu_id: "6"
+  chr_state_id: "16"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk12: 
+  id: "21"
+  chr_id: "17"
+  otu_id: "7"
+  chr_state_id: "16"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk13: 
+  id: "22"
+  chr_id: "17"
+  otu_id: "8"
+  chr_state_id: "15"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk14: 
+  id: "23"
+  proj_id: "1"
+  chr_id: "17"
+  otu_id: "9"
+  chr_state_id: "15"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk15: 
+  id: "24"
+  chr_id: "17"
+  otu_id: "10"
+  chr_state_id: "15"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk16: 
+  id: "25"
+  chr_id: "18"
+  otu_id: "6"
+  chr_state_id: "18"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk17: 
+  id: "26"
+  chr_id: "18"
+  otu_id: "7"
+  chr_state_id: "17"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk18: 
+  id: "27"
+  chr_id: "18"
+  otu_id: "8"
+  chr_state_id: "17"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk19: 
+  id: "28"
+  chr_id: "18"
+  otu_id: "9"
+  chr_state_id: "17"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk20: 
+  id: "29"
+  chr_id: "18"
+  otu_id: "10"
+  chr_state_id: "17"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk21: 
+  id: "30"
+  chr_id: "19"
+  otu_id: "6"
+  chr_state_id: "20"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk22: 
+  id: "31"
+  chr_id: "19"
+  otu_id: "7"
+  chr_state_id: "19"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk23: 
+  id: "32"
+  chr_id: "19"
+  otu_id: "8"
+  chr_state_id: "20"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk24: 
+  id: "33"
+  chr_id: "19"
+  otu_id: "9"
+  chr_state_id: "19"
+  chr_state_name: "absent"
+  chr_state_state: "0"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"
+mk25: 
+  id: "34"
+  chr_id: "19"
+  otu_id: "10"
+  chr_state_id: "20"
+  chr_state_name: "present"
+  chr_state_state: "1"
+  notes: 
+  proj_id: "1"
+  cited_in:
+  created_on: 2005-03-21 16:11:20
+  updated_on: 2005-03-21 16:11:20
+  creator_id: "1"
+  updator_id: "1"

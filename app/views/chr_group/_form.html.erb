@@ -1,0 +1,26 @@
+<%= error_messages_for 'chr_group' %>
+
+<div class="fr"> <label for="chr_group_name" class="lbl4">Name</label>
+  <span class="fld"><%= text_field 'chr_group', 'name' -%></span>
+</div>
+
+<div class="fr"> <label for="chr_group_notes" class="lbl4">Notes</label>
+  <span class="fld"><%= text_area 'chr_group', 'notes', :columns => 60, :rows => 5 -%></span>
+</div>
+
+
+<div class="fr"> <label for="chr_group_content_type_id" class="lbl4">Map to content type</label>
+  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    :controller => 'content_type',
+    :object => 'chr_group',
+    :method => 'content_type_id',
+    :use_proj => true,
+    :tag_id => "content_type_id_for_chr_group",
+    :display => (@chr_group.content_type.display_name if @chr_group.content_type),
+    :size => 54,} -%> </span>
+</div>
+
+
+<br style="clear: both;" />
+
+

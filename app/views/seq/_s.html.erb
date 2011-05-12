@@ -1,0 +1,10 @@
+<div id="seq_<%= s.id -%>" style="padding-bottom:0.5em;">
+
+  <div style="float: left; width: 40px;"><%= link_to(s.id, :action => :show, :id => s) -%></div>
+  <div style="float: left; width: 300px;"><%= seq_source_otus_tag(s) -%></div>
+  <div style="float: left; width: 300px;"><%= seq_source_genes_tag(s) -%></div>
+  <div style="float: left; width: 300px; font-family:Courier, fixed;"><%= display_seq_tag(s) -%></div>
+
+  <br style="clear: both;" />
+
+</div>

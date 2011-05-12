@@ -1,0 +1,46 @@
+<div style="margin-bottom:0.5em; border-top: 1px dotted silver; padding: 0.5em;">
+  <table style="width:100%;" >
+    <tr>
+      <td style="width:55%;">
+        <b><%= "#{cs.state}: #{cs.name}" %> </b>
+      </td>
+      <td style="font-size: smaller;">figure state: <%= fig_link(cs) %>  </td>
+      <td style="font-size: smaller;">tag state:  <%= tag_link_for_show(cs) -%>  </td>
+      <td style="font-size: smaller;"> <%= link_to("delete", {:action => 'destroy_state', :id => @chr.id, :params => {"chr_state_id" => cs}}, {:confirm => 'Delete this state? You will delete all codings of this state as well!'}) %></td>
+    </tr>
+  </table>
+
+  <table style="min-width: 400px;">
+
+    <tr><td><%= render_figs_for_obj(cs, 'thumb') -%></td></tr>
+
+    <tr>
+      <td><span class="lbl4">notes: </span>
+        <div id="chr_state_notes_id<%= cs.id -%>" class="inplaceeditor-text" ><%= cs.notes.blank? ? content_tag(:em, 'none provided, click to add') : cs.notes -%></div>
+        <%= in_place_editor("chr_state_notes_id#{cs.id}", :url => url_for(:controller => :chr_state, :action => :_in_place_notes_update, :id => cs.id), :rows => 4, :cols => 80) -%>
+      </td>
+    </tr>
+
+    <tr><td>
+        <span class="lbl4">coded examples: </span>
+        <% egs = cs.all_otus %>
+        <% if egs.size > 0 %>
+          <%= egs[0..4].collect{|o| o.display_name}.join(', ') %>
+          <% if egs.size > 5 %>
+            <a onclick="Element.toggle('cs_<%= cs.id %>_more'); Element.toggle('more_economic')">(toggle remainder)</a>
+            <div id="cs_<%=cs.id%>_more" style="display: inline; display: none;">
+              <%= egs[5..6].collect{|o| o.display_name}.join(', ') %>
+            </div>
+          <% end %>
+        <% else %>
+          <i> none coded </i>
+        <% end %>
+      </td></tr>
+    <tr><td><span class="lbl4">tags: </span><div style="display:inline;" id="tag_cloud_ChrState_<%= cs.id %>"><%= tag_cloud_for(cs) -%></div> </td></tr>
+	<tr>
+      <td><span class="lbl4">ontological description: </span>
+        <span id="chr_state_phenotype_id<%= cs.id -%>" ><%= cs.phenotype.nil? ? content_tag(:em, 'none') : manchester_phenotype(cs.phenotype) %> <span style="font-size: smaller"><%= link_to("[edit]", :controller => :phenotype, :action => :edit, :id => cs.phenotype, :chr_state => cs) -%> <%= link_to("[x]", :controller => :chr_state, :action => :destroy_phenotype, :id => cs) if cs.phenotype -%></span></span>
+      </td>
+    </tr>
+  </table>
+</div>

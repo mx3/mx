@@ -1,0 +1,8 @@
+<h3>Editing chromatogram</h3>
+<%= link_to 'Show', :action => 'show', :id => @chromatogram %> 
+<%= form_tag({:action => 'update', :id => @chromatogram}, :enctype => 'multipart/form-data') do -%>
+  <%= render :partial => "form" %>
+  <%= submit_tag "Edit" %>
+<% end -%>
+
+

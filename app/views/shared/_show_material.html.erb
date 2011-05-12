@@ -1,0 +1,172 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag("accordion") -%>
+<% end %>
+
+<!-- this partial just needs @specimens and @lots -->
+<script type="text/javascript">
+/* Changes the value of the date fields */
+function changeDate(y,m,d) {
+  document.specimen_form.specimen_determination_det_on_1i.value = y;
+  document.specimen_form.specimen_determination_det_on_2i.selectedIndex = m;
+  document.specimen_form.specimen_determination_det_on_3i.selectedIndex = d;
+}
+</script>
+<%= render(:partial => 'shared/code_accordion') -%>
+
+<div class="show_category"> Overview </div>
+<span class="show_comment"> After adding new specimens this overview will need to be refreshed.</span>
+<div class="show_row"><span class="show_lbl">Total specimens:</span><span class="show_data"><%= @total_specimens -%></span></div>
+<div class="show_row"><span class="show_lbl">Total lots:</span><span class="show_data"><%= @total_lots -%></span></div>
+<div class="show_row"><span class="show_lbl">IPT/GBIF records:</span>
+  <span class="show_data"><%= @total_ipt_records.to_s -%>
+    <% if @total_ipt_records > 0 -%>
+      <% if @otu %> <%= (@total_ipt_records > 0 ? link_to('Download', :action => :download_by_otu, :controller => :ipt_record, :id => @otu.id) : "") -%>
+      <% elsif @ce -%><%= (@total_ipt_records > 0 ? link_to('Download', :action => :download_by_otu, :controller => :ipt_record, :id => @otu.id) : "") -%>
+      <% end %> 
+    <% else %> 
+      <span class="show_comment"> Build records to allow them to be downloaded. </span>
+    <% end %>
+
+    <% if (@total_specimens <= 500) && (@total_lots <= 500) -%>
+    |
+      <% if @otu -%>
+        <%= link_to('Build export', :action => :serialize_by_otu, :controller => :ipt_record, :id => @otu) -%> 
+      <% elsif @ce %>
+        <%= link_to('Build export', :action => :serialize_by_ce, :controller => :ipt_record, :id => @ce) -%> 
+      <% else %>
+      <% end %>
+
+    <% else %>
+      <span class="show_comment"> Too many records- use project level rebuilds to update the IPT records for object.</span>
+    <% end %>
+  </span>
+</div>
+
+<div class="subform">
+  <i> add a specimen </i>
+  <%= form_remote_for(:specimen, :html => {:id => 'specimen_form', :name => 'specimen_form'}, :url => url_for(:controller => "specimen", :action => "create"),  :loading => "Element.show('add_specimen_spinner')", :complete => "Element.hide('add_specimen_spinner')")  do |f| %>
+  <%= hidden_field_tag :total_specimens, :value => @specimens.size -%>
+    <div id="vertical_container" >
+      <h3 class="accordion_toggle">basic fields</h3>
+      <div class="accordion_content"> 
+        <% if self.controller.controller_name == 'otu' %>
+          <%= hidden_field :specimen_determination, :otu_id, :value => @otu.id -%>
+        <% else -%>
+         
+          <div class="fr"> <label for="otu_name" class="lbl4">OTU</label>
+            <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+              :controller => 'otu',
+              :object => 'specimen_determination',
+              :method => 'otu_id',
+              :tag_id => "otu_name",
+              :display => @specimen_determination && @specimen_determination.otu ? @specimen_determination.otu.display_name : "",
+              :size => 40} -%></span></div> 
+        <% end %> 
+
+        <% if self.controller.controller_name == 'ce' -%>
+          <%= hidden_field :specimen, :ce_id, :value => @ce.id -%>
+        <% else -%>
+          <div class="fr"><label for="specimen_ce_id" class="lbl4">Collecting Event</label>
+          <span class="fld"> <%= render :partial => "ce/picker", :locals => {
+              :object => 'specimen', :method => 'ce_id', :tag_id => "ce_name",
+              :display => '' } -%></span>
+          </div>
+        <% end -%>
+
+        <div class="fr"> <label for="identifier_identifier" class="lbl4">Identifier</label>
+          <span class="fld"> <%= text_field 'identifier', 'identifier', 'title' => 'identifier or voucher number - be sure to enter identifier source too'  -%>  <i>include a source</i></span>
+        </div>
+           
+        <div class="fr"> <label for="identifier_identifier" class="lbl4">Identifier Source</label>
+          <span class="fld"><%= select("identifier", "namespace_id",  Namespace.find(:all).collect {|t| [ t.display_name(:type => :for_select_list), t.id ] }, { :include_blank => true } ) -%></span>
+        </div>
+        
+      </div>
+    </div>
+      
+    <div id="vertical_container" >
+      <h3 class="accordion_toggle"> more basic fields</h3>
+      <div class="accordion_content">
+        
+        <div class="fr"><label for="repository_name" class="lbl4">Repository</label> <span class="fld">
+          <%= render :partial => "shared/picker", :locals => {
+              :controller => 'repository',
+              :object => 'specimen',
+              :method => 'repository_id',
+              :tag_id => "repository_name",
+              :display =>''} -%></span></div>
+
+        <% if not self.controller.controller_name == 'ce' -%>
+          <div class="fr"><label for="specimen_notes" class="lbl4">Temporary Labels (use collecting event dropdown if possible)</label> <span class="fld">
+            <%= text_area 'specimen', 'temp_ce', 'title' => 'temporary collecting event label', :cols => 60, :rows => 4 -%></span></div>
+        <% end %>
+
+        <div class="fr"><label for="specimen_sex">Sex</label>
+          <span class="fld"><%= select("specimen", "sex", SEX , { :include_blank => true }) -%></span>
+        </div>
+       
+        <div class="fr"><label for="specimen_stage">Stage</label>
+          <span class="fld"><%= select("specimen", "stage", ['adult', 'egg', 'larva', 'pupa', 'nymph', 'imago' ]  , { :include_blank => true} )  -%></span>
+        </div>
+       
+        <div class="fr"><label for="lot_single_specimen">Usable for DNA extraction?</label>
+          <span class="fld"><%= check_box( 'specimen', 'dna_usable' ) -%></span>
+        </div>
+
+        <div class="fr"> <label for="specimen_determination"  class="lbl4">Raw Text </label> 
+          <span class="fld">  <%= text_field 'specimen_determination', 'name', 'title' => 'taxonomic determination' -%></span>
+        </div>
+
+        <div class="fr"> <label for="specimen_determination_det_on"  class="lbl4">Date of determination </label>
+          <span class="fld">  <%= date_select 'specimen_determination', 'det_on', :start_year => 1650, :end_year => Time.now.year, :include_blank => true %><a href="javascript:changeDate(<%= "#{Date.today.year}, #{Date.today.month}, #{Date.today.day}" %>)">Today!</a></span>
+        </div>
+
+        <div class="fr"><label for="specimen_determined_by"  class="lbl4">Determined by</label>
+          <span class="fld"> <%= text_field 'specimen_determination', 'determiner', 'title' => 'person providing this determination'  %></span>
+        </div>
+
+        <div class="fr"> <label for="specimen_determination_determination_confidence"  class="lbl4"> Determination confidence: </label>
+          <span class="fld"> <%= render(:partial => 'confidence/picker', :locals => {:c_name => 'specimen_determination', :f_name => 'confidence_id'}) %> </span>
+        </div>
+        
+        <div class="fr"> <label for="specimen_determination_determination_basis"  class="lbl4"> Determination basis: </label>
+          <span class="fld">  <%= select('specimen_determination', 'determination_basis', SpecimenDetermination.basises, { :include_blank => true }) %>    </span>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="vertical_container" >
+      <h3 class="accordion_toggle"> advanced (multiple specimen) fields</h3>
+      <div class="accordion_content"> 
+        <i> coming </i>
+      </div>
+    </div>
+     
+    <div style="float: right; clear: both;">clear form on add: <%= check_box_tag('clear_form', value = "1", checked = 'true') -%></div> <%= submit_tag 'Add Specimen' %><%= spinner_tag('add_specimen_spinner') -%>
+  <% end -%>
+</div>
+  
+<br />
+
+<div class="show_category">Existing material</div>
+
+<h3> Specimens </h3> 
+<%= render(:partial => 'specimen/specimens') -%>
+<br />
+
+<% if @lots.size > 0 -%>
+<div>
+  <h3> Lots </h3>
+  <span class="small_grey">(total: <%= @lots.size -%>)</span>
+  <% @inc_actions = true -%>
+  <%= render(:partial => "lot/lot_table") -%>  
+</div>
+<% end -%>
+
+<%= content_tag(:i, 'No specimens or lots.') if @specimens.size == 0 and @lots.size == 0 -%>
+
+
+<script type="text/javascript">
+  loadAccordions();
+</script>

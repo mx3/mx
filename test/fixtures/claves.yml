@@ -1,0 +1,133 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: claves
+#
+#  id              :integer(4)      not null, primary key
+#  parent_id       :integer(4)
+#  otu_id          :integer(4)
+#  couplet_text    :text
+#  position        :integer(4)
+#  link_out        :text
+#  link_out_text   :string(1024)
+#  edit_annotation :text
+#  pub_annotation  :text
+#  head_annotation :text
+#  manual_id       :string(7)
+#  ref_id          :integer(4)
+#  l               :integer(4)
+#  r               :integer(4)
+#  is_public       :boolean(1)      not null
+#  redirect_id     :integer(4)
+#  proj_id         :integer(4)      not null
+#  creator_id      :integer(4)      not null
+#  updator_id      :integer(4)      not null
+#  updated_on      :timestamp       not null
+#  created_on      :timestamp       not null
+#
+
+head_cpl:
+  id: 1
+  parent_id: 
+  position:
+  couplet_text: "Name of key"
+  otu_id: 
+  link_out:
+  edit_annotation:
+  pub_annotation:
+  manual_id:
+  ref_id:
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+  created_on: 2006-09-22 14:10:31
+l1-1:
+  id: 2
+  parent_id: 1
+  position: 1
+  couplet_text: "This is a choice."
+  otu_id: 
+  link_out:
+  edit_annotation:
+  pub_annotation:
+  manual_id:
+  ref_id:
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+  created_on: 2006-09-22 14:10:31
+l1-2:
+  id: 3
+  parent_id: 1
+  position: 2
+  couplet_text: "This is a choice."
+  otu_id: 
+  link_out:
+  edit_annotation:
+  pub_annotation:
+  manual_id:
+  ref_id:
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+  created_on: 2006-09-22 14:10:31
+l2-1:
+  id: 4
+  parent_id: 2
+  position: 1
+  couplet_text: "This is a choice."
+  otu_id: 
+  link_out:
+  edit_annotation:
+  pub_annotation:
+  manual_id:
+  ref_id:
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+  created_on: 2006-09-22 14:10:31
+l2-2:
+  id: 5
+  parent_id: 2
+  position: 2
+  couplet_text: "This is a choice."
+  otu_id: 
+  link_out:
+  edit_annotation:
+  pub_annotation:
+  manual_id:
+  ref_id:
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+  created_on: 2006-09-22 14:10:31
+l3-1:
+  id: 6
+  parent_id: 5
+  position: 1
+  couplet_text: "This is a choice."
+  otu_id: 
+  link_out:
+  edit_annotation:
+  pub_annotation:
+  manual_id:
+  ref_id:
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+  created_on: 2006-09-22 14:10:31
+l3-2:
+  id: 7
+  parent_id: 5
+  position: 2
+  couplet_text: "This is a choice."
+  otu_id: 
+  link_out:
+  edit_annotation:
+  pub_annotation:
+  manual_id:
+  ref_id:
+  proj_id: "1"
+  creator_id: "1"
+  updator_id: "1"
+  created_on: 2006-09-22 14:10:31

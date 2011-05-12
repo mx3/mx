@@ -1,0 +1,19 @@
+<%# remember we only have @otu in otu/page partials -%>
+
+<% if !@otu.taxon_name.blank? -%>
+<% @host_names = ActiveRecord::Base.connection.select_values("SELECT name FROM xyl_hosts WHERE taxon_name_id = #{@otu.taxon_name.id}") -%>
+
+<% if @host_names.size > 0 -%>
+  <a name="hosts"></a>
+  <div class="box4">
+    <div class="header">Hosts</div>
+    <div class="box4sub">
+         <table style="width:100%;">
+      <% @host_names.in_groups_of(5, false) do |grp| -%>
+        <tr><%= grp.collect{|d| "<td>#{d}</td>"}.join -%></tr>
+      <% end -%>
+      </table>
+    </div>
+  </div>
+  <% end -%>
+<% end -%>

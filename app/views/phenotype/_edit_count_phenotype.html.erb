@@ -1,0 +1,34 @@
+<!-- TODO: enforce integers in entry fields -->
+<% pc_edit_area_id = UUID.create.to_s %>
+<div class="header">Edit count phenotype:</div>
+<table>
+	<tr>
+		<td><span class="lbl4">Entity: </span></td>
+		<td id="entity"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.entity, :role => :entity, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Count: </span></td>
+		<td>
+			<%= text_field_tag :phenotype_minimum, @phenotype.minimum, :size => 3 -%>
+			<%= observe_field :phenotype_minimum, :function => "$('minimum_hidden').value = $('phenotype_minimum').value;" -%>
+			<span>-</span>
+			<%= text_field_tag :phenotype_maximum, @phenotype.maximum, :size => 3 -%>
+			<%= observe_field :phenotype_maximum, :function => "$('maximum_hidden').value = $('phenotype_maximum').value;" -%>
+		</td>
+	</tr>
+	<tr>
+		<td><span class="lbl4">Within: </span></td>
+		<td id="within_entity"><%= render(:partial => 'show_ontology_value', :locals => {:phenotype => @phenotype, :term => @phenotype.within_entity, :role => :within_entity, :pc_edit_area => pc_edit_area_id}) %></td>
+	</tr>
+</table>
+<%= form_tag :action => :update_count_phenotype, :id => @phenotype do %>
+<%= hidden_field_tag "entity_hidden_id", (@phenotype.entity.id if @phenotype.entity) %>
+<%= hidden_field_tag "entity_hidden_class", (@phenotype.entity.class if @phenotype.entity) %>
+<%= hidden_field_tag "minimum_hidden", @phenotype.minimum %>
+<%= hidden_field_tag "maximum_hidden", @phenotype.maximum %>
+<%= hidden_field_tag "within_entity_hidden_id", (@phenotype.within_entity.id if @phenotype.within_entity) %>
+<%= hidden_field_tag "within_entity_hidden_class", (@phenotype.within_entity.id if @phenotype.within_entity) %>
+<%= hidden_field_tag "chr_state", @chr_state.id %>
+<%= submit_tag "Cancel", :name => "cancel" -%> <%= submit_tag "Save phenotype", :name => "save" -%>
+<% end %>
+<div id="<%= pc_edit_area_id %>"></div>

@@ -1,0 +1,4 @@
+#NEXUS <br />
+begin trees; <br />
+tree tree_1 = [&R] [&R=true] <%= Ontology::Visualize::Newick.newick_string(:ontology_class => root, :max_depth => max_depth, :hilight_depth => hilight_depth, :color => color.to_sym, :relationship_type => relationship_type, :annotate_value => annotate_value, :annotate_index => annotate_index, :annotate_branches => annotate_branches, :annotate_clades => annotate_clades) -%> <br />
+end; <br />

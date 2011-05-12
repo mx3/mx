@@ -1,0 +1,57 @@
+<div> 
+  <% if @part == 'center' -%>
+  <h3> images </h3>
+
+  <p><em> Images are associated with OTUs in a variety of ways, through images descriptions, codings in matrices, and through specimen determinations on specimens.</em></p>
+
+  <div style="clear: both;">
+    <h3> From image descriptions </h3>
+
+    <% if @images_from_image_descriptions.size > 0 %>
+    <%= render :partial => "image_description/id", :collection => @images_from_image_descriptions %> 
+
+    <div class="subform">
+      <div class="header"> Move above images </div> 
+      <% form_tag(:action => 'move_images_to_otu', :otu_id => @otu) do -%>
+
+      <div class="fr"> <label for="move_to_otu" class="lbl4"> Move to OTU:</label>
+        <span class="fld"><%= render :partial => "shared/picker", :locals => {
+          :controller => 'otu',
+          :object => 'o',
+          :method => 'otu_to_find_id',
+          :tag_id => "move_to_otu_id",
+          :display => (''),
+          :size => 80} -%><%= submit_tag 'Move' -%></span>
+      </div>
+
+      <br style="clear:both;" />
+      <% end -%>
+
+    </div>
+
+    <% else %>
+    <i> None. </i>
+    <% end %>
+
+  </div>
+
+  <div style="clear: both;">
+    <h3> Through specimens </h3>
+    <% if @images_from_specimens.size > 0 -%>
+    <%= @images_from_specimens.collect{|i| link_to(image_thumb_tag(i), :action => :show, :id => i, :controller => :image) } -%>
+    <% else -%>
+    <em>None.</em>
+    <% end -%>
+  </div>
+
+  <div style="clear: both;">
+    <h3> From codings </h3>
+    <% if @images_from_codings.size > 0 -%>
+      <%= @images_from_codings.collect{|i| image_thumb_tag(i)} -%>
+    <% else -%>
+    <em>None.</em>
+    <% end -%>
+  </div>
+
+  <% end -%>
+</div>

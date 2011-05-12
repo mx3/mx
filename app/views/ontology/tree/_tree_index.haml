@@ -1,0 +1,3 @@
+#ontology_tree
+  .passed=@treetop.label_name(:type => :preferred)
+  = render(:partial => 'ontology/tree/tree_recurser', :locals => {:max_depth => max_depth, :relationship_type => relationship_type, :level => 0, :parent_node => @treetop, :relationship => 'root'})

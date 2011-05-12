@@ -1,0 +1,10 @@
+<h3>New sensu</h3>
+
+<%= form_for(:sensu, :url => {:action => :create}) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <div style="clear:both;">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>
+
+

@@ -1,0 +1,42 @@
+<%= error_messages_for 'identifier' %>
+
+<input type=hidden name='identified_object[object_class]' value="<%= params[:identified_object_class] %>" />
+<input type=hidden name='identified_object[object_id]' value="<%= params[:identified_object_id] %>" />
+
+<div style="width:100%; border-bottom: 1px dotted silver;">
+
+  <div class="fr"><label for="identifier_identifier" class="lbl4">Identifier</label>
+    <span class="fld"><%= text_field :identifier, :identifier, 'title' => 'identifier or voucher number - be sure to enter identifier source too',  'tabindex' => 1  -%></span>
+  </div>
+
+  <div class="fr"> <label for="identifier_identifier" class="lbl4">Namespace</label>
+  <span class="fld"> <%= namespace_select_tag(:identifier, :namespace_id) -%> </span></div>
+
+  <div class="fr"><label for="identifier_is_catalog_number" class="lbl4">Is catalog number?</label>
+    <span class="fld"><%= check_box(:identifier, :is_catalog_number) -%>  </span>
+  </div>
+
+  <br style="clear:both;" />
+</div>
+
+<div style="width:100%; border-bottom: 1px dotted silver;">
+
+<div class="fr"><label for="identifier_global_identifier" class="lbl4">Global Identifier</label>
+  <span class="fld"><%= text_field :identifier, :global_identifier, 'title' => 'A globally unique identifier.'  -%></span>
+</div>
+
+<div class="fr"><label for="identifier_global_type" class="lbl4">Global Identifier Type</label>
+  <span class="fld"><%= select(:identifier, :global_identifier_type, Identifier::GLOBAL_IDENTIFIER_TYPES, {:include_blank => true } ) -%>   </span>
+</div>
+
+  <br style="clear:both;" />
+</div>
+
+
+
+
+<div class="fr"><label for="identifier_notes" class="lbl4">Notes</label><span class="fld">
+<%= text_area :identifier, :notes, 'title' => 'Notes.', :rows => 2, :style => 'width: 98%;'  %>
+</span></div>
+
+

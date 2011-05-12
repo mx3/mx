@@ -1,0 +1,9 @@
+<h3>Editing taxon_name_status</h3>
+
+<% form_tag :action => 'update', :id => @taxon_name_status do -%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end -%>
+
+<%= link_to 'Show', :action => 'show', :id => @taxon_name_status %> |
+<%= link_to 'Back', :action => 'list' %>

@@ -1,0 +1,80 @@
+<!--modified to use tables: <div id="inner_container">--> 
+<table>
+<!--modified to use tables: <div id="inner_left" class="column" >-->
+<!--LEFT COLUMN -->
+
+<td align= "left">
+  <div id="chr_out" style="font-size: 8pt;">
+    <h3 style="display:inline;">Characters eliminated</h3> (<%= @size_chrs_elim %>)
+    <div id ="chrs_eliminated">
+      <%= render(:partial => "c", :collection => @chrs_elim) -%>
+    </div>
+    
+    <% if @size_chrs_elim > 0 and @size_chrs_elim > @mk.display_windows['chr_elim']['size']  %>
+      <%= render(:partial => "cycle_nav", :locals => {:div_to_update => 'chrs_eliminated', :ctrl_name => '_cycle_elim_chr_txt_choices', :partial_to_render => nil}) -%>
+    <% end %>
+    <p> &nbsp; </p>
+  </div>
+
+  <div id="otu_in" style="font-size: 8pt;">
+    <h3 style="display: inline;">OTUs eliminated</h3>  (<%= @mk.otus_eliminated.size %>)
+
+    <div id ="otus_eliminated">
+      <% if @mk.chosen_states.size == 0 -%>
+        <%= render(:partial => "o", :collection => @otus_elim, :locals => {:action => 'return_otu', :link_txt => ''} ) -%>
+      <% else %>
+         <%= render(:partial => "o", :collection => @otus_elim, :locals => {:action => 'return_otu', :link_txt => 'R'} ) -%>
+      <% end -%>
+    </div>
+    
+    <% if @size_otus_elim > 0 and @size_otus_elim > @mk.display_windows['otu_elim']['size']  %>
+      <%= render(:partial => "cycle_nav", :locals => {:div_to_update => 'otus_eliminated', :ctrl_name => '_cycle_elim_otu_txt_choices',  :partial_to_render => nil}) -%>
+    <% end -%>
+  </div>
+</td>
+
+<!--CENTER COLUMN-->
+<!--modified to use tables: <div id="inner_center" class="column" > -->
+<td width = "900" align ="center">
+  <% if @otus_remn.size == 1 -%> 
+    <div id="choices_container" class="box5" style="text-align: center;">
+      <div style="font-weight: bolder; font-size:larger; color: red;"> There is only one remaining OTU! </div>
+      <div><%= render(:partial => "o", :collection => @otus_remn, :locals => {:action => 'choose_otu', :link_txt => ""}) -%></div>      
+    </div>
+  <% end  -%>
+  
+  <div id="choices_container" class="box5">
+    <div style="float: right; clear: both;"><%= render(:partial => "cycle_nav", :locals => {:div_to_update => 'choices', :ctrl_name => '_cycle_remn_chr_txt_choices', :partial_to_render => 'chr'}) -%></div>
+    <h3 style="display:inline;">Characters remaining</h3> (<%= @mk.chrs_remaining.size %>)
+    <div id="choices">
+      <%= render(:partial => "chr", :collection => @chrs_remn) -%>
+      <div style="clear: both;"></div>
+    </div>    
+  </div>
+
+  <div id="img_figs" class="box5">
+    <div id="img" style="clear: both;">Figures (click a figures link above to fill) </div>
+  </div>
+  
+  <div style="clear: both;">&nbsp;</div>
+  </td>
+
+<!--RIGHT COLUMN-->
+<!--modified to use tables: <div id="inner_right" class="column" >-->
+<td align="right">
+
+  <div id="otu_out" style="font-size: 8pt;">
+    <h3 style="display: inline;">OTUs remaining</h3> (<%= @mk.otus_remaining.size %>)
+    <div id ="otus_remaining">
+      <%= render(:partial => "o", :collection => @otus_remn, :locals => {:action => 'choose_otu', :link_txt => ''}) -%>
+    </div>
+    
+    <div style="text-align: center">
+      <% if @size_otus_remn > 0 and @size_otus_remn > 
+					@mk.display_windows['otu_remn']['size']  %>
+     			<%= render(:partial => "cycle_nav", :locals => {:div_to_update => 'otus_remaining', :ctrl_name => '_cycle_remn_otu_txt_choices', :partial_to_render => nil}) -%>
+    <% end %>
+    </div>  
+</div>
+</td>
+</table>

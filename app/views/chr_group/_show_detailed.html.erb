@@ -1,0 +1,6 @@
+<div> <%# don't (re)move me! %>  
+  <% if @part == 'center' %>
+    <h3> Detailed list </h3>
+    <%= render(:partial => 'chr/c', :collection => @chrs) %>
+  <% end %>
+</div>

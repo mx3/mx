@@ -1,0 +1,11 @@
+<%= error_messages_for 'figure' %>
+
+<!--[form:figure]-->
+
+<%= hidden_field_tag('return_to', @return_to) -%>
+
+<p><label for="figure_caption">Caption</label><br/>
+<%= text_area 'figure', 'caption', {:rows => 3, :cols => 60}  %></p>
+
+<!--[eoform:figure]-->
+

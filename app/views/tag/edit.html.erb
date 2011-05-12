@@ -1,0 +1,10 @@
+<h3>Editing tag</h3> 
+
+<p> <%= link_to "show", :action => :show, :id => @tag.id -%> </p>
+<p> <strong>for:</strong> <%= @tag.tagged_obj.display_name + " a " + @tag.addressable_type + " with id = " +  @tag.addressable_id.to_s  %>  </p>
+<p> <strong>by: </strong> <%= @tag.creator.full_name -%>, <strong>last updated:</strong> <%= time_ago_in_words(@tag.updated_on) -%> ago </p>
+
+<%= form_tag :action => 'update', :id => @tag do -%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end -%>

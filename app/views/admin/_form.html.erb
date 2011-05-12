@@ -1,0 +1,9 @@
+<p><label for="proj_name">Include at least one member (more can be added after creation by that member</label><br/>
+
+<%= render :partial => 'person/picker', :locals => { :c_name => 'person', :f_name => 'id'} %>
+
+<p><label for="proj_name">Project name</label><br/>
+<%= text_field 'proj', 'name', 'title' => 'The projects name.', :size => 60 -%></p>
+
+
+

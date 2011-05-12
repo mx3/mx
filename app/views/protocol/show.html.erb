@@ -1,0 +1,35 @@
+
+<p><b>Description: </b><%= @protocol.description %></p>
+<p><b>Created by: </b><%= @protocol.creator_id %></p>
+<p><b>Updated on: </b><%= @protocol.updated_on %></p>
+<p><b>Created on: </b><%= @protocol.created_on %></p>
+
+<p><b>Steps: </b>
+<table>
+  <tr><th>Description</th><th>Reagent</th><th>Reagent Quantity</th><th>Step Time</th></tr>
+
+  <% for step in @steps %>
+    <tr>
+      <td><%=h step.description %></td><td><%=h step.reagent %></td><td><%=h step.reagent_quanitity %></td>
+      <td><%=h step.step_time %></td>
+      <td><%= link_to "x", {:action => 'remove_step', :id => @protocol.id, :params => {"protocol_step_id" => step.id}} %></td>
+      <td><%= link_to "edit", {:controller => 'protocol_step', :action => 'edit',  :id => step.id } %></td>
+    </tr>
+  <% end %>
+</table>
+</p>
+
+<p><br /><b>Add Step</b>
+
+  <%= form_tag :action => 'add_step', :id => @protocol.id do -%>
+
+    <%= render :partial =>("protocol_step/form") %>
+
+    <input type="submit" value="Add" />
+
+  <% end -%>
+</p>
+
+
+<%= link_to 'Edit', :action => 'edit', :id => @protocol %> |
+<%= link_to 'Back', :action => 'list' %>

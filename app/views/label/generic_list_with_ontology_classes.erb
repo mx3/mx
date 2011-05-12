@@ -1,0 +1,11 @@
+<div>
+  <p><strong><%= @title -%></strong></p>
+  <div>
+    <% @labels.each do |l| -%>
+      <%= content_tag(:div, link_to(l.display_name, :action => :show, :controller => :label, :id => l), :style => 'background-color:#eee; padding:2px; border-top:1px dashed silver;' ) -%>
+      <% l.ontology_classes.each do |oc| -%>
+        <%= content_tag(:div, link_to(oc.definition, :action => :show, :controller => :ontology_class, :id => oc.id), :style => 'padding: 2px; margin-left: 10px;') -%>
+      <% end -%>
+    <% end %>
+  </div>
+</div>

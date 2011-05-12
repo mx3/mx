@@ -1,0 +1,36 @@
+<%= error_messages_for side -%>
+<%= hidden_field side, "id", :value => c_id -%>
+
+<p><label for="<%= side -%>_couplet_text">Text</label><br />
+<%= text_area side, 'couplet_text', :rows => 5, :cols => 43  -%></p>
+
+<p>
+  <label for="<%= side -%>_otu_id">Endpoint OTU</label>
+  <span class="small_grey">&nbsp;&nbsp; <%= link_to('create new OTU', :action => 'new', :controller => 'otu')  %></span>
+
+  <% if otu_id -%> &nbsp;&nbsp; <%= link_to('show', :action => 'show', :controller => 'otu', :id => otu_id) -%> <% end -%>
+  <br />
+     <%= render :partial => "shared/picker", :locals => {
+            :controller => 'otu',
+            :object => side,
+            :method => 'otu_id',
+            :tag_id => ("otu_name_#{side}"),
+            :display =>  ("#{otu_name}" if otu_name),
+            :size => 40} -%>
+</p>
+
+<div class="box5">
+  <p><label for="<%= side -%>_link_out">External link out URL</label>   <span class="small_grey">(no http://)</span><br/>
+  <%= text_area side, 'link_out', :rows => 2, :cols => 33 -%></p>
+
+  <p><label for="<%= side -%>_link_out_text">External link out text</label><br/>
+  <%= text_field side, 'link_out_text', :size => 38 -%></p>
+
+  <% if not ( link_out_text.blank? or  link_out.blank?) -%>
+    <%= link_to htmlize(link_out_text), "http://#{link_out}", :popup  => true -%>
+  <% end -%>
+</div>
+
+<p><label for="<%= side -%>_redirect_id">Redirect this couplet to:</label><br/>
+  <%= select(side, 'redirect_id', Clave.find(:all, :conditions => "#{@proj.id} = claves.proj_id").collect{|o| ["[#{o.id.to_s}] " + truncate(o.couplet_text, 40, "..."), o.id ] }, { :include_blank => true } ) -%>
+</p>

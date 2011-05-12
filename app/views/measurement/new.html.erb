@@ -1,0 +1,7 @@
+<h3>New measurement</h3>
+<% form_tag :action => 'create' do -%>
+  <%= render :partial => "form" %>
+  <div class="fr"><label></label><span class="fld"> <%= submit_tag "Create" -%><%= submit_tag "Create and new" -%></span></div>
+  
+  <br style="clear: both;" />
+<% end -%>

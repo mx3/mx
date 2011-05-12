@@ -1,0 +1,17 @@
+<div id="nav">Search</div>
+<%= form_tag(:remote => true, :update => 'target_id', :url => { :action => 'list'}, :html => {:id => 'myform'}) do %>
+<table id="search_table" border="0">
+  <tr>
+    <td>Genus<br/><input type="text" name="genus" size="15" /></td>
+    <td>Species<br/><input type="text" name="species" size="15" /></td>
+    <td>Author<br/><input type="text" name="author" size="15" /></td>
+    <td>Type locality data<br/><input type="text" name="other" size="15" /></td>
+    <td valign="bottom"><%= submit_tag "Go" %></td>
+    <td valign="bottom"><strong><%= link_to "Help", :controller => 'taxon_name', :action => 'search_help' %></strong></td>
+  </tr>
+</table>
+
+<% end -%>
+
+<%= observe_form 'myform',  :frequency => 0.5, :update => 'target_id', :url =>  { :controller => 'taxon_name', :action=> 'list' } %>
+<div id="target_id"></div>

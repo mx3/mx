@@ -1,0 +1,20 @@
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @mx_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @mx_pages}) -%>
+<table>
+  <%= t_col_heads( ["name", "id", 'otus', 'chrs', "multikey", "public", "notes", "mod by", "mod on"] ) %>
+  <% for m in @mxes %>
+  <%=  t_row({ 'obj' => m, 
+    'cell_data' => [link_to(m.name, :action => :show, :id => m.id),
+    m.id,
+    m.otus.size,
+    m.chrs.size,
+    m.is_multikey == true ? {"yes" => 'passed'} : {"no" => 'failed'},
+    m.is_public == true ? {"yes" => 'passed'} : {"no" => 'failed'},
+    m.notes,
+    m.m_by,
+    m.m_on ] } ) -%>
+    <% end %>
+</table>
+<br />
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @mx_pages}) -%>
+

@@ -1,0 +1,23 @@
+<%= error_messages_for 'ce' %>
+
+<!--[form:ce]-->
+
+<% if @target == 'fast' %>
+
+  <table>
+    <tr>
+      <td>
+        <label for="ce_label">Verbatim Label</label><br/>
+        <%= text_area 'ce', 'verbatim_label',  :cols => 25, :rows=> 26 %><br/><br/>
+      </td>
+      <td>
+        <label for="ce_label">Print Label</label><br/>
+        <%= text_area 'ce', 'print_label',  :cols => 25, :rows=> 26 %><br/><br/>
+      </td>
+    </tr>
+</table>
+
+<% end %>
+
+<!--[eoform:ce]-->
+

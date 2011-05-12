@@ -1,0 +1,20 @@
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @tag_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @tag_pages}) -%>
+<table>
+  <%= t_col_heads( [{'name' => "tagged to", 'style' => 'min-width: 100px;'}, "type", {'name' => "keyword", 'style' => 'min-width:150px;'}, {"name" => "notes", "style" => 'min-width: 150px;'}, 'ref', 'refr. obj.',  "mod ago", "mod by", 'creator'] ) -%>
+  <% @tags.each_with_index do |o,i| -%>
+  <%= t_row({ 'obj' => o, 'no_show' => true, 'tr_css' => (o ? i : 'failed'),
+    'cell_data' =>[
+    link_to_tagged(o),
+    o.addressable_type,
+    ( o.keyword.blank? ? '<strong style="color:red;">something terribly wrong.</strong>' : link_to(o.keyword.display_name, :action => :show_tags, :controller => :keyword, :id => o.keyword) ),
+    {o.notes => 'smaller_font'},
+    short_ref_link_tag(o.ref),
+    link_to_referenced_object(o),   
+    time_ago_in_words(o.updated_on),
+    o.m_by,
+    o.c_by ]}) -%>
+  <% end -%>
+</table>
+<br/>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @tag_pages}) -%>

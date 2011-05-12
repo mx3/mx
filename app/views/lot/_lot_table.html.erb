@@ -1,0 +1,22 @@
+<table class="list_table">
+  <%= t_col_heads( [ {'name' => "identifiers"},  {'name' => "otu", 'style' => 'width: 20%;'},  "# key", "# val", "dna ok",  {'name' => "collecting event", 'style' => 'width: 30%;'},  "rep.", "notes", "mx id", "mod by", "mod ago" ] ) %>
+  <% @lots.each_with_index do |lot, i| %>
+    <tr class="<%= (i % 2 == 0 ? 'stripe' : "") -%>"><!-- closed by t_row -->
+      <td><%= lot.identifiers.collect{|id| id.cached_display_name}.join("; ") %></td>
+      <td><%= link_to(lot.otu.display_name(:type => :multi_name), :action => 'show', :controller => 'otu', :id => lot.otu.id) -%></td>
+
+      <%= t_row({ 'obj' => lot, 'inc_actions' => @inc_actions,
+          'open_tr' => false,
+          'cell_data' => [
+            lot.key_specimens,
+            lot.value_specimens,
+            (lot.dna_usable? ?  {"yes" => 'passed'} : {"no" => 'failed'}),
+            lot.ce.andand.display_name(:type => :verbose),
+            lot.repository.andand.coden,
+            truncate(lot.notes, :length => 35),
+            lot.id.to_s,
+            lot.updator.display_name,
+            time_ago_in_words(lot.updated_on)
+          ] }) %>
+    <% end %>
+</table>

@@ -1,0 +1,24 @@
+<table style="width:100%;">
+  <tr>
+    <td>
+      <div style="width: 95%;border:<%= oc.is_public ? '#b5ebc7' : '#f6c3d4' -%> 2px <%= oc.is_public ? 'solid' : 'dotted' -%>; padding: 0px; margin: 20px 10px 10px 10px;">
+        <div id="ontology_class_labels_for_id<%= oc.id -%>" style="display: inline-block; margin: 0px; background:white; padding-left: 5px; margin-right: 2em; padding-right: 5px; margin-bottom: 0px; padding-bottom:0px; padding-bottom: 0px; border: white 2px solid; position:relative; top: -1.1em; right: -10px;"><%= labels_banner_tag(oc) -%></div>
+        <div>
+          <div style="padding: 8px; font-size: larger; position:relative; top: -1.1em; margin: 4px; vertical-align: middle; width: auto;" class="ip_edit" id="ontology_class_definition_id<%= oc.id -%>"><%= oc.definition -%>
+          </div>
+
+          <%= in_place_editor("ontology_class_definition_id#{oc.id}", :url => url_for(:controller => :ontology_class, :action => :_in_place_definition_update, :id => oc.id), :rows => 3, :cols => 60) if !oc.is_obsolete -%>
+
+          <div style="float:right; padding: 3px; color: silver;"> written by: <%=  oc.written_by ? oc.written_by.display_name : '<strong style="color:red;">MIGRATION ARTIFACT - RESOLVE IMMEDIATELY</strong>' -%> </div>
+          <br style="clear:both;" />
+        </div> 
+      </div>
+    </td>
+
+    <% if oc.figures.with_figure_markers.size > 0 -%>
+    <td>
+      <%= render :partial => 'figure/svg_anchored', :locals => { :figure => oc.figures.with_figure_markers.first, :size => :thumb} -%> 
+    </td>
+    <% end -%>
+  </tr>
+</table>

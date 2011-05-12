@@ -1,0 +1,11 @@
+<table>
+  <tr><td><b>OTU / Standard_view</b></td><% for std_view in @standard_views %><td><b><%= std_view.name %></b></td><% end %></tr>
+  <% for otu in @otus %>
+    <tr>
+      <td><%= otu.display_name %></td>
+      <% for std_view in @standard_views %>
+        <%= image_description_cell_status(otu.id, std_view) %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

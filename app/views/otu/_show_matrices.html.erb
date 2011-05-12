@@ -1,0 +1,11 @@
+<div> <%# this div must stay here! give it a name sometime and edit childrens as well %>
+  <% if @part == 'center' %>
+    <ul>
+      <% for m in @mxes %>
+        <li><%= link_to(m.display_name, :action => 'show', :controller => 'mx', :id => m)  -%></li>
+      <% end %>
+    </ul>
+    <%= '<i>not in any matrix</i>' if @mxes.blank? -%>
+  <% end %>
+</div>
+

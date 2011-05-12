@@ -1,0 +1,40 @@
+<div> 
+  <% if @part == 'center' %>
+    <h3> Untied OTUs/Assocations </h3>
+    <h4> Associations </h4>
+    <% if @associations.size > 0  %>
+      <% for assoc in @associations %>
+        <td><%= link_to render :partial => "part", :collection =>  assoc.association_parts, :action => 'show', :id => assoc %></td> 
+      <% end %>
+    <% else %>
+      <i> all associations with at least 1 tied OTU</i>
+    <% end %>
+
+    <h4>OTUs</h4>
+    <p> These are OTUs that do not have a Taxon Name tied to them. </p>
+    <% if @otus.size > 0  %>
+      <% for otu in @otus %>
+        <%= link_to(otu.display_name, :action => 'browse_by_otu', :id => otu) %><br /> 
+      <% end %>
+    <% else %>
+      <i> all otus tied!</i>
+    <% end %>
+
+    <h4> Taxon Names </h4>
+    <p> These are taxon names tied to OTUs that are not used in any associations. </p>
+    <% if @taxon_names.size > 30 %>
+     <i> too many to display </i>
+    <% elsif @taxon_names.size > 0  %>
+      <% for t in @taxon_names %>
+        <%= "#{t.display_name} otu: " + link_to(t.otu_id, :action => 'browse_by_otu', :id => t.otu_id) %><br /> 
+      <% end %> 
+      <% else %>
+      <i> all otus with a taxon name are used in an association! </i> 
+    <% end %>
+  <% elsif @part == 'right' %>
+  <h4>Help</h4>
+    <p> OTUs in Associations are recorded as they were cited.  The cited name has been tied to a currently valid taxon name in most cases.  This report shows those taxon names 
+    associations which are comletely untied to taxon names. </p> 
+  <% end %>
+</div>
+

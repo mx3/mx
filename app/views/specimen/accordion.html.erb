@@ -1,0 +1,178 @@
+<!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    
+	<script type="text/javascript">
+			
+		//
+    //  Blatantly borrowed and modified from stickmanlabs at http://stickmanlabs.com/accordion/
+		// 
+	 	Event.observe(window, 'load', loadAccordions, false);
+	
+		//
+		//	Set up all accordions
+		//
+		function loadAccordions() {
+      var topAccordion = new accordion('#top_container', {
+      
+        
+				classNames : {
+					toggle : 'horizontal_accordion_toggle',
+					toggleActive : 'horizontal_accordion_toggle_active',
+					content : 'horizontal_accordion_content'
+				},
+				defaultSize : {
+					width : 525
+				},
+				direction : 'horizontal'
+      });
+      
+			var bottomAccordion = new accordion('#bottom_container');
+			
+			// Open first one
+			bottomAccordion.activate($$('#bottom_container .accordion_toggle')[0]);
+			
+			// Open second one
+			topAccordion.activate($$('#top_container .horizontal_accordion_toggle')[2]);
+		}
+		
+	</script>
+	
+	<!-- CSS -->
+
+	<style type="text/css" >
+		
+		/*
+			Vertical Accordions
+		*/
+		
+		.accordion_toggle {
+			display: block;
+      height: 15px;
+      width: 100%;
+			background: url(images/accordion_toggle.jpg) no-repeat top right #a9d06a;
+			padding: 0 10px 0 10px;
+      line-height: 15px;
+			color: #ffffff;
+			font-weight: normal;
+			text-decoration: none;
+			outline: none;
+      font-size: 8px;
+			color: #000000;
+			border-bottom: 1px solid #cde99f;
+			cursor: pointer;
+			margin: 0 0 0 0;
+		}
+		
+		.accordion_toggle_active {
+			background: url(images/accordion_toggle_active.jpg) no-repeat top right #e0542f;
+			color: #ffffff;
+			border-bottom: 1px solid #f68263;
+		}
+		
+		.accordion_content {
+			background-color: #ffffff;
+			color: #444444;
+			overflow: hidden;
+		}
+			
+			.accordion_content h2 {
+				margin: 15px 0 5px 10px;
+				color: #0099FF;
+			}
+			
+			.accordion_content p {
+				line-height: 150%;
+				padding: 5px 10px 15px 10px;
+			}
+			
+		/*
+			Horizontal Accordion
+		*/
+		
+		.horizontal_accordion_toggle {
+			/* REQUIRED */
+			float: left;	/* This make sure it stays horizontal */
+			/* REQUIRED */
+
+			display: block;
+			height: 100px;
+      width: 30px;
+			background: #a9d06a;
+			color: #ffffff;
+			text-decoration: none;
+			outline: none;
+			border-right: 1px solid #cde99f;
+			cursor: pointer;
+      margin: 0 0 0 0;
+      text-align: center
+		}
+		
+		.horizontal_accordion_toggle_active {
+			background:  #e0542f;
+			border-right: 1px solid #f68263;
+		}
+		
+		.horizontal_accordion_content {
+			/* REQUIRED */
+			height: 100px;	/* We need to define a height for the accordion as it stretches the width */
+			float: left;	/* This make sure it stays horizontal */
+			/* REQUIRED */
+			
+			overflow: hidden;
+			background-color: #ffffff;
+			color: #444444;
+		}
+			
+			.horizontal_accordion_content p {
+				width: 450px;
+				line-height: 150%;
+				padding: 5px 10px 15px 10px;
+			}
+					
+	</style>
+
+
+<div id="container">
+  
+	<div id="bottom_container" >
+
+		<h1 class="accordion_toggle">specimen ID</h1>
+		<div class="accordion_content">
+      blorf
+		</div>
+
+
+    <h1 class="accordion_toggle">more</h1>
+		<div class="accordion_content">
+	      <div id="top_container" >
+            
+                <h3 class="horizontal_accordion_toggle">tags</h3>
+                <div class="horizontal_accordion_content">
+                    <p>
+                        Integer commodo nibh sit amet odio. Pellentesque semper. Integer dolor. Donec scelerisque sapien placerat velit. 
+                    </p>  	
+                </div>
+
+                <h3 class="horizontal_accordion_toggle">ces</h3>
+                <div class="horizontal_accordion_content">
+                    <p>
+                        Sed at pede vitae turpis porta condimentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Morbi erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; 
+                    </p>   	
+                </div>
+        
+                <h3 class="horizontal_accordion_toggle"></h3>
+                <div class="horizontal_accordion_content">
+                    <p>
+                        Curabitur quam lorem, laoreet molestie, eleifend id, pulvinar vel, nunc. Proin congue felis quis purus. Aenean porttitor, lacus vel bibendum pulvinar, leo nulla suscipit leo, nec lobortis orci diam eget turpis. Sed eu eros et orci consectetuer molestie. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
+                    </p>  	
+                </div>
+
+            </div>
+   		</div>
+		
+
+   					
+	</div>
+
+</div>
+

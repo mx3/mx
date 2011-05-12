@@ -1,0 +1,10 @@
+<div class="show_rec">
+  <div class="show_category">Revision <%= history.number - 1 -%></div>
+  <div class="show_row"><span class="show_lbl">By:</span> <span class="show_data"> <%= history.user.full_name -%> </span> </div>
+  <% history.changes.each do |c| -%>
+    <% if !(c[0] == 'updator_id') -%>
+      <div class="show_row"><span class="show_lbl">Old <%= c[0] %>:</span> <span class="show_data"> <%= c[1][0] -%> </span> </div>
+      <div class="show_row"><span class="show_lbl">New <%= c[0] %>:</span> <span class="show_data"> <%= c[1][1] -%> </span> </div>
+    <% end -%>
+  <% end -%>
+</div>

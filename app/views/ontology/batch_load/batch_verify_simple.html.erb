@@ -1,0 +1,78 @@
+<h3> Verify addition/update of terms</h3>
+
+<div class="box4"> 
+  <div class="header">Additional values for each term</div>
+  <div class="content">
+    <%= "<strong>Setting written by to: </strong>#{@result[:ref].display_name}<br/>" if @result[:ref] -%> 
+    <%= '<strong>Setting taxon name to: </strong>' + @result[:taxon_name].display_name + '<br/>' if @result[:taxon_name] -%>
+    <%= '<strong>Creating a relationship for all terms to: </strong> ' + @result[:isa].display_name + ' ' + @result[:part_for_isa].display_name + '<br/>' if @result[:part_for_isa] && @result[:isa] -%>
+    <%= '<em style="color: red;">none</em>' if !@result[:ref] && !@result[:taxon_name] && !@result[:isa] && !@result[:part_for_isa] -%>
+  </div>
+</div>
+
+<% if @tag_keyword -%>
+<div class="box4"> 
+  <div class="header">Creating tags for all added terms with the following values</div>
+  <div class="content">
+   <strong>Tag keyword:</strong>  <%= @tag_keyword.display_name -%> <br/>
+   <%= "<strong>Tag reference :</strong> #{@tag_reference.display_name}<br/>" if @tag_reference -%>
+   <%= "<strong>Tag notes:</strong> #{@tag_notes} <br/>" if @tag_notes -%>
+   <%= "<strong>Tag referenced object:</strong> #{@tag_referenced_object}<br/>" if @tag_referenced_object -%>
+  </div>
+ </div>
+<% end -%>
+
+<% if @result[:terms].existing.size > 0 -%>
+<div class="box4"><div class="header">Terms already existing in this project</div>
+  <div class="content">
+  <%= @result[:terms].existing.collect{|t| link_to(t.word, :action => :show, :controller => '/ontology', :id => t.part.id)}.join(", ") -%>
+</div> 
+</div>
+<% end -%>
+
+<div class="box4">
+  <div class="header"> Unmatched terms </div>
+  <div class="content">
+  <% if @result[:terms].not_present.size > 0 %>
+  
+    <p> The following terms/defintions were read and are not found in the database.
+    If you do not wish to update a term leave it unchecked.</p>
+    <div style="clear: both; margin: 4px;"><%= render :partial => 'shared/checkbox_selector_buttons' -%></div>
+
+    <% form_tag(:action => 'batch_create_simple') do -%>
+    <%= submit_tag("Create") -%>
+      <%= hidden_field_tag("taxon_name_id", @result[:taxon_name].id) if @result[:taxon_name] -%>
+      <%= hidden_field_tag("isa_id",  @result[:isa].id) if !@result[:isa].blank? -%>
+      <%= hidden_field_tag("ref_id",  @result[:ref].id) if !@result[:ref].blank? -%>
+      <%= hidden_field_tag("part_for_isa_id", @result[:part_for_isa].id) if !@result[:part_for_isa].blank? -%>    
+
+      <% if @tag_keyword -%>
+        <%= hidden_field_tag("tag[keyword_id]", @tag_keyword.id) -%>
+        <%= hidden_field_tag("tag[ref_id]", @tag_ref.id) if @tag_ref -%>
+        <%= hidden_field_tag("tag[notes]", @tag_notes) if @tag_notes -%>
+        <%= hidden_field_tag("tag[referenced_object]", @tag_referenced_object) if @tag_referenced_object -%>
+      <% end -%>
+
+      <strong>Term / Definition</strong>
+      <% i = 0 -%>
+      <% @result[:terms].not_present.each do |t| -%>
+        <% i += 1 -%>
+        <p>
+          <%= text_field("part", i, :value => t.word) -%>  
+          <%= text_field("definition", i, :value => (t.definition ? t.definition : nil)) -%>  
+          <%= check_box_tag("check[#{i}]", '1', true) -%>
+        </p> 
+      <% end -%>
+    <% end -%>
+  <script type="text/javascript">
+    var checkboxes = [];
+    checkboxes = $$('input').each(function(e){ if(e.type == 'checkbox') checkboxes.push(e) });
+  </script>
+
+  <% else %>
+    <i> All terms are already in the database, try again in compare/update mode.</i>
+  <% end %>
+  </div>
+</div>
+
+

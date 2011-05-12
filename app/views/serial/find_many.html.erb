@@ -1,0 +1,10 @@
+<p><i> Finds all serials with the search string anywhere in the title. </i></p>
+<div class="subform">
+  <div class="header"> Find many </div>
+  <%= form_tag :action => 'list' do -%>
+    <div class="fr"> <label for="search" class="lbl4"></label>
+    <span class="fld"> <input id="search" title="name of serial you want to search" name="search" size="50" type="text" /><%= submit_tag 'find', {:class => 'small_form_button'} %></span>
+  </div> 
+<% end -%>
+<br style="clear: both;" />
+</div>

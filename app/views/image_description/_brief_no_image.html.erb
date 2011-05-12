@@ -1,0 +1,18 @@
+<div class="show_rec">
+  <% if image_description.specimen -%>
+    <div class="show_row"><span class="show_lbl">Specimen</span><span class="show_data"> <%= image_description.specimen.display_name -%> </span></div>
+  <% end -%>
+  
+ <% if image_description.otu -%>
+    <div class="show_row"><span class="show_lbl">OTU:</span><span class="show_data"> <%= image_description.otu.display_name -%> </span></div>
+ <% end -%>
+  <% if !image_description.label.blank? -%>
+    <div class="show_row"><span class="show_lbl">Label:</span><span class="show_data"> <%= image_description.label.display_name -%> </span></div>
+  <% end -%>
+   <% if image_description.stage -%>
+    <div class="show_row"><span class="show_lbl">Label:</span><span class="show_data"> <%= image_description.stage -%> </span></div>
+  <% end -%>
+    <% if image_description.sex -%>
+    <div class="show_row"><span class="show_lbl">Label:</span><span class="show_data"> <%= image_description.sex -%> </span></div>
+  <% end -%>
+</div>

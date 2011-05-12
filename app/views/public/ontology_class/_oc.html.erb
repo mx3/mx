@@ -1,0 +1,12 @@
+<table style="width:100%;">
+  <tr>
+    <td>
+      <%= render :partial => 'oc_def', :locals => {:oc => oc} -%>
+    </td>
+    <% if oc.figures.with_figure_markers.size > 0 -%>
+      <td>
+        <%= render :partial => 'figure/svg_anchored', :locals => { :figure => oc.figures.with_figure_markers.first, :size => :thumb} -%> 
+      </td>
+    <% end -%>
+  </tr>
+</table>

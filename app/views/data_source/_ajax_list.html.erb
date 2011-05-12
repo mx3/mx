@@ -1,0 +1,20 @@
+<% if not @data_source_pages.blank? %>
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @data_source_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @data_source_pages}) -%>
+<% end %>
+<table>
+  <%= t_col_heads( [ "id", "name", "matrix", "ref", "dataset", "mod by", "mod on"] ) -%>
+  <% for t in @data_sources -%>
+    <%= t_row({ 'obj' => t,
+   'cell_data' => [
+    t.id.to_s,
+    t.name,
+    (t.mx.blank? ? '<i>none</i>' : link_to(t.mx.display_name, :controller => :mx, :action => :show, :id => t.mx)),
+    (t.ref.blank? ? '<i>none</i>' : link_to(t.ref.display_name, :controller => :ref, :action => :show, :id => t.ref)),
+    (t.dataset.blank? ? '<i>none</i>' : t.dataset.filename),
+    t.m_by,
+    t.m_on] } ) -%>
+  <% end -%>
+</table>
+<br />
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @data_source_pages}) if not @data_source_pages.blank? -%>

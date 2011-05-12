@@ -1,0 +1,25 @@
+<% @show.collect{|s| render :partial => (s)} -%>
+
+<div id="inner_wrapper">
+  <div id="inner_header" style="text-align: center;"> 
+    <div class="ref"> <%= @ref.display_name %> </div>
+  </div>
+  <div id="inner_container" <%= 'style="padding-right: 0px;"' if @no_right_col %>>
+    <div id="inner_center" class="column">    
+      <%= yield :center -%>        
+    </div>
+
+    <div id="inner_left" class="column">
+      <%= render :partial =>("navigator") %> 
+      <%= yield :left -%>
+    </div>
+
+    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col %>>
+      <%= yield :right -%>
+    </div>   
+  </div> <%# end inner_container %> 
+
+  <div id="inner_footer"> 
+  </div>
+</div>
+

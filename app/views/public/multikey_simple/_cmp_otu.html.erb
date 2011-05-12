@@ -1,0 +1,15 @@
+<div id="otu_<%= i %>" class="box4" style="width: 340px; padding: 4px;">
+
+  <%= form_tag(:action => 'refresh') do %>
+    <div style="text-align: right">
+      compare OTU: <%=  select("choice", "#{i}", @mk.remaining_otus(@mk.otus_remaining).collect{|o| [o.display_name, o.id]})  -%>
+      <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "compare_spinner_#{i}", :style => "display: none; vertical-align:middle;" ) %> 
+    </div>
+    <div id="contents_<%= "#{i}" %>">
+        <%= render(:partial => 'otu_and_states', :collection => [cmp_otu]) %>
+    </div>
+    <%= observe_field("choice_#{i}", :update => "contents_#{i}", :on => "changed" ,:loading => "Element.show('compare_spinner_#{i}')", :complete => "Element.hide('compare_spinner_#{i}')", :url =>
+      {:action => '_update_otu_for_compare'}) %>
+  <% end %>
+ 
+</div>

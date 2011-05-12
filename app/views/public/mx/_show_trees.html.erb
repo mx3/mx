@@ -1,0 +1,9 @@
+<div> <%# don't (re)move me! %> 
+  <% if @part == 'center' %>
+    <h3> Trees associated with this matrix </h3>
+    <p><i> click to view </i></p>
+    <% @trees.each do |t| %>
+      <%= link_to(t.display_name, :action => 'show_phylowidget', :id => @mx, :tree_id => t.id) -%> <%= t.data_source.display_name %><br/>
+  <% end %>
+  <% end %>
+</div>

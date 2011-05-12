@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title> </title>
+    <%= javascript_include_tag "protovis-r3.0" -%>
+    <%= javascript_include_tag :defaults, :include_google_js => true, :versions => {:scriptaculous => "1.8.1", :prototype => "1.6.1"} -%>
+    <link rel="stylesheet" type="text/css" href="ex.css"/>
+  </head>
+  <body>
+    <%= render :partial => '/ontology/visualize/protovis_treemap' -%>
+<div id="result"></div>
+</body>
+</html>
+
+

@@ -1,0 +1,16 @@
+<!-- we only have @otu in otu/page partials -->
+  <% if @otu.markers_for_currently_determined_specimens.size > 0 %>
+    <div class="header">Map
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to('kml', :action => 'show_kml_text', :controller => (@public ? '/public/public_content'  : '/otu') , :id => @otu.id) -%> &nbsp; <span class="small_grey" style="color: gray;"> (right-click, save as) </span>
+    </div>
+    <div class="content">
+      <% markers = @otu.markers_for_currently_determined_specimens -%><%# use this to grab the center value without an additional call -%>
+      <%= render(:partial => '/shared/gmap', :locals => {:markers => markers, :centerLatitude => markers[0][:latitude], :centerLongitude => markers[0][:longitude], :zoom => 2, :height => 200}) -%>
+      <script type="text/javascript">init_map();</script>
+    </div>
+  <% else -%>
+    <div class="header">Map</div>
+    <div class="content">
+      <p><i> There are no specimens currently determined for this OTU, or those specimens determined for this OTU are not yet mappable. </i></p>
+    </div>
+  <% end -%>

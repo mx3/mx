@@ -1,0 +1,33 @@
+<div id="inner_wrapper">
+  <div id="inner_header" style="text-align: center;"> 
+    <div>
+      <div style="float:left">
+        <%= link_to("main", :action => 'show_default', :id => @mk.MX_ID) -%> |
+        <%= link_to("compare", :action => 'show_compare', :id => @mk.MX_ID) -%> |
+        <%= link_to("by characters", :action => 'show_otu_by_chr', :id => @mk.MX_ID) -%> |
+        <%= link_to("chosen states", :action => 'show_chosen_states', :id => @mk.MX_ID) -%> |
+        <!--  <%= link_to("chosen figures", :action => 'show_chosen_figures', :id => @mk.MX_ID) -%> |
+        <%= link_to("remaining figures", :action => 'show_remaining_figures', :id => @mk.MX_ID) -%> | -->
+        <%= link_to("tags", :action => 'show_tags', :id => @mk.MX_ID) -%> 
+      </div>
+      <div style="float:right;"> <%= link_to("reset key", :action => 'reset', :id => @mk.MX_ID) -%> / <%= link_to("help", 'http://hymenoptera.tamu.edu/wiki/index.php/Guide/Multikeys') -%> </div>
+    </div>
+
+    <% if @mk.view != 'default' -%> 
+    <div style="clear:right;"></div>
+    <div style="margin-bottom: 2px; padding: 2px;" class="box4"><%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'multikey_spinner', :style => "display: none; vertical-align:middle;"  ) -%> 
+      OTUs- eliminated:<%= @mk.otus_eliminated.size -%> remaining: <%= @mk.otus_remaining.size -%> | Characters- eliminated: <%= @mk.chrs_eliminated.size -%> remaining: <%= @mk.chrs_remaining.size -%>
+    </div>  
+
+    <% end -%>
+
+    <div style="clear:right;"></div>
+
+  </div>
+
+  <%= render :partial =>("show_#{@mk.view}") -%>
+
+  <div id="inner_footer"> 
+    <div style="clear:none;">&nbsp;</div>
+  </div>
+</div>

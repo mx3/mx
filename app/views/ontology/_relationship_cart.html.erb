@@ -1,0 +1,5 @@
+<%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'filter_results_spinner', :style => "display: none; vertical-align:middle;"  ) -%>
+<div id="incoming_items" class="cart" style="text-align: center; height:15px;margin-top:2px;border:2px solid black;"> <i> drag and drop term here to add with relationship type <%=  isa.display_name -%>   </i>
+</div>
+<%= drop_receiving_element("incoming_items",:loading => "Element.show('filter_search_spinner')", :complete => "Element.hide('filter_search_spinner')", :url => { :action => "_add_relationship_from_cart", :controller => "ontology", :part2_id => part2_id, :isa_id => isa.id }, :accept => "part", :hoverclass => "cart-active") -%>
+ 

@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Visualize</title>
+    <%= javascript_include_tag :defaults, :include_google_js => true, :versions => {:scriptaculous => "1.8.1", :prototype => "1.6.1"} -%>
+    <%= javascript_include_tag "protovis-r3.0" -%>
+  </head>
+  <body>
+
+    <table>
+      <tr>
+        <td stye="width: 200px;">
+          <div class="parents_of_term">parents: <ul> <%= @tree_root.parents(:relationship_type => @isa.id).collect{|o| content_tag(:ol, link_to(o.part2.display_name, :action => :protovis_sunburst, :id => o.part2.id))}-%></ul></div>
+          <div class="parent_term"><%= @tree_root.display_name -%></div>
+
+          <% form_remote_tag :url => {:action => :_set_visusizliation_preference, :id => @tree_root.id}, :loading => "Element.show('update_spinner')", :complete => "Element.hide('update_spinner')" do -%>
+      visualize: <%= select_tag :overlay,  options_for_select(["icicle", "sunburst", "treemap"], session["#{$person_id}_ontology_vis_pref"]) -%> <%= submit_tag "go" -%><% end -%>
+        </td>
+        <td>
+          <% if @tree_root.child_ontology_relationships(:relationship_type => @isa.id).size > 0 -%><%=  render(:partial => '/ontology/visualize/protovis_treemap') -%> <% end -%>
+        </td>
+      </tr>
+    </table>
+
+</body>
+</html>
+

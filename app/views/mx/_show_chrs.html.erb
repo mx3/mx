@@ -1,0 +1,122 @@
+<% content_for :center do -%>
+  <div>
+    <div style="width: 48%; float: left;">
+      <div class="subform">
+        <div class="header">add character groups, character +, character -</div>
+          <%= form_tag :action => 'add_chr', :id => @mx.id do -%>
+              <%= hidden_field 'mx', 'id' -%>
+              <div class="fr"> 
+                <label for="chr_group_id" class="lbl4" style="width: 9%;" >group</label>
+                <span class="fld" style="width: 89%; float: left;"  >
+                  <select name="chr_group_id" style="font-size: 87%; width: 85%;">
+                    <option></option>
+                     <%= options_from_collection_for_select(@chr_groups_out, 'id', "name") if @chr_groups_out %>
+                 </select>
+                  <%= submit_tag "add",  {'class' => 'small_form_button'}  -%>
+               </span> 
+            </div>
+          <% end %>
+
+          <%= form_tag :action => 'add_chr', :id => @mx.id do -%>
+              <%= hidden_field 'mx', 'id' -%>
+              <div class="fr"> 
+                <label for="chr_id" class="lbl4" style="width: 9%;">chr +</label>
+                <span class="fld" style="width: 76%; float: left;" >
+       				<%= render :partial => "shared/picker", :locals => {
+					    :controller => 'chr',
+					    :object => 'mx_chr',
+					    :method => 'plus_id',
+					    :tag_id => "chr_plus_id_for_mx",} -%>
+               </span>
+   				<span style="float: left;"> <%= submit_tag "add",  {'class' => 'small_form_button'}  -%> </span>
+            </div>
+          <% end %>
+
+        <%= form_tag :action => 'add_chr', :id => @mx.id do -%>
+          <%= hidden_field 'mx', 'id' -%>
+          <div class="fr"> 
+            <label for="minus_chr_id" class="lbl4"  style="width: 9%;" >chr -</label>
+          	   <span class="fld" style="width: 76%; float: left;" >
+       				<%= render :partial => "shared/picker", :locals => {
+					    :controller => 'chr',
+					    :object => 'mx_chr',
+					    :method => 'minus_id',
+					    :tag_id => "chr_minus_id_for_mx",} -%>
+               </span>
+              <span style="float: left;"> <%= submit_tag "add",  {'class' => 'small_form_button'}  -%> </span>
+           
+          </div>
+           
+      <% end %>
+
+      <br style="clear:both;" />
+    </div>
+
+        <div class="box4">
+          <div class="header" >characters in matrix</div> 
+          <div class="content">
+            <%= '<i>none</i>' if @chrs.size == 0 -%>
+            <table style="width: 100%;">
+              <% @chrs.each do |chr| %>
+              <tr>
+                <td>
+                  <%= chr.name -%> &nbsp;&nbsp; <%= link_to('(show)',  {:action => :show, :controller => :chr, :id => chr.id}, :popup => true) -%> &nbsp;&nbsp;
+                   <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :chr_id => chr, :otu_id => @otu.id, :mode => 'col', :position => '0'}) if @otu -%> 
+                </td>
+                <td style="background-color:rgb(<%= ColorHelper::ranged_color(@hash_heat[chr.id] || 0, 'green') -%>);">
+                      <%= ((@hash_heat[chr.id] || 0) * 100).to_i -%>%
+                </td>
+              </tr>
+              <% end %>
+            </table>
+            <br style="clear: both;" />
+        </div>
+   </div>
+ </div> 
+          
+      <div style="width: 48%; float: right;">
+        <div class="box4">
+          <div class="header" >character groups</div> 
+          <div class="content">
+            <%= '<i>none</i>' if @chr_groups_in.size == 0 -%>
+            <ul style="list-style-type:square;" >
+              <% @chr_groups_in.each do |chr_group| -%>
+                <li style="color: silver;"><%= chr_group.name -%>&nbsp;<%= link_to "x", {:action => 'remove_chr', :id => @mx.id, :params => {"chr_group_id" => chr_group.id}} -%></li>
+               <% end -%>            
+             </ul>
+           </div>
+        </div>     
+               
+
+      <div class="box4">
+        <div class="header" >characters +</div> 
+        <div class="content">
+            <%= '<i>none</i>' if @chrs_plus.size == 0 -%>
+          <ul style="list-style-type:square;">
+            <% @chrs_plus.each do |chr| -%>
+            <li >
+              <%= chr.name %>&nbsp;<%= link_to "x", {:action => 'remove_chr', :id => @mx.id, :params => {"chr_id" => chr.id}} -%>
+            </li>
+              <% end -%>            
+            </ul>
+        </div>
+      </div>     
+                       
+      <div class="box4">
+        <div class="header" >characters -</div> 
+        <div class="content">  
+         <%= '<i>none</i>' if @chrs_minus.size == 0 -%>
+              <ul style="list-style-type:square;">
+                <% @chrs_minus.each do |chr| -%>
+                <li>
+                  <%= chr.name %>&nbsp;<%= link_to "x", {:action => 'remove_chr', :id => @mx.id, :params => {"minus_chr_id" => chr.id}} -%>
+                </li>
+            <% end -%>    
+          </ul>
+      </div>
+      </div>     
+           
+     </div>
+  </div>
+          
+<% end -%>

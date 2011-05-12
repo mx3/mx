@@ -1,0 +1,13 @@
+<% content_for :center do -%>
+  <p> Editing content <strong><%= @content_type.display_name %></strong>.</p>
+  <%= form_tag :action => "update_multiple_content" do -%>
+    <input type="submit" name="submit" value="submit" />
+    <%= hidden_field "otu_group", "id", "id" => @otu_group.id %>
+    <%= hidden_field "content_type", "id", "id" => @content_type.id %>
+    <% for @otu in @otus %>
+      <%= render(:partial => "edit_content") %>
+    <% end %>
+    <input type="submit" name="submit" value="submit" />
+  <% end -%>
+  <br />
+<% end %>

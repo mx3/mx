@@ -1,0 +1,9 @@
+<h3>Editing object relationship</h3>
+
+<%= form_for(:ontology_class, :url => {:action => :update, :id => @object_relationship}) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <div style="clear:both;">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+

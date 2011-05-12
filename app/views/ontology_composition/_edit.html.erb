@@ -1,0 +1,13 @@
+<!-- need to change so composition is created by new, then just updated here, don't need to know about phenotype -->
+<%= form_tag :remote => true, :url => { :action => 'update_composition', :id => @phenotype, :role => role } do %>
+<span class="lbl3">Genus: </span>
+<input type="text" name="genus" class="bp_form_complete-1362-name" size="100"/>
+<table>
+<!-- need to add differentia -->
+</table>
+<%= submit_tag "Apply" -%>
+<% end %>
+
+<script type="text/javascript">
+formComplete_setup_functions()
+</script>

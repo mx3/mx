@@ -1,0 +1,28 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: otu_groups_otus
+#
+#  otu_group_id :integer(4)      not null
+#  otu_id       :integer(4)      not null
+#  position     :integer(4)
+#  id           :integer(4)      not null, primary key
+#
+
+--- 
+
+otu_groups_otus1: 
+  otu_group_id: "1"
+  otu_id: "1"
+otu_groups_otus2: 
+  otu_group_id: "1"
+  otu_id: "2"
+otu_groups_otus3: 
+  otu_group_id: "1"
+  otu_id: "3"
+otu_groups_otus4: 
+  otu_group_id: "1"
+  otu_id: "4"
+otu_groups_otus5: 
+  otu_group_id: "1"
+  otu_id: "5"

@@ -1,0 +1,31 @@
+<% content_for :head do -%>
+  <%= render(:partial => '/shared/colorPicker_header')  -%>
+<% end %>
+
+<%= error_messages_for 'confidence' %>
+
+<!--[form:confidence]-->
+
+
+<div class="fr"> <label for="confidence_name" class="lbl4">Name</label>
+  <span class="fld"><%= text_field 'confidence', 'name', :size => 80  %></span>
+</div>
+
+<div class="fr"> <label for="confidence_short_name" class="lbl4">Short form </label>
+  <span class="fld"><%= text_field 'confidence', 'short_name', :size => 4  %> <i>4 chars max </i></span>
+</div>
+
+<div class="fr"> <label for="confidence_applicable_model" class="lbl4">Applicable model</label>
+  <span class="fld"><%= select(:confidence, :applicable_model, Confidence::MODELS_WITH_CONFIDENCE.keys.sort.collect{|k| [k, Confidence::MODELS_WITH_CONFIDENCE[k] ] }, { :include_blank => true }) %></span>
+</div>
+
+
+<div class="fr"> <label for="confidence_html_color" class="lbl4">html color</label>
+  <span class="fld"><%= text_field 'confidence', 'html_color', :size => 6, :default => 'dddddd'  %> <i>click to pick</i></span>
+</div>
+
+<script type="text/javascript">
+  new Control.ColorPicker("confidence_html_color");
+</script>
+
+<!--[eoform:confidence]-->

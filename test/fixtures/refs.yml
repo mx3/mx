@@ -1,0 +1,177 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: refs
+#
+#  id             :integer(4)      not null, primary key
+#  namespace_id   :integer(4)
+#  external_id    :integer(4)
+#  serial_id      :integer(4)
+#  valid_ref_id   :integer(4)
+#  language_id    :integer(4)
+#  pdf_id         :integer(4)
+#  year           :integer(2)
+#  year_letter    :string(255)
+#  ref_type       :string(50)
+#  title          :text
+#  volume         :string(255)
+#  issue          :string(255)
+#  pages          :string(255)
+#  pg_start       :string(8)
+#  pg_end         :string(8)
+#  book_title     :text
+#  city           :string(255)
+#  publisher      :string(255)
+#  institution    :string(255)
+#  date           :string(255)
+#  language_OLD   :string(255)
+#  notes          :text
+#  ISBN           :string(14)
+#  DOI            :string(255)
+#  is_public      :boolean(1)
+#  pub_med_url    :text
+#  other_url      :text
+#  full_citation  :text
+#  temp_citation  :text
+#  display_name   :string(2047)
+#  short_citation :string(255)
+#  author         :string(255)
+#  journal        :string(255)
+#  creator_id     :integer(4)      not null
+#  updator_id     :integer(4)      not null
+#  updated_on     :timestamp       not null
+#  created_on     :timestamp       not null
+#
+
+--- 
+ref1: 
+  id: "1"
+  year_letter: 
+  external_id: "1939"
+  author: "Allman, S. L."
+  full_citation: "Allman, S. L. 1939. The Queensland fruit fly. Gazette of New South Wales 50:499-501, 547-9"
+  year: "1939"
+  namespace_id: "0"
+  language_id: 
+  journal: "Gazette of New South Wales"
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+ref2: 
+  id: "2"
+  year_letter: 
+  external_id: "1962"
+  author: "Arambourg, Y."
+  full_citation: "Arambourg, Y. 1962. Observations sur la biologie de Dacus oleae Gmel. et de son
+    parasite Opius concolor Szepl. dans la region de Sfax en 1961-1962 Bulletin de
+    la Societe Entomologique de France 67:197-203"
+  year: "1962"
+  namespace_id: "0"
+  language_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+ref3: 
+  year_letter: 
+  external_id: "1915"
+  author: "Back, E. A. and Pemberton, C. E."
+  id: "3"
+  full_citation: "Back, E. A. and Pemberton, C. E. 1915b. Parasitism among the larvae of the
+    Mediterranean fruit fly (C. capitata) in Hawaii during 1914 Report of the Board
+    of Commissioners of Agriculture and Forestry of the Territory of Hawaii pp.
+    153-161"
+  year: "1915"
+  namespace_id: "0"
+  language_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+ref4: 
+  year_letter: 
+  external_id: "1916"
+  author: "Back, E. A. and Pemberton, C. E."
+  id: "4"
+  full_citation: "Back, E. A. and Pemberton, C. E. 1916. Parasitism among the larvae of the
+    Mediterranean fruit-fly (C. capitata) in Hawaii during 1915 Journal of Economic
+    Entomology 9:306-310"
+  year: "1916"
+  namespace_id: "0"
+  language_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+ref5: 
+  year_letter: 
+  external_id: "2002"
+  author: "Back, E. A. and Pemberton, C. E."
+  id: "5"
+  full_citation: "Back, E. A. and Pemberton, C. E. 1918. The Mediterranean fruit fly in Hawaii
+    United States Department of Agriculture Bulletin 536:1-118"
+  year: "1918"
+  namespace_id: "0"
+  language_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+ref_rendering_test_1: # one author
+  id: "6"
+  year_letter: 
+  external_id: "9999"
+  author: ""
+  title: "This reference title should have one author"
+  volume: 1
+  issue: 2
+  pg_start: 1
+  pg_end: 123
+  full_citation: ""
+  year: "1918"
+  namespace_id: "0"
+  language_id: 
+  serial_id: 1
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %>
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>
+ref_rendering_test_2: # two authors
+  id: "7"
+  year_letter: 
+  external_id: "2001"
+  author: ""
+  title: "This reference title should have two authors"
+  full_citation: "Back, E. A. and Pemberton, C. E. 1918. The Mediterranean fruit fly in Hawaii United States Department of Agriculture Bulletin 536:1-118"
+  year: "1918"
+  volume: 1
+  issue: 2
+  pg_start: 124
+  pg_end: 
+  serial_id: "1"
+  namespace_id: "0"
+  language_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %>
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>
+ref_rendering_test_3: # three authors
+  id: "8"
+  year_letter: 
+  external_id: "2000"
+  title: "This reference title should have three authors"
+  serial_id: "1"
+  author: ""
+  full_citation: ""
+  year: "1918"
+  volume: 1
+  issue: 2
+  pg_start: 125
+  pg_end: 135
+  namespace_id: "0"
+  language_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %>
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>

@@ -1,0 +1,26 @@
+<% primer_pairs_by_gene = @genes.inject({}){|hsh,g| hsh.merge!(g => g.primer_pairs)} -%>
+
+<table>
+  <tr>
+    <th>OTU</th>
+    <th>attached to lot/extract</th>
+    <th>extract_id</th>
+    <th>alt extract_id</th>
+    <%= @genes.collect{|g| content_tag(:th, g.name) + content_tag(:th, '')}.join -%>
+  </tr>
+  <% @extracts.each_with_index do |e, i| -%>
+  <tr>
+    <td><%= (e.tied_determination ? e.tied_determination : "<strong>no determination</strong>") -%></td>
+    <td><%= e.specimen_id.blank? ? 'lot' : 'specimen' -%></td>
+    <td><%= e.id -%></td>
+    <td><%= e.other_extract_identifier -%></td>
+    <% @genes.each do |g| -%>
+    <td> 
+      <% pcrs = primer_pairs_by_gene[g].inject([]){|sum, pair| sum += e.pcrs.by_primer_pair(pair[0], pair[1])}.flatten -%>
+      <%= pcrs.inject(0){|sum, p| sum += p.seqs.with_nucleotides.size} -%>
+    </td>
+    <td> <%= gene_extract_status(e,g) -%> </td>
+    <% end -%>
+  </tr> 
+  <% end -%>
+</table>

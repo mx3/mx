@@ -1,0 +1,38 @@
+<div> <%# don't (re)move me! %>
+  <% if @part == 'center' %>
+    <p>Highlighted cells are those with tagged states, click them to view.</p>
+
+    <table class="mx" style="font-size: 87%">
+      <tr>
+        <th>&nbsp;</th>
+        <% for chr in @chrs %>
+          <th><%= link_to chr.short_name || "-", {:controller => 'chr', :action => 'show', :id => chr.id}, {:alt => chr.name, :title => chr.name} %></th>
+        <% end %>
+      </tr>
+
+      <% i = 0 %>
+      <% for otu in @otus %>
+        <tr class="<%= i == 0 ? "" : "odd" %>">
+          <td><%= link_to(otu.display_name(:type => :matrix_name), :action => 'show', :controller => 'otu', :id => otu.id) %></td>
+          <% for chr in @chrs %>
+            <% url = "/projects/#{@proj.id}/mx/code/#{@mx.id}/#{otu.id}/#{chr.id}" %>
+            <% if @codings_mx[chr.id][otu.id] %>
+              <% t = @codings_mx[chr.id][otu.id].inject(0){|memo, o| memo + o.tags.size } -%>
+              <% if t > 0 %>
+                <td class="mx_cell" style="background: #f6c3d4; "><a href="<%= url %>"><b>T</b></a></td>
+              <% else %>
+                <td class="mx_cell"> </td>
+              <% end %>
+            <% else %>
+              <td class="mx_cell"> </td>
+            <% end %>
+          <% end -%>
+        </tr>
+        <% i == 0 ? i = 1 : i = 0 %>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+
+
+

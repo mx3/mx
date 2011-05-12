@@ -1,0 +1,22 @@
+<% if @proj == nil  %>
+  <%= link_to 'Back', :action => 'index', :controller => 'proj' %>
+<% end %>
+
+<h3>Listing news</h3>
+
+<table>
+  <%= t_col_heads( ["type", "title", "body", "expires on", "modified by", "modified on"] ) %>
+  <% for n in @news %>
+  <%=  t_row({ 'obj' => n, 
+    'cell_data' => [n.news_type,
+    n.title,
+    n.body,
+    n.expires_on,
+    n.m_on,
+    n.m_by] } ) -%>
+    <% end -%>
+  </table>
+
+<% unless @news_pages.first == @news_pages.last -%>
+	<strong>View page <%= pagination_links @news_pages, :window_size => 3 -%></strong>
+<% end -%>

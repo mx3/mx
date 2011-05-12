@@ -1,0 +1,4 @@
+<% if part_by_id.object_relationship %>
+<%=h part_by_id.object_relationship.id%>
+<% end %>
+<b><%= link_to(part_by_id.otu.id, :action => 'show', :controller => 'otu', :id => part_by_id.otu.id) %></b>

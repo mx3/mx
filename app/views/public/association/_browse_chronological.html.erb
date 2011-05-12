@@ -1,0 +1,11 @@
+<div> <%# don't (re)move me! %> 
+  <% if @part == 'center' %>
+    <h3> Associations by Supporting Reference Year </h3>
+    <table>
+      <% for r in @refs %>
+      <tr><td><%= r.year ? link_to(r.year, :action => 'browse_by_year', :year => r.year) : '<i>undefined</i>' %></td><td><%= r.count %></td></tr> 
+      <% end %>
+    </table>
+  <% end %>
+</div>
+

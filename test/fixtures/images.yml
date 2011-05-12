@@ -1,0 +1,52 @@
+# == Schema Information
+# Schema version: 20090930163041
+#
+# Table name: images
+#
+#  id               :integer(4)      not null, primary key
+#  file_name        :string(64)
+#  file_md5         :string(32)
+#  file_type        :string(4)
+#  file_size        :integer(4)
+#  width            :integer(3)
+#  height           :integer(3)
+#  user_file_name   :string(64)
+#  taken_on_year    :integer(2)
+#  taken_on_month   :integer(1)
+#  taken_on_day     :integer(1)
+#  owner            :string(255) # maker
+#  ref_id           :integer(4)
+#  technique        :string(12)
+#  mb_id            :integer(4)
+#  notes            :text
+#  updated_on       :timestamp       not null
+#  created_on       :timestamp       not null
+#  creator_id       :integer(4)      not null
+#  updator_id       :integer(4)      not null
+#  proj_id          :integer(4)      not null
+#  copyright_holder :string(255)
+#  contributor      :string(255)
+#
+
+dummy_image:
+  id: 1
+  file_name: foo
+  file_md5: 9991abcd1cfe995c14546f17abb53634 
+  file_type:
+  file_size: 
+  width:
+  height:
+  user_file_name: foo.bmp
+  taken_on_year:
+  taken_on_month:
+  taken_on_day:
+  maker: 
+  ref_id:
+  technique:
+  mb_id:
+  notes:
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+  proj_id: 1

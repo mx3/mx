@@ -1,0 +1,9 @@
+<div class="box4">
+  <span class="text_title"> All references linking terms to concepts in this project (<%= @refs.size -%>) </span>
+  <div class="content">
+    <p><em> This list is comprised of those references that have been explicitly tied to both a term and a concept therefor linking the two. </em></p>
+    <%= render(:partial => '/public/ref/refs', :locals => {:refs => @refs}) -%>
+  </div>
+</div>
+
+

@@ -1,0 +1,5 @@
+<div id="figure_<%= "#{figure.id}" -%>_img" style="float: left; width:<%= figure.image.width_for_size(size) -%>px; border: 1px solid silver;">
+  <%= update_page_tag do |page|
+   page.call 'createSvgObjRoot', (request.xml_http_request? ? 'ajax' : 'http'), *figure.svgObjRoot_params(:size => size, :link => url_for_zoom_figure(figure) )
+  end %>
+</div>

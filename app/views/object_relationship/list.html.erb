@@ -1,0 +1,19 @@
+<h3>Listing object relationships</h3>
+<table>
+  <tr>
+    <th>Interaction / Complement</th>
+    <th>Notes</th>
+    <th>Sort order</th>
+  </tr>
+  
+<% @object_relationships.each do |objrel| %>
+<tr>
+      <td><%= objrel.colored_display_name -%> </td>
+      <td><%= objrel.notes %></td>
+      <td><%= link_to 'up', :action => 'up', :id => objrel %> <%= link_to 'down', :action => 'down', :id => objrel %></td>
+      <td><%= link_to 'Show', :action => 'show', :id => objrel %></td>
+      <td><%= link_to 'Edit', :action => 'edit', :id => objrel %></td>
+      <td><%= link_to 'Destroy', {:action => 'destroy', :id => objrel}, :method => "post", :confirm => "Are you sure?" %></td>
+  </tr>
+<% end %>
+</table>
