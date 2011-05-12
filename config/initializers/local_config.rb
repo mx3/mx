@@ -36,7 +36,7 @@ DATA_DIR = "#{Rails.root.to_s}/db/dumps/"
 # ExceptionNotification::Notifier.sender_address = %("Application Error" <app.error@mydomain.com>)
 # ExceptionNotification::Notifier.email_prefix = "[Fancy App] "
 
-ADMIN_RECIPIENTS = %w(my.name@mydomain.com)
+
 
 # add your gmaps key here
 GMAPS_KEY_PRODUCTION = 'get a key at the Google maps api site'

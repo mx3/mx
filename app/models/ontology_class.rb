@@ -52,7 +52,7 @@ class OntologyClass < ActiveRecord::Base
   scope :ordered_by_label_name, :order => 'sensus.position, labels.name', :include => [:labels, :sensus]
   scope :ordered_by_xref, :order => 'xref'
 
-  # With
+  # scope conditions need to be re-written
   scope :with_definition_containing, lambda {|*args| {:conditions => ["definition REGEXP ?",  (args.first ?  "[[:<:]]#{args.first}[[:>:]]" : -1)]}} 
   scope :with_populated_xref, :conditions => "xref IS NOT NULL AND xref != ''"
   scope :with_xref_namespace, lambda {|*args| {:conditions => ["xref LIKE ?", args.first + ":%"]}} # :order => 'xref', 
@@ -101,7 +101,7 @@ class OntologyClass < ActiveRecord::Base
   # If you want to obsolete you must provide a reason.
   validate :check_record
   def check_record
-    definition.strip!
+    definition.strip! if !definition.nil?
     errors.add(:definition, "invalid format for definition") if definition =~ /\A\s/i  
     errors.add(:definition, "contains linebreaks") if (definition =~ /\r\n/) || (definition =~ /\r/) || (definition =~ /\n/)
 

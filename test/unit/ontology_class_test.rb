@@ -19,20 +19,20 @@ class OntologyClassTest < ActiveSupport::TestCase
   test "that reasons for obsoleting classes are required" do
     @o = OntologyClass.new(:definition => 'Foos and bars', :written_by => @ref_stub, :is_obsolete => true)
     assert !@o.valid?
-    assert @o.errors.on(:is_obsolete_reason) 
+    assert !@o.errors[:is_obsolete_reason].empty?
 
     @o.is_obsolete_reason = "Some reason."
     assert @o.valid?
 
     @o.is_obsolete = nil
     assert !@o.valid?
-    assert @o.errors.on(:is_obsolete) 
+    assert !@o.errors[:is_obsolete].empty?
   end
 
   test "xref can't be set before an OBO label is provided" do 
     @o = OntologyClass.new(:definition => 'Foos and bars', :written_by => @ref_stub, :xref => 'Foo:123')
     assert !@o.valid? 
-    assert @o.errors.on(:obo_label_id) 
+    assert !@o.errors[:obo_label_id].empty?
   end
 
   test "largest_xref_identifier" do 
@@ -116,7 +116,7 @@ class OntologyClassTest < ActiveSupport::TestCase
   test "records with xrefs can not be destroyed in typical fashion" do
     o = OntologyClass.create!(:definition => 'Foos and bars', :xref => "FOO:123", :written_by => @ref_stub, :obo_label => @label_stub)
     assert !o.destroy
-    assert o.errors.on(:xref) 
+    assert !o.errors[:xref].empty?
   end
 
   test "setting a obo label id automatically adds to self#labels if not present" do
@@ -130,10 +130,10 @@ class OntologyClassTest < ActiveSupport::TestCase
       o = OntologyClass.new(:definition => 'Foos and bars', :written_by => @ref_stub, :xref => 'blorf', :obo_label => @label_stub)
       assert !o.valid?
       o.xref = " asdf:1234" # no preceeding spaces
-      assert o.errors.on(:xref)
+      assert !o.errors[:xref].empty?
       assert !o.valid?
       o.xref = "asdf:1234 " # no postifixed spaces
-      assert o.errors.on(:xref)
+      assert o.errors[:xref]
       assert !o.valid?
       o.xref = "asdf:asdf"  # digits not text 
       assert !o.valid?

@@ -49,7 +49,8 @@ class OntologyRelationship < ActiveRecord::Base
   end
 
   def display_name(options = {})
-    ontology_class1.display_name + " " + object_relationship.display_name + " " + ontology_class2.display_name
+   s = ontology_class1.display_name + " " + object_relationship.display_name + " " + ontology_class2.display_name
+   s.html_safe
   end
 
   # summarizes reference use in the Ontology

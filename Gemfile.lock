@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/adamcooper/vestal_versions.git
+  revision: de048a45ba6ae25e3b726d2cd875996295914556
+  tag: v1.2.2
+  specs:
+    vestal_versions (1.2.2)
+      activerecord (>= 3.0.0)
+      railties (>= 3.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -105,8 +114,6 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
-    vestal_versions (1.0.2)
-      activerecord (>= 2.1.0)
 
 PLATFORMS
   ruby
@@ -129,4 +136,4 @@ DEPENDENCIES
   ruby-graphviz (= 0.9.21)
   rubyMorphbank (~> 0.2.4)
   sass
-  vestal_versions (= 1.0.2)
+  vestal_versions!

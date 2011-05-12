@@ -63,6 +63,8 @@ module ColorHelper
         :index => 0
       }.merge!(options)
 
+    raise if opt[:index].nil?
+
     palettes = {:heat_9 => %w(ffcccccc ff000000 ff0000cc ff00ffff ff00cc00 ffffff00 ffff9900 ffff0000 ffcc00cc),
                 :blues_10 => %w(ffc1d6fd ffadc2e9 ff9aafd5 ff879bc1 ff7488ae ff61749a ff4d6186 ff3a4d73 ff27395f ff14264b ff011338), # 0xC1D6FD - 0x011338
                 :grey_scale => %w(ff000000 ff111111 ff222222 ff333333 ff444444 ff555555 ff666666 ff777777 ff888888 ff999999 ffaaaaaa ffbbbbbb ffcccccc ffdddddd ffeeeeee ffffffff),
@@ -77,7 +79,7 @@ module ColorHelper
                 :primary_6 => %w(ffed1c24, fff26522, ffffde17, ff00a14b, ff21409a, ff7f3f98)
               }
     return nil if !palettes.keys.include?(opt[:palette])
-    return nil if palettes[opt[:palette]].size < opt[:index]
+    return nil if (palettes[opt[:palette]].size < opt[:index])
     opt[:hex] ? palettes[opt[:palette]][opt[:index]] : hexstr_to_signed32int(palettes[opt[:palette]][opt[:index]])
   end
 

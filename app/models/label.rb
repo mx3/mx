@@ -77,12 +77,13 @@ class Label < ActiveRecord::Base
     opt = {
       :type => nil # :list, :head, :select, :selected, :sub_select, :material_examined_verbose
     }.merge!(options.symbolize_keys)
-    case opt[:type]
-    when[:select]
-      name
-    else
-      name
-    end
+   # case opt[:type]
+   # when[:select]
+   #   name
+   # else
+   #   name
+   # end
+   name
   end
 
   def is_homonym?

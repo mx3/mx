@@ -18,12 +18,12 @@ class ObjectRelationship < ActiveRecord::Base
   validates_presence_of :interaction
 
   def display_name(options = {})
-    "#{interaction} / #{complement}"
+    "#{interaction} / #{complement}".html_safe
   end
 
   # TODO deprecate, xml or helper or display_name
   def colored_display_name
-    html_color.blank? ? "#{interaction} / #{complement}": "<div style=\"display: inline; background: ##{html_color}; padding: 0px .2em;\">#{interaction} / #{complement}</div>"  
+    html_color.blank? ? "#{interaction} / #{complement}": "<div style=\"display: inline; background: ##{html_color}; padding: 0px .2em;\">#{interaction} / #{complement}</div>".html_safe
   end
 
   def object_relationship_link_for_show(params = {})

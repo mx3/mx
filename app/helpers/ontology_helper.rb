@@ -19,8 +19,9 @@ module OntologyHelper
   def synonyms_tag_for_OBO(ontology_class)
     syns = ontology_class.obo_label.synonyms_by_ontology_class(ontology_class)
     if syns.size > 0 
-      (syns.collect{|l| "synonym: \"#{l.name}\" #{xrefs_for_synonym_tag_for_OBO(l, ontology_class, @proj)}"}.join("\n")) + "\n"
-    end 
+      s =(syns.collect{|l| "synonym: \"#{l.name}\" #{xrefs_for_synonym_tag_for_OBO(l, ontology_class, @proj)}"}.join("\n")) + "\n"
+      s.html_safe
+    end
   end
 
   # render the collective relationship lines 
@@ -141,7 +142,8 @@ module OntologyHelper
     #TODO convert all uses of this helper method to the lib method? the lib method is needed because the URIs are created in non-view code sometimes
     Ontology::OntologyMethods.obo_uri(obj)
   end
-  
+
+  # TODO: Move to toolbox/string
   def escape_double_quotes(text)
     text.gsub(/"/, '\"')
   end

@@ -16,7 +16,7 @@ source :gemcutter
   gem "ruby-graphviz", '0.9.21', :require => "graphviz"
   gem 'rdf',  '0.3.3'
   gem 'rdf-rdfxml',  '0.3.3.1', :require => 'rdf/rdfxml'  
-  gem 'vestal_versions',  '1.0.2'
+  gem 'vestal_versions',  :tag => 'v1.2.2', :git => 'https://github.com/adamcooper/vestal_versions.git'
  
   # gems that have spawned from mx!
   gem "obo_parser"   ,  "0.3.4"
