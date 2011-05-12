@@ -7,7 +7,7 @@
 
   <div class="box4"><div class="header"> Label used in these class definitions</div>
     <div class="content">
-      <%= render :partial => 'ontology_class/oc', :collection => @proj.ontology_classes.with_definition_containing(@label.name) -%>
+      <%= render :partial => 'ontology_class/oc', :collection => @ocswl -%>
     </div>
   </div>
 

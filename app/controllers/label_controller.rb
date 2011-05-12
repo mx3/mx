@@ -12,10 +12,6 @@ class LabelController < ApplicationController
     render :action => 'list'
   end
 
-  def list_params
-    @label_pages, @labels = paginate :label, :per_page => 25, :conditions => "(labels.proj_id = #{@proj.id})", :include => [:creator, :updator, :ontology_classes, :plural_form]
-  end
-
   def list
     list_params
     if request.xml_http_request?
@@ -53,6 +49,7 @@ class LabelController < ApplicationController
     session['label_view']  = 'show'
     @show = ['show_default']
     @no_right_col = true
+    @ocswl = @proj.ontology_classes.with_definition_containing(@label.name)
     render :action => 'show'
   end
 
@@ -156,17 +153,22 @@ class LabelController < ApplicationController
      end   
   end
 
-  def _show_params
-    id = params[:label][:id] if params[:label]
-    id ||= params[:id]
-    @label = Label.find(id)
-  end
-
   def auto_complete_for_label
     @labels = Label.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
     render :inline => "<%= auto_complete_result_with_ids(@labels,
           'format_obj_for_auto_complete', @tag_id_str) %>"
   end
 
+  protected
+  
+  def _show_params
+    id = params[:label][:id] if params[:label]
+    id ||= params[:id]
+    @label = Label.find(id)
+  end
+
+  def list_params
+    @label_pages, @labels = paginate :label, :per_page => 25, :conditions => "(labels.proj_id = #{@proj.id})", :include => [:creator, :updator, :ontology_classes, :plural_form]
+  end
 
 end

@@ -53,7 +53,13 @@ class OntologyClass < ActiveRecord::Base
   scope :ordered_by_xref, :order => 'xref'
 
   # scope conditions need to be re-written
-  scope :with_definition_containing, lambda {|*args| {:conditions => ["definition REGEXP ?",  (args.first ?  "[[:<:]]#{args.first}[[:>:]]" : -1)]}} 
+  #  scope :with_definition_containing, lambda {|*args| {:conditions => ["definition REGEXP ?",  (args.first ?  "[[:<:]]#{args.first}[[:>:]]" : -1)]}}
+
+  def self.with_definition_containing(string)
+    string ||= -1
+    where('definition REGEXP ?', "[[:<:]]#{string}[[:>:]]")
+  end
+
   scope :with_populated_xref, :conditions => "xref IS NOT NULL AND xref != ''"
   scope :with_xref_namespace, lambda {|*args| {:conditions => ["xref LIKE ?", args.first + ":%"]}} # :order => 'xref', 
   scope :with_figures, lambda {|*args| {:conditions => "ontology_classes.id IN (SELECT addressable_id from figures WHERE addressable_type = 'OntologyClass')"}} 
