@@ -17,9 +17,8 @@ class IdentifierTest < ActiveSupport::TestCase
 
   test "that an empty identifier is not valid" do
     create_a_base_identifier
-    
     assert !@i.valid?
-    assert @i.errors.on(:identifier) 
+    assert @i.errors[:identifier].empty?
   end
 
   test "that an identifier with both identifier and global_identifier is invalid" do
@@ -28,9 +27,9 @@ class IdentifierTest < ActiveSupport::TestCase
     @i.global_identifier = 'http://123.456.789/foo/1'
 
     assert !@i.valid?
-    assert @i.errors.on(:identifier) 
-    assert @i.errors.on(:global_identifier) 
-    assert @i.errors.on(:global_identifier_type) 
+    assert !@i.errors[:identifer].empty?
+    assert !@i.errors[:global_identifier].empty?
+    assert !@i.errors[:global_identifier_type].empty?
   end
 
   test "that an identifier with namespace and identifier is valid" do 
@@ -44,7 +43,7 @@ class IdentifierTest < ActiveSupport::TestCase
     create_a_base_identifier
     @i.global_identifier = 'http://123.456.789/foo/1'
     assert !@i.valid?
-    assert @i.errors.on(:global_identifier_type) 
+    assert !@i.errors[:global_identifier_type].empty?
 
   end
 
@@ -53,7 +52,7 @@ class IdentifierTest < ActiveSupport::TestCase
     @i.global_identifier = 'http://123.456.789/foo/1'
     @i.global_identifier_type = 'some rediculous type that can never be real'
     assert !@i.valid?
-    assert @i.errors.on(:global_identifier_type) 
+    assert !@i.errors[:global_identifier_type].empty?
   end
 
   test "that an identifier with global_identifier and with a valid global_identifier_type is valid" do
@@ -68,7 +67,7 @@ class IdentifierTest < ActiveSupport::TestCase
     @i.global_identifier = 'FOO1234'
     @i.global_identifier_type = 'xref'
     assert !@i.valid?
-    assert @i.errors.on(:global_identifier) 
+    assert !@i.errors[:global_identifier].empty?
   end
 
   test "that properly formatted xref global_identifiers are valid" do
@@ -90,7 +89,7 @@ class IdentifierTest < ActiveSupport::TestCase
     i2.save!
    
     assert !@i.valid?
-    assert @i.errors.on(:identifier)
+    assert !@i.errors[:identifier].empty?
   end
 
   test "that an identfier has a cached_display_name composed of namespace short name" do

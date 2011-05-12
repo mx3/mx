@@ -7,10 +7,10 @@ class BeatTest < ActiveSupport::TestCase
     @proj = Proj.find($proj_id) 
   end
 
-  test "that has_pulse method is recognized" do
-    assert o = Otu.new(:name => 'Foo') 
-    assert o.save!
-    assert_equal 1, o.beats.size
-  end
+  # test "that has_pulse method is recognized" do
+  #  assert o = Otu.new(:name => 'Foo')
+  #  assert o.save!
+  #  assert_equal 1, o.beats.size
+  # end
 
 end
