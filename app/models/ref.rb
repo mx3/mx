@@ -121,7 +121,7 @@ class Ref < ActiveRecord::Base
 
   def save_authors
     authors.each do |a|
-      a.save(false) # passing false ignores validation
+      a.save(:validate => false) # passing false ignores validation
     end
     # true 
   end

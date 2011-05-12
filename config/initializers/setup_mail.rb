@@ -11,3 +11,4 @@ ActionMailer::Base.smtp_settings = {
 
 # ActionMailer::Base.password_reminder_options[:host] => "localhost:3000"
 
+ActionMailer::Base::ADMIN_EMAIL_RECIPIENTS = %w(my.name@mydomain.com)

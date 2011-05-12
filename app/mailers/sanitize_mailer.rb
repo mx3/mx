@@ -5,9 +5,8 @@ class SanitizeMailer < ActionMailer::Base
     @body["old"]    = old_text
     @body["new"]    = new_text
 
-    mail(:to => NOTIFICATION_RECIPIENTS,
+    mail(:to => ADMIN_EMAIL_RECIPIENTS,
          :subject => "[Sanitized] text for project #{$proj_id}, user #{$person_id}")
-
   end
 
 

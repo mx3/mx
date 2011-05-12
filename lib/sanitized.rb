@@ -11,7 +11,7 @@ module Sanitized
           model.logger.info "Sanitized input, sending email: [#{text}]"
           old_level = model.logger.level
           model.logger.level = Logger::WARN
-          SanitizeMailer.deliver_report(text, new_text)
+          SanitizeMailer.report(text, new_text).deliver
           model.logger.level = old_level
         end
       end

@@ -25,7 +25,7 @@ class RefMailer < ActionMailer::Base
       subject    "Please verify deletion of reference '#{old_ref.short_citation}'"
     end
 
-    mail(:to => "#{person.display_name} <#{person.email}>", :subject => subject)
+    mail(:to => "#{recipient.display_name} <#{recipient.email}>", :subject => subject)
   end
 
 end

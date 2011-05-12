@@ -1,7 +1,7 @@
 # this controller is for methods that span the ontology-related classes, there is no Ontology model
 
 require 'ontology/ontology_methods'
-#require 'ontology/batch_load/simple'
+# require 'ontology/batch_load/simple'
 # require 'ontology/batch_load/obo'
 require 'ontology/obo2mx'
 require 'rdf'
