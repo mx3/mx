@@ -13,6 +13,7 @@ class OntologyController < ApplicationController
   verify :method => :post, :only => [:create], :redirect_to => { :action => :index }
 
   def index
+    debugger
     @active_labels = @proj.labels.ordered_by_active_on.limit('10')
   end
 
