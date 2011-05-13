@@ -140,7 +140,7 @@ class FigureMarker < ActiveRecord::Base
       txt.gsub!(/\n/, '')       # compress whitespace
       txt.gsub!(/\t/, '')       # strip tabs
 
-      self.logger.info "incoming figure marker text: #{txt}" + txt
+      # self.logger.info "incoming figure marker text: #{txt}" + txt
 
       s = REXML::Document.new(txt)
 
@@ -153,10 +153,10 @@ class FigureMarker < ActiveRecord::Base
         end 
         e.attributes.keys.each do |k|
           # we likely don't need this, it's cleaned in sanitize!
-          if !ALLOWED_SVG_ATTRIBUTES.include?(k) # see environment.rb
-            e.delete_attribute(k) 
-            next
-          end
+          # if Application::ALLOWED_SVG_ATTRIBUTES.include?(k) # see environment.rb
+          #  e.delete_attribute(k)
+          #  next
+          # end
           # and this is likely necessary either
           e.attribute(k).value.gsub!(/\n+\s*/, "\s") # compress somewhitespace
         end
@@ -166,8 +166,8 @@ class FigureMarker < ActiveRecord::Base
       return false
     end
 
-     self.logger.info "parsed: #{s}"
-     self.logger.info "parsed.to_s: #{s.to_s}"
+     # self.logger.info "parsed: #{s}"
+     # self.logger.info "parsed.to_s: #{s.to_s}"
 
     # have to loop the elements here and check each one individually
     #  return false if !s.elements.first.has_attributes?

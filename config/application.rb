@@ -5,7 +5,7 @@ require File.expand_path('../boot', __FILE__)
 class Time
   class << self
     @@months = ["jan", "feb", "mar", "apr", "may",
-       "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+      "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
     alias :old_utc :utc
     def utc(*args)
       if args.size >= 2
@@ -33,7 +33,7 @@ module Edge
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-     config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/model_extensions #{config.root}/lib/ontology #{config.root}/lib/ontology/batch_load #{config.root}/lib/ontology/visualize #{config.root}/lib/toolbox)
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/model_extensions #{config.root}/lib/ontology #{config.root}/lib/ontology/batch_load #{config.root}/lib/ontology/visualize #{config.root}/lib/toolbox)
 
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -45,7 +45,7 @@ module Edge
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-     config.time_zone = 'UTC' # 'Central Time (US & Canada)'
+    config.time_zone = 'UTC' # 'Central Time (US & Canada)'
     # config.active_record.default_timezone = :utc
     
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
@@ -73,8 +73,6 @@ module Edge
     config.action_view.sanitized_allowed_attributes = ['id', 'target'] # 'version', 'xmlns'
     config.action_view.sanitized_allowed_attributes += ALLOWED_SVG_ATTRIBUTES
 
-    SPECIES_PROFILE_CONTROLLED_VOCABULARY = YAML::load(File.open(File.join(File.dirname(__FILE__), 'authority_files/species_profile_controlled_vocabulary.yml')))
-    BIOPORTAL_AUTOCOMPLETE_ONTOLOGIES = YAML::load(File.open(File.join(File.dirname(__FILE__), 'authority_files/bioportal_autocomplete.yml')))
 
   end
 end

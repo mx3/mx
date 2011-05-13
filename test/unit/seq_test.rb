@@ -1,9 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 
-
 class SeqTest < ActiveSupport::TestCase
-  fixtures :people, :people_projs, :projs
-  self.use_instantiated_fixtures  = true
   
   def setup
     set_before_filter_vars
