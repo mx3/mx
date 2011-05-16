@@ -4,7 +4,7 @@ source :gemcutter
   gem "mysql2", '< 0.3'
   gem "sass"
   gem 'alchemist',  '0.1.2.1'
-  gem 'andand',  '1.3.1'
+  gem 'andand', :git => 'https://github.com/panozzaj/andand.git' # contains a couple of fixes to 1.3.1, seems to be the most uptodate
   gem "bio",  '1.4.1' 
   # gem 'cmess',  '0.2.4' # character encoding guessing
   gem "echoe" # !! This may need to be commented out for recent versions of passenger.
@@ -17,7 +17,10 @@ source :gemcutter
   gem 'rdf',  '0.3.3'
   gem 'rdf-rdfxml',  '0.3.3.1', :require => 'rdf/rdfxml'  
   gem 'vestal_versions',  :tag => 'v1.2.2', :git => 'https://github.com/adamcooper/vestal_versions.git'
- 
+
+  gem 'attachment_fu', :git =>  'https://github.com/jmoses/attachment_fu.git', :branch => 'rails3' 
+
+
   # gems that have spawned from mx!
   gem "obo_parser"   ,  "0.3.4"
   gem "nexus_parser" ,  "1.1.4"

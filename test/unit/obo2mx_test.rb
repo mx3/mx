@@ -8,7 +8,7 @@ class Obo2mxTest < ActiveSupport::TestCase
     @proj = Proj.find($proj_id) 
   end
 
-  def setup_for_OBO_related_tests
+  def setup_for_obo_related_tests
     ObjectRelationship.create!(:interaction => "is_a")
     ObjectRelationship.create!(:interaction => "part_of")
     @proj.reload
@@ -16,7 +16,7 @@ class Obo2mxTest < ActiveSupport::TestCase
   end
   
   test "that compare runs" do 
-    setup_for_OBO_related_tests
+    setup_for_obo_related_tests
     assert compare_result = Ontology::Obo2mx::compare(:file => @obo_file)
 
     assert_equal 3, compare_result[:object_relationships].length # creates 2 default, 1 Typdef
@@ -32,7 +32,6 @@ class Obo2mxTest < ActiveSupport::TestCase
     assert_equal 'A male germ cell that develops from the haploid secondary spermatocytes. Without further division, spermatids undergo structural changes and give rise to spermatozoa.', sensu.ontology_class.definition
     assert_equal 'spermatid', sensu.label.name
     assert  sensu.ref.new_record?
-
     assert orel = compare_result[:ontology_relationships]['CL:0000002'].first
     assert_equal 'CL:0000002', orel.ontology_class1.xref
     assert_equal 'CL:0000010', orel.ontology_class2.xref
@@ -40,11 +39,12 @@ class Obo2mxTest < ActiveSupport::TestCase
     assert orel.new_record?
   end
 
-  test "that import works" do 
-    setup_for_OBO_related_tests
-    assert compare_result = Ontology::Obo2mx::compare(:file => @obo_file)
-    @proj = Proj.create!(:name => 'Test import')
-    assert Ontology::Obo2mx::import(:compare_result => compare_result, :person_id => 1, :proj_id => @proj.id) 
-  end
+  # This test takes a long time, but you should run it.
+  # test "that import works" do
+  #  setup_for_OBO_related_tests
+  #  assert compare_result = Ontology::Obo2mx::compare(:file => @obo_file)
+  #  @proj = Proj.create!(:name => 'Test import')
+  #  assert Ontology::Obo2mx::import(:compare_result => compare_result, :person_id => 1, :proj_id => @proj.id)
+  # end
 
 end

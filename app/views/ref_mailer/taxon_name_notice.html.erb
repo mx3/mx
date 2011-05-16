@@ -9,11 +9,15 @@ one of the taxon names in question.
 To view the reference and finish the process, visit: 
 <% if @new_ref -%>
   <%= url_for :controller => 'ref', :action => 'replace', :id => @old_ref, :replacement_ref_id => @new_ref, 
-       :proj_id => @recipient_person.projs.first.id, :only_path => false, :host => HOME_SERVER %>
+       :proj_id => @recipient_person.projs.first.id,
+       :only_path => false,
+       :host => HOME_SERVER %>
   (click 'replace' if you agree that this is a duplicate)
 <% else -%>
   <%= url_for :controller => 'ref', :action => 'show', :id => @old_ref, 
-       :proj_id => @recipient_person.projs.first.id, :only_path => false, :host => HOME_SERVER %>
+       :proj_id => @recipient_person.projs.first.id,
+       :only_path => false,
+       :host => HOME_SERVER %>
   (click 'destroy' if you agree that is what should be done)
 <% end -%>
 

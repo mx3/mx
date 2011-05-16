@@ -58,6 +58,13 @@ class Label < ActiveRecord::Base
   scope :with_first_letter, lambda {|*args| { :conditions => ["name LIKE ?", (args.first ? "#{args.first}%" : -1)]}} 
   scope :without_plural_forms, :conditions => 'id NOT IN (SELECT plural_of_label_id id FROM labels where plural_of_label_id IS NOT NULL)'
 
+
+  before_validation :strip_whitespace_from_label
+
+  def strip_whitespace_from_label
+    name.strip!
+  end
+
   # "energize" callbacks can't be private
   before_create :energize_create_label
   before_update :energize_update_label

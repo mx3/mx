@@ -296,7 +296,8 @@ class Specimen < ActiveRecord::Base
     s.save
     s.identifiers.destroy_all
 
-    if sd = self.most_recent_determination.andand.clone
+    
+    if sd = self.most_recent_determination
       sd.specimen_id = s
       s.specimen_determinations << sd
     end

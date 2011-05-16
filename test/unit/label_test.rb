@@ -7,13 +7,13 @@ class LabelTest < ActiveSupport::TestCase
     @ref = Ref.create!
   end
 
-  test "valid label forms" do
+  test "stripping whitespace from label before validation" do
     l = Label.new(:name => ' invalid preceeding space')
-    assert !l.valid?
+    l.save
+    assert_equal 'invalid preceeding space', l.name
     l.name = 'invalid postfixed space '
-    assert !l.valid?
-    l.name = 'valid with space in middle'
-    assert l.valid?
+    l.save
+    assert_equal 'invalid postfixed space', l.name
   end
     
 

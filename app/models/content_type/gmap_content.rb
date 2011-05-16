@@ -21,6 +21,5 @@ class ContentType::GmapContent < ContentType
     false
   end
 
-
 end
 

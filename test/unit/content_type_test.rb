@@ -29,8 +29,8 @@ class ContentTypeTest < ActiveSupport::TestCase
   def test_create
     # work here ... 
     c = ContentType.new
-    assert !c.valid?  # not valid without a name
-    assert_equal 'TextContent', c.sti_type 
+    assert !c.valid?, 'content_type is not valid without a name'  # not valid without a name
+    assert_equal 'ContentType::TextContent', c.sti_type
     c.name = "foo"
     assert c.valid?
     assert c.save
@@ -38,9 +38,9 @@ class ContentTypeTest < ActiveSupport::TestCase
   end
 
   def build_some_content_and_stuff
-    @ct = TextContent.new(:name => 'foo')
+    @ct = ContentType::TextContent.new(:name => 'foo')
     @ct.save # can't use create!, we set the type if nil on validation 
-    assert_equal TextContent, @ct.class
+    assert_equal ContentType::TextContent, @ct.class
     @ct.reload
     assert_equal 0, @ct.mapped_chr_groups.count
     
@@ -146,9 +146,6 @@ class ContentTypeTest < ActiveSupport::TestCase
     assert_equal "chr_1: foo; bar. chr_2: blorf. chr_5: NOT CODED.", @ct.natural_language_by_otu(@o1)
   end
 
-
-
-
 end
 
 
@@ -162,23 +159,23 @@ class ContentType::TextContentTest < ActiveSupport::TestCase
   end
   
   def test_create
-    c = TextContent.new
+    c = ContentType::TextContent.new
     assert !c.valid?
     c.name = 'foo'
     assert c.valid? 
     assert c.save!
-    assert_equal 'TextContent', c.sti_type 
+    assert_equal 'ContentType::TextContent', c.sti_type
     assert_equal '/content/c', c.partial
     assert_equal c.partial, c.public_partial
   end
 
   def test_that_subclasses_have_required_methods_and_partials
-    ContentType.custom_types.each do |i| # for each custom content type
-      
-      ct = "ContentType::#{i}".constantize.create! # (:sti_type => i)
+    
+    ContentType::BUILT_IN_TYPES.each do |i| # for each custom content type   
+      ct = i.constantize.create! # (:sti_type => i)
 
       # assert that the necessary methods exist
-      assert_equal "ContentType::#{i}", ct.class.to_s
+      assert_equal i, ct.class.to_s
       assert_equal true, !ct.partial.blank?
       assert_equal true, !ct.public_partial.blank?
       assert_equal true, !ct.display_name.blank?
@@ -202,20 +199,20 @@ class ContentType::TextContentTest < ActiveSupport::TestCase
   end
 
   def test_create_if_needed
-    custom_subclass = "ContentType::#{ContentType.custom_types[0]}"
+    custom_subclass = ContentType::BUILT_IN_TYPES[0]
     
     x = ContentType.create_if_needed(custom_subclass, $proj_id)
-    assert_equal x.sti_type, ContentType.custom_types[0]
+    assert_equal x.sti_type, ContentType::BUILT_IN_TYPES[0]
     assert x.destroy
                                    
     # other usage 
-    t = "ContentType::#{ContentType.custom_types[0]}".constantize.create!
-    assert_equal t.sti_type, ContentType.custom_types[0]
+    t = ContentType::BUILT_IN_TYPES[0].constantize.create!
+    assert_equal t.sti_type, ContentType::BUILT_IN_TYPES[0]
 
     # it's already created - so return the created result
     s = ContentType.create_if_needed(custom_subclass, $proj_id)
     assert_equal s, t
-    assert_equal s.sti_type, ContentType.custom_types[0] 
+    assert_equal s.sti_type, ContentType::BUILT_IN_TYPES[0]
   end
 
   def test_create_many_text_types
@@ -226,9 +223,9 @@ class ContentType::TextContentTest < ActiveSupport::TestCase
     assert_equal 3, ContentType.find_all_by_proj_id($proj_id).size
   end
 
-  def test_attempt_to_create_custom_type_two_times_in_project_fails
-    assert "ContentType::#{ContentType.custom_types[0]}".constantize.create!
-    c = "ContentType::#{ContentType.custom_types[0]}".constantize.new
+  def test_attempt_to_create_built_in_type_two_times_in_project_fails
+    assert ContentType::BUILT_IN_TYPES[0].constantize.create!
+    c = ContentType::BUILT_IN_TYPES[0].constantize.new
     assert !c.valid?
   end
 end
@@ -247,7 +244,7 @@ class ContentType::GmapContentTest < ActiveSupport::TestCase
     assert c.valid?
     assert c.save
     c.reload
-    assert_equal 'GmapContent', c.sti_type
+    assert_equal 'ContentType::GmapContent', c.sti_type
     assert_equal '/otu/page/gmap', c.partial
     assert !c.display_name.blank?
   end

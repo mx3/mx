@@ -18,7 +18,7 @@ class IdentifierTest < ActiveSupport::TestCase
   test "that an empty identifier is not valid" do
     create_a_base_identifier
     assert !@i.valid?
-    assert @i.errors[:identifier].empty?
+    assert !@i.errors[:identifier].empty?
   end
 
   test "that an identifier with both identifier and global_identifier is invalid" do
@@ -26,8 +26,8 @@ class IdentifierTest < ActiveSupport::TestCase
     @i.identifier = '1234'
     @i.global_identifier = 'http://123.456.789/foo/1'
 
-    assert !@i.valid?
-    assert !@i.errors[:identifer].empty?
+    assert !@i.valid?, 'identifier has both identifier and global_identifier filled and is still valid'
+    assert !@i.errors[:identifier].empty?, 'failed to add errors to :identifier when identifier and global_identifier both present'
     assert !@i.errors[:global_identifier].empty?
     assert !@i.errors[:global_identifier_type].empty?
   end
