@@ -72,7 +72,7 @@ class ContentTypeControllerTest < ActionController::TestCase
     assert_equal 5, assigns['content_types'].size # tests that @genes is being set
     assert_equal 5, assigns['proj'].content_types.count
     assert_template('list')
-    assert(request.assigns[:content_types])
+    assert assigns[:content_types]
     assert_equal 'Proj', assigns['proj'].class.to_s # assigns checks variables that were set in last request
     assert_tag :content => "foo" # hmmm- test works but real life fails
   end
