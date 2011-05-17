@@ -54,8 +54,11 @@ class ImageDescription < ActiveRecord::Base
   scope :with_otu_id, lambda {|*args| {:conditions => ["otu_id = ?", args.first ? args.first : -1]}} 
   scope :with_specimen_id, lambda {|*args| {:conditions => ["specimen_id = ?", args.first ? args.first : -1]}} 
   
+<<<<<<< HEAD
 <<<<<<< .merge_file_dbVBnc
 =======
+=======
+>>>>>>> master
   scope :is_public, :conditions => 'is_public is true'
 
 >>>>>>> .merge_file_Tt7hiw

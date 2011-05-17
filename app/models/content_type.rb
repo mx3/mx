@@ -96,6 +96,7 @@ class ContentType < ActiveRecord::Base
   end
 
   # returns a class reference to a ContentType subclass
+<<<<<<< HEAD
 <<<<<<< .merge_file_Nmasm8
   def constantized
     if !self.sti_type == "TextContent"
@@ -105,6 +106,8 @@ class ContentType < ActiveRecord::Base
     end
   end
 =======
+=======
+>>>>>>> master
   # def constantized
   ##  if !self.sti_type == "TextContent"
    # "ContentType::#{sti_type}".constantize
@@ -112,7 +115,10 @@ class ContentType < ActiveRecord::Base
    #   ContentType
    # end
   # end
+<<<<<<< HEAD
 >>>>>>> .merge_file_5cYO21
+=======
+>>>>>>> master
 
   # creates the built in ContentType type if needed
   # returns the ContenType::CustomType
