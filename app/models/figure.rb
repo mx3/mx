@@ -80,7 +80,7 @@ class Figure < ActiveRecord::Base
  
   def save_figure_markers
     figure_markers.each do |a|
-      a.save(true) # passing false ignores validation -- ugh!
+      a.save(:validate => true) # passing false ignores validation -- ugh!
     end
     true
   end

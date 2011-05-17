@@ -21,8 +21,8 @@ class ContentTemplate < ActiveRecord::Base
   has_many :content_types, :through => :content_templates_content_types, :order => 'content_templates_content_types.position'
   has_many :content_templates_content_types, :order => 'position', :dependent => :destroy
   has_many :public_content_types, :through => :content_templates_content_types, :source => 'content_type', :conditions => 'content_types.is_public = true', :order => 'position'
-  has_many :mx_content_types, :through => :content_templates_content_types, :source => 'content_type', :conditions => 'content_types.sti_type != "TextContent"', :order => 'position'
-  has_many :text_content_types, :through => :content_templates_content_types, :source => 'content_type', :conditions => 'content_types.sti_type = "TextContent"', :order => 'position'
+  has_many :mx_content_types, :through => :content_templates_content_types, :source => 'content_type', :conditions => 'content_types.sti_type != "ContentType::TextContent"', :order => 'position'
+  has_many :text_content_types, :through => :content_templates_content_types, :source => 'content_type', :conditions => 'content_types.sti_type = "ContentType::TextContent"', :order => 'position'
 
   validates_uniqueness_of :name, :scope => 'proj_id'
   validates_presence_of :name
@@ -66,7 +66,7 @@ class ContentTemplate < ActiveRecord::Base
     return false if not otu
     p = self.public_content_types
     otu.contents.that_are_editable.each do |c|
-      if p.include?(c.content_type) && c.content_type.class == TextContent
+      if p.include?(c.content_type) && c.content_type.class == ContentType::TextContent
         c.publish
       end
     end
@@ -76,17 +76,17 @@ class ContentTemplate < ActiveRecord::Base
 
   # returns ContentTypes
   def available_text_content_types # available to add
-    ContentType.find(:all, :conditions => {:proj_id => self.proj_id, :sti_type => 'TextContent'}) -  self.content_types 
+    ContentType.find(:all, :conditions => {:proj_id => self.proj_id, :sti_type => 'ContentType::TextContent'}) -  self.content_types
   end
 
   # returns Array of Strings
   def available_mx_content_types2 # not presently included in the template
-    (ContentType.custom_types - self.mx_content_types.collect{|s| s.sti_type})  # .collect{|c| c.gsub(/ContentType::/, "")}
+    (ContentType::BUILT_IN_TYPES - self.mx_content_types.collect{|s| s.sti_type})  # .collect{|c| c.gsub(/ContentType::/, "")}
   end
 
   # returns an Array of ContentType subclasses
   def available_mx_content_types # not presently included in the template
-    (ContentType.custom_types - self.mx_content_types.collect{|s| s.sti_type}).collect{|ct| "ContentType::#{ct}".constantize}  # .collect{|c| c.gsub(/ContentType::/, "")}
+    (ContentType::BUILT_IN_TYPES - self.mx_content_types.collect{|s| s.sti_type}).collect{|ct| ct.constantize}  # .collect{|c| c.gsub(/ContentType::/, "")}
   end
 
   def add_or_remove_content_type(params)

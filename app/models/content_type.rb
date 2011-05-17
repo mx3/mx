@@ -21,6 +21,31 @@ class ContentType < ActiveRecord::Base
   
   self.inheritance_column = 'sti_type'
 
+   # If you create a new subclass you must include the CamelCase sti_name
+  # you need ContentType:: prefix to create new.
+  # Model must end in 'Content'.  Model filename must end in _content (matching model name).
+  BUILT_IN_TYPES = [
+      'ContentType::GmapContent',                           # A google maps map.
+      'ContentType::SpecimensContent',                      # A simple Specimen table, with KML links
+      'ContentType::MaterialExaminedContent',               # A publication ME section
+      'ContentType::TaxonNameHeaderContent',
+      'ContentType::PublicImagesContent',
+      'ContentType::TaxonomicNameSynonymsContent',
+      'ContentType::ReferencedDistributionContent',
+      'ContentType::ReferencedDistributionNativeContent',
+      'ContentType::TaxonomicHistoryContent',
+      'ContentType::TagsOnOtuByKeywordContent',
+      'ContentType::TaxonNameDeprecatedTypeInfoContent',    # THIS IS ONLY FOR EXISTING DATA THAT NEEDS TO STAY LIVE
+      'ContentType::HislHosts'                              # (see above)
+    ]
+
+  ALL_TYPES = BUILT_IN_TYPES + ['ContentType::TextContent']
+
+  # def self.all_types
+  #  self.custom_types << 'TextContent'
+  # end
+
+
   has_many :content_templates, :through => :content_templates_content_types
   has_many :content_templates_content_types, :dependent => :destroy
   has_many :contents
@@ -35,10 +60,9 @@ class ContentType < ActiveRecord::Base
     set_defaults_if_needed
   end
 
-  validate :check_record
-  def check_record
-    errors.add(:sti_type, "Invalid ContentType") if !ContentType.all_types.include?(sti_type)
-    errors.add(:name, "not provided to TextContent type") if sti_type == 'TextContent' && name.blank?
+  validate do
+    errors.add(:sti_type, "Invalid ContentType") if !ContentType::ALL_TYPES.include?(sti_type)
+    errors.add(:name, "not provided to TextContent type") if sti_type == 'ContentType::TextContent' && name.blank?
   end
 
   validate(:on => :create) do
@@ -72,6 +96,7 @@ class ContentType < ActiveRecord::Base
   end
 
   # returns a class reference to a ContentType subclass
+<<<<<<< .merge_file_Nmasm8
   def constantized
     if !self.sti_type == "TextContent"
       "ContentType::#{sti_type}".constantize
@@ -79,13 +104,22 @@ class ContentType < ActiveRecord::Base
       ContentType
     end
   end
+=======
+  # def constantized
+  ##  if !self.sti_type == "TextContent"
+   # "ContentType::#{sti_type}".constantize
+   # else
+   #   ContentType
+   # end
+  # end
+>>>>>>> .merge_file_5cYO21
 
   # creates the built in ContentType type if needed
   # returns the ContenType::CustomType
   # takes a string like "ContentType::CustomContent"  
   def self.create_if_needed(custom_type, proj_id)
     ct = custom_type
-    sti_type = ct.gsub(/ContentType::/, "")  # sti type excluded the superclass
+    sti_type = ct # .gsub(/ContentType::/, "")  # sti type excluded the superclass
     if t = ContentType.find(:first, :conditions => {:proj_id => proj_id, :sti_type => sti_type})
       return t
     else
@@ -93,13 +127,13 @@ class ContentType < ActiveRecord::Base
     end
   end
 
-  def tp_xml(options ={})
-    opt = {:target => ''}.merge!(options)
-    doc = Builder::XmlMarkup.new(opt)
-    doc.foo(self.name)
-    # do stuff!
-    return opt[:target]
-  end
+  # def tp_xml(options ={})
+  #  opt = {:target => ''}.merge!(options)
+  #  doc = Builder::XmlMarkup.new(opt)
+  #  doc.foo(self.name)
+  #  # do stuff!
+  #  return opt[:target]
+  # end
 
   ## Rendering options, see subclassess for overrides 
 
@@ -121,42 +155,18 @@ class ContentType < ActiveRecord::Base
   protected
   
   def set_defaults_if_needed
-    self.sti_type = "TextContent" if self.sti_type.blank?
+    self.sti_type = "ContentType::TextContent" if self.sti_type.blank?
     self.is_public = true if !self.sti_type.blank? # custom content types are public by default (for now)
   end
 
-  def self.all_types
-    self.custom_types << 'TextContent'
-  end
-
-  # If you create a new subclass you must include the CamelCase sti_name 
-  # you need ContentType:: prefix to create new.
-  # Model must end in 'Content'.  Model filename must end in _content (matching model name).
-  def self.custom_types
-    [
-      'GmapContent',              # A google maps map.
-      'SpecimensContent',         # A simple Specimen table, with KML links
-      'MaterialExaminedContent',  # A publication ME section
-      'TaxonNameHeaderContent',
-      'PublicImagesContent',
-      'TaxonomicNameSynonymsContent',
-      'ReferencedDistributionContent',
-      'ReferencedDistributionNativeContent',
-      'TaxonomicHistoryContent',
-      'TagsOnOtuByKeywordContent',
-      'TaxonNameDeprecatedTypeInfoContent',    # THIS IS ONLY FOR EXISTING DATA THAT NEEDS TO STAY LIVE 
-      'HislHosts'                              # (see above)
-    ]
-
-  end
 
 end
 
 ## Subclasses
 
 # the text subclass, the name is user defined
-# NOT YET IMPLEMENTED
-class TextContent < ContentType
+
+class ContentType::TextContent < ContentType
 
   validates_presence_of :name
 

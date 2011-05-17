@@ -153,7 +153,7 @@ class TaxonNameTest < ActiveSupport::TestCase
     @bill.reload
     assert_equal 0, @bill.children.size
     @foo = TaxonName.create_new(:taxon_name => {:name => "Bob", :iczn_group => "genus", :year => '1910', :parent_id => @bill.id})
-    assert_equal "Invalid or no person provided.", @foo.errors['base']
+    assert_equal "Invalid or no person provided.", @foo.errors['base'].first
     # need another test 
   end
 

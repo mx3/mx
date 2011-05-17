@@ -22,16 +22,15 @@ class Identifier < ActiveRecord::Base
   validates_uniqueness_of :global_identifier, :scope => [:proj_id], :allow_blank => true
   validates_uniqueness_of :identifier, :scope => [:proj_id, :namespace_id], :allow_blank => true
 
-  validate :check_record
-  def check_record
-    errors.add(:global_identifier_type, "not a valid identifier type") if !global_identifier.blank? && !GLOBAL_IDENTIFIER_TYPES.include?(global_identifier_type)
-
+  validate do
+    errors.add(:global_identifier_type, "not a valid identifier type") if !global_identifier.blank? && !Identifier::GLOBAL_IDENTIFIER_TYPES.include?(global_identifier_type)
     # essentially subclasses here
     if identifier.blank? && global_identifier.blank? 
       errors.add(:identifier, "provide one of identifier or global identifier") 
     end
 
     if !identifier.blank? && !global_identifier.blank?
+      
       errors.add(:identifier, "provide only one of identifier or global identifier") 
       errors.add(:global_identifier, "provide only one of identifier or global identifier") 
     end
@@ -46,12 +45,12 @@ class Identifier < ActiveRecord::Base
 
     case global_identifier_type
     when 'lsid'
-     # specimens (e.g., urn:lsid:zoobank.org:specimen:21B5F918-E570-4991-8114-149DA17A1B6A)
-     # authors (urn:lsid:zoobank.org:author:7FE1A5BC-A6C3-4055-98EC-9B54A3A5A786)
-     # taxon names (urn:lsid:zoobank.org:act:0E15D71A-8320-48BE-8683-6C6A2FFE7EAE)
-     # references (urn:lsid:zoobank.org:pub:265CC10F-1D77-4CEE-A869-B9A60E4D8308)
-     # http://biocol.org/<LSID string here>
-     # http://zoobank.org/<LSID string here>
+      # specimens (e.g., urn:lsid:zoobank.org:specimen:21B5F918-E570-4991-8114-149DA17A1B6A)
+      # authors (urn:lsid:zoobank.org:author:7FE1A5BC-A6C3-4055-98EC-9B54A3A5A786)
+      # taxon names (urn:lsid:zoobank.org:act:0E15D71A-8320-48BE-8683-6C6A2FFE7EAE)
+      # references (urn:lsid:zoobank.org:pub:265CC10F-1D77-4CEE-A869-B9A60E4D8308)
+      # http://biocol.org/<LSID string here>
+      # http://zoobank.org/<LSID string here>
 
       errors.add(:global_identifier, 'lsids must start with "urn:lsid"') if not (global_identifier =~ /\Aurn\:lsid/)
     when 'uri'

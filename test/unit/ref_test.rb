@@ -48,7 +48,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 
 class RefTest < ActiveSupport::TestCase
   
-  fixtures :refs, :serials, :authors, :people, :taxon_names, :people_taxon_names
+  fixtures :refs, :serials, :authors, :people, :taxon_names, :people_taxon_names, :people_projs
   
   def setup
     set_before_filter_vars

@@ -19,6 +19,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 
 class ContentTemplateTest < ActiveSupport::TestCase
   fixtures :content_templates, :contents, :images, :otus
+
   def setup
     $proj_id = 1
     $person_id = 1
@@ -72,21 +73,21 @@ class ContentTemplateTest < ActiveSupport::TestCase
 
   def test_available_mx_content_types
     ct = ContentTemplate.create!(:name => 'foo')
-    cont_type = "ContentType::#{ContentType.custom_types[0]}".constantize.create!(:sti_type => ContentType.custom_types[0])
+    cont_type = ContentType::BUILT_IN_TYPES[0].constantize.create!() # :sti_type => ContentType.custom_types[0]
 
-    assert_equal  ContentType.custom_types.size, ct.available_mx_content_types.size 
+    assert_equal ContentType::BUILT_IN_TYPES.size, ct.available_mx_content_types.size
 
     ct.content_types << cont_type
     ct.save
     ct.reload
     assert_equal 1, ct.mx_content_types.size 
 
-    assert_equal ContentType.custom_types.size - 1, ct.available_mx_content_types.size  
+    assert_equal ContentType::BUILT_IN_TYPES.size - 1, ct.available_mx_content_types.size
   end
   
   def test_mx_content_types
     ct = ContentTemplate.create!(:name => 'foo')
-    cont_type = "ContentType::#{ContentType.custom_types[0]}".constantize.create!(:sti_type => ContentType.custom_types[0])
+    cont_type = ContentType::BUILT_IN_TYPES[0].constantize.create!() # :sti_type => ContentType.custom_types[0]
     assert_equal 0, ct.content_types.size
     ct.content_types << cont_type
     ct.save
@@ -141,7 +142,7 @@ class ContentTemplateTest < ActiveSupport::TestCase
     $proj_id = 2912
     o = Otu.create!(:name => 'foo')
     ctype1 = ContentType.create!(:name => 'foo', :is_public => true)
-    ctype2 = "ContentType::#{ContentType.custom_types[0]}".constantize.create!(:sti_type => ContentType.custom_types[0])
+    ctype2 = ContentType::BUILT_IN_TYPES[0].constantize.create!() # :sti_type => ContentType.custom_types[0]
   
     assert_equal true, ctype2.is_public # custom types are public by default
 

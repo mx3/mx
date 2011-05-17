@@ -63,7 +63,7 @@ class Image < ActiveRecord::Base
 
   def validate_license
      if !CONTENT_LICENSES.keys.include?(license)
-        errors.add(license, ' image must have a valid license, if you want another option added contact an admin')
+        errors.add(:license, ' image must have a valid license, if you want another option added contact an admin')
      end
   end 
 

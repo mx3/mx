@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 
-
 class OntologyClassTest < ActiveSupport::TestCase
 
   # Several of the tests here are mashups of OntologyClass and OntologyRelationship, if in doubt place place/leave these here

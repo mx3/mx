@@ -201,7 +201,7 @@ class Specimen < ActiveRecord::Base
   def verbose_material_examined_string(options = {}) # :yields: String, as used in /lib/material_examined.rb
     s = ''
     if options[:otu]
-      s << "#{self.type_status_by_otu(options[:otu]).collect{|ts| ts.downcase.capitalize}.join(', POSSIBLE ERROR, ASSIGNED TYPE STATUS ADDITIONALLY: ')}"
+      s << "#{self.type_status_by_otu(options[:otu])}".downcase.capitalize
     elsif options[:taxon_name]
       s << "#{self.type_assignments.with_taxon_name_assignment(options[:taxon_name]).collect{|ts| ts.type_type.downcase.capitalize}}"  # review
     end
@@ -276,9 +276,10 @@ class Specimen < ActiveRecord::Base
   end
 
   # Returns this specimens type status string, or false, for the given Otu
-  # Rules- if Otu#taxon_name.blank? then all statuses NOT tied to a taxon name are returned (Pragmatically there should only be one pre-press assignment, otherwise you've got some messed up decision making)
+  # Rules- if Otu#taxon_name.blank? then all statuses NOT tied to a taxon name are returned
+  #         (Pragmatically there should only be one pre-press assignment, otherwise you have some messed up decision making)
   #        if Otu#taxon_name then grab the status for that TaxonName
-  def type_status_by_otu(otu)
+  def type_status_by_otu(otu) # :yields: String || false
     if otu.taxon_name.blank?
       return self.type_specimens.without_taxon_name_assignment.collect{|t| t.type_type}.join(",") if self.type_assignments.count > 0
     else
@@ -295,7 +296,8 @@ class Specimen < ActiveRecord::Base
     s.save
     s.identifiers.destroy_all
 
-    if sd = self.most_recent_determination.andand.clone
+    
+    if sd = self.most_recent_determination
       sd.specimen_id = s
       s.specimen_determinations << sd
     end

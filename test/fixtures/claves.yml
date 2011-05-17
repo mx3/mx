@@ -41,7 +41,7 @@ head_cpl:
   creator_id: "1"
   updator_id: "1"
   created_on: 2006-09-22 14:10:31
-l1-1:
+cl11:
   id: 2
   parent_id: 1
   position: 1
@@ -56,7 +56,7 @@ l1-1:
   creator_id: "1"
   updator_id: "1"
   created_on: 2006-09-22 14:10:31
-l1-2:
+cl12:
   id: 3
   parent_id: 1
   position: 2
@@ -71,7 +71,7 @@ l1-2:
   creator_id: "1"
   updator_id: "1"
   created_on: 2006-09-22 14:10:31
-l2-1:
+cl21:
   id: 4
   parent_id: 2
   position: 1
@@ -86,7 +86,7 @@ l2-1:
   creator_id: "1"
   updator_id: "1"
   created_on: 2006-09-22 14:10:31
-l2-2:
+cl22:
   id: 5
   parent_id: 2
   position: 2
@@ -101,7 +101,7 @@ l2-2:
   creator_id: "1"
   updator_id: "1"
   created_on: 2006-09-22 14:10:31
-l3-1:
+cl31:
   id: 6
   parent_id: 5
   position: 1
@@ -116,7 +116,7 @@ l3-1:
   creator_id: "1"
   updator_id: "1"
   created_on: 2006-09-22 14:10:31
-l3-2:
+cl32:
   id: 7
   parent_id: 5
   position: 2

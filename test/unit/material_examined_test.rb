@@ -2,9 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 require File.expand_path(File.dirname(__FILE__) + "/../../lib/material_examined")
 
 class MaterialExaminedTest < ActiveSupport::TestCase
-  fixtures  :people, :people_projs, :projs
-  self.use_instantiated_fixtures  = true
-  
+
   def setup
     set_before_filter_vars
     @person =  Person.find($person_id) 

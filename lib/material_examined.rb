@@ -113,7 +113,7 @@ class MaterialExamined
       v[s.sex] += 1
     end
     sx = []
-    v.keys.each do |k|
+    v.keys.sort.each do |k|
       sx << (v[k] == 1 ? "1 #{k}" : "#{v[k]} #{k}s")
     end
    

@@ -47,9 +47,9 @@ class Ref < ActiveRecord::Base
   require 'reph'
   has_standard_fields
   
- include ModelExtensions::Taggable
- include ModelExtensions::Identifiable
- include ModelExtensions::DefaultNamedScopes
+  include ModelExtensions::Taggable
+  include ModelExtensions::Identifiable
+  include ModelExtensions::DefaultNamedScopes
 
   before_save :update_short_citation
   after_update :save_authors 
@@ -111,7 +111,7 @@ class Ref < ActiveRecord::Base
 
   # Adds Ref#total as well
   def self.by_author_first_letter_and_proj_id(letter = "a", proj_id = nil)
-          Ref.find_by_sql(["SELECT COUNT(refs.id) AS total, authors.last_name
+    Ref.find_by_sql(["SELECT COUNT(refs.id) AS total, authors.last_name
                FROM refs LEFT JOIN authors ON refs.id = authors.ref_id
                LEFT JOIN projs_refs ON refs.id = projs_refs.ref_id
                LEFT JOIN projs ON projs.id = projs_refs.proj_id
@@ -142,7 +142,7 @@ class Ref < ActiveRecord::Base
   def display_name(options = {})
     @opt = {
       :type => :cached # :new_record
-     }.merge!(options.symbolize_keys)
+    }.merge!(options.symbolize_keys)
 
     s = ''
 
@@ -168,14 +168,14 @@ class Ref < ActiveRecord::Base
     end 
   end
 
- ## returns an Array of Strings of all other possible xrefs for this reference
- #def alternate_xrefs
- #  xrefs = [] 
- #  xrefs << "DOI:#{self.DOI}" unless self.DOI.blank?
- #  xrefs << "ISBN:#{self.ISBN}" unless self.ISBN.blank?
- #  xrefs << "#{self.other_url}" unless self.other_url.blank?
- #  xrefs    
- #end
+  ## returns an Array of Strings of all other possible xrefs for this reference
+  #def alternate_xrefs
+  #  xrefs = []
+  #  xrefs << "DOI:#{self.DOI}" unless self.DOI.blank?
+  #  xrefs << "ISBN:#{self.ISBN}" unless self.ISBN.blank?
+  #  xrefs << "#{self.other_url}" unless self.other_url.blank?
+  #  xrefs
+  #end
 
   def in_proj?(proj)
     return true if ProjsRef.find_by_proj_id_and_ref_id(proj.id, self.id)
@@ -183,9 +183,9 @@ class Ref < ActiveRecord::Base
   end
 
   def can_edit?(person_id)
-   sql = Person.find(person_id).projs.collect{|p| "proj_id = #{p.id}"}.join(" OR ")
-   return true if ProjsRef.find_by_ref_id(self.id, :conditions => sql)
-   false
+    sql = Person.find(person_id).projs.collect{|p| "proj_id = #{p.id}"}.join(" OR ")
+    return true if ProjsRef.find_by_ref_id(self.id, :conditions => sql)
+    false
   end
 
   ## Merging and cross project code ##
@@ -300,11 +300,11 @@ class Ref < ActiveRecord::Base
   # this gets called on update through has_standard_fields
   def update_cached_display_name
     if !self.title.blank? && !self.year.blank? && !(self.authors.size == 0) # then render from parts
-     s = render_full_citation
+      s = render_full_citation
     elsif !full_citation.blank?
-     s = full_citation
+      s = full_citation
     else 
-     s = temp_citation
+      s = temp_citation
     end
 
     s = 'Reference incomplete.' if s.blank?
@@ -312,14 +312,14 @@ class Ref < ActiveRecord::Base
     true
   end
 
- # DEPRECATED FOR IDENTIFIERS
- # def DOI_url(link_txt = 'resolve DOI')
- #   if self.DOI.blank?
- #     ''
- #   else
- #     '<a href="http://dx.doi.org/' + self.DOI + '" target="_blank">' + link_txt + '</a>'
- #   end
- # end
+  # DEPRECATED FOR IDENTIFIERS
+  # def DOI_url(link_txt = 'resolve DOI')
+  #   if self.DOI.blank?
+  #     ''
+  #   else
+  #     '<a href="http://dx.doi.org/' + self.DOI + '" target="_blank">' + link_txt + '</a>'
+  #   end
+  # end
 	
   ## Rendering ##
 
@@ -328,19 +328,19 @@ class Ref < ActiveRecord::Base
   end
 
   def authors_for_display 
-   as = self.authors.reject{|a| a.auth_is != "author"} 
+    as = self.authors.reject{|a| a.auth_is != "author"}
    
-   return '' if !as 
+    return '' if !as
 
     case as.size
-      when 0
-        author.blank? ? "<i>no authors given</i>" : author # DEPRECATED 
-      when 1
-        as.first.display_name
-      when 2 # could likely be merged with below
-        as.first.display_name + ", and " + as.last.display_name_initials_first
-      else
-       as.first.display_name + ", " + as[1..(as.size - 2)].collect{|o| o.display_name_initials_first}.join(", ") + ", and " +  as.last.display_name_initials_first
+    when 0
+      author.blank? ? "<i>no authors given</i>" : author # DEPRECATED
+    when 1
+      as.first.display_name
+    when 2 # could likely be merged with below
+      as.first.display_name + ", and " + as.last.display_name_initials_first
+    else
+      as.first.display_name + ", " + as[1..(as.size - 2)].collect{|o| o.display_name_initials_first}.join(", ") + ", and " +  as.last.display_name_initials_first
     end 
   end
 
@@ -373,14 +373,14 @@ class Ref < ActiveRecord::Base
     else
       
       case as.size
-        when 0
-          # do nothing
-        when 1
-          s =  as.first.last_name
-        when 2 # could likely be merged with below
-          s = as.first.last_name + " and " + as[1].last_name # weird, as.last broken in Rails 2.1
-        else
-          s = as[0..(as.size - 1)].collect{|o| o.last_name}.join(", ") + ", and " +  as.last.last_name
+      when 0
+        # do nothing
+      when 1
+        s =  as.first.last_name
+      when 2 # could likely be merged with below
+        s = as.first.last_name + " and " + as[1].last_name # weird, as.last broken in Rails 2.1
+      else
+        s = as[0..(as.size - 1)].collect{|o| o.last_name}.join(", ") + ", and " +  as.last.last_name
       end 
       s += ", #{year}" if year
     end
@@ -393,75 +393,75 @@ class Ref < ActiveRecord::Base
  
   # TODO: deprecate to display_name(:type => :authors_year) 
   def authors_year
-      s = ''
-      s = authors_for_display	
-      s = editors_for_display if s == '<i>no authors given</i>'
-      s += '.' unless s =~ /\.$/      
-      s += " #{self.year}" if !self.year.blank?
-      # TODO: make inclusion of author_year letter a property of a project parameter ... this is terrible right now
-      s += "#{year_letter}" if ( !year_letter.blank? && projs.map(&:id).include?(16))
-      s += "."
+    s = ''
+    s = authors_for_display
+    s = editors_for_display if s == '<i>no authors given</i>'
+    s += '.' unless s =~ /\.$/
+    s += " #{self.year}" if !self.year.blank?
+    # TODO: make inclusion of author_year letter a property of a project parameter ... this is terrible right now
+    s += "#{year_letter}" if ( !year_letter.blank? && projs.map(&:id).include?(16))
+    s += "."
   end
   
   def authors_year_title
-      s = ''
-      s = authors_year
-      s += (" #{title.gsub(/\./, '')}.") if title? # no punctuation in title (hmm- likely not safe assumption)
-      return s
+    s = ''
+    s = authors_year
+    s += (" #{title.gsub(/\./, '')}.") if title? # no punctuation in title (hmm- likely not safe assumption)
+    return s
   end
  
   def render_full_citation # renders a display_name from parts 
     case ref_type
-      when 'foo'
-        return 'curious, your ref is a foo'
+    when 'foo'
+      return 'curious, your ref is a foo'
         
-      when 'Xref' 
-        return "TODO: self.title"
+    when 'Xref'
+      return "TODO: self.title"
 
-      when 'Book Section'
-        s = authors_year_title
-        if not pg_start.blank?
-          if !pg_start.blank? && !pg_end.blank?
-            s << " Pp. #{pg_start}-#{pg_end}"
-          else
-            s << " P. #{pg_start}" # you can no longer have page end by itself
-          end
-        end 
-        
-        s << " in: #{book_title}. " unless book_title.blank? 
-        s << editors_for_display + " "
-        s << [publisher, city].reject(&:blank?).join(",")
-        s << ". #{pages} pp" if pages
-        
-      when 'Thesis'
-        s = authors_year_title
-        s <<  " #{institution}, #{city}, #{pages} pp"
-        
-      when 'Book'
-        s = authors_year_title
-        s << " #{publisher}" unless publisher.blank?
-        s << ", " unless publisher.blank? and not city.blank?
-        s << "#{city}" unless city.blank?
-        s << "." unless city.blank? or not publisher.blank?
-        s << " #{pages} pp" unless pages.blank?
-       
-       # when "Conference Proceedings"
-        
-      else # nothing special - render as serial/journal article
-        s = authors_year_title	
-        if serial_id?
-          s << " " + serial.name
-        elsif journal
-          s << " " + journal
-        end
-        s << " #{volume}" if volume?	
-        # s << ("(" + issue.gsub(/([\(\)\s])/, '') + ")") if issue? # () and whitespace should not be included in issue
-        if pg_start?
-          s << (pg_end? ? ":#{pg_start}-#{pg_end}" : (":#{pg_start}"))
+    when 'Book Section'
+      s = authors_year_title
+      if not pg_start.blank?
+        if !pg_start.blank? && !pg_end.blank?
+          s << " Pp. #{pg_start}-#{pg_end}"
         else
-          s <<  ":#{pages}" if pages?
+          s << " P. #{pg_start}" # you can no longer have page end by itself
         end
       end
+        
+      s << " in: #{book_title}. " unless book_title.blank?
+      s << editors_for_display + " "
+      s << [publisher, city].reject(&:blank?).join(",")
+      s << ". #{pages} pp" if pages
+        
+    when 'Thesis'
+      s = authors_year_title
+      s <<  " #{institution}, #{city}, #{pages} pp"
+        
+    when 'Book'
+      s = authors_year_title
+      s << " #{publisher}" unless publisher.blank?
+      s << ", " unless publisher.blank? and not city.blank?
+      s << "#{city}" unless city.blank?
+      s << "." unless city.blank? or not publisher.blank?
+      s << " #{pages} pp" unless pages.blank?
+       
+      # when "Conference Proceedings"
+        
+    else # nothing special - render as serial/journal article
+      s = authors_year_title
+      if serial_id?
+        s << " " + serial.name
+      elsif journal
+        s << " " + journal
+      end
+      s << " #{volume}" if volume?
+      # s << ("(" + issue.gsub(/([\(\)\s])/, '') + ")") if issue? # () and whitespace should not be included in issue
+      if pg_start?
+        s << (pg_end? ? ":#{pg_start}-#{pg_end}" : (":#{pg_start}"))
+      else
+        s <<  ":#{pages}" if pages?
+      end
+    end
     return s + '.'
   end
 
@@ -481,11 +481,11 @@ class Ref < ActiveRecord::Base
     
     if as # still get hits when editors are there
       s = case as.size
-        when 0..2
-          as.collect{|a| a.last_name}.join(" &amp; ")
-        else
-          as[0].last_name + " et al."
-        end
+      when 0..2
+        as.collect{|a| a.last_name}.join(" &amp; ")
+      else
+        as[0].last_name + " et al."
+      end
     else
       s = 'unknown'
     end 
@@ -495,15 +495,15 @@ class Ref < ActiveRecord::Base
 
   def text_citation
     s = case auths.size
-      when 0
-        '(No authors given)'
-      when 1
-        (auths.first.last_name? ? auths.first.last_name : 'NO LAST NAME')  + " (#{year})"
-      when 2
-        auths.collect{|a| a.last_name? ? a.last_name : 'NO LAST NAME' }.join(" and ") +  " (#{year})"
-      else
-        (auths[0].last_name? ? auths[0].last_name : 'NO LAST NAME') + " et al. (#{year})"
-      end
+    when 0
+      '(No authors given)'
+    when 1
+      (auths.first.last_name? ? auths.first.last_name : 'NO LAST NAME')  + " (#{year})"
+    when 2
+      auths.collect{|a| a.last_name? ? a.last_name : 'NO LAST NAME' }.join(" and ") +  " (#{year})"
+    else
+      (auths[0].last_name? ? auths[0].last_name : 'NO LAST NAME') + " et al. (#{year})"
+    end
   end
 
   def self.new_from_endnote (options = {})
@@ -642,10 +642,10 @@ class Ref < ActiveRecord::Base
     puts "counting"
     Ref.transaction do 
       begin
-      Ref.find(:all, :conditions => "length(ocr_text) > 0").each do |r|
-       print "#{r.id.to_s} ... "
-       r.count_labels(proj_id)
-      end
+        Ref.find(:all, :conditions => "length(ocr_text) > 0").each do |r|
+          print "#{r.id.to_s} ... "
+          r.count_labels(proj_id)
+        end
       rescue
         return false
       end

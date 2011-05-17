@@ -1,33 +1,8 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: specimens
-#
-#  id                 :integer(4)      not null, primary key
-#  ce_id              :integer(4)
-#  temp_ce            :text
-#  parent_specimen_id :integer(4)
-#  repository_id      :integer(4)
-#  dna_usable         :boolean(1)
-#  notes              :text
-#  sex                :string(64)
-#  stage              :string(64)
-#  proj_id            :integer(4)      not null
-#  creator_id         :integer(4)      not null
-#  updator_id         :integer(4)      not null
-#  updated_on         :timestamp       not null
-#  created_on         :timestamp       not null
-#  preparations       :text
-#  disposition        :string(255)
-#
 
 require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 
-
 class SpecimenTest < ActiveSupport::TestCase
-  fixtures :specimens, :people, :people_projs, :projs
-  self.use_instantiated_fixtures  = true
-  
+
   def setup
     set_before_filter_vars
     @namespace = Namespace.new(:name => 'Foo', :last_loaded_on =>  5.days.ago.to_date.to_s(:db), :short_name => 'Bar' )
@@ -114,11 +89,6 @@ class SpecimenTest < ActiveSupport::TestCase
     bar.reload
     assert_equal @o, bar.specimen_determinations.first.otu
   end
-
-
-  # type status
-
-  # TODO: strip all the deleted fields from the VIEWS
 
 end
 

@@ -8,6 +8,16 @@ GIT
       railties (>= 3.0.0)
 
 GIT
+<<<<<<< .merge_file_yVcKQk
+=======
+  remote: https://github.com/jmoses/attachment_fu.git
+  revision: 1f5e4c0d79990faeebcf07a8dd7bf54fe8b127dd
+  branch: rails3
+  specs:
+    attachment_fu (0.0.2)
+
+GIT
+>>>>>>> .merge_file_10h7Jq
   remote: https://github.com/panozzaj/andand.git
   revision: f2f43e542d82fdf4f605922da62ad3adb2cd4fe7
   specs:
@@ -126,7 +136,12 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   alchemist (= 0.1.2.1)
+<<<<<<< .merge_file_yVcKQk
   andand (= 1.3.1)!
+=======
+  andand!
+  attachment_fu!
+>>>>>>> .merge_file_10h7Jq
   bio (= 1.4.1)
   echoe
   geokit

@@ -73,7 +73,7 @@ module Ontology
             end
           end
 
-          SYNONYM_TYPES.each do |s|
+          Ontology::Obo2mx::SYNONYM_TYPES.each do |s|
             term.tags_named(s).each do |v|
               v.xrefs.each do |xref|
                 if !refs[xref]
@@ -99,7 +99,7 @@ module Ontology
         end
 
         # TODO: deprecate sudo 1.0 support
-        SYNONYM_TYPES.each do |s|
+        Ontology::Obo2mx::SYNONYM_TYPES.each do |s|
           term.tags_named(s).each do |v|
             lbl = v.value
             if !labels[lbl]
@@ -138,7 +138,7 @@ module Ontology
           end
 
 
-          SYNONYM_TYPES.each do |s|
+          Ontology::Obo2mx::SYNONYM_TYPES.each do |s|
             term.tags_named(s).each do |v|
               lbl = v.value # .gsub(/[^\w\s]/, '_')
               if v.xrefs.size > 0
@@ -160,18 +160,19 @@ module Ontology
               end
             end
           end
+        end
 
-          ontology_relationships.merge!(term.id.value => [])
-          (['is_a', 'disjoint_from'] + object_relationships.values.collect{|o| o.interaction} ).uniq.each do |rel|
-            term.relationships.each do |r|
-              ontology_relationships[term.id.value].push( OntologyRelationship.new(
-                  :ontology_class1 => ontology_classes[term.id.value],
-                  :ontology_class2 => ontology_classes[r[1]],
-                  :object_relationship => object_relationships[r[0]])
-              )
-            end
+        ontology_relationships.merge!(term.id.value => [])
+        (['is_a', 'disjoint_from'] + object_relationships.values.collect{|o| o.interaction} ).uniq.each do |rel|
+          term.relationships.each do |r|
+            ontology_relationships[term.id.value].push( OntologyRelationship.new(
+                :ontology_class1 => ontology_classes[term.id.value],
+                :ontology_class2 => ontology_classes[r[1]],
+                :object_relationship => object_relationships[r[0]])
+            )
           end
         end
+        
 
       end
       {:ontology_classes => ontology_classes, :refs => refs, :labels => labels, :ontology_relationships => ontology_relationships, :sensus => sensus, :object_relationships => object_relationships} 

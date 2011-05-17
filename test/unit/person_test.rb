@@ -14,11 +14,11 @@ class PersonTest < ActiveSupport::TestCase
     @p = make_new_user
     @p.password = @p.password_confirmation = "too_sml" 
     assert !@p.save
-    assert @p.errors.invalid?('password')
+    assert @p.errors[:password]
   end
 
   def test_updating_preferences_does_not_reset_password
-    @p = Person.new(:first_name => "Foo", :password_confirmation => "12345678", :password => "12345678", :last_name => "Bar", :email => "foo@bar.com", :login => "fbar", :email => "foo@bar.com")
+    @p = Person.new(:first_name => "Foo", :password_confirmation => "12345678", :password => "12345678", :last_name => "Bar", :login => "fbar", :email => "foo@bar.com")
     assert @p.save
 
     foo = @p.password
@@ -64,15 +64,15 @@ class PersonTest < ActiveSupport::TestCase
 
     u.password = u.password_confirmation = "tiny"
     assert !u.save
-    assert u.errors.invalid?('password')
+    assert u.errors[:password]
 
     u.password = u.password_confirmation = "hugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehuge"
     assert !u.save     
-    assert u.errors.invalid?('password')
+    assert u.errors[:password]
         
     u.password = u.password_confirmation = ""
     assert !u.save    
-    assert u.errors.invalid?('password')
+    assert u.errors[:password]
         
     u.password = u.password_confirmation = "bobs_secure_password"
     assert u.save     
@@ -88,20 +88,19 @@ class PersonTest < ActiveSupport::TestCase
 
     u.login = "tny"
     assert !u.save     
-    assert u.errors.invalid?('login')
+    assert u.errors[:login]
     
     u.login = "hugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhugebobhug"
     assert !u.save     
-    assert u.errors.invalid?('login')
+    assert u.errors[:login]
 
     u.login = ""
     assert !u.save
-    assert u.errors.invalid?('login')
+    assert u.errors[:login]
 
     u.login = "okbob"
     assert u.save
-    assert u.errors.empty?
-  
+    assert u.errors.empty? 
   end
 
   def test_collision

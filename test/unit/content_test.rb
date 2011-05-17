@@ -35,10 +35,10 @@ class ContentTest < ActiveSupport::TestCase
 
     @content = Content.new( :text => @text, :content_type => @ct)
     assert !@content.valid?
-    assert @content.errors.invalid?(:otu)
+    assert !@content.errors[:otu].empty?
 
     @content.otu = @otu
-    assert true, @content.valid?
+    assert @content.valid?
   end
 
   def test_that_text_gets_sanitized

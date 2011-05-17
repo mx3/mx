@@ -8,9 +8,9 @@ module Sanitized
         text = model.send(c.name)
         if text and text != (new_text = model.white_list_sanitizer.sanitize(text)) # updated for 2.2
           model.send("#{c.name}=", new_text)
-          model.logger.info "Sanitized input, sending email: [#{text}]"
           old_level = model.logger.level
           model.logger.level = Logger::WARN
+          model.logger.info "Sanitized input, sending email: [#{text}]"
           SanitizeMailer.report(text, new_text).deliver
           model.logger.level = old_level
         end
