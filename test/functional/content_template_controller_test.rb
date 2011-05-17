@@ -8,7 +8,7 @@ class ContentTemplateController; def rescue_action(e) raise e end; end
 class ContentTemplateControllerTest < ActionController::TestCase
 
   fixtures :content_templates, :otus
-  self.use_instantiated_fixtures  = true 
+ 
 
   def setup
     @controller = ContentTemplateController.new

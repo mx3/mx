@@ -1,5 +1,5 @@
 <h3> New character </h3>
-<% form_tag :action => 'create' do -%>
+<%= form_tag :action => 'create' do -%>
   <%= submit_tag "Create", :class => 'form_button', :style => 'margin-left: 128px;'  -%>
   <%= hidden_field 'chr', 'id' -%>
   <%= render :partial => "form" -%>

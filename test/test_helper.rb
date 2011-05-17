@@ -6,13 +6,9 @@ require 'rails/test_help'
 # TODO: R3 check for alternatives
 include ActionDispatch::TestProcess
 
-
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
-  fixtures :people, :projs #, :people_projs # RAILS 3 default -> :all
+  # These fixtures are required for all functional tests. TODO: scope for functionals only?
+  fixtures :people, :projs, :people_projs
 
   # can be outside class and still work...but what's best?
   def login # a pseudo login- sets a session to have a valid user such that protected controllers can be called
@@ -25,9 +21,9 @@ class ActiveSupport::TestCase
      true
   end
 
-  def select_proj(proj = '1')
+  # def select_proj(proj = '1')
     # a stub
-  end
+  # end
 
   def set_before_filter_vars(proj = 1, person = 1)
     $proj_id = proj

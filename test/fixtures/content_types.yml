@@ -20,14 +20,14 @@ con_types1:
   name: "BAD TYPE!!!"
   id: "1"
   proj_id: "2"
-  sti_type: TextContent
+  sti_type: ContentType::TextContent
   is_public: true
   creator_id: 1
   updator_id: 1
 con_types2: 
   name: Identification
   id: "2"
-  sti_type: TextContent
+  sti_type: ContentType::TextContent
   is_public: true
   proj_id: "1"
   creator_id: 1
@@ -35,7 +35,7 @@ con_types2:
 con_types3: 
   name: Distribution (introduced)
   id: "3"
-  sti_type: TextContent
+  sti_type: ContentType::TextContent
   is_public: true
   proj_id: "1"
   creator_id: 1
@@ -43,14 +43,14 @@ con_types3:
 con_types4: 
   name: Biology
   id: "4"
-  sti_type: TextContent
+  sti_type: ContentType::TextContent
   is_public: true
   proj_id: "1"
   creator_id: 1
   updator_id: 1
 con_types5: 
   name: Distribution (native)
-  sti_type: TextContent
+  sti_type: ContentType::TextContent
   is_public: true
   id: "5"
   proj_id: "1"

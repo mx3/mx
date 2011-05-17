@@ -3,7 +3,7 @@
     <% if @chr.chr_states.count > 1 -%>
       <div class="subform" style="min-width:500px;" >
         <div class="header">Merge states / codings</div>
-        <% form_tag :action => 'merge_states', :id => @chr.id do -%>
+        <%= form_tag :action => 'merge_states', :id => @chr.id do -%>
 
           <table class="lbl4">
             <tr style="text-align: left;">

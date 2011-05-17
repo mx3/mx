@@ -74,7 +74,7 @@ class ContentType < ActiveRecord::Base
   # returns a class reference to a ContentType subclass
   def constantized
     if !self.sti_type == "TextContent"
-    "ContentType::#{sti_type}".constantize
+      "ContentType::#{sti_type}".constantize
     else
       ContentType
     end
@@ -106,7 +106,7 @@ class ContentType < ActiveRecord::Base
   # Include this content type in text dumps?
   # Always true for TextContent classes.
   def renders_as_text?
-   self.class == TextContent ? true : false 
+    self.class == TextContent ? true : false
   end
 
   # Style inline in text dump?

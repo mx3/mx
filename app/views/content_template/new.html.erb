@@ -1,7 +1,5 @@
 <h3>New content template</h3>
-
-<% form_tag(:action => :create) do -%>
-<%= render(:partial => 'form') -%>
-<input type="submit" name="submit" value="Create" />
-  
+<%= form_tag(:action => :create) do -%>
+  <%= render(:partial => 'form') -%>
+  <input type="submit" name="submit" value="Create" />
 <% end -%>

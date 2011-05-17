@@ -1,15 +1,14 @@
-# encoding: utf-8
 module AccountHelper
   def render_errors(obj)
     return "" unless obj
     return "" unless request.post?
-    tag = String.new
-
+    
     unless obj.valid?
-      tag << %{<ul class="objerrors">}      
-      obj.errors.each_full { |message| tag << %{<li>#{message}</li>} }
-      tag << %{</ul>}
+      content_tag :ul, :class => 'objerrors' do
+        obj.errors.to_a.each{|attr,msg| content_tag(:li, "#{attr} - #{msg}") }
+      end
+    else
+      String.new
     end
-    tag
   end
 end

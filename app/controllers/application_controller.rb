@@ -1,21 +1,19 @@
-
-
 require_dependency "login_system"
 
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
- #  include ExceptionNotification::Notifiable
+ # include ExceptionNotification::Notifiable
 
-  protect_from_forgery # From Rails 3
+  protect_from_forgery 
 
   # TODO: move?
   class ApplicationController::BatchParseError < StandardError
   end
 
   # Include these helpers all the time
-  helper 'app/layout', 'app/layout' , 'app/display', 'app/navigation', 'app/autocomplete',  :otu, :seq, :specimen, :taxon_name, :figure, :image, :confidence,  :ref, :sensu, :content, :geog, :ontology_relationship, :ontology_class, :tag, :image_description, :public_content, :extracts_gene, :label, :ontology, :phenotype, :ce, :namespace
+  helper 'app/layout', 'app/layout' , 'app/display', 'app/navigation', 'app/autocomplete', :otu, :seq, :specimen, :taxon_name, :figure, :image, :confidence,  :ref, :sensu, :content, :geog, :ontology_relationship, :ontology_class, :tag, :image_description, :public_content, :extracts_gene, :label, :ontology, :phenotype, :ce, :namespace
 
   include LoginSystem
 
@@ -28,16 +26,16 @@ class ApplicationController < ActionController::Base
     @args = args
     public_route_failure and return
   end
-
-  def set_charset
-    headers["Content-Type"] = "text/html; charset=utf-8"
-  end
+ 
+  protected
 
   def public_route_failure
     render(:file => "#{Rails.root}/public/404.html", :status => "404 Not Found")
   end
 
-  protected
+  def set_charset
+    headers["Content-Type"] = "text/html; charset=utf-8"
+  end
 
   # aside from this logic here, a site has:
   # - settings in the project table
@@ -75,7 +73,6 @@ class ApplicationController < ActionController::Base
 
     else
       # Hitting the public application interface, login not required
-
       @public = true
 
       # For requests like "http://foo.bar.com/ with no controller redirect to the appropriate home_controller
@@ -112,7 +109,7 @@ class ApplicationController < ActionController::Base
 
       $proj_id = @proj.id # for non-public pages this gets set in # proj_required
     end
-
+    
     true # Return true or Rails' filter chain halts
   end
 

@@ -4,10 +4,7 @@ require 'account_controller'
 class AccountController; def rescue_action(e) raise e end; end # Raise errors beyond the default web-based presentation
 
 class AccountControllerTest < ActionController::TestCase
-  
-  self.use_instantiated_fixtures  = true # allows us to do @people['foo'] (which is a fixture *not* a Person)
-  fixtures :people
-  
+
   # An observation regarding passwords, using 'test01' as an example. Two different values are returned:
   #  Digest::SHA1.hexdigest() c25a79c57906ba7027b36d380230db92bbc0fd64
   #  sha1() = 2ccbc867d91a5f8c50362c03b32adaa26b70a593  
@@ -30,7 +27,7 @@ class AccountControllerTest < ActionController::TestCase
   
   def test_valid_login
     post :login, "person_login" => "test", "person_password" => "test01"
-    assert(@response.has_session_object?(:person))
+    assert(@request.session[:person])
     assert_equal "Login successful", flash[:notice]
     
     assert_response(:redirect)
@@ -42,46 +39,45 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal "Login successful", flash[:notice]
     assert_redirected_to :action => "list", :controller => 'proj' # we assume a root request (not necessarily the case)
     
-    assert_not_nil(@response.session[:person])
-    assert(@response.has_session_object?(:person))
-    #    assert_session_has "person" 
+    assert_not_nil(@request.session[:person])
+    assert(@request.session[:person])
+      
+    admin_tester = Person.where(:login => 'test').first #  @people['admin_tester'].find
     
-    admin_tester = @people['admin_tester'].find
-    assert_equal admin_tester, @response.session[:person]
-    assert_equal @admin_tester, admin_tester # redundant, but an example of how things work
+    assert_equal admin_tester, @request.session[:person]
     assert_response(:redirect)
   end
 
   def test_failed_login
-      post :login, "person_login" => "test", "person_password" => "test01aaa" 
-      assert_equal "Login unsuccessful", flash[:notice]
-      assert_nil(@response.session[:person])
+    post :login, "person_login" => "test", "person_password" => "test01aaa"
+    assert_equal "Login unsuccessful", flash[:notice]
+    assert_nil(@request.session[:person])
   end
 
   def test_signup
     login # see test/helper
     post :signup, "person" => { "login" => "newbob", "password" => "newpassword", "password_confirmation" => "newpassword" }
-    assert(@response.has_session_object?(:person))
+    assert(@request.session[:person])
   end
 
   def test_bad_signup
     login
     post :signup, "person" => { "login" => "newbob", "password" => "newpassword", "password_confirmation" => "wrong" }
-    assert(assigns("person").errors.invalid?("password"))
+    assert(assigns("person").errors[:password].any?)
     assert_response(:success)
     
     post :signup, "person" => { "login" => "yo", "password" => "newpassword", "password_confirmation" => "newpassword" }
-    assert(assigns("person").errors.invalid?("login"))
+    assert(assigns("person").errors[:login].any?)
     assert_response(:success)
 
     post :signup, "person" => { "login" => "yo", "password" => "newpassword", "password_confirmation" => "wrong" }
     person = assigns("person")
     
     %w(first_name last_name login password).each do |col|
-      assert(person.errors.invalid?(col))
+      assert(person.errors[col].any?)
     end
     
-    assert(!assigns("person").errors.invalid?("middle_name"))
+    assert(!assigns("person").errors[:middle_name].any?)
     assert_response(:success)
   end
 
@@ -89,21 +85,16 @@ class AccountControllerTest < ActionController::TestCase
     post :login, "person_login" => "bob", "person_password" => "not_correct"
      
     #assert_session_has_no "person"
-    assert(!@response.has_session_object?(:person))
+    assert(!@request.session[:person])
     assert_equal "Login unsuccessful", flash[:notice]
-    # assert_template_has "message"
-    # assert_template_has "login"
-    assert(@response.has_template_object?("login"))
+    assert assigns(:login) 
   end
  
   def test_login_logoff
     test_admin_tester_login
-       assert(@response.has_session_object?(:person))
-       #    assert_session_has "person"
-
+    assert(@request.session[:person])
     get :logout
-       assert(!@response.has_session_object?(:person))
-       #assert_session_has_no "person"
+    assert(!@request.session[:person])
   end
 
   # TODO: delete test, reset password test

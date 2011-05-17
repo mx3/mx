@@ -17,7 +17,7 @@ class MultikeyControllerTest < ActionController::TestCase
   fixtures :chr_groups
   fixtures :chr_groups_chrs
 
-  self.use_instantiated_fixtures  = true 
+#  self.use_instantiated_fixtures  = true
 
   def setup
     @request, @response = ActionController::TestRequest.new, ActionController::TestResponse.new

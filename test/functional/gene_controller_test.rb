@@ -8,9 +8,7 @@ class GeneController; def rescue_action(e) raise e end; end
 
 class GeneControllerTest < ActionController::TestCase
   fixtures :genes
-
-  self.use_instantiated_fixtures  = true 
-
+  
   def setup
     @request, @response = ActionController::TestRequest.new, ActionController::TestResponse.new
     @controller = GeneController.new
@@ -26,14 +24,14 @@ class GeneControllerTest < ActionController::TestCase
   end
   
   def test_route_to_index
-      opts = {:controller => "gene", :action => "index", :proj_id => "1"}
-      assert_recognizes opts , 'projects/1/gene'
-      assert_routing "projects/1/gene", opts   
+    opts = {:controller => "gene", :action => "index", :proj_id => "1"}
+    assert_recognizes opts , 'projects/1/gene'
+    assert_routing "projects/1/gene", opts
   end
 
   def test_route_to_new
-      opts = {:controller => "gene", :action => "new", :proj_id => "1"}
-      assert_routing "projects/1/gene/new", opts  
+    opts = {:controller => "gene", :action => "new", :proj_id => "1"}
+    assert_routing "projects/1/gene/new", opts
   end
    
   def test_index  

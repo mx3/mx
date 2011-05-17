@@ -8,7 +8,6 @@ class ContentTypeController; def rescue_action(e) raise e end; end
 class ContentTypeControllerTest < ActionController::TestCase
 
   fixtures :content_types
-  self.use_instantiated_fixtures  = true 
 
   def setup
     @controller = ContentTypeController.new
@@ -59,7 +58,7 @@ class ContentTypeControllerTest < ActionController::TestCase
   end
  
   def test_add_content_type
-    assert_equal 5, @content_types.size # test the fixture for sanity
+    assert_equal 5, ContentType.find(:all).size
     post :create, :content_type => {:name => 'foo', :proj_id => "1"}, :proj_id =>"1"
     assert_equal "Content type was successfully created.", flash[:notice] 
     assert_equal 1, assigns['proj'].id
@@ -73,7 +72,7 @@ class ContentTypeControllerTest < ActionController::TestCase
     assert_equal 5, assigns['content_types'].size # tests that @genes is being set
     assert_equal 5, assigns['proj'].content_types.count
     assert_template('list')
-    assert(@response.has_template_object?('content_types'))
+    assert(request.assigns[:content_types])
     assert_equal 'Proj', assigns['proj'].class.to_s # assigns checks variables that were set in last request
     assert_tag :content => "foo" # hmmm- test works but real life fails
   end

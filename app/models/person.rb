@@ -31,8 +31,8 @@ class Person < ActiveRecord::Base
   belongs_to :default_repository, :class_name => 'Repository', :foreign_key => 'pref_default_repository_id'
 
   has_and_belongs_to_many :editable_taxon_names, :join_table => "people_taxon_names", :class_name => "TaxonName"
-  has_and_belongs_to_many :projs, :order => 'projs.name' # memberships
-  has_many :projs_created, :class_name => 'Proj', :foreign_key => "creator_id" # projects created by this person
+  has_and_belongs_to_many :projs, :order => 'projs.name' # project membership
+  # has_many :projs_created, :class_name => 'Proj', :foreign_key => "creator_id" # projects created by this person
 
   before_create :crypt_password
   before_update :crypt_unless_empty

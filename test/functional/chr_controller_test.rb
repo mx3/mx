@@ -43,7 +43,7 @@ class ChrControllerTest < ActionController::TestCase
 
   def test_edit
     @opts.update(:id => "1")
-    get :edit, @opts    
+    get :edit, @opts
     assert_response(:success)
   end
 

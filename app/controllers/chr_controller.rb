@@ -220,14 +220,14 @@ class ChrController < ApplicationController
     @chrs = @proj.chrs.recently_changed_by_chr_state(1.week.ago, :limit => 50) # Chr.find(:all, :limit => 20, :conditions => "(proj_id = #{@proj.id})", :include => 'chr_states',   :order => 'chr_states.created_on DESC, chr_states.updated_on DESC, chrs.id')
     @by_header = '(upto 50 most recent changes, by character state)'
     @hide_pagination = true
-    render :action => 'chr/list' 
+    render :template => 'chr/list'
   end
 
   def list_recent_changes_by_chr
     @chrs = @proj.chrs.recently_changed(1.week.ago, :limit => 50) 
     @by_header = '(upto 50 most recent changes, by character)'    
     @hide_pagination = true
-    render :action => 'chr/list' 
+    render :template => 'chr/list'
   end
 
 
@@ -235,7 +235,7 @@ class ChrController < ApplicationController
     @chrs = @proj.chrs.not_in_matrices
     @by_header = '(not in matrices)'
     @hide_pagination = true
-    render :action => 'chr/list' 
+    render :template => 'chr/list'
   end
 
   # TODO: where is this called?

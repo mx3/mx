@@ -4,7 +4,7 @@ source :gemcutter
   gem "mysql2", '< 0.3'
   gem "sass"
   gem 'alchemist',  '0.1.2.1'
-  gem 'andand',  '1.3.1'
+  gem 'andand',  '1.3.1', :git => 'https://github.com/panozzaj/andand.git'
   gem "bio",  '1.4.1' 
   # gem 'cmess',  '0.2.4' # character encoding guessing
   gem "echoe" # !! This may need to be commented out for recent versions of passenger.

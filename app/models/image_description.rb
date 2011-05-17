@@ -54,8 +54,6 @@ class ImageDescription < ActiveRecord::Base
   scope :with_otu_id, lambda {|*args| {:conditions => ["otu_id = ?", args.first ? args.first : -1]}} 
   scope :with_specimen_id, lambda {|*args| {:conditions => ["specimen_id = ?", args.first ? args.first : -1]}} 
   
-  scope :public, :conditions => 'is_public is true'
-
   def display_name(options = {}) # :yields: String
     opt = {:type => :inline 
     }.merge!(options.symbolize_keys)

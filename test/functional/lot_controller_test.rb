@@ -7,9 +7,7 @@ class LotController; def rescue_action(e) raise e end; end
 
 class LotControllerTest < ActionController::TestCase
 
-   fixtures :lots, :otus
-
-  self.use_instantiated_fixtures  = true 
+  fixtures :lots, :otus
   
   def setup
     @controller = LotController.new

@@ -1,4 +1,4 @@
-<div> <%# don't (re)move me! %>
+<div> 
   <% if @part == 'center' %>
     <h4> Member of: </h4>
     <ul style="list-style-type: square;">
@@ -8,7 +8,7 @@
     </ul>
 
     <h4> Add to group: </h4>
-    <% form_tag :action => "add_to_group" do -%>
+    <%= form_tag :action => "add_to_group" do -%>
       <%= hidden_field 'chr', 'id' %>
       <select name="chr_group_id">
         <option></option>
