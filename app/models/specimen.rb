@@ -22,7 +22,7 @@
 #
 
 class Specimen < ActiveRecord::Base
-  set_table_name('specimens')
+
   has_standard_fields
   include ModelExtensions::Taggable
   include ModelExtensions::Figurable

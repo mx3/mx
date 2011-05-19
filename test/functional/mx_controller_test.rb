@@ -1,6 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
-
-
 require 'mx_controller'
 
 # Re-raise errors caught by the controller.

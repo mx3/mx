@@ -1,6 +1,6 @@
 <%= link_to 'Back', :action => :index %>
 <h3>New project</h3>
-<% form_tag :action => 'create_proj' do -%>
+<%= form_tag :action => 'create_proj' do -%>
   <%= render :partial => "form" %>
   <%= submit_tag "Create" %>
 <% end -%>

@@ -31,6 +31,8 @@ source :gemcutter
   # require 'csv'
   # config.gem 'addressable',  '2.2.4' # !! 2.2.5 will not work, uninstall from your library completely.
 
+  gem 'prototype_legacy_helper', '0.0.0', :git => 'git://github.com/rails/prototype_legacy_helper.git'
+
 group :production do 
  
 end

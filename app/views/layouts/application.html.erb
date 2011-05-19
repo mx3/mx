@@ -1,18 +1,23 @@
-
 <!DOCTYPE html >
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <title>MX - <%= self.controller.controller_name.pluralize.gsub("_", " ") -%></title>
-     <%= javascript_src_tag "svg_web/svg.js", "data-path" => "/javascripts/svg_web" -%><!-- this must come first -->
+    <title>MX - <%= self.controller.controller_name.pluralize.humanize -%></title>
+
+    <%= javascript_src_tag "svg_web/svg.js", "data-path" => "/javascripts/svg_web" -%><!-- this must come first -->
     <%= javascript_include_tag 'mx_svgweb' -%>
+
+    <%= javascript_include_tag(:defaults) %>
+    <%= javascript_include_tag('scriptaculous', 'builder', 'slider' ) %>
+    
+    <script type="text/javascript">
+      google.load("jqueryui", "1.8.9");
+      jQuery.noConflict();
+    </script>
 
     <%= stylesheet_link_tag "jquery/ui-lightness/jquery-ui-1.8.9.custom" -%>
     <%= stylesheet_link_tag "standard" -%>
     <%= class_css -%>
-
-     <%= javascript_include_tag(:defaults) %>
-  
 
     <%= csrf_meta_tag %>
 
@@ -36,7 +41,7 @@
         <% if @page_title -%>
           <p><%= @page_title -%></p>
         <% elsif @proj -%>
-          <p><%= @proj.name -%><span class="links"> ( <%= link_to "settings", :controller => 'proj', :action => 'show', :id => @proj.id -%> | <%= link_to "change projects", :controller => '/proj', :action => 'list' -%> | <%= link_to "my data", :controller => '/proj', :action => 'my_data' -%>   )</span></p>
+          <p><%= @proj.name -%><span class="links"> ( <%= link_to "settings", :controller => :proj, :action => :show, :id => @proj.id -%> | <%= link_to "change projects", :controller => '/proj', :action => 'list' -%> | <%= link_to "my data", :controller => '/proj', :action => 'my_data' -%>   )</span></p>
         <% end -%>
 
         <% if @proj.andand.id -%>
@@ -60,14 +65,10 @@
 
         <%= yield -%>
 
-
-
       </div>
       <div id="footer" style="clear:both;">&nbsp;</div>
 
-  
 
-      
     </div>
   </body>
 </html>

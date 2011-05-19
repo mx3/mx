@@ -35,9 +35,10 @@ class Content < ActiveRecord::Base
 
   has_one :public_version, :class_name => 'PublicContent', :foreign_key => 'pub_content_id', :dependent => :destroy
 
-  scope :that_are_editable, :conditions => "pub_content_id IS NULL"  # is_image_box contents *ARE* "editable"
-  scope :that_are_publishable, :conditions => "pub_content_id IS NULL AND contents.is_public = 1"  
-  scope :that_are_published, :conditions => 'contents.pub_content_id is not null'
+  # is_image_box contents ARE "editable"
+  scope :that_are_editable, where(:pub_content_id => nil)
+  scope :that_are_publishable, where("pub_content_id IS NULL AND contents.is_public = 1")
+  scope :that_are_published, where("contents.pub_content_id IS NOT NULL")
 
   scope :by_otu, lambda {|*args| {:conditions => ["contents.otu_id = ?", args.first || -1] }}
   scope :by_content_type, lambda {|*args| {:conditions => ["contents.content_type_id = ?", args.first || -1], :include => [:content_type, :figures] }}

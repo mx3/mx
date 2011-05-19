@@ -1,18 +1,18 @@
 <div> 
   <% if @part == 'center' %>
     <p><h3 style="display:inline;">Otus in Matrix </h3> (<%= @otus.size -%>)
-    </p> <br />
-      <ul>
-        <% @otus.each do |otu| -%>
-          <li>  
-          <% if otu.has_public_content? %>
-            <%= link_to(otu.display_name, :action => :show, :controller => 'public/public_content', :id => otu.id) -%> <br />
-          <% else %>
-            <%= otu.display_name %>
-           <% end %>
-           </li>
-        <% end -%>     
-      </ul> 
-  <% end -%>
+  </p> <br />
+  <ul>
+    <% @otus.each do |otu| -%>
+      <li>
+        <% if otu.has_public_content? %>
+          <%= link_to(otu.display_name, :action => :show, :controller => 'public/public_content', :id => otu.id) -%> <br />
+        <% else %>
+          <%= otu.display_name %>
+        <% end %>
+      </li>
+    <% end -%>
+  </ul>
+<% end -%>
 </div>
 

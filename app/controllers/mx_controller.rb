@@ -6,7 +6,7 @@ class MxController < ApplicationController
   # include Nexml::Nexml
 
   verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
+    :redirect_to => { :action => :list }
 
   before_filter :set_export_variables, :only => [:show_nexus, :show_tnt, :show_ascii, :as_file]
   before_filter :set_grid_coding_params, :only => [:show_grid_coding, :show_grid_coding2, :show_grid_tags]
@@ -20,7 +20,7 @@ class MxController < ApplicationController
 
   def list
     list_params
-     if request.xml_http_request?
+    if request.xml_http_request?
       render(:layout => false, :partial => 'ajax_list')
     end
   end
@@ -39,10 +39,10 @@ class MxController < ApplicationController
         @xml = serialize(:mx => @mx)
         render :xml => @xml, :layout => false
       }
-     format.rdf {
+      format.rdf {
         @xml = serialize(:mx => @mx, :rdf => true)
         render :xml => @xml, :layout => false
-     }
+      }
     end
   end
 
@@ -167,7 +167,7 @@ class MxController < ApplicationController
     redirect_to :action => :show, :id => @mx.id
   end
 
-   def generate
+  def generate
     @mx = Mx.find(params[:id])
     case params[:generate_type].to_sym
     when :chr_group
@@ -209,7 +209,7 @@ class MxController < ApplicationController
   end
 
   def show_otus
-   @mx = Mx.find(params[:id])  
+    @mx = Mx.find(params[:id])
     _set_otus
     
     @chr = @mx.chrs.first # first chr to point 'code' at 
@@ -238,83 +238,83 @@ class MxController < ApplicationController
     id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
     id ||= params[:id] 
 
-      # regardless of whether we navigate with ajax, or by post, we need these: 
-      @mx = Mx.find(id)
-      @confidences = @proj.confidences
-      @mode = params[:mode]                       # 'row' or 'col', depending on the direction we're coding
-      @present_position = params[:position].to_i 
+    # regardless of whether we navigate with ajax, or by post, we need these:
+    @mx = Mx.find(id)
+    @confidences = @proj.confidences
+    @mode = params[:mode]                       # 'row' or 'col', depending on the direction we're coding
+    @present_position = params[:position].to_i
 
-      # general setup
-      @tag = Tag.new
-      @no_right_col = true
+    # general setup
+    @tag = Tag.new
+    @no_right_col = true
 
-      @otus = @mx.otus
-      @chrs = @mx.chrs 
+    @otus = @mx.otus
+    @chrs = @mx.chrs
 
-      # Pull up a particular Otu and Chr based on present_position
-      # this block checks for Ajax, the checks below check for POST
-      if @mode == 'row'
-        unless @chrs.length > @present_position 
-          flash[:notice] = "You've finished one-click coding for that OTU." 
-          redirect_to :action => :show_otus, :id => @mx.id and return
-        end
-        @otu = Otu.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:otu_id]}, :include => [{:taxon_name => :parent}])
-        @chr = @chrs[@present_position]
-      elsif @mode == 'col'
-        unless @otus.length > @present_position 
-          flash[:notice] = "You've finished one-click coding for that character." 
-          redirect_to :action =>'show_chrs', :id => @mx.id and return
-        end       
-        @chr = Chr.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:chr_id]}, :include => [:chr_states])
-        @otu = @otus[@present_position]
-      else
-        redirect_to :action => :index and return # illegal mode
+    # Pull up a particular Otu and Chr based on present_position
+    # this block checks for Ajax, the checks below check for POST
+    if @mode == 'row'
+      unless @chrs.length > @present_position
+        flash[:notice] = "You've finished one-click coding for that OTU."
+        redirect_to :action => :show_otus, :id => @mx.id and return
       end
-
-      # add/delete actions
-      if params[:nuke] == 'true'   # nuke states for this combination, comes in as get?
-        Coding.destroy_by_otu_and_chr(Otu.find(params[:otu_id]), Chr.find(params[:chr_id]))
-      elsif request.post? 
-        if !params[:chr_state_id].blank? || !params[:continuous_value].blank? # we navigated here from another form
-          @coding = Mx.fast_code(params.merge(:chr => @chr, :otu => @otu))
-          @present_position = @present_position + 1
-        end
-      end 
-
-      # A lot of this code is repeated from above, but that avoids the need to call this action 
-      # twice per coding, which improves performance a lot
-      if @mode == 'row'
-        @chr = @chrs[@present_position]
-        unless @chrs.length > @present_position # these check for POST, the checks above check for AJAX
-          flash[:notice] = "You've finished one-click coding for that OTU." 
-          redirect_to :action =>'show_otus', :id => @mx.id and return
-        end      
-      elsif @mode == 'col'
-        unless @otus.length > @present_position # these check for POST, the checks above check for AJAX
-          flash[:notice] = "You've finished one-click coding for that character." 
-          redirect_to :action =>'show_chrs', :id => @mx.id and return
-        end
-        @otu = @otus[@present_position]
+      @otu = Otu.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:otu_id]}, :include => [{:taxon_name => :parent}])
+      @chr = @chrs[@present_position]
+    elsif @mode == 'col'
+      unless @otus.length > @present_position
+        flash[:notice] = "You've finished one-click coding for that character."
+        redirect_to :action =>'show_chrs', :id => @mx.id and return
       end
+      @chr = Chr.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:chr_id]}, :include => [:chr_states])
+      @otu = @otus[@present_position]
+    else
+      redirect_to :action => :index and return # illegal mode
+    end
 
-      @last_otu = (@mode == 'row' ? @otu : @otus[@present_position - 1])
-      @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1]) 
-      @previous_position ||= @present_position
+    # add/delete actions
+    if params[:nuke] == 'true'   # nuke states for this combination, comes in as get?
+      Coding.destroy_by_otu_and_chr(Otu.find(params[:otu_id]), Chr.find(params[:chr_id]))
+    elsif request.post?
+      if !params[:chr_state_id].blank? || !params[:continuous_value].blank? # we navigated here from another form
+        @coding = Mx.fast_code(params.merge(:chr => @chr, :otu => @otu))
+        @present_position = @present_position + 1
+      end
+    end
+
+    # A lot of this code is repeated from above, but that avoids the need to call this action
+    # twice per coding, which improves performance a lot
+    if @mode == 'row'
+      @chr = @chrs[@present_position]
+      unless @chrs.length > @present_position # these check for POST, the checks above check for AJAX
+        flash[:notice] = "You've finished one-click coding for that OTU."
+        redirect_to :action =>'show_otus', :id => @mx.id and return
+      end
+    elsif @mode == 'col'
+      unless @otus.length > @present_position # these check for POST, the checks above check for AJAX
+        flash[:notice] = "You've finished one-click coding for that character."
+        redirect_to :action =>'show_chrs', :id => @mx.id and return
+      end
+      @otu = @otus[@present_position]
+    end
+
+    @last_otu = (@mode == 'row' ? @otu : @otus[@present_position - 1])
+    @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
+    @previous_position ||= @present_position
       
-      # render the updates
-      respond_to do |format|
-        format.html {      
-          session['mx_view']  = 'fast_coding'
-          @show = ['fast_coding'] 
-          render :action => :show
-        }
-        format.js { # AJAX
-          render :update do |page|
-            page.replace_html :notice, flash[:notice]
-            page.replace_html :fast_coding_form, :partial => 'fc'
-            flash.discard
+    # render the updates
+    respond_to do |format|
+      format.html {
+        session['mx_view']  = 'fast_coding'
+        @show = ['fast_coding']
+        render :action => :show
+      }
+      format.js { # AJAX
+        render :update do |page|
+          page.replace_html :notice, flash[:notice]
+          page.replace_html :fast_coding_form, :partial => 'fc'
+          flash.discard
         end and return }
-      end   
+    end
   end
 
   def show_code
@@ -332,14 +332,14 @@ class MxController < ApplicationController
         @codings.destroy_all
         
         coding = Coding.create(
-            "otu_id" => @otu.id,
-            "chr_id" => @chr.id,
-            "continuous_state" => params[:continuous_value],
-            # "chr_state_state" => chr_state.state, # set on before_filter
-            # "chr_state_name" => chr_state.name,
-            :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
-            "proj_id" => @proj.id 
-          ) 
+          "otu_id" => @otu.id,
+          "chr_id" => @chr.id,
+          "continuous_state" => params[:continuous_value],
+          # "chr_state_state" => chr_state.state, # set on before_filter
+          # "chr_state_name" => chr_state.name,
+          :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
+          "proj_id" => @proj.id
+        )
 
         codings.push coding
 
@@ -386,10 +386,10 @@ class MxController < ApplicationController
       end and return
     else
 
-    @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
-    @no_right_col = true
-    session['mx_view']  = 'show_grid_coding'
-    @show = ['show_code'] 
+      @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
+      @no_right_col = true
+      session['mx_view']  = 'show_grid_coding'
+      @show = ['show_code']
       render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
     end
   end 
@@ -440,17 +440,17 @@ class MxController < ApplicationController
     @mx = Mx.find(params[:mx][:id])
     if !params[:otu_group_id].blank?
       begin
-       @mx.add_group(OtuGroup.find(params[:otu_group_id]))
+        @mx.add_group(OtuGroup.find(params[:otu_group_id]))
         flash[:notice] = "Added a character group."
       rescue
         flash[:notice] = "Problem adding character group, is it already present?"
       end
     end
      
-   if params[:add_otu_minus]
+    if params[:add_otu_minus]
       if params[:otu_minus] && !params[:otu_minus][:id].blank? 
-         o = Otu.find(params[:otu_minus][:id]) 
-         @mx.otus_minus << o if o 
+        o = Otu.find(params[:otu_minus][:id])
+        @mx.otus_minus << o if o
       end 
     elsif params[:add_otu_plus]
       if params[:otu_plus] && !params[:otu_plus][:id].blank? 
@@ -489,7 +489,7 @@ class MxController < ApplicationController
 
 
   def reset_otu_positions
-   if @mx = Mx.find(params[:id])
+    if @mx = Mx.find(params[:id])
       @mx.reset_otu_positions
       flash[:notice] = 'order reset'
     else
@@ -543,17 +543,17 @@ class MxController < ApplicationController
 
   # misc
   def auto_complete_for_mx
-      @tag_id_str = params[:tag_id]
+    @tag_id_str = params[:tag_id]
       
-      if @tag_id_str == nil
-        redirect_to(:action => 'list', :controller => 'mx') and return
-      else
-        value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-        @mxes = Mx.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name")
-      end
-      
-      render :inline => "<%= auto_complete_result_with_ids(@mxes, 'format_obj_for_auto_complete', @tag_id_str) %>"
+    if @tag_id_str == nil
+      redirect_to(:action => 'list', :controller => 'mx') and return
+    else
+      value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
+      @mxes = Mx.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name")
     end
+      
+    render :inline => "<%= auto_complete_result_with_ids(@mxes, 'format_obj_for_auto_complete', @tag_id_str) %>"
+  end
 
   def browse
     @matrix = Mx.find(params[:id], :include => [:chrs, :otus])
@@ -571,12 +571,15 @@ class MxController < ApplicationController
     person = Person.find($person_id)
 
     respond_to do |format|
+      
 		  format.html {} # default .rhtml
-        @window = {:chr_start => 1, :otu_start => 1, :chr_end => person.pref_mx_display_width, :otu_end => person.pref_mx_display_height} 
-        @mx = @matrix.codings_in_grid(@window) 
+      @window = {:chr_start => 1, :otu_start => 1, :chr_end => person.pref_mx_display_width, :otu_end => person.pref_mx_display_height}
+      @mx = @matrix.codings_in_grid(@window)
         
-        # simplify several calculations for the view
-        @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start]; 
+      # simplify several calculations for the view
+      @oes = @window[:otu_end] - @window[:otu_start] 
+      @ces = @window[:chr_end] - @window[:chr_start]
+
       format.js { 
         _get_window_params 
         render :update do |page|
@@ -612,9 +615,9 @@ class MxController < ApplicationController
 
   # TODO protect
   def _get_window_params
-   @window = @matrix.slide_window(params) 
-   @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start]; 
-   @mx = @matrix.codings_in_grid(@window)
+    @window = @matrix.slide_window(params)
+    @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start];
+    @mx = @matrix.codings_in_grid(@window)
   end
 
   def _cell_zoom
@@ -625,7 +628,7 @@ class MxController < ApplicationController
     @confidences = @proj.confidences
     @mx = Mx.find(params[:mx_id])
     render :update do |page|
-     page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
+      page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
     end
   end
 
@@ -658,8 +661,8 @@ class MxController < ApplicationController
       }
       format.xml {
         render :xml => @xml, :layout => false
-       # re
-       # render(:action => 'test', :layout => false) and return
+        # re
+        # render(:action => 'test', :layout => false) and return
       }
       format.rdf {
         @transform = true
@@ -717,8 +720,8 @@ class MxController < ApplicationController
     @otus = @mx.otus
 
     @time = Benchmark.measure{
-       @codings_mx =  @mx.codings_mx # codings_in_grid({})
-     }.to_s
+      @codings_mx =  @mx.codings_mx # codings_in_grid({})
+    }.to_s
 
     session[:interleave_size] = params[:interleave_size] if params[:interleave_size]
     session[:interleave_size] ||= 20

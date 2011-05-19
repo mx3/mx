@@ -77,7 +77,7 @@ module App::NavigationHelper
     search_table = ActiveSupport::Inflector.underscore(rec.class.to_s).pluralize
     search_table = 'content_types' if rec.class.to_s =~ /ContentType::/ || rec.class.to_s == 'TextContent'
     
-    # hack in an exception for subclasses
+    # TODO: R3 revisit - hack in an exception for subclasses
     if search_table == 'content_types' 
       klass = ContentType 
     else
@@ -89,6 +89,7 @@ module App::NavigationHelper
     lt_gt = (prev ? "<" : ">") # this is sql, not HTML
 
     inc = nil 
+
     case search_table
     when 'taxon_hists'
       inc = :taxon_name
@@ -355,13 +356,13 @@ module App::NavigationHelper
     html = ''
     html.tap  do
   
-      html << link_to("previous", :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')",  :update => options[:element_name], :url => url_options.merge(:page => previous_page))
+      html << link_to("previous", :remote => true, :loading => "Element.show('pg_spinner')".html_safe, :complete => "Element.hide('pg_spinner')".html_safe,  :update => options[:element_name], :url => url_options.merge(:page => previous_page))
       html << '&nbsp;|&nbsp;'
-      html <<  link_to("next", :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')",  :update => options[:element_name], :url => url_options.merge(:page => next_page)) + '&nbsp;|&nbsp;'.html_safe
+      html <<  link_to("next", :remote => true, :loading => "Element.show('pg_spinner')".html_safe, :complete => "Element.hide('pg_spinner')",  :update => options[:element_name], :url => url_options.merge(:page => next_page)) + '&nbsp;|&nbsp;'.html_safe
     
       if options[:always_show_anchors] and not window_pages[0].first?
         #html << link_to(first.number, options[:name] => first)
-        html << link_to(first.number, :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')",  :update => options[:element_name], :url => url_options.merge(:page => first))
+        html << link_to(first.number, :remote => true, :loading => "Element.show('pg_spinner')".html_safe, :complete => "Element.hide('pg_spinner')".html_safe,  :update => options[:element_name], :url => url_options.merge(:page => first)).html_safe
         html << ' ... ' if window_pages[0].number - first.number > 1
         html << ' '
       end
@@ -371,7 +372,7 @@ module App::NavigationHelper
           html << content_tag(:span, page.number.to_s, :class => 'box1', :style => 'padding:.1em;')
         else
           #html << link_to(page.number, options[:name] => page)
-          html << link_to(page.number, :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')",  :update => options[:element_name], :url => url_options.merge(:page => page))
+          html << link_to(page.number, :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')".html_safe,  :update => options[:element_name], :url => url_options.merge(:page => page))
         end
         html << ' '
       end
@@ -379,10 +380,10 @@ module App::NavigationHelper
       if options[:always_show_anchors] && !window_pages.last.last?
         html << ' ... ' if last.number - window_pages[-1].number > 1
         #html << link_to(paginator.last.number, options[:name] => last)
-        html << link_to(last.number, :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')", :update => options[:element_name], :url => url_options.merge(:page => last))
+        html << link_to(last.number, :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')".html_safe, :update => options[:element_name], :url => url_options.merge(:page => last))
       end
     
-      html << '&nbsp;|&nbsp;' + link_to("refresh current", :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')", :update => options[:element_name], :url => url_options.merge(:page => paginator.current))
+      html << '&nbsp;|&nbsp;' + link_to("refresh current", :remote => true, :loading => "Element.show('pg_spinner')", :complete => "Element.hide('pg_spinner')".html_safe, :update => options[:element_name], :url => url_options.merge(:page => paginator.current))
       html << '&nbsp;&nbsp;' +  image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'pg_spinner', :style => "display: none; vertical-align:text-top;")
     end
     html.html_safe

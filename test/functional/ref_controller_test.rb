@@ -26,23 +26,23 @@ class RefControllerTest < ActionController::TestCase
   end
 
   def test_list
-     get :list, @opts
-     assert_response(:success)
+    get :list, @opts
+    assert_response(:success)
   end
 
   def test_show
-     get :show, @opts.update(:id => 1)
-     assert_response(:success)
+    get :show, @opts.update(:id => 1)
+    assert_response(:success)
   end
 
   def test_new
-     get :new, @opts
-     assert_response(:success)
+    get :new, @opts
+    assert_response(:success)
   end
   
   def test_create
-     get :create, @opts
-     assert_response(302)
+    get :create, @opts
+    assert_response(302)
   end
   
   def test_edit
@@ -51,48 +51,48 @@ class RefControllerTest < ActionController::TestCase
   end
   
   def test_destroy
-     get :destroy, @opts.update(:id => 1)
-     assert_response(302)
+    get :destroy, @opts.update(:id => 1)
+    assert_response(302)
   end
   
   def test_list_by_author_name
-     get :list_by_author, @opts.update(:name => 'foo')
-     assert_response(:success)
+    get :list_by_author, @opts.update(:name => 'foo')
+    assert_response(:success)
   end
   
   def test_list_by_author_letter
-     get :list_by_author, @opts.update(:letter => 'f')
-     assert_response(:success)
+    get :list_by_author, @opts.update(:letter => 'f')
+    assert_response(:success)
   end
   
   def test_show_sensus
-     get :show_sensus, @opts.update(:id => 1)
-     assert_response(:success)
+    get :show_sensus, @opts.update(:id => 1)
+    assert_response(:success)
   end
   
   def test_link_search
-      get :link_search, @opts.update(:id => 1)
-      assert_response(:success)
-   end
+    get :link_search, @opts.update(:id => 1)
+    assert_response(:success)
+  end
   
   def test_show_tags
-     get :show_tags, @opts.update(:id => 1)
-     assert_response(:success)
+    get :show_tags, @opts.update(:id => 1)
+    assert_response(:success)
   end
 
   def test_show_associations
-     get :show_associations, @opts.update(:id => 1)
-     assert_response(:success)
+    get :show_associations, @opts.update(:id => 1)
+    assert_response(:success)
   end
 
   def test_show_distributions
-     get :show_distributions, @opts.update(:id => 1)
-     assert_response(:success)
+    get :show_distributions, @opts.update(:id => 1)
+    assert_response(:success)
   end
   
   def test_endnote
-     get :endnote, @opts
-     assert_response(:success)
+    get :endnote, @opts
+    assert_response(:success)
   end
 
 end

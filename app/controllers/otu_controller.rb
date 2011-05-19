@@ -432,12 +432,13 @@ class OtuController < ApplicationController
   end
   
   def auto_complete_for_otu
+    debugger
     @tag_id_str = params[:tag_id]
     value = params[@tag_id_str.to_sym]
         
     @otus = Otu.find_for_auto_complete(value)
     render :inline => "<%= auto_complete_result_with_ids(@otus,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+      'format_obj_for_auto_complete', @tag_id_str).html_safe %>"
   end
   
   # redundancy with OTU group add - but nice fn()

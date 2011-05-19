@@ -1,4 +1,4 @@
-<% form_remote_tag(:url => {:action => 'endnote_batch_verify_or_create', :controller => :ref},:loading => "Element.show('endnote_search')", :complete => "Element.hide('endnote_search')") do -%>
+<%= form_tag(:remote => true, :url => {:action => 'endnote_batch_verify_or_create', :controller => :ref},:loading => "Element.show('endnote_search')", :complete => "Element.hide('endnote_search')") do -%>
   <label for="temp_file" class="lbl4">Paste Endnote formatted text here:</label>
   <%= text_area_tag(:incoming_endnote, txt,  :cols => 60, :rows => 10, :style => 'width: 100%;') %>
   <%= submit_tag button, :name => button, :confirm => (button == "save" ? "Unverified files will not be parsed.  References will be added and serials may be created.  Are you sure you want to continue?" : "Verify?") -%>

@@ -17,6 +17,8 @@
 # (all these examples are active by default):
 ActiveSupport::Inflector.inflections do |inflect|
  inflect.plural /^(ontology_class)$/i, '\1es'
+ inflect.plural /^(specimen)$/i, '\1s'
+ inflect.singular /^(specimen)s/i, '\1'
  inflect.singular /^(ontology_class)es/i, '\1'
  inflect.plural /^(OntologyClass)$/, '\1es'
  inflect.singular /^(OntologyClass)es/, '\1'

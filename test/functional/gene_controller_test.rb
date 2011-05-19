@@ -39,14 +39,13 @@ class GeneControllerTest < ActionController::TestCase
     opts = { :proj_id => "1" } 
     
     get :index, opts
-    assert(@response.has_session_object?(:proj))
-
+    assert(@request.session[:proj])
     assert_equal 3, assigns(:genes).size
   end 
     
   # should be an integration test
   def test_add_gene
-    assert_equal 3, @genes.size # test the fixture
+    assert_equal 3, Gene.find(:all).size # test the fixture
     post :create, :gene => {:name => 'new_gene_ZYYZ'}, :proj_id =>"1"
     assert_equal "Gene was successfully created.", flash[:notice] 
     assert_equal 1, assigns['proj'].id
@@ -60,7 +59,7 @@ class GeneControllerTest < ActionController::TestCase
     assert_equal 4, assigns['genes'].size # tests that @genes is being set
     assert_equal 4, assigns['proj'].genes.count
     assert_template('list')
-    assert(@response.has_template_object?('genes'))
+    assert(assigns[:genes])
     assert_equal 'Proj', assigns['proj'].class.to_s # assigns checks variables that were set in last request
 
     assert_tag :content => "new_gene_ZYYZ"

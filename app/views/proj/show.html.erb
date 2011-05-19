@@ -1,7 +1,7 @@
-   <%= link_to 'Edit', :action => 'edit', :id => @proj.id %> project settings.
-  <% if $person_id == @proj.creator_id || Person.find($person_id).is_admin -%>
-    | <%= link_to 'Destroy',  {:action => 'destroy', :id => @proj.id}, :method => :post, :confirm => "This will destroy EVERYTHING, are you absolutely sure you want to do this?" -%> this project.
-  <% end -%>
+<%= link_to 'Edit', :action => 'edit', :id => @proj.id %> project settings.
+<% if $person_id == @proj.creator_id || Person.find($person_id).is_admin -%>
+  | <%= link_to 'Destroy',  {:action => 'destroy', :id => @proj.id}, :method => :post, :confirm => "This will destroy EVERYTHING, are you absolutely sure you want to do this?" -%> this project.
+<% end -%>
 
 <div class="show_rec">
 
@@ -18,83 +18,85 @@
         <%= plp.collect {|p| content_tag :div, h(p.full_name)} %>
       </div>
     <% end %>
-  <div style="clear:both;" />
+    <div style="clear:both;" />
 
-  <div class="show_category"> GBIF/IPT </div>
-  <% if @proj.is_exportable_to_gbif && !@proj.collection_code.blank? && @proj.default_institution -%>
-  <div class="show_comment"><span style="color:green;"> Project is configured for GBIF/IPT export (requires server-side configuration of IPT software).</span></div>
-    <div class="show_row"><span class="show_lbl">Is exportable to GBIF?: </span><span class="show_data"><%= @proj.is_exportable_to_gbif -%></span></div>
-    <div class="show_row"><span class="show_lbl">Collection code: </span><span class="show_data"><%= @proj.collection_code -%></span></div>
-    <div class="show_row"><span class="show_lbl">Default institution/repository: </span><span class="show_data"><%= @proj.default_institution.andand.name -%></span></div>
-    <div class="show_row"><span class="show_lbl">Total IPT records:: </span><span class="show_data"><%= @proj.ipt_records.count -%> </span><span class= "show_comment"> of <%= @proj.specimens.count + @proj.lots.count -%> total specimen/lot records</span></div>
-    <div class="show_row"><span class="show_lbl">Manually rebuild IPT records: </span><span class="show_data"><%= link_to("Rebuild!", :action => :generate_ipt_records, :id => @proj.id) -%></span><span class="show_comment">Warning this can take a long time, do not navigate away.</span></div>
+    <div class="show_category"> GBIF/IPT </div>
+    <% if @proj.is_exportable_to_gbif && !@proj.collection_code.blank? && @proj.default_institution -%>
+      <div class="show_comment"><span style="color:green;"> Project is configured for GBIF/IPT export (requires server-side configuration of IPT software).</span></div>
+      <div class="show_row"><span class="show_lbl">Is exportable to GBIF?: </span><span class="show_data"><%= @proj.is_exportable_to_gbif -%></span></div>
+      <div class="show_row"><span class="show_lbl">Collection code: </span><span class="show_data"><%= @proj.collection_code -%></span></div>
+      <div class="show_row"><span class="show_lbl">Default institution/repository: </span><span class="show_data"><%= @proj.default_institution.andand.name -%></span></div>
+      <div class="show_row"><span class="show_lbl">Total IPT records:: </span><span class="show_data"><%= @proj.ipt_records.count -%> </span><span class= "show_comment"> of <%= @proj.specimens.count + @proj.lots.count -%> total specimen/lot records</span></div>
+      <div class="show_row"><span class="show_lbl">Manually rebuild IPT records: </span><span class="show_data"><%= link_to("Rebuild!", :action => :generate_ipt_records, :id => @proj.id) -%></span><span class="show_comment">Warning this can take a long time, do not navigate away.</span></div>
 
     <% else %>
-    <div class="show_comment"> Project yet not configured to be GBIF exportable.</div>
- 
-    <% if !@proj.is_exportable_to_gbif -%>
-      <div class="show_row"><span class="show_lbl">Is exportable?:</span><span class="show_data"><span style="color:red;font-weight:700;">GBIF Exportable option not yet selected.</span></span></div>
-    <% end -%>
+      <div class="show_comment"> Project yet not configured to be GBIF exportable.</div>
 
-    <% if !@proj.collection_code.blank?-%>
-      <div class="show_row"><span class="show_lbl">Collection code:</span><span class="show_data"><span style="color:red;font-weight:700;">Collection code not yet provided.</span></span></div>
-    <% end -%>
+      <% if !@proj.is_exportable_to_gbif -%>
+        <div class="show_row"><span class="show_lbl">Is exportable?:</span><span class="show_data"><span style="color:red;font-weight:700;">GBIF Exportable option not yet selected.</span></span></div>
+      <% end -%>
 
-    <% if !@proj.default_institution -%>
-      <div class="show_row"><span class="show_lbl">Default institution/repository:</span><span class="show_data"><span style="color:red;font-weight:700;">Default institution/repository not yet provided.</span></span></div>
-    <% end -%>
+      <% if !@proj.collection_code.blank?-%>
+        <div class="show_row"><span class="show_lbl">Collection code:</span><span class="show_data"><span style="color:red;font-weight:700;">Collection code not yet provided.</span></span></div>
+      <% end -%>
 
-  <% end %>
+      <% if !@proj.default_institution -%>
+        <div class="show_row"><span class="show_lbl">Default institution/repository:</span><span class="show_data"><span style="color:red;font-weight:700;">Default institution/repository not yet provided.</span></span></div>
+      <% end -%>
 
-  
-  <div class="show_category"> EOL </div>
+    <% end %>
+
+
+    <div class="show_category"> EOL </div>
     <% if @proj.is_eol_exportable && !@proj.default_license.blank? -%>
       <div class="show_row"><span class="show_lbl">Preview EOL XML: </span><span class="show_data"><%= link_to("View", :action => :eol_dump, :id => @proj.id) -%></span><span class="show_comment"> Right-click then 'Save link as' to save as file</span></div>
     <% else -%>
       <div class="show_comment"> Project yet not configured to be EOL exportable.</div>
     <% end -%>
-    
+
+
     <% if !@proj.is_eol_exportable -%>
       <div class="show_row"><span class="show_lbl">Is exportable?:</span><span class="show_data"><span style="color:red;font-weight:700;">Exportable option not yet selected.</span></span></div>
     <% end -%>
 
     <% if @proj.default_license.blank? -%>
-    <div class="show_row"><span class="show_lbl">Default license:</span><span class="show_data"><span style="color:red;font-weight:700;">Choose default license to enable export.</span></span></div>
+      <div class="show_row"><span class="show_lbl">Default license:</span><span class="show_data"><span style="color:red;font-weight:700;">Choose default license to enable export.</span></span></div>
     <% end -%>
-    
+
     <div class="show_row"><span class="show_lbl">Publishable content objects: </span><span class="show_data"><%= @proj.contents.that_are_published.count -%></span></div>
     <div class="show_row"><span class="show_lbl">Publishable EOL objects: </span><span class="show_data"><%= @proj.contents.by_eol_legal_content_type.that_are_published.count -%></span><span class="show_comment"> Edit content types to map to EOL content. </span></div>
     <div class="show_row"><span class="show_lbl">Public content is exportable to EOL: </span><span class="show_data"><%= @proj.is_eol_exportable -%></span></div>
 
-  <div class="show_category"> Views/display </div>
-  <div class="show_row"><span class="show_lbl">Hidden tabs: </span><span class="show_data"><%= @proj.hidden_tabs  ? @proj.hidden_tabs.sort.join(", ") : 'none' -%></span></div>
+    <div class="show_category"> Views/display </div>
+    <div class="show_row"><span class="show_lbl">Hidden tabs: </span><span class="show_data"><%= @proj.hidden_tabs  ? @proj.hidden_tabs.sort.join(", ") : 'none' -%></span></div>
 
-  <div class="show_category"> Default field values </div>
+    <div class="show_category"> Default field values </div>
+    <div class="show_row"><span class="show_lbl">Default license (content/images): </span><span class="show_data"><%= @proj.default_license -%></span></div>
+    <div class="show_row"><span class="show_lbl">Default copyright holder: </span><span class="show_data"><%= @proj.default_copyright_holder -%></span></div>
 
-  <div class="show_row"><span class="show_lbl">Default license (content/images): </span><span class="show_data"><%= @proj.default_license -%></span></div>
-  <div class="show_row"><span class="show_lbl">Default copyright holder: </span><span class="show_data"><%= @proj.default_copyright_holder -%></span></div>
+    <div class="show_category"> Server configuration </div>
+    <div class="show_row"><span class="show_lbl">Public server name(s) </span><span class="show_data"><%= @proj.public_server_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">Unix name: </span><span class="show_data"><%= @proj.unix_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">API name: </span><span class="show_data"><%= @proj.api_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">Criteria for public display of taxon names: </span><span class="show_data"><%= @proj.public_tn_criteria -%></span></div>
+    <div class="show_row"><span class="show_lbl">Google Maps Key: </span><span class="show_data"><%= @proj.gmaps_API_key -%></span></div>
 
-  <div class="show_category"> Server configuration </div>
-  <div class="show_row"><span class="show_lbl">Public server name(s) </span><span class="show_data"><%= @proj.public_server_name -%></span></div>
-  <div class="show_row"><span class="show_lbl">Unix name: </span><span class="show_data"><%= @proj.unix_name -%></span></div>
-  <div class="show_row"><span class="show_lbl">API name: </span><span class="show_data"><%= @proj.api_name -%></span></div>
-  <div class="show_row"><span class="show_lbl">Criteria for public display of taxon names: </span><span class="show_data"><%= @proj.public_tn_criteria -%></span></div>
-  <div class="show_row"><span class="show_lbl">Google Maps Key: </span><span class="show_data"><%= @proj.gmaps_API_key -%></span></div>
+    <div class="show_category"> Ontology related </div>
+    <div class="show_row"><span class="show_lbl">Ontology Namespace: </span><span class="show_data"><%= @proj.ontology_namespace -%></span></div>
+    <div class="show_row"><span class="show_lbl">Default Ontology: </span><span class="show_data"><%= @proj.default_ontology.andand.display_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">Default Ontology Term: </span><span class="show_data"><%= @proj.default_ontology_class.andand.display_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">Ontology exclusion keyword: </span><span class="show_data"><%= @proj.ontology_exclusion_keyword.andand.display_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">Ontology inclusion keyword: </span><span class="show_data"><%= @proj.ontology_inclusion_keyword.andand.display_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">OBO remark: </span><span class="show_data"><%= @proj.obo_remark -%></span></div>
 
-  <div class="show_category"> Ontology related </div>
-  <div class="show_row"><span class="show_lbl">Ontology Namespace: </span><span class="show_data"><%= @proj.ontology_namespace -%></span></div>
-  <div class="show_row"><span class="show_lbl">Default Ontology: </span><span class="show_data"><%= @proj.default_ontology.andand.display_name -%></span></div>
-  <div class="show_row"><span class="show_lbl">Default Ontology Term: </span><span class="show_data"><%= @proj.default_ontology_class.andand.display_name -%></span></div>
-  <div class="show_row"><span class="show_lbl">Ontology exclusion keyword: </span><span class="show_data"><%= @proj.ontology_exclusion_keyword.andand.display_name -%></span></div>
-  <div class="show_row"><span class="show_lbl">Ontology inclusion keyword: </span><span class="show_data"><%= @proj.ontology_inclusion_keyword.andand.display_name -%></span></div>
-  <div class="show_row"><span class="show_lbl">OBO remark: </span><span class="show_data"><%= @proj.obo_remark -%></span></div>
+    <div class="show_category"> Public display of data </div>
+    <div style="margin:1em;">
+      <div class="show_row"><span class="show_lbl">Default content template: </span><span class="show_data"><%= @proj.default_content_template.andand.display_name -%></span></div>
+      <div class="show_row"><span class="show_lbl">Public controllers </span><span class="show_data"><%= @proj.public_controllers ? @proj.public_controllers.sort.collect{|c| (c == 'site' ? c : link_to(c, :action=> 'index', :controller => "public/#{c}/"))}.join(", ") : 'none' -%></span><span class="show_comment">click to preview</span></div>
+    </div>
 
-  <div class="show_category"> Public display of data </div>
-  <div style="margin:1em;"> 
-    <div class="show_row"><span class="show_lbl">Default content template: </span><span class="show_data"><%= @proj.default_content_template.andand.display_name -%></span></div>
-    <div class="show_row"><span class="show_lbl">Public controllers </span><span class="show_data"><%= @proj.public_controllers ? @proj.public_controllers.sort.collect{|c| (c == 'site' ? c : link_to(c, :action=> 'index', :controller => "public/#{c}/"))}.join(", ") : 'none' -%></span><span class="show_comment">click to preview</span></div>
-  </div> 
+    <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @proj}) -%>
 
-  <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @proj}) -%>
+  </div>
 
 </div>

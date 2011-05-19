@@ -177,7 +177,7 @@ class Seq < ActiveRecord::Base
     @opt = {
       :otu_group_id => nil,
       :gene_id => nil
-    }.merge!(options.to_options)
+    }.merge!(options.symbolize_keys)
 
     return false if !@opt[:otu_group_id] || ! @opt[:gene_id]
  

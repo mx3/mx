@@ -1,6 +1,6 @@
 <h3>New object relationship</h3>
 
-= form_for(:object_relationship, :url => {:action => :create}) do |f| %>
+<%= form_for(:object_relationship, :url => {:action => :create}) do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
   <div style="clear:both;">
     <%= f.submit "Create" %>

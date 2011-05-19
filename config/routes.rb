@@ -48,30 +48,35 @@ Edge::Application.routes.draw do |map|
 
 
   # handle project controller prefix (this is hit on public requests)
-  map.connect 'projects/:proj_id/:controller/:action/:id.:format',
-    :controller => 'proj'
+#  map.connect 'projects/:proj_id/:controller/:action/:id.:format',
+#    :controller => 'proj'
 
   # TODO :format be optional (.resources likely)
-  map.connect 'projects/:proj_id/:controller/:action/:id',
-    :controller => 'proj'
+#  map.connect 'projects/:proj_id/:controller/:action/:id',
+#    :controller => 'proj'
 
-  map.connect '/projects/:proj_id/:controller/:action.:format'
-  map.connect '/projects/:proj_id/:controller/:action'
+ # map.connect '/projects/:proj_id/:controller/:action.:format'
+ # map.connect '/projects/:proj_id/:controller/:action'
 
 
   # Install the default route as the lowest priority.
   # this handles just :controller and :controller/:action as well
   # the proj part on the end says that if the controller was not specified in the request
   # (i.e. ''), call the proj controller (the :index action is default for it)
-  map.connect ':controller/:action/:id.:format',
-    :controller => 'proj',
-    :requirements => {:action => /[A-Za-z_]+/}
+ #  map.connect ':controller/:action/:id.:format',
+ #    :controller => 'proj',
+ #    :requirements => {:action => /[A-Za-z_]+/}
 
-  map.connect ':controller/:action/:id',
-    :controller => 'proj',
-    :requirements => {:action => /[A-Za-z_]+/}
+ # map.connect ':controller/:action/:id',
+ #   :controller => 'proj',
+ #   :requirements => {:action => /[A-Za-z_]+/}
 
+ # match 'projects/:proj_id/public/:controller(/:action(/:id(.:format)))'
+  match 'projects/:proj_id/:controller(/:action(/:id(.:format)))'
   match ':controller(/:action(/:id(.:format)))'
+ 
+  
+  # match 'projects/:id', :to => "proj#index", :via => 'get'
 
   map.connect "*anything",
    :controller => "application",
@@ -128,11 +133,11 @@ Edge::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "proj#index"
 
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  match ':controller(/:action(/:id(.:format)))'
+#  match ':controller(/:action(/:id(.:format)))'
 end

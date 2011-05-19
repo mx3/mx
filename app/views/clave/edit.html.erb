@@ -3,121 +3,121 @@
   <div id="history" class="box5">
     <%= render(:partial => 'history', :locals => {:act => 'edit'}) -%>
   </div>
-  
-    <% form_tag :action => 'update', :id => @claves do -%>
-  <div style="text-align: center; clear: both;" >
-    <p><label for="clave_manual_id">Manual couplet number: </label>
-      <%= hidden_field "clave", "id" -%>
-      <%= text_field "clave", 'manual_id', :size => 3 -%>
-      &nbsp;&nbsp; <i> mx couplet # <%= @clave.id -%> </i>
-    </p>
 
-   <div>
-    <div style="float: left;">
-      <label for="clave_edit_annotation">Editing annotation</label><br/>
-      <%= text_area "clave", 'edit_annotation', :rows => 2, :cols => 43 -%>
-    </div>
+  <%= form_tag :action => 'update', :id => @claves do -%>
+    <div style="text-align: center; clear: both;" >
+      <p><label for="clave_manual_id">Manual couplet number: </label>
+        <%= hidden_field "clave", "id" -%>
+        <%= text_field "clave", 'manual_id', :size => 3 -%>
+        &nbsp;&nbsp; <i> mx couplet # <%= @clave.id -%> </i>
+      </p>
 
-    <div style="float: right;">
-      <label for="clave_pub_annotation">Public annotation</label><br/>
-      <%= text_area "clave", 'pub_annotation', :rows => 2, :cols => 43 -%>
-    </div>
-   <div style="clear: both;"></div>
-  </div>
+      <div>
+        <div style="float: left;">
+          <label for="clave_edit_annotation">Editing annotation</label><br/>
+          <%= text_area "clave", 'edit_annotation', :rows => 2, :cols => 43 -%>
+        </div>
 
-  <div>
-    <% unless @clave.parent_id  == nil  -%>
-      <div >
-        <%= link_to('Up', :action =>  'edit', :id => @clave.parent.id) -%>
+        <div style="float: right;">
+          <label for="clave_pub_annotation">Public annotation</label><br/>
+          <%= text_area "clave", 'pub_annotation', :rows => 2, :cols => 43 -%>
+        </div>
+        <div style="clear: both;"></div>
       </div>
-    <% end %>
 
-    <div>
-      <%= submit_tag 'Update (save)' -%>
-    </div>
-  </div>
-  
-  <div style="clear: both;"></div>
-  </div>
+      <div>
+        <% unless @clave.parent_id  == nil  -%>
+          <div >
+            <%= link_to('Up', :action =>  'edit', :id => @clave.parent.id) -%>
+          </div>
+        <% end %>
 
-
-  <div id="functions1" style="text-align: center; clear: both;">
-    <% if @left.couplet_text.size > 0 %>
-    <div id="new_left1" style="float: left; margin-left: 50px;">
-      <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @left.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
-      | <%= link_to('Follow and add or edit', :action => 'edit', :id => @left) %> 
-
-    </div>
-      <% end %>
-    
-   <% if @right.couplet_text.size > 0 %>
-    <div id="new_right1" style="float: right; margin-right: 50px;">
-      <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @right.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
-      | <%= link_to('Follow and add or edit', :action => 'edit', :id => @right) %> 
-    </div>        
-    <% end %>
-  </div>
-
-  
-  <div id="couplets" style="clear: both;">
-    <div id="left" class="box5" style="float: left; margin:auto;">
-      
-     <div style="padding: 1em;">
-       <%= render(:partial => 'couplet_side_form', :locals => {:side => 'left', :c_id => @left.id,  :otu_id => (@left.otu ?  @left.otu.id : nil), :otu_name => (@left.otu ? @left.otu.display_name(:type => :selected) : nil), :link_out => @left.link_out, :link_out_text => @left.link_out_text } ) -%>
-     </div>
-    
-      <%= render_figs_for_obj(@left, 'thumb', true, 'box5') -%>      
-
-      <!-- left future -->
-      <% if @left_future.size > 0 %>
-      <div class="claves_white_box">
-        <span class="lbl4">future couplets</span><br/>
-        <%= render(:partial => "future",  :locals => {:act => 'edit', :future => @left_future}) -%>
+        <div>
+          <%= submit_tag 'Update (save)' -%>
+        </div>
       </div>
-      <% end %>
-    
 
+      <div style="clear: both;"></div>
     </div>
 
-    <div id="right" class="box5" style="float: right; margin:auto;">
 
-    <div style="padding: 1em;">
-      <%= render(:partial => 'couplet_side_form', :locals => {:side => 'right', :c_id => @right.id, :otu_id => (@right.otu ?  @right.otu.id : nil), :otu_name => (@right.otu ?  @right.otu.display_name(:type => :selected) : nil) , :link_out => @right.link_out, :link_out_text => @right.link_out_text}) -%>
-    </div>
-      
+    <div id="functions1" style="text-align: center; clear: both;">
+      <% if @left.couplet_text.size > 0 %>
+        <div id="new_left1" style="float: left; margin-left: 50px;">
+          <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @left.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
+          | <%= link_to('Follow and add or edit', :action => 'edit', :id => @left) %>
 
-    <%= render_figs_for_obj(@right, 'thumb',true,'box5') -%>
-
-
-      <!-- right future -->
-      <% if @right_future.size > 0 %>
-        <div class="claves_white_box">
-          <span class="lbl4">future couplets</span><br/>
-          <%= render(:partial => "future",  :locals => {:act => 'edit', :future => @right_future}) -%>
         </div>
       <% end %>
-    
-    </div>    
-  </div>
+
+      <% if @right.couplet_text.size > 0 %>
+        <div id="new_right1" style="float: right; margin-right: 50px;">
+          <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @right.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
+          | <%= link_to('Follow and add or edit', :action => 'edit', :id => @right) %>
+        </div>
+      <% end %>
+    </div>
+
+
+    <div id="couplets" style="clear: both;">
+      <div id="left" class="box5" style="float: left; margin:auto;">
+
+        <div style="padding: 1em;">
+          <%= render(:partial => 'couplet_side_form', :locals => {:side => 'left', :c_id => @left.id,  :otu_id => (@left.otu ?  @left.otu.id : nil), :otu_name => (@left.otu ? @left.otu.display_name(:type => :selected) : nil), :link_out => @left.link_out, :link_out_text => @left.link_out_text } ) -%>
+        </div>
+
+        <%= render_figs_for_obj(@left, 'thumb', true, 'box5') -%>
+
+        <!-- left future -->
+        <% if @left_future.size > 0 %>
+          <div class="claves_white_box">
+            <span class="lbl4">future couplets</span><br/>
+            <%= render(:partial => "future",  :locals => {:act => 'edit', :future => @left_future}) -%>
+          </div>
+        <% end %>
+
+
+      </div>
+
+      <div id="right" class="box5" style="float: right; margin:auto;">
+
+        <div style="padding: 1em;">
+          <%= render(:partial => 'couplet_side_form', :locals => {:side => 'right', :c_id => @right.id, :otu_id => (@right.otu ?  @right.otu.id : nil), :otu_name => (@right.otu ?  @right.otu.display_name(:type => :selected) : nil) , :link_out => @right.link_out, :link_out_text => @right.link_out_text}) -%>
+        </div>
+
+
+        <%= render_figs_for_obj(@right, 'thumb',true,'box5') -%>
+
+
+        <!-- right future -->
+        <% if @right_future.size > 0 %>
+          <div class="claves_white_box">
+            <span class="lbl4">future couplets</span><br/>
+            <%= render(:partial => "future",  :locals => {:act => 'edit', :future => @right_future}) -%>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
   <% end -%>
 
   <!-- don't reposition below -->
 
   <div id="functions" style="text-align: center; clear: both;">
     <div id="new_left" style="float: left; margin-left: 50px;">
-      <%= fig_link(@left) %>  
+      <%= fig_link(@left) %>
       <% if @left.couplet_text.size > 0 and @left.redirect_id.blank? %>
-      | <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @left.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
-      <%= button_to('follow and add or edit', :action => 'edit', :id => @left) %> 
+        | <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @left.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
+        <%= button_to('follow and add or edit', :action => 'edit', :id => @left) %>
       <% end %>
       <%= '<br/><i> This side is currently redirecting, to add couplets below remove the redirection.  </i>' if  @left.redirect_id -%>
     </div>
 
     <div id="new_right" style="float: right; margin-right: 50px;">
-      <%= fig_link(@right) %> 
+      <%= fig_link(@right) %>
       <% if @right.couplet_text.size > 0 and @right.redirect_id.blank? %>
-      | <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @right.id}, :method => "post",:confirm => "Insert a couplet below this one?") %>
-      <%= button_to('follow and add or edit', :action => 'edit', :id => @right) %> 
+        | <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @right.id}, :method => "post",:confirm => "Insert a couplet below this one?") %>
+        <%= button_to('follow and add or edit', :action => 'edit', :id => @right) %>
       <% end %>
       <%= '<br/><i> This side is currently redirecting, to add couplets below remove the redirection. </i>' if  @right.redirect_id -%>
     </div>              

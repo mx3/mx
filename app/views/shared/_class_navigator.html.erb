@@ -1,7 +1,8 @@
+
 <div class="class_navigator">
   <table>
     <tr>
-      <% if !no_new_or_list.include?( self.controller.controller_name) -%> 
+      <% if !no_new_or_list.include?( self.controller.controller_name) -%>
         <td style="width: 7em;">
           <div style="display: inline; position: relative; margin-left: 2px; top: 2px;"><%= link_to 'new', :action => 'new' -%>&nbsp;&nbsp;<span style="color:silver;">|&nbsp;</span>&nbsp;<%= link_to 'list', :action => 'list' -%></div>
         </td>
@@ -10,23 +11,23 @@
         <% if self.methods.include?("class_picker")  -%>
           <%= class_picker %>
         <% else %>
-          <%= render(:partial => 'shared/picker_form', :locals => {:show_and_edit => true, :form_action => :show_or_edit , :form_controller => 'Shared' }) unless no_pickers.include?(self.controller.controller_name) -%> 
+          <%= render(:partial => 'shared/picker_form', :locals => {:show_and_edit => true, :form_action => :show_or_edit , :form_controller => 'Shared' }) unless no_pickers.include?(self.controller.controller_name) -%>
         <% end %>
       </td>
     </tr>
 
-   <% if has_links -%>
-    <tr>
-      <td colspan="2">
-        <ul id="nav_dd">
-          <li><a href="#">more options ...</a>
-            <ul>
-              <%= render(:partial => 'links') -%>
-            </ul>
-          </li>
-        </ul>
-      </td>
-    </tr>
+    <% if has_links -%>
+      <tr>
+        <td colspan="2">
+          <ul id="nav_dd">
+            <li><a href="#">more options ...</a>
+              <ul>
+                <%= render(:partial => 'links') -%>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
     <% end -%>
   </table>
 </div>

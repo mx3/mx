@@ -21,10 +21,13 @@ class ProjController < ApplicationController
   end
 
   def show
+    # Have to yank it back out of the session I think!?
+    # Rails3 - Chained named scopes not working when @proj is coming from the session.
+    @proj = Proj.find(@proj.id)
   end
 
   def edit
-    @proj = Proj.find(params[:id])
+    @proj = Proj.find(params[:id], :include => [:contents])
     @people = Person.find(:all, :order => 'login')
     @target = 'update' # GET RID OF THIS!
     _set_pub_controllers 
