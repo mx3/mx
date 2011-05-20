@@ -52,6 +52,9 @@ class ApplicationController < ActionController::Base
 
   def configure_site
 
+
+  #  debugger
+
     if params[:unresolvable] # called when bad queries are thrown at the db (i.e routed from *anything)
       public_route_failure and return
     end
@@ -64,6 +67,7 @@ class ApplicationController < ActionController::Base
       @server_name = self.request.server_name.sub(/^www\./, "")
     end
 
+    
     if (@server_name == HOME_SERVER || @server_name == 'development') && (self.class.controller_path[0,7] != "public/")
       # Hitting the "private" application interface
       if login_required

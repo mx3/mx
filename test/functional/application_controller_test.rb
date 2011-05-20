@@ -1,8 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 require 'application_controller'
 
+
 class ApplicationController; def rescue_action(e) raise e end; end 
 class ApplicationControllerTest < ActionController::TestCase
+
+  include ActionDispatch::Routing::UrlFor
 
   def setup
     # doesn't really matter what controller we have for some basic routes testing.
@@ -27,6 +30,7 @@ class ApplicationControllerTest < ActionController::TestCase
     opts = {
       :controller => 'public/ref'
     }
+    debugger
     assert_generates('/public/ref', opts)
     assert_recognizes opts.update({:action => 'index'}), 'public/ref'
   end

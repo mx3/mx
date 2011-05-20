@@ -3,7 +3,7 @@
 <% object ||= controller -%>
 <% form_controller ||= self.controller.controller_name.html_safe -%>
 <% form_action ||= "show" -%>
-<%= form_tag(:action => form_action, :controller => form_controller) do -%>
+<%= form_tag(:action => form_action, :controller => form_controller, :method => :get) do -%>
   <%= hidden_field_tag('cntrller', controller) -%>
   <%= render :partial => "shared/picker", :locals => {
     :controller => controller,

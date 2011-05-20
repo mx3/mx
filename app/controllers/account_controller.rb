@@ -13,7 +13,9 @@ class AccountController < ApplicationController
   def login
    @news = News.current_app_news('warning')  
    @page_title = "Please login"
+    
     case request.method
+      
       when 'POST'
         if session[:person] = Person.authenticate(params[:person_login], params[:person_password])
           flash[:notice]  = "Login successful"

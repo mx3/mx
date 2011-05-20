@@ -29,6 +29,7 @@ module LoginSystem
   # login_required filter. added to all controllers (through application.rb), so everything requires 
   # login by default. override the relevant methods in the individual controllers to free things up.
   def login_required
+    
     $person_id = nil
 
     if not protect?(action_name) # action_name comes from routing

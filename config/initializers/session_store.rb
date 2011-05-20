@@ -6,4 +6,9 @@
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
 # Edge::Application.config.session_store :active_record_store, :key => "_mx_session"
-Rails.application.config.session_store :active_record_store, :key => "_mx_session"
+
+#ActionController::Base.session = {
+#   :cookie_only => false # allow session to be loaded from params
+#}
+
+Edge::Application.config.session_store :active_record_store, :key => "_mx_session"

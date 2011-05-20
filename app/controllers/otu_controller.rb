@@ -432,7 +432,8 @@ class OtuController < ApplicationController
   end
   
   def auto_complete_for_otu
-    debugger
+
+    
     @tag_id_str = params[:tag_id]
     value = params[@tag_id_str.to_sym]
         
