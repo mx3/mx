@@ -65,7 +65,7 @@ module App::AutocompleteHelper
     return unless entries
     items = entries.map { |entry| content_tag("li", self.send(format_method, entry), "id" => "#{id_str}::#{entry.id}") }
     items << content_tag("li", "-- none --", "id" => "#{id_str}::::")
-    content_tag("ul", items).html_safe
+    content_tag(:ul, items.join.html_safe)
   end
 
   # AJAX, for use in all search dropdowns

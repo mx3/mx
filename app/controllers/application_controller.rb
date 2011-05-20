@@ -52,9 +52,6 @@ class ApplicationController < ActionController::Base
 
   def configure_site
 
-
-  #  debugger
-
     if params[:unresolvable] # called when bad queries are thrown at the db (i.e routed from *anything)
       public_route_failure and return
     end

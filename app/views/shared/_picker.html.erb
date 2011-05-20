@@ -29,4 +29,4 @@
 <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "#{object}_#{method}_to_find_spinner", :style => "display: none; vertical-align:middle;"  ) -%>
 
 <%# TODO: verify the placement of this- it probably should go elsewhere utlimately vs. MxController#browse, which has @matrix and @mx variable names that could be switched to fix this -%>
-<%# hidden_field(object, method)  -%>
+<%= hidden_field(object, method)  -%>
