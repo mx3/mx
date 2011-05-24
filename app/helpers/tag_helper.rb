@@ -7,7 +7,7 @@ module TagHelper
   # end
 
   def link_to_tagged(tag)
-    return "<strong style='color:red'>ERROR? #{tag.addressable_type}:#{tag.addressable_id}</strong>" if !tag.tagged_obj
+    return "<strong style='color:red'>ERROR? #{tag.addressable_type}:#{tag.addressable_id}</strong>".html_safe if !tag.tagged_obj
     link_to(tag.tagged_obj.display_name, :action => :show, :id => tag.addressable_id, :controller => tag.addressable_type.underscore) 
   end
 
@@ -46,7 +46,7 @@ module TagHelper
       end 
       s << "</ul>"
     end 
-    s 
+    s.html_safe
   end
    
   # needs some tweaking see above
@@ -77,8 +77,8 @@ module TagHelper
       end 
       s << "</ul>"
     end 
-  
-    s 
+ 
+    s.html_safe
   end
 
   def tag_cloud_for(o, keyword_id = 'mx_all_kw', link_back = 'list')
@@ -122,7 +122,7 @@ module TagHelper
       
     end 
     s = "<i id=\"blue_sky_#{o.class.to_s}_#{o.id}\">blue sky</i>" if words.size == 0
-    s 
+    s.html_safe
   end
 
   def render_meta_tree(t, s = '', level = 0)
@@ -131,7 +131,7 @@ module TagHelper
       level += 1
       render_meta_tree(mt, s, level )
     end
-    s
+    s.html_safe
   end
 
   def render_meta_tree_for_public(t, s = '', level = 0)
@@ -140,12 +140,7 @@ module TagHelper
       level += 1
       render_meta_tree_for_public(mt, s, level )
     end
-    s
+    s.html_safe
   end
-
-
-
-
-
 
 end

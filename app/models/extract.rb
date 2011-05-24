@@ -96,7 +96,7 @@ class Extract < ActiveRecord::Base
       end
       s << '</div>'   
     end 
-    s
+    s.html_safe   
   end
  
   def display_source_identifiers  # :yields: String identifying the lot or specimen the extract came from
@@ -114,10 +114,10 @@ class Extract < ActiveRecord::Base
       return Specimen.find(specimen_id).display_name(:type => :ce_for_list)
     end
     l = Lot.find(lot_id) # it has to have a lot if no specimen
-      if l.ce
-        return(l.ce.display_for_list)
-      else
-        return ''
+    if l.ce
+      return(l.ce.display_for_list)
+    else
+      return ''
     end
   end
 
@@ -142,8 +142,8 @@ class Extract < ActiveRecord::Base
   end
 
   def count_seqs_with_nucs_by_gene(gene) # :yields: Integer
-   pcrs = gene.primer_pairs.inject([]){|sum, pair| sum += self.pcrs.by_primer_pair(pair[0], pair[1])}.flatten 
-   pcrs.inject(0){|sum, p| sum + p.seqs.with_nucleotides.size } 
+    pcrs = gene.primer_pairs.inject([]){|sum, pair| sum += self.pcrs.by_primer_pair(pair[0], pair[1])}.flatten
+    pcrs.inject(0){|sum, p| sum + p.seqs.with_nucleotides.size }
   end
 
   def self.summarize_by(options = {})
@@ -176,7 +176,7 @@ class Extract < ActiveRecord::Base
   end
 
   def self.find_for_auto_complete(value) # :yields: Array of Extracts
-   find_by_sql [
+    find_by_sql [
       "SELECT e.* FROM extracts e
       LEFT JOIN specimens s on e.specimen_id = s.id
       LEFT JOIN identifiers i ON s.id = i.addressable_id
@@ -198,17 +198,17 @@ class Extract < ActiveRecord::Base
        g.name LIKE ? OR
        c.verbatim_label LIKE ?
       ) LIMIT 30",
-       value,
-       value,
-       "#{value.downcase}%",
-       "%#{value.downcase}%",
-       "%#{value.downcase}%",
-       "#{value.downcase}%",
-       "%#{value.downcase}%",
-       "%#{value.downcase}%",
-       "%#{value.downcase}%",
-       "%#{value.downcase}%"
-      ]
+      value,
+      value,
+      "#{value.downcase}%",
+      "%#{value.downcase}%",
+      "%#{value.downcase}%",
+      "#{value.downcase}%",
+      "%#{value.downcase}%",
+      "%#{value.downcase}%",
+      "%#{value.downcase}%",
+      "%#{value.downcase}%"
+    ]
   end
 
 

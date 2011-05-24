@@ -48,8 +48,8 @@ Edge::Application.routes.draw do |map|
 
 
 
-  match 'projects/:proj_id/:controller(/:action(/:id(.:format)))'
-  match ':controller(/:action(/:id(.:format)))'
+  match 'projects/:proj_id(/public)/:controller(/:action(/:id(.:format)))'
+  match '(/public)/:controller(/:action(/:id(.:format)))'
 
 
   # handle project controller prefix (this is hit on public requests)

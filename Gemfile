@@ -40,7 +40,7 @@ end
 group :development do
   # bundler requires these gems in development
   # gem "rails-footnotes"
-  # gem "mongrel", "1.2.0.pre2"
+  gem "mongrel", "1.2.0.pre2"
   # gem 'cgi_multipart_eof_fix'
   # gem 'fastthread'
 end

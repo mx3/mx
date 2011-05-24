@@ -35,6 +35,8 @@ module Edge
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/model_extensions #{config.root}/lib/ontology #{config.root}/lib/ontology/batch_load #{config.root}/lib/ontology/visualize #{config.root}/lib/toolbox)
 
+    # TODO: rails 3
+    # config.action_view.javascript_expansions[:defaults] = %w(jquery jquery-ui rails application)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

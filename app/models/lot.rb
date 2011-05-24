@@ -64,33 +64,35 @@ class Lot < ActiveRecord::Base
     opt = {
       :type => :selected 
     }.merge!(options.symbolize_keys)
+    
     case opt[:type]
     when :identifiers
       return 'none' if identifiers.count == 0
-      identifiers.map(&:cached_display_name).join("; ")
+      s = identifiers.map(&:cached_display_name).join("; ")
     when :determination
-      self.otu.display_name
+      s =  self.otu.display_name
     when :in_list
-      "#{otu.display_name(:type => :in_list)}" + " " + self.display_name(:type => :identifiers)
+      s = "#{otu.display_name(:type => :in_list)}" + " " + self.display_name(:type => :identifiers)
     when :for_select_list
-      "#{self.display_name(:type => :identifiers)} : #{otu.display_name(:type => :for_select_list)} <span style='color:grey;font-size:smaller;'>mx_id:#{id.to_s}</span>"
+      s = "#{self.display_name(:type => :identifiers)} : #{otu.display_name(:type => :for_select_list)} <span style='color:grey;font-size:smaller;'>mx_id:#{id.to_s}</span>"
     when :selected
-      "#{self.display_name(:type => :identifiers)} / #{otu.display_name(:type => :selected)} (#{id})"
+      s = "#{self.display_name(:type => :identifiers)} / #{otu.display_name(:type => :selected)} (#{id})"
     else
-      self.display_name(:type => :identifiers) == 'none' ? "#{self.id}" : self.display_name(:type => :identifiers) + " " + otu.display_name(:type => :multi_name)
+      s = self.display_name(:type => :identifiers) == 'none' ? "#{self.id}" : self.display_name(:type => :identifiers) + " " + otu.display_name(:type => :multi_name)
     end
+    s.html_safe
   end
   
   def self.find_for_auto_complete(value)
     find_by_sql [
-    "SELECT l.* FROM lots l 
+      "SELECT l.* FROM lots l
     LEFT JOIN identifiers i ON l.id = i.addressable_id
     LEFT JOIN otus o ON l.otu_id = o.id 
     LEFT JOIN taxon_names t ON o.taxon_name_id = t.id 
     WHERE o.proj_id = #{$proj_id}
     AND i.addressable_type = 'Lot'
     AND (o.name LIKE ? OR o.matrix_name LIKE ? OR t.name LIKE ? OR i.identifier LIKE ? or l.id = ?) LIMIT 30",
-     "#{value.downcase}%", "#{value.downcase}%", "#{value.downcase}%", "%#{value.downcase}%", "#{value}"]
+      "#{value.downcase}%", "#{value.downcase}%", "#{value.downcase}%", "%#{value.downcase}%", "#{value}"]
   end
  
   def total_specimens

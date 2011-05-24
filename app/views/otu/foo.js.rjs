@@ -1,0 +1,2 @@
+
+ page.replace_html :search_results, :text => "FOO" #  :partial => 'ajax_list'

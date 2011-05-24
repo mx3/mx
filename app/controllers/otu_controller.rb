@@ -1,7 +1,7 @@
 class OtuController < ApplicationController
   
   verify :method => :post, :only => [ :destroy, :create, :update, :remove_from_otu_group],
-         :redirect_to => { :action => :list }
+    :redirect_to => { :action => :list }
  
   before_filter :show_params, :only => [:show, :show_summary, :show_map, :show_distribution, :show_tags_no_layout, :show_groups, :show_material_examined, :show_content, :show_matrix_sync, :show_compare_content, :show_all_content, :show_codings, :show_material, :show_molecular, :show_images, :show_tags, :show_matrices ]
 
@@ -12,9 +12,23 @@ class OtuController < ApplicationController
 
   def list
     list_params
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+ #   if request.xml_http_request?
+    
+      respond_to do |format|
+   
+      format.js {
+        render :action => 'foo' and return
+      }
+      format.html {}
+      end 
+     
+
+     #   page.replace_html :search_results, :partial => 'ajax_list'
+        # page.replace_html :working, :partial => 'edit_page_content_form', :locals => {:otu => @otu, :content_template => @content_template}
+     # end
+
+      # render(:layout => false, :partial => 'ajax_list')
+      #   end
   end
   
   def list_all
@@ -252,9 +266,9 @@ class OtuController < ApplicationController
       @show = ['show_associations']
       render :action => 'show'
     else
-     flash[:notice] =  "can't find that OTU!"  
-     redirect_to :action => 'list', :controller => 'otu'
-   end
+      flash[:notice] =  "can't find that OTU!"
+      redirect_to :action => 'list', :controller => 'otu'
+    end
   end
 
   def show_molecular 
@@ -284,7 +298,7 @@ class OtuController < ApplicationController
         flash[:notice] = 'Something went wrong with the transfer.'
       end
     end
-      redirect_to :back
+    redirect_to :back
   end
   
   def show_tags
@@ -333,10 +347,10 @@ class OtuController < ApplicationController
     
     if @otu.update_attributes(params[:otu])
       flash[:notice] = 'Otu was successfully updated.'
-       if params[:update_and_next]
+      if params[:update_and_next]
         redirect_to :action => 'edit', :id => Otu.find(:first, :include => :proj, 
-        :conditions => ["projs.id = #{@proj.id} AND otus.id > ?", @otu.id], :order => 'otus.id ASC')
-       else
+          :conditions => ["projs.id = #{@proj.id} AND otus.id > ?", @otu.id], :order => 'otus.id ASC')
+      else
         redirect_to :action => 'show', :id => @otu.id
       end
     else
@@ -347,9 +361,9 @@ class OtuController < ApplicationController
   def destroy
     if @otu = Otu.find(params[:id])
       begin
-       @otu.destroy 
-       flash[:notice] =  "OTU deleted."         
-       rescue StandardError => e
+        @otu.destroy
+        flash[:notice] =  "OTU deleted."
+      rescue StandardError => e
         flash[:notice] =  "OTU not deleted.  Perhaps you are using it somewhere. (#{e.message})"         
         redirect_to :action => :show, :id => @otu and return
       end  
@@ -432,8 +446,7 @@ class OtuController < ApplicationController
   end
   
   def auto_complete_for_otu
-
-    
+   
     @tag_id_str = params[:tag_id]
     value = params[@tag_id_str.to_sym]
         
@@ -444,11 +457,11 @@ class OtuController < ApplicationController
   
   # redundancy with OTU group add - but nice fn()
   def add_to_otu_group
-     if OtuGroup.find(params[:otu_group_id]).add_otu(Otu.find(params[:otu_hook][:id]))
-        flash[:notice] = 'Added this OTU to a group.'
-     else
-        flash[:notice] = 'Error in adding OTU to group.'
-     end    
+    if OtuGroup.find(params[:otu_group_id]).add_otu(Otu.find(params[:otu_hook][:id]))
+      flash[:notice] = 'Added this OTU to a group.'
+    else
+      flash[:notice] = 'Error in adding OTU to group.'
+    end
     redirect_to :action => 'show_groups', :id => params[:otu_hook][:id]  
   end
 
@@ -457,17 +470,17 @@ class OtuController < ApplicationController
     redirect_to :action => 'show_groups', :id => params[:otu_id]
   end
  
-# def publish_page
-#   o = Otu.find(params[:id]) or raise 'failed to find Otu in publish_page'
-#   t = ContentTemplate.find(params[:content_template_id])
-#   
-#   if t.publish(o) 
-#     flash[:notice] = 'Successfully published the content.'
-#   else
-#     flash[:notice] = 'Error publishing the page.'
-#   end
-#   redirect_to(:action => 'show_content', :id => o.id, :content_template_id => t.id)
-# end
+  # def publish_page
+  #   o = Otu.find(params[:id]) or raise 'failed to find Otu in publish_page'
+  #   t = ContentTemplate.find(params[:content_template_id])
+  #
+  #   if t.publish(o)
+  #     flash[:notice] = 'Successfully published the content.'
+  #   else
+  #     flash[:notice] = 'Error publishing the page.'
+  #   end
+  #   redirect_to(:action => 'show_content', :id => o.id, :content_template_id => t.id)
+  # end
 
   def clone_or_transfer_template_content
     @otu = Otu.find(params[:id])
@@ -483,8 +496,8 @@ class OtuController < ApplicationController
       end
     end
 
-     flash[:notice] = " Problem with transfer. "
-     render :action => :show_content, :id => @otu, :content_template_id => @content_template
+    flash[:notice] = " Problem with transfer. "
+    render :action => :show_content, :id => @otu, :content_template_id => @content_template
   end
 
 
@@ -540,7 +553,7 @@ class OtuController < ApplicationController
   ## what is this??? ... dunno, but it looks kinda cool
   def tree
     @otus = Otu.find_by_sql([
-    "SELECT o.*, t.name as foo, t.iczn_group as bar FROM otus o 
+        "SELECT o.*, t.name as foo, t.iczn_group as bar FROM otus o
     LEFT JOIN taxon_names t ON t.id = o.taxon_name_id  
     WHERE o.proj_id = ? and o.id < 1800 ORDER BY t.l", @proj.id])
   end  
@@ -582,7 +595,7 @@ class OtuController < ApplicationController
     if session['group_ids'] && session['group_ids']['otu']
       @otu_group = OtuGroup.find(session['group_ids']['otu'])
       @otu_pages, @otus = paginate :otus, :per_page => 20, :conditions => "((proj_id = #{@proj.id}) and (otu_group_id = #{session['group_ids']['otu']}))",
-      :join => "as o inner join otu_groups_otus on otu_groups_otus.otu_id = o.id", :include => [:taxon_name], :order => 'taxon_names.l, otus.name, otus.matrix_name'
+        :join => "as o inner join otu_groups_otus on otu_groups_otus.otu_id = o.id", :include => [:taxon_name], :order => 'taxon_names.l, otus.name, otus.matrix_name'
     else
       @otu_pages, @otus = paginate :otus, :per_page => 20, :conditions => "(proj_id = #{@proj.id})", :include => [{:taxon_name => :parent}, :creator, :updator], :order => 'taxon_names.l, otus.name, otus.matrix_name'
     end
@@ -600,10 +613,10 @@ class OtuController < ApplicationController
       @syn_otus = @otu.all_synonymous_otus
       @parents =  @otu.taxon_name.parents if @otu.taxon_name 
     else
-     flash[:notice] =  "can't find that OTU!"  
-     redirect_to :action => 'list', :controller => 'otu'
-   end
-   true
+      flash[:notice] =  "can't find that OTU!"
+      redirect_to :action => 'list', :controller => 'otu'
+    end
+    true
   end
 
   # Content

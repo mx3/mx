@@ -1,4 +1,4 @@
-<div id="t_<%= "#{tag_obj_class}_#{tag_obj_id}" -%>" style="display: inline;">
+<div id="t_<%= "#{tag_obj_class}_#{tag_obj_id}".html_safe -%>" style="display: inline;">
   <% keyword_id ||= nil -%>
-  <span id="tl_<%= "#{tag_obj_class}_#{tag_obj_id}"-%>"><%= link_to(link_text, :remote => :true, :url => { :action => :new, :controller => :tag, :tag_obj_id => tag_obj_id, :tag_obj_class => tag_obj_class, :keyword_id => keyword_id}, :html => { :style => 'display:inline;'}) -%></span>
+  <span id="tl_<%= "#{tag_obj_class}_#{tag_obj_id}".html_safe -%>"><%= link_to(link_text, { :action => :new, :controller => :tag, :tag_obj_id => tag_obj_id, :tag_obj_class => tag_obj_class, :keyword_id => keyword_id}, :remote => :true, :html => { :style => 'display:inline;'.html_safe}) -%></span>
 </div>

@@ -65,12 +65,14 @@ GEM
     bio (1.4.1)
     builder (2.1.2)
     columnize (0.3.2)
+    daemons (1.0.10)
     echoe (4.5.6)
       allison
       gemcutter
       rubyforge
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    gem_plugin (0.2.3)
     gemcutter (0.7.0)
     geokit (1.5.0)
     haml (3.1.1)
@@ -84,6 +86,9 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mongrel (1.2.0.pre2)
+      daemons (~> 1.0.10)
+      gem_plugin (~> 0.2.3)
     mysql2 (0.2.7)
     nexus_parser (1.1.4)
     nokogiri (1.4.4)
@@ -145,6 +150,7 @@ DEPENDENCIES
   echoe
   geokit
   haml
+  mongrel (= 1.2.0.pre2)
   mysql2 (< 0.3)
   nexus_parser (= 1.1.4)
   obo_parser (= 0.3.4)
