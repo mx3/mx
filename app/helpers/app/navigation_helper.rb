@@ -365,26 +365,21 @@ module App::NavigationHelper
       html << link_to("previous",
         url_options.merge(:page => previous_page),
         :remote => true,
-        :loading => "Element.show('pg_spinner');".html_safe,
-        :complete => "Element.hide('pg_spinner');".html_safe #,
-        # :update => options[:element_name]
+    :class => 'ajax_page_nav_link'
       )
       html << '&nbsp;|&nbsp;'.html_safe
       html <<  link_to("next",
         url_options.merge(:page => next_page),
-        :remote => true)
-        # :loading => "Element.show('pg_spinner');",
-        # :complete => "Element.hide('pg_spinner');",
-        # :update => options[:element_name])
+        :remote => true,
+        :class => 'ajax_page_nav_link')
+  
       html << '&nbsp;|&nbsp;'.html_safe
     
       if options[:always_show_anchors] and not window_pages[0].first?
         html << link_to(first.number,
           url_options.merge(:page => first),
-          :remote => true
-        #  :loading => "Element.show('pg_spinner')".html_safe,
-        #  :complete => "Element.hide('pg_spinner')".html_safe,
-        #  :update => options[:element_name]
+          :remote => true,
+            :class => 'ajax_page_nav_link'
           )
         html << ' ... ' if window_pages[0].number - first.number > 1
         html << ' '
@@ -397,9 +392,7 @@ module App::NavigationHelper
           html << link_to(page.number,
             url_options.merge(:page => page),
             :remote => true,
-            :loading => "Element.show('pg_spinner')",
-            :complete => "Element.hide('pg_spinner')",
-            :update => options[:element_name]
+            :class => 'ajax_page_nav_link'
             )
         end
         html << ' '
@@ -410,9 +403,7 @@ module App::NavigationHelper
         html << link_to(last.number,
           url_options.merge(:page => last),
           :remote => true,
-          :loading => "Element.show('pg_spinner')".html_safe,
-          :complete => "Element.hide('pg_spinner')".html_safe,
-          :update => options[:element_name].html_safe
+          :class => 'ajax_page_nav_link'
           )
       end
     
@@ -420,12 +411,11 @@ module App::NavigationHelper
       html << link_to("refresh current",
         url_options.merge(:page => paginator.current),
         :remote => true,
-        :loading => "Element.show('pg_spinner')".html_safe,
-        :complete => "Element.hide('pg_spinner')".html_safe,
-        :update => options[:element_name].html_safe
+          :class => 'ajax_page_nav_link'
         )
       html << '&nbsp;&nbsp;'.html_safe
-      html << image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'pg_spinner', :style => "display: none; vertical-align:text-top;")
+      html << image_tag('/images/spinner.gif', :alt => 'Loading', :class => 'pg_spinner', :style => "display: none; vertical-align:text-top;")
+
       html
     end
     html.html_safe

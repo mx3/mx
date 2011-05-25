@@ -1,8 +1,6 @@
 <% action ||= 'list' %>
 <div class="list_pagination" style="height: 18px; vertical-align: middle;">
   <span class="lbl1" style="color: #bbb;">view page: </span>
-
-<%=  pagination_links_with_ajax(pages, {:element_name => 'search_results', :action => action}) -%>
-
-
+  <%=  pagination_links_with_ajax(pages, {:element_name => 'search_results', :action => action}) -%>
 </div>
+

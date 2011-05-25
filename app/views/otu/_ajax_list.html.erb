@@ -7,7 +7,7 @@
   <% @otus.each_with_index do |otu, i| -%>
   <tr class="<%= (i % 2 == 0 ? 'stripe' : "") -%>"> 
     <td> <%= link_to(otu.display_name(:type => :multi_name), :action => 'show', :id => otu) -%></td>
-      <%= t_row({ 'obj' => otu, 'open_tr' => false, 'inc_actions' => true, 
+      <%= t_row({ 'obj' => otu, 'open_tr' => false, 'inc_actions' => true,
         'cell_data' => [
         otu.id.to_s,
         otu.m_by,
@@ -15,4 +15,9 @@
   <% end -%>
 </table>
 <br />
+
 <%= render(:partial => 'shared/page_nav', :locals => {:pages => @otu_pages}) if not @otu_pages.blank? -%>
+
+<% javascript_tag do  %>
+  bind_class_to_spinner('ajax_page_nav_link', 'pg_spinner');
+<% end %>

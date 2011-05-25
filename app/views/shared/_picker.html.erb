@@ -21,6 +21,7 @@
     }
   }
 
+
   new Ajax.Autocompleter('<%= tag_id %>', '<%= tag_id %>_auto_complete', '<%= url.html_safe %>',
   { afterUpdateElement: loadResult<%= method %>, indicator: <%= "\"#{object}_#{method}_to_find_spinner\"".html_safe -%> })
 </script>
