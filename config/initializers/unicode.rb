@@ -1,8 +1,10 @@
 # configure for unicode
 # TODO: delete this file when 1.9.2 is complete
-$KCODE = 'u' if RUBY_VERSION < '1.9'
+if RUBY_VERSION < '1.9'
+$KCODE = 'u' 
 # require 'jcode' # needed 
-require 'jcode' if RUBY_VERSION < '1.9'
+require 'jcode'
+end
 
 
 # for file prediction

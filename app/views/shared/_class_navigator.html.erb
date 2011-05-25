@@ -11,7 +11,7 @@
         <% if self.methods.include?("class_picker")  -%>
           <%= class_picker %>
         <% else %>
-          <%= render(:partial => 'shared/picker_form', :locals => {:show_and_edit => true, :form_action => :show_or_edit , :form_controller => 'Shared' }) unless no_pickers.include?(self.controller.controller_name) -%>
+          <%# render(:partial => 'shared/picker_form', :locals => {:show_and_edit => true, :form_action => :show_or_edit , :form_controller => 'Shared' }) unless no_pickers.include?(self.controller.controller_name) -%>
         <% end %>
       </td>
     </tr>

@@ -5,21 +5,4 @@
 <%=  pagination_links_with_ajax(pages, {:element_name => 'search_results', :action => action}) -%>
 
 
-  <script type="text/javascript">
-
-jQuery(function($) {
-  // create a convenient toggleLoading function
-  // var toggleLoading = function() { $("#loading").toggle() };
-
-  $(".ajax_page_nav_link")
-   // .bind("ajax:loading",  toggleLoading)
-   // .bind("ajax:complete", toggleLoading)
-    .bind("ajax:success", function(event, data, status, xhr) {
-
-     $("#search_results").html(parseJSON(data));
-    });
-
-});
-
-</script>
 </div>

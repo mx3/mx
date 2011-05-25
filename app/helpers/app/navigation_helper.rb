@@ -372,9 +372,7 @@ module App::NavigationHelper
       html << '&nbsp;|&nbsp;'.html_safe
       html <<  link_to("next",
         url_options.merge(:page => next_page),
-        :remote => true,
-        :class => 'ajax_page_nav_link'
-      )
+        :remote => true)
         # :loading => "Element.show('pg_spinner');",
         # :complete => "Element.hide('pg_spinner');",
         # :update => options[:element_name])
@@ -383,10 +381,10 @@ module App::NavigationHelper
       if options[:always_show_anchors] and not window_pages[0].first?
         html << link_to(first.number,
           url_options.merge(:page => first),
-          :remote => true,
-          :loading => "Element.show('pg_spinner')".html_safe,
-          :complete => "Element.hide('pg_spinner')".html_safe,
-          :update => options[:element_name]
+          :remote => true
+        #  :loading => "Element.show('pg_spinner')".html_safe,
+        #  :complete => "Element.hide('pg_spinner')".html_safe,
+        #  :update => options[:element_name]
           )
         html << ' ... ' if window_pages[0].number - first.number > 1
         html << ' '

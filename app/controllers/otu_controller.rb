@@ -4,31 +4,13 @@ class OtuController < ApplicationController
     :redirect_to => { :action => :list }
  
   before_filter :show_params, :only => [:show, :show_summary, :show_map, :show_distribution, :show_tags_no_layout, :show_groups, :show_material_examined, :show_content, :show_matrix_sync, :show_compare_content, :show_all_content, :show_codings, :show_material, :show_molecular, :show_images, :show_tags, :show_matrices ]
+  before_filter :list_params, :only => [:list]
 
   def index
-    list
-    render :action => 'list'
+    redirect_to :action => :list 
   end
 
   def list
-    list_params
- #   if request.xml_http_request?
-    
-      respond_to do |format|
-   
-      format.js {
-        render :action => 'foo' and return
-      }
-      format.html {}
-      end 
-     
-
-     #   page.replace_html :search_results, :partial => 'ajax_list'
-        # page.replace_html :working, :partial => 'edit_page_content_form', :locals => {:otu => @otu, :content_template => @content_template}
-     # end
-
-      # render(:layout => false, :partial => 'ajax_list')
-      #   end
   end
   
   def list_all
@@ -499,8 +481,7 @@ class OtuController < ApplicationController
     flash[:notice] = " Problem with transfer. "
     render :action => :show_content, :id => @otu, :content_template_id => @content_template
   end
-
-
+  
   def batch_load
   end
 

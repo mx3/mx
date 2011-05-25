@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   include LoginSystem
 
   before_filter :configure_site # forks to a public or private mode, calling the authentications if private
-  before_filter :set_charset
+#  before_filter :set_charset
 
   # built in Rails-ness
   def method_missing(methodname, *args)
@@ -33,9 +33,9 @@ class ApplicationController < ActionController::Base
     render(:file => "#{Rails.root}/public/404.html", :status => "404 Not Found")
   end
 
-  def set_charset
-    headers["Content-Type"] = "text/html; charset=utf-8"
-  end
+  # def set_charset
+  #  headers["Content-Type"] = "text/html; charset=utf-8"
+  # end
 
   # aside from this logic here, a site has:
   # - settings in the project table

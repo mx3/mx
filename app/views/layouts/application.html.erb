@@ -1,18 +1,11 @@
 <!DOCTYPE html >
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <title>MX - <%= self.controller.controller_name.pluralize.humanize -%></title>
 
-    <%= javascript_src_tag "svg_web/svg.js", "data-path" => "/javascripts/svg_web" -%><!-- this must come first -->
-    <%= javascript_include_tag 'mx_svgweb' -%>
+    <%= javascript_include_tag 'jquery-1.6.1', 'rails' %>
 
-    <%= javascript_include_tag :defaults, "jquery-1.6.1.min.js", 'rails.jquery.ujs' %>
-    <script type="text/javascript">
-      jQuery.noConflict();
-    </script>
-
-    <%= stylesheet_link_tag "jquery/ui-lightness/jquery-ui-1.8.9.custom" -%>
+   
     <%= stylesheet_link_tag "standard" -%>
     <%= class_css -%>
   

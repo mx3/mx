@@ -31,14 +31,13 @@ source :gemcutter
   # require 'csv'
   # config.gem 'addressable',  '2.2.4' # !! 2.2.5 will not work, uninstall from your library completely.
 
-  gem 'prototype_legacy_helper', '0.0.0', :git => 'git://github.com/rails/prototype_legacy_helper.git'
+  # gem 'prototype_legacy_helper', '0.0.0', :git => 'git://github.com/rails/prototype_legacy_helper.git'
+ 
 
 group :production do 
- 
 end
 
 group :development do
-  # bundler requires these gems in development
   # gem "rails-footnotes"
   gem "mongrel", "1.2.0.pre2"
   # gem 'cgi_multipart_eof_fix'
@@ -46,7 +45,6 @@ group :development do
 end
 
 group :test do
-  # bundler requires these gems while running tests
   # gem "rspec"
   # gem "faker"
 end

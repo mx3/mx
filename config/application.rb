@@ -20,8 +20,7 @@ end
 
 require 'rails/all'
 require 'active_support/builder' unless defined?(Builder) # R3 -> win
-
-
+#
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
@@ -58,12 +57,11 @@ module Edge
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    # config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
     config.filter_parameters += [:person_password]
-
 
     # used in SVG validation and persistence
     ALLOWED_SVG_TAGS        = ['g', 'path', 'line', 'circle']
@@ -74,7 +72,5 @@ module Edge
 
     config.action_view.sanitized_allowed_attributes = ['id', 'target'] # 'version', 'xmlns'
     config.action_view.sanitized_allowed_attributes += ALLOWED_SVG_ATTRIBUTES
-
-
   end
 end
