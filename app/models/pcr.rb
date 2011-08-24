@@ -40,9 +40,10 @@ class Pcr < ActiveRecord::Base
   has_many :seqs 
 
   # the possible "genes" tied to this (primers are assigned to a single gene at present, these may be the same -> need to revisit this model at some point)
-  has_many :genes, :class_name => 'Gene', :finder_sql => 'select distinct g.* FROM genes g 
+  has_many :genes, :class_name => 'Gene', :finder_sql =>  'select distinct g.* FROM genes g
      WHERE g.id IN (SELECT DISTINCT gene_id FROM
-    ((SELECT gene_id FROM primers WHERE primers.id = #{rev_primer_id}) UNION (SELECT gene_id FROM primers WHERE primers.id = #{fwd_primer_id})) t1) ORDER BY g.id;' 
+    ((SELECT gene_id FROM primers WHERE primers.id = #{rev_primer_id}) UNION
+     (SELECT gene_id FROM primers WHERE primers.id = #{fwd_primer_id})) t1) ORDER BY g.id;'
   
   validates_presence_of :rev_primer
   validates_presence_of :fwd_primer

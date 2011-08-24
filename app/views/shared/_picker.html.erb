@@ -12,18 +12,22 @@
 <div class="auto_complete" id="<%= tag_id %>_auto_complete"></div>
 
 <script type="text/javascript">
-  function loadResult<%= method -%>(element,selectedElement)
-  {
-    $('<%= object %>_<%= method %>').value = selectedElement.id.split('::')[1];
+//  function loadResult<%= method -%>(element,selectedElement)
+//  {
+//    $('<%= object %>_<%= method %>').value = selectedElement.id.split('::')[1];
 
-    if (document.getElementById('hidden_field_class_name')) {
-      $('hidden_field_class_name').value = selectedElement.id.split('::')[0];
-    }
-  }
+//    if (document.getElementById('hidden_field_class_name')) {
+//      $('hidden_field_class_name').value = selectedElement.id.split('::')[0];
+//    }
+ // }
 
 
-  new Ajax.Autocompleter('<%= tag_id %>', '<%= tag_id %>_auto_complete', '<%= url.html_safe %>',
-  { afterUpdateElement: loadResult<%= method %>, indicator: <%= "\"#{object}_#{method}_to_find_spinner\"".html_safe -%> })
+
+//  new Ajax.Autocompleter('<%= tag_id %>', '<%= tag_id %>_auto_complete', '<%= url.html_safe %>',
+//  { afterUpdateElement: loadResult<%= method %>, indicator: <%= "\"#{object}_#{method}_to_find_spinner\"".html_safe -%> })
+
+
+ // }
 </script>
 
 

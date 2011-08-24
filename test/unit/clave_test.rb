@@ -44,7 +44,7 @@ class ClaveTest < ActiveSupport::TestCase
   # 6 5   0
   # 7 5   0
   
-  self.use_instantiated_fixtures  = true
+  # self.use_instantiated_fixtures  = true
   
   def setup
     $person_id = 1

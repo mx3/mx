@@ -12,6 +12,10 @@ class OtuController < ApplicationController
 
   def list
   end
+
+  def foo
+  end
+
   
   def list_all
     @otu_pages = nil
@@ -428,11 +432,16 @@ class OtuController < ApplicationController
   end
   
   def auto_complete_for_otu
-   
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
+   debugger
+    @tag_id_str = "FOO_TAG_ID_STR" #  params[:tag_id]
+    value = params[:term] # params[@tag_id_str.to_sym]
         
     @otus = Otu.find_for_auto_complete(value)
+
+    render :json => Yajl::Encoder.encode(
+      json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data])
+    )
+
     render :inline => "<%= auto_complete_result_with_ids(@otus,
       'format_obj_for_auto_complete', @tag_id_str).html_safe %>"
   end

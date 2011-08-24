@@ -8,7 +8,7 @@ include ActionDispatch::TestProcess
 
 class ActiveSupport::TestCase
   # These fixtures are required for all functional tests. TODO: scope for functionals only?
-  fixtures :people, :projs, :people_projs
+  fixtures :people, :projs #, :people_projs
 
   # can be outside class and still work...but what's best?
   def login # a pseudo login- sets a session to have a valid user such that protected controllers can be called
