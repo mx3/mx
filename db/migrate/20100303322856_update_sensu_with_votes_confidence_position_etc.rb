@@ -9,7 +9,9 @@ class UpdateSensuWithVotesConfidencePositionEtc < ActiveRecord::Migration
 
     execute %{alter table sensus drop key ref_klass_label;} # pre-indices
     execute %{alter table sensus drop key `all`;}  # pre-indices
-    execute %{alter table sensus drop foreign key sensus_ibfk_2;} # the FK constraint on klass_id
+
+    # REMOVED IN mx3
+    #   execute %{alter table sensus drop foreign key sensus_ibfk_2;} # the FK constraint on klass_id
 
     # switch klass_id to ontology_class_id
     add_column :sensus, :ontology_class_id, :integer,  :limit => 11    

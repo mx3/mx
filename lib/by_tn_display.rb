@@ -1,4 +1,3 @@
-# encoding: utf-8
 # a class which organizes Objects with a taxon_name_id into sets for use in display
 # does *NOT* take into account visibility at present, assumes the whole heirarchy is present
 # this is essentially the intersection of two trees
@@ -26,6 +25,7 @@ class ByTnDisplay
   
     # have to do this outside the above loop or wonkiness ensues 
     @unplaced_items.each do |i| 
+      # TODO mx3 - this is deleting records now! (v. bad)
       @items.delete(i)
     end
 
@@ -72,3 +72,4 @@ class ByTnDisplay
   end
 
 end
+

@@ -99,10 +99,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.datetime "updated_on"
   end
 
-  add_index "beats", ["creator_id"], :name => "creator_id"
-  add_index "beats", ["proj_id"], :name => "proj_id"
-  add_index "beats", ["updator_id"], :name => "updator_id"
-
   create_table "berkeley_mapper_results", :force => true do |t|
     t.text      "tabfile",    :limit => 16777215
     t.integer   "proj_id",                        :null => false
@@ -174,9 +170,7 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   end
 
   add_index "ces", ["creator_id"], :name => "creator_id_ind"
-  add_index "ces", ["dc_georeference_protocol_id"], :name => "dc_georeference_protocol_id"
   add_index "ces", ["geog_id"], :name => "geog_id_ind"
-  add_index "ces", ["locality_accuracy_confidence_id"], :name => "locality_accuracy_confidence_id"
   add_index "ces", ["namespace_id"], :name => "namespace_id_ind"
   add_index "ces", ["proj_id"], :name => "proj_id_ind"
   add_index "ces", ["trip_namespace_id"], :name => "trip_namespace_id_ind"
@@ -293,7 +287,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   add_index "chrs", ["cited_in"], :name => "cited_in_ind"
   add_index "chrs", ["creator_id"], :name => "creator_id"
   add_index "chrs", ["proj_id"], :name => "proj_id"
-  add_index "chrs", ["standard_view_id"], :name => "standard_view_id"
   add_index "chrs", ["syn_with"], :name => "syn_with_ind"
   add_index "chrs", ["updator_id"], :name => "updator_id"
 
@@ -309,10 +302,8 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   end
 
   add_index "chrs_mxes", ["chr_id"], :name => "chr_id_ind"
-  add_index "chrs_mxes", ["creator_id"], :name => "creator_id"
   add_index "chrs_mxes", ["mx_id", "chr_id"], :name => "mx_id", :unique => true
   add_index "chrs_mxes", ["mx_id"], :name => "mx_id_ind"
-  add_index "chrs_mxes", ["updator_id"], :name => "updator_id"
 
   create_table "claves", :force => true do |t|
     t.integer   "parent_id"
@@ -514,9 +505,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.integer "ontology_composition_id"
   end
 
-  add_index "differentiae", ["ontology_composition_id"], :name => "ontology_composition_id"
-  add_index "differentiae", ["property_id"], :name => "property_id"
-
   create_table "distributions", :force => true do |t|
     t.integer   "geog_id"
     t.integer   "otu_id"
@@ -573,13 +561,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.integer  "creator_id",    :null => false
   end
 
-  add_index "extracts_genes", ["confidence_id"], :name => "confidence_id"
-  add_index "extracts_genes", ["creator_id"], :name => "creator_id"
-  add_index "extracts_genes", ["extract_id"], :name => "extract_id"
-  add_index "extracts_genes", ["gene_id"], :name => "gene_id"
-  add_index "extracts_genes", ["proj_id"], :name => "proj_id"
-  add_index "extracts_genes", ["updator_id"], :name => "updator_id"
-
   create_table "figure_markers", :force => true do |t|
     t.text     "svg",                                                           :null => false
     t.decimal  "x_origin",    :precision => 6, :scale => 0, :default => 0
@@ -596,10 +577,7 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.integer  "creator_id",                                                    :null => false
   end
 
-  add_index "figure_markers", ["creator_id"], :name => "creator_id"
   add_index "figure_markers", ["figure_id"], :name => "index_figure_markers_on_figure_id"
-  add_index "figure_markers", ["proj_id"], :name => "proj_id"
-  add_index "figure_markers", ["updator_id"], :name => "updator_id"
 
   create_table "figures", :force => true do |t|
     t.integer   "addressable_id"
@@ -746,13 +724,11 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   add_index "identifiers", ["addressable_type", "addressable_id"], :name => "index_identifiers_on_addressable_type_and_addressable_id"
   add_index "identifiers", ["addressable_type"], :name => "index_identifiers_on_addressable_type"
   add_index "identifiers", ["cached_display_name"], :name => "index_identifiers_on_cached_display_name"
-  add_index "identifiers", ["creator_id"], :name => "creator_id"
   add_index "identifiers", ["global_identifier"], :name => "index_identifiers_on_global_identifier"
+  add_index "identifiers", ["global_identifier_type", "global_identifier"], :name => "gidt_gid"
   add_index "identifiers", ["identifier"], :name => "index_identifiers_on_identifier"
   add_index "identifiers", ["namespace_id", "identifier"], :name => "index_identifiers_on_namespace_id_and_identifier"
   add_index "identifiers", ["namespace_id"], :name => "index_identifiers_on_namespace_id"
-  add_index "identifiers", ["proj_id"], :name => "proj_id"
-  add_index "identifiers", ["updator_id"], :name => "updator_id"
 
   create_table "image_descriptions", :force => true do |t|
     t.integer   "otu_id"
@@ -923,17 +899,13 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.string   "day"
   end
 
-  add_index "ipt_records", ["ce_geog_id"], :name => "ce_geog_id"
   add_index "ipt_records", ["ce_id", "lot_id"], :name => "index_ipt_records_on_ce_id_and_lot_id"
   add_index "ipt_records", ["ce_id", "specimen_id"], :name => "index_ipt_records_on_ce_id_and_specimen_id"
-  add_index "ipt_records", ["lot_id"], :name => "lot_id"
+  add_index "ipt_records", ["occurrence_id", "institution_code", "collection_code", "catalog_number", "scientific_name"], :name => "ipt_uniqe", :unique => true
   add_index "ipt_records", ["occurrence_id"], :name => "index_ipt_records_on_occurrence_id", :unique => true
-  add_index "ipt_records", ["otu_id"], :name => "otu_id"
   add_index "ipt_records", ["proj_id", "ce_id"], :name => "index_ipt_records_on_proj_id_and_ce_id"
   add_index "ipt_records", ["proj_id", "lot_id"], :name => "index_ipt_records_on_proj_id_and_lot_id"
   add_index "ipt_records", ["proj_id", "specimen_id"], :name => "index_ipt_records_on_proj_id_and_specimen_id"
-  add_index "ipt_records", ["specimen_id"], :name => "specimen_id"
-  add_index "ipt_records", ["taxon_name_id"], :name => "taxon_name_id"
 
   create_table "keywords", :force => true do |t|
     t.string    "keyword",                                     :null => false
@@ -970,11 +942,9 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.integer   "active_level",                      :default => 0
   end
 
-  add_index "labels", ["active_person_id"], :name => "active_person_id"
   add_index "labels", ["creator_id"], :name => "creator_id"
   add_index "labels", ["language_id"], :name => "language_id"
   add_index "labels", ["name"], :name => "index_labels_on_name"
-  add_index "labels", ["plural_of_label_id"], :name => "plural_of_label_id"
   add_index "labels", ["proj_id", "name", "language_id"], :name => "index_labels_on_proj_id_and_name_and_language_id", :unique => true
   add_index "labels", ["updator_id"], :name => "updator_id"
 
@@ -1068,7 +1038,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
 
   add_index "lots", ["creator_id"], :name => "creator_id"
   add_index "lots", ["otu_id"], :name => "otu_id_ind"
-  add_index "lots", ["preparation_protocol_id"], :name => "preparation_protocol_id"
   add_index "lots", ["proj_id"], :name => "proj_id"
   add_index "lots", ["repository_id"], :name => "repository_id_ind"
   add_index "lots", ["updator_id"], :name => "updator_id"
@@ -1123,16 +1092,10 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.integer "otu_id", :null => false
   end
 
-  add_index "mxes_minus_otus", ["mx_id"], :name => "mx_id"
-  add_index "mxes_minus_otus", ["otu_id"], :name => "otu_id"
-
   create_table "mxes_otu_groups", :id => false, :force => true do |t|
     t.integer "mx_id",        :null => false
     t.integer "otu_group_id", :null => false
   end
-
-  add_index "mxes_otu_groups", ["mx_id"], :name => "mx_id"
-  add_index "mxes_otu_groups", ["otu_group_id"], :name => "otu_group_id"
 
   create_table "mxes_otus", :force => true do |t|
     t.integer   "mx_id",      :null => false
@@ -1163,9 +1126,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.integer "mx_id",  :null => false
     t.integer "otu_id", :null => false
   end
-
-  add_index "mxes_plus_otus", ["mx_id"], :name => "mx_id"
-  add_index "mxes_plus_otus", ["otu_id"], :name => "otu_id"
 
   create_table "namespaces", :force => true do |t|
     t.string    "name",                                 :null => false
@@ -1258,8 +1218,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   create_table "ontology_compositions", :force => true do |t|
     t.integer "genus_id", :null => false
   end
-
-  add_index "ontology_compositions", ["genus_id"], :name => "genus_id"
 
   create_table "ontology_relationships", :force => true do |t|
     t.integer   "ontology_class1_id",     :null => false
@@ -1391,7 +1349,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   add_index "people", ["login"], :name => "login", :unique => true
   add_index "people", ["login"], :name => "login_ind"
   add_index "people", ["password"], :name => "password_ind"
-  add_index "people", ["pref_default_repository_id"], :name => "pref_default_repository_id"
 
   create_table "people_projs", :id => false, :force => true do |t|
     t.integer "person_id", :null => false
@@ -1490,9 +1447,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   add_index "projs", ["default_institution_repository_id"], :name => "repository_id"
   add_index "projs", ["default_ontology_class_id"], :name => "index_projs_on_default_ontology_term_id"
   add_index "projs", ["default_ontology_id"], :name => "default_ontology_id"
-  add_index "projs", ["default_specimen_identifier_namespace_id"], :name => "default_specimen_identifier_namespace_id"
-  add_index "projs", ["ontology_exclusion_keyword_id"], :name => "ontology_exclusion_keyword_id"
-  add_index "projs", ["ontology_inclusion_keyword_id"], :name => "ontology_inclusion_keyword_id"
   add_index "projs", ["public_server_name"], :name => "public_server_name"
   add_index "projs", ["updator_id"], :name => "updator_id"
 
@@ -1625,14 +1579,10 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.integer  "ontology_class_id",                           :null => false
   end
 
-  add_index "sensus", ["confidence_id"], :name => "confidence_id"
-  add_index "sensus", ["creator_id"], :name => "creator_id"
   add_index "sensus", ["label_id"], :name => "index_sensus_on_label_id"
   add_index "sensus", ["ontology_class_id", "label_id", "ref_id"], :name => "index_sensus_on_ontology_class_id_and_label_id_and_ref_id", :unique => true
   add_index "sensus", ["ontology_class_id", "label_id"], :name => "index_sensus_on_ontology_class_id_and_label_id"
-  add_index "sensus", ["proj_id"], :name => "proj_id"
   add_index "sensus", ["ref_id"], :name => "index_sensus_on_ref_id"
-  add_index "sensus", ["updator_id"], :name => "updator_id"
 
   create_table "seqs", :force => true do |t|
     t.integer   "gene_id"
@@ -1745,7 +1695,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   add_index "specimens", ["ce_id"], :name => "ce_id_ind"
   add_index "specimens", ["creator_id"], :name => "creator_id"
   add_index "specimens", ["parent_specimen_id"], :name => "parent_specimen_id_ind"
-  add_index "specimens", ["preparation_protocol_id"], :name => "preparation_protocol_id"
   add_index "specimens", ["proj_id"], :name => "proj_id"
   add_index "specimens", ["repository_id"], :name => "repository_id_ind"
   add_index "specimens", ["updator_id"], :name => "updator_id"
@@ -1939,7 +1888,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
   end
 
   add_index "term_exclusions", ["name"], :name => "index_term_exclusions_on_name"
-  add_index "term_exclusions", ["proj_id"], :name => "proj_id"
 
   create_table "terms", :force => true do |t|
     t.string   "name"
@@ -2000,8 +1948,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
     t.integer "otu_id"
   end
 
-  add_index "type_specimens", ["otu_id"], :name => "otu_id"
-  add_index "type_specimens", ["ref_id"], :name => "ref_id"
   add_index "type_specimens", ["specimen_id", "taxon_name_id"], :name => "specimen_id_2", :unique => true
   add_index "type_specimens", ["specimen_id"], :name => "specimen_id"
   add_index "type_specimens", ["taxon_name_id"], :name => "taxon_name_id"

@@ -101,7 +101,7 @@ class IptTable < ActiveRecord::Migration
     add_index :ipt_records, [:proj_id, :ce_id]
     add_index :ipt_records, [:ce_id, :specimen_id]
     add_index :ipt_records, [:ce_id, :lot_id]
-    add_index :ipt_records, [:occurrence_id, :institution_code, :collection_code, :catalog_number, :scientific_name], :unique => true
+    add_index :ipt_records, [:occurrence_id, :institution_code, :collection_code, :catalog_number, :scientific_name], :unique => true, :name => 'ipt_uniqe'
   end
 
   def self.down
