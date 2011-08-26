@@ -16,7 +16,8 @@ mysql_username = ENV['MX_MYSQL_USERNAME'] || 'mx'
 # Loop over all these possible mysql sockets, and see if they
 mysql_socket =
   [ "/var/run/mysqld/mysqld.sock",
-    "/tmp/mysql.sock"
+    "/tmp/mysql.sock",
+    "/var/mysql/mysql.sock"
   ].detect {|socket_path| File.exists?(socket_path)}
 if !mysql_socket
   puts "*"*80

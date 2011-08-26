@@ -5,14 +5,17 @@
 # app/controllers/public/site/**/*
 # app/views/public/site/**/*
 
+# mx specific ignores
+
+/db/dumps/*
+*.sql
+
 # ?
 /system.gems
 
 # VIM
 *~
 *.swp
-
-*.sql
 
 /nbproject/*
 /doc/*
