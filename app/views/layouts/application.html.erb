@@ -2,14 +2,21 @@
 <html>
   <head>
     <title>MX - <%= self.controller.controller_name.pluralize.humanize -%></title>
+    <%
+      # Pulling in from Google CDN.
+      # Commented out now, b/c it slows things WAY down locally.
+      # <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type='text/javascript'/>
+    %>
 
-    <%= javascript_include_tag 'jquery-1.6.1', 'rails' %>
-    <%= javascript_include_tag 'application', 'jquery-ui-1.8.13.custom.min' %>
+    <%= javascript_include_tag 'jquery-1.6.2',
+              'application',
+              'jquery-ui-1.8.13.custom.min',
+              'jquery.mx-autocompleter' %>
 
 
     <%= stylesheet_link_tag "standard" -%>
     <%= class_css -%>
-  
+
     <%= csrf_meta_tag %>
 
     <%= yield :head -%>
@@ -63,7 +70,3 @@
     </div>
   </body>
 </html>
-
-
-
-

@@ -41,8 +41,6 @@ end
 group :development do
   # gem "rails-footnotes"
   gem "mongrel", "1.2.0.pre2"
-  gem "irbtools"
-  gem "irbtools-more"
   # gem 'cgi_multipart_eof_fix'
   # gem 'fastthread'
 end

@@ -6,7 +6,7 @@ a:hover { color: #000; background: #ffc; }
 hr  { color: #888; margin-bottom: .2em; margin-top: .2em; }
 
 h3  { border-bottom:1px dotted silver; font-weight:700;  font-size:12px;}
-h4  { margin: 0; } 
+h4  { margin: 0; }
 
 img { border: none; }
 
@@ -24,9 +24,9 @@ tr.stripe {background-color: #efefef;}
 /* layout for private pages */
 #container { border: 1px solid #ccc; background: #fff; }
 
-#header { background: rgb(247, 251, 255); 
-  border-style: none none solid; 
-  border-width: 0 0 1px; 
+#header { background: rgb(247, 251, 255);
+  border-style: none none solid;
+  border-width: 0 0 1px;
   border-color: silver; }
 
 #header p { margin: 0 0 0 2.45em; padding: 0.5em; }
@@ -141,7 +141,7 @@ div.subnav { border-top: 2px solid rgb(198,219,239); margin-bottom: .3em; width:
 span.link_section {color:#888;border-bottom: 1px dotted;width: 100%;}
 
 /* 'List' pagination */
-div.list_scope { float: right; color: gray; font-size: smaller} 
+div.list_scope { float: right; color: gray; font-size: smaller}
 div.list_pagination { margin-left: .2em; margin-bottom: .2em; background: #eee; padding: .1em;}
 td.list_action {font-size: smaller;}
 
@@ -212,7 +212,7 @@ div.subnav table {
 }
 
 /*** GENERAL ***/
-          
+
 .failed      { background-color: #f6c3d4; }
 .passed      { background-color: #b5ebc7; }
 .no_decision { background-color: #b1c2e6; }
@@ -236,7 +236,7 @@ div.subnav table {
       padding-right: 4px;
       vertical-align: top; }
 
-.lbl3 { font-size: 12px; 
+.lbl3 { font-size: 12px;
       font-weight:700;
       padding: .2em;}
 
@@ -245,7 +245,7 @@ div.subnav table {
       padding-right: 4px;
       vertical-align: top; }
 
-.box1 { background-color: #fff8dc; padding: .6em; border: solid 1px #707070; } 
+.box1 { background-color: #fff8dc; padding: .6em; border: solid 1px #707070; }
 .box4 { margin:0.2em; border-style: solid; border-width: 2px; border-color: #e4e4e4; }
 .box4 .header  { text-align: center;  background-color: #e4e4e4; color: #444;  font-size: 90%; padding: .4em; }
 .box4 .content { font-size: 90%;  margin: .2em; padding: .4em; }
@@ -263,7 +263,7 @@ form .header {
   clear: both;
 }
 
-.subform { /* indicate a # of grouped fields, typically w habtm */   
+.subform { /* indicate a # of grouped fields, typically w habtm */
       width: auto;
       padding: .5em;
       border: 1px solid gray;
@@ -275,13 +275,13 @@ form .header {
 
 .form_button {margin-left: 26%;}
 
-.small_form_button {  
-  font-size: smaller; padding:0; 
+.small_form_button {
+  font-size: smaller; padding:0;
   background-color: #a0c0e0;
   border:1px solid #696;
 }
 
-.small_form_button:hover {  
+.small_form_button:hover {
   background-color: #ffc;
 }
 
@@ -294,8 +294,8 @@ form .header {
 }
 
 .rc_markup { /* redcloth enabled form fields */
-  background-color: #F7F0F0; 
-  font-family: Geneva, Arial, Helvetica, sans-serif; 
+  background-color: #F7F0F0;
+  font-family: Geneva, Arial, Helvetica, sans-serif;
 }
 
 .free_text_autocomplete {
@@ -311,18 +311,12 @@ div.fr { /* fr = form row */
 div.fr label {
  float: left; width: 25%; text-align: right;
 }
-  
+
 div.fr span.fld {
  float: right; width: 74%; text-align: left;
 }
 
 /* Auto-complete copied via Rails-generated code  */
-.auto_complete { z-index: 999; width: 350px; background: #fff; }
-.auto_complete input { height: 2px; margin: 0; }
-.auto_complete ul { border:1px solid #888; margin:0; padding:0; width:100%; list-style-type:none;}
-.auto_complete li { margin:0; padding:3px; }
-.auto_complete li.selected { background-color: #ffb; }
-.auto_complete ul strong.highlight { color: #800; margin:0; padding:0; }
 input.ajaxPicker  {background-color: #e4eaff; border-color: #55ff11;}
 input.ajaxPickerSmall  {background-color: #e4eaff; border-color: #55ff11; font-size:smaller; margin: 0;}
 
@@ -344,10 +338,10 @@ div.cart-active { background-color: #b5ebc7; }
   background: #f6c3d4; text-align: left;
   margin: .5em;
   font-size: 10px;
-  font-weight: 700;  
+  font-weight: 700;
   /* width: 390px;  defined on form */
   z-index: 800;
-  position: absolute; 
+  position: absolute;
   left: 25%;
 
   -moz-border-radius: 10px;
@@ -398,7 +392,7 @@ div.notice {
  background-color: #b5ebc7;
  margin-right: 2px;
  padding: 2px;
- width: 8px; 
+ width: 8px;
  float: left;
  border: 1px solid silver;
  text-align: center;
@@ -473,3 +467,12 @@ div .county {margin-left: 2em;}
  color: #f3bf00;
 }
 
+/**  These are new styles... Hacked in. I don't understand where everything may/may not go.
+ * So we may have to refactor / move these parts around
+ */
+.ui-autocomplete-loading { background: white url('/images/spinner.gif') right center no-repeat; }
+.ui-autocomplete {
+  background: white;
+  position: absolute;
+  text-align: left;
+}

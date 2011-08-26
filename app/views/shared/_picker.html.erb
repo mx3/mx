@@ -4,34 +4,14 @@
 <% action ||= "auto_complete_for_#{controller}".html_safe -%><%#refs from other projs specific %>
 <% css_class ||= 'ajaxPicker' -%>
 
-<% url = url_for({:controller => controller, :action => action, :tag_id => tag_id, 
+<% url = url_for({:controller => controller, :action => action, :tag_id => tag_id,
     :name_group => name_group, :use_proj => use_proj, :escape => false, :geog_types => geog_types}) -%> <%# added }, :escape => true %>
 
-<input autocomplete="off" title="find and select <%= controller.pluralize.html_safe -%>"  class="<%= css_class -%>" id="<%= tag_id %>" name="<%= tag_id %>" <%= ((size ||= nil).nil? ? 'style="width:98%;"' : "size=\"#{size}\"").html_safe -%> type="text" value="<%= display %>" />
-
-<div class="auto_complete" id="<%= tag_id %>_auto_complete"></div>
-
-<script type="text/javascript">
-//  function loadResult<%= method -%>(element,selectedElement)
-//  {
-//    $('<%= object %>_<%= method %>').value = selectedElement.id.split('::')[1];
-
-//    if (document.getElementById('hidden_field_class_name')) {
-//      $('hidden_field_class_name').value = selectedElement.id.split('::')[0];
-//    }
- // }
-
-
-
-//  new Ajax.Autocompleter('<%= tag_id %>', '<%= tag_id %>_auto_complete', '<%= url.html_safe %>',
-//  { afterUpdateElement: loadResult<%= method %>, indicator: <%= "\"#{object}_#{method}_to_find_spinner\"".html_safe -%> })
-
-
- // }
-</script>
-
-
-<%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "#{object}_#{method}_to_find_spinner", :style => "display: none; vertical-align:middle;"  ) -%>
+<input autocomplete="off" title="find and select <%= controller.pluralize.html_safe -%>"
+  class="mx-autocomplete <%= css_class -%>" id="<%= tag_id %>" name="<%= tag_id %>"
+  data-mx-autocomplete-url='<%= url.html_safe %>'
+  <%= ((size ||= nil).nil? ? 'style="width:98%;"' : "size=\"#{size}\"").html_safe -%>
+  type="text" value="<%= display %>" />
 
 <%# TODO: verify the placement of this- it probably should go elsewhere utlimately vs. MxController#browse, which has @matrix and @mx variable names that could be switched to fix this -%>
 <%= hidden_field(object, method)  -%>

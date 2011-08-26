@@ -1,13 +1,13 @@
 class OtuController < ApplicationController
-  
+
   verify :method => :post, :only => [ :destroy, :create, :update, :remove_from_otu_group],
     :redirect_to => { :action => :list }
- 
+
   before_filter :show_params, :only => [:show, :show_summary, :show_map, :show_distribution, :show_tags_no_layout, :show_groups, :show_material_examined, :show_content, :show_matrix_sync, :show_compare_content, :show_all_content, :show_codings, :show_material, :show_molecular, :show_images, :show_tags, :show_matrices ]
   before_filter :list_params, :only => [:list]
 
   def index
-    redirect_to :action => :list 
+    redirect_to :action => :list
   end
 
   def list
@@ -16,16 +16,16 @@ class OtuController < ApplicationController
   def foo
   end
 
-  
+
   def list_all
     @otu_pages = nil
     @otus = Otu.find(:all, :conditions => "(proj_id = #{@proj.id})")
     render :action => 'list'
   end
 
-  def show 
+  def show
     session['otu_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['show_default']
   end
 
   def show_summary
@@ -43,14 +43,14 @@ class OtuController < ApplicationController
 
   # Specimen mapping (NOT distributions)
   def show_map
-    @no_right_col = true 
+    @no_right_col = true
     session['otu_view']  = 'show_map'
     @show = ['show_map']
     render :action => 'show'
   end
 
   def show_distribution
-    @no_right_col = true 
+    @no_right_col = true
     @distributions = @otu.distributions.ordered_by_geog_name
     session['otu_view']  = 'show_distribution'
     @show = ['show_distribution']
@@ -65,9 +65,9 @@ class OtuController < ApplicationController
   end
 
   def show_groups
-    @otu_groups_in = @otu.otu_groups 
+    @otu_groups_in = @otu.otu_groups
     @otu_groups_out = @proj.otu_groups - @otu_groups_in
-    @no_right_col = true 
+    @no_right_col = true
     session['otu_view']  = 'show_groups'
     @show = ['show_groups']
     render :action => 'show'
@@ -76,13 +76,13 @@ class OtuController < ApplicationController
   def show_material_examined
     session['otu_view']  = 'show_material_examined'
     @me = MaterialExamined.new(:otu_id => @otu.id)
-    @no_right_col = true 
+    @no_right_col = true
     @show = ['show_material_examined']
     render(:action => 'show')
   end
 
   def show_content
-    redirect_to :action => :edit_page, :id => params[:id] 
+    redirect_to :action => :edit_page, :id => params[:id]
   end
 
   def preview_public_page
@@ -92,10 +92,10 @@ class OtuController < ApplicationController
     if @content_template.nil?
       flash[:notice] = 'To visualize content for an OTU you must create a content template first.'
       redirect_to :action => :new, :controller => :content_template and return
-    end 
+    end
 
     @public = true
-    render :partial => 'content_template/page', :locals => {:content => @content_template.content_by_otu(@otu, true)}, :layout => 'otu_page_public_preview' 
+    render :partial => 'content_template/page', :locals => {:content => @content_template.content_by_otu(@otu, true)}, :layout => 'otu_page_public_preview'
   end
 
   def show_matrix_sync
@@ -105,13 +105,13 @@ class OtuController < ApplicationController
     render :action => 'show'
   end
 
-  # TODO: needs some error catching 
+  # TODO: needs some error catching
   def update_content_from_matrix_sync
     @otu = Otu.find(params[:id])
 
     params[:ct].keys.each do |ct_id|
       txt = ContentType.find(ct_id).natural_language_by_otu(@otu)
-      if @c = Content.by_otu(@otu).by_content_type(ct_id).first 
+      if @c = Content.by_otu(@otu).by_content_type(ct_id).first
       else
         @c = Content.new(
           :otu_id => @otu.id,
@@ -135,31 +135,31 @@ class OtuController < ApplicationController
       page.replace_html :transfer_form, :partial => 'content/transfer_form'
       page.replace_html :content_options, :partial => 'content_template/page_header_and_options'
       flash.discard
-    end and return    
+    end and return
   end
 
-  # content comparison 
+  # content comparison
   def show_compare_content
     session['otu_view']  = 'show_compare_content'
-    
+
     if params[:content_type_id].blank?
-      @content_type = ContentType.find(:first, :conditions => "proj_id = #{@proj.id}")   
+      @content_type = ContentType.find(:first, :conditions => "proj_id = #{@proj.id}")
     else
       @content_type = ContentType.find(params[:content_type_id])
-      @left_content = Content.find(:first, :conditions => "content_type_id = #{@content_type.id} and otu_id = #{@otu.id}") 
+      @left_content = Content.find(:first, :conditions => "content_type_id = #{@content_type.id} and otu_id = #{@otu.id}")
     end
-    
+
     if !@content_type
       flash[:notice] = "Create a content type and template first."
-      redirect_to :action => :index, :controller => :content_type and return 
+      redirect_to :action => :index, :controller => :content_type and return
     end
-    
-    @no_right_col = true 
+
+    @no_right_col = true
     @show = ['show_compare_content']
 
     @left_lock = true
     @right_lock = false
-    
+
     render(:action => 'show')
   end
 
@@ -167,19 +167,19 @@ class OtuController < ApplicationController
     # TODO: this isn't really *all*, it's non published
     session['otu_view']  = 'show_all_content'
     @contents = @otu.contents.that_are_editable
-    @no_right_col = true 
+    @no_right_col = true
     @show = ['show_all_content']
     render(:action => 'show')
   end
-  
+
   def _refresh_compare_content
     compare_params
-    render(:layout => false, :partial => "content_type/compare", :locals => {:left_otu => @left_otu, :right_otu => @right_otu} ) 
+    render(:layout => false, :partial => "content_type/compare", :locals => {:left_otu => @left_otu, :right_otu => @right_otu} )
   end
-  
+
   def _update_compare_content
     compare_params
- 
+
     if params[:left_content] and @left_content
       @left_content.text = params[:left_content] unless params[:left_content].empty?
       @left_content.save
@@ -188,7 +188,7 @@ class OtuController < ApplicationController
       @c.save
       @left_content = @c
     end
-    
+
     if params[:right_content] and @right_content
       @right_content.text = params[:right_content] unless params[:right_content].empty?
       @right_content.save
@@ -197,23 +197,23 @@ class OtuController < ApplicationController
       @c.save
       @right_content = @c
     end
-    
+
     # don't allow left and right to match
-    
-    render(:layout => false, :partial => "content_type/compare", :locals => {:left_otu => @left_otu, :right_otu => @right_otu} ) 
-  
+
+    render(:layout => false, :partial => "content_type/compare", :locals => {:left_otu => @left_otu, :right_otu => @right_otu} )
+
   end
 
   def show_codings
     session['otu_view']  = 'show_codings'
     @mxes = @otu.mxes
     @codings = []
-    if params[:show_all] 
+    if params[:show_all]
       @uniques = Coding.unique_for_otu(@otu)
       @codings = @otu.codings.ordered_by_chr
     end
 
-    @no_right_col = true 
+    @no_right_col = true
     @show = ['show_codings']
     render :action => 'show'
   end
@@ -227,25 +227,25 @@ class OtuController < ApplicationController
     @codings = @otu.codings.in_matrix(params[:mx][:id]).ordered_by_chr
 
     render :update do |page|
-      page.replace_html :codings, :partial => "otu/codings" 
+      page.replace_html :codings, :partial => "otu/codings"
       flash.discard
-    end and return    
+    end and return
   end
 
-  def show_material 
+  def show_material
     session['otu_view'] = 'show_material'
-    @specimens = Specimen.determined_as_otu(@otu).limit(500).include_identifiers.include_has_manys.include_tags # @otu.specimens_most_recently_determined_as(:limit => 10) # Specimen.find(:all, :conditions => "proj_id = #{@proj.id} and specimen_determinations.otu_id = #{@otu.id}", :include => 'specimen_determinations') #  
+    @specimens = Specimen.determined_as_otu(@otu).limit(500).include_identifiers.include_has_manys.include_tags # @otu.specimens_most_recently_determined_as(:limit => 10) # Specimen.find(:all, :conditions => "proj_id = #{@proj.id} and specimen_determinations.otu_id = #{@otu.id}", :include => 'specimen_determinations') #
     @lots = @otu.lots.limit(500).include_has_manys.include_identifiers.include_tags # Lot.find(:all, :conditions => {:otu_id => @otu.id}, :include => [:identifiers, :ce, :repository], :limit => 100)
     @total_specimens = @otu.specimens.count
     @total_lots = @otu.lots.count
-    @total_ipt_records = @otu.ipt_records.count 
-    @no_right_col = true 
+    @total_ipt_records = @otu.ipt_records.count
+    @no_right_col = true
     @show = ['show_material']
     render :action => 'show'
   end
 
   def show_associations
-    if @otu = Otu.find(params[:id], :include => [:creator, :updator, :taxon_name]) 
+    if @otu = Otu.find(params[:id], :include => [:creator, :updator, :taxon_name])
       session['otu_view']  = 'show_associations'
       @inc_actions = false # switch to false in public controller
       @no_right_col = true
@@ -257,9 +257,9 @@ class OtuController < ApplicationController
     end
   end
 
-  def show_molecular 
+  def show_molecular
     @otus = ([@otu]) # a kludge so we can use the extract partial
-    @seqs = @otu.sequences 
+    @seqs = @otu.sequences
     @no_right_col = true
     session['otu_view']  = 'show_molecular'
     @show = ['show_molecular']
@@ -270,14 +270,14 @@ class OtuController < ApplicationController
     @images_from_image_descriptions = @otu.image_descriptions.by_proj(@proj.id)
     @images_from_codings = @otu.images_from_codings
     @images_from_specimens = @otu.images_from_specimens
-    @no_right_col = true 
+    @no_right_col = true
     session['otu_view']  = 'show_images'
     @show = ['show_images']
     render :action => 'show'
   end
- 
+
   def move_images_to_otu
-    if @o = Otu.find(params[:otu_id])  
+    if @o = Otu.find(params[:otu_id])
       if  @o.move_images_to_otu(params[:o][:otu_to_find_id])
         flash[:notice] = 'Moved!'
       else
@@ -286,24 +286,24 @@ class OtuController < ApplicationController
     end
     redirect_to :back
   end
-  
+
   def show_tags
     @tags = @otu.tags.group_by {|keyword| keyword.keyword} # visibility isn't an issue if you've got this far
-    
-    @no_right_col = true 
+
+    @no_right_col = true
     session['otu_view']  = 'show_tags'
     @show = ['show_tags']
     render :action => 'show'
   end
- 
+
   def show_matrices
     @mxes = @otu.mxes
     session['otu_view']  = 'show_matrices'
     @show = ['show_matrices']
-    
+
     render :action => :show
   end
-  
+
   def new
     @otu = Otu.new
     @otu_groups = @proj.otu_groups
@@ -311,15 +311,15 @@ class OtuController < ApplicationController
 
   def create
     @otu_groups = @proj.otu_groups
-    # Called to allow recursive addition of Otus from a TaxonName and its children 
+    # Called to allow recursive addition of Otus from a TaxonName and its children
     if id = Otu._create_r(:otu => params[:otu], :include_children => params[:include_children], :otu_group_id => params[:otu_group_id], :proj_id => @proj.id)
-      flash[:notice] = (params[:include_children] ? 'OTUs were successfully created.' : 'OTU was successfully created')  
-      redirect_to :action => :show, :id => id 
+      flash[:notice] = (params[:include_children] ? 'OTUs were successfully created.' : 'OTU was successfully created')
+      redirect_to :action => :show, :id => id
     else
-      flash[:notice] = 'Problem creating the OTU(s)!' 
+      flash[:notice] = 'Problem creating the OTU(s)!'
       render :action => :new and return
     end
-    
+
   end
 
   def edit
@@ -330,11 +330,11 @@ class OtuController < ApplicationController
 
   def update
     @otu = Otu.find(params[:otu][:id])
-    
+
     if @otu.update_attributes(params[:otu])
       flash[:notice] = 'Otu was successfully updated.'
       if params[:update_and_next]
-        redirect_to :action => 'edit', :id => Otu.find(:first, :include => :proj, 
+        redirect_to :action => 'edit', :id => Otu.find(:first, :include => :proj,
           :conditions => ["projs.id = #{@proj.id} AND otus.id > ?", @otu.id], :order => 'otus.id ASC')
       else
         redirect_to :action => 'show', :id => @otu.id
@@ -350,15 +350,15 @@ class OtuController < ApplicationController
         @otu.destroy
         flash[:notice] =  "OTU deleted."
       rescue StandardError => e
-        flash[:notice] =  "OTU not deleted.  Perhaps you are using it somewhere. (#{e.message})"         
+        flash[:notice] =  "OTU not deleted.  Perhaps you are using it somewhere. (#{e.message})"
         redirect_to :action => :show, :id => @otu and return
-      end  
+      end
     else
-      flash[:notice] =  "Can't find that OTU!" 
-    end 
+      flash[:notice] =  "Can't find that OTU!"
+    end
     redirect_to :action => 'list'
   end
-  
+
   def edit_page
     @otu = Otu.find(params[:id])
     @content_template = ContentTemplate.template_to_use(params[:content_template_id], @proj.id)
@@ -366,7 +366,7 @@ class OtuController < ApplicationController
     @editable_otu_contents = @otu.contents.that_are_editable
     @edit = true
   end
-  
+
   def update_edit_page
     @otu = Otu.find(params[:otu_id])
     @content_template = ContentTemplate.find(params[:content_template_id])
@@ -376,8 +376,8 @@ class OtuController < ApplicationController
       format.html {
       }
       format.js {
-        
-        if !params[:content].nil? 
+
+        if !params[:content].nil?
 
           if !@content_template.update_content(params.update(:otu => @otu, :contents => @otu.contents.that_are_editable))
             render :update do |page|
@@ -393,10 +393,10 @@ class OtuController < ApplicationController
         when 'edit'
           @editable_otu_contents = @otu.contents.that_are_editable
           render :update do |page|
-            if !params[:content].nil? 
+            if !params[:content].nil?
               page.replace :form_notice, :text => content_tag(:div, 'Text saved.', :id => 'form_notice')
               page.visual_effect :fade, :form_notice
-            end 
+            end
 
             page.replace_html :working, :partial => 'edit_page_content_form', :locals => {:otu => @otu, :content_template => @content_template}
           end and return
@@ -425,27 +425,22 @@ class OtuController < ApplicationController
             page.replace_html :working, :partial => "/content_template/page", :locals => {:content => @content_template.content_by_otu(@otu, true)}
           end and return
 
-        end        
+        end
       }
-    end   
-  
+    end
+
   end
-  
+
   def auto_complete_for_otu
-   debugger
-    @tag_id_str = "FOO_TAG_ID_STR" #  params[:tag_id]
-    value = params[:term] # params[@tag_id_str.to_sym]
-        
+    value = params[:term]
+
     @otus = Otu.find_for_auto_complete(value)
-
-    render :json => Yajl::Encoder.encode(
-      json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data])
-    )
-
-    render :inline => "<%= auto_complete_result_with_ids(@otus,
-      'format_obj_for_auto_complete', @tag_id_str).html_safe %>"
+    data = @otus.collect do |otu|
+      {:id=>"#{@tag_id_str}::#{otu.id}", :label=>render_to_string(:partial=>'shared/autocomplete/otu.html', :locals=>{:item=>otu})}
+    end
+    render :json => data
   end
-  
+
   # redundancy with OTU group add - but nice fn()
   def add_to_otu_group
     if OtuGroup.find(params[:otu_group_id]).add_otu(Otu.find(params[:otu_hook][:id]))
@@ -453,14 +448,14 @@ class OtuController < ApplicationController
     else
       flash[:notice] = 'Error in adding OTU to group.'
     end
-    redirect_to :action => 'show_groups', :id => params[:otu_hook][:id]  
+    redirect_to :action => 'show_groups', :id => params[:otu_hook][:id]
   end
 
   def remove_from_otu_group
-    OtuGroup.find(params[:id]).remove_otu(Otu.find(params[:otu_id]))  
+    OtuGroup.find(params[:id]).remove_otu(Otu.find(params[:otu_id]))
     redirect_to :action => 'show_groups', :id => params[:otu_id]
   end
- 
+
   # def publish_page
   #   o = Otu.find(params[:id]) or raise 'failed to find Otu in publish_page'
   #   t = ContentTemplate.find(params[:content_template_id])
@@ -477,8 +472,8 @@ class OtuController < ApplicationController
     @otu = Otu.find(params[:id])
     @transfer_to_otu  = Otu.find(params[:transfer_otu][:id])
     @content_template = ContentTemplate.find(params[:content_template_id])
-    
-    if @otu && @content_template && @transfer_to_otu     
+
+    if @otu && @content_template && @transfer_to_otu
       begin
         @content_template.transfer_to_otu(@otu, @transfer_to_otu, (params[:delete_after].blank? ? false : true))
         flash[:notice] = "Successfully transferred!  Viewing transferred to OTU."
@@ -490,19 +485,19 @@ class OtuController < ApplicationController
     flash[:notice] = " Problem with transfer. "
     render :action => :show_content, :id => @otu, :content_template_id => @content_template
   end
-  
+
   def batch_load
   end
 
   def batch_verify
     if params[:temp_file][:file].blank?
       flash[:notice] = "Choose a text file with your OTUs in it before verifying!"
-      redirect_to(:action => :batch_load) and return  
+      redirect_to(:action => :batch_load) and return
     end
-   
+
 	  @ref = Ref.find(params[:otu][:ref_id]) if params[:otu]  &&  !params[:otu][:ref_id].blank?
 	  @otu_group = OtuGroup.find(params[:otu][:otu_group_id]) if params[:otu]  && !params[:otu][:otu_group_id].blank?
-	
+
     # read the contents of the uploaded file, split on pairs of newlines or '---', strip each one and add a newline
     @otus = params[:temp_file][:file].read.split(/\n/m).map {|x| x.strip}
   end
@@ -510,9 +505,9 @@ class OtuController < ApplicationController
   def batch_create
     @count = 0
 
-	  @ref = Ref.find(params[:ref_id]) if params[:ref_id] 
+	  @ref = Ref.find(params[:ref_id]) if params[:ref_id]
 	  @otu_group = OtuGroup.find(params[:otu_group_id]) if params[:otu_group_id]
-	
+
     begin
       Otu.transaction do
         for o in params[:otu].keys
@@ -530,8 +525,8 @@ class OtuController < ApplicationController
       flash[:notice] = "Something went wrong."
       redirect_to :action => :batch_load and return
     end
-     
-    flash[:notice] = "Successfully added #{@count} OTUs." 
+
+    flash[:notice] = "Successfully added #{@count} OTUs."
     redirect_to :action => :batch_load
   end
 
@@ -544,24 +539,24 @@ class OtuController < ApplicationController
   def tree
     @otus = Otu.find_by_sql([
         "SELECT o.*, t.name as foo, t.iczn_group as bar FROM otus o
-    LEFT JOIN taxon_names t ON t.id = o.taxon_name_id  
+    LEFT JOIN taxon_names t ON t.id = o.taxon_name_id
     WHERE o.proj_id = ? and o.id < 1800 ORDER BY t.l", @proj.id])
-  end  
+  end
 
-  
+
   #def list2
   #
   #  @heads = HashFactory.call
-  #  
+  #
   #  @heads[:unplaced][:otus] = Otu.find(:all, :conditions => {:taxon_name_id => nil, :proj_id => @proj.id}, :order => :name)
   #  @heads[:unplaced][:name] = 'unplaced'
-  #  
+  #
   #  @proj.taxon_names(true).collect{|o|
   #     @heads[o.id][:name] = o.display_name;
-  #     @heads[o.id][:otus] = o.child_otus(@proj.id) 
-  #  } 
+  #     @heads[o.id][:otus] = o.child_otus(@proj.id)
+  #  }
   #end
-  
+
   # test
   def eol_test
     @xml = Eol::foo
@@ -573,13 +568,13 @@ class OtuController < ApplicationController
       @otus = @proj.otus.send(params[:scope],params[:arg]).ordered_taxonomically
     else
       @otus = @proj.otus.send(params[:scope]).ordered_taxonomically
-    end 
-    @list_title = "OTUs #{params[:scope].humanize.downcase}" 
+    end
+    @list_title = "OTUs #{params[:scope].humanize.downcase}"
     render :action => :list_simple
   end
 
   protected
-  
+
   def list_params
     # project specific, so only find member of current project
     if session['group_ids'] && session['group_ids']['otu']
@@ -589,19 +584,19 @@ class OtuController < ApplicationController
     else
       @otu_pages, @otus = paginate :otus, :per_page => 20, :conditions => "(proj_id = #{@proj.id})", :include => [{:taxon_name => :parent}, :creator, :updator], :order => 'taxon_names.l, otus.name, otus.matrix_name'
     end
-    @default_otu_group = OtuGroup.find(session['group_ids']['otu']) if session['group_ids'] && session['group_ids']['otu']  
+    @default_otu_group = OtuGroup.find(session['group_ids']['otu']) if session['group_ids'] && session['group_ids']['otu']
   end
 
   # see before_filter, used in all 'show' calls
-  def show_params 
+  def show_params
     id = params[:otu][:id] if params[:otu] # for autocomplete/ajax picker use (must come first!)
     id ||= params[:id]
     @parents = []
-    @default_chr_group = ChrGroup.find(session['group_ids']['chr']) if session['group_ids'] && session['group_ids']['chr']  
+    @default_chr_group = ChrGroup.find(session['group_ids']['chr']) if session['group_ids'] && session['group_ids']['chr']
 
-    if @otu = Otu.find(:first, :conditions => ["id = ?", id]) 
+    if @otu = Otu.find(:first, :conditions => ["id = ?", id])
       @syn_otus = @otu.all_synonymous_otus
-      @parents =  @otu.taxon_name.parents if @otu.taxon_name 
+      @parents =  @otu.taxon_name.parents if @otu.taxon_name
     else
       flash[:notice] =  "can't find that OTU!"
       redirect_to :action => 'list', :controller => 'otu'
@@ -613,12 +608,12 @@ class OtuController < ApplicationController
   def compare_params
     @left_otu = Otu.find(params[:left_otu][:id]) unless params[:left_otu][:id].empty?
     @right_otu = Otu.find(params[:right_otu][:id]) unless params[:right_otu][:id].empty?
- 
+
     @content_type = ContentType.find(params[:content_type][:id])
-  
+
     @left_lock = params[:left][:lock]
     @right_lock = params[:right][:lock]
-     
+
     @left_content = Content.find(:first, :conditions => "content_type_id = #{@content_type.id} and otu_id = #{@left_otu.id}") if @left_otu
     @right_content = Content.find(:first, :conditions => "content_type_id = #{@content_type.id} and otu_id = #{@right_otu.id}") if @right_otu
   end
