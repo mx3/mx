@@ -1,0 +1,14 @@
+
+= mx3
+
+A fork of the Rails 2.3.10 version of mx.
+ 
+This is no where near ready for use.  
+
+== Installation
+
+Details to come on the wiki at http://mx.phenomix.org. 
+
+mx3 uses bundler, ruby 1.9.2, and MySQL at present
+
+
