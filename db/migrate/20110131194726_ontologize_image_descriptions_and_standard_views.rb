@@ -2,8 +2,10 @@ class OntologizeImageDescriptionsAndStandardViews < ActiveRecord::Migration
   def self.up
     remove_index :standard_view_groups, :name => :name
     remove_column :standard_views, :ontology_class_id
-    
+   
+    execute %{ alter table standard_views drop foreign key standard_views_namespace_fk; }
     remove_column :standard_views, :namespace_id
+
     remove_column :standard_views, :identifier
     
     add_column :image_descriptions, :ontology_class_dbxref, :string, :null => true

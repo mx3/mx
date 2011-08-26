@@ -26,7 +26,7 @@ class UnifyIdentifiers < ActiveRecord::Migration
     add_index :identifiers, :namespace_id
     add_index :identifiers, :cached_display_name
     add_index :identifiers, [:namespace_id, :identifier]
-    add_index :identifiers, [:global_identifier_type, :global_identifier]
+    add_index :identifiers, [:global_identifier_type, :global_identifier], :name => 'gidt_gid'
     add_index :identifiers, [:addressable_type, :addressable_id]
 
 

@@ -13,10 +13,15 @@ class MatrixUpdates < ActiveRecord::Migration
   def self.up
     # chr_groups_mxes (exists unchanged)
     # mxes_plus_chrs (exists as chrs_mxes)
+  
+    execute %{ alter table chrs_mxes drop foreign key chrs_mxes_ibfk_1;} 
+    execute %{ alter table chrs_mxes drop foreign key chrs_mxes_ibfk_2;} 
+
     remove_column :chrs_mxes, :creator_id 
     remove_column :chrs_mxes, :updator_id 
     remove_column :chrs_mxes, :created_on 
     remove_column :chrs_mxes, :updated_on 
+
     rename_table  :chrs_mxes, :mxes_plus_chrs 
    
     # mxes_minus_chrs (exists as is)
