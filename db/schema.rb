@@ -901,7 +901,6 @@ ActiveRecord::Schema.define(:version => 20110515141502) do
 
   add_index "ipt_records", ["ce_id", "lot_id"], :name => "index_ipt_records_on_ce_id_and_lot_id"
   add_index "ipt_records", ["ce_id", "specimen_id"], :name => "index_ipt_records_on_ce_id_and_specimen_id"
-  add_index "ipt_records", ["occurrence_id", "institution_code", "collection_code", "catalog_number", "scientific_name"], :name => "ipt_uniqe", :unique => true
   add_index "ipt_records", ["occurrence_id"], :name => "index_ipt_records_on_occurrence_id", :unique => true
   add_index "ipt_records", ["proj_id", "ce_id"], :name => "index_ipt_records_on_proj_id_and_ce_id"
   add_index "ipt_records", ["proj_id", "lot_id"], :name => "index_ipt_records_on_proj_id_and_lot_id"
