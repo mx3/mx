@@ -2,13 +2,19 @@
 = mx3
 
 A fork of the Rails 2.3.10 version of mx.
- 
-This is no where near ready for use.  
+
+This is no where near ready for use.
 
 == Installation
 
-Details to come on the wiki at http://mx.phenomix.org. 
+Details to come on the wiki at http://mx.phenomix.org.
 
 mx3 uses bundler, ruby 1.9.2, and MySQL at present
 
-
+=== Preliminary Setup Instructions
+<em>In Progress</em>
+* Set env vars / database.yml files to point to your mysql DB
+* rake db:create
+* rake db:migrate
+* create an admin user (Person.create!(....,:is_admin=>true, :is_ontology_admin=>true, :creates_projects=>true)
+* log in
