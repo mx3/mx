@@ -436,7 +436,14 @@ class OtuController < ApplicationController
 
     @otus = Otu.find_for_auto_complete(value)
     data = @otus.collect do |otu|
-      {:id=>"#{@tag_id_str}::#{otu.id}", :label=>render_to_string(:partial=>'shared/autocomplete/otu.html', :locals=>{:item=>otu})}
+      {:id=>otu.id,
+       :label=>otu.name,
+       :response_values=> {
+          'otu[id]' => otu.id,
+          :hidden_field_class_name => @tag_id_str
+       },
+       :label_html=>render_to_string(:partial=>'shared/autocomplete/otu.html', :locals=>{:item=>otu})
+      }
     end
     render :json => data
   end

@@ -12,6 +12,3 @@
   data-mx-autocomplete-url='<%= url.html_safe %>'
   <%= ((size ||= nil).nil? ? 'style="width:98%;"' : "size=\"#{size}\"").html_safe -%>
   type="text" value="<%= display %>" />
-
-<%# TODO: verify the placement of this- it probably should go elsewhere utlimately vs. MxController#browse, which has @matrix and @mx variable names that could be switched to fix this -%>
-<%= hidden_field(object, method)  -%>
