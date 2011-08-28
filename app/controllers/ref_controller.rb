@@ -212,16 +212,30 @@ class RefController < ApplicationController
    
   def auto_complete_for_ref 
     @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym].split.join('%')
+    
+    value = params[:term]
+    #value = params[@tag_id_str.to_sym].split.join('%')
    
     # TODO scope this  
     @refs = Ref.find(:all, :include => :projs, :select => "refs.id, refs.cached_display_name", 
       :conditions => ["(refs.cached_display_name LIKE ? OR refs.id = ?) AND projs.id = ?",
          "%#{value}%", value.gsub(/\%/, "").to_i, @proj],
       :limit => 20, :order => "refs.cached_display_name")
-        
-    render :inline => "<%= auto_complete_result_with_ids(@refs,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+     
+    data = @refs.collect do |ref|
+      {:id=>ref.id,
+       :label=>ref.display_name,
+       :response_values=> {
+          'ref[id]' => ref.id,
+          :hidden_field_class_name => @tag_id_str
+       },
+       :label_html=>render_to_string(:partial=>'shared/autocomplete/ref.html', :locals=>{:item=>ref})
+      }
+    end
+    render :json => data
+
+   # render :inline => "<%= auto_complete_result_with_ids(@refs,
+   #   'format_obj_for_auto_complete', @tag_id_str) %>"
   end
   
   # basically identical to above, used when finding refs to add from other projects
