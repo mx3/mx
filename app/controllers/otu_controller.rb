@@ -13,7 +13,8 @@ class OtuController < ApplicationController
   def list
   end
 
-  def foo
+  def test_modal
+    render :layout=>false
   end
 
 
@@ -437,10 +438,10 @@ class OtuController < ApplicationController
 
     @otus = Otu.find_for_auto_complete(value)
     data = @otus.collect do |otu|
-      {:id=>otu.id,           # DRY? could we be using method => otu.id here? 
+      {:id=>otu.id,           # DRY? could we be using method => otu.id here?
        :label=> otu.display_name(:type => :selected),
-       :response_values=> { 
-         method => otu.id     # this is working (for example edit an OTU)                 
+       :response_values=> {
+         method => otu.id     # this is working (for example edit an OTU)
       # :hidden_field_class_name => @tag_id_str # Cary- we no longer need this because you're attaching directly to the DOM, correct? Previously I used this to keep picker ids unique, i.e. when two pickers where rendered on the same page I needed to be able to set two seperate values. Regardless- @tag_id_str isn't being set in the present code.
        },
        :label_html => render_to_string(:partial => 'shared/autocomplete/otu.html', :locals => {:item => otu})

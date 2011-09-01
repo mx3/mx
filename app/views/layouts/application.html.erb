@@ -11,7 +11,8 @@
     <%= javascript_include_tag 'jquery-1.6.2',
               'application',
               'jquery-ui-1.8.13.custom.min',
-              'jquery.mx-autocompleter' %>
+              'jquery.mx-autocompleter',
+              'jquery.basic-modal'%>
 
 
     <%= stylesheet_link_tag "standard" -%>
@@ -23,6 +24,7 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
   </head>
   <body>
+    <a data-basic-modal data-basic-modal-width='300px' href='/projects/1/otu/test_modal'> Test Basic Modal </a>
     <div id="container">
       <div id="header">
         <% if session && session[:person] -%>
