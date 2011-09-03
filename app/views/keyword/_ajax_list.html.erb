@@ -3,8 +3,8 @@
 <table class="list_table">
   <%= t_col_heads(["word", "short form", "explanation", "html color", "created by", "created on", "modified on", "count", "is public?"]) %>
   <% for kw in @keywords %>
-  <%= t_row({ 'obj' => kw, 
-  'cell_data' => [link_to(kw.display_name, :action => :show, :id => kw),
+  <%= t_row({ 'obj' => kw,
+  'cell_data' => [link_to(kw.display_name.html_safe, :action => :show, :id => kw),
     kw.shortform,
     kw.explanation,
     kw.html_color,
@@ -17,4 +17,3 @@
 </table>
 <br />
 <%= render(:partial => 'shared/page_nav', :locals => {:pages => @keyword_pages}) -%>
-
