@@ -1,7 +1,3 @@
-<% content_for :head do -%>
-  <%= render(:partial => '/shared/colorPicker_header')  -%>
-<% end %>
-
 <%= error_messages_for 'keyword' %>
 
 <!--[form:keyword]-->
@@ -29,13 +25,8 @@
 
 
 <div class="fr"> <label for="keyword_html_color" class="lbl4">html color</label>
-  <span class="fld"><%= text_field 'keyword', 'html_color', :size => 6, :default => 'dddddd' -%> <i> click to pick</i></span>
+  <span class="fld"><%= text_field('keyword', 'html_color', :size => 6, :default => 'dddddd', 'data-color-picker'=>true) -%> <i> click to pick</i></span>
 </div>
-
-<script type="text/javascript">
-  new Control.ColorPicker("keyword_html_color");
-</script>
 
 
 <!--[eoform:keyword]-->
-

@@ -14,4 +14,19 @@ function bind_class_to_spinner(class_to_bind, spinner_class) {
 
 $(document).ready(function(){
   $('.mx-autocomplete').mx_autocompleter();
+  $('input[data-color-picker]').ColorPicker({
+    onChange: function(hsb, hex, rgb, el) {
+      $(this.data('colorpicker').el).val(hex);
+    },
+    onSubmit: function(hsb, hex, rgb, el) {
+      $(el).val(hex);
+      $(el).ColorPickerHide();
+    },
+    onBeforeShow: function () {
+      $(this).ColorPickerSetColor(this.value);
+    }
+  })
+  .bind('keyup', function(){
+    $(this).ColorPickerSetColor(this.value);
+  });
 });
