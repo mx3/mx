@@ -59,24 +59,17 @@ class TagController < ApplicationController
 
   def new
     @tag = Tag.new
-    @obj = ActiveRecord::const_get(params[:tag_obj_class]).find(params[:tag_obj_id]) # creates variable objects
-    
-    # works
-    respond_to do |format|
-		  format.html {} # default .rhtml
-	    format.js { 
-          render :update do |page|
-            page.visual_effect :fade, "tl_#{@obj.class.to_s}_#{@obj.id}"
-            page.insert_html :bottom, "t_#{@obj.class.to_s}_#{@obj.id}", :partial => 'popup_form', :locals => {:keyword_id => params[:keyword_id]}
-          end
-      }
-		end
+    @obj = ActiveRecord::const_get(params[:tag_obj_class]).find(params[:tag_obj_id]) 
+    @keyword_id = params[:keyword_id]
+    render :layout => false 
   end
 
   def create 
     @tag = Tag.new(params[:tag])   
     @obj = ActiveRecord::const_get(params[:tag_obj][:obj_class]).find(params[:tag_obj][:obj_id]) 
     @tag.addressable = @obj
+ 
+ 
     if @tag.save
       render :update do |page|
         page.remove "tp_#{@obj.class.to_s}_#{@obj.id}" # get rid of the form (use an effect)

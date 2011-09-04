@@ -1,6 +1,34 @@
 # encoding: utf-8
 module TagHelper
 
+  # Cary- here's the general purpose code for rendering a 'Tag' link
+
+  def new_tag_tag(options ={})
+    opt = {
+      :object => nil,     # required
+      :keyword_id => nil, # optional, to preset the form with this keyword
+      :ref_id => nil,     # options, to preset the form with this keyword 
+      :link_text => 'Tag' # if you want to use other text than "Tag" for the tag link 
+    }.merge!(options)
+
+    return content_tag(:em, opt[:link_text]) if opt[:object].nil? 
+
+    url = url_for(:action => :new,
+                  :controller => :tag,
+                  :tag_obj_class => opt[:object].class.to_s,
+                  :tag_obj_id => opt[:object].id,
+                  :keyword_id => opt[:keyword_id], 
+                  :ref_id => opt[:ref_id])
+
+    # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
+    content_tag(:a, opt[:link_text], :href => url, 'data-basic-modal' => '' , 'data-basic-modal-width' => '300px', :id => "tl_#{opt[:object].class.to_s}_#{opt[:object].id}")
+  end
+
+  # TODO: this will deprecate for above 
+  def tag_link_for_show(o, keyword_id = nil, link_text = "Tag")
+    render(:partial => "tag/tag_link", :locals => {:link_text => link_text, :tag_obj_id => o.id, :tag_obj_class => o.class.to_s, :msg => '', :keyword_id => keyword_id})
+  end
+
   # conflicts with  conflict here I think  
   # def class_picker
   #   render :partial => 'class_picker'
@@ -27,9 +55,6 @@ module TagHelper
     link_to_remote('x', :url => {:action => 'destroy', :controller => 'tag', :id => o.id}, :confirm => "Are you sure you want to delete this tag?")
   end
 
-  def tag_link_for_show(o, keyword_id = nil, link_text = "Tag")
-    render(:partial => "tag/tag_link", :locals => {:link_text => link_text, :tag_obj_id => o.id, :tag_obj_class => o.class.to_s, :msg => '', :keyword_id => keyword_id})
-  end
 
   def render_tag_list(o)
     s = '<ul>'
