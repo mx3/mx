@@ -453,6 +453,11 @@ div .county {margin-left: 2em;}
 /**  These are new styles... Hacked in. I don't understand where everything may/may not go.
  * So we may have to refactor / move these parts around
  */
+.popupform {
+  background: white;
+  width: 420px;
+}
+
 .ui-autocomplete-loading { background: white url('/images/spinner.gif') right center no-repeat; }
 .ui-autocomplete {
   background: white;

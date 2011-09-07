@@ -30,14 +30,14 @@
   </tr>
 
   <tr>
-    <%# only show if object is not a reference %> 
+    <%# only show if object is not a reference %>
     <td style="text-align:right;">
       <label for="tag_ref_name">Ref</label>
     </td>
     <td>
       <%= render :partial => "ref/picker", :locals => {
-      :object => 'tag', :method => 'ref_id', :tag_id => "tag_ref_name", 
-      :display => (@tag.ref.display_name if @tag.ref) , :size => 40} %> 
+      :object => 'tag', :method => 'ref_id', :tag_id => "tag_ref_name",
+      :display => (@tag.ref.display_name if @tag.ref) , :size => 40} %>
     </td>
   </tr>
 
@@ -57,9 +57,9 @@
     <td>
       <%= text_field 'tag', 'pg_end', :size => 4 %>
     </td>
-  </tr> 
+  </tr>
   <tr>
-    <td style="text-align: right;">  
+    <td style="text-align: right;">
       <label for="tag_pg_start">Page other</label>
     </td>
     <td>
@@ -72,7 +72,7 @@
       <label for="tag_notes">Referenced object</label>
     </td>
     <td>
-      <%= text_field 'tag', 'referenced_object', :size => 40  %>
+      <%= text_field 'tag', 'referenced_object', :size => 35  %>
     </td>
   </tr>
   <tr>

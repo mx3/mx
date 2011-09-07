@@ -48,6 +48,7 @@
           .css({
             "position": "relative",
             "margin":   "50px auto",
+            "padding":  "10px",
             "background": "white",
             "border-radius": "10px",
             "-moz-border-radius": "10px",
@@ -122,12 +123,17 @@
       }
 
       if (basicModal.get_overlay().is(":visible")) {
-        var width = (anchor && anchor.data('basicModalWidth')) || "50%";
-        basicModal.create_modal()
-          .css({
-            width: width
-          })
+        var modal = basicModal.create_modal()
+          .css({visibility: 'hidden'})
           .html(content);
+
+        var padding = (modal.css('padding-left') !== '' ? parseInt(modal.css('padding-left'), 10) : 0) +
+                      (modal.css('padding-right') !== '' ? parseInt(modal.css('padding-right'), 10) : 0);
+        var width = (modal.children().first().outerWidth() + padding) + "px";
+        modal.css({
+            visibility: 'visible',
+            width: width
+          });
         $(options.event_target).trigger("basicModal:show", content);
       }
     }
