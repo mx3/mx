@@ -37,10 +37,6 @@
           top: "0px",
           opacity: '1.0'
         })
-      /* TODO: This makes the popup close on any click - should parameterize this option for non-interactive modals, i.e. those that do not make a request to the server 
-        .click(function() {
-          basicModal.hide();
-        }) */
         .delegate("."+options.close_button_class, "click", function() {
           basicModal.hide();
         });
