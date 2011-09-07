@@ -10,7 +10,7 @@
     overlay_zindex:  '3000',
     overlay_parent:  'body',
     modal_class: 'basic-modal',
-    modal_fade_speed:  200,
+    modal_fade_speed:  100,
     event_target:  "body",
     close_button_class: "basic-modal-close"
   };
@@ -102,12 +102,11 @@
 
       var overlay = basicModal.get_overlay();
       if (overlay) {
-        overlay.fadeOut(options.modal_fade_speed + 200);
+        overlay.hide();
       }
 
       $(options.event_target).trigger("basicModal:hide");
     },
-    // TODO: spinner not firing
     loading: function() {
       basicModal.get_overlay().show();
       $(options.event_target).trigger("basicModal:loading");
@@ -128,8 +127,6 @@
           .css({
             width: width
           })
-          .hide()
-          .fadeIn(options.modal_fade_speed)
           .html(content);
         $(options.event_target).trigger("basicModal:show", content);
       }
