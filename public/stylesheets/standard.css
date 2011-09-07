@@ -331,23 +331,6 @@ div.cart {
 
 div.cart-active { background-color: #b5ebc7; }
 
-/* do not mess with this unless you test *all* popups */
-.popupform {
-  padding: .5em;
-  border: 2px solid gray;
-  background: #f6c3d4; text-align: left;
-  margin: .5em;
-  font-size: 10px;
-  font-weight: 700;
-  /* width: 390px;  defined on form */
-  z-index: 800;
-  position: absolute;
-  left: 25%;
-
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-}
-
 /* Field error formatting via scaffold css */
 .fieldWithErrors { padding: 2px; background-color: red; display: table; }
 #errorExplanation  { background-color: #f0f0f0; margin-bottom: 20px; padding: 7px 7px 12px; width: 400px; border: solid 2px #c00 }
