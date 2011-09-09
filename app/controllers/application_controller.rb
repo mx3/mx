@@ -6,7 +6,7 @@ require_dependency "login_system"
 class ApplicationController < ActionController::Base
  # include ExceptionNotification::Notifiable
 
-  protect_from_forgery 
+  protect_from_forgery
 
   # TODO: move?
   class ApplicationController::BatchParseError < StandardError
@@ -18,7 +18,32 @@ class ApplicationController < ActionController::Base
   include LoginSystem
 
   before_filter :configure_site # forks to a public or private mode, calling the authentications if private
+  around_filter :ffx_xhr_redirect_hack
+  after_filter  :add_flash_to_json_header
 #  before_filter :set_charset
+  layout :layout_for_xhr
+
+  [:notice, :warning, :error].each do |type|
+    define_method(type) do |msg|
+      if flash[type].is_a? String
+        flash[type] = [flash[type]]
+      else
+        flash[type] ||= []
+      end
+      flash[type] << msg
+    end
+    define_method("clear_#{type}")do
+      flash[type] = []
+    end
+    define_method("#{type}_now") do |msg|
+      if flash.now[type].is_a? String
+        flash.now[type] = [flash.now[type]]
+      else
+        flash.now[type] ||= []
+      end
+      flash.now[type] << msg
+    end
+  end
 
   # built in Rails-ness
   def method_missing(methodname, *args)
@@ -26,8 +51,59 @@ class ApplicationController < ActionController::Base
     @args = args
     public_route_failure and return
   end
- 
+
   protected
+
+  # UGH. FFX Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=553888
+  # If you redirect an XHR request, it will not be redirected as an XHR request, but
+  # as a plain old request.
+  # To fix this -- we stuff some things into the reqdirected query string
+  # and catch it next time we have a request.
+  REDIRECTED_XHR_REQUEST_KEY = "_rxr"
+  def ffx_xhr_redirect_hack
+    # If this param is on the request, it's from a redirected XHR request.
+    # Force this request to XHR.
+    if (params[REDIRECTED_XHR_REQUEST_KEY])
+      self.request.env['HTTP_X_REQUESTED_WITH'] = "XMLHttpRequest-#{REDIRECTED_XHR_REQUEST_KEY}"
+    end
+
+    yield
+
+    if (self.request.xhr? && !self.response['Location'].blank?)
+      url = self.response.location
+      self.response.location = url + (url.include?('?') ? '&' : '?') + "#{REDIRECTED_XHR_REQUEST_KEY}=1"
+    end
+  end
+
+  def add_flash_to_json_header
+    # If we are XHR and redirecting - don't show the flash just yet
+    if request.xhr? && response.location.blank?
+      last_flash = ActiveSupport::JSON.decode(session[:redirected_xhr_flash]) rescue {}
+      this_flash = flash.to_hash
+      returned_flash = last_flash.merge(this_flash)
+
+      response.headers['X-JSON'] = returned_flash.to_json
+
+      #update last-modified so content is always fresh
+      headers['Last-Modified'] = Time.now.httpdate
+      session.delete(:redirected_xhr_flash)
+      flash.discard
+    elsif request.xhr?
+      # We save this off until next time -
+      session[:redirected_xhr_flash] = flash.to_json
+      flash.discard
+    else
+      session.delete(:redirected_xhr_flash)
+    end
+  end
+
+  def layout_for_xhr
+    if (request.xhr?)
+      'xhr'
+    else
+      'application'
+    end
+  end
 
   def public_route_failure
     render(:file => "#{Rails.root}/public/404.html", :status => "404 Not Found")
@@ -64,7 +140,7 @@ class ApplicationController < ActionController::Base
       @server_name = self.request.server_name.sub(/^www\./, "")
     end
 
-    
+
     if (@server_name == HOME_SERVER || @server_name == 'development') && (self.class.controller_path[0,7] != "public/")
       # Hitting the "private" application interface
       if login_required
@@ -110,13 +186,9 @@ class ApplicationController < ActionController::Base
 
       $proj_id = @proj.id # for non-public pages this gets set in # proj_required
     end
-    
+
     true # Return true or Rails' filter chain halts
   end
 
 
 end
-
-
-
-

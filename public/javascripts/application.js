@@ -24,4 +24,5 @@ function initialize_js(root) {
 //
 $(document).ready(function(){
   initialize_js($("body"));
+  $.mx_flash();
 });

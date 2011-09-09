@@ -457,6 +457,12 @@ div .county {margin-left: 2em;}
   background: white;
   width: 420px;
 }
+.popupform .basic-modal-close {
+  float: right;
+  padding: 5px;
+  background-color: #a0c0e0;
+  border:1px solid #696;
+}
 
 .ui-autocomplete-loading { background: white url('/images/spinner.gif') right center no-repeat; }
 .ui-autocomplete {

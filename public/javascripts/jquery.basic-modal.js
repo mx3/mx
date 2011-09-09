@@ -119,17 +119,21 @@
     // Create the content box and add this content into it.
     show: function(show_options) {
       var content = show_options.content,
-        anchor = show_options.anchor;
+          anchor = show_options.anchor;
 
       if (!content) {
-        content= anchor;
+        content= show_options;
         anchor = null;
       }
 
       if (basicModal.get_overlay().is(":visible")) {
         var modal = basicModal.create_modal()
-          .css({visibility: 'hidden'})
-          .html(content);
+          .css({visibility: 'hidden'});
+        try {
+          modal.html(content);
+        } catch (e) {
+          modal.html(e);
+        }
         if (options.on_show) {
           options.on_show(modal);
         }
@@ -154,6 +158,8 @@
       basicModal.loading();
     } else if (action == 'hide') {
       basicModal.hide();
+    } else if (action == 'error_shake' ) {
+      basicModal.get_modal().mx_effect('error_shake');
     }
   };
 

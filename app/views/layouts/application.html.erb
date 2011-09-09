@@ -16,9 +16,12 @@
               'jquery.mx-autocompleter',
               'jquery.basic-modal',
               'jquery.ajaxify',
-              'jquery.mx-color-picker'%>
+              'jquery.mx-effects',
+              'jquery.mx-color-picker',
+              'jquery.mx-flash',
+              'jquery.notifications'%>
 
-    <%= stylesheet_link_tag "standard" -%>
+    <%= stylesheet_link_tag "standard",'notifications' -%>
     <%= class_css -%>
     <%= csrf_meta_tag %>
 
@@ -30,7 +33,9 @@
   <a data-basic-modal data-basic-modal-width='300px' href='/projects/1/otu/test_modal'> Test Basic Modal </a> <br />
 
   <!-- see tag_helper -->
-  <%= new_tag_tag(:object => @proj.otus.first) -%><br />
+  <% if @proj %>
+    <%= new_tag_tag(:object => @proj.otus.first) -%><br />
+  <% end %>
 
     <div id="container">
       <div id="header">

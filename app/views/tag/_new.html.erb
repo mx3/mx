@@ -1,0 +1,30 @@
+<script>
+  <% debugger %>
+  <% unless @tag.errors.empty? %>
+    $.basicModal('error_shake');
+  <% end %>
+</script>
+
+<!--
+
+Id for the outer div is likely not necessary with modals now.
+
+The form should try and create a new tag (see existing create code).
+- if it succeeds it closes the modal, and higlights the 'Tag' link that the form was spawned from for a second
+- if it fails it either 1) just shakes (or flashes, or some graphical warning) the form or, 2) injects the Tag#error messages
+
+-->
+
+
+<div id="<%= "tp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform" >
+  <div>
+    <a class='basic-modal-close' href='#'> X</a>
+    <span style="float: left;">Tagging: <%= params[:tag_obj_id] %></span>
+  </div>
+  <br style="clear: both;" />
+  <%= form_for :specimen, :html => {:id => "tpf_#{@obj.class.to_s}_#{@obj.id}"}, :url => url_for(:action => "create") do |f| %>
+  <%= submit_tag "Create", 'data-ajaxify'=>'modal' -%>
+  <%= render :partial => 'form', :locals => {:keyword_id => @keyword_id} -%>
+  <%= submit_tag "Create" , 'data-ajaxify'=>'modal'-%>
+  <% end -%>
+</div>
