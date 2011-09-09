@@ -12,7 +12,8 @@
     modal_class: 'basic-modal',
     modal_fade_speed:  100,
     event_target:  "body",
-    close_button_class: "basic-modal-close"
+    close_button_class: "basic-modal-close",
+    on_show:       initialize_js
   };
 
   var basicModal = {
@@ -110,12 +111,15 @@
     },
     loading: function() {
       basicModal.get_overlay().show();
+      if (basicModal.get_modal()) {
+        basicModal.get_modal().hide();
+      }
       $(options.event_target).trigger("basicModal:loading");
     },
     // Create the content box and add this content into it.
-    show: function(options) {
-      var content = options.content,
-        anchor = options.anchor;
+    show: function(show_options) {
+      var content = show_options.content,
+        anchor = show_options.anchor;
 
       if (!content) {
         content= anchor;
@@ -126,15 +130,18 @@
         var modal = basicModal.create_modal()
           .css({visibility: 'hidden'})
           .html(content);
-
+        if (options.on_show) {
+          options.on_show(modal);
+        }
         var padding = (modal.css('padding-left') !== '' ? parseInt(modal.css('padding-left'), 10) : 0) +
                       (modal.css('padding-right') !== '' ? parseInt(modal.css('padding-right'), 10) : 0);
+
         var width = (modal.children().first().outerWidth() + padding) + "px";
         modal.css({
             visibility: 'visible',
             width: width
           });
-        $(options.event_target).trigger("basicModal:show", content);
+        $(show_options.event_target).trigger("basicModal:show", content);
       }
     }
   };

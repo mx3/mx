@@ -12,24 +12,16 @@ function bind_class_to_spinner(class_to_bind, spinner_class) {
         } );
 }
 
+function initialize_js(root) {
+  var $root = $(root);
+  var find = function(expr){
+    return $($root).is(expr) ? $(expr, $root).add($root) : $(expr, $root);
+  };
+  find('.mx-autocomplete').mx_autocompleter();
+  find("a[data-ajaxify], input[data-ajaxify]").ajaxify();
+  find("input[data-color-picker]").mx_color_picker();
+}
 //
 $(document).ready(function(){
-  $('.mx-autocomplete').mx_autocompleter();
-  try {
-    $('input[data-color-picker]').ColorPicker({
-      onChange: function(hsb, hex, rgb, el) {
-        $(this.data('colorpicker').el).val(hex);
-      },
-      onSubmit: function(hsb, hex, rgb, el) {
-        $(el).val(hex);
-        $(el).ColorPickerHide();
-      },
-      onBeforeShow: function () {
-        $(this).ColorPickerSetColor(this.value);
-      }
-    })
-    .bind('keyup', function(){
-      $(this).ColorPickerSetColor(this.value);
-    });
-  } catch (e) { }
-  });
+  initialize_js($("body"));
+});
