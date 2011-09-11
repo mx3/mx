@@ -75,7 +75,7 @@ class TagController < ApplicationController
       # flash a message or pulse the link when successfull?
       render :partial=>"created_tag" and return
 
-      # TODO: On succesful create where tag_cloud is present update the tag cloud (see old code below)
+      # TODO: On succesful create where tag_cloud is present update the tag cloud (see old code below --- we might want to make a whole new tag cloud system. Let's just get the existing tagging functionality working now)
 
     else 
       #  TODO params[:tag_obj] not set on shake/error call so subsequent submits fail
