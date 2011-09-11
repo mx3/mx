@@ -1,4 +1,7 @@
 class RefController < ApplicationController
+
+  include App::AutocompleteHelper
+
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 
@@ -229,7 +232,7 @@ class RefController < ApplicationController
           'ref[id]' => ref.id,
           :hidden_field_class_name => @tag_id_str
        },
-       :label_html=>render_to_string(:partial=>'shared/autocomplete/ref.html', :locals=>{:item=>ref})
+       :label_html => ref.display_name(:type => :for_select_list) # format_obj_for_auto_complete(ref) # see include App::AutocompleteHelper above # render_to_string(:partial=>'shared/autocomplete/ref.html', :locals=>{:item=>ref})
       }
     end
     render :json => data
