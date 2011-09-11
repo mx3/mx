@@ -3,7 +3,7 @@
     <% ontology_classes.in_groups_of(5, false) do |grp| -%>
     <tr> <%= grp.collect{|t|
       content_tag(:td,
-      (t.tags.by_keyword(keyword).size > 0 ? "<span style=\"color:silver;\">#{t.display_name(:type => :select)}</span>" : "#{t.display_name(:type => :select)} #{tag_link_for_show(t, keyword.id)}" ) 
-      ) }.join("") -%> </tr> 
+      (t.tags.by_keyword(keyword).size > 0 ? "<span style=\"color:silver;\">#{t.display_name(:type => :select)}</span>" : "#{t.display_name(:type => :select)} #{new_tag_tag(:object=>t, :keyword_id=>keyword.id)}" )
+      ) }.join("") -%> </tr>
     <% end -%>
 </table>

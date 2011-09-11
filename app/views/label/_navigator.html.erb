@@ -2,11 +2,11 @@
   <%= navigator(@label, session['label_view'], "name") -%>
 
   <%# the links to various views, should likely show them versus hidden tabs or not !! -%>
-  <div class="item"> <%= session['label_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @label)  %> </div>  
-  <div class="item"> <%= session['label_view'] == 'show_tags' ? '<span class="navigator_current">tags</span>' :  link_to('tags', :action => 'show_tags', :id => @label)  %> </div>  
- 
+  <div class="item"> <%= session['label_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @label)  %> </div>
+  <div class="item"> <%= session['label_view'] == 'show_tags' ? '<span class="navigator_current">tags</span>' :  link_to('tags', :action => 'show_tags', :id => @label)  %> </div>
+
 <br />
-  <div class="item"><%= tag_link_for_show(@label) -%></div>
+  <div class="item"><%= new_tag_tag(:object=>@label) -%></div>
   <div class="item"> <%= sensu_link_for_show(:label_id => @label.id, :div_id => "new_sensu_on_#{@label.id}") -%></div>
 
 

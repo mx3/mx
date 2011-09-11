@@ -5,7 +5,7 @@ module App::NavigationHelper
   # Returns a link for use _navigator.html.erb
   def navigator_link_tag(options = {})
     opt = {
-      :session_param => nil, # the session param to check 
+      :session_param => nil, # the session param to check
       :do => nil,            # style if session param matches
       :link_text => nil,
       :link_params => {}
@@ -21,13 +21,13 @@ module App::NavigationHelper
   end
 
   # Determine whether the current model has additional links for the top right navigation
-  # TODO: this is very convienent now, but likely not optimal, should probably set a constant in the controller 
+  # TODO: this is very convienent now, but likely not optimal, should probably set a constant in the controller
   def has_links
     File.exist?("#{Rails.root.to_s}/app/views/#{self.controller.controller_name}/_links.html.erb")
   end
 
   def navigator2(options = {}) # :yields: String (html, navigator for a particular show view)
-    opt = { 
+    opt = {
       :obj => nil,     # the Object instance being shown
       :do => 'show',   # the view being shown as stored in the session, like session['show_taxon_name']
       :ord => 'id'     # the field to sort on for left/right navigation
@@ -35,12 +35,12 @@ module App::NavigationHelper
 
     return content_tag(:div, '', :class => 'navigator_buttons') if @public
 
-    klass = ActiveSupport::Inflector.underscore(opt[:obj].class.to_s) 
-    klass = 'content_type' if klass =~ /content_type/ || klass =~ /text_content/ 
+    klass = ActiveSupport::Inflector.underscore(opt[:obj].class.to_s)
+    klass = 'content_type' if klass =~ /content_type/ || klass =~ /text_content/
     klass = 'image' if klass == 'morphbank_image' && opt[:obj].is_morphbank == true
-  
-    content_tag(:div, :style => 'border-bottom:1px dotted silver;padding:2px;') do 
-      id_box_tag(opt[:obj]) + 
+
+    content_tag(:div, :style => 'border-bottom:1px dotted silver;padding:2px;') do
+      id_box_tag(opt[:obj]) +
         content_tag(:div, link_to('show', :action => :show, :id => opt[:obj]), :class => (opt[:do] == 'show' ? 'navigator_current' : ''), :style => 'margin:3px 0;') +
         content_tag(:div, :class => 'navigator_buttons') do
         content_tag(:span, link_to('&lt;', {:action => opt[:do], :controller => klass, :id => previous_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')  +
@@ -48,47 +48,47 @@ module App::NavigationHelper
           content_tag(:span, link_to('&gt;', {:action => opt[:do], :controller => klass, :id => next_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')
       end  +
         content_tag(:div, :style => 'width: 100%; font-size:smaller; padding:2px;' ) do
-        tag_link_for_show(opt[:obj]) + "&nbsp|&nbsp" + 
+        new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp" +
           content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
-      end 
+      end
     end
 
-  end 
+  end
 
   # DEPRECATED
   # TODO: exchange with navigator2
   # renders a styled forward/back button for use in shows
   def navigator(obj, action = 'show', ord = 'id')
-    return content_tag(:div, '', :class =>  'navigator_buttons') if @public 
+    return content_tag(:div, '', :class =>  'navigator_buttons') if @public
     s = '<div class="navigator_buttons"> <span class="navigator_button">'
 
     klass = ActiveSupport::Inflector.underscore(obj.class.to_s) # 2.1.1 code
     klass = 'content_type' if klass =~ /content_type/ || klass =~ /text_content/ # ['text_content', ContentType.custom_types.collect{|t| ActiveSupport::Inflector.underscore(t)}].flatten.include?( ActiveSupport::Inflector.underscore(obj.class.to_s)) # this is baaaad
     klass = 'morphbank_image' if  klass == 'image' && obj.is_morphbank == true
-    
+
     s += link_to('&lt;', :action => action, :controller => klass, :id => previous_rec(obj, ord)) + '</span> <span class="navigator_link">'
-    s += link_to('Edit', :action => 'edit', :controller => klass, :id => obj.id) + '</span>' 
+    s += link_to('Edit', :action => 'edit', :controller => klass, :id => obj.id) + '</span>'
     s += '<span class="navigator_button">' + link_to('&gt;', :action => action, :controller => klass, :id => next_rec(obj, ord)) + '</span></div>'
     s.html_safe
-  end 
+  end
 
   # returns the previous/next record as sorted by Model#ord
   def next_rec(rec, ord = 'id', prev = false)
     search_table = ActiveSupport::Inflector.underscore(rec.class.to_s).pluralize
     search_table = 'content_types' if rec.class.to_s =~ /ContentType::/ || rec.class.to_s == 'TextContent'
-    
+
     # TODO: R3 revisit - hack in an exception for subclasses
-    if search_table == 'content_types' 
-      klass = ContentType 
+    if search_table == 'content_types'
+      klass = ContentType
     else
       klass = rec.class
     end
-   
+
     c = conditions_for_prev_next(search_table)
     asc_desc = (prev ? "DESC" : "ASC")
     lt_gt = (prev ? "<" : ">") # this is sql, not HTML
 
-    inc = nil 
+    inc = nil
 
     case search_table
     when 'taxon_hists'
@@ -103,7 +103,7 @@ module App::NavigationHelper
     end
 
     order =  "#{search_table}.#{ord} #{asc_desc}" if !order
-    if id = klass.find(:first, :include => inc, 
+    if id = klass.find(:first, :include => inc,
         :conditions => ["#{c ? (c + " AND ") : ''} #{search_table}.#{ord} #{lt_gt} ?", rec.send(ord)],
         :order => order )
       return id
@@ -112,7 +112,7 @@ module App::NavigationHelper
       if c
         klass.find(:first, :include => inc, :conditions => c, :order => order) # we hit the last record, go back to the first
       else
-        klass.find(:first, :include => inc, :order => order)  
+        klass.find(:first, :include => inc, :order => order)
       end
     end
   end
@@ -120,7 +120,7 @@ module App::NavigationHelper
   def previous_rec(rec, ord = 'id')
     next_rec(rec, ord, true)
   end
-  
+
   # in conjuction with previous|next _rec
   def conditions_for_prev_next(search_table)
     # TaxonNames, TaxonHists and some others are "project free"
@@ -141,14 +141,14 @@ module App::NavigationHelper
 
   # hash aiding navigation, if you use a controller it has to be listed here at present
   # in process of being deprecated for something simpler
- 
+
   # setup for memoization?
   def links
     @calc_links ||= calc_links
   end
-   
+
   def calc_links
-    { 
+    {
       "login" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
       "signup" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
       "account" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
@@ -181,8 +181,8 @@ module App::NavigationHelper
       "proj" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
       "admin" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
 
-      "otu" => { "text" => "OTUs", "group" => "main", "subnav" => {'default' => {"controller" => "otu" , "text" => "OTUs"}}}, 
-      "otu_group" => {"text" =>'OTU groups', "group" => "otu", "subnav" =>{ 'default' => {"controller" => "otu_group", "text" => 'OTU groups' }}}, 
+      "otu" => { "text" => "OTUs", "group" => "main", "subnav" => {'default' => {"controller" => "otu" , "text" => "OTUs"}}},
+      "otu_group" => {"text" =>'OTU groups', "group" => "otu", "subnav" =>{ 'default' => {"controller" => "otu_group", "text" => 'OTU groups' }}},
 
       "chr" => { "text" => "Characters", "group" => "main" , "subnav" => {'default' => {"controller" => "chr" , "text" => "Characters"}}},
       "mx" => { "text" => "Matrices", "group" => "main"},
@@ -203,9 +203,9 @@ module App::NavigationHelper
       "content_type" => {"text" => "Content types", "group" => "content", "subnav" => { 'default' => {'controller' => "content_type", "text" => "Content types"}}},
       "content_template" => {"text" => "Templates", "group" => "content", "subnav" => {'default' => {'controller' => "content_type",  "text" => "Templates"}}},
       "public_content" => {"text" => "Public content", "group" => "content", "subnav" => {'default' => {'controller' => "content_type",  "text" => "Public content"}}},
-      
+
       "confidence" => {"text" => "Confidence", "group" => "tag", "subnav" => {'default' => {'controller' => 'association' , "text" => "Confidence"}}},
-      
+
       "ref" => {"text" => "Refs", "group" => "main", "subnav" =>{ 'default' => {"controller" => "ref", "text" => "Refs"}}},
       "serial" => {"text" => "Serials", "group" => "ref", "subnav" =>{ 'default' => {"controller" => "serial", "text" => "Serials"}}},
 
@@ -228,7 +228,7 @@ module App::NavigationHelper
       "standard_view" => {"text" => "Standard views", "group" => "image", "subnav" =>{ 'default' => {"controller" => "standard_view", "text" => "standard views"}}},
       "standard_view_group" => {"text" => "Standard view groups", "group" => "image", "subnav" =>{ 'default' => {"controller" => "standard_view_group", "text" => "standard view groups"}}},
       "morphbank_image" => {"text" => "Morphbank image", "group" => "image", "subnav" =>{ 'default' => {"controller" => "image", "text" => "morphbank image"}}},
-      
+
       "image_description" => {"text" => "summarize/manage", "group" => "image", "subnav" =>{ 'default' => {"controller" => "image_description", "text" => "summarize/manage"}}},
 
       "tree" => {"text" => "Phylo", "group" => "tree", "subnav" =>{ 'default' => {"controller" => "tree", "text" => "Trees"}}},
@@ -243,7 +243,7 @@ module App::NavigationHelper
     ["otu", "chr", "mx", "content", "specimen", "measurement", "seq", "ref", "association",  "taxon_name", "image", "ontology", "clave", "tag", "tree" ] # statements are not developed
   end
 
-  # Array containing the first level tabs/keys to subtabs 
+  # Array containing the first level tabs/keys to subtabs
   def nav_tabs
     @nav_tabs ||= calc_nav_tabs
   end
@@ -254,7 +254,7 @@ module App::NavigationHelper
   end
 
   # Defines the structure of the tabs/subnav, these are controller names
-  def calc_navbars 
+  def calc_navbars
     {
       "proj" => ["namespace"],
       "main" => main_navbar,
@@ -274,13 +274,13 @@ module App::NavigationHelper
       "tree" => ['tree', 'data_source']
     }
   end
- 
+
   # TODO: memoize this @ Proj level(?)
   def main_navbar
     b = nav_tabs
     if @proj
       b.delete(@proj.starting_tab)
-      b.insert(0, @proj.starting_tab) 
+      b.insert(0, @proj.starting_tab)
     else
       b = []
     end
@@ -291,7 +291,7 @@ module App::NavigationHelper
   def menu_tabs(type = 'main')
     return '' if not @proj
     c_name = self.controller.controller_name
-    result_str = "<div " + (type == "main" ? "id= \"tabs" : "class =\"subnav" ) + "\">"   
+    result_str = "<div " + (type == "main" ? "id= \"tabs" : "class =\"subnav" ) + "\">"
 
     # nothing special has to be done for type 'main'!!!
     if (type == 'subnav')
@@ -303,7 +303,7 @@ module App::NavigationHelper
         end
       else
         type = links[c_name]['group']
-      end 
+      end
     end
 
     (type == 'none') && return
@@ -313,16 +313,16 @@ module App::NavigationHelper
       if not (type == "main" and @proj and @proj.hidden_tabs and @proj.hidden_tabs.include?(tab))
         linktext = ( type == "main" ? links[tab]['text'] : links[tab]['subnav']['default']['text']  )
         if (c_name == tab) || ((links[c_name]['group'] == tab) && (type == "main"))
-          result_str << link_to(linktext,  {:controller => tab} , {:class => "current"}) 
+          result_str << link_to(linktext,  {:controller => tab} , {:class => "current"})
         else
-          result_str << link_to(linktext, {:controller => tab})         
+          result_str << link_to(linktext, {:controller => tab})
         end
       end
     }
     result_str << "</div>"
     result_str.html_safe
   end
-  
+
   # take the list of links from the controller helper and format it, this IS USED in 3rd level navbars in mx/associations, mx/seqs
   def format_subnav(links)
     content_for(:div, :class => 'subnav') do
@@ -343,7 +343,7 @@ module App::NavigationHelper
     options[:window_size] = 5
 
     window_pages = paginator.current.window(options[:window_size]).pages
-    url_options = { 
+    url_options = {
       :action => options[:action].andand.html_safe,
       :genus => params[:genus].andand.html_safe,
       :species => params[:species].andand.html_safe,
@@ -351,7 +351,7 @@ module App::NavigationHelper
       :other => params[:other].andand.html_safe,
       :proj_to_search => options[:proj_to_search].andand.html_safe
     }
-    
+
     next_page = paginator.current.next
     previous_page = paginator.current.previous
 
@@ -372,9 +372,9 @@ module App::NavigationHelper
         url_options.merge(:page => next_page),
         :remote => true,
         :class => 'ajax_page_nav_link')
-  
+
       html << '&nbsp;|&nbsp;'.html_safe
-    
+
       if options[:always_show_anchors] and not window_pages[0].first?
         html << link_to(first.number,
           url_options.merge(:page => first),
@@ -406,7 +406,7 @@ module App::NavigationHelper
           :class => 'ajax_page_nav_link'
           )
       end
-    
+
       html << '&nbsp;|&nbsp;'.html_safe
       html << link_to("refresh current",
         url_options.merge(:page => paginator.current),
@@ -419,7 +419,7 @@ module App::NavigationHelper
       html
     end
     html.html_safe
-    
+
   end
 
   def wiki_help_link

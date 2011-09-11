@@ -28,7 +28,7 @@
     <div class="box5" style="padding: .6em;">
       <% for state in @chr.chr_states -%>
         <div style="clear: both;">
-          <b><%= state.s_and_m  -%></b>   <% if s = state.coded?(@otu.id) %>&nbsp;<%= tag_link_for_show(s) -%> <% end -%><br/>
+          <b><%= state.s_and_m  -%></b>   <% if s = state.coded?(@otu.id) %>&nbsp;<%= new_tag_tag(:object=>s) -%> <% end -%><br/>
           <%= render_figs_for_obj(state, 'thumb') -%>
         </div>
       <% end %>

@@ -7,7 +7,7 @@ module App::DisplayHelper
   # see also acts_as_santized
   #  ... meh, should remove h() throughout
 
-  # TODO: need to revist, if you want to use this use the alias html_escape 
+  # TODO: need to revist, if you want to use this use the alias html_escape
   # def h(t)
   #  t
   # end
@@ -26,19 +26,19 @@ module App::DisplayHelper
 
   # TODO: revist the bold/header style
   def show_header_tag(obj)
-    return "no display_name method" if !obj.respond_to?('display_name') 
-    content_tag('div', :style => 'display:inline;') do 
+    return "no display_name method" if !obj.respond_to?('display_name')
+    content_tag('div', :style => 'display:inline;') do
       obj.display_name + "&nbsp;" + content_tag('span', "(id: #{obj.id})", :class => 'small_grey')
-    end     
+    end
   end
 
   def is_public_tag(obj)
-    return "no is_public method" if !obj.respond_to?('display_name') 
+    return "no is_public method" if !obj.respond_to?('display_name')
     obj.is_public ? content_tag('span', 'yes', :class=> 'passed') : content_tag('span', 'no', :class => 'failed')
   end
 
   # renders a quick view of an object
-  def render_show(obj, show_links = true, side_nav = true) 
+  def render_show(obj, show_links = true, side_nav = true)
     @obj = obj
     @show_links = show_links
     @side_nav = side_nav
@@ -58,7 +58,7 @@ module App::DisplayHelper
   end
 
   # maybe a Table helper?
-  # renders a table row of column headers 
+  # renders a table row of column headers
   # if you pass a hash you pass 'name' and 'class' and /or 'style' (include ";" in your style!)
   # like {'name' => 'foo', 'style' => 'bar: 0px;', 'class' => 'blorf'}
   def t_col_heads(heads)
@@ -70,6 +70,10 @@ module App::DisplayHelper
         (content_tag(:th, "#{h c}"))}.join("") + "</tr>"
     html.html_safe
   end
+  # A unique HTML id for an object.
+  def tags_html_id(obj)
+    "tags_html_#{obj.class}_#{obj.id}".underscore.downcase.html_safe
+  end
 
   def t_row(params)           # renders a table row, requires 'obj' as a key if inc_actions ==  true
     opt = { 'inc_actions' => true, # include show/edit/destory/tag as options
@@ -78,28 +82,30 @@ module App::DisplayHelper
       'no_show' => false,           # don't show the 'show' action link
       'close_tr' => true,           # true - include </tr>
       'cell_data' => []}            # the cell data
-    opt.merge!(params) 
+    opt.merge!(params)
     r = ''
 
     opt["tr_css"].to_s.to_i == opt["tr_css"] && opt["tr_css"] = ( opt["tr_css"] % 2 == 0 ? 'stripe' : "")
-    opt['open_tr'] && ( r << "<tr class=\"" + opt["tr_css"]  + "\">")
+    opt['open_tr'] && ( r << "<tr id='#{tags_html_id(opt['obj'])}' class=\"" + opt["tr_css"]  + "\">")
     r << opt["cell_data"].collect{|c| c.class.to_s == 'Hash' ? ("<td class=\"" + c.values[0] + "\">#{h c.keys[0]}</td>") : "<td>#{h c}</td>" }.join("") ## IS THIS SECURE??
     if opt['inc_actions']
       r << self.t_cell_obj_actions(opt["obj"])
-    end  
+    end
     opt["close_tr"] and (r << "</tr>")
     r.html_safe
   end
 
-  def t_cell_obj_actions(o) # return show/edit/destroy tables cells for object o 
+  def t_cell_obj_actions(o) # return show/edit/destroy tables cells for object o
     r = ''
     klass = ActiveSupport::Inflector.underscore(o.class.to_s)
-    if o.taggable 
-      r << "<td class='list_action'>" + render( :partial => "tag/tag_link", :locals => { :tag_obj_id => o.id, :link_text => "Tag",:tag_obj_class => o.class.to_s, :msg => ''}) + "</td>"
-    end 
+    if o.taggable
+      r << "<td class='list_action'>" +
+        render( :partial => "tag/tag_link", :locals => { :html_selector => "##{tags_html_id(o)}",
+          :tag_obj => o, :link_text => "Tag"})+ "</td>"
+    end
     r << content_tag(:td, link_to('Show', :action => 'show', :controller => klass , :id => o.id, :target =>'show'), :class => :list_action)
-    r << content_tag(:td, link_to('Edit', :action => 'edit', :controller => klass, :id => o.id), :class => :list_action) 
-    r << content_tag(:td, link_to('Destroy', {:action => 'destroy', :controller => klass, :id => o.id}, :method => "post", :confirm => ([Ref, Otu].include?(o.class) ? "WARNING! You are about to delete EVERYTHING in this project that is directly tied to this #{o.class}.  Are you sure you want to do this?" : "Are you sure?")), :class => :list_action) 
+    r << content_tag(:td, link_to('Edit', :action => 'edit', :controller => klass, :id => o.id), :class => :list_action)
+    r << content_tag(:td, link_to('Destroy', {:action => 'destroy', :controller => klass, :id => o.id}, :method => "post", :confirm => ([Ref, Otu].include?(o.class) ? "WARNING! You are about to delete EVERYTHING in this project that is directly tied to this #{o.class}.  Are you sure you want to do this?" : "Are you sure?")), :class => :list_action)
     r.html_safe
   end
 
@@ -114,14 +120,14 @@ module App::DisplayHelper
       if include_actions
         t << t_cell_obj_actions(o)
       end
-      t << "</tr>\n"    
+      t << "</tr>\n"
     end
     t << "</table>"
     t.html_safe
   end
 
   def spinner_tag(id)
-    image_tag('/images/spinner.gif', :alt => 'Loading', :id => id, :style => "display: none; vertical-align:middle;"  ) 
+    image_tag('/images/spinner.gif', :alt => 'Loading', :id => id, :style => "display: none; vertical-align:middle;"  )
   end
 
   def expandable_caption(text, id, truncate_length = 100)
@@ -133,19 +139,19 @@ module App::DisplayHelper
     trunc = truncate_length - 6 # account for truncation marks, and arrows
     if text.size > 0
       if text.size > trunc
-        xml.span('id' => "cp_#{id}_short", 'style' => 'display: inline; z-index:300;') do 
-          # strip all html before displaying the truncated version 
+        xml.span('id' => "cp_#{id}_short", 'style' => 'display: inline; z-index:300;') do
+          # strip all html before displaying the truncated version
           stripped = htmlize(text).gsub(/\<.+?\>/, '' )
-          xml << stripped[0..trunc] + "... "  
+          xml << stripped[0..trunc] + "... "
         end
-      
-        # The full string of text. 
-        xml.span( 'id' =>  "cp_#{id}_more", "style" => "display: inline; display: none; z-index:300;") do 
+
+        # The full string of text.
+        xml.span( 'id' =>  "cp_#{id}_more", "style" => "display: inline; display: none; z-index:300;") do
           xml <<  ( htmlize(text).gsub(/\<.?p\>/, '') )
         end
-        
+
         xml.a("style" => 'display:inline', "onclick" => "Element.toggle('cp_#{id}_more'); Element.toggle('#{id}_minus'); Element.toggle('#{id}_plus'); Element.toggle('cp_#{id}_short')" ) do |a|
-          xml.span( 'id' => "#{id}_minus", "style" => "display:none") do 
+          xml.span( 'id' => "#{id}_minus", "style" => "display:none") do
             xml <<  "&#8624;"
           end
           xml.span( 'id' => "#{id}_plus", "style" => "display:inline") do

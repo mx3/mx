@@ -1,4 +1,3 @@
-<div id="t_<%= "#{tag_obj_class}_#{tag_obj_id}".html_safe -%>" style="display: inline;">
-  <% keyword_id ||= nil -%>
-  <span id="tl_<%= "#{tag_obj_class}_#{tag_obj_id}".html_safe -%>"><%= link_to(link_text, { :action => :new, :controller => :tag, :tag_obj_id => tag_obj_id, :tag_obj_class => tag_obj_class, :keyword_id => keyword_id}, :remote => :true, :html => { :style => 'display:inline;'.html_safe}) -%></span>
+<div style="display: inline;">
+  <%= new_tag_tag(:object => tag_obj, :link_text=>link_text, :html_selector=>html_selector) %>
 </div>

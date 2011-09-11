@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :center do -%>
-  <div style="padding: .2em; display: inline;"> add a new <%= tag_link_for_show(@taxon_name) -%> </div>
+  <div style="padding: .2em; display: inline;"> add a new <%= new_tag_tag(:object=>@taxon_name) -%> </div>
   <br /> <br />
   <div class="box4" id="tag_cloud">
     <div class="header">tag cloud (click to show all tags from the given keyword) </div>
@@ -12,7 +12,3 @@
 
   <%= render(:partial => 'tag/tags_by_keyword')  -%>
 <% end -%>
-
-
-
-

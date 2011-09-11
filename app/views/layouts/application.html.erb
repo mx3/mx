@@ -30,13 +30,6 @@
   </head>
   <body>
 
-  <a data-basic-modal data-basic-modal-width='300px' href='/projects/1/otu/test_modal'> Test Basic Modal </a> <br />
-
-  <!-- see tag_helper -->
-  <% if @proj %>
-    <%= new_tag_tag(:object => @proj.otus.first) -%><br />
-  <% end %>
-
     <div id="container">
       <div id="header">
         <% if session && session[:person] -%>

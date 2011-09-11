@@ -1,5 +1,5 @@
-<div> 
-  <table> 
+<div>
+  <table>
     <tr>
       <td style="width: 280px; padding-right: 20px;">
         <p><strong>Coding:</strong><%= spinner_tag('zoom_spinner') -%></p>
@@ -19,7 +19,7 @@
 
           <% else -%>
 
-            <input type="submit" name="from_grid_coding" value="submit" />  
+            <input type="submit" name="from_grid_coding" value="submit" />
 
             <% for state in @chr.chr_states %>
               <div style="border: 1px dotted silver; margin: 2px; padding: 2px;">
@@ -29,16 +29,16 @@
                   <input type="checkbox" name="state[<%= state.id %>]" value="1" checked="checked"/> <%= state.s_and_m -%><br />
                 <% else %>
                   <input type="checkbox" name="state[<%= state.id -%>]" value="1" /> <%= state.s_and_m -%> <br />
-                <% end -%> 
+                <% end -%>
 
                 <%- if @confidences.size > 0 -%>
                   <div style="background-color: #eeeeee; padding: 2px; margin: 2px 0px; text-align: center;">
-                    <span style="color: gray; font-size: smaller;">confidence</span> 
+                    <span style="color: gray; font-size: smaller;">confidence</span>
                     <%= select("coding",  'confidence_id', @confidences.collect {|p| [ p.name, p.id ] }, {:include_blank => true,}, { :name => "confidence[#{state.id}]", :style => 'font-size: smaller; color: red;'}) -%>
                   </div>
                 <% end -%>
 
-                <%= render(:partial => 'tag/t', :collection => @coding.tags) if @coding && (@coding.tags.size) > 0  %>     
+                <%= render(:partial => 'tag/t', :collection => @coding.tags) if @coding && (@coding.tags.size) > 0  %>
 
               </div>
             <% end %><!-- end state loop -->
@@ -47,12 +47,12 @@
 
           <br />
 
-          <input type="submit" name="from_grid_coding" value="submit" />  
+          <input type="submit" name="from_grid_coding" value="submit" />
           <% end -%>
         </div>
       </td>
 
-      
+
       <td style="border-left: 1px solid silver; width: auto;">
 
          <!-- break this out to partial? -->
@@ -62,7 +62,7 @@
           <% if @chr.is_continuous -%>
 
           <% if !@c_value.nil? -%>
-          <table><tr><td>state is presently coded, tag the coding: <%= tag_link_for_show(Coding.find_by_chr_id_and_otu_id(@chr.id, @otu.id)) -%></td></tr></table>
+          <table><tr><td>state is presently coded, tag the coding: <%= new_tag_tag(:object=>Coding.find_by_chr_id_and_otu_id(@chr.id, @otu.id)) -%></td></tr></table>
           <% end -%>
 
           <% else %>
@@ -70,17 +70,16 @@
               <div class="content" style="border-bottom:1px solid silver;">
                 <b><%= state.s_and_m  -%></b>
                 <% if @s = state.coded?(@otu.id) -%>
-                  <table><tr><td>state is presently coded, tag the coding: <%= tag_link_for_show(@s) -%></td></tr></table>
+                  <table><tr><td>state is presently coded, tag the coding: <%= new_tag_tag(:object=>@s) -%></td></tr></table>
                 <% end -%>
                 <%= render_figs_for_obj(state, 'thumb') -%>
               </div>
             <% end -%>
           <% end -%>
-        </div> 
+        </div>
 
       </td>
     </tr>
   </table>
 
 </div>
-

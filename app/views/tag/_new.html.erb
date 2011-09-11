@@ -1,5 +1,4 @@
 <script>
-  <% debugger %>
   <% unless @tag.errors.empty? %>
     $.basicModal('error_shake');
   <% end %>
@@ -23,6 +22,7 @@ The form should try and create a new tag (see existing create code).
   </div>
   <br style="clear: both;" />
   <%= form_for :specimen, :html => {:id => "tpf_#{@obj.class.to_s}_#{@obj.id}"}, :url => url_for(:action => "create") do |f| %>
+  <input type='hidden' name='html_selector' value='<%= params[:html_selector] %>'/>
   <%= submit_tag "Create", 'data-ajaxify'=>'modal' -%>
   <%= render :partial => 'form', :locals => {:keyword_id => @keyword_id} -%>
   <%= submit_tag "Create" , 'data-ajaxify'=>'modal'-%>

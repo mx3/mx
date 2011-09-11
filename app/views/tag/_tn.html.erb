@@ -1,5 +1,5 @@
 <div style="margin: 4px; padding-left: <%= 20 * level -%>px; border-top: 1px solid silver; <%= 'background-color:#b5ebc7' if newly_inserted -%> " id="tag_<%= tn.id -%>">
-  <div style="float:right;" ><%= tag_link_for_show(tn) -%> <span class="small_form_button"><%= link_to('edit', :action => :edit, :controller => :tag, :id => tn.id) -%></span>&nbsp;<span class="failed" style="padding:2px;"><%= destroy_tag_link(tn) -%></span></div>
+  <div style="float:right;" ><%= new_tag_tag(:object=>tn) -%> <span class="small_form_button"><%= link_to('edit', :action => :edit, :controller => :tag, :id => tn.id) -%></span>&nbsp;<span class="failed" style="padding:2px;"><%= destroy_tag_link(tn) -%></span></div>
   <div style="float:left;">
     <%= tn.keyword.display_name -%>, by <%= tn.creator.full_name -%>, <%= time_ago_in_words(tn.created_on) %> ago <br/>
     notes: <%= content_tag :strong, truncate(tn.notes, :length => 200) %>  <br/>

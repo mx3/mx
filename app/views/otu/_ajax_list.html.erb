@@ -5,7 +5,7 @@
 <table>
   <%= t_col_heads( [{'name' => "", 'style' => 'width: 50%;'}, "id", "mod by", "mod age"] ) -%>
   <% @otus.each_with_index do |otu, i| -%>
-  <tr class="<%= (i % 2 == 0 ? 'stripe' : "") -%>"> 
+  <tr id='<%=tags_html_id(otu)%>' class="<%= (i % 2 == 0 ? 'stripe' : "") -%>">
     <td> <%= link_to(otu.display_name(:type => :multi_name), :action => 'show', :id => otu) -%></td>
       <%= t_row({ 'obj' => otu, 'open_tr' => false, 'inc_actions' => true,
         'cell_data' => [

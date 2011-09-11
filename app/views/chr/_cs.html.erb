@@ -5,7 +5,7 @@
         <b><%= "#{cs.state}: #{cs.name}" %> </b>
       </td>
       <td style="font-size: smaller;">figure state: <%= fig_link(cs) %>  </td>
-      <td style="font-size: smaller;">tag state:  <%= tag_link_for_show(cs) -%>  </td>
+      <td style="font-size: smaller;">tag state:  <%= new_tag_tag(:object=>cs) -%>  </td>
       <td style="font-size: smaller;"> <%= link_to("delete", {:action => 'destroy_state', :id => @chr.id, :params => {"chr_state_id" => cs}}, {:confirm => 'Delete this state? You will delete all codings of this state as well!'}) %></td>
     </tr>
   </table>

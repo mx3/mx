@@ -27,14 +27,14 @@
 
         <%= form_tag(:remote => true, :url => {:action => 'fast_code', :controller => :mx, :id => @mx, :otu_id => @otu, :position => @present_position}, :html => {:name => "myform", :style => "width: 400px;"} ) do -%>
             <p><%= @chr.name %> <span class="small_grey">id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chr', :id => @chr}, :target => '_blank') -%></span></p>
-          
+
             <%= hidden_field_tag('mode', @mode) -%>
             <%= hidden_field_tag('chr_id', @chr.id) -%>
 
 
             <% if @chr.continuous? && !@chr.is_continuous -%><!-- auto filed from measurements, no tags/confidence -->
 
-                <div> From specimens TODO</div>    
+                <div> From specimens TODO</div>
 
             <% else %> <!-- can have confidence/tags -->
 
@@ -50,18 +50,18 @@
 
             <br style="clear:both;" />
 
-            <% if @chr.is_continuous -%> 
-                <%= render(:partial => 'fc_continuous') -%>            
-            <% else -%> 
-                <%= render(:partial => 'fc_multistate') -%>            
+            <% if @chr.is_continuous -%>
+                <%= render(:partial => 'fc_continuous') -%>
+            <% else -%>
+                <%= render(:partial => 'fc_multistate') -%>
             <% end -%>
 
 
           <!-- tag form -->
           <div class="subform" style="width: 400px;">
-            <div class="header"> include a tag with this coding &nbsp;&nbsp;&nbsp;&nbsp; 
+            <div class="header"> include a tag with this coding &nbsp;&nbsp;&nbsp;&nbsp;
               <%=  link_to_function('toggle form', nil, :id => "more_link") do |page|
-                page.visual_effect(:toggle_blind, 'tag_form') 
+                page.visual_effect(:toggle_blind, 'tag_form')
               end %></div>
             <div id="tag_form" style="display: none;"> <i> tag will not be saved if you skip </i> <%= render(:partial => 'tag/form') %></div>
            </div>
@@ -90,11 +90,11 @@
 
       <!-- coding data -->
       <td style="border-left: 1px solid silver;">
-      
+
         <div class="box4" style="border: none;">
           <div class="header"> state details and cell tagging </div>
 
-          <% if @chr.continuous? -%> 
+          <% if @chr.continuous? -%>
                 Character is continuous.
           <% else -%>
 
@@ -103,18 +103,17 @@
               <b><%= state.s_and_m  -%></b>
               <% if @s = state.coded?(@otu.id) -%>
               <% if @s.confidence -%><br/>&nbsp;&nbsp; coded with confidence: <span style="color:red;"><%= @s.confidence.display_name -%></span> <% end %>
-                <!--   <table><tr><td>state is presently coded, tag the coding: <%= tag_link_for_show(@s) %></td></tr></table> can't run this till we update the form -->
               <% end -%>
               <%= render_figs_for_obj(state, 'thumb') -%>
             </div>
           <% end -%>
-       
+
           <% end %>
 
-        </div> 
-      
-      
-      
+        </div>
+
+
+
       </td>
 
   </tr>

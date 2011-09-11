@@ -11,11 +11,10 @@
     link_to(render(:partial =>"part", :collection => a.association_parts), :action => 'show', :id => a),
     a.id,
     {a.notes =>  'small_grey'} ,
-    tag_link_for_show(a)] } ) %>
+    new_tag_tag(:object=>a)] } ) %>
   <% end %>
 </table>
 
 <% unless @association_pages.first == @association_pages.last %>
     <strong>View page <%= pagination_links @association_pages, :window_size => 3 %></strong>
 <% end %>
-
