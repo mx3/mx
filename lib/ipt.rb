@@ -176,7 +176,7 @@ module Ipt
     def catalog_number
       #	An identifier (preferably unique) for the record within the data set or collection.
       # Examples: "2008.1334", "145732a", "145732". 
-      @identifier ?  @identifier.identifier : @obj.id.to_s
+      @identifier ?  @identifier.identifier : id.to_s
     end
 
     def information_withheld
@@ -409,10 +409,6 @@ module Ipt
     end
 
     # DC 1.4 Curatorial
-
-    def catalog_number
-      @identifier ? @identifier.identifier : @obj.id.to_s
-    end
 
     def identified_by
       # TODO: validate order

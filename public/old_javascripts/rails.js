@@ -32,7 +32,7 @@
     // augment the Event.Handler class to observe custom events when needed
     Event.Handler.prototype.initialize = Event.Handler.prototype.initialize.wrap(
       function(init, element, eventName, selector, callback) {
-        init(element, eventName, selector, callback)
+        init(element, eventName, selector, callback);
         // is the handler being attached to an element that doesn't support this event?
         if ( (!submitBubbles && this.eventName == 'submit' && !isForm(this.element)) ||
              (!changeBubbles && this.eventName == 'change' && !isInput(this.element)) ) {

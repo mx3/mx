@@ -17,7 +17,7 @@
 <%= text_field 'primer', 'sequence', 'title' => 'nucleotide sequence of this primer', :size => 70 %></p>
 
 <p><label for="target_otu_name">For OTU</label><br/>
-     <%= render :partial => "shared/picker", :locals => {
+     <%= render :partial => 'shared/picker', :locals => {
             :controller => 'otu',
             :object => 'primer',
             :method => 'target_otu_id',

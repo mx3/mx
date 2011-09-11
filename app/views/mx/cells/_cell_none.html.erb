@@ -1,6 +1,6 @@
 <%# all _cell partials require the locals: codings = [], mx_id, i, j, o = Otu, c = Chr -%>
 <% if codings.size == 0 -%>
-  <div style="background-color:#ddd; color: red; width: 9px; font-weight: bolder; margin: 0px;">
+  <div style="background-color:#ddd; color: red; width: 9px; font-weight: bolder; margin: 0;">
   <%= link_to_remote("-", :url => {:action => :_cell_zoom, :mx_id => mx_id, :chr_id => c.id, :otu_id => o.id, :x => i, :y => j},
      :loading => "Element.show('update_spinner')", :complete => "Element.hide('update_spinner')"  )  -%>
   </div>
@@ -8,7 +8,7 @@
   <%= link_to_remote(codings.first.display_name(:type => :windowed_value), :url => {:action => :_cell_zoom, :mx_id => mx_id, :chr_id => c.id, :otu_id => o.id, :x => i, :y => j},
      :loading => "Element.show('update_spinner')", :complete => "Element.hide('update_spinner')"  )  -%>
 <% else -%>
-   <div style="background-color:#e5993a; width: 12px; font-weight: bolder; margin: 0px;">
+   <div style="background-color:#e5993a; width: 12px; font-weight: bolder; margin: 0;">
   <%= link_to_remote("#", :url => {:action => :_cell_zoom, :mx_id => mx_id, :chr_id => c.id, :otu_id => o.id, :x => i, :y => j},
      :loading => "Element.show('update_spinner')", :complete => "Element.hide('update_spinner')"  )  -%>
   </div>

@@ -12,7 +12,7 @@
 </div>
 
 <div class="fr"> <label for="serial_language_id" class="lbl4">Language</label>
-  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+  <span class="fld"><%= render :partial => 'shared/picker', :locals => {
     :controller => 'language',
 		:object => 'serial',
 		:size => 50,
@@ -46,7 +46,7 @@
 </div>
 
 <div class="fr"> <label for="serial_synonymous_with_id" class="lbl4">Synonymous with / use this serial</label>
-  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+  <span class="fld"><%= render :partial => 'shared/picker', :locals => {
     :controller => 'serial',
 		:object => 'serial',
 		:method => 'synonymous_with_id',

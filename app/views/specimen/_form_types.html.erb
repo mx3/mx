@@ -23,7 +23,7 @@
   <% if !@taxon_name -%><!-- Don't display on taxon name forms. -->
 
   <div class="fr"> <label for="type_specimen_otu_id" class="lbl4">OTU (unpublished concept)</label>
-    <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+    <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
       :controller => 'otu',
       :object => 'type_specimen',
       :method => 'otu_id',
@@ -35,7 +35,7 @@
   <% end %>
 
   <div class="fr"> <label for="type_specimen_ref_id" class="lbl4">Reference</label>
-    <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+    <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
   :controller => 'ref',
   :object => 'type_specimen',
   :method => 'ref_id',

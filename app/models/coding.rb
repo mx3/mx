@@ -96,11 +96,11 @@ class Coding < ActiveRecord::Base
   
   def display_wrapped_in_tag_heat_map
    if self.tags.count == 1 
-      "<div style=\"background-color:##{self.tags.first.keyword.html_color}; width: 10px; border: 1px solid #8b2973; font-weight: bolder; margin: 0px;\">#{self.display_name(:type => :windowed_value)}</div>" 
+      "<div style=\"background-color:##{self.tags.first.keyword.html_color}; width: 10; border: 1px solid #8b2973; font-weight: bolder; margin: 0;\">#{self.display_name(:type => :windowed_value)}</div>"
     elsif self.tags.count > 1
       i = 255 - (self.tags.count * 20) 
       i = 255 if i < 0
-      "<div style=\"background-color:rgb(0,#{i},#{i}); width: 10px; border: 1px solid #e5993a; color: white; margin: 0px;\">#{self.display_name(:type => :windowed_value)}</div>" 
+      "<div style=\"background-color:rgb(0,#{i},#{i}); width: 10; border: 1px solid #e5993a; color: white; margin: 0;\">#{self.display_name(:type => :windowed_value)}</div>"
     else 
       self.display_name(:type => :windowed_value) 
     end

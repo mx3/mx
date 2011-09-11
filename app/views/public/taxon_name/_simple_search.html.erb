@@ -1,6 +1,6 @@
 <%= form_tag url_for(:action => :show, :controller => 'public/taxon_name') do %> 
   <div class="fr"><label for="search_taxon_name_id" class="lbl4">Search</label><span class="fld">
-      <%= render :partial => "shared/picker", :locals => {
+      <%= render :partial => '/shared/picker', :locals => {
       :controller => 'taxon_name',
       :object => 'taxon_name',
       :size => 50,

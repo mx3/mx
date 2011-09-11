@@ -9,7 +9,7 @@ namespace :mx do
       # compares the Geogs table (specifically country records) against the /config/authority_files/iso_3166-1.tab file and reports discrepencies
       $USAGE = 'Call like: "rake mx:geo:iso_3116_report". Compares the geog table to /config/authority_file/iso_3166-1.txt and reports.'
       desc $USAGE
-      iso_file =  FasterCSV.open("#{RAILS_ROOT}/config/authority_files/iso_3166-1.tab", :col_sep => "\t") 
+      iso_file =  FasterCSV.open("#{Rails.root}/config/authority_files/iso_3166-1.tab", :col_sep => "\t")
       unmatched = {}
 
       iso_file.each do |l|
@@ -38,7 +38,7 @@ namespace :mx do
       desc $USAGE
 
       puts "\nThere are known errors in capitalization with parenthesized names, check the output!\n"
-      iso_file =  FasterCSV.open("#{RAILS_ROOT}/config/authority_files/iso_3166-1.tab", :col_sep => "\t") 
+      iso_file =  FasterCSV.open("#{Rails.root}/config/authority_files/iso_3166-1.tab", :col_sep => "\t")
       geog_type = GeogType.find_by_name('Country')
       raise "no Country geog_type present" if !geog_type
       begin

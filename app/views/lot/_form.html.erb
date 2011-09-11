@@ -1,7 +1,7 @@
 <%= error_messages_for 'lot' %>
 <!--[form:lot]-->
 <div class="fr"><label for="otu_name" class="lbl4">OTU</label><span class="fld">
-  <%= render :partial => "shared/picker", :locals => {
+  <%= render :partial => 'shared/picker', :locals => {
         :controller => 'otu',
         :object => 'lot',
         :method => 'otu_id',
@@ -22,7 +22,7 @@
 </div>
 
 <div class="fr"><label for="lot_ce_id" class="lbl4">Collecting Event</label><span class="fld">
-<%= render :partial => "shared/picker", :locals => {
+<%= render :partial => 'shared/picker', :locals => {
     :controller => 'ce',
     :object => 'lot',
     :method => 'ce_id',
@@ -39,7 +39,7 @@
 </div>
 
 <div class="fr"> <label for="lot_preparation_protocol_id" class="lbl4">Preparation</label>
-  <span class="fld"><%= select("lot", "preparation_protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260px;'} ) %></span>
+  <span class="fld"><%= select("lot", "preparation_protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260;'} ) %></span>
 </div>
 
 <div class="fr">
@@ -62,7 +62,7 @@
 <%= select("lot", "sex",SEX , { :include_blank => true }) -%></span></div>
 
 <div class="fr"><label for="repository_name" class="lbl4">Repository</label><span class="fld">
-<%= render :partial => "shared/picker", :locals => {
+<%= render :partial => 'shared/picker', :locals => {
     :controller => 'repository',
     :object => 'lot',
 		:method => 'repository_id',

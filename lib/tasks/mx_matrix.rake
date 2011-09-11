@@ -21,7 +21,6 @@ namespace :mx do
     end
 
     def load_meta(f)
-      meta = []
       file_path =   ENV['datapath'] + "/" + f
       raise "Unable to read from file '#{file_path}'!\n" if not File.readable?(file_path)  
       meta = YAML.load_file(file_path)
@@ -64,7 +63,7 @@ namespace :mx do
 
         rescue ActiveRecord::RecordInvalid => e
           raise e
-        raise
+        s
       end
       true
     end
@@ -75,7 +74,7 @@ namespace :mx do
         $USAGE = 'Call like: "rake mx:matrix:truncate proj=1".  You can not run this in production.'
         # grab the command line options
 
-        raise "You can't use this in production!" if RAILS_ENV == "production"
+        raise "You can't use this in production!" if Rails.env.production?
         raise "No project id provided " if !ENV['proj']
         @proj_id = ENV['proj']        
         raise "No project #{@proj_id}" if ! @proj = Proj.find(@proj_id)

@@ -13,7 +13,7 @@
   <% end -%>
   
     <% unless @clave.parent_id  == nil  -%> 
-    <div style="text-align:center; margin: 0px 45%;" class="navigator">
+    <div style="text-align:center; margin: 0 45%;" class="navigator">
         <span class="navigator_button"><%= link_to('up', :action =>  'show', :id => @clave.parent.id) -%></span>
       </div>
     <% end -%>
@@ -21,10 +21,10 @@
 
   <div id="couplets">
 
-    <div id="left" class="box5" style="float: left; width: 420px; margin:auto;">
+    <div id="left" class="box5" style="float: left; width: 420; margin:auto;">
 
        <% if @left.children.size > 0 -%>
-       <div class="navigator" style="text-align: center; margin: 0px 45%;">
+       <div class="navigator" style="text-align: center; margin: 0 45%;">
           <span class="navigator_button"><%= link_to('go', :action => 'show', :id => @left.go_id) -%> </span>
         </div>
       <% end -%>      
@@ -56,17 +56,17 @@
       <% end %>
 
       <% if @left.children.size > 0 -%>
-        <div class="navigator" style="text-align: center; margin: 0px 45%;">
+        <div class="navigator" style="text-align: center; margin: 0 45%;">
           <span class="navigator_button"><%= link_to('go', :action => 'show', :id => @left.go_id) -%> </span>
         </div>
       <% end -%>      
       
       </div>
 
-    <div id="right"  class="box5" style="float: right; width: 420px; margin:auto; ">
+    <div id="right"  class="box5" style="float: right; width: 420; margin:auto; ">
         
       <% if @right.children.size > 0 -%>
-          <div class="navigator" style="text-align: center; margin: 0px 45%;">
+          <div class="navigator" style="text-align: center; margin: 0 45%;">
             <span class="navigator_button"><%= link_to('go', :action => 'show', :id => @right.go_id) -%> </span>
           </div>
       <% end -%>      
@@ -99,7 +99,7 @@
 
         
       <% if @right.children.size > 0 -%>
-        <div class="navigator" style="text-align: center; margin: 0px 45%;">
+        <div class="navigator" style="text-align: center; margin: 0 45%;">
           <span class="navigator_button"><%= link_to('go', :action => 'show', :id => @right.go_id) -%> </span>
         </div>
       <% end -%>        

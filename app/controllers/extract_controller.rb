@@ -96,9 +96,9 @@ class ExtractController < ApplicationController
       end and return
 
       # something went horribly wrong, 
-      render :update do |page|
-        page.replace_html :result, :text => '<strong>Controller misconfigured, contact admin.</strong>'
-      end and return
+      #render :update do |page|
+      #  page.replace_html :result, :text => '<strong>Controller misconfigured, contact admin.</strong>'
+      # end and return
       }
     end
 

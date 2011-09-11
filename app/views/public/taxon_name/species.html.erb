@@ -8,9 +8,9 @@
   <% for t in @taxon_names %>
     <div class="item">
       <%= link_to( t.display_name, :action => 'show', :id => t.id) %>
-    <%= t.status ? '<font color="red">*</font>' : "" %>  
+    <%= t.status ? content_tag(:span, "*", :style =>'color:red') : "" %>
     </div>
   <% end %>
 </div>
 <br/>
-<p>Note: taxonomic names prefixed with <font color="red">*</font> are not currently valid. </p>
+<p>Note: taxonomic names prefixed with <span style="color: red;">*</span> are not currently valid. </p>

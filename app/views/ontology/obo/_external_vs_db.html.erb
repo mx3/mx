@@ -29,11 +29,11 @@
 <table>
   <% @labels_minus_obo.each do |l| -%>
   <tr>
-    <td style="width: 150px;">
+    <td style="width: 150;">
       <%= l -%>
     </td>
 
-    <td style="width: 650px;" id="result_for_label_<%= l.gsub(/\s/, "_") -%>">
+    <td style="width: 650;" id="result_for_label_<%= l.gsub(/\s/, "_") -%>">
       <%= link_to_remote("show context", :url => { :action => :_ref_context_for_label, :controller => :ontology, :label_name => l}, :loading => "Element.show('#{l}_spinner')", :complete => "Element.hide('#{l}_spinner')" ) -%>
       <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "#{l}_spinner", :style => "display: none; vertical-align:middle;"  ) %>
 

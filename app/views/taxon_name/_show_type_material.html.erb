@@ -14,7 +14,7 @@
   <%= hidden_field("type_specimen", "taxon_name_id", {:value => @taxon_name.id}) -%>
 
   <div class="fr"> <label for="type_specimen_specimen_id" class="lbl4">Specimen</label>
-    <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+    <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
   :controller => 'specimen',
   :object => 'type_specimen',
   :method => 'specimen_id',
@@ -24,7 +24,7 @@
   </div>
 
   <div class="fr"> <label for="type_specimen_ref_id" class="lbl4">Reference</label>
-    <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+    <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
   :controller => 'ref',
   :object => 'type_specimen',
   :method => 'ref_id',

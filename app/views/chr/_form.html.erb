@@ -2,7 +2,7 @@
   
   <table style="width: 100%;">
     <tr>
-      <td style="width: 480px;">
+      <td style="width: 480;">
 
       <div class="fr"> <label for="chr_name" class="lbl4">Name</label>
         <span class="fld"><%= text_area 'chr', 'name', 'title' => 'character name', :rows => 2, :cols => 40 -%></span>
@@ -39,7 +39,7 @@
       <% end %> 
 
       <div class="fr"> <label for="chr_syn_with" class="lbl4">Synonymous with</label>
-        <span class="fld"><%= render :partial => "shared/picker", :locals => {
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
           :controller => 'chr',
           :object => 'chr',
           :method => 'syn_with',
@@ -59,7 +59,7 @@
         <% if !@chr.continuous? -%><p style="padding: 1em;"><strong style="color:red;">WARNING: If either option below is set all existing character states AND their codings will be destroyed.</strong></p><% end -%>
       
         <div class="fr"> <label for="chr_standard_view_id" class="lbl4">Mapped to:</label>
-          <span class="fld"><%= render :partial => "shared/picker", :locals => {
+          <span class="fld"><%= render :partial => 'shared/picker', :locals => {
             :controller => 'standard_view',
             :object => 'chr',
             :method => 'standard_view_id',

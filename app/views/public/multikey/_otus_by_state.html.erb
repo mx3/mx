@@ -1,6 +1,6 @@
 <% r = @mk.remaining_otus_by_state(otus_by_state.id) -%>
 <% if r.size > 0 -%>
-  <div style="margin:.0em .0em .2em .4em; padding:.0em .4em; background-color:rgb(<%= ColorHelper::ranged_color(1.0 - (@mk.OTUS_BY_STATE[otus_by_state.id].size.to_f / @mk.all_otus.size.to_f) , 'green') -%>);">
+  <div style="margin:.0 .0 .2em .4em; padding:.0 .4em; background-color:rgb(<%= ColorHelper::ranged_color(1.0 - (@mk.OTUS_BY_STATE[otus_by_state.id].size.to_f / @mk.all_otus.size.to_f) , 'green') -%>);">
     <%= link_to(otus_by_state.display_name, :action => 'add_state', :id => otus_by_state.id) -%>
   </div>
   <%= render(:partial => "o", :collection => r, :locals => {:action => 'eliminate_otu', :link_txt => ''}) -%>

@@ -24,7 +24,7 @@ function init() {
         var lng = latlng.lng();
         var lat = latlng.lat();
   
-        inputForm.innerHTML = '<fieldset style="width:420px;">'
+        inputForm.innerHTML = '<fieldset style="width:420;">'
             + '<legend>New Collecting Event</legend>'     
             + '<div class="fr"><label for="ce_verbatim_label" class="lbl4">Verbatim Label</label><span class="fld"><textarea rows="6" style="width: 100%;" id="verbatim_label" name="m[verbatim_label]" /></textarea></span></div>' 
             + '<div class="fr"><label for="ce_notes" class="lbl4">Notes</label><span class="fld"><textarea rows="4" style="width: 100%;" id="notes" name="m[notes]" /></textarea></span></div>'

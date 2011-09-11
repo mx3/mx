@@ -24,7 +24,7 @@
 
       <div class="fr">
         <label class="lbl4">reference</label>
-        <span class="fld"><%= render :partial => "shared/picker", :locals => {    
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
           :controller => 'ref',
           :object => 'ontology_class',
           :method => 'written_by_ref_id',
@@ -35,7 +35,7 @@
 
       <div class="fr">
         <label class="lbl4">highest applicable taxon (sets for all) </label> 
-        <span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+        <span class="fld">	<%= render :partial => 'shared/picker', :locals => {
           :controller => 'taxon_name',
           :object => 'ontology_class',
           :method => 'highest_applicable_taxon_name_id',
@@ -55,8 +55,8 @@
           <% g.each do |t| -%>
           <td style="background-color: #eee;" id="<%= "c#{i}" -%>" >    
             <%= check_box_tag("check[#{i}]", '0', false) -%>
-            <%= text_field("label", i, :value => t, :style => 'width: 300px; border: none;') -%>  
-            <%= text_field("definition", i, :value => '', :style => 'width: 300px;') -%>  
+            <%= text_field("label", i, :value => t, :style => 'width: 300; border: none;') -%>
+            <%= text_field("definition", i, :value => '', :style => 'width: 300;') -%>
             <%= link_to_function('x') do |page| 
             page["c#{i}"].remove 
             end -%>

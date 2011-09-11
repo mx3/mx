@@ -1,7 +1,7 @@
-<div class="box5" style="margin: .2em 0em; padding: .2em; clear: both;">
+<div class="box5" style="margin: .2em 0; padding: .2em; clear: both;">
   <%= c.display_name -%>
   
   <% if (@mk.chosen_states & @mk.STATES_BY_CHR[c.id]).size > 0 -%>
-  <span style="border:1px solid gray; margin: 0px; padding: 0em .2em;" class="failed"><%= link_to('R', :action => 'return_chr', :id => c.id) -%></span>
+  <span style="border:1px solid gray; margin:0; padding:0 .2em;" class="failed"><%= link_to('R', :action => 'return_chr', :id => c.id) -%></span>
   <% end -%>
 </div>

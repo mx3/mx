@@ -4,7 +4,7 @@
   <div id="inner_header" style="text-align: center;"> 
     <div class="ref"> <%= @ref.display_name %> </div>
   </div>
-  <div id="inner_container" <%= 'style="padding-right: 0px;"' if @no_right_col %>>
+  <div id="inner_container" <%= 'style="padding-right: 0;"' if @no_right_col %>>
     <div id="inner_center" class="column">    
       <%= yield :center -%>        
     </div>
@@ -14,7 +14,7 @@
       <%= yield :left -%>
     </div>
 
-    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col %>>
+    <div id="inner_right" class="column" <%= 'style="width: 0; margin-right: 0;"' if @no_right_col %>>
       <%= yield :right -%>
     </div>   
   </div> <%# end inner_container %> 

@@ -1,6 +1,6 @@
-<div style="padding: 5px; margin: 4px; padding-left: <%= 20 * level -%>px; border-top: 1px solid silver; <%= 'background-color:#b5ebc7' if newly_inserted -%> " id="tag_<%= tn.id -%>">
+<div style="padding: 5px 5px 5px <%= 20 * level -%>px; margin: 4px; border-top: 1px solid silver; <%= 'background-color:#b5ebc7' if newly_inserted -%> " id="tag_<%= tn.id -%>">
   <div style="float:left;">
-    <div style="margin:0px;padding:0px;"><%= tn.keyword.display_name -%> added <%= time_ago_in_words(tn.created_on) -%> ago by <%= tn.creator.full_name -%></div>
+    <div style="margin:0;padding:0;"><%= tn.keyword.display_name -%> added <%= time_ago_in_words(tn.created_on) -%> ago by <%= tn.creator.full_name -%></div>
     <% if !tn.notes.blank? %><div style="border: 1px dotted silver; padding:0.6em;margin:4px;"> <%= tn.notes -%></div><% end %>
     &nbsp;&nbsp;Reference: <%= tn.ref.blank? ? content_tag(:em, 'None provided.') : tn.ref.display_name  -%><br />
     &nbsp;&nbsp;Cross reference: <%= tn.referenced_object.blank? ? content_tag(:em, 'None provided.') : tn.referenced_object_object  -%><br />

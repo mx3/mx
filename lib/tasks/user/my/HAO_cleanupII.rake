@@ -16,9 +16,9 @@ $USAGE = 'one time use only, some example "migration" code'
 namespace :mx do
   desc $USAGE
 
-  def tag_status(t)
+  #def tag_status(t)
     #  puts "tag.id:#{t.id} ro:#{t.referenced_object}" 
-  end
+  # end
 
   def handle_tags
     # migrate Tags

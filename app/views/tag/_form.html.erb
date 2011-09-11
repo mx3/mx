@@ -15,7 +15,7 @@
     <td>
       <% keyword_id ||= nil -%>
       <% if !keyword_id -%>
-        <%= render :partial => "shared/picker", :locals => {
+        <%= render :partial => 'shared/picker', :locals => {
         :controller => 'keyword',
         :object => 'tag',
         :method => 'keyword_id',

@@ -8,7 +8,7 @@
     <% render(:partial => s) %>
   <% end %>
 
-  <div id="inner_container"  <%= 'style="padding-right: 0px;"' if @no_right_col -%>>
+  <div id="inner_container"  <%= 'style="padding-right: 0;"' if @no_right_col -%>>
     <%# CENTER COLUMN (must be rendered here for CSS to work!) %> 
     <div id="inner_center" class="column"><div><%= yield :center -%></div></div>
 
@@ -16,7 +16,7 @@
     <div id="inner_left" class="column"><%= render :partial => "navigator" -%> <%= yield :left -%> </div>
 
     <%# RIGHT COLUMN %>
-    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col -%> ><%= yield :right -%></div>
+    <div id="inner_right" class="column" <%= 'style="width: 0; margin-right: 0;"' if @no_right_col -%> ><%= yield :right -%></div>
 
     <br style="clear: both;">
   </div> 

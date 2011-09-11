@@ -10,7 +10,7 @@
   <div class="content">
     <%= form_tag :remote => true, :loading => "Element.show('tree_spinner')", :complete => "Element.hide('tree_spinner')", :url => {:action => :_tree_set_root, :controller => :ontology}, :update => :tree  do  -%>
       <label for="ontology_part_id" class="lbl4">Term</label>
-        <span class="fld"><%= render :partial => "shared/picker", :locals => {    
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
           :controller => 'part',
           :object => 'ontology',
           :method => 'part_id',
@@ -31,7 +31,7 @@
   <div style="border: 1px solid silver; padding: 4px;">Relationship colors: <%= @colored_isas.collect{|i| i.colored_display_name}.join(", ") -%></div> 
 <% end -%>
 
-<div id="tree" style="clear: both; padding: 10px;">
+<div id="tree" style="clear: both; padding: 10;">
   <%= render(:partial => '/public/ontology/tree_index', :locals => {:max_depth => 2, :relationship_type => 'all'}) -%>
 </div>
 

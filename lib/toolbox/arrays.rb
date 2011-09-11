@@ -15,8 +15,7 @@ module ArrayHelper
 
     array.map!{|i| i =~ /\./ ? i.to_f : i.to_i}.sort!
 
-    j = array.shift	
-    i = ''
+    j = array.shift
     periods = false 
     str = "#{j}"
 

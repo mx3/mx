@@ -1,9 +1,5 @@
 class AdminController < ApplicationController
 
-  verify :method => :post, :only => [ :destroy],
-    :redirect_to => { :action => :index }
-
-
   # TODO: Check to see where administrator is called from
   before_filter :title
 

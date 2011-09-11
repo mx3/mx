@@ -13,7 +13,7 @@ module Nexml
         :rdf => false
       }.merge!(options)
 
-      mx = opt[:mx]
+      #mx = opt[:mx]
 
       xml = Builder::XmlMarkup.new(:target => opt[:target], :indent => 2)
       if opt[:rdf]

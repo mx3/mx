@@ -14,9 +14,9 @@
 #colorpicker-hue-container {
     position: absolute; 
     top: 4px;
-    left: 120px; 
+    left: 120;
     width: 18px;
-    height: 110px; 
+    height: 110;
 }
 
 #colorpicker-hue-bg-img {
@@ -44,13 +44,13 @@
 
 #colorpicker-bar {
   text-align: right;
-  padding-right: 10px;
+  padding-right: 10;
 }
 
 #colorpicker-close {
   cursor: pointer;
   color: blue;
-  font-size: 10px;
+  font-size: 10;
   font-family: Tahoma, Helvetica, Sans-Serif;
   font-weight: bold;
 }
@@ -59,8 +59,8 @@
   position: absolute; 
   top: 8px;
   left: 8px; 
-  width: 100px;
-  height: 100px; 
+  width: 100;
+  height: 100;
   border: 1px solid #666;
 }
 
@@ -76,8 +76,8 @@
 }
 #colorpicker-selector { 
   position: absolute; 
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 11px; 
   height: 11px; 
   z-index: 1009;
@@ -93,7 +93,7 @@
 #colorpicker-footer {
   position: absolute; 
   top: 114px;
-  left: 10px; 
+  left: 10;
   width: 127px;
 }
 
@@ -105,17 +105,17 @@
 #colorpicker-value-input {
   font-size: 9px !important;
   font-family: Helvetica, Verdana, Sans-Serif;
-  height: 10px;
+  height: 10;
 }
 
 #colorpicker-value-input {
-  width: 40px;
+  width: 40;
 }
 #colorpicker-okbutton {
   float: right;
-  padding: 0 10px;
+  padding: 0 10;
   background: #3366FF;
-  font-size: 10px;
+  font-size: 10;
   font-family: Tahoma, Helvetica, Sans-Serif;
   border: 1px solid #666666;
   color: #ffffff;

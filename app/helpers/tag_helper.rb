@@ -24,7 +24,7 @@ module TagHelper
 
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
     content_tag(:a, opt[:link_text], :href => url, 'data-basic-modal' => '' ,
-                    'data-basic-modal-width' => '300px')
+                    'data-basic-modal-width' => '300')
   end
 
   def link_to_tagged(tag)
@@ -113,7 +113,7 @@ module TagHelper
     words.each do |w|
 
       s << "<div id=\"cld_wrd_id_#{w.id}_#{o.class.to_s}_#{o.id}\""  # cld_wrd_id_12
-      s << ' style="display: inline; padding: 0px .2em; margin-left: .1em; font-size:'
+      s << ' style="display: inline; padding: 0 .2em; margin-left: .1em; font-size:'
 
       # assumes you have at least 1 tag
       c = Tag.find(:all, :conditions => ["(tags.addressable_id = ? and tags.addressable_type = ? and keyword_id = ?)",  o.id, o.class.to_s, w.id]).size.to_i # tags.count.to_i

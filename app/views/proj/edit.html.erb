@@ -68,7 +68,7 @@
   </div>
 
   <div class="fr"> <label for="proj_gmaps_API_key" class="lbl4">Public Google Maps API Key</label>
-    <span class="fld"> <%= text_field 'proj', 'gmaps_API_key', :size => 110, :style => "font-size: 10px;" -%></span>
+    <span class="fld"> <%= text_field 'proj', 'gmaps_API_key', :size => 110, :style => "font-size: 10;" -%></span>
   </div>
 
   <div class="fr"> <label for="proj_unix_name" class="lbl4">Unix name / subdomain</label>
@@ -82,7 +82,7 @@
   <h3> Project wide default values </h3>
 
   <div class="fr"> <label for="proj_default_content_template_id" class="lbl4">Default content template</label>
-    <span class="fld">   <%= render :partial => "shared/picker", :locals => {
+    <span class="fld">   <%= render :partial => 'shared/picker', :locals => {
         :controller => 'content_template',
         :object => 'proj',
         :method => 'default_content_template_id',
@@ -103,7 +103,7 @@
   </div>
 
   <div class="fr"> <label for="proj_repository_id" class="lbl4">Default institution/repository</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
         :controller => 'repository',
         :object => 'proj',
         :method => 'default_institution_repository_id',
@@ -116,7 +116,7 @@
   </div>
 
   <div class="fr"> <label for="proj_default_specimen_identifier_namespace_id" class="lbl4">Default specimen identifier namespace</label>
-    <span class="fld">   <%= render :partial => "shared/picker", :locals => {
+    <span class="fld">   <%= render :partial => 'shared/picker', :locals => {
         :controller => 'namespace',
         :object => 'proj',
         :method => 'default_specimen_identifier_namespace_id',
@@ -148,7 +148,7 @@
   </div>
 
   <div class="fr"> <label for="proj_default_ontology_id" class="lbl4">Default root ontology class for ontology</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
         :controller => 'ontology_class',
         :object => 'proj',
         :method => 'default_ontology_class_id',
@@ -158,7 +158,7 @@
   </div>
 
   <div class="fr"> <label for="proj_restrictor_keyword_id" class="lbl4">Ontology exclusion keyword</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
         :controller => 'keyword',
         :object => 'proj',
         :method => 'ontology_exclusion_keyword_id',
@@ -168,7 +168,7 @@
   </div>
 
   <div class="fr"> <label for="proj_restrictor_keyword_id" class="lbl4">Ontology inclusion keyword</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
         :controller => 'keyword',
         :object => 'proj',
         :method => 'ontology_inclusion_keyword_id',

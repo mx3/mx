@@ -16,12 +16,12 @@
       <th>collectors</th>
     </tr>
 
-    <% @lot_groups.each do |@l|  -%>
+    <% @lot_groups.each do |lot_group|  -%>
       <% lg = @l.lots.group_by{|lot| lot.otu.display_name} -%>
       <% lg.each do |otu_name, lots| -%>
         <% lots.each do |l| -%>
           <tr>
-            <td><%= @l.display_name -%></td>
+            <td><%= lot_group.display_name -%></td>
             <td><%= link_to(l.id, :action => 'show', :controller => 'lot') -%></td>
             <td><%= otu_name -%></td>
             <td><%= l.value_specimens -%></td>

@@ -43,7 +43,7 @@
 
     <div id="functions1" style="text-align: center; clear: both;">
       <% if @left.couplet_text.size > 0 %>
-        <div id="new_left1" style="float: left; margin-left: 50px;">
+        <div id="new_left1" style="float: left; margin-left: 50;">
           <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @left.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
           | <%= link_to('Follow and add or edit', :action => 'edit', :id => @left) %>
 
@@ -51,7 +51,7 @@
       <% end %>
 
       <% if @right.couplet_text.size > 0 %>
-        <div id="new_right1" style="float: right; margin-right: 50px;">
+        <div id="new_right1" style="float: right; margin-right: 50;">
           <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @right.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
           | <%= link_to('Follow and add or edit', :action => 'edit', :id => @right) %>
         </div>
@@ -104,7 +104,7 @@
   <!-- don't reposition below -->
 
   <div id="functions" style="text-align: center; clear: both;">
-    <div id="new_left" style="float: left; margin-left: 50px;">
+    <div id="new_left" style="float: left; margin-left: 50;">
       <%= fig_link(@left) %>
       <% if @left.couplet_text.size > 0 and @left.redirect_id.blank? %>
         | <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @left.id}, :method => "post", :confirm => "Insert a couplet below this one?") %>
@@ -113,7 +113,7 @@
       <%= '<br/><i> This side is currently redirecting, to add couplets below remove the redirection.  </i>' if  @left.redirect_id -%>
     </div>
 
-    <div id="new_right" style="float: right; margin-right: 50px;">
+    <div id="new_right" style="float: right; margin-right: 50;">
       <%= fig_link(@right) %>
       <% if @right.couplet_text.size > 0 and @right.redirect_id.blank? %>
         | <%= link_to('Insert couplet below', {:action => 'insert_couplet', :id => @right.id}, :method => "post",:confirm => "Insert a couplet below this one?") %>

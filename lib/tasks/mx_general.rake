@@ -7,7 +7,7 @@ namespace :mx do
   # require 'faster_csv' <- this does not work with RubyGems 1.3.6
 
   def get_csv(myfile, tabbed = false)
-    recs = []
+
     raise "Unable to read from file '#{myfile}'" if !File.readable?(myfile)   
 
     if tabbed
@@ -15,19 +15,18 @@ namespace :mx do
     else
        recs = CSV::parse(File.open(myfile, 'r'){|f| f.read})
     end   
-    
+    recs ||= []
     recs
   end
   
   def get_fastercsv(myfile, tabbed = false)
-    recs = []
-    raise "Unable to read from file '#{myfile}'" if !File.readable?(myfile)   
+    raise "Unable to read from file '#{myfile}'" if !File.readable?(myfile)
     if tabbed
        recs = FasterCSV.read(myfile,  :col_sep => "\t")
     else
        recs = FasterCSV.read(myfile )
     end   
-    
+
     recs
   end
 

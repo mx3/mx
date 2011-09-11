@@ -8,7 +8,7 @@
 
     <table>
       <tr>
-        <td stye="width: 200px;">
+        <td stye="width: 200;">
           <div class="parents_of_term">parents: <ul> <%= @tree_root.parents(:relationship_type => @isa.id).collect{|o| content_tag(:ol, link_to(o.part2.display_name, :action => :protovis_sunburst, :id => o.part2.id))}-%></ul></div>
           <div class="parent_term"><%= @tree_root.display_name -%></div>
 

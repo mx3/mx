@@ -8367,7 +8367,7 @@ jQuery.fx.prototype = {
 			r = jQuery.css( this.elem, this.prop );
 		// Empty strings, null, undefined and "auto" are converted to 0,
 		// complex values such as "rotate(1rad)" are returned as is,
-		// simple values such as "10px" are parsed to Float.
+		// simple values such as "10" are parsed to Float.
 		return isNaN( parsed = parseFloat( r ) ) ? !r || r === "auto" ? 0 : r : parsed;
 	},
 
@@ -8738,7 +8738,7 @@ jQuery.offset = {
 		this.doesAddBorderForTableAndCells = (td.offsetTop === 5);
 
 		checkDiv.style.position = "fixed";
-		checkDiv.style.top = "20px";
+		checkDiv.style.top = "20";
 
 		// safari subtracts parent border width here which is 5px
 		this.supportsFixedPosition = (checkDiv.offsetTop === 20 || checkDiv.offsetTop === 15);

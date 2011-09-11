@@ -19,7 +19,7 @@
 
   <h4>Delimit by</h4>
   <%= form_tag :action => 'browse_otus' do -%>
-    <h4>Otu group:</h4>
+    <h4>OTU group:</h4>
     <%= render :partial =>"otu_group/picker", :locals => { :c_name => 'otu_group', :f_name => 'id' }  %> <br /> <br />
     <%= submit_tag "show" %>
   <% end -%>

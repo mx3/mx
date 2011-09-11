@@ -1,7 +1,7 @@
 class Api::OntologyController < ApplicationController
 
   def index
-    redirect_to "http://#{HELP_WIKI}/index.php/App/API/Ontology" and return
+    redirect_to "http://#{HELP_WIKI}/index.php/App/API/Ontology"
   end
 
   # http://127.0.0.1:3000/projects/32/api/ontology/ontology_class/HAO_0001353

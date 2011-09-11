@@ -7,7 +7,8 @@ module ModelExtensions
     end
 
     module MoreClassMethods
-      def has_pulse(options = {})
+      def has_pulse() # options = {}
+
         return true if !self.table_exists? # don't run this on migrations   
 
         class_eval <<-EOV

@@ -7,7 +7,7 @@
   <p><em> Select extracts and genes from (combinining multiple selections combines from each result!): </em></p>
 
   <div class="fr"> <label for="extract_specimen_id" class="lbl4">From specimen</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'specimen',
       :object => 'search',
       :method => 'specimen_id',
@@ -16,7 +16,7 @@
   </div>
 
   <div class="fr"> <label for="extract_otu_group_id" class="lbl4">From OTU</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'otu',
       :object => 'search',
       :method => 'otu_id',
@@ -25,7 +25,7 @@
   </div>
 
   <div class="fr"> <label for="extract_otu_group_id" class="lbl4">From OTU group</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'otu_group',
       :object => 'search',
       :method => 'otu_group_id',
@@ -34,7 +34,7 @@
   </div>
 
   <div class="fr"> <label for="extract_keyword_id" class="lbl4">Extracts tagged with</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'keyword',
       :object => 'search',
       :method => 'keyword_id',
@@ -53,7 +53,7 @@
   <hr style="clear:both; margin: 2px;" />
 
   <div class="fr"> <label for="extract_otu_group_id" class="lbl4">Gene</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'gene',
       :object => 'search',
       :method => 'gene_id',
@@ -62,7 +62,7 @@
   </div>
 
   <div class="fr"> <label for="extract_gene_group_id" class="lbl4">Gene group</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'gene_group',
       :object => 'search',
       :method => 'gene_group_id',
@@ -71,7 +71,7 @@
   </div>
 
   <div class="fr"> <label for="extract_primer_id" class="lbl4">Gene using primer</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'primer',
       :object => 'search',
       :method => 'primer_id',

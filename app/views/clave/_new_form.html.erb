@@ -13,7 +13,7 @@
     <%= text_area 'clave', 'link_out', :rows => 2, :cols => 60  %></span></div>
 
 <div class="fr"><label for="clave_otu_id"  class="lbl4">OTU (the clade the key pertains to)</label><span class="fld">
-       <%= render :partial => "shared/picker", :locals => {
+       <%= render :partial => 'shared/picker', :locals => {
               :controller => 'otu',
               :object => 'clave',
               :method => 'otu_id',

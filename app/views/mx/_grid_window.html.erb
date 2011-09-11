@@ -1,8 +1,8 @@
-<table style="border: 1px solid silver; padding: 0px 2px; ">
+<table style="border: 1px solid silver; padding: 0 2px; ">
   <% codings_in_grid[:otus].each_with_index do |o, j| -%>
   <tr style="height:18px;line-height:18px;">
       <% codings_in_grid[:chrs].each_with_index do |c, i| -%>
-        <td style="width: 14px; padding: 0px; padding-left:1px; border: 0px; text-align: center;height:18px; vertical-align: middle;" title="<%= codings_in_grid[:chrs][i].display_name -%>">
+        <td style="width: 14px; padding: 0px 0px 0px 1px; border: 0; text-align: center;height:18px; vertical-align: middle;" title="<%= codings_in_grid[:chrs][i].display_name -%>">
           <div id="<%= "cell_#{i}_#{j}" -%>">
             <%= render :partial => "/mx/cells/cell_#{cell_type}", :locals => {:i => i, :j => j, :o => o, :c => c, :mx_id => mx_id, :codings => codings_in_grid[:grid][i][j]} -%>
           </div>         

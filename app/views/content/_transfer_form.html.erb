@@ -3,7 +3,7 @@
   <div class="content">
     <%= form_tag(:action => :clone_or_transfer_template_content, :controller => :otu, :id => @otu) do -%>
       <%= hidden_field_tag :content_template_id, @content_template.id -%>
-      <span class="lbl4">Transfer or clone this content to OTU </span> <span class="fld"><%= render :partial => "shared/picker", :locals => {
+      <span class="lbl4">Transfer or clone this content to OTU </span> <span class="fld"><%= render :partial => 'shared/picker', :locals => {
           :controller => 'otu',
           :object => 'transfer_otu',
           :method => 'id',

@@ -127,7 +127,7 @@ class MaterialExamined
       if s.identifiers.count == 0
         v["mx_id"] << s.id.to_i
       else
-        if v[s.identifiers.first.namespace.name].nil? ## IMPORTANT - we're only = handling the first identifier her, reorder them if need be
+        if v[s.identifiers.first.namespace.name].nil? ## IMPORTANT - we're only = handling the first identifier here, reorder them if need be
           v[s.identifiers.first.namespace.name] = [s.identifiers.first.identifier]
         else
           v[s.identifiers.first.namespace.name] << s.identifiers.first.identifier

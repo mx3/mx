@@ -5,7 +5,7 @@
 <div class="box5"> 
   <% if @size_chrs_remn > 0 and @size_chrs_remn > @mk.display_windows['chr_remn']['size']  -%>
 
-  <div id="remaining_otus" style="min-width: 200px; margin: 0px; float: left; ">
+  <div id="remaining_otus" style="min-width: 200; margin: 0; float: left; ">
 
     <div style="text-align: center;">
       <%= render(:partial => "cycle_nav", :locals => {:div_to_update => 'by_chr', :ctrl_name => '_cycle_remn_chr_txt_choices',  :partial_to_render => 'cmp_by_chr'}) -%>

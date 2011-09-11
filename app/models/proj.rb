@@ -162,7 +162,7 @@ class Proj < ActiveRecord::Base
   end
 
   def ontology_server_name
-    RAILS_ENV == 'production' ? Proj.find(self.ontology_id_to_use).public_server_name : '127.0.0.1:3000' 
+    Rails.env.production? ? Proj.find(self.ontology_id_to_use).public_server_name : '127.0.0.1:3000'
   end
 
   # TODO: OBVIOUSLY NOT DONE

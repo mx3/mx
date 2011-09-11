@@ -1,6 +1,6 @@
 class PublicContentController < ApplicationController
 
-  verify :method => :post, :only => [ :destroy, :create, :unpublish ],
+  verify :method => :post, :only => [ :unpublish ],
     :redirect_to => { :action => :list }
     
   def index

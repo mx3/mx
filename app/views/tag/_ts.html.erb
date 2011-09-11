@@ -1,4 +1,4 @@
-<div style="width: 200px; height: 200px; padding: 4px; margin: 2px; border: 1px solid silver; float: left;" id="tag_<%= ts.id -%>">
+<div style="width: 200; height: 200; padding: 4px; margin: 2px; border: 1px solid silver; float: left;" id="tag_<%= ts.id -%>">
   <div style="float:right;" ><span class="small_form_button"><%= link_to('edit', :action => :edit, :controller => :tag, :id => ts.id) -%></span>&nbsp;<span class="failed" style="padding:2px;"><%= destroy_tag_link(ts) -%></span></div>
   <div style="float:left; width: 165px;">
     on: <%= content_tag(:strong, link_to_tagged(ts))  -%>  <br/>

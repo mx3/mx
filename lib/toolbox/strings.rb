@@ -90,7 +90,7 @@ module Strings
     wrds = []
 
     t.gsub!(/\-\s*\Z\s*/, '')                        # refuse dashes at the end of the line (should maybe not do this)
-    t.split(/[\.\?\.\;\:]+/).each do |sentence| # we NEVER fuse terms across terminal and some punctuation (.?!;:)
+    t.split(/[\.\?\.;:]+/).each do |sentence| # we NEVER fuse terms across terminal and some punctuation (.?!;:)
       # eliminates small words by splitting on them and leaving an Array, we don't want to fuse words across fragments, when we're not fusing just split normally
       # this presently joins across commas
       if opt[:minimum_word_size] == 1
@@ -102,7 +102,7 @@ module Strings
       end
     
       fragments.each do |fragment|
-          tmp_wrds = fragment.split.map{|i| i.gsub(/[^A-Za-z\-\d\']/, '').strip.downcase}
+          tmp_wrds = fragment.split.map{|i| i.gsub(/[^A-Za-z\-\d']/, '').strip.downcase}
           if opt[:adjacent_words_to_fuse] == 0
             wrds += tmp_wrds 
           else # fuse consecutive words

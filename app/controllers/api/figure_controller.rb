@@ -1,7 +1,7 @@
 class Api::FigureController < ApplicationController
 
   def index
-    redirect_to "http://#{HELP_WIKI}/index.php/App/API/Figure" and return
+    redirect_to "http://#{HELP_WIKI}/index.php/App/API/Figure"
   end
 
   def show

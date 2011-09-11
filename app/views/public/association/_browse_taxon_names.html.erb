@@ -13,13 +13,13 @@
 
       <% if pf and not headsf["#{pf.name}"] %>  <%# check for family/subfamily header %>
 
-        <h4 style="padding: 0px; margin-bottom: 0em; margin-top: .5em;"> <%= "#{pf.name}" %>  </h4>
+        <h4 style="padding: 0; margin-bottom: 0; margin-top: .5em;"> <%= "#{pf.name}" %>  </h4>
         <% headsf["#{pf.name}"] = true %>
 
       <% end %>
 
       <% if pg and not headsg["#{pg.name}"] %>  <%# check for genus header %>
-        <h4 style="padding: 0px; margin-bottom: 0px; margin-top:.5em;"> &nbsp;&nbsp;&nbsp; <%= "#{pg.name}" %>  </h4>
+        <h4 style="padding: 0; margin-bottom: 0; margin-top:.5em;"> &nbsp;&nbsp;&nbsp; <%= "#{pg.name}" %>  </h4>
         <% headsg["#{pg.name}"] = true %>
       <% end %>
 

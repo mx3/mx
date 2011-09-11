@@ -12,7 +12,7 @@
       <div style="float:left; width: 3%;"> </div> 
       <br style="clear: both;">
     </div>
-    <ul id="sensus_for_<%= sensus_for + "_" + parent_id.to_s -%>" style="border:0px; padding: 0px; list-style-type:none;">
+    <ul id="sensus_for_<%= sensus_for + "_" + parent_id.to_s -%>" style="border:0; padding: 0; list-style-type:none;">
       <%= render(:partial => '/sensu/s', :collection => sensus) -%>
     </ul>
   </div>

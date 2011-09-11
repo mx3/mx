@@ -34,7 +34,7 @@ function init() {
 function defHdrStyle() {
   dvHdr.innerHTML='<img  style="vertical-align:middle"  src="info.gif">&nbsp;&nbsp;'+dvHdr.innerHTML;
   dvHdr.style.fontWeight='bold';
-  dvHdr.style.width='150px';
+  dvHdr.style.width='150';
   dvHdr.style.fontFamily='arial';
   dvHdr.style.border='1px solid #A5CFE9';
   dvHdr.style.padding='3';
@@ -49,7 +49,7 @@ function defBdyStyle() {
   dvBdy.style.borderBottom='1px solid #A5CFE9';
   dvBdy.style.borderLeft='1px solid #A5CFE9';
   dvBdy.style.borderRight='1px solid #A5CFE9';
-  dvBdy.style.width='150px';
+  dvBdy.style.width='150';
   dvBdy.style.fontFamily='arial';
   dvBdy.style.fontSize='11';
   dvBdy.style.padding='3';

@@ -7,7 +7,7 @@
     <% if !@left_lock -%>
     Update left side to OTU:
 
-  <%= render :partial => "shared/picker", :locals => {
+  <%= render :partial => 'shared/picker', :locals => {
         :controller => 'otu',
         :object => 'left_otu',
         :method => 'id',
@@ -22,7 +22,7 @@
     <% if !@right_lock -%>
          Update right side to OTU:
 
-      <%= render :partial => "shared/picker", :locals => {
+      <%= render :partial => 'shared/picker', :locals => {
             :controller => 'otu',
             :object => 'right_otu',
             :method => 'id',

@@ -1,7 +1,4 @@
 class MultikeyController < ApplicationController
-   verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
   before_filter :find_key, :except => [:reset,:_cycle_elim_otu_txt_choices, :_cycle_remn_otu_txt_choices, :_cycle_elim_chr_txt_choices, :_cycle_remn_chr_txt_choices,  :_popup_figs_for_state, :_close_popup_figs, :list, :add_state, :remove_state, :return_otu, :return_chr, :choose_otu, :_update_otu_for_compare, :_popup_figs_for_state, :_popup_figs_for_chr, :_close_popup_figs, :_show_figures_for_chr]
   before_filter :set_key, :only => [:add_state, :remove_state, :return_otu, :return_chr, :choose_otu, :_update_otu_for_compare, :_popup_figs_for_state, :_popup_figs_for_chr,:_cycle_remn_chr_txt_choices, :_cycle_elim_chr_txt_choices,:_cycle_remn_otu_txt_choices,:_cycle_elim_otu_txt_choices, :_show_figures_for_chr]
   before_filter :content, :only => [:show, :show_compare, :show_otu_by_chr, :show_default, :show_chosen_figures, :show_remaining_figures, :show_chosen_states, :show_tags] 

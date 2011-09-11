@@ -3,7 +3,7 @@
     <h3 style="display: inline"> <%= link_to("associations browser", :action => 'browse') %> </h3>
   </div>
 
-  <div id="inner_container" <%= 'style="padding-right: 0px;"' if @no_right_col %> >
+  <div id="inner_container" <%= 'style="padding-right: 0;"' if @no_right_col %> >
 
     <%# CENTER COLUMN (must be rendered here for CSS to work!) %> 
     <div id="inner_center" class="column">  
@@ -19,7 +19,7 @@
     </div>
 
     <%# RIGHT COLUMN %>
-    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col -%>>
+    <div id="inner_right" class="column" <%= 'style="width: 0; margin-right: 0;"' if @no_right_col -%>>
       <% @part = 'right' %>
    
       <% for s in @show %>

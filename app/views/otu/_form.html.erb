@@ -2,7 +2,7 @@
 <%= hidden_field "otu", "id" %>
 
 <div class="fr"> <label for="otu_taxon_name_id" class="lbl4">Taxon name</label>
-  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+  <span class="fld"><%= render :partial => 'shared/picker', :locals => {
     :controller => 'taxon_name',
     :object => 'otu',
     :method => 'taxon_name_id',
@@ -29,7 +29,7 @@
 </div>
 
 <div class="fr"> <label for="otu_syn_with" class="lbl4">Synonymous with (another OTU)</label>
-  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+  <span class="fld"><%= render :partial => 'shared/picker', :locals => {
     :controller => 'otu',
     :object => 'otu',
     :method => 'syn_with_otu_id',
@@ -43,7 +43,7 @@
 </div>
 
 <div class="fr"> <label for="otu_as_cited_in" class="lbl4">As cited in</label>
-  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+  <span class="fld"><%= render :partial => 'shared/picker', :locals => {
     :controller => 'ref',
     :object => 'otu',
     :method => 'as_cited_in',

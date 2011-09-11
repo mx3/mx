@@ -18,8 +18,8 @@
     <% @seqs.each_with_index do |s,i| -%>
       <% matching_seqs = @proj.seqs.with_fragment(s[1].seq) -%>
       <tr <%= (matching_seqs.size > 0 ? 'class="failed"' : (i % 2 == 0 ? 'class="stripe"' : '')) -%> >
-        <td style="width: 20px;"><%= i+1 -%></td>
-        <td style="width: 20px;"> <%= check_box(:seq, "#{i}") -%> </td>
+        <td style="width: 20;"><%= i+1 -%></td>
+        <td style="width: 20;"> <%= check_box(:seq, "#{i}") -%> </td>
         <!-- the hidden fields -->
         <% if !s[0].nil? -%>
           <%= hidden_field_tag  "seqs[#{i}][pcr_id]", s[0].pcr_id -%>
@@ -28,7 +28,7 @@
         <td style="width: 15%;">
           <%= s[1].definition -%>
         </td>
-       <td style="width: 300px; vertical-align: middle;">
+       <td style="width: 300; vertical-align: middle;">
         <% if s[0].nil? -%>
           <strong style="color: red;">No PCR match</strong>
         <% else -%>

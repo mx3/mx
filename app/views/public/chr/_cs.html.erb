@@ -11,7 +11,7 @@
               <%= egs[0..4].collect{|o| o.display_name}.join(', ') %> 
               <% if egs.size > 5 %>
                 <a onclick="Element.toggle('cs_<%= cs.id %>_more'); Element.toggle('cs_<%= cs.id %>_more')">(toggle remainder)</a> 
-                <div id="cs_<%=cs.id%>_more" style="display: inline; display: none;">  
+                <div id="cs_<%=cs.id%>_more" style="display: inline;">
                   <%= egs[5..6].collect{|o| o.display_name}.join(', ') %> 
                 </div>
               <% end %>

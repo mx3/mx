@@ -6,7 +6,7 @@ module ModelExtensions
 
     # can get this in controllers, but not models where we explicitly use it in rare cases
     def self.host_url
-      case RAILS_ENV
+      case Rails.env
       when 'development' || 'test'
      'http://127.0.0.1:3000'
       when 'production'
@@ -20,8 +20,8 @@ module ModelExtensions
 
       base.class_eval do
 
-        tn = self.table_name                        # like otus
-        cn = self.table_name.singularize.capitalize # like Otu
+        # tn = self.table_name                        # like otus
+        # cn = self.table_name.singularize.capitalize # like Otu
 
         def self.random(proj_id, in_public = false)
           raise "self.random called with is_public == true on Class without is_public column" if in_public && !self.columns.map(&:name).include?('is_public') 

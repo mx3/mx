@@ -1,5 +1,5 @@
-<div class="fig" style="min-height: 240px;">
-  <%= ('<span style="border:1px solid gray; margin: 0px; padding: 0em .2em;" class="failed">' +  link_to('R', :action => 'remove_state', :id => f.figured_obj.id) + '</span><br/><br/>')  if @view == 'chosen_figures' -%>
+<div class="fig" style="min-height: 240;">
+  <%= ('<span style="border:1px solid gray; margin: 0; padding: 0 .2em;" class="failed">' +  link_to('R', :action => 'remove_state', :id => f.figured_obj.id) + '</span><br/><br/>')  if @view == 'chosen_figures' -%>
   <%= ('<div>' + link_to("add", :action => 'add_state', :id => f.figured_obj.id, :view => @view) + '</div>') unless not @mk or @view == 'chosen_figures' -%>
   <%= link_to(image_thumb_tag(f.image), f.image.path_for(:size => :big), :popup => [f.figured_obj.display_name]) -%>
   <div class="fig_caption">

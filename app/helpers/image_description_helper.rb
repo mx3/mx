@@ -9,8 +9,6 @@ module ImageDescriptionHelper
     else  # No images are found for this otu/view combination      
       return content_tag(:td, 'none', :class => 'failed') 
     end
-
-    return '"Foo" is a status, but not a good one.'
   end
 
   def image_description_taxon_tag(image_description)

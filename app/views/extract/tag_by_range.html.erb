@@ -6,7 +6,7 @@
     <%= form_tag :action => 'tag_by_range' do -%>
 
       <div class="fr"> <label for="extract_keyword_id" class="lbl4">Extracts tagged with</label>
-        <span class="fld"><%= render :partial => "shared/picker", :locals => {
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
             :controller => 'keyword',
             :object => 'tag_many',
             :method => 'keyword_id',

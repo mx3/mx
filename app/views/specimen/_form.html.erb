@@ -1,7 +1,7 @@
 <%= error_messages_for 'specimen' -%>
 
  <div class="fr"> <label for="specimen_repository_id" class="lbl4">Repository</label>
-  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+  <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'repository',
       :object => 'specimen',
       :method => 'repository_id',
@@ -10,7 +10,7 @@
       </div>
 
   <div class="fr"> <label for="specimen_ce_id" class="lbl4">Collecting Event</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
         :controller => 'ce',
         :object => 'specimen',
         :method => 'ce_id',
@@ -38,7 +38,7 @@
   </div>
 
   <div class="fr"> <label for="specimen_preparation_protocol_id" class="lbl4">Preparation</label>
-    <span class="fld"><%= select("specimen", "preparation_protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260px;'} ) %></span>
+    <span class="fld"><%= select("specimen", "preparation_protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260;'} ) %></span>
   </div>
 
   <div class="fr"> <label for="specimen_disposition" class="lbl4">Disposition</label>
@@ -54,7 +54,7 @@
   </div>
 
   <div class="fr"> <label for="specimen_parent_specimen_id" class="lbl4">Parent Specimen</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
     :controller => 'specimen',
     :object => 'specimen',
     :method => 'parent_specimen_id',

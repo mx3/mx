@@ -1,11 +1,13 @@
-<%= form_tag :action=> "change_email" do -%>
-    <%= error_messages_for 'person' -%><br/>
+<%= form_tag :action=> "change_email" do %>
+  <%= error_messages_for('person') %> <br />
 
-    <p><label for="person_password">Current password:</label><br/>
-    <input type="password" name="person_password" id="person_password" size="30"/></p>
+  <p><label for="person_password">Current password:</label><br />
+    <input type="password" name="person_password" id="person_password" size="30" />
+  </p>
 
-    <p><label for="person_password">New e-mail</label><br/>
-    <%= text_field "person", "email", :size => 30 -%></p>
-    
-    <p><input type="submit" name="Update" /></p>
+  <p><label for="person_password">New e-mail</label><br />
+    <%= text_field "person", "email", :size => 30 -%>
+  </p>
+
+  <p><input type="submit" name="Update" /></p>
 <% end -%>

@@ -7,7 +7,7 @@
       <table id="search_table">
         <tr>
           <td>Specimen<br/>
-            <%= render :partial => "shared/picker", :locals => {
+            <%= render :partial => 'shared/picker', :locals => {
               :controller => 'specimen',
               :object => 'id',
               :method => 'specimen_id',
@@ -18,7 +18,7 @@
 
 
           <td>OTU<br/>
-            <%= render :partial => "shared/picker", :locals => {
+            <%= render :partial => 'shared/picker', :locals => {
               :controller => 'otu',
               :object => 'id',
               :method => 'otu_id',
@@ -30,7 +30,7 @@
         </tr>
         <tr>
 
-          <td>Part / Label<br/><%= render :partial => "shared/picker", :locals => {
+          <td>Part / Label<br/><%= render :partial => 'shared/picker', :locals => {
               :controller => 'label',
               :object => 'id',
               :method => 'label_id',

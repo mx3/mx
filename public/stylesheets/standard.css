@@ -25,9 +25,9 @@ tr.stripe {background-color: #efefef;}
 #container { border: 1px solid #ccc; background: #fff; }
 
 #header { background: rgb(247, 251, 255);
-  border-style: none none solid;
-  border-width: 0 0 1px;
-  border-color: silver; }
+    border: 0 none silver;
+    border-bottom: 1px solid;
+}
 
 #header p { margin: 0 0 0 2.45em; padding: 0.5em; }
 #header span.links { font-size: 70%; margin: 0.2em 0.6em; }
@@ -35,12 +35,12 @@ tr.stripe {background-color: #efefef;}
 
 /* 3 column CSS from http://www.alistapart.com/articles/holygrail */
 #inner_wrapper {
-  min-width: 610px;      /* 2x LC width + RC width */
+  min-width: 610;      /* 2x LC width + RC width */
 }
 
 #inner_container {
-  padding-left: 150px;   /* LC width */
-  padding-right: 260px;  /* RC width */
+  padding-left: 150;   /* LC width */
+  padding-right: 260;  /* RC width */
 }
 #inner_container .column {
   position: relative;
@@ -51,18 +51,18 @@ tr.stripe {background-color: #efefef;}
   margin-bottom: .5em;
 }
 #inner_left {
-  width: 150px;          /* LC width */
-  right: 150px;          /* LC width */
+  width: 150;          /* LC width */
+  right: 150;          /* LC width */
   margin-left: -100%;    /* this not in error */
 }
 
 * html #inner_left {     /* IE6 Fix */
-  left: 200px;           /* RC width */
+  left: 200;           /* RC width */
 }
 
 #inner_right {
-  width: 260px;          /* RC width */
-  margin-right: -260px;  /* RC width */
+  width: 260;          /* RC width */
+  margin-right: -260;  /* RC width */
 }
 #inner_footer {
   clear: both;
@@ -125,7 +125,10 @@ tr.stripe {background-color: #efefef;}
 /*** NAVIGATION ***/
 
 /* Top level tabs */
-#tabs { margin: 0; padding: 0.25em;  margin-left: 1em; font-size: smaller;  width: auto; }
+#tabs {
+    margin: 0 0 0 1em;
+    padding: 0.25em;
+    font-size: smaller;  width: auto; }
 #tabs a { display: inline-table; margin-bottom: -4px;}
 #tabs a:link, #tabs a:visited {color: #3b3b3b; background: rgb(222, 235, 247); text-decoration: none;  margin-left: 0.3em; padding: 0.2em 0.8em; border: solid 1px #c0c0c0 }
 #tabs a:link.current, #tabs a:visited.current  { color: #000; font-weight:700; background: #fff; border-bottom: 1px solid #fff }
@@ -154,7 +157,10 @@ div.navigator .item { text-align: center; padding: .1em; margin: .2em; } /* each
 div.navigator_buttons { margin-bottom: .3em; text-align: center; } /* for the row of buttons */
 div.navigator_buttons a { display: inline; }
 div.navigator .navigator_button { padding: .2em; margin-left: 0; font-size: smaller; }
-div.navigator .category {border-bottom: 1px dotted gray; margin-top:1em; margin-bottom: 0.2em; padding:0.1em; margin-left:0.5em; margin-right:0.5em; }
+div.navigator .category {border-bottom: 1px dotted gray;
+    margin: 1em 0.5em 0.2em;
+    padding:0.1em;
+}
 div.navigator .navigator_button a:link, div.navigator .navigator_button a:visited   { color: #fff; font-weight:700; text-decoration: none; background: navy; margin-left: 0.3em; padding: 0.2em 0.8em; border: solid 1px gray}
 div.navigator .navigator_button a:link.current, div.navigator .navigator_button a:visited.current {border-bottom: 1px solid #fff; background: #fff; font-weight:700; }
 div.navigator .navigator_button a:hover, div.navigator .navigator_button a:link.current:hover, div.navigator .navigator_button a:visited.current:hover {background: #ffc; color: #000;}
@@ -192,18 +198,18 @@ div.subnav table {
 
 #nav_dd a {
 	display: block;
-	width: 20em;
+	width: 20;
 }
 
 #nav_dd li {
 	float: left;
-	width: 20em;
+	width: 20;
   padding: 3px;
 }
 
 #nav_dd li ul {
 	position: absolute;
-	width: 20em;
+	width: 20;
 	left: -999em;
 }
 
@@ -246,7 +252,9 @@ div.subnav table {
       vertical-align: top; }
 
 .box1 { background-color: #fff8dc; padding: .6em; border: solid 1px #707070; }
-.box4 { margin:0.2em; border-style: solid; border-width: 2px; border-color: #e4e4e4; }
+.box4 { margin:0.2em;
+    border: 2px solid #e4e4e4;
+}
 .box4 .header  { text-align: center;  background-color: #e4e4e4; color: #444;  font-size: 90%; padding: .4em; }
 .box4 .content { font-size: 90%;  margin: .2em; padding: .4em; }
 
@@ -326,14 +334,14 @@ div.cart {
   border:1px solid #E8A400;
   background-color: #fff;
   padding: 8px;
-  min-width: 300px;
+  min-width: 300;
 }
 
 div.cart-active { background-color: #b5ebc7; }
 
 /* Field error formatting via scaffold css */
 .fieldWithErrors { padding: 2px; background-color: red; display: table; }
-#errorExplanation  { background-color: #f0f0f0; margin-bottom: 20px; padding: 7px 7px 12px; width: 400px; border: solid 2px #c00 }
+#errorExplanation  { background-color: #f0f0f0; margin-bottom: 20; padding: 7px 7px 12px; width: 400; border: solid 2px #c00 }
 #errorExplanation h2 { text-align: left; font-weight: 700; padding: 5px 5px 5px 15px; font-size: 12px; margin: -7px; background-color: #c00; color: #fff; }
 #errorExplanation p { color: #333; margin-bottom: 0; padding: 5px;}
 #errorExplanation li { font-size: 12px; list-style: square; }
@@ -383,7 +391,7 @@ div.notice {
 
 .tree_level {
   margin-left:0;
-  padding-left: 10px;
+  padding-left: 10;
   clear: both;
 }
 
@@ -405,7 +413,7 @@ span.otu_id { color: gray;}
 
 /* IMAGES / FIGURES */
 .browse_rec {
-  height: 240px;
+  height: 240;
   float: left;
   padding: 0.5em;
   border: 1px solid gray;
@@ -415,7 +423,7 @@ span.otu_id { color: gray;}
 }
 
 .browse_thumb { padding: .2em; }
-.fig { background-color:#ffc; margin:0.3em; padding:0.5em; float: left; border:1px solid gray; min-height: 175px; min-width: 160px; font-size: 10px;}
+.fig { background-color:#ffc; margin:0.3em; padding:0.5em; float: left; border:1px solid gray; min-height: 175px; min-width: 160; font-size: 10;}
 .fig .image {text-align: center; margin-left: auto; margin-right:auto;}
 .fig a:hover { text-decoration: none; border-bottom: 0 none }
 .attached_figs {clear: right;} /* changed from both */
@@ -455,7 +463,7 @@ div .county {margin-left: 2em;}
  */
 .popupform {
   background: white;
-  width: 420px;
+  width: 420;
 }
 .popupform .basic-modal-close {
   float: right;

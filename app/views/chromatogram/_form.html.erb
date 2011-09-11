@@ -3,7 +3,7 @@
 <!--[form:chromatogram]-->
 
 <div class="fr"> <label for="chromatogram_pcr_id" class="lbl4">PCR</label>
-  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+  <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
     :controller => 'specimen',
     :object => 'chromatogram',
     :method => 'pcr_id',
@@ -55,7 +55,7 @@
 
 <% if @target == "create" || @target == "edit" -%>
   <div class="fr"> <label for="seqs_chromatograms" class="lbl4">Attach to sequence</label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
     :controller => 'seq',
     :object => 'seq',
     :method => 'seq_id',

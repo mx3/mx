@@ -15,10 +15,10 @@
     <%# Specific name/Genus name %>
 
         <td><!-- # = "#{'&nbsp;' * rank_n(tn.iczn_group) * 5 }" %> --><%= tn.display_name -%> </td>
-        <td style="width: 400px;"><%= a.display_name(:type => :short_display_name_first_family) -%></td>
-        <td style="width: 400px;"><%= a.display_name(:type => :short_display_name_first_relationship) -%></td>
-        <td style="width: 400px;"><%= a.display_name(:type => :short_display_name) -%></td>
-        <td style="width: 200px;"><%= a.supporting_refs.collect{|r| r ? r.text_citation : "ERROR"}.join("; ") -%>  </td>
+        <td style="width: 400;"><%= a.display_name(:type => :short_display_name_first_family) -%></td>
+        <td style="width: 400;"><%= a.display_name(:type => :short_display_name_first_relationship) -%></td>
+        <td style="width: 400;"><%= a.display_name(:type => :short_display_name) -%></td>
+        <td style="width: 200;"><%= a.supporting_refs.collect{|r| r ? r.text_citation : "ERROR"}.join("; ") -%>  </td>
       </tr>
     <% end -%>
   <% end  -%>

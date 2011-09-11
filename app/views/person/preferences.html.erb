@@ -11,7 +11,7 @@
     <span class="fld"><%= f.text_field :pref_creator_html_color , :size => 6, :default => 'dddddd'  %> <i> click to pick, used as background in some displays</i></span>
   </div>
   <div class="fr"> <label for="person_pref_default_repository_id" class="lbl4">Default Repository</label>
-  <span class="fld"><%= render :partial => "shared/picker", :locals => {
+  <span class="fld"><%= render :partial => 'shared/picker', :locals => {
       :controller => 'repository',
       :object => 'person',
       :method => 'pref_default_repository_id',

@@ -7,7 +7,7 @@
     <% if @specimen %>
       <%= @specimen.display_name -%><%= hidden_field("measurement", "specimen_id", :value => @specimen.id) -%>
     <% else %>
-      <%= render :partial => "shared/picker", :locals => {
+      <%= render :partial => 'shared/picker', :locals => {
       :controller => 'specimen',
       :object => 'measurement',
       :method => 'specimen_id',
@@ -24,7 +24,7 @@
     <% if @standard_view %>     
       <%= @standard_view.display_name -%><%= hidden_field("measurement", "standard_view_id", :value => @standard_view.id) -%>
     <% else %>
-      <%= render :partial => "shared/picker", :locals => {
+      <%= render :partial => 'shared/picker', :locals => {
         :controller => 'standard_view',
         :object => 'measurement',
         :method => 'standard_view_id',

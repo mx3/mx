@@ -1,6 +1,6 @@
 class ContentController < ApplicationController
 
-  verify :method => :post, :only => [ :destroy, :create, :update ],
+  verify :method => :post, :only => [ :update ],
     :redirect_to => { :action => :list }
 
   # Content isn't directly dealt with, rather this is controller for grouping various functions

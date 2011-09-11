@@ -7,7 +7,7 @@
     <% end -%>
   </h3>
 
-  <table style="margin: 0em;">
+  <table style="margin: 0;">
     <%= "<tr><td class=\"lbl1\">status</td><td>#{@taxon_name.status.display_name}</td></tr>" if @taxon_name.taxon_name_status_id %>
     <% if  @taxon_name.valid_name_id? %>
       <tr><td class="lbl1">valid name:</td><td><%= link_to("#{@taxon_name.valid_name.display_name}", :action => "show", :id => @taxon_name.valid_name_id) %></td></tr>

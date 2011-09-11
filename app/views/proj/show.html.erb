@@ -18,7 +18,7 @@
         <%= plp.collect {|p| content_tag :div, h(p.full_name)} %>
       </div>
     <% end %>
-    <div style="clear:both;" />
+    <br style="clear:both;" />
 
     <div class="show_category"> GBIF/IPT </div>
     <% if @proj.is_exportable_to_gbif && !@proj.collection_code.blank? && @proj.default_institution -%>

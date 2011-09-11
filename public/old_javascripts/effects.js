@@ -601,7 +601,7 @@ Effect.BlindDown = function(element) {
     scaleMode: {originalHeight: elementDimensions.height, originalWidth: elementDimensions.width},
     restoreAfterFinish: true,
     afterSetup: function(effect) {
-      effect.element.makeClipping().setStyle({height: '0px'}).show();
+      effect.element.makeClipping().setStyle({height: '0'}).show();
     },
     afterFinishInternal: function(effect) {
       effect.element.undoClipping();
@@ -693,7 +693,7 @@ Effect.SlideDown = function(element) {
       effect.element.makePositioned();
       effect.element.down().makePositioned();
       if (window.opera) effect.element.setStyle({top: ''});
-      effect.element.makeClipping().setStyle({height: '0px'}).show();
+      effect.element.makeClipping().setStyle({height: '0'}).show();
     },
     afterUpdateInternal: function(effect) {
       effect.element.down().setStyle({bottom:
@@ -811,7 +811,7 @@ Effect.Grow = function(element) {
             sync: true, scaleFrom: window.opera ? 1 : 0, transition: options.scaleTransition, restoreAfterFinish: true})
         ], Object.extend({
              beforeSetup: function(effect) {
-               effect.effects[0].element.setStyle({height: '0px'}).show();
+               effect.effects[0].element.setStyle({height: '0'}).show();
              },
              afterFinishInternal: function(effect) {
                effect.effects[0].element.undoClipping().undoPositioned().setStyle(oldStyle);

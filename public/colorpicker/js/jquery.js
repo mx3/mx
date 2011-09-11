@@ -2746,7 +2746,7 @@ jQuery.event = {
 		if ( !event.which && ((event.charCode || event.charCode === 0) ? event.charCode : event.keyCode) )
 			event.which = event.charCode || event.keyCode;
 
-		// Add metaKey to non-Mac browsers (use ctrl for PC's and Meta for Macs)
+		// Add metaKey to non-Mac browsers (use ctrl for PCs and Meta for Macs)
 		if ( !event.metaKey && event.ctrlKey )
 			event.metaKey = event.ctrlKey;
 

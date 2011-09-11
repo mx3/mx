@@ -10,7 +10,7 @@
 
   <% if otu_id -%> &nbsp;&nbsp; <%= link_to('show', :action => 'show', :controller => 'otu', :id => otu_id) -%> <% end -%>
   <br />
-     <%= render :partial => "shared/picker", :locals => {
+     <%= render :partial => 'shared/picker', :locals => {
             :controller => 'otu',
             :object => side,
             :method => 'otu_id',

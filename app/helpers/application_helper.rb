@@ -10,7 +10,7 @@ module ApplicationHelper
   def uuid()
      sql = "SELECT UUID()"   
      record = ActiveRecord::Base.connection.select_one(sql)
-     return record['UUID()']
+     record['UUID()']
   end
 
   # returns true if object is created by logged in user or  user is admin
@@ -35,8 +35,8 @@ module ApplicationHelper
   # Probably under-performant
   def list_all_models
     # preload all models
-    Dir.entries("#{RAILS_ROOT}/app/models").each do |f|
-      require("#{RAILS_ROOT}/app/models/" + f) if f =~ /\.rb$/
+    Dir.entries("#{Rails.root}/app/models").each do |f|
+      require("#{Rails.root}/app/models/" + f) if f =~ /\.rb$/
     end
   
     models = []

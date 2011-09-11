@@ -8,7 +8,7 @@
 <p><em> If you are tracking through specimens to PCRs include only a PCR. OTUs and genes are not allowed in combination with PCRs.</em></p>
 
 <div class="fr"> <label for="seq_pcr_id" class="lbl4">PCR</label>
-  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+  <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
     :controller => 'specimen',
     :object => 'seq',
     :method => 'pcr_id',
@@ -21,7 +21,7 @@
 <p><em> If you have not generated PCRs (e.g. GENBANK seqs), use these. You must include both an OTU and gene in this case. </em></p>
 
 <div class="fr"> <label for="seq_otu_id" class="lbl4">OTU</label>
-  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+  <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
         :controller => 'otu',
         :object => 'seq',
         :method => 'otu_id',
@@ -35,7 +35,7 @@
 </div>
 
 <div class="fr"> <label for="seq_specimen_id" class="lbl4">Specimen</label>
-  <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+  <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
     :controller => 'specimen',
     :object => 'seq',
     :method => 'specimen_id',

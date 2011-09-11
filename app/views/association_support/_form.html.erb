@@ -26,7 +26,7 @@
   <% elsif @association_support.class == SpecimenSupport -%>
 
   <p><label for="association_support_specimen_id">Specimen</label><br/>
-    <%= render :partial => "shared/picker", :locals => {
+    <%= render :partial => 'shared/picker', :locals => {
       :controller => 'specimen',
       :object => 'association_support',
       :method => 'specimen_id',

@@ -18,7 +18,7 @@
     <%= form_tag :action => 'create_multiple' do -%>
 
       <div class="fr"> <label for="group" class="lbl4">OTU Group</label>
-        <span class="fld">   <%= render :partial => "shared/picker", :locals => {
+        <span class="fld">   <%= render :partial => 'shared/picker', :locals => {
               :controller => 'otu_group',
               :object => 'multi_seq',
               :method => 'otu_group_id',
@@ -28,7 +28,7 @@
       </div>
 
       <div class="fr"> <label for="gene" class="lbl4">Gene</label>
-        <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+        <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
                     :controller => 'gene',
                     :object => 'multi_seq',
                     :method => 'gene_id',

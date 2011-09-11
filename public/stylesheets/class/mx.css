@@ -17,7 +17,7 @@ td.mx_cell span {
 td.mx_cell a:hover span {
    display: block; 
    position: absolute; top:35px; left: 0;
-   padding: 5px; margin: 0px; z-index: 100;
+   padding: 5px; margin: 0; z-index: 100;
 
    font-size: larger;
 }
@@ -47,7 +47,7 @@ div.nexus td.taxname {
 }
 
 div.nexus td {
-  padding: 0em;
+  padding: 0;
 }
 
 a.quicknavbox {

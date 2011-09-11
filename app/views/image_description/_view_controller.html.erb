@@ -4,7 +4,7 @@
   <p> Otu group: <%= render :partial => "otu_group/picker", :locals => {:c_name => 'view', :f_name => 'otu_group_id'} -%> </p>
 
   <p> Standard view group:  
-  <%= render :partial => "shared/picker", :locals => {
+  <%= render :partial => 'shared/picker', :locals => {
     :controller => 'standard_view_group',
     :object => 'view',
 		:method => 'standard_view_group_id',

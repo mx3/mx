@@ -2,26 +2,23 @@ div.ce_lbl_insect_compressed { /* this is good now, make another type if you wan
   font-size: 4pt;
   font-family: Times;
   line-height: 3.2pt;
-  margin: 0;
-  margin-bottom: .8pt;
+  margin: 0 0 .8pt;
   white-space: pre;
 }
 
 div.ce_lbl_insect { /* sensu NCSU insect museum */ 
   font-size: 4pt;
-  font-family: Times;
-  margin: 0;
-  margin-bottom: .8pt;
-  white-space: pre;
+  font-family: Times, serif;
+    margin: 0 0 .8pt;
+    white-space: pre;
 }
 
 div.ce_lbl_4_dram_ETOH { /* sensu Cammack */
   font-size: 8pt;
-  font-family: Times;
+  font-family: Times, serif;
   line-height: 8.2pt;
-  margin: 0;
-  margin-bottom: .8pt;
-  white-space: pre;
+    margin: 0 0 .8pt;
+    white-space: pre;
 }
 
 div.ce_label_col {

@@ -4,7 +4,7 @@
     <p><%= @otu.display_name(:type => :multi_name) %></p>
     <% @con = @otu_cons.detect {|c| c.otu_id == @otu.id} %>
     <% if @con %>
-      <div style="padding: 0em .2em;" >
+      <div style="padding: 0 .2em;" >
         <%= htmlize(@con.text) -%>
         <%= render_figs_for_obj(@con, 'thumb') -%>
       </div>

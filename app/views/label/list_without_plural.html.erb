@@ -1,8 +1,8 @@
 <h3> Labels without plurals </h3>
 <p> <em> Clicking on a label takes you to a new page where you can add the plural form. </em> </p>
-<div style="padding: 10px; border: black;">
+<div style="padding: 10; border: black;">
   <% @labels.in_groups_of(100, false) do |grp| -%>
-  <div style="width: 300px; float: left; padding: 3px;">
+  <div style="width: 300; float: left; padding: 3px;">
     <% grp.each do |l| -%>
     <%= link_to(l.name, {:action => :new, :id => l.id, :controller => :label}, :target => '_blank') -%><br/>
     <% end %>

@@ -10,7 +10,7 @@
 
           <% form_remote_tag :loading => "Element.show('pcr_batch_spinner')", :complete => "Element.hide('pcr_batch_spinner')", :url => {:controller => :pcr, :action => :_add_extract_to_batch} do -%>
             <div class="fr"> <label for="extract_id_for_batch_pcr" class="lbl4">Extract </label>
-              <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+              <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
                   :controller => 'extract',
                   :object => 'extract',
                   :method => 'id',
@@ -31,7 +31,7 @@
           <hr />
           <% form_remote_tag :loading => "Element.show('pcr_batch_spinner')", :complete => "Element.hide('pcr_batch_spinner')", :url => {:controller => :pcr, :action => :_batch_add_extracts_to_batch_via_tags} do -%>
             <span class="lbl4">extracts by tag keyword: </span>
-            <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+            <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
                 :controller => 'keyword',
                 :object => 'keyword',
                 :method => 'id',
@@ -50,7 +50,7 @@
 
             <div class="fr"> <label for="gene_id" class="lbl4">and gene</label>
               <span class="fld">
-                <%= render :partial => "shared/picker", :locals => {
+                <%= render :partial => 'shared/picker', :locals => {
                   :controller => 'gene',
                   :object => 'gene',
                   :method => 'id',
@@ -76,7 +76,7 @@
                 <div class="header">Data</div>
                 <div class="content">
                   <div class="fr"> <label for="pcr_fwd_primer_id" class="lbl4">fwd primer</label>
-                    <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+                    <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
                         :controller => 'primer',
                         :object => 'pcr',
                         :method => 'fwd_primer_id',
@@ -85,7 +85,7 @@
                   </div>
 
                   <div class="fr"> <label for="pcr_rev_primer_id" class="lbl4">rev primer</label>
-                    <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+                    <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
                         :controller => 'primer',
                         :object => 'pcr',
                         :method => 'rev_primer_id',
@@ -98,7 +98,7 @@
                   </div>
 
                   <div class="fr"> <label for="pcr_protocol_id" class="lbl4">protocol</label>
-                    <span class="fld"><%= select("pcr", "protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260px;'} ) %></span>
+                    <span class="fld"><%= select("pcr", "protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260;'} ) %></span>
                   </div>
 
                   <div class="fr"> <label for="pcr_notes" class="lbl4">notes</label>
@@ -106,7 +106,7 @@
                   </div>
 
                   <div style="width: 100%; clear: both; border-top: 1px solid silver;">
-                    <div style="float: left; width: 200px;">
+                    <div style="float: left; width: 200;">
                       <div class="fr"> <label for="pcr_protocol_id" class="lbl4">Rxn volume</label>
                         <span class="fld" style="width: 65%;"><%= text_field("batch", "rxn_vol", :size => 3, :value => Pcr.default_vol[:rxn_vol]) -%></span>
                       </div>
@@ -124,7 +124,7 @@
                       </div>
                     </div>
 
-                    <div style="float:right; width: 200px;">
+                    <div style="float:right; width: 200;">
                       <div class="fr"> <label for="pcr_protocol_id" class="lbl4">MgSO4</label>
                         <span class="fld"style="width: 65%;"><%= text_field("batch", "mg", :size => 3, :value => Pcr.default_vol[:mg]) -%></span>
                       </div>

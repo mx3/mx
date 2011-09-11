@@ -9,14 +9,14 @@
       
       <% if pf and not headsf["#{pf.name}"] %>  <%# check for family/subfamily header %>  
       <tr><td colspan=4>
-        <h4 style="padding: 0px; margin-bottom: 0em; margin-top: .5em;"> <%= "#{pf.name}" %>  </h4>
+        <h4 style="padding: 0; margin-bottom: 0; margin-top: .5em;"> <%= "#{pf.name}" %>  </h4>
         <% headsf["#{pf.name}"] = true %> 
         </td></tr>
       <% end %>
 
       <% if pg and not headsg["#{pg.name}"] %>  <%# check for genus header %>  
       <tr><td></td><td colspan=3>
-          <h4 style="padding: 0px; margin-bottom: 0px; margin-top:.5em;"><!-- &nbsp;&nbsp;&nbsp; --><%= "#{pg.name}" %>  </h4>
+          <h4 style="padding: 0; margin-bottom: 0; margin-top:.5em;"><!-- &nbsp;&nbsp;&nbsp; --><%= "#{pg.name}" %>  </h4>
         <% headsg["#{pg.name}"] = true %> 
          </td></tr>
       <% end %>
@@ -29,8 +29,8 @@
         <% for a in Association.by_taxon_name(tn, @proj.id) -%>
           <tr> 
             <td></td><td></td>
-            <td style="width: 400px;">&nbsp;&nbsp;<%= link_to(a.display_name, :action => 'show', :controller => 'association', :id => a) -%></td>     
-            <td style="width: 200px;"><%= a.supporting_refs.collect{|r| r ? link_to(r.authors_year, :action => 'show', :controller => 'ref', :id => r ) : "ERROR"}.join("; ") -%>  </td>
+            <td style="width: 400;">&nbsp;&nbsp;<%= link_to(a.display_name, :action => 'show', :controller => 'association', :id => a) -%></td>
+            <td style="width: 200;"><%= a.supporting_refs.collect{|r| r ? link_to(r.authors_year, :action => 'show', :controller => 'ref', :id => r ) : "ERROR"}.join("; ") -%>  </td>
           </tr>
         <% end %>
       

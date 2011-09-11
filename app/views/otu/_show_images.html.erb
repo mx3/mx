@@ -15,7 +15,7 @@
       <% form_tag(:action => 'move_images_to_otu', :otu_id => @otu) do -%>
 
       <div class="fr"> <label for="move_to_otu" class="lbl4"> Move to OTU:</label>
-        <span class="fld"><%= render :partial => "shared/picker", :locals => {
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
           :controller => 'otu',
           :object => 'o',
           :method => 'otu_to_find_id',

@@ -23,9 +23,9 @@ module OntologyMethods
     end
 
     result = []
-    result += Label.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id = ?", "%#{value}%", value.gsub(/\%/, ""), params[:proj_id]], :order => "length(name), name", :limit => lim )
-    result += OntologyClass.find(:all, :conditions => ["(definition LIKE ? OR id = ? OR xref = ?) AND proj_id = ?", "%#{value}%",  value.gsub(/\%/, ""), value, params[:proj_id]], :limit => lim )
-    result += Tag.find(:all, :conditions => ["(tags.notes LIKE ? OR tags.id = ? OR keywords.keyword = ?) AND tags.proj_id = ? ", "%#{value}%",  value.gsub(/\%/, ""), "%#{value}%", params[:proj_id]], :limit => 15, :include => [:keywords, :ref], :order => 'tags.updated_on DESC' )
+    result += Label.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id = ?", "%#{value}%", value.gsub(/%/, ""), params[:proj_id]], :order => "length(name), name", :limit => lim )
+    result += OntologyClass.find(:all, :conditions => ["(definition LIKE ? OR id = ? OR xref = ?) AND proj_id = ?", "%#{value}%",  value.gsub(/%/, ""), value, params[:proj_id]], :limit => lim )
+    result += Tag.find(:all, :conditions => ["(tags.notes LIKE ? OR tags.id = ? OR keywords.keyword = ?) AND tags.proj_id = ? ", "%#{value}%",  value.gsub(/%/, ""), "%#{value}%", params[:proj_id]], :limit => 15, :include => [:keywords, :ref], :order => 'tags.updated_on DESC' )
     result 
   end
 
@@ -68,10 +68,10 @@ module OntologyMethods
     end
 
     if opts[:include_labels]
-      result[:labels] += Label.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id = ?", "%#{value}%", value.gsub(/\%/, ""), opts[:proj_id]], :order => "length(name)", :limit => opts[:limit] )
+      result[:labels] += Label.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id = ?", "%#{value}%", value.gsub(/%/, ""), opts[:proj_id]], :order => "length(name)", :limit => opts[:limit] )
     end
     if opts[:include_ontology_classes]
-      result[:ontology_classes] += OntologyClass.find(:all, :conditions => ["(definition LIKE ? OR id = ?) AND proj_id = ?", "%#{value}%",  value.gsub(/\%/, ""), opts[:proj_id]], :limit => opts[:limit] )
+      result[:ontology_classes] += OntologyClass.find(:all, :conditions => ["(definition LIKE ? OR id = ?) AND proj_id = ?", "%#{value}%",  value.gsub(/%/, ""), opts[:proj_id]], :limit => opts[:limit] )
     end
     result
   end
@@ -156,7 +156,7 @@ module OntologyMethods
       label, reference, ontology_class = [nil, nil, nil] 
 
       l = r.fields('label').first
-      raise Ontology::OntologyMethods::BatchParseError, "Data row #{i} missing a value for label column." if !l
+      raise Ontology::OntologyMethods::BatchParseError, "Data row #{x} missing a value for label column." if !l
       if !labels[l]
         if label = Label.find_by_name_and_proj_id(l, opt[:proj_id])
           labels.merge!(l => label)
@@ -169,7 +169,7 @@ module OntologyMethods
       
       # handle references 
       o = r.fields('reference').first
-      raise Ontology::OntologyMethods::BatchParseError, "Data row #{i} missing a value for reference column." if !o
+      raise Ontology::OntologyMethods::BatchParseError, "Data row #{x} missing a value for reference column." if !o
       if !references[o]
         if reference = Ref.find_by_cached_display_name(o) 
           references.merge!(o => reference)
@@ -236,61 +236,61 @@ module OntologyMethods
   end
 
 
-  # TODO: revisit vs. class/label split
-  # takes :params and :proj_id
-  def self.batch_create_simple(opt = {})
-    params = opt[:params]
-
-    @count = 0
-    @tn = TaxonName.find(params[:taxon_name_id]) if !params[:taxon_name_id].blank?
-    @ref = Ref.find(params[:ref_id]) if !params[:ref_id].blank?
-    @part_for_isa = Part.find(params[:part_for_isa_id]) if !params[:part_for_isa_id].blank?
-    @object_relationship = ObjectRelationship.find(params[:isa_id]) if !params[:object_relationship_id].blank?
-
-    begin
-      Part.transaction do
-        for p in params[:part].keys
-          if params[:check][p]
-
-            # label
-            lbl = Label.new(:name => params[:label][p])
-
-            # class
-            if params[:definition][p]
-              klass = OntologyClass.new(:definition => params[:definition][p])
-              klass..taxon_name = @tn if @tn
-              k.ref = @ref if @ref
-            end
-
-            lbl.save!
-            klass.save! if klass
-
-            # add the relationships 
-            if @object_relationship && @ontology_class_for_object_relationship
-              relationship = OntologyRelationship.new(:ontology_class1_id => klass.id, :ontology_class2_id => @ontology_class_for_object_relationship.id, :object_relationship_id => @object_relationship.id )
-              relationship.save!
-            end
-
-
-            # add the tag here
-            if params[:tag] && params[:tag][:keyword_id]
-              # TODO: tags go with labels or definitions, reformulate this
-              raise "Code not availble for OntologClass#batch_create_simple"  
-              tag = Tag.new(:keyword_id => params[:tag][:keyword_id], :addressable_type => 'Part', :addressable_id => prt.id)
-              tag.notes = params[:tag][:notes] if !params[:tag][:notes].blank?
-              tag.referenced_object = params[:tag][:referenced_object] if !params[:tag][:referenced_object].blank?
-              tag.save!
-            end
-
-            @count += 1
-          end
-        end
-      end
-
-    rescue 
-      return false
-    end
-  end
+  ## TODO: revisit vs. class/label split
+  ## takes :params and :proj_id
+  #def self.batch_create_simple(opt = {})
+  #  params = opt[:params]
+  #
+  #  @count = 0
+  #  @tn = TaxonName.find(params[:taxon_name_id]) if !params[:taxon_name_id].blank?
+  #  @ref = Ref.find(params[:ref_id]) if !params[:ref_id].blank?
+  #  @part_for_isa = Part.find(params[:part_for_isa_id]) if !params[:part_for_isa_id].blank?
+  #  @object_relationship = ObjectRelationship.find(params[:isa_id]) if !params[:object_relationship_id].blank?
+  #
+  #  begin
+  #    Part.transaction do
+  #      for p in params[:part].keys
+  #        if params[:check][p]
+  #
+  #          # label
+  #          lbl = Label.new(:name => params[:label][p])
+  #
+  #          # class
+  #          if params[:definition][p]
+  #            klass = OntologyClass.new(:definition => params[:definition][p])
+  #            klass..taxon_name = @tn if @tn
+  #            k.ref = @ref if @ref
+  #          end
+  #
+  #          lbl.save!
+  #          klass.save! if klass
+  #
+  #          # add the relationships
+  #          if @object_relationship && @ontology_class_for_object_relationship
+  #            relationship = OntologyRelationship.new(:ontology_class1_id => klass.id, :ontology_class2_id => @ontology_class_for_object_relationship.id, :object_relationship_id => @object_relationship.id )
+  #            relationship.save!
+  #          end
+  #
+  #
+  #          # add the tag here
+  #          if params[:tag] && params[:tag][:keyword_id]
+  #            # TODO: tags go with labels or definitions, reformulate this
+  #            raise "Code not availble for OntologClass#batch_create_simple"
+  #            tag = Tag.new(:keyword_id => params[:tag][:keyword_id], :addressable_type => 'Part', :addressable_id => prt.id)
+  #            tag.notes = params[:tag][:notes] if !params[:tag][:notes].blank?
+  #            tag.referenced_object = params[:tag][:referenced_object] if !params[:tag][:referenced_object].blank?
+  #            tag.save!
+  #          end
+  #
+  #          @count += 1
+  #        end
+  #      end
+  #    end
+  #
+  #  rescue
+  #    return false
+  #  end
+  #end
 
   # pass params from OntologyController#proofer_batch_create and merge proj_id => id 
   # TODO: generalize to all batch loading (from proofer, etc.)
@@ -415,9 +415,9 @@ module OntologyMethods
   def self.xref_from_params(id) # :yields: String (like "HAO:0123456")
     # accepts encoded URIs like http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FHAO_0000397
     # or  xref_from_params (self.uri) or id style params (like "HAO_0123456") and returns the xref form ("HAO:0123456") for database searching
-    if id =~ /\Ahttp\:.*\/(.+\_.+)\Z/
+    if id =~ /\Ahttp:.*\/(.+_.+)\Z/
       xref = $1 
-    elsif id =~ /\A(.+\_.+)\Z/
+    elsif id =~ /\A(.+_.+)\Z/
       xref = $1
     else
       return false 

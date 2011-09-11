@@ -1,6 +1,6 @@
 <%# no spaces here %>
 <%- labels_refs.in_groups_of(50, false) do |grp| -%>
-<img style="clear: both; padding: 10px;" src="http://chart.apis.google.com/chart?
+<img style="clear: both; padding: 10;" src="http://chart.apis.google.com/chart?
 &amp;cht=bhs
 &amp;chxt=y,x
 &amp;chs=250x<%= (grp.size.to_i * 16 > 1000) ? "1000" : (grp.size.to_i * 16) + 20 -%>

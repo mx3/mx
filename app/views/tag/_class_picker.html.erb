@@ -1,6 +1,6 @@
 <%= form_tag({:action => 'list_by_keyword'}) do -%>
   List by keyword:
-  <%= render :partial => "shared/picker", :locals => {
+  <%= render :partial => 'shared/picker', :locals => {
     :controller => 'keyword',
     :object => 'keyword',
     :method => 'id',

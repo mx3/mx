@@ -1,9 +1,9 @@
-<%= content_tag :li, "<span style='color: silver;'>List</span>" -%>
+<%= content_tag :li, 'List', :class => 'link_section' -%>
 <%= content_tag :li, link_to('detailed list', :action => 'list_states') -%>
 <%= content_tag :li, link_to('by group ', :action => 'list_by_char_group') -%>
 <%= content_tag :li, link_to('not in matrices ', :action => 'list_chars_not_in_matrices') -%>
 <%= content_tag :li, link_to('document export all', :action => 'doc_export') -%>
 <%= content_tag :li, link_to('all / sort', :action => 'list_all') -%>
-<%= content_tag :li, "<span style='color: silver;'>Recent changes</span>" -%>
+<%= content_tag :li, 'List', :class => 'link_section' -%>
 <%= content_tag :li, link_to('by character', :action => 'list_recent_changes_by_chr') -%>
 <%= content_tag :li, link_to('by state', :action => 'list_recent_changes_by_chr_state') -%>

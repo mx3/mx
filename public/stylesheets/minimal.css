@@ -12,7 +12,7 @@ img { border: none; }
 ul { list-style-type: disc; }
 
 
-/************ Page Structure (the layout for all private pages)  ************/
+/************ Page Structure (the layout for all private pages) ï¿½************/
 
 #header { 
  border-style: none none solid; 
@@ -55,7 +55,7 @@ div.box4 .content { margin: .2em; padding: .4em; }
 
 /*********** IMAGES / FIGURES ***********/
 .browse_rec {
- height: 240px;
+ height: 240;
  float: left;
  padding: 0.5em;
  border: 1px solid gray;
@@ -64,15 +64,15 @@ div.box4 .content { margin: .2em; padding: .4em; }
  white-space: nowrap;
 }
 
-.fig { background-color:#ffc; margin:0.3em; padding:0.5em; float: left; border:1px solid gray; min-height: 175px; min-width: 160px; font-size: 10px;}
+.fig { background-color:#ffc; margin:0.3em; padding:0.5em; float: left; border:1px solid gray; min-height: 175px; min-width: 160; font-size: 10;}
 .fig .image {text-align: center; margin-left: auto; margin-right:auto;}
 .fig a:hover { text-decoration: none; border-bottom: 0 none }
 .attached_figs {
 	clear: right;
-	padding-top: 10px;
+	padding-top: 10;
 } /* changed from both */
 .fig_edit {
- height: 260px;
+ height: 260;
  float: left;
  padding: 0.5em;
  border: 1px solid gray;

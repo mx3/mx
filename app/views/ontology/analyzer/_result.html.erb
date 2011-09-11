@@ -21,14 +21,14 @@
 <div style="width: 100%;">
   <% @l.link_set(:exclude_blank_descriptions => true).sort{|a,b| a.name <=> b.name}.each_with_index do |l,i| -%>
     <div style="padding:0.5em;" class="<%= (i % 2 == 0 ? 'stripe' : "") -%>" > <!-- 1-->
-      <div style="float:left;width:150px;"><%= l.display_name -%></div><!-- 2 /2 -->
+      <div style="float:left;width:150;"><%= l.display_name -%></div><!-- 2 /2 -->
       <div style="float: left; width:755px;"><!-- 3 -->
         <% l.ontology_classes.each do |oc| -%>
           <div style="padding-bottom:0.5em;"><!-- 4 -->
-            <div style="float: left; width:500px;"> <!-- 5 -->
+            <div style="float: left; width:500;"> <!-- 5 -->
               <%= oc.display_name -%>
             </div>
-            <div style="float: left; width: 250px;"><!-- 6 -->
+            <div style="float: left; width: 250;"><!-- 6 -->
               <%= Ontology::OntologyMethods.obo_uri(oc) -%>
             </div>
           </div><!-- /4 -->
@@ -79,15 +79,15 @@
 
   <% @l.link_set(:result_type => :synonyms).each_with_index do |l, i| -%>
     <div style="padding:0.5em;"  class="<%= (i % 2 == 0 ? 'stripe' : "") -%>" > <!-- 1-->
-      <div style="float:left;width:150px;"><%= l.display_name -%></div><!-- 2 /2 -->
+      <div style="float:left;width:150;"><%= l.display_name -%></div><!-- 2 /2 -->
       <div style="float: left; width:755px;"><!-- 3 -->
         <% l.ontology_classes.each do |oc| -%>
           <div><!-- 4 -->
-            <div style="float: left; width:500px;"> <!-- 5 -->
+            <div style="float: left; width:500;"> <!-- 5 -->
               <%= oc.display_name -%>
             </div>
 
-            <div style="float: left; width: 250px;"><!-- 6 -->
+            <div style="float: left; width: 250;"><!-- 6 -->
               <% oc.labels.each do |m| -%>
                 <div><%= m.display_name -%></div><!--7 -->
               <% end %>

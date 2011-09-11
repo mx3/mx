@@ -41,18 +41,7 @@ class Figure < ActiveRecord::Base
   after_update :save_figure_markers
 
   after_create :energize_add_figure
-
-  def energize_add_figure
-    if addressable_type == "OntologyClass"
-      figured_obj.labels.each do |l|
-        l.energize(creator_id, 'added a figure to a class labeled with')
-        l.save!
-      end 
-    end
-    true
-  end
-
-  after_destroy :energize_add_figure
+ after_destroy :energize_add_figure
 
   def energize_add_figure(person_id = $person_id)
     if addressable_type == "OntologyClass"

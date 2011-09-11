@@ -47,7 +47,7 @@
     <div class="header">Add a single OTU</div>
     <div class="content">
       <%= form_tag :action => 'add_otu', :id => @otu_group.id do -%>
-        <%= render :partial => "shared/picker", :locals => {
+        <%= render :partial => 'shared/picker', :locals => {
           :controller => 'otu',
           :object => 'otu',
           :method => 'id',
@@ -67,7 +67,7 @@
       <%= form_tag :action => 'combine', :id => @otu_group do -%>
 
         <%= select_tag('operation', options_for_select(['add', 'subtract'], 'add')) %>
-        <%= render :partial => "shared/picker", :locals => {
+        <%= render :partial => 'shared/picker', :locals => {
           :controller => 'otu_group',
           :object => 'group_to_find',
           :method => 'id',

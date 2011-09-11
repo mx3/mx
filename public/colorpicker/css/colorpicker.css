@@ -8,8 +8,8 @@
 	display: none;
 }
 .colorpicker_color {
-	width: 150px;
-	height: 150px;
+	width: 150;
+	height: 150;
 	left: 14px;
 	top: 13px;
 	position: absolute;
@@ -21,8 +21,8 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 150px;
-	height: 150px;
+	width: 150;
+	height: 150;
 	background: url(../images/colorpicker_overlay.png);
 }
 .colorpicker_color div div {
@@ -40,7 +40,7 @@
 	top: 13px;
 	left: 171px;
 	width: 35px;
-	height: 150px;
+	height: 150;
 	cursor: n-resize;
 }
 .colorpicker_hue div {
@@ -50,20 +50,20 @@
 	overflow: hidden;
 	background: url(../images/colorpicker_indic.gif) left top;
 	margin: -4px 0 0 0;
-	left: 0px;
+	left: 0;
 }
 .colorpicker_new_color {
 	position: absolute;
-	width: 60px;
-	height: 30px;
+	width: 60;
+	height: 30;
 	left: 213px;
 	top: 13px;
 	background: #f00;
 }
 .colorpicker_current_color {
 	position: absolute;
-	width: 60px;
-	height: 30px;
+	width: 60;
+	height: 30;
 	left: 283px;
 	top: 13px;
 	background: #f00;
@@ -72,7 +72,7 @@
 	background-color: transparent;
 	border: 1px solid transparent;
 	position: absolute;
-	font-size: 10px;
+	font-size: 10;
 	font-family: Arial, Helvetica, sans-serif;
 	color: #898989;
 	top: 4px;

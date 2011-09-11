@@ -425,7 +425,7 @@ class Mx < ActiveRecord::Base
     else
       return found
     end
-    false
+
   end
 
 
@@ -448,7 +448,7 @@ class Mx < ActiveRecord::Base
     else
       return found
     end
-    false
+
   end
   
   # as above, but returns only otu_ids, should be faster, and modifiable to return the otu
@@ -487,7 +487,7 @@ class Mx < ActiveRecord::Base
     else
       return found
     end
-    false
+
   end
 
   # show states in tnt or nexus format for a 'cell' (e.g. [ab]) 

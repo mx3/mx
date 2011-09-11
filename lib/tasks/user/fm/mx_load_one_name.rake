@@ -1,7 +1,7 @@
+#noinspection Rails3Deprecated
 def load_one_name(name, parent, iczn_group)
 
   par = TaxonName.find(:first, :conditions => ["name = ?", parent] )
-
 
   n = TaxonName.create!(
          :name => name,

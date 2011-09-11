@@ -1,7 +1,7 @@
 <table> 
   <!-- first row -->
   <tr> 
-    <td style="font-size: 10pt; min-width: 250px;"> <!-- naviagtion -->
+    <td style="font-size: 10pt; min-width: 250;"> <!-- naviagtion -->
       <table style="border-collapse: collapse; float: left;">
         <tr> <td colspan="5"> navigate  </td> </tr>
         <tr> 
@@ -66,7 +66,7 @@
       <table style="text-align: right; width: 100%; position:relative; top: 9px;">   
         <tr><td style="min-width: <%= @total_chrs / 2 > 180 ? @total_chrs / 2 : 180 -%>px;height:18px; line-height:18px; ">&nbsp;</td></tr>
         <tr><td style="">&nbsp;</td></tr>
-        <% @mx[:otus].each do |o| -%><tr><td style="height:18px; line-height:18px; vertical-align: middle; padding: 0px; margin: 0px; border: 0px;"><%= o.display_name(:type => :matrix_name) -%><span style="color: silver; font-weight: bolder; margin-left: 8px;"><%= link_to_remote "~", :url => {:action => :_otu_zoom, :otu_id => o.id, :id => @matrix.id} -%> </span> </td></tr> <% end -%> 
+        <% @mx[:otus].each do |o| -%><tr><td style="height:18px; line-height:18px; vertical-align: middle; padding: 0; margin: 0; border: 0;"><%= o.display_name(:type => :matrix_name) -%><span style="color: silver; font-weight: bolder; margin-left: 8px;"><%= link_to_remote "~", :url => {:action => :_otu_zoom, :otu_id => o.id, :id => @matrix.id} -%> </span> </td></tr> <% end -%>
       </table>  
     </td>
 
@@ -88,7 +88,7 @@
    <tr>
      <td>
       <!-- Radar, to evolve -->
-      <div id='radar' style="float:right; margin-right:10px; margin-top: 10px;">
+      <div id='radar' style="float:right; margin-right:10; margin-top: 10;">
         <!--[if IE]>
           get Firefox
         <![endif]-->
@@ -99,7 +99,7 @@
     </td>
     
     <td><!-- vertical character text -->
-      <div style="margin-left: 0px;">
+      <div style="margin-left: 0;">
         <!--[if IE]>
           get Firefox
         <![endif]-->

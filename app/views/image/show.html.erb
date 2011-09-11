@@ -1,6 +1,6 @@
 <% @show.collect{|s| render :partial => (s)} -%>
 <div id="inner_wrapper">
-  <div id="inner_container" <%= 'style="padding-right: 0px;"' if @no_right_col %>>
+  <div id="inner_container" <%= 'style="padding-right: 0;"' if @no_right_col %>>
     <div id="inner_center" class="column">  
         <%= yield :center -%>
     </div>
@@ -10,7 +10,7 @@
       <%= yield :left -%>
     </div>
 
-    <div id="inner_right" class="column" <%= 'style="width: 0px; margin-right: 0px;"' if @no_right_col %> >
+    <div id="inner_right" class="column" <%= 'style="width: 0; margin-right: 0;"' if @no_right_col %> >
        <%= yield :right -%>
     </div> 
   </div>

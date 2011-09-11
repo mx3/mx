@@ -3,8 +3,8 @@
     <% @all_states_eliminated = ChrState.find(@mk.chosen_states, :include => :chr) %>
     <% if @size_chrs_elim > 0 -%>
       <% for s in  @all_states_eliminated -%>
-        <div style="margin: .1em 0em; padding: 5px">
-          <span class="no_decision" style="padding: 0em .2em; "><%= s.chr.display_name -%></span>
+        <div style="margin: .1em 0; padding: 5px">
+          <span class="no_decision" style="padding: 0 .2em; "><%= s.chr.display_name -%></span>
           : <%= s.name  -%> 
           &nbsp; <span class="small_grey">(<%= link_to("remove", :action => 'remove_state', :id => s.id) %>)</span>
         </div>

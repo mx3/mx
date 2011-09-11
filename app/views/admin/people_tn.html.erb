@@ -9,7 +9,7 @@
 <%= form_tag :action => 'people_tn', :id => @person do -%>
   <div class="fr">
     <label class="lbl4">Add a name: </label>
-    <span class="fld"><%= render :partial => "shared/picker", :locals => {
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
         :controller => 'taxon_name',
         :object => 'name_to_add',
         :method => 'id',

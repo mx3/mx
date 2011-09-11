@@ -54,7 +54,7 @@ function changeDate(y,m,d) {
         <% else -%>
          
           <div class="fr"> <label for="otu_name" class="lbl4">OTU</label>
-            <span class="fld"> <%= render :partial => "shared/picker", :locals => {
+            <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
               :controller => 'otu',
               :object => 'specimen_determination',
               :method => 'otu_id',
@@ -89,7 +89,7 @@ function changeDate(y,m,d) {
       <div class="accordion_content">
         
         <div class="fr"><label for="repository_name" class="lbl4">Repository</label> <span class="fld">
-          <%= render :partial => "shared/picker", :locals => {
+          <%= render :partial => 'shared/picker', :locals => {
               :controller => 'repository',
               :object => 'specimen',
               :method => 'repository_id',

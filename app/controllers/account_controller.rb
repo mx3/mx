@@ -1,7 +1,7 @@
 class AccountController < ApplicationController
 
   # override method from LoginSystem to allow users to login
-  # signup must be done by a registerd user at the moment
+  # signup must be done by a registered user at the moment
   def protect?(action)
     if ['login'].include?(action)
       return false

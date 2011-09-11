@@ -1,7 +1,7 @@
 <% content_for(:center) do -%>
   <table> 
     <tr>
-      <td style="width: 280px; padding-right: 20px;">
+      <td style="width: 280; padding-right: 20;">
 
         <div style="text-align: center;border: 1px dotted silver; margin: 2px; padding: 2px; font-size:smaller; color: gray;" >
           move (without saving): <%= link_to('left', :action => :show_code, :id => @mx.id, :chr_id => @adjacent_cells[:left][0], :otu_id => @adjacent_cells[:left][1]) -%>
@@ -36,7 +36,7 @@
                    <% end -%> 
 
                   <%- if @confidences.size > 0 -%>
-                    <div style="background-color: #eeeeee; padding: 2px; margin: 2px 0px; text-align: center;">
+                    <div style="background-color: #eeeeee; padding: 2px; margin: 2px 0; text-align: center;">
                      <span style="color: gray; font-size: smaller;">confidence</span> 
                       <%= select("coding",  'confidence_id', @confidences.collect {|p| [ p.name, p.id ] }, {:include_blank => true,}, { :name => "confidence[#{state.id}]", :style => 'font-size: smaller; color: red;'}) -%>
                    </div>

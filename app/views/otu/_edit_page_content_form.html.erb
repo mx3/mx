@@ -7,7 +7,7 @@
         <div class="header">
             <div style="float:right; display: inline; font-size: smaller;">
            
-              <div style="display: inline; border-right: 1px solid silver; padding:0px 2px; margin-right: 4px;"> 
+              <div style="display: inline; border-right: 1px solid silver; padding:0 2px; margin-right: 4px;">
                 <label for="content_<%= content_type.id -%>_is_image_box" >Images only?</label>
                 <% if con -%>
                   <input style="" <%= con.is_image_box == true ? 'checked="checked"' : '' -%> id="<%= "content_#{content_type.id}_is_image_box" -%>"  name="content[<%= content_type.id %>][is_image_box]" value="<%= con.is_image_box == true ? '1' : '0' -%>"  type="checkbox" /> 
@@ -61,7 +61,7 @@
     <div class="box4">
       <div class="header"> Other editing options </div>
       <div class="content">
-        <ul style="list-style-type: disc;margin-left:-10px;">
+        <ul style="list-style-type: disc;margin-left:-10;">
         <li> Use <%= link_to('Redcloth', 'http://redcloth.org') -%> markup - and see the wiki-help link for more information on editing content. </li>
         <li> Link to another OTU page: <br /> <p> &lt;otu id="123"&gt; Foo taxon &lt;/otu&gt; </p> </li>
         <li> Link to a reference in mx: <br /> <p> &lt;ref id="123"&gt; your text &lt;/ref&gt; </p>  <%= link_to "Generate a reference link", {:controller => 'ref', :action => 'link_search'}, :target => "_blank" %></li>

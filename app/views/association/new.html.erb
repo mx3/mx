@@ -3,7 +3,7 @@
 = form_tag :action => 'create' do %>
 
   <p><label for="first_otu_name">First OTU</label><br/>
-    <%= render :partial => "shared/picker", :locals => {
+    <%= render :partial => 'shared/picker', :locals => {
                   :controller => 'otu',
                   :object => 'part1',
                   :method => 'otu_id',

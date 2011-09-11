@@ -48,7 +48,7 @@ class Keyword < ActiveRecord::Base
       when :simple
        self.keyword 
      else # :list 
-       html_color.blank? ? keyword : "<span style=\"background: ##{html_color}; padding: 0px .2em;\">#{keyword}</span>"  
+       html_color.blank? ? keyword : "<span style=\"background: ##{html_color}; padding: 0 .2em;\">#{keyword}</span>"
      end
   end
   

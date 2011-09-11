@@ -8,7 +8,7 @@
 
     <%= form_tag(:remote => true, :url => {:action => :search, :controller => 'public/ontology/parts'}) do %>
       <div class="fr"><label for="search_ontology_class_id" >Search</label><span class="fld">
-          <%= render :partial => "shared/picker", :locals => {
+          <%= render :partial => 'shared/picker', :locals => {
           :controller => 'ontology_class',
           :object => 'search',
           :size => 80,

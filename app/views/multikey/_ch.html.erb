@@ -1,5 +1,5 @@
 <%# label header for character links, with link to show figures if there %>
-<div class="no_decision" style="margin: .2em 0em; padding: .2em; clear: both;">
+<div class="no_decision" style="margin: .2em 0; padding: .2em; clear: both;">
   <span style="float: right; background: #FF9933; padding: 0 .2em;"><%= link_to('?', :action => 'show', :controller =>'chr', :id => ch) -%></span>
   <% if  @mk.figures_by_chr(ch.id.to_i).size > 0 -%>
   <span class="small_grey" style="float:right; margin: 0 .2em;">

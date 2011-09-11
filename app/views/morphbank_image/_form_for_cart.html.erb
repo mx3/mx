@@ -1,7 +1,7 @@
 <%= form_remote_tag  :loading => "Element.show('otu_spinner')", :complete => "Element.hide('otu_spinner')", :url => {:controller => :morphbank_image, :action => :_set_otu_for_mb_cart} do -%>
   <div class="fr"> <label for="keywords" class="lbl4">Attach images to OTU:</label>
     <span class="fld">
-      <%= render :partial => "shared/picker", :locals => {
+      <%= render :partial => 'shared/picker', :locals => {
         :controller => 'otu',
         :object => 'otu',
         :method => 'id',

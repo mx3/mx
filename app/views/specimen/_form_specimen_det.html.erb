@@ -1,7 +1,7 @@
 <p><i> If both OTU and raw text are filled OTU will over-ride.</i></p>
 
    <div class="fr"> <label for="otu_name" class="lbl4">OTU</label>
-     <span class="fld">      <%= render :partial => "shared/picker", :locals => {
+     <span class="fld">      <%= render :partial => 'shared/picker', :locals => {
         :controller => 'otu',
         :object => 'specimen_determination',
         :method => 'otu_id',
@@ -21,7 +21,7 @@
         page["specimen_determination_det_on_1i"].value = Date.today.year
         page["specimen_determination_det_on_2i"].selectedIndex = Date.today.month
         page["specimen_determination_det_on_3i"].selectedIndex = Date.today.day
-      end -%>
+      end -%></span>
     </div>
     
     <div class="fr"> <label for="specimen_determined_by" class="lbl4">Determined by</label>

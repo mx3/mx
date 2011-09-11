@@ -37,8 +37,8 @@
             <span class="links">Logged in as <%= session[:person].login -%>
               (<%= link_to 'logout', :controller => '/account', :action => :logout -%> |
               <%= link_to "my preferences", :action => 'preferences', :controller => 'person' -%> |
-              <span style="background: #F7B346; padding: 0px 2px 0px 2px; border: 1px;"><%= wiki_help_link -%></span> |
-              <span style="background: #D7D435; padding: 0px 2px 0px 2px; border: 1px;"><%= link_to('SF', 'https://sourceforge.net/tracker/?group_id=175927', :target => "_blank") -%></span>)
+              <span style="background: #F7B346; padding: 0 2px 0 2px; border: 1px;"><%= wiki_help_link -%></span> |
+              <span style="background: #D7D435; padding: 0 2px 0 2px; border: 1px;"><%= link_to('SF', 'https://sourceforge.net/tracker/?group_id=175927', :target => "_blank") -%></span>)
             </span>
           </div>
         <% end -%>

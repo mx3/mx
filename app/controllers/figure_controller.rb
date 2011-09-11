@@ -151,8 +151,8 @@ class FigureController < ApplicationController
     end 
   
     # this far? bad
-    flash[:notice] = 'Problem with adding figure!'
-    redirect_to :action => :list
+    #flash[:notice] = 'Problem with adding figure!'
+    # redirect_to :action => :list
   end
   
   def edit

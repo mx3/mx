@@ -2,7 +2,7 @@
 class Api::TaxonNameController < ApplicationController
 
   def index
-    redirect_to "http://#{HELP_WIKI}/index.php/App/API/TaxonName" and return
+    redirect_to "http://#{HELP_WIKI}/index.php/App/API/TaxonName"
   end
 
   def show

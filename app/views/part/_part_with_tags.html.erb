@@ -1,9 +1,0 @@
-<div>
-  <div style="padding: 2px;">
-  <%= link_to part_with_tags.display_name, :action => :show_term , :id => part_with_tags.id, :controller => :ontology -%> 
-  </div>
-
-  <div style="clear:both; padding: 2px;">
-    <%= part_with_tags.tags.collect{|t| content_tag :div, link_to(t.display_name, :action => :show, :id => t.id, :controller => :tag), :style => "padding: 2px;" } -%>
-  </div>
-</div>

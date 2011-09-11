@@ -1,6 +1,6 @@
 <div class='navigator'>
   
-  <%= navigator(@chr,  session['chr_view'], "position") %>
+  <%= navigator2(:obj => @chr, :do =>  session['chr_view'], :ord => "position") %>
 
   <%# the links to various views, should likely show them versus hidden tabs or not !! %>
   <div class="item"> <%= session['chr_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @chr.id)  %> </div>  

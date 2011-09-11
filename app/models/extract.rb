@@ -129,7 +129,7 @@ class Extract < ActiveRecord::Base
     else
       return false 
     end
-    false
+
   end
 
   def tied_determination # :yields: String

@@ -241,7 +241,7 @@ class Linker
 
     rows = [['label', 'concept', 'URI']]
 
-    link_set(opt).sort{|a,b| a.name <=> b.name}.each_with_index do |l, i|
+    link_set(opt).sort{|a,b| a.name <=> b.name}.each do |l|
 
       row_head = l.display_name
 

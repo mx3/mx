@@ -30,7 +30,7 @@
             <%= link_to("delete", {:action => 'destroy', :controller => "association_support", :id => @s.id, :association_id => @s.association_id}, :method => "post" ) -%>
           </td>
           <td>
-            <div class="subform" style ="font-size: 87%; width: 280px;">
+            <div class="subform" style ="font-size: 87%; width: 280;">
               <%= form_tag(:action => 'move', :controller => 'association_support') do -%>
                 <%= hidden_field('support','id', :value => @s.id) -%>
                  move to association: <%= render :partial => "association/picker", :locals => {:c_name => 'move', :f_name => 'id'} -%> 

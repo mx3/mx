@@ -77,6 +77,5 @@ module SeqHelper
       # return "error: " + otu_id.to_s + " " + gene_id.to_s + " " + @proj.id.to_s     
       #end
 
-    'foo is a status'
   end
 end

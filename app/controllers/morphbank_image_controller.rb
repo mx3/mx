@@ -1,7 +1,7 @@
 include RubyMorphbank
 
 class MorphbankImageController < ApplicationController
-  verify :method => :post, :only => [ :destroy, :create, :update ],
+  verify :method => :post, :only => [ :create, :update ],
     :redirect_to => { :action => :list }
 
   def new

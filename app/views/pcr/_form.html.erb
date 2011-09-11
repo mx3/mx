@@ -3,7 +3,7 @@
 <!--[form:pcr]-->
 
 <div class="fr"> <label for="pcr_extract_id" class="lbl4">Extract</label>
-  <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+  <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
       :controller => 'extract',
       :object => 'pcr',
       :method => 'extract_id',
@@ -13,7 +13,7 @@
 </div>
 
 <div class="fr"> <label for="pcr_fwd_primer_id" class="lbl4">Forward primer</label>
-  <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+  <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
       :controller => 'primer',
       :object => 'pcr',
       :method => 'fwd_primer_id',
@@ -23,7 +23,7 @@
 </div>
 
 <div class="fr"> <label for="pcr_rev_primer_id" class="lbl4">Reverse primer</label>
-  <span class="fld">  <%= render :partial => "shared/picker", :locals => {
+  <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
       :controller => 'primer',
       :object => 'pcr',
       :method => 'rev_primer_id',
@@ -74,7 +74,7 @@
 
 <div class="fr"> <label for="pcr_confidence_id" class="lbl4">Confidence/result</label>
   <span class="fld">  
-    <%= render :partial => "shared/picker", :locals => {
+    <%= render :partial => 'shared/picker', :locals => {
       :controller => 'confidence',
       :object => 'pcr',
       :method => 'confidence_id',

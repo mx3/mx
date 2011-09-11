@@ -102,7 +102,7 @@
           Ajaxify.request($e, request_opts);
           evt.preventDefault();
         });
-      },
+      }
     };
 
     if (!this.length) {   return this; }

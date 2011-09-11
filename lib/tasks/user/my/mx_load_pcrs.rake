@@ -43,7 +43,7 @@ namespace :mx do
 
     begin
     Pcr.transaction do 
-      pcrs.each_with_index do |r,i|
+      pcrs.each do |r|
           p = Pcr.new(:extract_id => r[0], :fwd_primer_id => r[1], :rev_primer_id => r[2], :protocol_id => r[3], :notes => ("#{r[7]} " + (r[5] == nil ? "" : "[BJSid:  #{r[5]}]" ))   )
          # puts "#{p.protocol.display_name}\n"
           if r[0] == "00000"

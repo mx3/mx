@@ -5,10 +5,9 @@ require 'tempfile'
 $USAGE = 'Call like: "rake mx:load_languages file=db/languages.txt RAILS_ENV=production"' + "\nFile contents (languages.txt) should be EXACT content at http://www.iana.org/assignments/language-subtag-registry, including the header lines."
 
 def load_meta(f)
-  meta = []
-  raise "Unable to read from file '#{f}'" if not File.readable?(f)   
+  raise "Unable to read from file '#{f}'" if not File.readable?(f)
   meta = IO.read(f).split(/%%/m)
-  meta
+  meta ||= []
 end
 
 def new_language(meta)

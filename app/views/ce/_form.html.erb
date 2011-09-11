@@ -13,7 +13,7 @@ function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the
 
     var dt = ""; 
     if ((document.ce_form.ce_sd_y.value ==  document.ce_form.ce_ed_y.value) && ( document.ce_form.ce_sd_y.value.length > 0)) { // shared year and both values filled
-      dt =  document.ce_form.ce_sd_d.value + "-" + document.ce_form.ce_ed_d.value + "."
+      dt =  document.ce_form.ce_sd_d.value + "-" + document.ce_form.ce_ed_d.value + ".";
       if (document.ce_form.ce_sd_m.value == document.ce_form.ce_ed_m.value) { // same month
         dt = dt + document.ce_form.ce_sd_m.value + ".";
       } else {
@@ -37,7 +37,7 @@ function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the
 
     }
 
-    var elev = document.ce_form.ce_elev_min.value
+    var elev = document.ce_form.ce_elev_min.value;
       if (document.ce_form.ce_elev_min.value.length > 0) {
         elev = elev + '-' + document.ce_form.ce_elev_max.value  }
     if (document.ce_form.ce_elev_unit.value == 'meters') {
@@ -78,7 +78,7 @@ function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the
 </script>
 
 <div>
-<div style="width: 500px; float: left;">
+<div style="width: 500; float: left;">
 <div class="header"> Common fields </div> 
 
 <div class="fr"><label for="ce_geography">Geography</label>
@@ -95,39 +95,39 @@ function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the
   </div>
 
   <div class="fr"><label for="ce_start_date">Start Date</label>
-  <span class="fld"> 
-  <div style="float:left;"> <label for="ce_sd_d" style="color:gray;width:auto;margin:0px 4px;">Day </label><%= text_field 'ce', 'sd_d' , :size => 2 %> </div>
-  <div style="float:left;"> <label for="ce_sd_m" style="color:gray;width:auto;margin:0px 4px;">Month </label><%= text_field 'ce', 'sd_m' ,:size => 2 %></div>
-  <div style="float:left;"> <label for="ce_sd_y" style="color:gray;width:auto;margin:0px 4px;">Year </label><%= text_field 'ce', 'sd_y', :size => 4 %></div>
+  <div class="fld"> 
+  <div style="float:left;"> <label for="ce_sd_d" style="color:gray;width:auto;margin:0 4px;">Day </label><%= text_field 'ce', 'sd_d' , :size => 2 %> </div>
+  <div style="float:left;"> <label for="ce_sd_m" style="color:gray;width:auto;margin:0 4px;">Month </label><%= text_field 'ce', 'sd_m' ,:size => 2 %></div>
+  <div style="float:left;"> <label for="ce_sd_y" style="color:gray;width:auto;margin:0 4px;">Year </label><%= text_field 'ce', 'sd_y', :size => 4 %></div>
   <br style ="clear: both;" />
-  </span>
+  </div>
   </div>
 
   <div class="fr"><label for="ce_end_date">End Date</label>
-  <span class="fld"> 
-  <div style="float:left;"> <label for="ce_ed_d" style="color:gray;width:auto;margin:0px 4px;">Day </label><%= text_field 'ce', 'ed_d' , :size => 2 %> </div>
-  <div style="float:left;"> <label for="ce_ed_m" style="color:gray;width:auto;margin:0px 4px;">Month </label><%= text_field 'ce', 'ed_m' ,:size => 2 %></div>
-  <div style="float:left;"> <label for="ce_ed_y" style="color:gray;width:auto;margin:0px 4px;">Year </label><%= text_field 'ce', 'ed_y', :size => 4 %></div>
+  <div class="fld"> 
+  <div style="float:left;"> <label for="ce_ed_d" style="color:gray;width:auto;margin:0 4px;">Day </label><%= text_field 'ce', 'ed_d' , :size => 2 %> </div>
+  <div style="float:left;"> <label for="ce_ed_m" style="color:gray;width:auto;margin:0 4px;">Month </label><%= text_field 'ce', 'ed_m' ,:size => 2 %></div>
+  <div style="float:left;"> <label for="ce_ed_y" style="color:gray;width:auto;margin:0 4px;">Year </label><%= text_field 'ce', 'ed_y', :size => 4 %></div>
   <br style ="clear: both;" />
-  </span>
+  </div>
   </div>
 
   <div class="fr"><label for="ce_time">Time</label>
-  <span class="fld"> 
-  <div style="float:left;"> <label for="ce_time_start" style="color:gray;width:auto;margin:0px 4px;">Start</label><%= text_field 'ce', 'time_start' , :size => 6 %> </div>
-  <div style="float:left;"> <label for="ce_time_end" style="color:gray;width:auto;margin:0px 4px;">End </label><%= text_field 'ce', 'time_end' ,:size => 6 %></div>
-  &nbsp;<span class="small_grey">hh:mm:ss or hh:mm, 24hr format <span>
+  <div class="fld">
+  <div style="float:left;"> <label for="ce_time_start" style="color:gray;width:auto;margin:0 4px;">Start</label><%= text_field 'ce', 'time_start' , :size => 6 %> </div>
+  <div style="float:left;"> <label for="ce_time_end" style="color:gray;width:auto;margin:0 4px;">End </label><%= text_field 'ce', 'time_end' ,:size => 6 %></div>
+  &nbsp;<span class="small_grey">hh:mm:ss or hh:mm, 24hr format </span>
   <br style ="clear: both;" />
-  </span>
+  </div>
   </div>
 
   <div class="fr"><label for="ce_elevation">Elevation</label>
-  <span class="fld"> 
-  <div style="float:left;"><label for="ce_elev_min"  style="color:gray;width:auto;margin:0px 4px;">Min</label><%= text_field 'ce', 'elev_min', 'title' => 'minimum elevation', :size => 5  %></div>
-  <div style="float:left;"><label for="ce_elev_max"  style="color:gray;width:auto;margin:0px 4px;">Max </label><%= text_field 'ce', 'elev_max', 'title' => 'maximum elevation', :size => 5 %></div>
-  <div style="float:left;"><label for="ce_elev_unit" style="color:gray;width:auto;margin:0px 4px;">Units </label><%= select('ce', 'elev_unit', ['meters', 'feet']) %></div>
+  <div class="fld"> 
+  <div style="float:left;"><label for="ce_elev_min"  style="color:gray;width:auto;margin:0 4px;">Min</label><%= text_field 'ce', 'elev_min', 'title' => 'minimum elevation', :size => 5  %></div>
+  <div style="float:left;"><label for="ce_elev_max"  style="color:gray;width:auto;margin:0 4px;">Max </label><%= text_field 'ce', 'elev_max', 'title' => 'maximum elevation', :size => 5 %></div>
+  <div style="float:left;"><label for="ce_elev_unit" style="color:gray;width:auto;margin:0 4px;">Units </label><%= select('ce', 'elev_unit', ['meters', 'feet']) %></div>
   <br style ="clear: both;" />
-  </span>
+  </div>
   </div>
 
   <div class="fr">  <label for="ce_collectors">Collector(s)</label>
@@ -147,8 +147,8 @@ function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the
   <div class="header"> Georeferencing </div> 
   <div class="fr"><label for="ce_cords">Verbatim</label>
   <span class="fld">
-  <div style="float: left;"> <label for="ce_dc_verbatim_latitude" style="color:gray;width:auto;margin:0px 4px;">Latitude</label> <%= text_field 'ce', 'dc_verbatim_latitude', 'title' => 'verbatim latitude from label', :size => 12 %></div>
-  <div style="float: left;"> <label for="ce_dc_verbatim_longitude" style="color:gray;width:auto;margin:0px 4px;">Longitude</label> <%= text_field 'ce', 'dc_verbatim_longitude', 'title' => 'verbatim latitude from label', :size => 12  %></div>
+  <div style="float: left;"> <label for="ce_dc_verbatim_latitude" style="color:gray;width:auto;margin:0 4px;">Latitude</label> <%= text_field 'ce', 'dc_verbatim_latitude', 'title' => 'verbatim latitude from label', :size => 12 %></div>
+  <div style="float: left;"> <label for="ce_dc_verbatim_longitude" style="color:gray;width:auto;margin:0 4px;">Longitude</label> <%= text_field 'ce', 'dc_verbatim_longitude', 'title' => 'verbatim latitude from label', :size => 12  %></div>
   <br style="clear:both;" />
   </span>
   </div>
@@ -156,8 +156,8 @@ function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the
   <div class='fr'><span class="fld small_grey">Determined GPS or map coordinates in <strong>decimal degrees</strong>. Note: western longitudes (e.g. USA), and southern latitudes (e.g. Australia) are negative.</span> </div>
   <div class="fr"><label for="ce_cords">Determined</label>
   <span class="fld">
-  <div style="float: left;"><label for="ce_latitude" style="color:gray;width:auto;margin:0px 4px;">Latitude</label>  <%= text_field 'ce', 'latitude', 'title' => 'North/South, 90 to -90 degrees', :size => 12 %></div>
-  <div style="float: left;"><label for="ce_longitude" style="color:gray;width:auto;margin:0px 4px;">Longitude</label>  <%= text_field 'ce', 'longitude', 'title' => 'East/West, 180 to -180 degrees', :size => 12  %>  </div>
+  <div style="float: left;"><label for="ce_latitude" style="color:gray;width:auto;margin:0 4px;">Latitude</label>  <%= text_field 'ce', 'latitude', 'title' => 'North/South, 90 to -90 degrees', :size => 12 %></div>
+  <div style="float: left;"><label for="ce_longitude" style="color:gray;width:auto;margin:0 4px;">Longitude</label>  <%= text_field 'ce', 'longitude', 'title' => 'East/West, 180 to -180 degrees', :size => 12  %>  </div>
   <br style="clear:both;" />
   </span>
   </div>
@@ -206,7 +206,7 @@ function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the
   <br style="clear:both;" />
   </div>
 
-  <div style="width: 400px; float: left; padding-left:0.5em;">
+  <div style="width: 400; float: left; padding-left:0.5em;">
 
   <div class="header"> Labels </div> 
 

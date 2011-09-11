@@ -60,7 +60,7 @@ module App::DisplayHelper
   # maybe a Table helper?
   # renders a table row of column headers
   # if you pass a hash you pass 'name' and 'class' and /or 'style' (include ";" in your style!)
-  # like {'name' => 'foo', 'style' => 'bar: 0px;', 'class' => 'blorf'}
+  # like {'name' => 'foo', 'style' => 'bar: 0;', 'class' => 'blorf'}
   def t_col_heads(heads)
     html =   "<tr>" + heads.collect{|c| c.class.to_s == 'Hash' ?
         ("<th " +

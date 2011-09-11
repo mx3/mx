@@ -6,7 +6,7 @@
   <div>
     <%= form_tag :remote => true, :loading => "Element.show('tree_spinner')", :complete => "Element.hide('tree_spinner')", :url => {:action => :_tree_set_root, :controller => :ontology}, :update => :tree do  -%>
     <label for="ontology_part_id"> Root concept</label>
-        <span class="fld"><%= render :partial => "shared/picker", :locals => {    
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
           :controller => 'ontology_class',
           :object => 'ontology_class',
           :method => 'id',

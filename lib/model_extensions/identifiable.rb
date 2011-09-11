@@ -5,8 +5,8 @@ module ModelExtensions
     def self.included(base)
       base.class_eval do
 
-        tn = self.table_name                        # like otus
-        cn = self.table_name.singularize.capitalize # like Otu
+        # tn = self.table_name                        # like otus
+        # cn = self.table_name.singularize.capitalize # like Otu
 
         has_many :identifiers, :as => :addressable, :dependent => :destroy, :before_add => :validate_identifier
         has_many :identifier_namespaces, :through => :identifiers, :source => :namespace

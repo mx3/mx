@@ -22,9 +22,9 @@
   end %>
  <%= spinner_tag('move_spinner') -%>
 
-<table style="margin-left: 10em;">
+<table style="margin-left: 10;">
     <tr>
-        <th style="width: 20em;"><label for="author_last_name">Last name</label></th>
+        <th style="width: 20;"><label for="author_last_name">Last name</label></th>
         <th style="width: 15em;"><label for="author_first_name">First name</label></th>
         <th style="width: 8em;"><label for="author_initials">Initials</label></th>
         <th><label for="author_is">Is</label></th><th>&nbsp;</th>
@@ -50,7 +50,7 @@
 <%= text_field 'ref', 'title', 'title' => 'reference title', :size => 100  -%></p>
 
 <p><label for="ref_serial_id">Serial</label><br />
-<%= render :partial => "shared/picker", :locals => {
+<%= render :partial => 'shared/picker', :locals => {
     :controller => 'serial',
 		:object => 'ref',
 		:method => 'serial_id',
@@ -71,7 +71,7 @@
 <p>Reference type: <%= f.select 'ref_type', Ref.valid_reference_types, { :include_blank => true }  -%></p>
 	
 <p><label for="ref_language_id">Language</label>
-<%= render :partial => "shared/picker", :locals => {
+<%= render :partial => 'shared/picker', :locals => {
     :controller => 'language',
 		:object => 'ref',
 		:size => 50,

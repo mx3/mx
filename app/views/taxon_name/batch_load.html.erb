@@ -12,7 +12,7 @@ Results will display and you will be asked to confirm the load. During confirmat
 
 	<div class="fr"> 
 		<label class="lbl4">parent taxon taxon (sets for all) <i>required</i> </label> 
-		<span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+		<span class="fld">	<%= render :partial => 'shared/picker', :locals => {
 			:controller => 'taxon_name',
 			:object => 'taxon_name',
 			:method => 'parent_id',
@@ -28,7 +28,7 @@ Results will display and you will be asked to confirm the load. During confirmat
 
 		<div class="fr">
 			<label class="lbl4">reference (sets for all) </label>
-			<span class="fld"><%= render :partial => "shared/picker", :locals => {    
+			<span class="fld"><%= render :partial => 'shared/picker', :locals => {
 				:controller => 'ref',
 				:object => 'taxon_name',
 				:method => 'ref_id',

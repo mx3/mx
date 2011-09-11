@@ -1,4 +1,4 @@
-<div class="popupform" style="width: 700px;" id="fp_<%= "#{@obj.class.to_s}_#{@obj.id}" %>">
+<div class="popupform" style="width: 700;" id="fp_<%= "#{@obj.class.to_s}_#{@obj.id}" %>">
   <div style="padding-bottom:15px;">
     <span class="small_form_button" style="float: right;" >
       <%= link_to_remote("cancel/close", :url => { :action => 'cancel_from_popup', :controller => 'figure', :fig_obj_class => @obj.class, :fig_obj_id => @obj.id}    ) -%>

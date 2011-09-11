@@ -1,6 +1,6 @@
   <% form_remote_tag :url => {:action => :list_simple_with_tags}, :loading => "Element.show('keyword_spinner')", :complete => "Element.hide('keyword_spinner')"  do -%>
       <div class="fr"><label for="keyword_keyword_id" class="lbl4">Keyword</label>
-        <span class="fld"><%= render :partial => "shared/picker", :locals => {
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
           :controller => 'keyword',
           :object => 'kw',
           :method => 'id',

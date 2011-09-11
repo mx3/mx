@@ -1,6 +1,6 @@
 <div >
 
-<div class="no_decision" style="font-size:larger; margin: .2em 0em; padding: .4em; clear:right;">
+<div class="no_decision" style="font-size:larger; margin: .2em 0; padding: .4em; clear:right;">
   <%= chr.display_name %> 
 </div>
 
@@ -8,7 +8,7 @@
   <% for @s in chr.chr_states -%>
     <% if @mk.ALL_STATES.include?(@s.id) -%>
     <!-- TODO: helper the logic below -->
-      <div style="float: left; margin:.0em .0em .2em .4em; padding:.1em .4em; font-size: larger;
+      <div style="float: left; margin:.0 .0 .2em .4em; padding:.1em .4em; font-size: larger;
         background-color:rgb(<%= ColorHelper::ranged_color(1.0 - (@mk.OTUS_BY_STATE[@s.id].size.to_f / @mk.all_otus.size.to_f) , 'green') -%>);
         <%= @mk.OTUS_BY_STATE[@s.id].size == 1 ? 'border:double gray; ' : '' -%> ">
         <% if @mk.remaining_choices.include?(@s.id) -%>
@@ -19,13 +19,13 @@
           <br style="clear: right;" />
       </div>
     <% else -%>
-      <div class="small_grey" style="float: left; margin:.0em .2em .2em .4em; padding: 0em .2em; border: .1em solid silver;"><i><%= @s.display_name -%></i></div>
+      <div class="small_grey" style="float: left; margin:.0 .2em .2em .4em; padding: 0 .2em; border: .1em solid silver;"><i><%= @s.display_name -%></i></div>
     <% end -%>
   <% end -%>
 </div>
 
 
-<div style="clear: both;margin: .5em 0em; padding: .4em;">
+<div style="clear: both;margin: .5em 0; padding: .4em;">
   <% @figures =  Figure.find(@mk.figures_by_chr(chr.id), :order => "figures.addressable_id") -%>
   <%= render :partial => 'figures' -%>
   <br style="clear: right;" />

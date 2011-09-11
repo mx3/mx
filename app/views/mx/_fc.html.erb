@@ -13,19 +13,19 @@
   <table>
     <tr>
       <!-- otu nav -->
-      <td style="width: 10px; background-color: <%= @mode =='col' ? 'rgb(243,243,243)' : 'none' -%>;">
+      <td style="width: 10; background-color: <%= @mode =='col' ? 'rgb(243,243,243)' : 'none' -%>;">
           <% @otus.each_with_index do |o, i| -%>
             <% coded = Coding.by_chr(@chr).by_otu(o).count  -%>
             <a  class="quicknavbox" style="background-color:<%= (o == @otu ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(o.display_name) -%>" href="/projects/<%= @proj.id -%>/mx/fast_code/<%= @mx.id -%>/<%= @mode -%>/<%= @mode == 'col' ? i : @present_position -%>/<%= o.id -%>/<%= @chr.id -%>" id="otu_<%= o.id -%>"></a>
           <% end -%>
       </td>
 
-      <td style="width: 430px; padding-right: 25px;">
+      <td style="width: 430; padding-right: 25px;">
         <p><b>One click coding (by <%= @mode == 'col' ? 'character' : 'OTU' %>):</b></p>
         <p><%=@otu.display_name %> (matrix name: <%= @otu.display_name(:type => :matrix_name) -%>)&nbsp;<span class="small_grey">id: <%= link_to(@otu.id, :action => 'show', :controller => 'otu', :id => @otu) %></span></p>
         <em>for</em>
 
-        <%= form_tag(:remote => true, :url => {:action => 'fast_code', :controller => :mx, :id => @mx, :otu_id => @otu, :position => @present_position}, :html => {:name => "myform", :style => "width: 400px;"} ) do -%>
+        <%= form_tag(:remote => true, :url => {:action => 'fast_code', :controller => :mx, :id => @mx, :otu_id => @otu, :position => @present_position}, :html => {:name => "myform", :style => "width: 400;"} ) do -%>
             <p><%= @chr.name %> <span class="small_grey">id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chr', :id => @chr}, :target => '_blank') -%></span></p>
 
             <%= hidden_field_tag('mode', @mode) -%>
@@ -42,7 +42,7 @@
             <% if @confidences.size > 0 -%>
               <table style="float: right; font-size: smaller; margin-right: -22px; ">
                 <tr>
-                  <td>apply confidence <%= select("coding", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200px; color:red;"}) -%> to this click</td>
+                  <td>apply confidence <%= select("coding", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200; color:red;"}) -%> to this click</td>
                 </tr>
               </table>
             <% end %>
@@ -58,7 +58,7 @@
 
 
           <!-- tag form -->
-          <div class="subform" style="width: 400px;">
+          <div class="subform" style="width: 400;">
             <div class="header"> include a tag with this coding &nbsp;&nbsp;&nbsp;&nbsp;
               <%=  link_to_function('toggle form', nil, :id => "more_link") do |page|
                 page.visual_effect(:toggle_blind, 'tag_form')
@@ -84,7 +84,7 @@
           <div class="content"> <%= @chr.doc_char_descr.blank? ? '<i>none</i>' : @chr.doc_char_descr -%></div>
         </div>
 
-        <p class="passed" style="margin-top: 100px; font-size: smaller; border: 1px solid silver; text-align: center;"> green background - state is already coded, clicking toggles off!  </p>
+        <p class="passed" style="margin-top: 100; font-size: smaller; border: 1px solid silver; text-align: center;"> green background - state is already coded, clicking toggles off!  </p>
 
       </td>
 

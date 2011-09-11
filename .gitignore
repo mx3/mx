@@ -19,6 +19,7 @@
 *.swp
 
 /nbproject/*
+/.idea/*
 /doc/*
 
 

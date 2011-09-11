@@ -11,7 +11,7 @@
 	</div>
 		<div class="fr">
 			<label class="lbl4">definition written by reference (sets for all) </label>
-			<span class="fld"><%= render :partial => "shared/picker", :locals => {    
+			<span class="fld"><%= render :partial => 'shared/picker', :locals => {
 				:controller => 'ref',
 				:object => 'term',
 				:method => 'ref_id',
@@ -41,7 +41,7 @@
 
 	  <div class="fr"> 
 		<label class="lbl4">highest applicable taxon (sets for all) </label> 
-		<span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+		<span class="fld">	<%= render :partial => 'shared/picker', :locals => {
 			:controller => 'taxon_name',
 			:object => 'term',
 			:method => 'taxon_name_id',
@@ -58,7 +58,7 @@
 
 			<div class="fr">
 				<label class="lbl4">term</label>
-				<span class="fld">	<%= render :partial => "shared/picker", :locals => {    
+				<span class="fld">	<%= render :partial => 'shared/picker', :locals => {
 					:controller => 'part',
 					:object => 'term',
 					:method => 'part_id_for_is_a',

@@ -5,8 +5,8 @@ module ModelExtensions
     def self.included(base)
       base.class_eval do
 
-        tn = self.table_name                        # like otus
-        cn = self.table_name.singularize.capitalize # like Otu
+        # tn = self.table_name                        # like otus
+        # cn = self.table_name.singularize.capitalize # like Otu
 
         has_many :tags, :as => :addressable, :dependent => :destroy, :include => [:keyword, :ref], :order => 'refs.cached_display_name ASC'  
         has_many :public_tags, :as => :addressable, :class_name => "Tag", :include => [:keyword, :ref], :order => 'refs.cached_display_name ASC', :conditions => 'keywords.is_public = true'
@@ -19,7 +19,6 @@ module ModelExtensions
           oldest = 9999
           self.tags.by_keyword(kw).each do |t|
             oldest = t.ref.year if !t.ref.blank? && !t.ref.year.blank? && t.ref.year.to_i < oldest
-            foo = 1
           end
           return nil if oldest == 9999
 

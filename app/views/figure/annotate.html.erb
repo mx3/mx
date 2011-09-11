@@ -44,7 +44,7 @@
       </div>
       <%= render(:partial => "figure_marker/form", :locals => {:figure_marker => FigureMarker.new, :figure_id => @figure.id}) -%>
 
-      <ul id="figure_markers_for_figure_<%= @figure.id -%>" style="border:0px; padding: 0px; list-style-type:none; clear: both;">
+      <ul id="figure_markers_for_figure_<%= @figure.id -%>" style="border:0; padding: 0; list-style-type:none; clear: both;">
         <%= render(:partial => "figure_marker/fm", :collection => @figure.figure_markers.ordered_by_position) -%>
       </ul>
 

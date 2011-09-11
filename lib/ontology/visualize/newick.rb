@@ -117,7 +117,7 @@ module Ontology::Visualize::Newick
     end # end depth check
 
     # hack, to deal with the extra "," in the "join" 
-    return "(#{@opt[:string]})".gsub(/\,\)/, ")") + ";" 
+    return "(#{@opt[:string]})".gsub(/,\)/, ")") + ";"
   end 
 
   # returns a Figtree specific branch/node hilight statement

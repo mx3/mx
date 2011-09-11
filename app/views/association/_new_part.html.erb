@@ -2,7 +2,7 @@
   <div class="header">Add to association </div>
   <p><%= select("part", "object_relationship_id", object_relationships_dd) %></p> 
   <p><label for="target_otu_name">For OTU</label><br/>
-   <%= render :partial => "shared/picker", :locals => {
+   <%= render :partial => 'shared/picker', :locals => {
               :controller => 'otu',
               :object => 'part',
               :method => 'otu_id',

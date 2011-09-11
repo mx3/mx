@@ -1,7 +1,7 @@
 class Differentia < ActiveRecord::Base
     
   belongs_to :property, :class_name => "OntologyTerm"
-  belongs_to :value, :polymorphic => true
+  belongs_to :value, :polymorphic => true   # might not be legit in Rails 3
   belongs_to :ontology_composition
   
   def Differentia.available_properties

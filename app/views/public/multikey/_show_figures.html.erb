@@ -1,7 +1,7 @@
 <div>    
   <div class="box5" style="clear: both;">  
-    <% if not @figures.blank? %>
-      <%= render(:partial => 'f', :collection => @figures, :lnk => 'add') %>
+    <% if not @figures.blank? -%>
+      <%= render(:partial => 'f', :collection => @figures, :locals => {:lnk => 'add'}) -%>
     <% else %>
       <i> No character states with figures yet. </i>
     <% end %>

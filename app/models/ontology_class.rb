@@ -636,93 +636,93 @@ class OntologyClass < ActiveRecord::Base
     end
   end
 
-  # pass params from OntologyController#proofer_batch_create and merge proj_id => id 
-  # TODO: revise 
-  def self.proofer_batch_create(params)
-    raise "method needs revision after class/part split" 
-    begin
-      @proj = Proj.find(params[:proj_id])
-      raise if !@proj 
-      raise if params[:part].blank? 
-
-      @count = 0
-      params[:taxon_name_id] = params[:term][:taxon_name_id] if params[:term] && !params[:term][:taxon_name_id].blank? # handles batch loading from Proofer
-      params[:ref_id] = params[:term][:ref_id] if params[:term] && !params[:term][:ref_id].blank? # handles batch loading from Proofer
-
-      @tn = TaxonName.find(params[:taxon_name_id]) unless params[:taxon_name_id].blank?
-      @ref = Ref.find(params[:ref_id]) unless params[:ref_id].blank?
-      @ontology_class_for_object_relationship = Part.find(params[:ontology_class_for_object_relationship_id]) unless params[:ontology_class_for_object_relationship_id].blank?
-      @object_relationship = ObjectRelationship.find(params[:object_realtionship_id]) unless params[:object_relationship_id].blank?
-
-      ObjectRelationship.transaction do
-        params[:part].keys.each do |p|
-
-          # TODO: new Term model, stats etc.
-          te = TermExclusion.find_or_create_by_name_and_proj_id(params[:part][p], @proj.id) # BACKGROUND STATS ONLY
-
-          if params[:check][p]
-            break if Part.find_by_name_and_proj_id(params[:part][p], @proj.id)
-
-            prt = Part.new(:name => params[:part][p])
-            prt.obo_xref = params[:xref][p] if params[:xref] && params[:xref][p]
-            prt.description = params[:description][p] if params[:description][p]
-            prt.taxon_name = @tn if @tn
-            prt.ref = @ref if @ref
-            prt.save!
-
-            if @isa && @part_for_isa
-              @relationship = Ontology.new(:part1_id => prt.id, :part2_id => @part_for_isa.id, :isa_id => @isa.id )
-              @relationship.save!
-            end
-
-            # add the tag here
-            if !params[:tag].blank? && !params[:tag][:keyword_id].blank?
-              tag = Tag.new(:keyword_id => params[:tag][:keyword_id], :addressable_type => 'Part', :addressable_id => prt.id)
-              tag.notes = params[:tag][:notes] if !params[:tag][:notes].blank?
-              tag.referenced_object = params[:tag][:referenced_object] if !params[:tag][:referenced_object].blank?
-              tag.save!
-            end
-
-            @count += 1
-
-            te.destroy # BACKGROUND STATS - we've used this term now, so it should be reset
-          else # BACKGROUND STATS ONLY 
-            te.update_attributes(:count => te.count + 1) 
-          end
-        end
-      end
-
-    rescue Exception => e
-      raise "#{e} on #{params[:part][p]}"
-    end
-
-    return @count 
-  end
+  ## pass params from OntologyController#proofer_batch_create and merge proj_id => id
+  ## TODO: revise
+  #def self.proofer_batch_create(params)
+  #  raise "method needs revision after class/part split"
+  #  begin
+  #    @proj = Proj.find(params[:proj_id])
+  #    raise if !@proj
+  #    raise if params[:part].blank?
+  #
+  #    @count = 0
+  #    params[:taxon_name_id] = params[:term][:taxon_name_id] if params[:term] && !params[:term][:taxon_name_id].blank? # handles batch loading from Proofer
+  #    params[:ref_id] = params[:term][:ref_id] if params[:term] && !params[:term][:ref_id].blank? # handles batch loading from Proofer
+  #
+  #    @tn = TaxonName.find(params[:taxon_name_id]) unless params[:taxon_name_id].blank?
+  #    @ref = Ref.find(params[:ref_id]) unless params[:ref_id].blank?
+  #    @ontology_class_for_object_relationship = Part.find(params[:ontology_class_for_object_relationship_id]) unless params[:ontology_class_for_object_relationship_id].blank?
+  #    @object_relationship = ObjectRelationship.find(params[:object_realtionship_id]) unless params[:object_relationship_id].blank?
+  #
+  #    ObjectRelationship.transaction do
+  #      params[:part].keys.each do |p|
+  #
+  #        # TODO: new Term model, stats etc.
+  #        te = TermExclusion.find_or_create_by_name_and_proj_id(params[:part][p], @proj.id) # BACKGROUND STATS ONLY
+  #
+  #        if params[:check][p]
+  #          break if Part.find_by_name_and_proj_id(params[:part][p], @proj.id)
+  #
+  #          prt = Part.new(:name => params[:part][p])
+  #          prt.obo_xref = params[:xref][p] if params[:xref] && params[:xref][p]
+  #          prt.description = params[:description][p] if params[:description][p]
+  #          prt.taxon_name = @tn if @tn
+  #          prt.ref = @ref if @ref
+  #          prt.save!
+  #
+  #          if @isa && @part_for_isa
+  #            @relationship = Ontology.new(:part1_id => prt.id, :part2_id => @part_for_isa.id, :isa_id => @isa.id )
+  #            @relationship.save!
+  #          end
+  #
+  #          # add the tag here
+  #          if !params[:tag].blank? && !params[:tag][:keyword_id].blank?
+  #            tag = Tag.new(:keyword_id => params[:tag][:keyword_id], :addressable_type => 'Part', :addressable_id => prt.id)
+  #            tag.notes = params[:tag][:notes] if !params[:tag][:notes].blank?
+  #            tag.referenced_object = params[:tag][:referenced_object] if !params[:tag][:referenced_object].blank?
+  #            tag.save!
+  #          end
+  #
+  #          @count += 1
+  #
+  #          te.destroy # BACKGROUND STATS - we've used this term now, so it should be reset
+  #        else # BACKGROUND STATS ONLY
+  #          te.update_attributes(:count => te.count + 1)
+  #        end
+  #      end
+  #    end
+  #
+  #  rescue Exception => e
+  #    raise "#{e} on #{params[:part][p]}"
+  #  end
+  #
+  #  return @count
+  #end
 
   ## code below is from deprecated Part that needs complete rewrite
 
-  # TODO: logic is suboptimal, should use a gem engine for param combinations such 
-  # needs complete rewrite
-  def self.param_search(params)
-    raise "param_search not updated since deprecation"
-    terms = []
-    order = "ordered_by_#{params[:sort_order]}"
-    @proj = Proj.find(params[:proj_id])
-    if params[:edited]
-      if params[:without_relationships] 
-        terms = @proj.parts.without_relationships.with_description_status(params[:definition]).with_xref_status(params[:xref]).changed_by(params[:person_id]).recently_changed(params[:time_ago].to_i.weeks.ago).send(order)
-      else
-        terms = @proj.parts.with_description_status(params[:definition]).with_xref_status(params[:xref]).changed_by(params[:person_id]).recently_changed(params[:time_ago].to_i.weeks.ago).send(order)
-      end
-    else
-      if
-        terms = @proj.parts.without_relationships.with_description_status(params[:definition]).with_xref_status(params[:xref]).not_changed_by(params[:person_id]).recently_changed(params[:time_ago].to_i.weeks.ago).send(order)
-      else 
-        terms = @proj.parts.with_description_status(params[:definition]).with_xref_status(params[:xref]).not_changed_by(params[:person_id]).recently_changed(params[:time_ago].to_i.weeks.ago).send(order)
-      end 
-    end
-    terms 
-  end
+  ## TODO: logic is suboptimal, should use a gem engine for param combinations such
+  ## needs complete rewrite
+  #def self.param_search(params)
+  #  raise "param_search not updated since deprecation"
+  #  terms = []
+  #  order = "ordered_by_#{params[:sort_order]}"
+  #  @proj = Proj.find(params[:proj_id])
+  #  if params[:edited]
+  #    if params[:without_relationships]
+  #      terms = @proj.parts.without_relationships.with_description_status(params[:definition]).with_xref_status(params[:xref]).changed_by(params[:person_id]).recently_changed(params[:time_ago].to_i.weeks.ago).send(order)
+  #    else
+  #      terms = @proj.parts.with_description_status(params[:definition]).with_xref_status(params[:xref]).changed_by(params[:person_id]).recently_changed(params[:time_ago].to_i.weeks.ago).send(order)
+  #    end
+  #  else
+  #    if
+  #      terms = @proj.parts.without_relationships.with_description_status(params[:definition]).with_xref_status(params[:xref]).not_changed_by(params[:person_id]).recently_changed(params[:time_ago].to_i.weeks.ago).send(order)
+  #    else
+  #      terms = @proj.parts.with_description_status(params[:definition]).with_xref_status(params[:xref]).not_changed_by(params[:person_id]).recently_changed(params[:time_ago].to_i.weeks.ago).send(order)
+  #    end
+  #  end
+  #  terms
+  #end
 
   # maintainence
   

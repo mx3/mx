@@ -1,7 +1,7 @@
 <div> <%# don't (re)move me! %>
   <% if @part == 'center' %>
     <% if @chr.chr_states.count > 1 -%>
-      <div class="subform" style="min-width:500px;" >
+      <div class="subform" style="min-width:500;" >
         <div class="header">Merge states / codings</div>
         <%= form_tag :action => 'merge_states', :id => @chr.id do -%>
 

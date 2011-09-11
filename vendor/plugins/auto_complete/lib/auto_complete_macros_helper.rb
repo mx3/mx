@@ -115,7 +115,7 @@ module AutoCompleteMacrosHelper
     def auto_complete_stylesheet
       content_tag('style', <<-EOT, :type => Mime::CSS)
         div.auto_complete {
-          width: 350px;
+          width: 350;
           background: #fff;
         }
         div.auto_complete ul {

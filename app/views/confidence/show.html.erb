@@ -6,7 +6,7 @@
     <p><em> This form will update everything that is associated with this confidence to the confidence selected.  It will leave this confidence here, you can delete it afterwards.</em> </p>
     <%= form_tag :action => :merge, :id => @confidence.id, :controller => :confidence -%>
     <div class="fr"> <label for="otu_taxon_name_id" class="lbl4">Update to confidence</label>
-      <span class="fld"><%= render :partial => "shared/picker", :locals => {
+      <span class="fld"><%= render :partial => 'shared/picker', :locals => {
         :controller => 'confidence',
         :object => 'merge_with',
         :method => 'id',
