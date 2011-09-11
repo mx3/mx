@@ -5,6 +5,9 @@
 # app/controllers/public/site/**/*
 # app/views/public/site/**/*
 
+
+/public/files/*
+
 # ?
 /system.gems
 
@@ -16,6 +19,7 @@
 
 /nbproject/*
 /doc/*
+
 
 # SVN.gitignore
 .svn/
