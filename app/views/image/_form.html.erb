@@ -11,7 +11,6 @@ function changeDate(y,m,d) {
 
 <!--[form:image]-->
 
-
 <div class="fr"> <label for="image_file" class="lbl4">Choose a file </label>
   <span class="fld"><i style="clear:both; float: right;">must be &gt;16kb  </i> <%= file_field 'image', 'file', :size => 70  %></span>
 </div>
@@ -48,9 +47,21 @@ function changeDate(y,m,d) {
 </div>
 
 <div class="fr"> <label for="image_ref_id" class="lbl4">Reference (published in)</label>
-  <span class="fld">  <%= render :partial => "ref/picker", :locals => {
-    :object => 'image', :method => 'ref_id', :tag_id => "ref_name", 
-    :display => (@image.ref.display_name if @image.ref) } %></span>
+  <span class="fld">
+
+
+        <%= render(:partial=>'shared/picker', :locals=> {
+              :controller=>'ref',
+              :object=> 'image',
+              :method=> 'ref_id',
+              :tag_id=> 'ref_name_for_image',
+              :display=> (@image.ref.andand.display_name),
+              :size => 40
+           })
+        %>
+
+
+</span>
 </div>
 
 <div class="fr"> <label for="image_notes" class="lbl4">Notes </label>

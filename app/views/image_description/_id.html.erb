@@ -12,7 +12,12 @@
   <div class="box1" >
     <div class="browse_otu"><%= image_description_taxon_tag(id) -%></div>
     <div class="browse_label_view"><%= id.display_name(:type => :label_view) -%></div>
-    <span class="small_grey" style="text-align: right;"><%= link_to_remote("more", :update =>  "more_#{id.id}", :postion => :top, :url => { :action => 'more', :controller => 'image_description', :id => id}) -%></span>
+    <span class="small_grey" style="text-align: right;">
+
+    <!-- TODO: ug, terrible old code, can be greatly simplified  
+      <%# link_to_remote("more", :update =>  "more_#{id.id}", :postion => :top, :url => { :action => 'more', :controller => 'image_description', :id => id}) -%></span>
+    -->
+
     <div style="position: absolute; z-index: 300;" id = "more_<%= id.id -%>"> </div>
   </div>
 

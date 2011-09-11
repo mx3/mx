@@ -1,3 +1,6 @@
+
+<!-- TODO mx3 -> rethink this functionality --!>
+
 <div class="subform" >
   <div class="header"> Code with this character </div>
   <div class="content" style="font-size:smaller;">
@@ -11,7 +14,7 @@
 
     <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :chr_id => chr, :otu_id => @otu.id, :mode => 'col', :position => '0'}) if @otu -%>
 
-    <%= observe_field :mx_id, :url => {:action => :_find_otus_for_mx},
+    <%# observe_field :mx_id, :url => {:action => :_find_otus_for_mx},
       :loading => "Element.show('otus_to_update')", :complete => "Element.hide('otus_to_update')",
       :frequency => 0.45,
       :update => :otus_to_code,

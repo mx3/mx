@@ -35,9 +35,18 @@
       <label for="tag_ref_name">Ref</label>
     </td>
     <td>
-      <%= render :partial => "ref/picker", :locals => {
-      :object => 'tag', :method => 'ref_id', :tag_id => "tag_ref_name",
-      :display => (@tag.ref.display_name if @tag.ref) , :size => 40} %>
+
+        <%= render(:partial=>'shared/picker', :locals=> {
+              :controller=>'ref',
+              :object=> 'tag',
+              :method=> 'ref_id',
+              :tag_id=> 'tag_ref_name',
+              :display=> (@tag.ref.andand.display_name),
+              :size => 40
+           })
+        %>
+
+
     </td>
   </tr>
 

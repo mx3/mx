@@ -281,7 +281,7 @@ class Image < ActiveRecord::Base
 
   def record_image_details
     if @temp_file
-      @details = im_identify(@temp_file.local_path)
+      @details = im_identify(@temp_file.path) # was local_path
       self.user_file_name = @temp_file.original_filename
       self.file_type = allowed_formats[@details[:type]]
       self.file_size = @temp_file.size
@@ -297,7 +297,7 @@ class Image < ActiveRecord::Base
       begin
         logger.info "Storing #{path_for(:size => :original, :context => :file)}"
         if @temp_file.instance_of?(Tempfile)
-          FileUtils.copy(@temp_file.local_path, path_for(:size => :original, :context => :file))
+          FileUtils.copy(@temp_file.path, path_for(:size => :original, :context => :file)) # mx3 was local_path
         else
           @temp_file.rewind # we already read the file to get the MD5, so rewind 
           File.open(path_for(:size => :original, :context => :file), "wb") { |f| f.write(@temp_file.read) }    

@@ -3,6 +3,7 @@
 <% geog_types ||= 'all' -%> <%# geog specific -%>
 <% action ||= "auto_complete_for_#{controller}".html_safe -%><%#refs from other projs specific %>
 <% css_class ||= 'ajaxPicker' -%>
+<% size ||= '100' -%> <%# merge to width %?! -%>
 
 <% url = url_for({:controller => controller, :action => action, :tag_id => tag_id, :method => "#{object}[#{method}]",
     :name_group => name_group, :use_proj => use_proj, :escape => false, :geog_types => geog_types}) -%> 
