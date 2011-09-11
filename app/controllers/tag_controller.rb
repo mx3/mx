@@ -68,8 +68,10 @@ class TagController < ApplicationController
     @tag = Tag.new(params[:tag])
     @obj = ActiveRecord::const_get(params[:tag_obj][:obj_class]).find(params[:tag_obj][:obj_id])
     @tag.addressable = @obj
+
     @tag.ref_id = params[:ref] ? params[:ref][:id] : nil
     @tag.keyword_id = params[:keyword] ? params[:keyword][:id] : nil
+    @html_selector = params[:html_selector]
 
     if @tag.save
       respond_to do |wants|
@@ -78,19 +80,20 @@ class TagController < ApplicationController
       end
       notice "Tagged #{@obj.class.name} ##{@obj.id}"
     else # didn't save the tag
-      #  TODO params[:tag_obj] not set on shake/error call so subsequent submits faili
       render :action=>"new"
     end
   end
 
   def edit
     @tag = Tag.find(params[:id])
+    @obj = @tag.addressable
     @keyword = @tag.keyword
   end
 
   ## needs to be fixed
   def update
     @tag = Tag.find(params[:id])
+    @obj = @tag.addressable
 
     if @tag.update_attributes(params[:tag])
       notice 'Tag was successfully updated.'

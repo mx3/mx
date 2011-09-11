@@ -4,8 +4,8 @@
 
 <div style="padding: 2px;">
 
-<input type=hidden name='tag_obj[obj_class]' value="<%= params[:tag_obj_class] %>" />
-<input type=hidden name='tag_obj[obj_id]' value="<%= params[:tag_obj_id] %>" />
+<input type=hidden name='tag_obj[obj_class]' value="<%= @obj.class.name %>" />
+<input type=hidden name='tag_obj[obj_id]'    value="<%= @obj.id %>" />
 
 <table>
   <tr>
