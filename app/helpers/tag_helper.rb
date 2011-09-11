@@ -45,7 +45,9 @@ module TagHelper
   end
 
   def destroy_tag_link(o)
-    link_to_remote('x', :url => {:action => 'destroy', :controller => 'tag', :id => o.id}, :confirm => "Are you sure you want to delete this tag?")
+    # TODO Destroy tag link logic.
+    link_to "x", "javascript:alert('This is not implemented!  Boo!');"
+    #link_to_remote('x', :url => {:action => 'destroy', :controller => 'tag', :id => o.id}, :confirm => "Are you sure you want to delete this tag?")
   end
 
 
