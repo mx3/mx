@@ -78,6 +78,7 @@ class TagController < ApplicationController
       end
       notice "Tagged #{@obj.class.name} ##{@obj.id}"
     else # didn't save the tag
+      #  TODO params[:tag_obj] not set on shake/error call so subsequent submits faili
       render :action=>"new"
     end
   end
