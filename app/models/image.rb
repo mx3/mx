@@ -275,8 +275,6 @@ class Image < ActiveRecord::Base
     ]
   end
 
-
-
   private
 
   def record_image_details

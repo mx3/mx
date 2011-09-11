@@ -48,17 +48,15 @@ function changeDate(y,m,d) {
 
 <div class="fr"> <label for="image_ref_id" class="lbl4">Reference (published in)</label>
   <span class="fld">
-
-
-        <%= render(:partial=>'shared/picker', :locals=> {
-              :controller=>'ref',
-              :object=> 'image',
-              :method=> 'ref_id',
-              :tag_id=> 'ref_name_for_image',
-              :display=> (@image.ref.andand.display_name),
-              :size => 40
-           })
-        %>
+    <%= render(:partial=>'shared/picker', :locals=> {
+        :controller=>'ref',
+        :object=> 'image',
+        :method=> 'ref_id',
+        :tag_id=> 'ref_name_for_image',
+        :display=> (@image.ref.andand.display_name),
+        :size => 40
+        })
+  %>
 
 
 </span>
