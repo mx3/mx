@@ -76,12 +76,24 @@ class KeywordController < ApplicationController
   end
 
   def auto_complete_for_keyword
+
     @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-    @keywords = Keyword.find(:all, :conditions => ["(keyword LIKE ? OR shortform LIKE ? OR id = ?) AND proj_id=?", "#{value}%", "#{value}%", value.gsub(/\%/, ""), @proj.id],
-        :limit => 20, :order => "keyword")
-    render :inline => "<%= auto_complete_result_with_ids(@keywords,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+    value = params[:term]
+    #value = params[@tag_id_str.to_sym].split.join('%')
+   
+    @keywords = Keyword.find(:all, :conditions => ["(keyword LIKE ? OR shortform LIKE ? OR id = ?) AND proj_id=?", "#{value}%", "#{value}%", value.gsub(/\%/, ""), @proj.id],        :limit => 20, :order => "keyword")
+
+    data = @keywords.collect do |kw|
+      {:id=> kw.id,
+       :label=> kw.display_name,
+       :response_values=> {
+          'keyword[id]' => kw.id,
+          :hidden_field_class_name => @tag_id_str
+       },
+       :label_html => kw.display_name(:type => :for_select_list) # format_obj_for_auto_complete(ref) # see include App::AutocompleteHelper above # render_to_string(:partial=>'shared/autocomplete/ref.html', :locals=>{:item=>ref})
+      }
+    end
+    render :json => data
   end
   
 end

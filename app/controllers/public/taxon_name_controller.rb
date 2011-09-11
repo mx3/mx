@@ -7,8 +7,6 @@ class Public::TaxonNameController < Public::BaseController
 
   def search_help
   end
- 
-
 
   def index
    # search
@@ -18,7 +16,11 @@ class Public::TaxonNameController < Public::BaseController
   def search
     @taxon_name = TaxonName.new
   end
-  
+ 
+
+
+
+
   def list_by_repository
     @r = Repository.find_by_id(params[:repository_id])
     (redirect_to :action => :index if !@r) and return

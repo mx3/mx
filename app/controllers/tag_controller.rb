@@ -68,63 +68,75 @@ class TagController < ApplicationController
     @tag = Tag.new(params[:tag])
     @obj = ActiveRecord::const_get(params[:tag_obj][:obj_class]).find(params[:tag_obj][:obj_id])
     @tag.addressable = @obj
-
+    @tag.ref_id = params[:ref] ? params[:ref][:id] : nil
+    @tag.keyword_id = params[:keyword] ? params[:keyword][:id] : nil
 
     if @tag.save
-      render :partial=>"created_tag"
-      render :update do |page|
+      # flash a message or pulse the link when successfull?
+      render :partial=>"created_tag" and return
 
-        page.remove "tp_#{@obj.class.to_s}_#{@obj.id}" # get rid of the form (use an effect)
-        page.insert_html :top, "t_#{@obj.class.to_s}_#{@obj.id}", '<span id="quick_msg">Tagged!</span>' # provide msg to user
-        page.visual_effect :highlight, "quick_msg", :duration => 1 # make sure they see it
+      # TODO: On succesful create where tag_cloud is present update the tag cloud (see old code below)
 
-        page.delay(1) do # wait a bit and fade it out
-          page.visual_effect :fade, "quick_msg"
-        end
-
-        page.delay(2) do # and get rid of it completely so as to not confuse things down the road
-          page.remove "quick_msg"
-        end
-
-        page.delay(3) do
-             page.visual_effect :appear, "tl_#{@obj.class.to_s}_#{@obj.id}" # unhide the previously hidden Tag link
-        end
-
-        # javascript ifs are ugly, but relatively straightforward
-        page << "if($('new_tags_wo_kw')) {"   # have an accordion on the page?
-          page.visual_effect :appear, "new_tags_wo_kw"
-          page.insert_html :bottom, "new_tags_wo_kw", (@tag.display_name(:type => :without_keyword, :close => false) + " " + destroy_tag_link(@tag)  + '</div>')
-        page << "}"
-
-        obj_txt = "_#{@tag.addressable_type}_#{@tag.addressable_id}"
-
-        page << "if($('tag_cloud#{obj_txt}')) {" # have a tag cloud for that object on the page?
-          # remove blue sky if its there
-          page << "if($('blue_sky#{obj_txt}')) {" # remove the first instance if it's there
-            page.remove "blue_sky#{obj_txt}"
-          page << "}"
-
-          page << "if($('cld_wrd_id_#{@tag.keyword.id}_#{@tag.addressable_type}_#{@tag.addressable_id}')) {" # remove the first instance if it's there
-            page.remove "cld_wrd_id_#{@tag.keyword.id}_#{@tag.addressable_type}_#{@tag.addressable_id}"
-          page << "}"
-
-          page.insert_html :bottom, "tag_cloud#{obj_txt}", tag_cloud_for(@obj, @tag.keyword.id, 'info') # add the new tag
-        page << "}"
-
-          page << "if($('meta_#{@tag.addressable_id}')) {" # insert into the string
-            page.replace_html "meta_#{@tag.addressable_id}", render(:partial => 'tag/tn', :object => @tag, :locals => {:level => 1, :newly_inserted => true})
-          page << "}"
-      end
-
-        return
-    else # didn't save the tag
-      render :action=>"new"
-      return
+    else 
+      #  TODO params[:tag_obj] not set on shake/error call so subsequent submits fail
+      render :action => :new and return
     end
 
+   #  render :update do |page|
+
+   #    page.remove "tp_#{@obj.class.to_s}_#{@obj.id}" # get rid of the form (use an effect)
+   #    page.insert_html :top, "t_#{@obj.class.to_s}_#{@obj.id}", '<span id="quick_msg">Tagged!</span>' # provide msg to user
+   #    page.visual_effect :highlight, "quick_msg", :duration => 1 # make sure they see it
+
+   #    page.delay(1) do # wait a bit and fade it out
+   #      page.visual_effect :fade, "quick_msg"
+   #    end
+
+   #    page.delay(2) do # and get rid of it completely so as to not confuse things down the road
+   #      page.remove "quick_msg"
+   #    end
+
+   #    page.delay(3) do
+   #         page.visual_effect :appear, "tl_#{@obj.class.to_s}_#{@obj.id}" # unhide the previously hidden Tag link
+   #    end
+
+   #    # javascript ifs are ugly, but relatively straightforward
+   #    page << "if($('new_tags_wo_kw')) {"   # have an accordion on the page?
+   #      page.visual_effect :appear, "new_tags_wo_kw"
+   #      page.insert_html :bottom, "new_tags_wo_kw", (@tag.display_name(:type => :without_keyword, :close => false) + " " + destroy_tag_link(@tag)  + '</div>')
+   #    page << "}"
+
+   #    obj_txt = "_#{@tag.addressable_type}_#{@tag.addressable_id}"
+
+   # TODO: TAG CLOUD UPDATES old code is here ------
+   #    page << "if($('tag_cloud#{obj_txt}')) {" # have a tag cloud for that object on the page?
+   #      # remove blue sky if its there
+   #      page << "if($('blue_sky#{obj_txt}')) {" # remove the first instance if it's there
+   #        page.remove "blue_sky#{obj_txt}"
+   #      page << "}"
+
+   #      page << "if($('cld_wrd_id_#{@tag.keyword.id}_#{@tag.addressable_type}_#{@tag.addressable_id}')) {" # remove the first instance if it's there
+   #        page.remove "cld_wrd_id_#{@tag.keyword.id}_#{@tag.addressable_type}_#{@tag.addressable_id}"
+   #      page << "}"
+
+   #      page.insert_html :bottom, "tag_cloud#{obj_txt}", tag_cloud_for(@obj, @tag.keyword.id, 'info') # add the new tag
+   #    page << "}"
+
+   # TODO: I think this also needs to be updated in mx3 ----- (these are tags on tags)
+   #      page << "if($('meta_#{@tag.addressable_id}')) {" # insert into the string
+   #        page.replace_html "meta_#{@tag.addressable_id}", render(:partial => 'tag/tn', :object => @tag, :locals => {:level => 1, :newly_inserted => true})
+   #      page << "}"
+   #  end
+
+   #    return
+   #else # didn't save the tag
+   #  render :action=>"new"
+   #  return
+   #end
+
     # this far? bad
-    notice 'Problem with adding tag!'
-    redirect_to :action => 'list'
+  #  notice 'Problem with adding tag!'
+  #  redirect_to :action => 'list'
   end
 
   # TODO: this should be straight javascript, not AJAX
