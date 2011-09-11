@@ -73,26 +73,6 @@ class TagController < ApplicationController
 
     if @tag.save
       respond_to do |wants|
-         # TODO: On succesful create where tag_cloud is present update the tag cloud (see old code below --- we might want to make a whole new tag cloud system. Let's just get the existing tagging functionality working now)
-         # TODO: TAG CLOUD UPDATES old code is here ------
-         #    page << "if($('tag_cloud#{obj_txt}')) {" # have a tag cloud for that object on the page?
-         #      # remove blue sky if its there
-         #      page << "if($('blue_sky#{obj_txt}')) {" # remove the first instance if it's there
-         #        page.remove "blue_sky#{obj_txt}"
-         #      page << "}"
-
-         #      page << "if($('cld_wrd_id_#{@tag.keyword.id}_#{@tag.addressable_type}_#{@tag.addressable_id}')) {" # remove the first instance if it's there
-         #        page.remove "cld_wrd_id_#{@tag.keyword.id}_#{@tag.addressable_type}_#{@tag.addressable_id}"
-         #      page << "}"
-
-         #      page.insert_html :bottom, "tag_cloud#{obj_txt}", tag_cloud_for(@obj, @tag.keyword.id, 'info') # add the new tag
-         #    page << "}"
-
-         # TODO: I think this also needs to be updated in mx3 ----- (these are tags on tags)
-         #      page << "if($('meta_#{@tag.addressable_id}')) {" # insert into the string
-         #        page.replace_html "meta_#{@tag.addressable_id}", render(:partial => 'tag/tn', :object => @tag, :locals => {:level => 1, :newly_inserted => true})
-         #      page << "}"
-         #  end
         wants.js { }
         wants.html { redirect_to :action => 'list' }
       end
