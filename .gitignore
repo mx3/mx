@@ -9,6 +9,7 @@
 
 /db/dumps/*
 *.sql
+/public/files/*
 
 # ?
 /system.gems
@@ -19,6 +20,7 @@
 
 /nbproject/*
 /doc/*
+
 
 # SVN.gitignore
 .svn/
