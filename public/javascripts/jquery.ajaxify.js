@@ -66,25 +66,32 @@
       };
 
       $form.trigger('ajax:start');
-
       $.ajax(combo_options);
     }
   };
   var options = {
   };
-
+  var confirmed = function($e) {
+    if ($e.data('ajaxifyConfirm')) {
+      return confirm($e.data('ajaxifyConfirm'));
+    } else {
+      return true;
+    }
+  };
 
   $.fn.ajaxify = function(options) {
     var handlers = {
       submit: function($e, options) {
         $e.click(function(evt) {
-          var request_options = $.extend({}, options, {
-            dataType: 'script html',
-            complete: function(xhr, status) {
-              eval_html(xhr.responseText);
-            }
-          });
-          Ajaxify.request($e, request_options);
+          if (confirmed($e)) {
+            var request_options = $.extend({}, options, {
+              dataType: 'script html',
+              complete: function(xhr, status) {
+                Ajaxify.eval_html(xhr.responseText);
+              }
+            });
+            Ajaxify.request($e, request_options);
+          }
           evt.preventDefault();
         });
       },

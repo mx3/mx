@@ -1,10 +1,4 @@
-<% content_for :head do -%>
-  <%= javascript_include_tag("accordion") -%>
-<% end %>
-
 <div>
-<%= render(:partial => 'shared/code_accordion') -%>
-
   <% if @part == 'center' %>
   <strong>Tags on this OTU</strong> | <%= new_tag_tag(:object=>@otu) %><br/><br/>
       <br/><br/>

@@ -1,9 +1,6 @@
 class TagController < ApplicationController
   in_place_edit_for :tag, :notes
 
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-    :redirect_to => { :action => :list }
-
   def in_place_notes_update
     t = Tag.find(params[:id])
     t.update_attributes(:notes => params[:value])
@@ -112,46 +109,13 @@ class TagController < ApplicationController
     keyword_id = t.keyword.id
 
     if t.destroy
-
-    respond_to do |format|
-		  format.html {
-        notice 'Tag was successfully deleted.'
-        redirect_to :action => :list and return
-      }
-	    format.js {
-          render :update do |page|
-
-            # remove tag from the info_popup if its up
-            page << "if($('popup_info_tbl_#{params[:id]}')) {" # remove the first instance if it's there
-              page.remove "popup_info_tbl_#{params[:id]}"
-            page << "}"
-
-            # remove tag if it's a list view
-            page << "if($('tag_#{params[:id]}')) {"
-              page.remove "tag_#{params[:id]}"
-            page << "}"
-
-            # if there are no tags on this object of this keyword type close some things
-            if  Tag.find(:all, :conditions => ["addressable_type = ? AND addressable_id = ? AND keyword_id = ? ", addressable_type, addressable_id, keyword_id]).size == 0
-
-              # remove the word from the cloud if it exists
-              page << "if($('cld_wrd_id_#{keyword_id}_#{addressable_type}_#{addressable_id}')) {"
-                page.remove "cld_wrd_id_#{keyword_id}_#{addressable_type}_#{addressable_id}"
-              page << "}"
-
-              # close the info popup
-              page.remove "ti_#{addressable_type}_#{addressable_id}"
-            end
-
-            page.visual_effect :fade, "t_#{params[:id]}"
-
-            page.delay(2) do
-              page.remove "t_#{params[:id]}"
-            end
-          end
-      }
-		end
-
+      notice 'Tag was successfully deleted.'
+      respond_to do |format|
+        format.html {
+          redirect_to :action => :list and return
+        }
+        format.js { }
+      end
     else
       notice 'Something wrong with tag deletion.'
       redirect_to :back  and return
@@ -170,20 +134,4 @@ class TagController < ApplicationController
       }
     end
   end
-
-  def _close_popup_info
-     # only called with .js
-
-     respond_to do |format|
-	      format.js {
-          render :update do |page|
-            page.remove "ti_#{params[:addressable_type]}_#{params[:addressable_id]}"
-
-            # tags in clouds are dealt with in # destroy
-          end
-      }
-    end
-
-  end
-
 end

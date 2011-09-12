@@ -58,7 +58,7 @@
       </div>
 
       <div id="content">
-        <div id="notice" class="notice"><%= flash[:notice] -%></div> <%# on all the time for AJAX %>
+        <div id="notice" class="notice"><%= [flash[:notice]].flatten.join("<br/>") -%></div> <%# on all the time for AJAX %>
 
         <% unless no_subnav.include?(self.controller.controller_name) -%>
           <div class="subnav">

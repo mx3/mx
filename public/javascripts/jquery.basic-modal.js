@@ -48,15 +48,15 @@
         $("<div class='modal-box'>")
           .css({
             "position": "relative",
-            "margin":   "50 auto",
-            "padding":  "10",
+            "margin":   "50px auto",
+            "padding":  "10px",
             "background": "white",
-            "border-radius": "10",
-            "-moz-border-radius": "10",
-            "-webkit-border-radius": "10",
-            "-moz-box-shadow": "10 10 10 #000", /* Firefox */
-            "-webkit-box-shadow": "10 10 10 #000", /* Safari, Chrome */
-            "box-shadow": "10 10 10 #000" /* CSS3 */
+            "border-radius": "10px",
+            "-moz-border-radius": "10px",
+            "-webkit-border-radius": "10px",
+            "-moz-box-shadow": "10px 10px 10px #000", /* Firefox */
+            "-webkit-box-shadow": "10px 10px 10px #000", /* Safari, Chrome */
+            "box-shadow": "10px 10px 10px #000" /* CSS3 */
           });
 
       modal.append(box);
@@ -75,7 +75,7 @@
           left:     '0',
           backgroundColor: options.overlay_color,
           backgroundImage: "url("+options.overlay_spinner+")",
-          backgroundPosition: 'center 50 ',
+          backgroundPosition: 'center 50px ',
           backgroundRepeat:   'no-repeat',
           opacity:         options.overlay_opacity,
           zIndex:          options.overlay_z_index

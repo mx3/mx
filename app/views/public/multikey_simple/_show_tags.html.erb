@@ -1,7 +1,7 @@
- <% if @otus_remn.size == 1 -%> 
+ <% if @otus_remn.size == 1 -%>
     <div id="choices_container" class="box5" style="text-align: center;">
       <div style="font-weight: bolder; font-size:larger; color: red;"> There is only one remaining OTU! </div>
-      <div><%= render(:partial => "o", :collection => @otus_remn, :locals => {:action => 'choose_otu', :link_txt => ''}) -%></div>      
+      <div><%= render(:partial => "o", :collection => @otus_remn, :locals => {:action => 'choose_otu', :link_txt => ''}) -%></div>
     </div>
   <% end  -%>
 
@@ -14,15 +14,12 @@
 
 <div id="tag_list">
 
-  <%= render(:partial => 'shared/code_accordion') -%>
-
-  
   <%@tags.keys.sort_by{|a| a.keyword}.each do |k| %>
       <div id="vertical_container" >
-   
+
         <h3 class="accordion_toggle"> <%= k.keyword -%></h3>
-        
-        <div class="accordion_content"> 
+
+        <div class="accordion_content">
           <% @tags[k].each do |tag| %>
           <table style="width:100%;">
             <tr style="background-color:gray; padding: 2px;">
@@ -38,15 +35,11 @@
               <td><%= tag.ref.blank? ? "<i>none</i>" : tag.ref.display_name %></td>
             </tr>
           </table>
-        <% end %>   
+        <% end %>
         </div>
       </div>
-  <% end %> 
+  <% end %>
 </div>
-
-<script type="text/javascript">
-  loadAccordions();
-</script>
 
 <% else -%>
 

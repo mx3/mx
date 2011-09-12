@@ -1,10 +1,10 @@
 class KeywordController < ApplicationController
    verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
-  
+
   before_filter :_show_params, :only => [:show, :show_tags]
-  
-  
+
+
   def index
     list
     render :action => 'list'
@@ -26,7 +26,7 @@ class KeywordController < ApplicationController
     id ||= params[:id]
     @keyword = Keyword.find(id)
   end
-  
+
   def show
     session['keyword_view']  = 'show'
     @show = ['show_default']
@@ -40,7 +40,7 @@ class KeywordController < ApplicationController
     @no_right_col = true
     render :action => 'show'
   end
-  
+
   def new
     @keyword = Keyword.new
   end
@@ -80,12 +80,12 @@ class KeywordController < ApplicationController
     @tag_id_str = params[:tag_id]
     value = params[:term]
     #value = params[@tag_id_str.to_sym].split.join('%')
-   
+
     @keywords = Keyword.find(:all, :conditions => ["(keyword LIKE ? OR shortform LIKE ? OR id = ?) AND proj_id=?", "#{value}%", "#{value}%", value.gsub(/\%/, ""), @proj.id],        :limit => 20, :order => "keyword")
 
     data = @keywords.collect do |kw|
       {:id=> kw.id,
-       :label=> kw.display_name,
+       :label=> kw.keyword,
        :response_values=> {
           'keyword[id]' => kw.id,
           :hidden_field_class_name => @tag_id_str
@@ -95,5 +95,5 @@ class KeywordController < ApplicationController
     end
     render :json => data
   end
-  
+
 end

@@ -461,6 +461,17 @@ div .county {margin-left: 2em;}
 /**  These are new styles... Hacked in. I don't understand where everything may/may not go.
  * So we may have to refactor / move these parts around
  */
+form.delete-link {
+  display: inline;
+  background: #F6C3D4;
+}
+
+form.delete-link input[type="submit"] {
+  display: inline;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
 .popupform {
   background: white;
   width: 420px;

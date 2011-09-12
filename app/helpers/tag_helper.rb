@@ -45,9 +45,13 @@ module TagHelper
   end
 
   def destroy_tag_link(o)
-    # TODO Destroy tag link logic.
-    link_to "x", "javascript:alert('This is not implemented!  Boo!');"
-    #link_to_remote('x', :url => {:action => 'destroy', :controller => 'tag', :id => o.id}, :confirm => "Are you sure you want to delete this tag?")
+    url = url_for({:action => 'destroy', :controller => 'tag', :id => o.id})
+    html = <<-HTML
+<form class="delete-link" method="POST" action="#{url}">
+  <input type="submit" name="delete_link" value="x" ify='submit' data-ajaxify-confirm="Are you sure you want to delete this tag?"> </input>
+</form>
+    HTML
+    html.html_safe
   end
 
 

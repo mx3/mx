@@ -1,4 +1,3 @@
-<%= render(:partial => 'shared/code_accordion') -%>
 <% @tags.each do |o, addressable_type| %>
   <div id="vertical_container" >
     <h3 class="accordion_toggle"> <%= o.pluralize -%></h3>
@@ -22,7 +21,4 @@
       </div>
     <% end -%>
   </div>
-<% end -%> 
-<script type="text/javascript">
-  loadAccordions();
-</script>
+<% end -%>
