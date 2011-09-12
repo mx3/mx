@@ -35,12 +35,12 @@ tr.stripe {background-color: #efefef;}
 
 /* 3 column CSS from http://www.alistapart.com/articles/holygrail */
 #inner_wrapper {
-  min-width: 610;      /* 2x LC width + RC width */
+  min-width: 610px;      /* 2x LC width + RC width */
 }
 
 #inner_container {
-  padding-left: 150;   /* LC width */
-  padding-right: 260;  /* RC width */
+  padding-left: 150px;   /* LC width */
+  padding-right: 260px;  /* RC width */
 }
 #inner_container .column {
   position: relative;
@@ -51,18 +51,18 @@ tr.stripe {background-color: #efefef;}
   margin-bottom: .5em;
 }
 #inner_left {
-  width: 150;          /* LC width */
-  right: 150;          /* LC width */
+  width: 150px;          /* LC width */
+  right: 150px;          /* LC width */
   margin-left: -100%;    /* this not in error */
 }
 
 * html #inner_left {     /* IE6 Fix */
-  left: 200;           /* RC width */
+  left: 200px;           /* RC width */
 }
 
 #inner_right {
-  width: 260;          /* RC width */
-  margin-right: -260;  /* RC width */
+  width: 260px;          /* RC width */
+  margin-right: -260px;  /* RC width */
 }
 #inner_footer {
   clear: both;
@@ -198,18 +198,18 @@ div.subnav table {
 
 #nav_dd a {
 	display: block;
-	width: 20;
+	width: 20em;
 }
 
 #nav_dd li {
 	float: left;
-	width: 20;
+	width: 20em;
   padding: 3px;
 }
 
 #nav_dd li ul {
 	position: absolute;
-	width: 20;
+	width: 20em;
 	left: -999em;
 }
 
@@ -391,7 +391,7 @@ div.notice {
 
 .tree_level {
   margin-left:0;
-  padding-left: 10;
+  padding-left: 10px;
   clear: both;
 }
 
@@ -413,7 +413,7 @@ span.otu_id { color: gray;}
 
 /* IMAGES / FIGURES */
 .browse_rec {
-  height: 240;
+  height: 240px;
   float: left;
   padding: 0.5em;
   border: 1px solid gray;
@@ -463,7 +463,7 @@ div .county {margin-left: 2em;}
  */
 .popupform {
   background: white;
-  width: 420;
+  width: 420px;
 }
 .popupform .basic-modal-close {
   float: right;
