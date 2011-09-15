@@ -83,14 +83,18 @@
     var handlers = {
       submit: function($e, options) {
         $e.click(function(evt) {
+          $.basicModal("loading");
           if (confirmed($e)) {
             var request_options = $.extend({}, options, {
               dataType: 'script html',
               complete: function(xhr, status) {
+                $.basicModal("hide");
                 Ajaxify.eval_html(xhr.responseText);
               }
             });
             Ajaxify.request($e, request_options);
+          } else {
+            $.basicModal("hide");
           }
           evt.preventDefault();
         });
