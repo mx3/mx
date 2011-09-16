@@ -1,8 +1,8 @@
 # encoding: utf-8
 module TagHelper
-
-  # Cary- here's the general purpose code for rendering a 'Tag' link
-
+  def tag_class(tag)
+    "tag-class-#{tag.id}"
+  end
   def new_tag_tag(options ={})
     opt = {
       :object => nil,     # required
@@ -47,9 +47,10 @@ module TagHelper
   def destroy_tag_link(o)
     url = url_for({:action => 'destroy', :controller => 'tag', :id => o.id})
     html = <<-HTML
-<form class="delete-link" method="POST" action="#{url}">
-  <input type="submit" name="delete_link" value="x" ify='submit' data-ajaxify-confirm="Are you sure you want to delete this tag?"> </input>
-</form>
+      <form class="delete-link" method="POST" action="#{url}">
+        <input name="#{request_forgery_protection_token}" type="hidden" value="#{form_authenticity_token}"/>
+        <input data-ajaxify='submit' type="submit" name="delete_link" value="x" data-ajaxify-confirm="Are you sure you want to delete this tag?"> </input>
+      </form>
     HTML
     html.html_safe
   end

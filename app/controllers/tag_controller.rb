@@ -12,10 +12,6 @@ class TagController < ApplicationController
     render :action => 'list'
   end
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [  :create, :update, :destroy ], # removed :destroy,
-         :redirect_to => { :action => :list }
-
   def list
     @keyword = Keyword.new
 
@@ -101,14 +97,14 @@ class TagController < ApplicationController
   end
 
   def destroy
-    t = Tag.find(params[:id])
+    @tag = Tag.find(params[:id])
 
     # need some references to update things with
-    addressable_id = t.addressable_id
-    addressable_type = t.addressable_type
-    keyword_id = t.keyword.id
+    addressable_id = @tag.addressable_id
+    addressable_type = @tag.addressable_type
+    keyword_id = @tag.keyword.id
 
-    if t.destroy
+    if @tag.destroy
       notice 'Tag was successfully deleted.'
       respond_to do |format|
         format.html {

@@ -34,7 +34,6 @@
       })
         .bind( "autocompletefocus", function( event, ui ) {
           var selected = ui.item;
-          console.log(ui);
         })
         /* When you select an item you need add all the values which we are told to
          * -- add those values in the 'response_values' to the current form.
