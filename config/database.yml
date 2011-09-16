@@ -10,8 +10,8 @@
 #  looking for the mysql socket.
 <%
 # Some code to let the local environment override the default database options
-mysql_password = ENV['MX_MYSQL_PASSWORD'] || 'MmmXxx'
-mysql_username = ENV['MX_MYSQL_USERNAME'] || 'mx'
+mysql_password = ENV['MX_MYSQL_PASSWORD'] || '543#$rdS'
+mysql_username = ENV['MX_MYSQL_USERNAME'] || 'root'
 
 # Loop over all these possible mysql sockets, and see if they
 mysql_socket =
@@ -32,7 +32,7 @@ production: &production
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: mx_production
+  database: edge2_production
   pool: 5
   username: <%= mysql_username %>
   password: <%= mysql_password %>
@@ -45,11 +45,11 @@ production: &production
 
 development:
   <<: *production
-  database: mx_development
+  database: edge2_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *production
-  database: mx_test
+  database: edge2_test

@@ -1,5 +1,5 @@
 <%# with some hints from http://demo.script.aculo.us/ajax/update_element# %>
-<div id="<%= "ti_#{addressable_type}_#{addressable_id}" -%>" class="popupform" style="z-index: 55; left: -20; min-width: 280; height: <%= 165 * @tags.size -%>px; overflow:auto;">
+<div id="<%= "ti_#{addressable_type}_#{addressable_id}" -%>" class="popupform" style="z-index: 55; left: -20px; min-width: 280px; height: <%= 165 * @tags.size -%>px; overflow:auto;">
   <span class="small_form_button" style="float: right;" > <%= link_to_remote("close",  :url => { :action => :_close_popup_info, :controller => :tag, :addressable_type => addressable_type, :addressable_id => addressable_id}) -%></span>
   <span style="float:left;"><%= @keyword.display_name %></span>
   <% @tags.each_with_index do |t,i|  %>

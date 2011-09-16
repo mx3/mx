@@ -1,6 +1,6 @@
 <% if !node.blank? %>
 <div style="width: 100%; background-color: gray;">  <%= "#{node.parent ? node.parent.display_name : "root"} #{node.id} #{node.display_name}" -%> </div>
-  <div id="col_body<%= col_id -%>" style="height: 200;">
+  <div id="col_body<%= col_id -%>" style="height: 200px;">
     <% node.children.each_with_index do |n, i| -%>    
       <%= render(:partial => 'atv_node', :locals => {:n => n, :col_id => col_id, :colour => i.to_i + 1, :height => (200 / node.children.size).to_i }) -%>
     <% end %>      

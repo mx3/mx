@@ -4,7 +4,7 @@
 <% for @s in chr.chr_states -%>
   <% if @mk.ALL_STATES.include?(@s.id) -%>
   <!-- TODO: helper the logic below -->
-  <div style="float: left; margin:.0 .0 .2em .4em; padding:.0 .4em;
+  <div style="float: left; margin: 0 0 .2em .4em; padding: 0 .4em;
        background-color:rgb(<%= ColorHelper::ranged_color(1.0 - (@mk.OTUS_BY_STATE[@s.id].size.to_f / @mk.all_otus.size.to_f) , 'green') -%>);
        <%= @mk.OTUS_BY_STATE[@s.id].size == 1 ? 'border: double gray; ' : '' -%>">
       <% if @mk.remaining_choices.include?(@s.id) -%>
@@ -14,7 +14,7 @@
       <% end -%>
     </div>
   <% else -%>
-    <div class="small_grey" style="float: left; margin:.0 .2em .2em .4em; padding: 0 .2em; border: .1em solid silver;"><i><%= @s.display_name -%></i></div>
+    <div class="small_grey" style="float: left; margin: 0 .2em .2em .4em; padding: 0 .2em; border: .1em solid silver;"><i><%= @s.display_name -%></i></div>
   <% end -%>
 <% end -%>
 </div>

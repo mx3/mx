@@ -2,7 +2,7 @@
   <div class="show_category"> Search by identifier(s) <%= spinner_tag('group_spinner') -%> </div>
   <div class="show_comment"> Enter one or more identifiers or fragments each seperated by space or newline. </div> 
   <%= form_tag(:remote => true, :url => {:action => 'identifier_search'}, :loading => "Element.show('group_spinner')", :complete => "Element.hide('group_spinner')") do -%>
-  <%= text_area_tag(:string, {}, :style => 'width:98%;margin:0.2em;height:100;') -%><br />
+  <%= text_area_tag(:string, {}, :style => 'width:98%;margin:0.2em;height:100px;') -%><br />
   <%= submit_tag "show" -%> 
   <% end -%>
 </div>

@@ -3,11 +3,11 @@
 
 <!-- header row 1 -->
 <div style="border-bottom:1px dotted silver;padding:0.3em;clear:both;"><!-- row -->
-  <div style="float:left;width:310;"><!-- taxal -->
+  <div style="float:left;width:310px;"><!-- taxal -->
     Taxa
   </div>
   <% @genes.each do |g| %>
-    <div style="float:right;width:320;text-align:center;"><!-- gene col -->
+    <div style="float:right;width:320px;text-align:center;"><!-- gene col -->
       <%= g.name -%>
     </div><!-- end gene col -->
   <% end -%>
@@ -17,16 +17,16 @@
 <!-- header row 2 -->
 <div style="border-bottom:1px dotted silver;padding:0.3em;clear:both;"><!-- row -->
   <div style="float:left;"><!-- taxal -->
-    <div style="float:left;width:80;"><!-- family col -->
+    <div style="float:left;width:80px;"><!-- family col -->
       Family
     </div>
-    <div style="float:left;width:80;"><!-- subfamily col -->
+    <div style="float:left;width:80px;"><!-- subfamily col -->
       Subfamily 
     </div>
-    <div style="float:left;width:120;"><!-- taxon col -->
+    <div style="float:left;width:120px;"><!-- taxon col -->
       Taxon 
     </div>
-    <div style="float:left;width:30;"><!-- taxon col -->
+    <div style="float:left;width:30px;"><!-- taxon col -->
       OTU id 
     </div>
     <br style="clear:both;" />
@@ -35,13 +35,13 @@
     <div style="float:right;"><!-- gene col -->
       <div style="float:left;"><!-- otu row col -->
         <div style="border-bottom:1px dotted silver;"><!-- seq row  -->
-          <div style="float:left;width:60;"><!-- genbank id -->
+          <div style="float:left;width:60px;"><!-- genbank id -->
             Genbank ID
           </div>
-          <div style="float:left;width:60;"><!-- seq id -->
+          <div style="float:left;width:60px;"><!-- seq id -->
             mx Seq ID
           </div>
-          <div style="float:left;width:200;"><!-- specimen id -->
+          <div style="float:left;width:200px;"><!-- specimen id -->
             Specimen ID
           </div>
         </div><!-- end seq row -->
@@ -59,16 +59,16 @@
 
     <div style="float:left;"><!-- taxal -->
 
-      <div style="float:left;width:80;"><!-- family col -->
+      <div style="float:left;width:80px;"><!-- family col -->
         <%= o.taxon_name.andand.name_at_rank('family') -%>&nbsp;
       </div>
-      <div style="float:left;width:80;"><!-- subfamily col -->
+      <div style="float:left;width:80px;"><!-- subfamily col -->
         <%= o.taxon_name.andand.name_at_rank('subfamily') -%>&nbsp;
       </div>
-      <div style="float:left;width:120;"><!-- taxon col -->
+      <div style="float:left;width:120px;"><!-- taxon col -->
         <%= o.taxon_name.andand.display_name -%>&nbsp;
       </div>
-      <div style="float:left;width:30;"><!-- taxon col -->
+      <div style="float:left;width:30px;"><!-- taxon col -->
         <%= link_to(o.id, :action => :show, :id => o.id, :controller => :otu) -%>&nbsp;
       </div>
 
@@ -83,13 +83,13 @@
           <% o.sequences(:gene_ids => [g.id]).each do |s| -%>
             <div style="border-bottom:1px dotted silver;"><!-- seq row  -->
 
-              <div style="float:left;width:60;"><!-- genbank id -->
+              <div style="float:left;width:60px;"><!-- genbank id -->
                 <%= s.genbank_identifier.blank? ? 'X000000' : s.genbank_identifier -%>
               </div>
-              <div style="float:left;width:60;"><!-- seq id -->
+              <div style="float:left;width:60px;"><!-- seq id -->
                 <%= link_to(s.id, :action => 'show', :controller => 'seq', :id => s) -%>
               </div>
-              <div style="float:left;width:200;"><!-- specimen id -->
+              <div style="float:left;width:200px;"><!-- specimen id -->
                 <%= s.source_specimen.andand.display_name(:type => :identifiers)  -%>
               </div>
 
