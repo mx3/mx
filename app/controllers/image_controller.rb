@@ -4,6 +4,19 @@ class ImageController < ApplicationController
           
   auto_complete_for :image, :maker
 
+  
+  # Ajax search for popup
+  # likely better placed in figures or images
+  def search_list
+     @descriptions = ImageDescription.find_for_auto_complete(params.merge(:proj_id => @proj.id))
+     @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) # creates variable objects TODO: needed?
+     render(:layout => false, :partial => "image_description/search_list", :locals => {:obj => @obj})
+  end
+
+  # Filter methods in mx3 will take a list params, find results, then updated a method
+  # def filter
+  # end
+
   def index
     list
     render :action => 'list'

@@ -52,7 +52,6 @@ class FigureController < ApplicationController
     render :action => :list_simple
   end
 
-
   def show
     @figure = Figure.find(params[:id])
     respond_to do |format|
@@ -61,22 +60,178 @@ class FigureController < ApplicationController
     end
   end
 
+  # Figure popup task
+  # In the original code we only created and updated figures via the popup (=modal) form.
+  
+  def illustrate 
+    @figure = Figure.new
+    @image = Image.new
+    @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) # the Model to be figured
+    @figures = @obj.figures
+    render :layout => false
+  end
+
+  # keep this method CRUDY, at present it *not* hit, since whe hit create from the figure action
   def new
     @figure = Figure.new
     @image = Image.new
     @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) # the Model to be figured
     @figures = @obj.figures
-    
-    respond_to do |format|
-		  format.html {} # default .rhtml
-	    format.js { 
-          render :update do |page|
-            page.visual_effect :fade, "fl_#{@obj.class.to_s}_#{@obj.id}"
-            page.insert_html :bottom, "f_#{@obj.class.to_s}_#{@obj.id}", :partial => 'popup_form'
-          end
-      }
-		end
+
+    render :layout => false
   end
+  
+  # TODO: this is/was Figure#update, if from modal redraw the attached figures, if from editing a single figure via stanard Rails approach (which we don't yet do) just be Railsy
+  #def update_from_popup
+  #  @fig = Figure.find(params[:id])  
+  #  @fig.caption = params[:figs][@fig.id.to_s][:caption]
+  #  @fig.morphbank_annotation_id =  params[:figs][@fig.id.to_s][:morphbank_annotation_id]
+  #  @fig.save!
+
+  #  @obj = @fig.figured_obj
+  #  @figures = @obj.figures   
+
+  #  render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => params[:fig_obj_id], :fig_obj_class => params[:fig_obj_class], :msg => 'passed'} and return
+  #end
+
+  def create
+    @figure = Figure.new(params[:figure]) 
+    @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) 
+    @figures = @obj.figures
+    id = params[:id].split('_')
+    @id = ImageDescription.find(id[1])
+
+    @figure.addressable = @obj
+    @figure.image_id = @id.image_id
+    
+    if @figure.save
+      respond_to do |wants|
+        wants.js { }
+        wants.html { redirect_to :action => 'list' }
+      end
+      notice "Figured #{@obj.display_name}."
+    else # didn't save the tag
+      respond_to do |wants|
+        wants.js { }
+        wants.html { redirect_to :action => 'list' }
+      end
+      # render :action=>"new"
+    end
+  
+  end
+
+# # TODO: this is to be #destroy 
+# def destroy_from_popup
+#   @fig = Figure.find(params[:id])  
+#   @figures = @fig.figured_obj.figures
+
+#   ## should wrap this up in error checking
+#   @fig.destroy
+
+#   render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => @fig.addressable_id, :fig_obj_class => @fig.addressable_type} and return
+# end
+
+  # not tested
+  def destroy
+    @figure = Figure.find(params[:id])
+    if @figure.destroy
+      respond_to do |wants|
+        wants.js { }
+        wants.html { redirect_to :action => 'list' }
+      end
+      notice "Destroyed the figure."
+    else 
+      respond_to do |wants|
+        wants.js { 
+        }
+        wants.html { redirect_to :back => true } # ?
+      end
+    end
+  end
+
+
+
+
+
+  # TODO: this is to be #new
+ #def create_from_popup
+ #  @fig = Figure.new(params[:fig])   
+
+ #  @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) 
+ #  @figures = @obj.figures
+
+ #  # find the image that the image description contains
+ #  id = params[:id].split('_')
+ #  @id = ImageDescription.find(id[1])
+
+ #  @fig.addressable = @obj
+ #  @fig.image_id = @id.image_id
+
+ #  begin
+ #    @fig.save!
+ #    render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => params[:fig_obj_id], :fig_obj_class => params[:fig_obj_class], :msg => 'passed'} and return
+ #  rescue
+ #    render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => params[:fig_obj_id], :fig_obj_class => params[:fig_obj_class], :msg => 'failed'} and return
+ #  end 
+
+ #  # this far? bad
+ #  flash[:notice] = 'Problem with adding figure!'
+ #  redirect_to :action => 'list'
+ #end
+
+
+
+  def up
+    @figure = Figure.find(params[:id])  
+    @figure.move_higher
+    @figures = @fig.figured_obj.figures  
+    render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => @figure.addressable_id, :fig_obj_class => @figure.addressable_type} and return
+  end
+
+  def down
+    @figure = Figure.find(params[:id])  
+    @figure.move_lower
+    @figures = @figure.figured_obj.figures
+    render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => @figure.addressable_id, :fig_obj_class => @figure.addressable_type} and return
+  end
+
+  # NOTE: cant' client side this because we do a replace to get the updated list of figures for the @obj in question
+  # def cancel_from_popup
+  #   @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) # creates variable objects
+
+  #   respond_to do |format|
+  #     format.html {} # default .rhtml
+  #     format.js { 
+  #       render :update do |page|
+  #       page.remove "fp_#{@obj.class.to_s}_#{@obj.id}" # get rid of the form (use an effect)
+
+  #       page.delay(0.25) do
+  #         page.visual_effect :appear, "fl_#{@obj.class.to_s}_#{@obj.id}" # unhide the previously hidden Tag link
+  #       end
+
+  #       page << "if($('fbin_#{@obj.class.to_s}_#{@obj.id}')) {" # an image bin on this page
+  #       page.replace "fbin_#{@obj.class.to_s}_#{@obj.id}",  render_figs_for_obj(@obj, size = 'thumb', render_w_no_figs = true, klass = 'attached_figs',  mb_annotation = false, mode = 'js') # this needs better OPTs
+  #       page << "}"
+  #       end 
+  #     }
+  #   end 
+  # end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   def create_all_for_content_by_otu
      if Figure.create_all_for_content_by_otu(params[:content_id], params[:otu_id])
@@ -88,73 +243,6 @@ class FigureController < ApplicationController
     redirect_to :back
   end
 
-  def create
-  # create stuff
-    @figure = Figure.new(params[:figure]) 
-
-    @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) 
-    @figures = @obj.figures
-    
-    id = params[:id].split('_')
-    @id = ImageDescription.find(id[1])
-
-    @fig.addressable = @obj
-    @fig.image_id = @id.image_id
-    
-    if @fig.save
-      
-      render :update do |page|
-        page.remove "tp_#{@obj.class.to_s}_#{@obj.id}" # get rid of the form (use an effect)
-
-        page.insert_html :top, "t_#{@obj.class.to_s}_#{@obj.id}", '<span id="quick_msg">Figured!</span>' # provide msg to user
-        
-        page.visual_effect :highlight, "quick_msg", :duration => 1 # make sure they see it
-       
-        page.delay(1) do # wait a bit and faid it out
-          page.visual_effect :fade, "quick_msg" 
-        end
-        
-        page.delay(2) do # and get rid of it completely so as to not confuse things down the road
-          page.remove "quick_msg"                            
-        end
-        
-        page.delay(3) do
-             page.visual_effect :appear, "tl_#{@obj.class.to_s}_#{@obj.id}" # unhide the previously hidden Tag link
-        end
-
-        # javascript ifs are ugly, but realtively straightforward
-        # page << "if($('new_tags_wo_kw')) {"   # have an accordion on the page?
-        #  page.visual_effect :appear, "new_tags_wo_kw"
-        #  page.insert_html :bottom, "new_tags_wo_kw", ( @tag.display_name(:type => :without_keyword, :close => false) + " " + destroy_tag_link(@tag)  + '</div>')
-        # page << "}"
-            
-        # page << "if($('tag_cloud')) {"   # have a tag cloud on the page? 
-          # (should remove the blue sky if its there)
-        
-        #  page << "if($('cld_wrd_id_#{@tag.keyword.id}')) {" # remove the first instance if it's there
-        #    page.remove "cld_wrd_id_#{@tag.keyword.id}" 
-        #  page << "}"
-        #  
-        #  page.insert_html :bottom, "tag_cloud", tag_cloud_for(@obj, @tag.keyword.id) # add the new tag
-        # page << "}"
-      end
-
-      return
-    else # didn't save the figure 
-      render :update do |page|
-        
-         page.visual_effect :shake, "tp_#{@obj.class.to_s}_#{@obj.id}" # reset the form as well
-         page.alert "That figure has already been created, try again."
-         page["tpf_#{@obj.class.to_s}_#{@obj.id}"].reset
-      end
-      return
-    end 
-  
-    # this far? bad
-    #flash[:notice] = 'Problem with adding figure!'
-    # redirect_to :action => :list
-  end
-  
   def edit
     #  redirect_to :back
     @figure = Figure.find(params[:id])
@@ -226,101 +314,7 @@ class FigureController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  # popup form functions
-
-  def popup_form
-    @fig = Figure.new
-    @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id])
-    @figures = @obj.figures
-    render :layout => false, :obj_id => @obj.id, :obj_class => @obj.class # required for rebuilding the link on way out
-  end
-
-  def update_from_popup
-    @fig = Figure.find(params[:id])  
-    @fig.caption = params[:figs][@fig.id.to_s][:caption]
-    @fig.morphbank_annotation_id =  params[:figs][@fig.id.to_s][:morphbank_annotation_id]
-    @fig.save!
-
-    @obj = @fig.figured_obj
-    @figures = @obj.figures   
-
-    render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => params[:fig_obj_id], :fig_obj_class => params[:fig_obj_class], :msg => 'passed'} and return
-  end
-
-
-  def destroy_from_popup
-    @fig = Figure.find(params[:id])  
-    @figures = @fig.figured_obj.figures
-
-    ## should wrap this up in error checking
-    @fig.destroy
-
-    render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => @fig.addressable_id, :fig_obj_class => @fig.addressable_type} and return
-  end
-
-  def create_from_popup
-    @fig = Figure.new(params[:fig])   
-
-    @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) 
-    @figures = @obj.figures
-
-    # find the image that the image description contains
-    id = params[:id].split('_')
-    @id = ImageDescription.find(id[1])
-
-    @fig.addressable = @obj
-    @fig.image_id = @id.image_id
-
-    begin
-      @fig.save!
-      render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => params[:fig_obj_id], :fig_obj_class => params[:fig_obj_class], :msg => 'passed'} and return
-    rescue
-      render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => params[:fig_obj_id], :fig_obj_class => params[:fig_obj_class], :msg => 'failed'} and return
-    end 
-
-    # this far? bad
-    flash[:notice] = 'Problem with adding figure!'
-    redirect_to :action => 'list'
-  end
-
-  def up
-    @fig = Figure.find(params[:id])  
-    @fig.move_higher
-    @figures = @fig.figured_obj.figures  
-    render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => @fig.addressable_id, :fig_obj_class => @fig.addressable_type} and return
-  end
-
-  def down
-    @fig = Figure.find(params[:id])  
-    @fig.move_lower
-    @figures = @fig.figured_obj.figures
-
-    render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => @fig.addressable_id, :fig_obj_class => @fig.addressable_type} and return
-  end
-
-  # NOTE: cant' client side this because we do a replace to get the updated list of figures for the @obj in question
- def cancel_from_popup
-   @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) # creates variable objects
- 
-   respond_to do |format|
-     format.html {} # default .rhtml
-     format.js { 
-       render :update do |page|
-         page.remove "fp_#{@obj.class.to_s}_#{@obj.id}" # get rid of the form (use an effect)
-
-         page.delay(0.25) do
-           page.visual_effect :appear, "fl_#{@obj.class.to_s}_#{@obj.id}" # unhide the previously hidden Tag link
-         end
-
-         page << "if($('fbin_#{@obj.class.to_s}_#{@obj.id}')) {" # an image bin on this page
-         page.replace "fbin_#{@obj.class.to_s}_#{@obj.id}",  render_figs_for_obj(@obj, size = 'thumb', render_w_no_figs = true, klass = 'attached_figs',  mb_annotation = false, mode = 'js') # this needs better OPTs
-         page << "}"
-     end 
-     }
-   end 
- end
-
-  def draw
+   def draw
      @figure = Figure.find(params[:id])
      respond_to do |format|
       format.html {} # default .rhtml
@@ -355,12 +349,15 @@ class FigureController < ApplicationController
     redirect_to :action => :show, :id => @figure.figured_obj, :controller => @figure.addressable_type.tableize.singularize
   end
   
-  # Ajax search for popup
-  # likely better placed in figures or images
-  def search_list
-     @descriptions = ImageDescription.find_for_auto_complete(params.merge(:proj_id => @proj.id))
-     @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) # creates variable objects TODO: needed?
-     render(:layout => false, :partial => "image_description/search_list", :locals => {:obj => @obj})
+  def find_images
+     # Display images via reference to their description
+     @image_descriptions = ImageDescription.find_for_auto_complete(params.merge(:proj_id => @proj.id))
+     @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id])  
+     respond_to do |wants|
+      wants.js { }   
+      wants.html { } # What TODO here? 
+     end
+     render :layout => false
   end
 
   def sort_figure_markers

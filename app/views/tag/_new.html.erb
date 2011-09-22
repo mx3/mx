@@ -14,17 +14,16 @@ The form should try and create a new tag (see existing create code).
 
 -->
 
-
 <div id="<%= "tp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform" >
   <div>
-    <a class='basic-modal-close' href='#'> X</a>
+    <a class='basic-modal-close' href='#'>X</a>
     <span style="float: left;">Tagging: <%= @obj.id %></span>
   </div>
   <br style="clear: both;" />
-  <%= form_for :specimen, :html => {:id => "tpf_#{@obj.class.to_s}_#{@obj.id}"}, :url => url_for(:action => "create") do |f| %>
+  <%= form_for :object, :html => {:id => "tpf_#{@obj.class.to_s}_#{@obj.id}"}, :url => url_for(:action => "create") do |f| %>
   <input type='hidden' name='html_selector' value='<%= @html_selector %>'/>
   <%= submit_tag "Create", 'data-ajaxify'=>'modal' -%>
   <%= render :partial => 'form', :locals => {:keyword_id => @keyword_id} -%>
-  <%= submit_tag "Create" , 'data-ajaxify'=>'modal'-%>
+  <%= submit_tag "Create" , 'data-ajaxify'=>'modal' -%>
   <% end -%>
 </div>

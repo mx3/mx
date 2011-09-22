@@ -1,6 +1,35 @@
 # encoding: utf-8
 module FigureHelper
 
+  def figure_class(figure)
+    "figure-class-#{figure.id}"
+  end
+
+
+  def new_figure_tag(options ={})
+    opt = {
+      :object => nil,        # required
+      :image => nil,         # required
+      :caption => nil,       # 
+      :link_text => 'Attach' # 
+    }.merge!(options)
+
+    return content_tag(:em, opt[:link_text]) if opt[:object].nil? || opt[:image].nil?
+
+    url = url_for(:action => :new,
+                  :controller => :figure,
+                  :html_selector => opt[:html_selector],      # Needed here? 
+                  :figure_obj_class => opt[:object].class.to_s,
+                  :figure_obj_id => opt[:object].id,
+                  :figure_caption => opt[:caption])
+
+    # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
+   
+    # Cary - TODO!
+    content_tag(:a, opt[:link_text], :href => url, 'ajax-stuff-here' => '' , 'other-ajax-stuff-here' => '600')
+  end
+
+
   # collective renders appended figures on non-ajax loads
   def render_svged_figures # :yields: String (svgweb ineractive HTML)
     if !request.xml_http_request?
@@ -98,8 +127,15 @@ module FigureHelper
     'DEPRECATED FOR figure_tag' #    render(:partial => "figure/fig_link", :locals => { :fig_obj_id => o.id, :fig_obj_class => o.class.to_s, :msg => ''})
   end
 
-  def figure_tag(o)
-    render(:partial => "figure/fig_link", :locals => { :fig_obj_id => o.id, :fig_obj_class => o.class.to_s, :msg => ''})
+  # Pass an Instance of a Model that has include ModelExtensions::Figurable
+  # mx3 uses "illustrate" as the verb, "figure" as the noun
+  def illustrate_tag(o)
+    content_tag :div, :id => "f_#{o.class.to_s}_#{o.id}", :style => 'display:inline;' do
+      content_tag :span, :id => "fl_#{o.class.to_s}_#{o.id}" do
+        # Cary - is data-basic-modal-width working?
+        content_tag(:a, 'Fig', 'data-basic-modal' => '', 'data-basic-modal-width' => '600', :href => url_for(:action => :illustrate, :controller => :figure, :fig_obj_id => o.id, :fig_obj_class => o.class.to_s) ) 
+      end
+    end
   end
 
   def render_figs_for_obj(o, size = 'thumb', render_w_no_figs = true, klass = 'attached_figs', mb_annotation = false, mode = 'partial') # :yields: renders a Partial

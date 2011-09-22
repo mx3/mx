@@ -1,8 +1,10 @@
 # encoding: utf-8
 module TagHelper
+  
   def tag_class(tag)
     "tag-class-#{tag.id}"
   end
+  
   def new_tag_tag(options ={})
     opt = {
       :object => nil,     # required
