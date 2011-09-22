@@ -1,0 +1,44 @@
+<script>
+<% unless @figure.errors.empty? %>
+$.basicModal('error_shake');
+<% end %>
+</script>
+
+<!--
+-->
+
+<div id="<%= "tp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform" >
+  <div>
+    <a class='basic-modal-close' href='#'> X</a>
+    <span style="float: left;">Figuring: <%= @obj.display_name %></span>
+  </div>
+  <br style="clear: both;" />
+
+  <!-- the existing figures on this object (analagous to the existing tag-cloud) -->
+  <div id="attached_figures" style="clear:left;height:15px;margin-top:2px;border:2px solid black;">
+    <div id="items" >
+      <% if @figures.size > 0 -%>
+      <%= render(:partial => 'figure/fig', :collection => @figures) -%>
+      <% else %>
+      <em> No figures are presently attached. </em>
+      <% end %>
+      <br style="clear:left;" />
+    </div>
+  </div>
+
+  <div>
+    <div style="clear:both;">&nbsp;</div>
+    <%= render :partial => 'image_search', :locals => {:fig_obj_class => params[:fig_obj_class], :fig_obj_id => params[:fig_obj_id] } -%>
+    <br style="clear:both;" />
+  </div>
+
+  <div id="find_images_result" style="border: 2px solid green;margin-top:1em;">
+    <em> Image will display here after a search is completed.  Might need to move this to /figure/_illustrate to make more sense?</em> 
+    <br style="clear:both;" />
+
+
+  </div>
+
+</div>
+
+</div>

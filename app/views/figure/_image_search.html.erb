@@ -1,0 +1,51 @@
+<div id="search_form" style="float:left; border: 2px solid black;">
+  <!-- Cary - ajaxify me need this form remotely populates the result div below --> 
+  <%= form_tag( :url => {:action => 'search_list', :controller => 'figure', :fig_obj_class => fig_obj_class, :fig_obj_id => fig_obj_id},:html => {:id => 'image_search_form'}) do -%>
+  <!-- ajaxify me --> <%= submit_tag("Search", :href => url_for(:action => :find_images, :controller => :figure), 'some-cool-data-ajaxify-here' => '') -%> 
+
+  <!-- what's this -> -->   <input type='hidden' name='html_selector' value='<%= @html_selector %>'/>
+
+
+  <div class="fr"> <label for="specimen_for_img_search" class="lbl4">Specimen (MATT - fix me)</label> 
+    <span class="fld">   <%= render :partial => 'shared/picker', :locals => {
+      :controller => 'specimen',
+      :object => 'id',
+      :method => 'specimen_id',
+      :tag_id => "specimen_for_img_search",
+      :display => "",
+      :size => 60} -%>
+    </span>
+  </div>
+
+  <div class="fr"> <label for="otu_for_img_search" class="lbl4">OTU</label> 
+    <span class="fld">      <%= render :partial => 'shared/picker', :locals => {
+      :controller => 'otu',
+      :object => 'id',
+      :method => 'otu_id',
+      :tag_id => "otu_for_img_search",
+      :display => "",
+      :size => 60} -%>
+    </span>
+  </div>
+
+  <div class="fr"> <label for="label_id_for_fig_popup" class="lbl4">Part/Label</label> 
+    <span class="fld">     <%= render :partial => 'shared/picker', :locals => {
+      :controller => 'label',
+      :object => 'id',
+      :method => 'label_id',
+      :use_proj => true,
+      :size => 60,
+      :tag_id => "label_id_for_fig_popup"} -%></span>
+  </div>
+
+  <div class="fr"> <label for="label_id_for_fig_popup" class="lbl4">View</label> 
+    <span class="fld"><%= render(:partial => "image_view/picker", :locals => {:c_name=> 'id', :f_name => 'image_view_id'} ) -%></span>
+  </div>
+
+  <div class="fr"> <label for="image_id_for_fig_popup" class="lbl4">Image ID</label> 
+    <span class="fld"><%= text_field :id, :image_id %></span>
+  </div>
+
+  <% end -%>
+
+</div>
