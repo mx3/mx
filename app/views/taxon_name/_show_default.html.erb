@@ -1,8 +1,0 @@
-<% content_for :center do -%>
- <%= render :partial => 'tn', :object => @taxon_name -%>
-<% end -%>
-
-<% content_for :right do -%> 
-  <%= render(:partial => 'parents') -%> <!-- requires @parents --> 
-  <%= render(:partial => 'children') -%> <!-- requires @parents --> 
-<% end -%>

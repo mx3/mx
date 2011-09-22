@@ -38,7 +38,7 @@ function changeDate(y,m,d) {
 
 <div class="subform">
   <i> add a specimen </i>
-  <%= form_remote_for(:specimen, :html => {:id => 'specimen_form', :name => 'specimen_form'}, :url => url_for(:controller => "specimen", :action => "create"),  :loading => "Element.show('add_specimen_spinner')", :complete => "Element.hide('add_specimen_spinner')")  do |f| %>
+  <%= form_for(:specimen, :remote => true, :html => {:id => 'specimen_form', :name => 'specimen_form'}, :url => url_for(:controller => "specimen", :action => "create"),  :loading => "Element.show('add_specimen_spinner')", :complete => "Element.hide('add_specimen_spinner')")  do |f| %>
   <%= hidden_field_tag :total_specimens, :value => @specimens.size -%>
     <div id="vertical_container" >
       <h3 class="accordion_toggle">basic fields</h3>
@@ -59,13 +59,17 @@ function changeDate(y,m,d) {
 
         <% if self.controller.controller_name == 'ce' -%>
           <%= hidden_field :specimen, :ce_id, :value => @ce.id -%>
-        <% else -%>
-          <div class="fr"><label for="specimen_ce_id" class="lbl4">Collecting Event</label>
-          <span class="fld"> <%= render :partial => "ce/picker", :locals => {
-              :object => 'specimen', :method => 'ce_id', :tag_id => "ce_name",
-              :display => '' } -%></span>
-          </div>
-        <% end -%>
+          <% else -%>
+
+            <div class="fr"> <label for="specimen_ce_id" class="lbl4">Collecting Event</label>
+            <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
+              :controller => 'ce',
+              :object => 'specimen',
+              :method => 'ce_id',
+              :tag_id => "ce_name",
+              :display => "",
+              :size => 40} -%></span></div>
+          <% end -%>
 
         <div class="fr"> <label for="identifier_identifier" class="lbl4">Identifier</label>
           <span class="fld"> <%= text_field 'identifier', 'identifier', 'title' => 'identifier or voucher number - be sure to enter identifier source too'  -%>  <i>include a source</i></span>

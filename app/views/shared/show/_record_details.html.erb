@@ -1,8 +1,0 @@
-<div class="show_category"> Record details </div>
-<div class="show_row"><span class="show_lbl">Last updator: </span><span class="show_data"><%= obj.updator.full_name -%></span></div>
-<div class="show_row"><span class="show_lbl">Creator: </span><span class="show_data"><%= obj.creator.full_name -%></span></div>
-<div class="show_row"><span class="show_lbl">Created on: </span><span class="show_data"><%= time_ago_in_words(obj.created_on) -%> ago</span> </div>
-<div class="show_row"><span class="show_lbl">Last updated: </span><span class="show_data"><%= time_ago_in_words(obj.updated_on) -%> ago</span> </div>
-<% if obj.respond_to?(:is_public) %>
-<div class="show_row"><span class="show_lbl">Is public?: </span><span class="show_data"><%= obj.is_public ? 'Yes' : 'No' -%></span> </div>
-<% end -%>
