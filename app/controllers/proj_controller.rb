@@ -1,6 +1,6 @@
 class ProjController < ApplicationController
   # @proj is set by a 'before_filter'. Project membership is checked in a filter as well
-  # see AdminController for creating new projects 
+  # see AdminController for creating new projects
 
   verify :method => :post, :only => [ :destroy, :create, :update ],
     :redirect_to => { :action => :list }
@@ -30,7 +30,7 @@ class ProjController < ApplicationController
     @proj = Proj.find(params[:id], :include => [:contents])
     @people = Person.find(:all, :order => 'login')
     @target = 'update' # GET RID OF THIS!
-    _set_pub_controllers 
+    _set_pub_controllers
   end
 
   def _set_pub_controllers
@@ -57,7 +57,7 @@ class ProjController < ApplicationController
     else
       @people = Person.find(:all)
       @target = 'update'
-      _set_pub_controllers 
+      _set_pub_controllers
       render :action => 'edit'
 
     end

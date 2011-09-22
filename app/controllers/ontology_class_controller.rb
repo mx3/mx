@@ -1,6 +1,6 @@
 class OntologyClassController < ApplicationController
   in_place_edit_for :ontology_class, :definition
-  
+
   verify :method => :post, :only => [ :destroy, :create, :generate_xref ], # , :update
   :redirect_to => { :action => :list }
 
@@ -20,8 +20,8 @@ class OntologyClassController < ApplicationController
       @ontology_classes = @proj.ontology_classes.send(params[:scope],params[:arg]).ordered_by_label_name
     else
       @ontology_classes = @proj.ontology_classes.send(params[:scope]).ordered_by_label_name
-    end 
-    @list_title = "Ontology classes #{params[:scope].humanize.downcase}" 
+    end
+    @list_title = "Ontology classes #{params[:scope].humanize.downcase}"
     render :action => :list_simple
   end
 
@@ -48,7 +48,7 @@ class OntologyClassController < ApplicationController
   end
 
   def list_simple_with_tags
-    render :action => :list_simple_with_tags and return if params[:kw].blank? || params[:kw][:id].blank? 
+    render :action => :list_simple_with_tags and return if params[:kw].blank? || params[:kw][:id].blank?
     respond_to do |format|
       format.html {
       }
@@ -57,7 +57,7 @@ class OntologyClassController < ApplicationController
         page.replace_html :results, :partial => 'simple_tag', :locals => {:keyword => Keyword.find(params[:kw][:id]), :ontology_classes => @proj.ontology_classes.ordered_by_label_name[0..10]}
         end and return
       }
-    end   
+    end
   end
 
   def list_label_summary
@@ -107,14 +107,14 @@ class OntologyClassController < ApplicationController
   def show_figures
     @no_right_col = true
     session['ontology_class_view']  = 'show_figures'
-    @show = ['show_figures'] 
+    @show = ['show_figures']
     render :action => :show
   end
 
   def show_history
     @no_right_col = true
     session['ontology_class_view']  = 'show_history'
-    @show = ['show_history'] 
+    @show = ['show_history']
     render :action => :show
   end
 
@@ -151,25 +151,25 @@ class OntologyClassController < ApplicationController
     id ||= params[:id]
     if id == ""
       flash[:notice] = "Can't find a ontology class with that id, make sure to select the ontology class from the dropdown."
-      render :action => :index and return 
-    end 
-    
+      render :action => :index and return
+    end
+
     if @ontology_class = OntologyClass.find(id)
       _show_params
       session['ontology_class_view'] = 'show_visualize_newick'
-      @show = ['ontology/visualize/show_visualize_newick'] 
+      @show = ['ontology/visualize/show_visualize_newick']
       render :action => :show
     else
       flash[:notice] = "Can't find a ontology class with that id, make sure to select the ontology class from the dropdown."
       render :action => :index
     end
 
-    @no_right_col = true  
+    @no_right_col = true
   end
 
   def _render_newick
    root = OntologyClass.find(params[:id])
-   @object_relationship = ObjectRelationship.find(params[:object_relationship_id]) 
+   @object_relationship = ObjectRelationship.find(params[:object_relationship_id])
    render :update do |page|
       page.replace_html :tree, :partial => 'ontology/visualize/newick_tree', :locals => {
         :root => root,
@@ -196,7 +196,7 @@ class OntologyClassController < ApplicationController
     rescue
       flash[:notice] = "Problem generating xref, does your project have a ontology namespace?  See settings.."
     end
-    redirect_to :action => :show, :id => @ontology_class  
+    redirect_to :action => :show, :id => @ontology_class
   end
 
   def _show_params
@@ -209,11 +209,11 @@ class OntologyClassController < ApplicationController
   def auto_complete_for_ontology_class
     @ontology_classes = OntologyClass.auto_complete_search_result(params.merge!(:proj_id => @proj.ontology_id_to_use))
     render :inline => "<%= auto_complete_result_with_ids(@ontology_classes,
-    'format_obj_for_auto_complete', @tag_id_str) %>" 
+    'format_obj_for_auto_complete', @tag_id_str) %>"
   end
 
   def _populate_consituent_parts
-    @cop = OntologyClass.find(params[:id]).logical_relatives(:direction => :children)       
+    @cop = OntologyClass.find(params[:id]).logical_relatives(:direction => :children)
     @cop ||= []
     render :update do |page|
       page.replace_html :constituent_parts, :partial => 'logical_ontology_class_list', :locals => {:children_of_part => @cop}
@@ -225,7 +225,7 @@ class OntologyClassController < ApplicationController
     t = OntologyClass.find(params[:id])
     t.update_attributes(:definition => params[:value].strip, :updated_by => Person.find($person_id))
     if t.save
-      render :text => t.definition    
+      render :text => t.definition
     else
       render :text => '<span style="color: red;">Validation failed, record not updated.</span>'
     end
