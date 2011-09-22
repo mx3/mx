@@ -11,13 +11,15 @@
       <div class="fr"> <label for="chr_short_name" class="lbl4">Short name </label>
         <span class="fld"><%= text_field 'chr', 'short_name', 'title' => 'abbreviated name for the matrix', :size => 6 -%> <i>used in matrix views</i></span>
       </div>
-          
+         
       <div class="fr"> <label for="chr_cited_in" class="lbl4">Cited in</label>
-        <span class="fld">  
-            <%= render :partial => "ref/picker", :locals => {
-            :object => 'chr', :method => 'cited_in', :size => 46,  :tag_id => "ref_name", 
-                :display => (@chr.cited_in_ref.display_name if @chr.cited_in_ref) } -%>
-        </span>
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+          :controller => 'ref',
+          :object => 'chr',
+          :method => 'cited_in',
+          :tag_id => "ref_id_to_find_for_chr",
+          :display => (@chr.cited_in_ref.andand.display_name),
+          :size => 46 } -%></span>
       </div>
 
       <div class="fr"> <label for="chr_cited_page" class="lbl4">Cited on page</label>
