@@ -1,0 +1,21 @@
+<% content_for :center do -%>
+<h3> Codings </h3>
+<div class="subform">
+  <div class="header"> limit to matrix </div>
+  <div class="content"> 
+    <div style="float: right;">  <%= link_to('show all', :action => :show_codings, :show_all => true) -%>  <i>(may take time)</i> </div>
+    <% form_remote_tag(:loading => "Element.show('matrix_codings_spinner')", :complete => "Element.hide('matrix_codings_spinner')", :url => {:action => :_update_codings, :id => @otu.id} ) do -%> 
+    <span class="lbl4">matrix </span> <%= select("mx", "id", @mxes.collect{|o| [o.name, o.id]}, :include_blank => true)  -%>
+    <%= submit_tag "filter" -%>&nbsp;<%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'matrix_codings_spinner', :style => "display: none; vertical-align:middle;"  ) -%>
+    <% end -%>
+  </div>
+</div>
+
+<div class="passed" style="padding: 2px; text-align: center;">diagnostic codings in green</div>
+
+<div id="codings">
+
+  <%= render(:partial => 'codings') -%>
+</div>
+
+<% end -%>

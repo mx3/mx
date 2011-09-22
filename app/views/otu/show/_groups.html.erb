@@ -1,0 +1,24 @@
+<% content_for :center do -%>
+  <h4>In groups:</h4>
+  <ul style="list-style-type: disc;  margin-left: .4em; font-size: 90%;">
+    <% for otu_group in @otu_groups_in %>
+    <li> <%= otu_group.name %>  <%= link_to("x", {:action => 'remove_from_otu_group', :id => otu_group.id, :params => {"otu_id" => @otu.id}}, :method => "post") %> </li>
+    <% end %>
+  </ul>
+
+  <% if @otu_groups_out.length == 0 -%>
+  <i>member of all groups </i> <br /><br />
+  <% else %>
+
+  <div class="subform">
+    <div class="header">Add to group</div>
+    <% form_tag(:action => 'add_to_otu_group') do  %>
+    <%= hidden_field "otu_hook", "id", 'value' => @otu.id %>
+
+    <%= select_tag("otu_group_id", "<option value=\"\"></option>" + options_for_select(@otu_groups_out.collect {|o| [ o.name, o.id ]})) %>
+    <input type="submit" name="submit" value="add"  />
+    <% end -%>
+  </div>
+
+  <% end -%>
+<% end %>

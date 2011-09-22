@@ -1,9 +1,0 @@
-<div>
-  <% if @part == 'center' %>
-  <strong>Tags on this OTU</strong> | <%= new_tag_tag(:object=>@otu) %><br/><br/>
-      <br/><br/>
-    <%= link_to('table format', :action => :show_tags_no_layout, :id => @otu.id) -%>
-
-    <%= render(:partial => 'tag/tags_by_keyword') %>
-  <% end %>
-</div>

@@ -2,6 +2,24 @@
 module App::NavigationHelper
   # Links and similar methods, should minimally influence layout (but see the tabs code)
 
+  # Used in _navigator renderings when show methods are called to 
+  # display an individual record.  
+  # :link => must have a corresponding show_<link> method in the controller, and partial in the /show/ for the given model
+  def show_nav_link(options = {})
+    opt = {
+      :obj => nil,
+      :link => nil   
+    }.merge(options)
+    bound_action = "show_#{opt[:link].gsub(/\s/, '_')}"
+    content_tag(:div, :class => 'item') do
+     if params[:action].to_s == bound_action
+       content_tag(:span, opt[:link], :class => 'navigator_current')
+     else
+       content_tag(:span, link_to(opt[:link], :action => bound_action, :id => opt[:obj].id), :class => 'navigator_away')
+     end
+    end
+  end
+
   # Returns a link for use _navigator.html.erb
   def navigator_link_tag(options = {})
     opt = {
@@ -29,7 +47,7 @@ module App::NavigationHelper
   def navigator2(options = {}) # :yields: String (html, navigator for a particular show view)
     opt = {
       :obj => nil,     # the Object instance being shown
-      :do => 'show',   # the view being shown as stored in the session, like session['show_taxon_name']
+      :do => 'show',   # we just repeat the last action called 
       :ord => 'id'     # the field to sort on for left/right navigation
     }.merge!(options)
 
@@ -43,14 +61,13 @@ module App::NavigationHelper
       id_box_tag(opt[:obj]) +
         content_tag(:div, link_to('show', :action => :show, :id => opt[:obj]), :class => (opt[:do] == 'show' ? 'navigator_current' : ''), :style => 'margin:3px 0;') +
         content_tag(:div, :class => 'navigator_buttons') do
-        content_tag(:span, link_to('&lt;', {:action => opt[:do], :controller => klass, :id => previous_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')  +
+        content_tag(:span, link_to("&#8678;".html_safe, {:action => opt[:do], :controller => klass, :id => previous_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')  +
           content_tag(:span, link_to('edit', :action => :edit, :controller => klass, :id => opt[:obj].id) ) +
-          content_tag(:span, link_to('&gt;', {:action => opt[:do], :controller => klass, :id => next_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')
+          content_tag(:span, link_to('&#8680;'.html_safe, {:action => opt[:do], :controller => klass, :id => next_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')
       end  +
-        content_tag(:div, :style => 'width: 100%; font-size:smaller; padding:2px;' ) do
-        new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp" +
-          content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
-      end
+       content_tag(:div, :style => 'width: 100%; font-size:smaller;padding:2px;' ) do
+         new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp".html_safe + content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
+       end
     end
 
   end
@@ -333,7 +350,6 @@ module App::NavigationHelper
           link_to(link['text'], link['options'])
         end }.join('|')
     end
-
   end
 
   # ripped straight out of Rails docs, modified for ajax

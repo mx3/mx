@@ -17,7 +17,6 @@ class OtuController < ApplicationController
     render :layout=>false
   end
 
-
   def list_all
     @otu_pages = nil
     @otus = Otu.find(:all, :conditions => "(proj_id = #{@proj.id})")
@@ -25,14 +24,11 @@ class OtuController < ApplicationController
   end
 
   def show
-    session['otu_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default'] # see /app/views/shared/layout
   end
 
   def show_summary
     @klass = "Otu"
-    session['otu_view'] = 'show_summary'
-    @show = ['show_summary']
     render :action => 'show'
   end
 
@@ -45,23 +41,26 @@ class OtuController < ApplicationController
   # Specimen mapping (NOT distributions)
   def show_map
     @no_right_col = true
-    session['otu_view']  = 'show_map'
-    @show = ['show_map']
     render :action => 'show'
   end
 
   def show_distribution
     @no_right_col = true
     @distributions = @otu.distributions.ordered_by_geog_name
-    session['otu_view']  = 'show_distribution'
-    @show = ['show_distribution']
     render :action => 'show'
   end
 
+  # TODO: this is probably deprecated?
+  def show_matrix_sync
+    @content = @otu.text_content # a hash with content_type_id => Content
+    @show = ['matrix_sync']
+    render :action => 'show'
+  end
+
+  # TODO: this is probably deprecated, or should not be in /show
   def show_tags_no_layout
     @tags = @otu.tags
-    session['otu_view']  = 'show_tag_search_no_layout'
-    @show = ['show_tag_search_no_layout']
+    @show = ['tag_search_no_layout']
     render :layout => false
   end
 
@@ -69,16 +68,12 @@ class OtuController < ApplicationController
     @otu_groups_in = @otu.otu_groups
     @otu_groups_out = @proj.otu_groups - @otu_groups_in
     @no_right_col = true
-    session['otu_view']  = 'show_groups'
-    @show = ['show_groups']
     render :action => 'show'
   end
 
   def show_material_examined
-    session['otu_view']  = 'show_material_examined'
     @me = MaterialExamined.new(:otu_id => @otu.id)
     @no_right_col = true
-    @show = ['show_material_examined']
     render(:action => 'show')
   end
 
@@ -97,13 +92,6 @@ class OtuController < ApplicationController
 
     @public = true
     render :partial => 'content_template/page', :locals => {:content => @content_template.content_by_otu(@otu, true)}, :layout => 'otu_page_public_preview'
-  end
-
-  def show_matrix_sync
-    @content = @otu.text_content # a hash with content_type_id => Content
-    session['otu_view']  = 'show_matrix_sync'
-    @show = ['show_matrix_sync']
-    render :action => 'show'
   end
 
   # TODO: needs some error catching
@@ -141,8 +129,6 @@ class OtuController < ApplicationController
 
   # content comparison
   def show_compare_content
-    session['otu_view']  = 'show_compare_content'
-
     if params[:content_type_id].blank?
       @content_type = ContentType.find(:first, :conditions => "proj_id = #{@proj.id}")
     else
@@ -156,7 +142,6 @@ class OtuController < ApplicationController
     end
 
     @no_right_col = true
-    @show = ['show_compare_content']
 
     @left_lock = true
     @right_lock = false
@@ -166,10 +151,8 @@ class OtuController < ApplicationController
 
   def show_all_content
     # TODO: this isn't really *all*, it's non published
-    session['otu_view']  = 'show_all_content'
     @contents = @otu.contents.that_are_editable
     @no_right_col = true
-    @show = ['show_all_content']
     render(:action => 'show')
   end
 
@@ -206,7 +189,6 @@ class OtuController < ApplicationController
   end
 
   def show_codings
-    session['otu_view']  = 'show_codings'
     @mxes = @otu.mxes
     @codings = []
     if params[:show_all]
@@ -215,7 +197,6 @@ class OtuController < ApplicationController
     end
 
     @no_right_col = true
-    @show = ['show_codings']
     render :action => 'show'
   end
 
@@ -234,23 +215,19 @@ class OtuController < ApplicationController
   end
 
   def show_material
-    session['otu_view'] = 'show_material'
     @specimens = Specimen.determined_as_otu(@otu).limit(500).include_identifiers.include_has_manys.include_tags # @otu.specimens_most_recently_determined_as(:limit => 10) # Specimen.find(:all, :conditions => "proj_id = #{@proj.id} and specimen_determinations.otu_id = #{@otu.id}", :include => 'specimen_determinations') #
     @lots = @otu.lots.limit(500).include_has_manys.include_identifiers.include_tags # Lot.find(:all, :conditions => {:otu_id => @otu.id}, :include => [:identifiers, :ce, :repository], :limit => 100)
     @total_specimens = @otu.specimens.count
     @total_lots = @otu.lots.count
     @total_ipt_records = @otu.ipt_records.count
     @no_right_col = true
-    @show = ['show_material']
     render :action => 'show'
   end
 
   def show_associations
     if @otu = Otu.find(params[:id], :include => [:creator, :updator, :taxon_name])
-      session['otu_view']  = 'show_associations'
       @inc_actions = false # switch to false in public controller
       @no_right_col = true
-      @show = ['show_associations']
       render :action => 'show'
     else
       flash[:notice] =  "can't find that OTU!"
@@ -262,8 +239,6 @@ class OtuController < ApplicationController
     @otus = ([@otu]) # a kludge so we can use the extract partial
     @seqs = @otu.sequences
     @no_right_col = true
-    session['otu_view']  = 'show_molecular'
-    @show = ['show_molecular']
     render :action => 'show'
   end
 
@@ -272,8 +247,6 @@ class OtuController < ApplicationController
     @images_from_codings = @otu.images_from_codings
     @images_from_specimens = @otu.images_from_specimens
     @no_right_col = true
-    session['otu_view']  = 'show_images'
-    @show = ['show_images']
     render :action => 'show'
   end
 
@@ -290,18 +263,12 @@ class OtuController < ApplicationController
 
   def show_tags
     @tags = @otu.tags.group_by {|keyword| keyword.keyword} # visibility isn't an issue if you've got this far
-
     @no_right_col = true
-    session['otu_view']  = 'show_tags'
-    @show = ['show_tags']
     render :action => 'show'
   end
 
   def show_matrices
     @mxes = @otu.mxes
-    session['otu_view']  = 'show_matrices'
-    @show = ['show_matrices']
-
     render :action => :show
   end
 

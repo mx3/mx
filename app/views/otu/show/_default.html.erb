@@ -1,5 +1,4 @@
-<div>
-  <% if @part == 'center' %>
+<% content_for :center do -%>
   <div class="show_rec" -%>
     <div class="show_category"> Names </div>
     <div class="show_row"><span class="show_lbl">Name:</span><span class="show_data"><%= @otu.name -%></span></div>
@@ -26,8 +25,8 @@
     <div class="show_row highlight" style="padding:0.2em;" ><span class="show_data"><%= @otu.notes -%></span></div>
     <% end -%>
   </div>
+<% end %>
 
-  <% elsif @part == 'right' %>
-    <%= render(:partial => '/taxon_name/parents') if @parents -%> <%# requires @parents -%>
-  <% end %>
-</div>
+<% content_for :right do -%>
+<%= render(:partial => '/taxon_name/parents') if @parents -%> <%# requires @parents -%>
+<% end -%>
