@@ -1,0 +1,10 @@
+<% if obj.identifiers.length > 0 -%>
+  <div class="show_category"> Identifiers </div>
+    <div>
+    <ul>
+      <% obj.identifiers.each do |i| -%>
+        <%= content_tag :li,  i.cached_display_name -%> <!-- TODO: smart link -->
+      <% end -%>
+    </ul>
+  </div>
+<% end -%>

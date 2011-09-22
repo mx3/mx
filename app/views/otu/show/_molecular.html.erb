@@ -1,0 +1,6 @@
+<% content_for :center do -%>
+  <h3> Summary </h3>
+  <%= render :partial =>("extract/by_otu_summary") -%>
+  <h3> Sequences </h3>
+  <%= render :partial =>("seq/seqs_for_otu") -%>
+<% end -%>

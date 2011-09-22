@@ -1,0 +1,4 @@
+<% content_for :center do -%>
+  <p>This summarizes the variously related records tied to this object.</p>
+  <%= render(:partial => '/shared/obj_summary', :locals => {:obj => @taxon_name, :klass => @klass}) -%>
+<% end -%>

@@ -1,0 +1,19 @@
+<% content_for :center do -%>
+
+<div style="padding:0.2em;">
+  <div class="show_row"><span class="show_lbl">Matching built IPT records:</span>
+    <span class="show_data"><%= @ipt_records.length -%>
+      <%= link_to('Download records.', :action => :download_by_taxon_name, :controller => :ipt_record, :id => @taxon_name) if @ipt_records.size > 0 -%>
+    </span>
+  </div>
+  <div class="show_row"><span class="show_lbl">Matching specimens:</span><span class="show_data"><%= @specimens.size -%></span></div>
+  <div class="show_row"><span class="show_lbl">Matching lots:</span><span class="show_data"><%= @lots.size -%></span></div>
+  <div class="show_row"><span class="show_lbl">Total matching:</span><span class="show_data"><%= @lots.size + @specimens.size -%></span></div>
+  <br />
+  <%= link_to('Build IPT records, including children.', :action => :serialize_by_taxon_name, :controller => :ipt_record, :id => @taxon_name) -%>
+
+</div>
+
+<p> <em> Type material is not included in this report unless specimens are additionally determined as the OTU. </em> </p>
+
+<% end %>

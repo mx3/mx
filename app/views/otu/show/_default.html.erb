@@ -1,0 +1,32 @@
+<% content_for :center do -%>
+  <div class="show_rec" -%>
+    <div class="show_category"> Names </div>
+    <div class="show_row"><span class="show_lbl">Name:</span><span class="show_data"><%= @otu.name -%></span></div>
+    <div class="show_row"><span class="show_lbl">Matrix:</span><span class="show_data"><%= @otu.matrix_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">Manuscript:</span><span class="show_data"><%= @otu.manuscript_name -%></span></div>
+    <div class="show_row"><span class="show_lbl">Tied to taxon:</span><span class="show_data"><%= @otu.taxon_name ? link_to(@otu.taxon_name.display_name, :action => :show, :id => @otu.taxon_name, :controller => :taxon_name) : content_tag(:em, "None.") -%></span></div>
+    
+    <div class="show_row"><span class="show_lbl">Child of taxon:</span><span class="show_data"><%= @otu.is_child ? 'yes' : 'no' -%></span><span class="show_comment">if yes OTU is classifed under taxon, if no OTU is a concept of taxon</span></div>
+
+    <div class="show_category"> Sensu </div>
+    <div class="show_row"><span class="show_lbl">Person:</span><span class="show_data"><%= @otu.sensu -%></span></div>
+    <div class="show_row"><span class="show_lbl">Publication:</span><span class="show_data"><%= @otu.ref.andand.display_name -%></span></div>
+
+    <div class="show_category"> Other </div>
+    <div class="show_row"><span class="show_lbl">ICZN Group:</span><span class="show_data"><%= @otu.iczn_group -%></span></div>
+
+    <div class="show_category"> Synonymy </div>
+    <div class="show_row"><span class="show_lbl">Synonymous with:</span><span class="show_data"><%= @otu.syn_otu ? link_to(@otu.syn_otu.display_name, :action => :show, :id => @otu.syn_otu) : content_tag(:em, 'none') -%></span></div>
+    <div class="show_row"><span class="show_lbl">Top parent (in cases of chained synonymy):</span><span class="show_data"><% n = @otu.top_syn(@otu.syn_otu.andand.id) %> <%= n && link_to(n.display_name, :action => 'show', :id => @otu.syn_otu) %></span></div>
+    <div class="show_row"><span class="show_lbl">OTUs synonymous with this one:</span><span class="show_data"><%= @syn_otus.collect{|o| link_to(o.display_name, :action => 'show', :id => o)}.join(", ") -%></span></div>
+
+    <% if !@otu.notes.blank? -%>
+    <div class="show_category"> Notes </div>
+    <div class="show_row highlight" style="padding:0.2em;" ><span class="show_data"><%= @otu.notes -%></span></div>
+    <% end -%>
+  </div>
+<% end %>
+
+<% content_for :right do -%>
+<%= render(:partial => '/taxon_name/parents') if @parents -%> <%# requires @parents -%>
+<% end -%>
