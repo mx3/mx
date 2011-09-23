@@ -1,4 +1,4 @@
-// This will handle
+// This will handle ??
 (function($) {
   $.mx_flash = function() {
     var flash_target = $('body');

@@ -7,10 +7,12 @@
     return this.each(function() {
       switch (type) {
         case 'fade':
-        $(this).fadeOut(200);
+        $(this).fadeOut(100);
         break;
         case 'error_shake':
         $(this).effect("shake", {times: 3 }, 50);
+        case 'highlight':
+         $(this).effect("highlight", {}, 250);
         break;
       }
     });

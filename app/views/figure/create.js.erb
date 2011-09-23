@@ -1,4 +1,1 @@
-alert("FOO!");
-
-/* add this Tag to the list of tags presently attached to the object (attached_figures div)
-  */
+$("#attached_figures").append("<%= escape_javascript( render(:partial => 'figure/fig', :object => @figure)  ) -%>");

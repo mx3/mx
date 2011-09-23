@@ -5,6 +5,10 @@ module FigureHelper
     "figure-class-#{figure.id}"
   end
 
+  def illustrate_image_description_id(image_description)
+    "id=\"image-search-id-#{image_description.id}\""
+  end
+
 
   def create_figure_tag(options ={})
     opt = {
@@ -22,12 +26,13 @@ module FigureHelper
                   :figure_obj_class => opt[:object].class.to_s,
                   :figure_obj_id => opt[:object].id,
                   :caption => opt[:caption],
-                  :image_id => opt[:image].id)
+                  :image_id => opt[:image].id
+                  )
 
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
    
     # Cary - TODO - this should call 
-    content_tag(:a, opt[:link_text], :href => url, 'data-remote' => 'true')
+    link_to(opt[:link_text], url, 'data-remote' => 'true', :method => 'post')
   end
 
 

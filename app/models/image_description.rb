@@ -128,9 +128,11 @@ class ImageDescription < ActiveRecord::Base
       terms.push("(specimen_id = #{params[:image_description][:specimen_id]})") unless params[:image_description][:specimen_id].blank?
       terms.push("(image_id = #{params[:image_description][:image_id]})") unless params[:image_description][:image_id].blank?
     end
-    
+ 
+    return [] if terms.size == 0 
+
     sqltxt = ''
-    sqltxt = terms.join(' AND ') if terms.size > 0
+    sqltxt = terms.join(' AND ') 
     
     ImageDescription.find(:all, 
       :include => [:image, {:otu => {:taxon_name => :parent}}, :label, :image_view, :specimen], :order => "image_descriptions.image_id",

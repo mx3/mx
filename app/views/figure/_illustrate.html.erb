@@ -1,36 +1,28 @@
-<script>
-<% unless @figure.errors.empty? %>
-$.basicModal('error_shake');
-<% end %>
-</script>
-
-<!--
--->
-
-<div id="<%= "tp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform" >
+<div id="<%= "tp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform"  >
   <div>
-    <a class='basic-modal-close' href='#'> X</a>
-    <span style="float: left;">Figuring: <%= @obj.display_name %></span>
+    <a class='basic-modal-close' href='#'>X</a>
+    <span style="float:left;width: 85%;">Figuring: <%= @obj.display_name %></span>
+    <br style="clear: both;" />
   </div>
-  <br style="clear: both;" />
 
   <!-- the existing figures on this object (analagous to a tag-cloud) -->
   <div id="attached_figures" style="margin:0.5em;padding:0.5em; border:1px solid black;">
     <% if @figures.size > 0 -%>
       <%= render(:partial => 'figure/fig', :collection => @figures) -%>
     <% else %>
-      <em> No figures are presently attached. </em>
+      <em>No figures are presently attached.</em>
     <% end %>
-    <br style="clear:left;" />
+    <br style='clear:both;' />
   </div>
 
-  <!-- the existing figures on this object (analagous to a tag-cloud) -->
-  <div>
+  <!-- a form to search for new images to add as figures -->
+  <div style="overflow: auto;">
     <div style="clear:both;">&nbsp;</div>
     <%= render :partial => 'image_search', :locals => {:fig_obj_class => params[:fig_obj_class], :fig_obj_id => params[:fig_obj_id] } -%>
     <br style="clear:both;" />
   </div>
 
+  <!-- the results of a image_search -->
   <div id="find_images_results" style="margin:0.5em;padding:0.5em; border:1px solid green;">
     <em> Image will display here after a search is completed.  Might need to move this to /figure/_illustrate to make more sense?</em> 
     <br style="clear:both;" />

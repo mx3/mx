@@ -1,7 +1,6 @@
 <div id="search_form" style="margin:0.5em;padding:0.5em; border:1px solid blue;">
-  <!-- Cary - ajaxify me need this form remotely populates the result div below --> 
   <%= form_for(:object, :remote => true, :url => {:action => 'find_images', :controller => 'figure', :fig_obj_class => @obj.class.to_s, :fig_obj_id => @obj.id},:html => {:id => 'image_search_form'}) do -%>
-  <!-- ajaxify me --> <%= submit_tag("Search") -%> 
+  <%= submit_tag("Search") -%> 
   <!-- what's this -> --> <input type='hidden' name='html_selector' value='<%= @html_selector %>'/>
 
   <div class="fr"> <label for="specimen_for_img_search" class="lbl4">Specimen</label> 

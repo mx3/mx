@@ -1,15 +1,7 @@
-$("#find_images_results").html("<%= escape_javascript( render(:partial => 'figure/id', :collection => @image_descriptions, :locals => {:object => @obj}) )  -%>");
-$("#find_images_results").append('<br style="clear:both;" />');
-
-/*
-
-     if @image_descriptions.size > 0
-
-      replace the image_search_result_div the :collection => @image_descriptions with partial /figure/id
-
-     else
-     
-      replace (shake?) the find_images_result div with  <em style="color: red"> search complete, no results returned </em>
-
-  */
-
+<% if @image_descriptions.size > 0 -%>
+  $("#find_images_results").html("<%= escape_javascript( render(:partial => 'figure/id', :collection => @image_descriptions, :locals => {:object => @obj}) )  -%>");
+  $("#find_images_results").append('<br style="clear:both;" />');
+<% else -%>
+  $("#find_images_results").html('<em style="color:red">Search complete, no results returned.</em>');
+  $("#find_images_results").mx_effect('highlight'); /* not sure this is working */
+<% end -%>

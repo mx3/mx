@@ -110,7 +110,7 @@
             type: "notice",
 			timeout: 10000,
 			stick: false,
-			fadeSpeed : 800,
+			fadeSpeed : 400,
 			close : "x",
 			effect : "fade"
         };
