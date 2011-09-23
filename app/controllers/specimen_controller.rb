@@ -277,11 +277,20 @@ class SpecimenController < ApplicationController
 
   def auto_complete_for_specimen
     @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-
+    value = params[:term]
     @specimens = Specimen.find_for_auto_complete(value)
-    render :inline => "<%= auto_complete_result_with_ids(@specimens,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+
+    data = @specimens.collect do |specimen|
+      {:id=>specimen.id,
+       :label=>specimen.display_name,
+       :response_values=> {
+          'specimen[id]' => specimen.id,
+          :hidden_field_class_name => @tag_id_str
+       },
+       :label_html => specimen.display_name(:type => :for_select_list) 
+      }
+    end
+    render :json => data
   end
 
   def clone

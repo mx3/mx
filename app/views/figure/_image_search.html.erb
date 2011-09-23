@@ -4,7 +4,7 @@
   <!-- ajaxify me --> <%= submit_tag("Search", :href => url_for(:action => :find_images, :controller => :figure), 'some-cool-data-ajaxify-here' => '') -%> 
   <!-- what's this -> --> <input type='hidden' name='html_selector' value='<%= @html_selector %>'/>
 
-  <div class="fr"> <label for="specimen_for_img_search" class="lbl4">Specimen (MATT - fix me)</label> 
+  <div class="fr"> <label for="specimen_for_img_search" class="lbl4">Specimen</label> 
     <span class="fld">   <%= render :partial => 'shared/picker', :locals => {
       :controller => 'specimen',
       :object => 'id',
