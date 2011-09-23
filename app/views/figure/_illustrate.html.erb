@@ -14,31 +14,27 @@ $.basicModal('error_shake');
   </div>
   <br style="clear: both;" />
 
-  <!-- the existing figures on this object (analagous to the existing tag-cloud) -->
-  <div id="attached_figures" style="clear:left;height:15px;margin-top:2px;border:2px solid black;">
-    <div id="items" >
-      <% if @figures.size > 0 -%>
+  <!-- the existing figures on this object (analagous to a tag-cloud) -->
+  <div id="attached_figures" style="margin:0.5em;padding:0.5em; border:1px solid black;">
+    <% if @figures.size > 0 -%>
       <%= render(:partial => 'figure/fig', :collection => @figures) -%>
-      <% else %>
+    <% else %>
       <em> No figures are presently attached. </em>
-      <% end %>
-      <br style="clear:left;" />
-    </div>
+    <% end %>
+    <br style="clear:left;" />
   </div>
 
+  <!-- the existing figures on this object (analagous to a tag-cloud) -->
   <div>
     <div style="clear:both;">&nbsp;</div>
     <%= render :partial => 'image_search', :locals => {:fig_obj_class => params[:fig_obj_class], :fig_obj_id => params[:fig_obj_id] } -%>
     <br style="clear:both;" />
   </div>
 
-  <div id="find_images_result" style="border: 2px solid green;margin-top:1em;">
+  <div id="find_images_results" style="margin:0.5em;padding:0.5em; border:1px solid green;">
     <em> Image will display here after a search is completed.  Might need to move this to /figure/_illustrate to make more sense?</em> 
     <br style="clear:both;" />
-
-
   </div>
 
 </div>
 
-</div>

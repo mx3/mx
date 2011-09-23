@@ -21,11 +21,11 @@ module FigureHelper
                   :html_selector => opt[:html_selector],      # Needed here? 
                   :figure_obj_class => opt[:object].class.to_s,
                   :figure_obj_id => opt[:object].id,
-                  :figure_caption => opt[:caption])
+                  :caption => opt[:caption])
 
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
    
-    # Cary - TODO!
+    # Cary - TODO - this should call 
     content_tag(:a, opt[:link_text], :href => url, 'ajax-stuff-here' => '' , 'other-ajax-stuff-here' => '600')
   end
 

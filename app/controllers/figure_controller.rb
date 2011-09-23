@@ -60,9 +60,8 @@ class FigureController < ApplicationController
     end
   end
 
-  # Figure popup task
+  # Figure modal task
   # In the original code we only created and updated figures via the popup (=modal) form.
-  
   def illustrate 
     @figure = Figure.new
     @image = Image.new
@@ -77,7 +76,6 @@ class FigureController < ApplicationController
     @image = Image.new
     @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) # the Model to be figured
     @figures = @obj.figures
-
     render :layout => false
   end
   
@@ -117,7 +115,6 @@ class FigureController < ApplicationController
       end
       # render :action=>"new"
     end
-  
   end
 
 # # TODO: this is to be #destroy 
@@ -131,7 +128,6 @@ class FigureController < ApplicationController
 #   render :layout => false, :partial => "edit_attached_figs", :locals => {:fig_obj_id => @fig.addressable_id, :fig_obj_class => @fig.addressable_type} and return
 # end
 
-  # not tested
   def destroy
     @figure = Figure.find(params[:id])
     if @figure.destroy
@@ -142,15 +138,11 @@ class FigureController < ApplicationController
       notice "Destroyed the figure."
     else 
       respond_to do |wants|
-        wants.js { 
-        }
+        wants.js { }
         wants.html { redirect_to :back => true } # ?
       end
     end
   end
-
-
-
 
 
   # TODO: this is to be #new
@@ -178,8 +170,6 @@ class FigureController < ApplicationController
  #  flash[:notice] = 'Problem with adding figure!'
  #  redirect_to :action => 'list'
  #end
-
-
 
   def up
     @figure = Figure.find(params[:id])  
@@ -217,22 +207,6 @@ class FigureController < ApplicationController
   #   end 
   # end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   def create_all_for_content_by_otu
      if Figure.create_all_for_content_by_otu(params[:content_id], params[:otu_id])
       flash[:notice] = 'Done!'
@@ -246,7 +220,6 @@ class FigureController < ApplicationController
   def edit
     #  redirect_to :back
     @figure = Figure.find(params[:id])
-    
   end
 
   # this is all ajax
@@ -320,7 +293,7 @@ class FigureController < ApplicationController
       format.html {} # default .rhtml
       format.js { 
         render :update do |page|
-          #          page.remove "fp_#{@obj.class.to_s}_#{@obj.id}" # get rid of the form (use an effect)
+          #  page.remove "fp_#{@obj.class.to_s}_#{@obj.id}" # get rid of the form (use an effect)
 
           #  page.delay(3) do
             # page.visual_effect :appear, "fl_#{@obj.class.to_s}_#{@obj.id}" # unhide the previously hidden Tag link
@@ -330,7 +303,7 @@ class FigureController < ApplicationController
         # end 
       }
     end 
-        @foo = :back 
+    @foo = :back 
   end
   
   def draw_save
