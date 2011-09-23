@@ -1,17 +1,17 @@
-# MySQL.  Versions 4.1 and 5.0 are recommended.
+# MySQL. Versions 4.1 and 5.0 are recommended.
 #
 # Install the MySQL driver:
-#   gem install mysql2
+# gem install mysql2
 #
 # And be sure to use new-style password hashing:
-#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+# http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
-#  In order to help the system be a bit 'smarter' we do a few tests
-#  looking for the mysql socket.
+# In order to help the system be a bit 'smarter' we do a few tests
+# looking for the mysql socket.
 <%
 # Some code to let the local environment override the default database options
-mysql_password = ENV['MX_MYSQL_PASSWORD'] || '543#$rdS'
-mysql_username = ENV['MX_MYSQL_USERNAME'] || 'root'
+mysql_password = ENV['MX_MYSQL_PASSWORD'] || 'MmmXxx'
+mysql_username = ENV['MX_MYSQL_USERNAME'] || 'mx'
 
 # Loop over all these possible mysql sockets, and see if they
 mysql_socket =
@@ -32,7 +32,7 @@ production: &production
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: edge2_production
+  database: mx_production
   pool: 5
   username: <%= mysql_username %>
   password: <%= mysql_password %>
@@ -45,11 +45,13 @@ production: &production
 
 development:
   <<: *production
-  database: edge2_development
+  database: mx_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *production
-  database: edge2_test
+  database: mx_test
+
+
