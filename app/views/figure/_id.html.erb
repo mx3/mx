@@ -1,11 +1,6 @@
 <div class="browse_rec">
   <div id ="img_<%= "#{id.id}" -%>" class="browse_thumb" <%= (id.image.is_morphbank == true) ? 'style="background-color: #b1c2e6;"' : '' -%> >
-
-    <%# Cary - make this ajaxy :) %> 
-    <%# link_to_remote("attach this image", :update => "items", :url => {:action => :create_from_popup, :controller => :figure, :id => "img_#{id.id}", :fig_obj_class => @obj.class, :fig_obj_id => @obj.id}) -%>
-
-    <%# see figure_helper -%>
-    <%= new_figure_tag(:image => @image, :obj => @object, :link_text => 'attach') -%>
+    <%= create_figure_tag(:image => id.image, :object => object, :link_text => 'attach') -%>
     <%= image_thumb_tag(id.image) -%>
   </div>
 

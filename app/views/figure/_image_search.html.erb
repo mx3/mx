@@ -1,13 +1,13 @@
 <div id="search_form" style="margin:0.5em;padding:0.5em; border:1px solid blue;">
   <!-- Cary - ajaxify me need this form remotely populates the result div below --> 
-  <%= form_tag( :url => {:action => 'search_list', :controller => 'figure', :fig_obj_class => fig_obj_class, :fig_obj_id => fig_obj_id},:html => {:id => 'image_search_form'}) do -%>
-  <!-- ajaxify me --> <%= submit_tag("Search", :href => url_for(:action => :find_images, :controller => :figure), 'some-cool-data-ajaxify-here' => '') -%> 
+  <%= form_for(:object, :remote => true, :url => {:action => 'find_images', :controller => 'figure', :fig_obj_class => @obj.class.to_s, :fig_obj_id => @obj.id},:html => {:id => 'image_search_form'}) do -%>
+  <!-- ajaxify me --> <%= submit_tag("Search") -%> 
   <!-- what's this -> --> <input type='hidden' name='html_selector' value='<%= @html_selector %>'/>
 
   <div class="fr"> <label for="specimen_for_img_search" class="lbl4">Specimen</label> 
     <span class="fld">   <%= render :partial => 'shared/picker', :locals => {
       :controller => 'specimen',
-      :object => 'id',
+      :object => 'image_description',
       :method => 'specimen_id',
       :tag_id => "specimen_for_img_search",
       :display => "",
@@ -18,7 +18,7 @@
   <div class="fr"> <label for="otu_for_img_search" class="lbl4">OTU</label> 
     <span class="fld">      <%= render :partial => 'shared/picker', :locals => {
       :controller => 'otu',
-      :object => 'id',
+      :object => 'image_description',
       :method => 'otu_id',
       :tag_id => "otu_for_img_search",
       :display => "",
@@ -29,7 +29,7 @@
   <div class="fr"> <label for="label_id_for_fig_popup" class="lbl4">Part/Label</label> 
     <span class="fld">     <%= render :partial => 'shared/picker', :locals => {
       :controller => 'label',
-      :object => 'id',
+      :object => 'image_description',
       :method => 'label_id',
       :use_proj => true,
       :size => 60,
@@ -37,11 +37,11 @@
   </div>
 
   <div class="fr"> <label for="label_id_for_fig_popup" class="lbl4">View</label> 
-    <span class="fld"><%= render(:partial => "image_view/picker", :locals => {:c_name=> 'id', :f_name => 'image_view_id'} ) -%></span>
+    <span class="fld"><%= render(:partial => "image_view/picker", :locals => {:c_name=> 'image_description', :f_name => 'image_view_id'} ) -%></span>
   </div>
 
   <div class="fr"> <label for="image_id_for_fig_popup" class="lbl4">Image ID</label> 
-    <span class="fld"><%= text_field :id, :image_id %></span>
+    <span class="fld"><%= text_field :image_description, :image_id %></span>
   </div>
 
   <% end -%>

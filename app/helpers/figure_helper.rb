@@ -6,7 +6,7 @@ module FigureHelper
   end
 
 
-  def new_figure_tag(options ={})
+  def create_figure_tag(options ={})
     opt = {
       :object => nil,        # required
       :image => nil,         # required
@@ -16,17 +16,18 @@ module FigureHelper
 
     return content_tag(:em, opt[:link_text]) if opt[:object].nil? || opt[:image].nil?
 
-    url = url_for(:action => :new,
+    url = url_for(:action => :create,
                   :controller => :figure,
                   :html_selector => opt[:html_selector],      # Needed here? 
                   :figure_obj_class => opt[:object].class.to_s,
                   :figure_obj_id => opt[:object].id,
-                  :caption => opt[:caption])
+                  :caption => opt[:caption],
+                  :image_id => opt[:image].id)
 
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
    
     # Cary - TODO - this should call 
-    content_tag(:a, opt[:link_text], :href => url, 'ajax-stuff-here' => '' , 'other-ajax-stuff-here' => '600')
+    content_tag(:a, opt[:link_text], :href => url, 'data-remote' => 'true')
   end
 
 

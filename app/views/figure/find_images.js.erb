@@ -1,6 +1,7 @@
-<script>
+$("#find_images_results").html("<%= escape_javascript( render(:partial => 'figure/id', :collection => @image_descriptions, :locals => {:object => @obj}) )  -%>");
+$("#find_images_results").append('<br style="clear:both;" />');
 
-  /*
+/*
 
      if @image_descriptions.size > 0
 
@@ -11,6 +12,4 @@
       replace (shake?) the find_images_result div with  <em style="color: red"> search complete, no results returned </em>
 
   */
-
-</script>
 

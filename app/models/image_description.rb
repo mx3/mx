@@ -121,12 +121,12 @@ class ImageDescription < ActiveRecord::Base
 
   def self.find_for_auto_complete(params)
     terms = []
-    if params[:id] 
-      terms.push("(otu_id = #{params[:id][:otu_id]})") unless params[:id][:otu_id].empty?
-      terms.push("(label_id = #{params[:id][:label_id]})") unless params[:id][:label_id].empty?
-      terms.push("(image_view_id = #{params[:id][:image_view_id]})") unless params[:id][:image_view_id].empty?
-      terms.push("(specimen_id = #{params[:id][:specimen_id]})") unless params[:id][:specimen_id].empty?
-      terms.push("(image_id = #{params[:id][:image_id]})") unless params[:id][:image_id].empty?
+    if params[:image_description] 
+      terms.push("(otu_id = #{params[:image_description][:otu_id]})") unless params[:image_description][:otu_id].blank?
+      terms.push("(label_id = #{params[:image_description][:label_id]})") unless params[:image_description][:label_id].blank?
+      terms.push("(image_view_id = #{params[:image_description][:image_view_id]})") unless params[:image_description][:image_view_id].blank?
+      terms.push("(specimen_id = #{params[:image_description][:specimen_id]})") unless params[:image_description][:specimen_id].blank?
+      terms.push("(image_id = #{params[:image_description][:image_id]})") unless params[:image_description][:image_id].blank?
     end
     
     sqltxt = ''

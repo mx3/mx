@@ -74,7 +74,7 @@ class FigureController < ApplicationController
   def new
     @figure = Figure.new
     @image = Image.new
-    @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) # the Model to be figured
+    @obj = ActiveRecord::const_get(params[:figure_obj_class]).find(params[:figure_obj_id]) # the Model to be figured
     @figures = @obj.figures
     render :layout => false
   end
@@ -110,7 +110,7 @@ class FigureController < ApplicationController
       notice "Figured #{@obj.display_name}."
     else # didn't save the tag
       respond_to do |wants|
-        wants.js { }
+        wants.js { } # something different here ... 
         wants.html { redirect_to :action => 'list' }
       end
       # render :action=>"new"
@@ -327,7 +327,7 @@ class FigureController < ApplicationController
      @image_descriptions = ImageDescription.find_for_auto_complete(params.merge(:proj_id => @proj.id))
      @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id])  
      respond_to do |wants|
-      wants.js { }   
+      wants.js {}   
       wants.html { } # What TODO here? 
      end
      render :layout => false
