@@ -14,7 +14,7 @@
   <div class="show_row"><span class="show_lbl">Rights holder: </span><span class="show_data"><%= @content.attribution_rights_holder -%></span></div>
   <div class="show_row"><span class="show_lbl">License: </span><span class="show_data"><%= @content.attribution_license_text -%></span></div>
 
-  <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @content}) -%>
+  <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @content}) -%>
 </div>
 
 <%= form_tag(:action => :update, :id => @content.id, :content_template_id => @content_template.id) do -%>

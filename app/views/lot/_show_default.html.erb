@@ -35,8 +35,8 @@
   <div class="show_row"><span class="show_lbl">Mixed lot?:</span><span class="show_data"><%= @lot.mixed_lot -%></span><span class="show_comment"> Contains multiple species or morphotypes. </span></div>
   <div class="show_row"><span class="show_lbl">Preparation:</span><span class="show_data"><%= @lot.preparation.andand.display_name -%></span></div>
 
-  <%= render(:partial => '/shared/show/notes', :locals => {:obj => @lot}) -%>
-  <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @lot}) -%>
+  <%= render(:partial => '/shared/show/record/notes', :locals => {:obj => @lot}) -%>
+  <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @lot}) -%>
 
   <% if @lot.tags.length > 0 -%>
   <div class="show_category"> Tags </div>

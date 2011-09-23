@@ -3,7 +3,6 @@ class ImageController < ApplicationController
          :redirect_to => { :action => :list }
           
   auto_complete_for :image, :maker
-
   
   # Ajax search for popup
   # likely better placed in figures or images
@@ -49,44 +48,34 @@ class ImageController < ApplicationController
 
   def show
     _show_params 
-
     if (@image_descriptions.size == 0) 
       flash[:notice] = "You don't have that image described for this project, try adding it first."
       redirect_to :action => :list and return
     end
-
-    session['image_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
   end
 
   def show_figures
     _show_params
     @no_right_col = true
     @without_figure_markers = @image.figures.without_figure_markers.by_proj(@proj)
-
-    session['image_view']  = 'show_figures'
-    @show = ['show_figures'] 
+    @show = ['figures'] 
     render :action => :show
   end
 
   def show_figure_markers
     _show_params
     @no_right_col = true
-    session['image_view']  = 'show_figure_markers'
-    @show = ['show_figure_markers'] 
+    @show = ['figure_markers'] 
     render :action => :show
   end
 
-
-
   def show_image_descriptions
     _show_params
-    session['image_view']  = 'show_image_descriptions'
-    @show = ['show_image_descriptions'] 
     @no_right_col = true
+    @show = ['image_descriptions'] 
     @image_description = ImageDescription.new
     render :action => :show
-
   end
 
   def new

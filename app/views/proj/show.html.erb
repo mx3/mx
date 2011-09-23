@@ -95,7 +95,7 @@
       <div class="show_row"><span class="show_lbl">Public controllers </span><span class="show_data"><%= @proj.public_controllers ? @proj.public_controllers.sort.collect{|c| (c == 'site' ? c : link_to(c, :action=> 'index', :controller => "public/#{c}/"))}.join(", ") : 'none' -%></span><span class="show_comment">click to preview</span></div>
     </div>
 
-    <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @proj}) -%>
+    <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @proj}) -%>
 
   </div>
 

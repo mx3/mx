@@ -50,8 +50,8 @@
   <div class="show_row highlight" style="padding:0.2em;" ><span class="show_data"><%= @specimen.temp_ce -%></span></div>
   <% end -%>
 
-  <%= render(:partial => '/shared/show/notes', :locals => {:obj => @specimen}) -%>
-  <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @specimen}) -%>
+  <%= render(:partial => '/shared/show/record/notes', :locals => {:obj => @specimen}) -%>
+  <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @specimen}) -%>
 
   <% if @specimen.image_descriptions.size > 0 -%>
   <div class="show_category"> Images attached to this specimen </div>

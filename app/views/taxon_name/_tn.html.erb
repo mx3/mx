@@ -27,7 +27,7 @@
 <div class="show_row"><span class="show_lbl">Page validated on:</span><span class="show_data"><%= @taxon_name.page_validated_on -%></span><span class="show_comment">For reference only, there is no concept of page priority in the ICZN. </span></div>
 <div class="show_row"><span class="show_lbl">Page of first occurance:</span><span class="show_data"><%= @taxon_name.page_first_appearance -%></span><em>  </em></div>
 
-  <%= render(:partial => '/shared/show/notes', :locals => {:obj => @taxon_name}) -%>
+  <%= render(:partial => '/shared/show/record/notes', :locals => {:obj => @taxon_name}) -%>
 
   <% if !@taxon_name.original_genus.blank? || !@taxon_name.original_subgenus.blank? || !@taxon_name.original_species.blank?  -%>
     <div class="show_category"> Original combination </div>

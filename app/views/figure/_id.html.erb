@@ -1,7 +1,7 @@
 <div class="browse_rec">
   <div id ="img_<%= "#{id.id}" -%>" class="browse_thumb" <%= (id.image.is_morphbank == true) ? 'style="background-color: #b1c2e6;"' : '' -%> >
     <%= create_figure_tag(:image => id.image, :object => object, :link_text => 'attach') -%>
-    <%= image_thumb_tag(id.image) -%>
+    <%= image_thumb_tag(id.image).html_safe -%>
   </div>
 
   <div class="box1" >

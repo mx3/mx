@@ -30,9 +30,9 @@
    <div class="show_row"><span class="show_lbl">PDF:</span><span class="show_data"><%= link_to('View pdf', @ref.pdf.public_filename) -%></span></div>
    <% end -%>
 
-  <%= render(:partial => '/shared/show/notes', :locals => {:obj => @ref}) -%>
-  <%= render(:partial => '/shared/show/identifiers', :locals => {:obj => @ref}) -%>
-  <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @ref}) -%>
+  <%= render(:partial => '/shared/show/record/notes', :locals => {:obj => @ref}) -%>
+  <%= render(:partial => '/shared/show/record/identifiers', :locals => {:obj => @ref}) -%>
+  <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @ref}) -%>
 
   <div class="show_category"> Maintainence fields (not user editable) </div>
 

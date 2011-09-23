@@ -6,7 +6,7 @@
     <div class="show_row"><span class="show_lbl">Public?: </span><span class="show_data"><%= @mx.is_public -%></span></div>
     <div class="show_row"><span class="show_lbl">Usable as multikey?: </span><span class="show_data"><%= @mx.is_multikey -%></span></div>
 
-    <%= render(:partial => '/shared/show/notes', :locals => {:obj => @mx}) -%>
-    <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @mx}) -%>
+    <%= render(:partial => '/shared/show/record/notes', :locals => {:obj => @mx}) -%>
+    <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @mx}) -%>
 </div>
 <% end -%>

@@ -73,7 +73,7 @@ class Image < ActiveRecord::Base
   scope :before_id, lambda {|*args| {:conditions => ["images.id < ?", args.first.blank? ? nil : args.first] }}
 
   def display_name(options = {})
-   return 'image stub'
+   return "Image #{self.id}"
   end
   
   # crude, but as implemented in image descriptions it works
@@ -201,7 +201,7 @@ class Image < ActiveRecord::Base
     }.merge!(options.symbolize_keys)
 
     if self.is_morphbank
-      MorphbankImage::BASE_URL + '?id=' + self.mb_id.to_s + '&imgType=' + MorphbankImage::SIZE_TO_TYPE[opt[:size]]
+       MorphbankImage::BASE_URL + '?id=' + self.mb_id.to_s + '&imgType=' + MorphbankImage::SIZE_TO_TYPE[opt[:size]]
     else 
       # original pre-morphbank code below
       path = (opt[:context] == :file ? File.expand_path(IMAGE_FILE_PATH) : IMAGE_WEB_PATH)
