@@ -26,9 +26,7 @@ class LotController < ApplicationController
      flash[:notice] =  "Lot #{id} not found."  
      redirect_to :action => :list
    end
-    
-    session['lot_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['default'] 
   end
 
   # just set some params

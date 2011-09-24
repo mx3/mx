@@ -21,10 +21,9 @@ class SeqController < ApplicationController
   def show
     id = params[:seq][:id] if params[:seq] # for autocomplete/ajax picker use 
     id ||= params[:id]
-    session['seq_view']  = 'show'
     @seq = Seq.find(id)
     @chromatograms = @seq.chromatograms
-    @show = ['show_default'] # not redundant with above- @show necessary for display of multiple of items 
+    @show = ['default'] # not redundant with above- @show necessary for display of multiple of items 
   end
 
   def new

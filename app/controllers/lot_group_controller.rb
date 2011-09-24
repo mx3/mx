@@ -18,17 +18,12 @@ class LotGroupController < ApplicationController
     id = params[:id]
     id ||= params[:lot_group][:id]
     @lot_group = LotGroup.find(id)
-
-    session['lot_group_view']  = 'show'
-    @show = ['show_default'] # not redundant with above- @show necessary for multiple display of items
+    @show = ['default'] 
   end
 
   def show_members
     @lot_group = LotGroup.find(params[:id])
     @lots = @lot_group.lots
-    
-    session['lot_group_view']  = 'show_members'
-     @show = ['show_members'] # not redundant with above- @show necessary for multiple display of items
     @no_right_col = true
     render :action => 'show'
   end

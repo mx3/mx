@@ -16,9 +16,7 @@ class GeneController < ApplicationController
      if request.xml_http_request?
       render(:layout => false, :partial => 'ajax_list')
     end
- 
   end
-
 
   def show
     id = params[:gene][:id] if params[:gene]

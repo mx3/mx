@@ -17,26 +17,20 @@ class TreeController < ApplicationController
     id ||= params[:id]
     @tree = Tree.find(id)
     @no_right_col = true
-    session['tree_view']  = 'show'
-    @show = ['show_default'] # array of partials to render 
+    @show = ['default'] # array of partials to render 
   end
 
   def show_phylowidget
     @tree = Tree.find(params[:id])
-    session['tree_view']  = 'show_phylowidget'
-    @show = ['show_phylowidget'] # array of partials to render
     @no_right_col = true
     render :action => 'show'
   end
 
   def show_nested_set
     @tree = Tree.find(params[:id])
-    session['tree_view']  = 'show_nested_set'
-    @show = ['show_nested_set'] # array of partials to render
     @no_right_col = true
     render :action => 'show'
   end
-
 
   def new
     @tree = Tree.new

@@ -37,12 +37,40 @@ class RefController < ApplicationController
     end
     
     if @ref = Ref.find(:first, :conditions => ["refs.id = ?", id], :include => [:serial, :taxon_names])
-      session['ref_view']  = 'show'
-       @show = ['show_default'] # not redundant with above- @show necessary for display of multiple of items 
+      @show = ['default'] # not redundant with above- @show necessary for display of multiple of items 
     else
       flash[:notice] = "can't find that ref!"
       redirect_to :action => :list, :controller => :ref
     end
+  end
+
+  def show_tags
+    @ref = Ref.find(params[:id], :include => [:serial, :taxon_names])
+    @ref_tagged_through = @ref.through_tags.group_by {|t| t.addressable_type}
+    @ref_tags = @ref.tags.group_by {|t| t.keyword}
+    @no_right_col = true
+    render :action => 'show'
+  end
+ 
+  def show_associations
+    @ref = Ref.find(params[:id], :include => [:serial, :taxon_names])
+    @associations = Association.by_ref(@proj.id, @ref.id)
+    @no_right_col = true
+    render :action => 'show'
+  end
+
+  def show_distributions
+    @ref = Ref.find(params[:id])
+    @distributions =  @ref.distributions.by_proj(@proj).ordered_by_geog_name
+    @no_right_col = true
+    render :action => 'show'
+  end
+
+  def show_sensus
+    @ref = Ref.find(params[:id])
+    @sensus = @ref.sensus.by_proj(@proj).ordered_by_label
+    @no_right_col = true
+    render :action => 'show'
   end
 
   def new
@@ -269,45 +297,6 @@ class RefController < ApplicationController
     else
       @refs = []
     end
-  end
-
-  def show_tags
-    @ref = Ref.find(params[:id], :include => [:serial, :taxon_names])
-    
-    @ref_tagged_through = @ref.through_tags.group_by {|t| t.addressable_type}
-    @ref_tags = @ref.tags.group_by {|t| t.keyword}
-
-    session['ref_view']  = 'show_tags'
-     @show = ['show_tags'] 
-    @no_right_col = true
-    render :action => 'show'
-  end
- 
-  def show_associations
-    @ref = Ref.find(params[:id], :include => [:serial, :taxon_names])
-    @associations = Association.by_ref(@proj.id, @ref.id)
-    session['ref_view']  = 'show_associations'
-     @show = ['show_associations'] 
-    @no_right_col = true
-    render :action => 'show'
-  end
-
-  def show_distributions
-    @ref = Ref.find(params[:id])
-    @distributions =  @ref.distributions.by_proj(@proj).ordered_by_geog_name
-    session['ref_view']  = 'show_distributions'
-    @show = ['show_distributions'] 
-    @no_right_col = true
-    render :action => 'show'
-  end
-
-  def show_sensus
-    @ref = Ref.find(params[:id])
-    @sensus = @ref.sensus.by_proj(@proj).ordered_by_label
-    session['ref_view']  = 'show_sensus'
-    @show = ['show_sensus'] 
-    @no_right_col = true
-    render :action => 'show'
   end
 
   def link_search

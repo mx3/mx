@@ -15,12 +15,10 @@ class AssociationController < ApplicationController
 
   def show
     @association = Association.find(params[:id])
-    @supports = @association.association_supports # AssociationSupport.find(:all, :conditions => ["association_id = ?", @association.id], 
-    #:include => :confidence, :order => "confidences.position")
+    @supports = @association.association_supports 
   end
 
   def new
-  
     @association = Association.new
     @part1 = AssociationPart.new
     @part2 = AssociationPart.new

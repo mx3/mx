@@ -4,7 +4,6 @@ class DataSourceController < ApplicationController
     render :action => 'list'
   end
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 
@@ -14,23 +13,18 @@ class DataSourceController < ApplicationController
 
   def show 
     @data_source = DataSource.find(params[:id])
-    session['data_source_view']  = 'show'
-    @show = ['show_default'] # not redundant with above- @show necessary for multiple display of items
+    @show = ['default'] 
   end
 
   def show_file_contents
     @data_source = DataSource.find(params[:id])
-
-    session['data_source_view']  = 'show_file_contents'
-    @show = ['show_file_contents'] # not redundant with above
     @no_right_col = true
     render :action => :show
   end
 
+  # TODO: Logic to model
   def show_convert
     @data_source = DataSource.find(params[:id])
-    session['data_source_view']  = 'show_convert'
-    @show = ['show_convert'] # not redundant with above
     @no_right_col = true
 
     if !@data_source.dataset

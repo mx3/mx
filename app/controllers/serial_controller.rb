@@ -25,14 +25,11 @@ class SerialController < ApplicationController
 
   def show
     _show_params # TODO: before filter
-    session['serial_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['default'] 
   end
 
   def show_all_refs
     _show_params
-    session['serial_view']  = 'show_all_refs'
-    @show = ['show_all_refs'] 
     @no_right_col = true 
     render :action => :show
   end

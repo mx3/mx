@@ -46,17 +46,14 @@ class LabelController < ApplicationController
   end
 
   def show
-    session['label_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
     @no_right_col = true
     @ocswl = @proj.ontology_classes.with_definition_containing(@label.name)
     render :action => 'show'
   end
 
   def show_tags
-    session['label_view']  = 'show_tags'
     @tags = @label.tags.group_by{|o| o.addressable_type}
-    @show = ['show_tags']
     @no_right_col = true
     render :action => 'show'
   end

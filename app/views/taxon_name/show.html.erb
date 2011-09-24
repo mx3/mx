@@ -1,18 +1,1 @@
-<% @show.collect{|s| render :partial => (s)} -%>
-<div id="inner_wrapper">
-  <div id="inner_header" style="text-align: center;">
-    <h3><%= @taxon_name.display_name(:type => :original_combination) -%></h3> 
-  </div>
-  <div id="inner_container" <%= 'style="padding-right: 0;"' if @no_right_col %>>
-    <div id="inner_center" class="column">  
-        <%= yield :center -%>
-    </div>
-    <div id="inner_left" class="column">
-      <%= render :partial =>("navigator") %> 
-      <%= yield :left -%>
-    </div>
-    <div id="inner_right" class="column" <%= 'style="width: 0; margin-right: 0;"' if @no_right_col %> >
-       <%= yield :right -%>
-    </div> 
-  </div>
-</div>
+<%= render :partial => '/shared/show/layout', :locals => {:record_header => @taxon_name.display_name } -%>

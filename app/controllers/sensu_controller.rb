@@ -78,8 +78,7 @@ class SensuController < ApplicationController
     id = params[:sensu][:id] if params[:sensu]
     id ||= params[:id]    
     @sensu = Sensu.find(id)
-    session['sensu_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['default'] 
   end
 
   def edit

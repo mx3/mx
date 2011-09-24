@@ -15,19 +15,23 @@ class ChrGroupController < ApplicationController
     @chr_group = ChrGroup.find(params[:id])
     @chrs_in = @chr_group.chr_groups_chrs(:include => :chr)
     @no_right_col = true
-    session['chr_group_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
   end
 
   def show_detailed
     @chr_group = ChrGroup.find(params[:id])
     @chrs  = @chr_group.chrs
     @no_right_col = true
-    session['chr_group_view']  = 'show_detailed'
-    @show = ['show_detailed'] 
     render :action => 'show' 
   end
-  
+ 
+  def show_content_mapping
+    @chr_group = ChrGroup.find(params[:id], :include => [:content_type, [:chrs => :chr_states]])
+    @no_right_col = true
+    @l = Linker.new(:link_url_base => self.request.host, :proj_id => @proj.ontology_id_to_use, :incoming_text => @chr_group.all_chr_txt, :adjacent_words_to_fuse => 5)
+    render :action => 'show' 
+  end
+
   def new
     @chr_group = ChrGroup.new
     render :action => :new
@@ -125,16 +129,6 @@ class ChrGroupController < ApplicationController
 
   def assign_chrs_without_groups
     @chr_group = ChrGroup.find(params[:id])
-  end
-
-  def show_content_mapping
-    @chr_group = ChrGroup.find(params[:id], :include => [:content_type, [:chrs => :chr_states]])
-    @no_right_col = true
-    
-    @l = Linker.new(:link_url_base => self.request.host, :proj_id => @proj.ontology_id_to_use, :incoming_text => @chr_group.all_chr_txt, :adjacent_words_to_fuse => 5)
-    session['chr_group_view']  = 'show_content_mapping'
-    @show = ['show_content_mapping'] 
-    render :action => 'show' 
   end
 
   def add_ungrouped_characters

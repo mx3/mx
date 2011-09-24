@@ -19,7 +19,6 @@ class ContentController < ApplicationController
     # finds the OTU that the content belongs to, and jumps there
     id = params[:content][:id] if params[:content]
     id ||= params[:id]    
-
     @con = Content.find(id)
     redirect_to :action => :show_all_content, :controller => :otu, :id => @con.otu_id and return
   end

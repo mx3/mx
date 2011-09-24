@@ -52,20 +52,15 @@ class SpecimenController < ApplicationController
   def show
     id = params[:specimen][:id] if params[:specimen] # for ajax picker use
     id ||= params[:id]
-
     @specimen = Specimen.find(id, :include => [:identifiers])
     @dets = SpecimenDetermination.find_all_by_specimen_id(params[:id])
-
-    session['specimen_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
   end
 
   def show_seqs
     id = params[:specimen][:id] if params[:specimen] # for ajax picker use
     id ||= params[:id]
     @specimen = Specimen.find(id)
-    session['specimen_view']  = 'show_seqs'
-    @show = ['show_seqs'] 
     render :action => :show
   end
 

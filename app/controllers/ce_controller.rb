@@ -46,24 +46,7 @@ class CeController < ApplicationController
   def show
     _show_params
     @no_right_col = false
-    session['ce_view']  = 'show'
-    @show = ['show_default']
-  end
-
-  def clone
-    ce = Ce.find(params[:id])
-    begin
-      Ce.transaction do
-        @ce = ce.clone
-        @ce.locality ? @ce.locality += " [CLONE OF #{ce.id}]\n" : @ce.locality = "[CLONE OF #{ce.id}]\n"
-        @ce.save
-      end
-    rescue
-      flash[:notice] = "Failed to clone the Ce, contact an admin."
-      redirect_to :action => :show, :id => ce.id and return
-    end
-    flash[:notice] = "Cloned! From #{ce.id}." 
-    render :action => :new
+    @show = ['default']
   end
 
   def show_material
@@ -74,8 +57,6 @@ class CeController < ApplicationController
     @total_lots = @ce.lots.count
     @total_ipt_records = @ce.ipt_records.count 
     @no_right_col = true
-    session['ce_view']  = 'show_material'
-    @show = ['show_material']
     render :action => 'show'
   end
   
@@ -152,7 +133,23 @@ class CeController < ApplicationController
     Ce.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
-  
+
+  def clone
+    ce = Ce.find(params[:id])
+    begin
+      Ce.transaction do
+        @ce = ce.clone
+        @ce.locality ? @ce.locality += " [CLONE OF #{ce.id}]\n" : @ce.locality = "[CLONE OF #{ce.id}]\n"
+        @ce.save
+      end
+    rescue
+      flash[:notice] = "Failed to clone the Ce, contact an admin."
+      redirect_to :action => :show, :id => ce.id and return
+    end
+    flash[:notice] = "Cloned! From #{ce.id}." 
+    render :action => :new
+  end
+
   def auto_complete_for_ce
     @tag_id_str = params[:tag_id]
     

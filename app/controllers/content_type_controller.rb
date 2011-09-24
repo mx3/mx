@@ -25,11 +25,8 @@ class ContentTypeController < ApplicationController
   def show
     id = params[:content_type][:id] if params[:content_type] # for autocomplete/ajax picker use (must come first!)
     id ||= params[:id]
-   
     @content_type = ContentType.find(id)
-
-    session['content_type_view']  = 'show'
-    @show = ['show_default'] # array of partials to render 
+    @show = ['default'] # array of partials to render 
   end
 
   def new

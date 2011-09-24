@@ -9,7 +9,6 @@ class ChrController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
     :redirect_to => { :action => :list }
 
-
   def _in_place_notes_update
     c = Chr.find(params[:id])
     c.notes = params[:value]
@@ -56,44 +55,32 @@ class ChrController < ApplicationController
   def show
     id = params[:chr][:id] if params[:chr] # for autocomplete/ajax picker use
     id ||= params[:id]
-
     @chr = Chr.find(id)
-
     @chr_states = @chr.chr_states
     @chr_state = ChrState.new
-
-    session['chr_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['default'] 
   end
 
   def show_otus_for_state
     @chr_state = ChrState.find(params[:id])
     @chr = Chr.find(@chr_state.chr_id) # should use :include
     @otus = @chr_state.otus 
-   
-    session['chr_view']  = 'show_coded_otus'
     @no_right_col = true
-    @show = ['show_coded_otus']
+    @show = ['coded_otus']
     render :action  => :show
   end
 
   def show_groups
     @chr = Chr.find(params[:id])
     @chr_groups = @chr.chr_groups
-   
-    session['chr_view']  = 'show_groups'
     @no_right_col = true
-    @show = ['show_groups']
     render :action => :show
   end
 
   def show_mxes
     @chr = Chr.find(params[:id])
     @mxes = @chr.mxes
-   
-    session['chr_view']  = 'show_mxes'
     @no_right_col = true
-    @show = ['show_mxes']
     render :action => :show
   end
 
@@ -105,9 +92,7 @@ class ChrController < ApplicationController
     else
       @linked_text = @l.linked_text(:include_plural => true)
     end
-    session['chr_view']  = 'show_edit_expanded'
     @no_right_col = true
-    @show = ['show_edit_expanded']
     render :action => :show
   end
 
@@ -115,19 +100,13 @@ class ChrController < ApplicationController
     # use group by here
     @chr = Chr.find(params[:id])  
     @otus = @chr.otus # Otu.find_coded_for(@chr.id)
-    
-    session['chr_view']  = 'show_coded_otus'
     @no_right_col = true
-    @show = ['show_coded_otus']
     render :action => :show
   end
 
   def show_merge_states
     @chr = Chr.find(params[:id]) 
     @no_right_col = true
-    
-    session['chr_view']  = 'show_merge_states'
-    @show = ['show_merge_states']
     render :action => :show
   end
 

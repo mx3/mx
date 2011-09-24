@@ -1,0 +1,51 @@
+<% content_for :center do -%>
+  <% if @chr.chr_states.count > 1 -%>
+  <div class="subform" style="min-width:500;" >
+    <div class="header">Merge states / codings</div>
+    <%= form_tag :action => 'merge_states', :id => @chr.id do -%>
+
+    <table class="lbl4">
+      <tr style="text-align: left;">
+        <td>take state</td>
+        <td>and state</td>
+        <td>change both to</td>
+        <td>with name</td>
+      </tr>
+
+      <tr  style="text-align: left;">
+        <td><%= text_field 'merge', 'state1', :size => 3 -%> </td>
+        <td><%= text_field 'merge', 'state2', :size => 3 -%></td>
+        <td><%= text_field 'merge', 'new_state', :size => 3 -%></td>
+        <td><%= text_field 'merge', 'name', :size => 45 -%></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="lbl4">and notes</td><td> <%= text_area 'merge', 'notes', :rows => 2, :cols => 55 -%></td>
+      </tr>
+    </table>
+
+    <input type="submit" value="Merge" />
+    <% end -%>
+  </div>
+  <% end -%>
+
+
+  <div class="box4">
+    <div class="header"> Existing states </div>
+    <div class="content">
+      <% for cs in @chr.chr_states -%>
+
+      <table style="width:100%;" >
+        <tr>
+          <td style="width: 55%;">
+            <b><%= "#{cs.state}: #{cs.name}" %> </b>
+          </td>
+        </tr>
+        <tr><td><span class="lbl4">notes: </span> <span style = "font-size: smaller; margin-left: 1em;"><%= cs.notes %></span> </td> </tr>
+        <tr><td><span class="lbl4">tags: </span><div style="display:inline;" id="tag_cloud_ChrState_<%= cs.id %>"><%= tag_cloud_for(cs) -%></div></td></tr>
+      </table>
+      <% end -%>
+    </div>
+  </div>
+<% end %>

@@ -59,21 +59,18 @@ class ImageController < ApplicationController
     _show_params
     @no_right_col = true
     @without_figure_markers = @image.figures.without_figure_markers.by_proj(@proj)
-    @show = ['figures'] 
     render :action => :show
   end
 
   def show_figure_markers
     _show_params
     @no_right_col = true
-    @show = ['figure_markers'] 
     render :action => :show
   end
 
   def show_image_descriptions
     _show_params
     @no_right_col = true
-    @show = ['image_descriptions'] 
     @image_description = ImageDescription.new
     render :action => :show
   end

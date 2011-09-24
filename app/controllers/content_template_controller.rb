@@ -22,6 +22,15 @@ class ContentTemplateController < ApplicationController
     @available_built_in_content_types = @con_template.available_mx_content_types
   end
 
+  # TODO: non-standard show_
+  def show_page
+    @otu = Otu.find(params[:otu_id])
+    @content_template = ContentTemplate.find(params[:ct_id])
+    @back = true
+    # the basic page is also a partial we use elsewhere
+    render :template => "/content_template/_page", :locals => {:content => @content_template.content_by_otu(@otu, false)}
+  end
+
   def sort_content_types
     params[:content_types].each_with_index do |id, index|
       ContentTemplatesContentType.update_all(['position=?', index+1], ['foo_id=?', id]) # foo_id is a holdover from WAAAY back, needs to update
@@ -63,16 +72,6 @@ class ContentTemplateController < ApplicationController
   def destroy
     ContentTemplate.find(params[:id]).destroy
     redirect_to :action => 'list'
-  end
-
-  def show_page
-    @otu = Otu.find(params[:otu_id])
-    @content_template = ContentTemplate.find(params[:ct_id])
-    @back = true
-    # the basic page is also a partial we use elsewhere
-    render :template => "/content_template/_page", :locals => {:content => @content_template.content_by_otu(@otu, false)}
-
-
   end
 
   def add_remove_type

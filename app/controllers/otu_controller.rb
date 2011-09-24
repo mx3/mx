@@ -53,14 +53,12 @@ class OtuController < ApplicationController
   # TODO: this is probably deprecated?
   def show_matrix_sync
     @content = @otu.text_content # a hash with content_type_id => Content
-    @show = ['matrix_sync']
     render :action => 'show'
   end
 
   # TODO: this is probably deprecated, or should not be in /show
   def show_tags_no_layout
     @tags = @otu.tags
-    @show = ['tag_search_no_layout']
     render :layout => false
   end
 

@@ -4,7 +4,6 @@ class KeywordController < ApplicationController
 
   before_filter :_show_params, :only => [:show, :show_tags]
 
-
   def index
     list
     render :action => 'list'
@@ -28,15 +27,12 @@ class KeywordController < ApplicationController
   end
 
   def show
-    session['keyword_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
     render :action => 'show'
   end
 
   def show_tags
-    session['keyword_view']  = 'show_tags'
     @tags = @keyword.tags.group_by{|o| o.addressable_type}
-    @show = ['show_tags']
     @no_right_col = true
     render :action => 'show'
   end
