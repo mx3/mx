@@ -474,7 +474,7 @@ form.delete-link input[type="submit"] {
 .popupform {
   background: white;
   width: 420px; /* Cary - can this be dynamic via ajax data- */
-  margin: 2em;
+  margin: 1em;
   height: auto;
 }
 .popupform .basic-modal-close {
@@ -486,11 +486,7 @@ form.delete-link input[type="submit"] {
 }
 
 .ui-autocomplete-loading { background: white url('/images/spinner.gif') right center no-repeat; }
-.ui-autocomplete {
-  background: white;
-  position: absolute;
-  text-align: left;
-}
+.ui-autocomplete { background: white; position: absolute; text-align: left; }
 #ui-active-menuitem {
   background: #ffa;
 }
