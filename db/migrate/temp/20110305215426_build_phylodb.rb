@@ -19,7 +19,7 @@ class BuildPhylodb < ActiveRecord::Migration
   def self.up
     
     # tree
-    create_table (:tree, :primary_key => :tree_id) do |t|
+    create_table(:tree, :primary_key => :tree_id) do |t|
       t.string  :name, :size => 32, :nill => false
       t.string  :identifier, :size => 32
       t.boolean :is_rooted, :default => true
@@ -29,7 +29,7 @@ class BuildPhylodb < ActiveRecord::Migration
     add_index :tree, :name, :unique => true
 
     # node
-    create_table (:node, :primary_key => :node_id) do |t|
+    create_table(:node, :primary_key => :node_id) do |t|
       t.string :label, :size => 255
       t.integer :tree_id, :size => 11, :nil => false
       t.integer :bioentry_id, :size => 11 # references?
@@ -46,7 +46,7 @@ class BuildPhylodb < ActiveRecord::Migration
     add_index :node, :taxon_id, :name => :node_taxon_id
 
     # edge
-    create_table (:edge, :primary_key => :edge_id) do |t|
+    create_table(:edge, :primary_key => :edge_id) do |t|
       t.integer :child_node_id, :size => 11, :nil => false
       t.integer :parent_node_id, :size => 11, :nil => false
     end
@@ -55,11 +55,11 @@ class BuildPhylodb < ActiveRecord::Migration
     add_index :edge, :parent_node_id, :name => :edge_parent_node_id
 
     # node_path
-    create_table (:node_path, :id => false) do |t|
-      t.integer, :child_node_id, :size => 11, :nil => false, :references => :node #TODO: true?
-      t.integer, :parent_node_id, :size => 11, :nil => false, :references => :node
-      t.text, :path
-      t.integer, :distance, :size => 11
+    create_table(:node_path, :id => false) do |t|
+      t.integer :child_node_id, :size => 11, :nil => false, :references => :node #TODO: true?
+      t.integer :parent_node_id, :size => 11, :nil => false, :references => :node
+      t.text :path
+      t.integer :distance, :size => 11
     end
 
     add_index :node_path, :parent_node_id, :name => :node_path_parent_node_id
@@ -71,8 +71,8 @@ class BuildPhylodb < ActiveRecord::Migration
       t.integer :term_id, :size => 11, :nil => false, :references => nil # TODO make this customizable
     end
 
-    add_index, :edge_qualifier_value, :term_id, :name => :ea_val_term_id
-    add_index, :edge_qualifier_value, [:edge_id, :term_id] # mimic the primary key
+    add_index :edge_qualifier_value, :term_id, :name => :ea_val_term_id
+    add_index :edge_qualifier_value, [:edge_id, :term_id] # mimic the primary key
 
     # node_qualifier_value
     create_table (:node_qualifier_value) do |t|
@@ -81,13 +81,13 @@ class BuildPhylodb < ActiveRecord::Migration
       t.integer :term_id, :size => 11, :nil => false, :references => nil # TODO make this customizable
     end
 
-    add_index, :node_qualifier_value, :term_id, :name => :na_val_term_id
-    add_index, :node_qualifier_value, [:node_id, :term_id] # mimic the primary key
+    add_index :node_qualifier_value, :term_id, :name => :na_val_term_id
+    add_index :node_qualifier_value, [:node_id, :term_id] # mimic the primary key
 
     # below are tables currently in the pg.sql file, but not in mysql.sql
 
     # tree_root
-    create_table (:tree_root, :primary_key => :tree_root_id) do |t|   
+    create_table(:tree_root, :primary_key => :tree_root_id) do |t|   
        t.integer :tree_id, :size => 11, :nil => false, :references => :tree
        t.integer :node_id, :size => 11, :nil => false, :references => :node
        t.boolean :is_alternate, :default => false
@@ -126,7 +126,7 @@ class BuildPhylodb < ActiveRecord::Migration
     add_index :node_dbxref, [:node_id, :dbxref_id, :term_id], :name => :pseudo_primary_key, :unique => true # is unique true true?
 
     # node_taxon
-    create_table (:node_taxon, :primary_key => :node_taxon_id) do |t|
+    create_table(:node_taxon, :primary_key => :node_taxon_id) do |t|
       t.integer :node_id, :size => 11, :nil => false, :references => :node
       t.integer :taxon_id, :size => 11, :nil => false, :references => nil # TODO: configure
       t.integer :rank, :nil => false, :default => 0
@@ -135,15 +135,13 @@ class BuildPhylodb < ActiveRecord::Migration
     add_index :node_taxon, [:node_id, :taxon_id, :rank], :unique => true
 
     # node_bioentry
-    create_table (:node_bioentry, :primary_key => :node_bioentry_id) do |t|
+    create_table(:node_bioentry, :primary_key => :node_bioentry_id) do |t|
       t.integer :node_id, :size => 11, :nil => false, :references => :node
       t.integer :bioentry_id, :size => 11, :nil => false, :references => nil # to configure
       t.integer :rank, :nil => false, :default => 0
     end
     
     add_index :node_bioentry, [:node_id, :bioentry_id, :rank], :unique => true
-
- 
   end
 
   def self.down

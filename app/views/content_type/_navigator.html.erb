@@ -1,4 +1,3 @@
 <div class='navigator'>
-  <%= navigator(@content_type,  session['content_type_view'], "id") -%>
-  <div class="item"> <%= session['tree_view'] == 'show' ? '<span class="navigator_current">default</span>' : link_to('default', :action => 'show', :id => @content_type)  %> </div>  
+  <%= navigator2(:obj => @content_type, :do => params['action'], :ord =>  "id") -%>
 </div>

@@ -1,4 +1,4 @@
-<div class='navigator' style ="text-align: center;">
+<div class='navigator'>
   <%= navigator2(:obj => @lot, :do => session['lot_view'], :ord => "id") -%>
 
   <div class="category">Specimen functions</div>
@@ -12,5 +12,4 @@
   <% end %> 
     
   <div class="item"><%= link_to('create (clone, no extraction)', :action => 'clone_to_specimen', :id => @lot) -%> </div>  
-
 </div>

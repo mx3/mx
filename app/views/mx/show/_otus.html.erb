@@ -55,7 +55,7 @@
       <div class="box4">
         <div class="header" >OTUs in matrix</div>
         <div class="content">
-          <%= '<i>none</i>' if @otus.size == 0 -%>
+          <%= content_tag(:em, 'none') if @otus.size == 0 -%>
           <table style="width: 100%;">
             <% @otus.each do |otu| %>
               <tr>
@@ -80,7 +80,7 @@
       <div class="box4">
         <div class="header" >OTU groups</div>
         <div class="content">
-          <%= '<i>none</i>' if @otu_groups_in.size == 0 -%>
+          <%= content_tag(:em, 'none') if @otu_groups_in.size == 0 -%>
           <ul style="list-style-type:square;">
             <% @otu_groups_in.each do |otu_group| -%>
               <li style="color:gray;"><%= otu_group.name -%>&nbsp;<%= link_to "x", {:action => 'remove_otu', :id => @mx.id, :params => {"otu_group_id" => otu_group.id}} -%></li>
@@ -93,7 +93,7 @@
       <div class="box4">
         <div class="header" >OTUs +</div>
         <div class="content">
-          <%= '<i>none</i>' if @otus_plus.size == 0 -%>
+          <%= content_tag(:em, 'none') if @otus_plus.size == 0 -%>
           <ul style="list-style-type:square;">
             <% @otus_plus.each do |otu| -%>
               <li >
@@ -107,7 +107,7 @@
       <div class="box4">
         <div class="header" >OTUs -</div>
         <div class="content">
-          <%= '<i>none</i>' if @otus_minus.size == 0 -%>
+          <%= content_tag(em, 'none') if @otus_minus.size == 0 -%>
           <ul style="list-style-type:square;">
             <% @otus_minus.each do |otu| -%>
               <li>

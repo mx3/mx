@@ -1,10 +1,8 @@
-<% content_for(:left) do -%>
-<%- end -%>
 <div class='navigator'>
   <%= navigator2(:obj => @image, :do => session['image_view'], :ord => 'id') -%> 
   <%= show_nav_link(:obj => @image, :link => 'figures')  -%>
   <%= show_nav_link(:obj => @image, :link => 'image descriptions')  -%>
   <% if @with_figure_markers.length > 0 -%>
-    <%= show_nav_link(:obj => @image, :link => 'figure_markers')  -%>
+    <%= show_nav_link(:obj => @image, :link => 'figure markers')  -%>
   <% end -%>
 </div>

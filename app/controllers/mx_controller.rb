@@ -45,7 +45,7 @@ class MxController < ApplicationController
     end
   end
 
-  def show_unused_chr_states
+  def show_unused_character_states
     @mx = Mx.find(params[:id])
     @unused_chr_states = @mx.unused_chr_states.sort{|a,b| a.chr.name <=> b.chr.name}
     @no_right_col = true
@@ -67,7 +67,7 @@ class MxController < ApplicationController
     render :action => :show
   end
 
-  def show_chrs
+  def show_characters
     @mx = Mx.find(params[:id])  
     _set_chrs
     @otu = @mx.otus.first # first otu to 'code' at
@@ -207,7 +207,6 @@ class MxController < ApplicationController
   # This method provides one-click coding, iterating through either chrs or OTUs
   # It handles both the post and show aspects.
   def fast_code
-
     id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
     id ||= params[:id] 
 
@@ -360,7 +359,6 @@ class MxController < ApplicationController
 
       @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
       @no_right_col = true
-      @show = ['show_code']
       render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
     end
   end 
@@ -452,7 +450,6 @@ class MxController < ApplicationController
   def show_sort_otus
     @mx = Mx.find(params[:id])
     @mxes_otus = @mx.mxes_otus
-    @show = ['sort_otus'] 
     @no_right_col = true
     render :action => :show, :id => @mx.id and return
   end
@@ -480,10 +477,9 @@ class MxController < ApplicationController
 
   # character sorting
   
-  def show_sort_chrs
+  def show_sort_characters
     @mx = Mx.find(params[:id])
     @chrs_mxes = @mx.chrs_mxes
-    @show = ['sort_chrs'] 
     @no_right_col = true
     render :action => :show, :id => @mx.id and return
   end
