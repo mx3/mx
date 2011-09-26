@@ -20,9 +20,14 @@ function initialize_js(root) {
   find('.mx-autocomplete').mx_autocompleter();
   find("a[data-ajaxify], input[data-ajaxify]").ajaxify();
   find("input[data-color-picker]").mx_color_picker();
+
 }
 //
 $(document).ready(function(){
   initialize_js($("body"));
   $('body').mx_flash();
+
+  // Attach to the mx_spinner -- any link-to-remotes will trigger this spinner effect.
+  $.mx_spinner('form[data-remote]');
+  $.mx_spinner('a[data-remote],input[data-remote]');
 });
