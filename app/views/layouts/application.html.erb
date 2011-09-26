@@ -32,7 +32,9 @@
   </head>
   <body>
 
-  <%= illustrate_tag(@proj.chrs.first) -%>
+  <% if @proj %>
+    <%= illustrate_tag(@proj.chrs.first) -%>
+  <% end %>
 
     <div id="container">
       <div id="header">

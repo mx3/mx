@@ -136,10 +136,12 @@ module FigureHelper
   # Pass an Instance of a Model that has include ModelExtensions::Figurable
   # mx3 uses "illustrate" as the verb, "figure" as the noun
   def illustrate_tag(o)
-    content_tag :div, :id => "f_#{o.class.to_s}_#{o.id}", :style => 'display:inline;' do
-      content_tag :span, :id => "fl_#{o.class.to_s}_#{o.id}" do
-        # Cary - is data-basic-modal-width working?
-        content_tag(:a, 'Fig', 'data-basic-modal' => '', 'data-basic-modal-width' => '600', :href => url_for(:action => :illustrate, :controller => :figure, :fig_obj_id => o.id, :fig_obj_class => o.class.to_s) ) 
+    if (o)
+      content_tag :div, :id => "f_#{o.class.to_s}_#{o.id}", :style => 'display:inline;' do
+        content_tag :span, :id => "fl_#{o.class.to_s}_#{o.id}" do
+          # Cary - is data-basic-modal-width working?
+          content_tag(:a, 'Fig', 'data-basic-modal' => '', 'data-basic-modal-width' => '600', :href => url_for(:action => :illustrate, :controller => :figure, :fig_obj_id => o.id, :fig_obj_class => o.class.to_s) )
+        end
       end
     end
   end
