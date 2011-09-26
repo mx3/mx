@@ -62,7 +62,6 @@
       </div>
 
       <div id="content">
-        <div id="notice" class="notice"><%= [flash[:notice]].flatten.join("<br/>") -%></div> <%# on all the time for AJAX %>
 
         <% unless no_subnav.include?(self.controller.controller_name) -%>
           <div class="subnav">
@@ -79,5 +78,16 @@
 
 
     </div>
+    <!-- Flash display here -->
+    <script type='text/javascript' >
+      $(document).ready(function() {
+        <% flash.each_pair do |type, msgs| -%>
+          <% [msgs].flatten.each do |msg| -%>
+            $.mx_flash('<%=type%>', '<%=msg%>');
+          <% end %>
+        <% end %>
+      });
+    </script>
+
   </body>
 </html>

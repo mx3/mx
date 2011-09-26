@@ -127,7 +127,6 @@ class ApplicationController < ActionController::Base
   # login_required and proj_required are defined in lib/login_system
 
   def configure_site
-
     if params[:unresolvable] # called when bad queries are thrown at the db (i.e routed from *anything)
       public_route_failure and return
     end

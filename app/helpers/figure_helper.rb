@@ -14,15 +14,15 @@ module FigureHelper
     opt = {
       :object => nil,        # required
       :image => nil,         # required
-      :caption => nil,       # 
-      :link_text => 'Attach' # 
+      :caption => nil,       #
+      :link_text => 'Attach' #
     }.merge!(options)
 
     return content_tag(:em, opt[:link_text]) if opt[:object].nil? || opt[:image].nil?
 
     url = url_for(:action => :create,
                   :controller => :figure,
-                  :html_selector => opt[:html_selector],      # Needed here? 
+                  :html_selector => opt[:html_selector],      # Needed here?
                   :figure_obj_class => opt[:object].class.to_s,
                   :figure_obj_id => opt[:object].id,
                   :caption => opt[:caption],
@@ -30,8 +30,8 @@ module FigureHelper
                   )
 
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
-   
-    # Cary - TODO - this should call 
+
+    # Cary - TODO - this should call
     link_to(opt[:link_text], url, 'data-remote' => 'true', :method => 'post')
   end
 
@@ -41,11 +41,11 @@ module FigureHelper
     if !request.xml_http_request?
       update_page_tag do |page|
         page.call 'appendFigsToSvgonload'
-      end 
+      end
     end
   end
 
-  def url_for_zoom_figure(figure) # :yields: String (URL) 
+  def url_for_zoom_figure(figure) # :yields: String (URL)
     base = 'http://'
     pub_str = (@public ? '/public' : '' )
     if @server_name == 'development'
@@ -55,8 +55,8 @@ module FigureHelper
     end
   end
 
-  def figure_thumbnail_with_svg_tag(figure) # :yields: String 
-    content_tag(:div, :id => "figure_#{figure.id}_img", :class => 'image') do 
+  def figure_thumbnail_with_svg_tag(figure) # :yields: String
+    content_tag(:div, :id => "figure_#{figure.id}_img", :class => 'image') do
       if figure.figure_markers.size > 0
         update_page_tag do |page|
           page.call 'createSvgObjRoot', (request.xml_http_request? ? 'ajax' : 'http'), *figure.svgObjRoot_params(:size => :thumb, :link => url_for_zoom_figure(figure) )
@@ -64,21 +64,21 @@ module FigureHelper
       else
          content_tag(:a, image_thumb_tag(figure.image), :href => url_for_zoom_figure(figure), :target => '_blank', :alt => "mx_image_#{figure.image.id}")
       end
-    end 
+    end
   end
 
   def caption_tag(figure, size = :thumb) # :yields: String (<div> element containing enumerated figure caption)
     return "" if figure.caption.blank? && (size != :thumb) # maintain numbering for Content referencing with thumbs.
     content_tag :div, :style => "text-align: left; width: #{figure.image.width_for_size(size).to_i}px; height: 2em;" do
-      figure.position.to_s + "." + expandable_caption((figure.caption.blank? ? '' : figure.caption), figure.id, figure.text_width_chrs) 
-    end 
+      figure.position.to_s + "." + expandable_caption((figure.caption.blank? ? '' : figure.caption), figure.id, figure.text_width_chrs)
+    end
   end
 
   def img_legal_tag(figure) # :yields: String (of html or empty)
     image = Image.find(:first, :conditions => {:id => figure.image_id})
     return '' if image.license.blank? && image.copyright_holder.blank? # don't assume anything
     license = (image.license.blank? ? content_tag(:em, 'no Creative Commons license provided') : render(:partial => "content_licenses/#{image.license}"))
-    content_tag(:div, :style => "background-color:#ccc;padding:5px; margin-top:2px;") do 
+    content_tag(:div, :style => "background-color:#ccc;padding:5px; margin-top:2px;") do
 
       content_tag(:div, :style => "float:left;") do
         image.copyright_holder.blank? ? " <em>for &copy; contact site owners<em>" : "&copy; #{image.copyright_holder}"
@@ -86,23 +86,23 @@ module FigureHelper
 
       content_tag(:div, :style => "float:right;") do
         license
-      end + 
+      end +
      content_tag(:br)
    end
  end
 
   def link_to_figured(figure, link_text = 'show')
     return "<strong style='color:red'>ERROR? #{figure.addressable_type}:#{figure.addressable_id}</strong>" if !figure.figured_obj
-    link_to(link_text, :action => :show_figures, :id => figure.addressable_id, :controller => figure.addressable_type.underscore) 
+    link_to(link_text, :action => :show_figures, :id => figure.addressable_id, :controller => figure.addressable_type.underscore)
   end
 
   def figured_object_tag(figure)
-    [content_tag(:span, figure.addressable_type), 
+    [content_tag(:span, figure.addressable_type),
       content_tag(:span, "id:" + figure.addressable_id.to_s),
       content_tag(:span, figure.figured_obj ? figure.figured_obj.display_name : '<strong style="color:red;">ORPHANED FIGURE</strong>'),
-      link_to_figured(figure) 
+      link_to_figured(figure)
     ].join("<br />")
-  end 
+  end
 
   # handles the <script wrapper>
   def svg_tag(options = {})
@@ -116,7 +116,7 @@ module FigureHelper
     xml = Builder::XmlMarkup.new(:indent=> 2, :target => opt[:target])
 
     xml.script(:type => 'image/svg+xml') {
-      opt[:figure].svg(opt) 
+      opt[:figure].svg(opt)
     }
 
     # this might need better logic for IE
@@ -125,7 +125,7 @@ module FigureHelper
 
     #   }
 
-    opt[:target].to_s 
+    opt[:target].to_s
   end
 
   # TODO mx3: deprecate
@@ -152,7 +152,7 @@ module FigureHelper
     @figures = @obj.figures
 
     return '' if @figures.size == 0
-    
+
     # MODE IS A HACK
     # hmm- this needs to be :partial in some case, :templates in others?
     if mode == 'js'
