@@ -1,10 +1,10 @@
 # encoding: utf-8
 module TagHelper
-  
+
   def tag_class(tag)
     "tag-class-#{tag.id}"
   end
-  
+
   def new_tag_tag(options ={})
     opt = {
       :object => nil,     # required
@@ -25,8 +25,7 @@ module TagHelper
                   :ref_id => opt[:ref_id])
 
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
-    content_tag(:a, opt[:link_text], :href => url, 'data-basic-modal' => '' ,
-                    'data-basic-modal-width' => '300')
+    content_tag(:a, opt[:link_text], :href => url, 'data-basic-modal' => '')
   end
 
   def link_to_tagged(tag)
