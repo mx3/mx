@@ -1,4 +1,4 @@
-<div id="<%= "tp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform"  >
+<div id="<%= "tp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform" style='width:600px;' >
     <a class='basic-modal-close' href='#'>X</a>
     <span style="float:left;width: 85%;">Figuring: <%= @obj.display_name %></span>
     <br style="clear: both;" />
@@ -22,9 +22,8 @@
 
   <!-- the results of a image_search -->
   <div id="find_images_results" style="margin:0.5em;padding:0.5em; border:1px solid green;">
-    <em> Image will display here after a search is completed.  Might need to move this to /figure/_illustrate to make more sense?</em> 
+    <em> Image will display here after a search is completed.  Might need to move this to /figure/_illustrate to make more sense?</em>
     <br style="clear:both;" />
   </div>
 
 </div>
-
