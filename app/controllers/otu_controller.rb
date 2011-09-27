@@ -53,14 +53,12 @@ class OtuController < ApplicationController
   # TODO: this is probably deprecated?
   def show_matrix_sync
     @content = @otu.text_content # a hash with content_type_id => Content
-    @show = ['matrix_sync']
     render :action => 'show'
   end
 
   # TODO: this is probably deprecated, or should not be in /show
   def show_tags_no_layout
     @tags = @otu.tags
-    @show = ['tag_search_no_layout']
     render :layout => false
   end
 
@@ -281,10 +279,10 @@ class OtuController < ApplicationController
     @otu_groups = @proj.otu_groups
     # Called to allow recursive addition of Otus from a TaxonName and its children
     if id = Otu._create_r(:otu => params[:otu], :include_children => params[:include_children], :otu_group_id => params[:otu_group_id], :proj_id => @proj.id)
-      flash[:notice] = (params[:include_children] ? 'OTUs were successfully created.' : 'OTU was successfully created')
+      notice (params[:include_children] ? 'OTUs were successfully created.' : 'OTU was successfully created.')
       redirect_to :action => :show, :id => id
     else
-      flash[:notice] = 'Problem creating the OTU(s)!'
+      notice 'Problem creating the OTU(s)!'
       render :action => :new and return
     end
 
@@ -377,7 +375,7 @@ class OtuController < ApplicationController
           end and return
 
         when 'published'
-          @public = true;
+          @public = true
           render :update do |page|
             page.replace :form_notice, :text => content_tag(:div, 'text saved', :id => 'form_notice')
             page.visual_effect :fade, :form_notice
@@ -396,25 +394,12 @@ class OtuController < ApplicationController
         end
       }
     end
-
   end
 
   def auto_complete_for_otu
     value = params[:term]
-    method = params[:method]
-
     @otus = Otu.find_for_auto_complete(value)
-    data = @otus.collect do |otu|
-      {:id=>otu.id,           # DRY? could we be using method => otu.id here?
-       :label=> otu.display_name(:type => :selected),
-       :response_values=> {
-         method => otu.id     # this is working (for example edit an OTU)
-      # :hidden_field_class_name => @tag_id_str # Cary- we no longer need this because you're attaching directly to the DOM, correct? Previously I used this to keep picker ids unique, i.e. when two pickers where rendered on the same page I needed to be able to set two seperate values. Regardless- @tag_id_str isn't being set in the present code.
-       },
-       :label_html => render_to_string(:partial => 'shared/autocomplete/otu.html', :locals => {:item => otu})
-      }
-    end
-    render :json => data
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @otus, :method => params[:method])
   end
 
   # redundancy with OTU group add - but nice fn()

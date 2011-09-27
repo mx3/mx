@@ -18,10 +18,13 @@
 *~
 *.swp
 
+# various IDE environments
 /nbproject/*
 /.idea/*
 /doc/*
-
+/.project
+.buildpath
+.settings/
 
 # SVN.gitignore
 .svn/

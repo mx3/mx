@@ -4,6 +4,6 @@ class AddPrefDefaultRepositoryIdToPeople < ActiveRecord::Migration
   end
 
   def self.down
-    drop_column :people, 'pref_default_repository_id'
+    remove_column :people, 'pref_default_repository_id'
   end
 end

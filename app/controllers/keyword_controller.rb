@@ -4,7 +4,6 @@ class KeywordController < ApplicationController
 
   before_filter :_show_params, :only => [:show, :show_tags]
 
-
   def index
     list
     render :action => 'list'
@@ -28,15 +27,12 @@ class KeywordController < ApplicationController
   end
 
   def show
-    session['keyword_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
     render :action => 'show'
   end
 
   def show_tags
-    session['keyword_view']  = 'show_tags'
     @tags = @keyword.tags.group_by{|o| o.addressable_type}
-    @show = ['show_tags']
     @no_right_col = true
     render :action => 'show'
   end
@@ -76,24 +72,9 @@ class KeywordController < ApplicationController
   end
 
   def auto_complete_for_keyword
-
-    @tag_id_str = params[:tag_id]
     value = params[:term]
-    #value = params[@tag_id_str.to_sym].split.join('%')
-
-    @keywords = Keyword.find(:all, :conditions => ["(keyword LIKE ? OR shortform LIKE ? OR id = ?) AND proj_id=?", "#{value}%", "#{value}%", value.gsub(/\%/, ""), @proj.id],        :limit => 20, :order => "keyword")
-
-    data = @keywords.collect do |kw|
-      {:id=> kw.id,
-       :label=> kw.keyword,
-       :response_values=> {
-          'keyword[id]' => kw.id,
-          :hidden_field_class_name => @tag_id_str
-       },
-       :label_html => kw.display_name(:type => :for_select_list) # format_obj_for_auto_complete(ref) # see include App::AutocompleteHelper above # render_to_string(:partial=>'shared/autocomplete/ref.html', :locals=>{:item=>ref})
-      }
-    end
-    render :json => data
+    @keywords = Keyword.find(:all, :conditions => ["(keyword LIKE ? OR shortform LIKE ? OR id = ?) AND proj_id=?", "#{value}%", "#{value}%", value.gsub(/\%/, ""), @proj.id], :limit => 20, :order => "keyword")
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @keywords, :method => params[:method])
   end
 
 end

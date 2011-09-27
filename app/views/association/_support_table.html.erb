@@ -10,9 +10,9 @@
 
       <%# support items render rows -%>
       <%= case @s.class.to_s;
-        when "RefSupport" then render(:partial => '/association/support_item_ref');
-        when "VoucherLotSupport" then render(:partial => '/association/support_item_lot');
-        when "SpecimenSupport" then render(:partial => '/association/support_item_specimen');
+        when "RefSupport" then render(:partial => '/association/support_item_ref')
+        when "VoucherLotSupport" then render(:partial => '/association/support_item_lot')
+        when "SpecimenSupport" then render(:partial => '/association/support_item_specimen')
         end
       -%>
 

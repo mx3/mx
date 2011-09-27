@@ -62,7 +62,7 @@ class ImageDescription < ActiveRecord::Base
     s = ''
 
     case opt[:type]
-    when :ajax_dropdown
+    when :for_select_list
       s =  '<div style="border: 1px solid silver; padding: 1px; margin: 1px; width: 100%; font-size: smaller;">' 
       s << '<img src="' + self.image.path_for(:size => :thumb) + '" width=80 align=center style="padding-left: 2px;" />'
       s <<  "&nbsp; #{self.image_id.to_s}<br />#{otu ? otu.display_name : specimen.display_name }"

@@ -9,7 +9,6 @@ class ChrController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
     :redirect_to => { :action => :list }
 
-
   def _in_place_notes_update
     c = Chr.find(params[:id])
     c.notes = params[:value]
@@ -56,44 +55,32 @@ class ChrController < ApplicationController
   def show
     id = params[:chr][:id] if params[:chr] # for autocomplete/ajax picker use
     id ||= params[:id]
-
     @chr = Chr.find(id)
-
     @chr_states = @chr.chr_states
     @chr_state = ChrState.new
-
-    session['chr_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['default'] 
   end
 
   def show_otus_for_state
     @chr_state = ChrState.find(params[:id])
     @chr = Chr.find(@chr_state.chr_id) # should use :include
     @otus = @chr_state.otus 
-   
-    session['chr_view']  = 'show_coded_otus'
     @no_right_col = true
-    @show = ['show_coded_otus']
+    @show = ['coded_otus']
     render :action  => :show
   end
 
   def show_groups
     @chr = Chr.find(params[:id])
     @chr_groups = @chr.chr_groups
-   
-    session['chr_view']  = 'show_groups'
     @no_right_col = true
-    @show = ['show_groups']
     render :action => :show
   end
 
   def show_mxes
     @chr = Chr.find(params[:id])
     @mxes = @chr.mxes
-   
-    session['chr_view']  = 'show_mxes'
     @no_right_col = true
-    @show = ['show_mxes']
     render :action => :show
   end
 
@@ -105,9 +92,7 @@ class ChrController < ApplicationController
     else
       @linked_text = @l.linked_text(:include_plural => true)
     end
-    session['chr_view']  = 'show_edit_expanded'
     @no_right_col = true
-    @show = ['show_edit_expanded']
     render :action => :show
   end
 
@@ -115,19 +100,13 @@ class ChrController < ApplicationController
     # use group by here
     @chr = Chr.find(params[:id])  
     @otus = @chr.otus # Otu.find_coded_for(@chr.id)
-    
-    session['chr_view']  = 'show_coded_otus'
     @no_right_col = true
-    @show = ['show_coded_otus']
     render :action => :show
   end
 
   def show_merge_states
     @chr = Chr.find(params[:id]) 
     @no_right_col = true
-    
-    session['chr_view']  = 'show_merge_states'
-    @show = ['show_merge_states']
     render :action => :show
   end
 
@@ -376,7 +355,7 @@ class ChrController < ApplicationController
  
  def owl_export
    #TODO this duplicates some code from doc_export - should refactor
-   @chrs = []
+   @chrs = Array.new
     if params[:id]
       @chrs << Chr.find(params[:id])
     elsif params[:chr_group_id]
@@ -388,8 +367,8 @@ class ChrController < ApplicationController
     end
     graph = RDF::Graph.new
     owl = OWL::OWLDataFactory.new(graph)
-    @chrs.each do |chr|
-      Ontology::Mx2owl.translate_chr(chr, owl)
+    @chrs.each do |c|
+      Ontology::Mx2owl.translate_chr(c, owl)
     end
     #triples = RDF::Writer.for(:ntriples).buffer {|writer| writer << graph }
     # when rdfxml gem is updated with bugfix we can switch to next line
@@ -397,31 +376,12 @@ class ChrController < ApplicationController
     render(:text => (rdf + '\n\n' + triples))
  end
 
- def auto_complete_for_chr
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-
-    conditions = ["(chrs.name LIKE ? OR chrs.id = ?) and proj_id = ?",  "%#{value}%", value, @proj.id]
-    
-    @chrs = Chr.find(:all, :conditions => conditions, :limit => 35,
-       :order => 'chrs.name')
-    render(:inline => "<%= auto_complete_result_with_ids(@chrs, 'format_obj_for_auto_complete', @tag_id_str) %>")
-  end
-
- #def _markup_description
- #   if @chr = Chr.find(params[:id])
- #     if @chr.doc_char_descr.size == 0
- #        render(:text => '<i>no definition to markup</i>', :layout => false)
- #      else
- #        @l = Linker.new(:incoming_text => @chr.doc_char_descr, :proj_id => @proj.default_ontology_id, :adjacent_words_to_fuse => 5)
- #        render(:text => RedCloth.new(@l.linked_text(:proj_id => @proj.default_ontology.id, :is_public => true)).to_html, :layout => false )  
- #      end
- #   else
- #    flash[:notice] = "Something went wrong when trying to markup a definition."
- #    render :action => :index
- #  end
- #end
-  
-  
+ def autocomplete_for_chr
+   value = params[:term]
+   method = params[:method]
+   conditions = ["(chrs.name LIKE ? OR chrs.id = ?) and proj_id = ?",  "%#{value}%", value, @proj.id]
+   @chrs = Chr.find(:all, :conditions => conditions, :limit => 35, :order => 'chrs.name')
+   render :json => autocomplete_result(:entries => @chrs, :method => method)
+ end
   
 end

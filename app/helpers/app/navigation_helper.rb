@@ -60,33 +60,16 @@ module App::NavigationHelper
     content_tag(:div, :style => 'border-bottom:1px dotted silver;padding:2px;') do
       id_box_tag(opt[:obj]) +
         content_tag(:div, link_to('show', :action => :show, :id => opt[:obj]), :class => (opt[:do] == 'show' ? 'navigator_current' : ''), :style => 'margin:3px 0;') +
-        content_tag(:div, :class => 'navigator_buttons') do
+      content_tag(:div, :class => 'navigator_buttons') do
         content_tag(:span, link_to("&#8678;".html_safe, {:action => opt[:do], :controller => klass, :id => previous_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')  +
-          content_tag(:span, link_to('edit', :action => :edit, :controller => klass, :id => opt[:obj].id) ) +
-          content_tag(:span, link_to('&#8680;'.html_safe, {:action => opt[:do], :controller => klass, :id => next_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')
+        content_tag(:span, link_to('edit', :action => :edit, :controller => klass, :id => opt[:obj].id) ) +
+        content_tag(:span, link_to('&#8680;'.html_safe, {:action => opt[:do], :controller => klass, :id => next_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')
       end  +
        content_tag(:div, :style => 'width: 100%; font-size:smaller;padding:2px;' ) do
-         new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp".html_safe + content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
+        new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp".html_safe + content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
        end
     end
 
-  end
-
-  # DEPRECATED
-  # TODO: exchange with navigator2
-  # renders a styled forward/back button for use in shows
-  def navigator(obj, action = 'show', ord = 'id')
-    return content_tag(:div, '', :class =>  'navigator_buttons') if @public
-    s = '<div class="navigator_buttons"> <span class="navigator_button">'
-
-    klass = ActiveSupport::Inflector.underscore(obj.class.to_s) # 2.1.1 code
-    klass = 'content_type' if klass =~ /content_type/ || klass =~ /text_content/ # ['text_content', ContentType.custom_types.collect{|t| ActiveSupport::Inflector.underscore(t)}].flatten.include?( ActiveSupport::Inflector.underscore(obj.class.to_s)) # this is baaaad
-    klass = 'morphbank_image' if  klass == 'image' && obj.is_morphbank == true
-
-    s += link_to('&lt;', :action => action, :controller => klass, :id => previous_rec(obj, ord)) + '</span> <span class="navigator_link">'
-    s += link_to('Edit', :action => 'edit', :controller => klass, :id => obj.id) + '</span>'
-    s += '<span class="navigator_button">' + link_to('&gt;', :action => action, :controller => klass, :id => next_rec(obj, ord)) + '</span></div>'
-    s.html_safe
   end
 
   # returns the previous/next record as sorted by Model#ord

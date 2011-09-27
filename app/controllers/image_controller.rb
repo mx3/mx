@@ -59,21 +59,18 @@ class ImageController < ApplicationController
     _show_params
     @no_right_col = true
     @without_figure_markers = @image.figures.without_figure_markers.by_proj(@proj)
-    @show = ['figures'] 
     render :action => :show
   end
 
   def show_figure_markers
     _show_params
     @no_right_col = true
-    @show = ['figure_markers'] 
     render :action => :show
   end
 
   def show_image_descriptions
     _show_params
     @no_right_col = true
-    @show = ['image_descriptions'] 
     @image_description = ImageDescription.new
     render :action => :show
   end
@@ -161,13 +158,12 @@ class ImageController < ApplicationController
   end
 
   def auto_complete_for_image
-    @tag_id_str = params[:tag_id]
-    
-    if @tag_id_str == nil
+    value = params[:term]
+    if value.nil?
       redirect_to(:action => 'index', :controller => 'image') and return
     else
-      value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-      @id = ImageDescription.find(:all,
+      val = value.split.join('%') 
+      @ids = ImageDescription.find(:all,
                                   :joins => 'LEFT OUTER JOIN taxon_names t on otus.taxon_name_id = t.id',
                                   :conditions => 
                                   ["(images.id LIKE ? OR
@@ -179,16 +175,14 @@ class ImageController < ApplicationController
                                     images.user_file_name LIKE ?) AND
                                     image_descriptions.proj_id = ?",
                                     value.gsub(/\%/, ""),
-                                    "%#{value}%",
-                                    "%#{value}%",
-                                    "%#{value}%",
-                                    "%#{value}%",
-                                    "%#{value}%",
-                                    "%#{value}%", @proj.id], :include => [:image, {:otu => {:taxon_name => :parent}}, :label, :image_view], :order => 'images.id' )
+                                    "%#{val}%",
+                                    "%#{val}%",
+                                    "%#{val}%",
+                                    "%#{val}%",
+                                    "%#{val}%",
+                                    "%#{val}%", @proj.id], :include => [:image, {:otu => {:taxon_name => :parent}}, :label, :image_view], :order => 'images.id' )
     end
-    
-    render :inline => "<%= auto_complete_result_with_ids(@id,
-      'format_image_description_for_autocomplete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @images, :method => params[:method])
   end
 
   def browse_figure_markers

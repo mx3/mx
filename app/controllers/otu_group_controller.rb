@@ -14,13 +14,10 @@ class OtuGroupController < ApplicationController
   def show
     id = params[:otu_group][:id] if params[:otu_group]
     id ||= params[:id]
-   
     @otu_group = OtuGroup.find(id, :include => [:otus])
     @otus_in = @otu_group.otu_groups_otus(:include => :otus)
     @otus_out = @proj.otus - @otus_in  
- 
-    session['otu_group_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['default'] 
   end
 
   def show_material
@@ -28,30 +25,21 @@ class OtuGroupController < ApplicationController
     @specimens = @otu_group.otus.inject([]){|sum, o| sum + o.specimens}   
     @lots = @otu_group.otus.inject([]){|sum, o| sum + o.lots}
     @markers = @otu_group.gmaps_markers
-
     @no_right_col = true
-    session['otu_group_view']  = 'show_material'
-    @show = ['show_material']
     render :action => 'show'
   end
 
   def show_images
    @otu_group = OtuGroup.find(params[:id], :include => [:otus])
    @descriptions = @otu_group.otus.inject([]){|sum, o| sum + o.image_descriptions(@proj.id)}.uniq
-   
    @no_right_col = true
-   session['otu_group_view']  = 'show_images'
-   @show = ['show_images'] 
    render :action => 'show'
   end
 
   def show_collecting_events
    @otu_group = OtuGroup.find(params[:id], :include => [:otus])
    @collecting_events = @otu_group.collecting_events
-   
    @no_right_col = true
-   session['otu_group_view']  = 'show_collecting_events'
-   @show = ['show_collecting_events'] 
    render :action => 'show'
   end
 
@@ -67,8 +55,6 @@ class OtuGroupController < ApplicationController
     end
 
     @no_right_col = true
-    session['otu_group_view']  = 'show_content_grid'
-    @show = ['show_content_grid'] 
     render :action => 'show'
   end
 
@@ -84,8 +70,6 @@ class OtuGroupController < ApplicationController
     end
 
     @no_right_col = true
-    session['otu_group_view']  = 'show_descriptions'
-    @show = ['show_descriptions'] 
     render :action => 'show'
   end
 
@@ -93,10 +77,7 @@ class OtuGroupController < ApplicationController
     id = params[:otu_group][:id] if params[:otu_group]
     id ||= params[:id]
     @otu_group = OtuGroup.find(id, :include => :otus)
-
     @no_right_col = true
-    session['otu_group_view']  = 'show_verbose_specimens_examined'
-    @show = ['show_verbose_specimens_examined'] 
     render :action => 'show'
   end
 
@@ -104,10 +85,7 @@ class OtuGroupController < ApplicationController
     id = params[:otu_group][:id] if params[:otu_group]
     id ||= params[:id]
     @otu_group = OtuGroup.find(id, :include => :otus)
-    
     @no_right_col = true
-    session['otu_group_view']  = 'show_extract_grid'
-    @show = ['show_extract_grid'] 
     render :action => 'show'
   end
  
@@ -115,10 +93,7 @@ class OtuGroupController < ApplicationController
     id = params[:otu_group][:id] if params[:otu_group]
     id ||= params[:id]
     @otu_group = OtuGroup.find(id, :include => :otus)
-    
     @no_right_col = true
-    session['otu_group_view']  = 'show_extract_grid_by_extract'
-    @show = ['show_extract_grid_by_extract'] 
     render :action => 'show'
   end
   
@@ -129,8 +104,6 @@ class OtuGroupController < ApplicationController
     @genes = @otu_group.genes 
     @extracts = @otu_group.extracts
     @no_right_col = true
-    session['otu_group_view']  = 'show_extract_by_gene_grid'
-    @show = ['show_extract_by_gene_grid'] 
     render :action => 'show'
   end
 
@@ -232,12 +205,11 @@ class OtuGroupController < ApplicationController
     @otu_cons = @content_type.contents(:proj_id => @proj.id)
     
     if params['submit'] == 'show'
-      @show = ['show_show_multiple_content']
+      @show = ['show_multiple_content']
     else
-      @show = ['show_edit_multiple_content'] 
+      @show = ['edit_multiple_content'] 
     end
     
-    session['otu_group_view']  = 'show'
     @no_right_col = true
     render :action => 'show' #  :action => 'show', :id => params['otu_group_id']  and return  
   end
@@ -277,25 +249,20 @@ class OtuGroupController < ApplicationController
   end
 
   def auto_complete_for_otu_group
-    @tag_id_str = params[:tag_id]
-    
-    if @tag_id_str == nil
+    value = params[:term]
+    method = params[:method]
+    if value.nil?
       redirect_to(:action => 'index', :controller => 'otu_group') and return
     else
-       
-      value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
- 
+      val = value.split.join('%') # hmm... perhaps should make this order-independent
       lim = case params[@tag_id_str.to_sym].length
-        when 1..2 then 10
-        when 3..4 then 25
-        else lim = false # no limits
-      end 
-      
-      @otu_groups = OtuGroup.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name", :limit => lim )
+            when 1..2 then 10
+            when 3..4 then 25
+            else lim = false # no limits
+            end 
+      @otu_groups = OtuGroup.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name", :limit => lim )
     end
-    
-    render :inline => "<%= auto_complete_result_with_ids(@otu_groups,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @otu_groups, :method => params[:method])
   end
 
   # merges (subtracts or adds)

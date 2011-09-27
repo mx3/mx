@@ -57,8 +57,9 @@ class NamespaceController < ApplicationController
   end
 
   def auto_complete_for_namespace
-    @namespaces = Namespace.auto_complete_search_result(params)
-    render :inline => "<%= auto_complete_result_with_ids(@namespaces, 'format_obj_for_auto_complete', @tag_id_str) %>"
+    value = params[:term]
+    @namespaces = Namespace.auto_complete_search_result(params) 
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @namespaces, :method => params[:method])
   end
 
 end

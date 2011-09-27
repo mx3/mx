@@ -36,7 +36,7 @@
     <div class="show_row"><span class="show_lbl">Species: </span><span class="show_data"><%= @taxon_name.original_species.display_name if !@taxon_name.original_species.blank? -%></span></div>
   <% end -%>
 
-  <%= render(:partial => '/shared/show/record_details', :locals => {:obj => @taxon_name}) -%>
+  <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @taxon_name}) -%>
 
   <% if @taxon_name.synonyms.size > 0 -%>
     <div class="show_category"> Synonyms </div>

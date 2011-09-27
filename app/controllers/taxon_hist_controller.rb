@@ -20,14 +20,11 @@ class TaxonHistController < ApplicationController
   def show
     id ||= params[:taxon_hist][:id] if params[:taxon_hist] # for ajax picker use
     id = params[:id]
-    
     if id == nil
       flash[:notice] = $ERR_NO_ID
       redirect_to :action => 'list' and return
     end
-
     @taxon_hist = TaxonHist.find(id)
-    
   end
 
   def new
@@ -84,11 +81,8 @@ class TaxonHistController < ApplicationController
   end
 
   def auto_complete_for_taxon_hist
-    @tag_id_str = params[:tag_id]
-    terms = params[@tag_id_str.to_sym].split
-    @taxon_hists = TaxonHist.find_for_auto_complete(terms, @proj.sql_for_taxon_names("taxon_names"))    
-    render :inline => "<%= auto_complete_result_with_ids(@taxon_hists,
-    'format_obj_for_auto_complete', @tag_id_str) %>"
+    @taxon_hists = TaxonHist.find_for_auto_complete(params[:term].split, @proj.sql_for_taxon_names("taxon_names"))    
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @taxon_hists, :method => params[:method])
   end
 
 end

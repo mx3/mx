@@ -24,59 +24,15 @@ class TaxonNameController < ApplicationController
     if @taxon_name = TaxonName.find(params[:id])
       @parents = @taxon_name.parents
       @children = @taxon_name.immediate_children
-      session['taxon_name_view']  = 'show'
-      @show = ['show_default'] 
+      @show = ['default'] 
     else
       flash[:notice] = "Taxon name not found."  
       redirect_to :action => 'list'
     end
   end
 
-  def destroy
-    begin
-      TaxonName.find(params[:id]).destroy
-    rescue
-      flash[:notice] = "Error deleting taxon name, does it have childre, or is it attached to something, or used in permission or visibility settings?"  
-    end
-    redirect_to :action => 'list'
-  end
-  
-  def rebuild_cached_display_name
-    if @tn = TaxonName.find(params[:id]) 
-      @tn.update_cached_display_name
-      @tn.save
-      flash[:notice] = 'The cached version of the name, as presently rendered in the header of this record, was recalculated successfully.'
-    else
-      flash[:notice] = 'Could not find the requested name!'
-    end
-    redirect_to :action => 'show', :id => @tn, :controller => 'taxon_name'
-  end
-
-  def add_type
-    @type_specimen = TypeSpecimen.new(params[:type_specimen]) 
-    begin
-      @type_specimen.save!
-      flash['notice'] = 'Successfully associated specimen as a type of this taxon name.'
-    rescue
-      @taxon_name = TaxonName.find(params[:type_specimen][:taxon_name_id])
-      session['taxon_name_view']  = 'show_type_material'
-      @specimens = @taxon_name.type_specimens # TypeSpecimen.find(:all, :conditions => ["taxon_name_id = #{@taxon_name.id}"])
-      @no_right_col = true 
-      @show = ['show_type_material'] # not redundant with above- @show necessary for multiple display of items
-      render :action => :show and return
-    end
-    redirect_to(:action => 'show_type_material', :id => params[:type_specimen][:taxon_name_id]) and return
-  end
-  
-  def remove_type
-    o = TypeSpecimen.find(params[:id])
-    o.destroy
-    redirect_to(:action => 'show_type_material', :id => o.taxon_name_id) and return
-  end
- 
   def show_material
     @taxon_name = TaxonName.find(params[:id])
-    session['taxon_name_view']  = 'show_material'
     ids =  @taxon_name.full_set.collect{|t| t.id}.join(",")
     @ipt_records = IptRecord.find(:all, :conditions =>  "taxon_name_id in (#{ids}) AND proj_id = #{$proj_id}" )
 
@@ -89,16 +45,13 @@ class TaxonNameController < ApplicationController
     end
     
     @no_right_col = true 
-    @show = ['show_material'] 
     render :action => 'show'
   end
 
   def show_type_material
     @taxon_name = TaxonName.find(params[:id])
-    session['taxon_name_view']  = 'show_type_material'
     @specimens = @taxon_name.type_specimens # TypeSpecimen.find(:all, :conditions => ["taxon_name_id = #{@taxon_name.id}"])
     @no_right_col = true 
-    @show = ['show_type_material'] # not redundant with above- @show necessary for multiple display of items
     render :action => 'show'
   end
 
@@ -106,17 +59,13 @@ class TaxonNameController < ApplicationController
     @klass = "TaxonName"
     @taxon_name = TaxonName.find(params[:id])
     @no_right_col = true 
-    session['taxon_name_view'] = 'show_summary'
-    @show = ['show_summary'] # not redundant with above- @show necessary for multiple display of items
     render :action => 'show'
   end
 
   def show_ITIS_dump
     @taxon_name = TaxonName.find(params[:id])
     @list = @taxon_name.full_set
-    session['taxon_name_view']  = 'show_ITIS_dump'
     @header = "ITIS Dump (#{@list.size})"
-    @show = ['show_ITIS_dump'] # not redundant with above- @show necessary for multiple display of items
     render(:partial => 'show_ITIS_dump')
   end
   
@@ -127,46 +76,28 @@ class TaxonNameController < ApplicationController
     render(:layout => 'minimal') 
   end
 
-  def download_taxon_name_report
-    @taxon_name = TaxonName.find(params[:id])
-    @list = @taxon_name.full_set
-    @list.sort!{|a,b| a.name.downcase <=> b.name.downcase}
-    f = render_to_string(:partial => '/taxon_name/reports/taxon_name_report')
-    send_data(f, :filename => "#{@taxon_name.name}_report.tab", :type => "application/rtf", :disposition => "attachment")
-  end
-
   def show_images
     @taxon_name = TaxonName.find(params[:id])
-  
     @list = @taxon_name.full_set
-   
     @parents = @taxon_name.parents
     @image_descriptions = @taxon_name.image_descriptions(@proj.id) 
-    
-    session['taxon_name_view']  = 'show_images'
-    @show = ['show_images'] # not redundant with above- @show necessary for multiple display of items
     render :action => 'show'
   end
     
   def show_immediate_child_otus
     @taxon_name = TaxonName.find(params[:id])
     @list = @proj.otus.with_taxon_name(@taxon_name) 
-    session['taxon_name_view']  = 'show_immediate_child_otus'
     @header = "Immediate child OTUs <i>in this project</i>"
-    @show = ['show_list'] # not redundant with above- @show necessary for multiple display of items
+    @show = ['list'] 
     @no_right_col = true 
     render :action => :show
   end
 
-  
   def show_all_children
     @taxon_name = TaxonName.find(params[:id])
-  
     @list = @taxon_name.children ## HMM
-    
-    session['taxon_name_view']  = 'show_immediate_children'
     @header = "Immediate children"
-    @show = ['show_list'] # not redundant with above- @show necessary for multiple display of items
+    @show = ['list'] # not redundant with above- @show necessary for multiple display of items
     render :action => :show
   end
 
@@ -174,24 +105,17 @@ class TaxonNameController < ApplicationController
   def show_taxonomic_history
     @taxon_name = TaxonName.find(params[:id])
     @taxon_hists = @taxon_name.taxon_hists # visibility isn't an issue if you've got this far (hhm yes it might be)
-
-    session['taxon_name_view']  = 'show_taxonomic_history'
     @header = "Immediate children"
-    @show = ['show_taxon_hists'] # not redundant with above- @show necessary for multiple display of items
     @taxon_hist = TaxonHist.new
     @no_right_col = true
     @in_taxon_hists = false
-    
     render :action => :show
   end
   
   def show_tags
     @taxon_name = TaxonName.find(params[:id])
     @tags = @taxon_name.tags.group_by(&:keyword)  
-
-    session['taxon_name_view']  = 'show_tags'
     @header = "Tags"
-    @show = ['show_tags'] # not redundant with above- @show necessary for multiple display of items
     @tag = Tag.new
     @no_right_col = true
     @in_taxon_hists = false
@@ -264,6 +188,57 @@ class TaxonNameController < ApplicationController
     redirect_to :action => :show, :id => @taxon_name
   end
 
+  def destroy
+    begin
+      TaxonName.find(params[:id]).destroy
+    rescue
+      flash[:notice] = "Error deleting taxon name, does it have childre, or is it attached to something, or used in permission or visibility settings?"  
+    end
+    redirect_to :action => 'list'
+  end
+  
+  def rebuild_cached_display_name
+    if @tn = TaxonName.find(params[:id]) 
+      @tn.update_cached_display_name
+      @tn.save
+      flash[:notice] = 'The cached version of the name, as presently rendered in the header of this record, was recalculated successfully.'
+    else
+      flash[:notice] = 'Could not find the requested name!'
+    end
+    redirect_to :action => 'show', :id => @tn, :controller => 'taxon_name'
+  end
+
+  def download_taxon_name_report
+    @taxon_name = TaxonName.find(params[:id])
+    @list = @taxon_name.full_set
+    @list.sort!{|a,b| a.name.downcase <=> b.name.downcase}
+    f = render_to_string(:partial => '/taxon_name/reports/taxon_name_report')
+    send_data(f, :filename => "#{@taxon_name.name}_report.tab", :type => "application/rtf", :disposition => "attachment")
+  end
+
+  # TODO: make it a show
+  def add_type
+    @type_specimen = TypeSpecimen.new(params[:type_specimen]) 
+    begin
+      @type_specimen.save!
+      flash['notice'] = 'Successfully associated specimen as a type of this taxon name.'
+    rescue
+      @taxon_name = TaxonName.find(params[:type_specimen][:taxon_name_id])
+      @specimens = @taxon_name.type_specimens # TypeSpecimen.find(:all, :conditions => ["taxon_name_id = #{@taxon_name.id}"])
+      @no_right_col = true 
+      @show = ['type_material'] 
+      render :action => :show and return
+    end
+    redirect_to(:action => 'show_type_material', :id => params[:type_specimen][:taxon_name_id]) and return
+  end
+  
+  def remove_type
+    o = TypeSpecimen.find(params[:id])
+    o.destroy
+    redirect_to(:action => 'show_type_material', :id => o.taxon_name_id) and return
+  end
+ 
+
   def visibility
     if request.post?
       TaxonName.set_visibility(params.update(:proj_id => @proj.id))
@@ -278,28 +253,14 @@ class TaxonNameController < ApplicationController
     redirect_to :action => :visibility
   end
  
-  # -- Action for the ajax TaxonName picker -- 
-  # Relies on the following componenets
-  # - the partial taxon_name/picker, which contains the javascript
-  # - this action, which is called by the picker via ajax
-  # - Proj.sql_for_taxon_names, which provides just that and is called in this action
-  # - TaxonName.find_for_auto_complete, which uses the sql and is ugly
-  # - auto_complete_result_with_ids, in application helper, which renders the result
-  # - format_taxon_name_for_auto_complete, in application_helper, which is called by the above method
   def auto_complete_for_taxon_name
-    # because i am using find_by_sql and joining the TN table to itself, i need to alias 
-    # one of the TN tables and use that alias in all of the where and order by conditions, etc. -- not very clean
-    table_name = "tn" 
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-    
+    table_name = "tn"  # alias for the TaxonName joins needed
+    value = params[:term]
     if params[:use_proj] == 'false'
       proj_sql = ""
     else
       proj_sql = "AND (" + @proj.sql_for_taxon_names(table_name) + ")" 
     end
-   
-    # need to get the values to split (like in OTUs)
     
     # possible conditions are [all, genus, species, family]
     if params[:name_group] == 'all'
@@ -307,16 +268,23 @@ class TaxonNameController < ApplicationController
     else
       conditions = ["(#{table_name}.name LIKE ?  or #{table_name}.author LIKE ? or #{table_name}.year = ?) AND #{table_name}.iczn_group = ? #{proj_sql}", "#{value.downcase}%",  "#{value.downcase}%", "#{value.downcase}", params[:name_group]]
     end
+
     @taxon_names = TaxonName.find_for_auto_complete(conditions, table_name)
-    # this is found in application_helper, and helps the auto complete behave like a select 
-    render :inline => "<%= auto_complete_result_with_ids(@taxon_names,
-     'format_taxon_name_for_auto_complete', @tag_id_str) %>"
+    data = @taxon_names.collect do |t|
+      {:id=> t.id,
+       :label=> t.display_name(:type => :selected),
+       :response_values=> {
+        'taxon_name[id]' => t.id
+       },
+       :label_html => render_to_string(:partial => 'shared/autocomplete/taxon_name.html', :object => t)
+      }
+    end
+    render :json => data 
   end
 
   def search
     @taxon_name = TaxonName.new
   end
-  
 
   # runs from search, should AJAX this
   def search_list

@@ -1,8 +1,7 @@
 <div class='navigator'>  
-  <%= navigator(@chr_group, session['chr_group_view'], 'position') %>
-  <div class="item"> <%= session['chr_group_view'] == 'show' ? '<span class="navigator_current">default</span>' :  link_to('default', :action => 'show', :id => @chr_group.id)  %> </div>
-  <div class="item"> <%= session['chr_group_view'] == 'show_detailed' ? '<span class="navigator_current">show detailed</span>' :  link_to('show detailed', :action => 'show_detailed', :id => @chr_group.id)  %> </div> 
-  <div class="item"> <%= session['chr_group_view'] == 'show_content_mapping' ? '<span class="navigator_current">content mapping</span>' :  link_to('content mapping', :action => 'show_content_mapping', :id => @chr_group.id)  %> </div> 
-  <br/>
+  <%= navigator2(:obj => @chr_group, :do => params["action"], :ord => 'position') %>
+  <%= show_nav_link(:obj => @chr_group, :link => 'detailed')  -%>
+  <%= show_nav_link(:obj => @chr_group, :link => 'content mapping')  -%>
+  <br />
   <div class="item"> <%= link_to('export character descriptions', :action => :doc_export, :controller => :chr, :chr_group_id => @chr_group.id) -%> </div>
 </div>

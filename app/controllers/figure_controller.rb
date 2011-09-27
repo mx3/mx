@@ -60,6 +60,12 @@ class FigureController < ApplicationController
     end
   end
 
+  def show_zoom
+    @size = params[:size].blank? ? :medium : params[:size].to_sym
+    @figure = Figure.find(params[:id])
+    render :layout => false
+  end
+
   # Figure modal task
   # In the original code we only created and updated figures via the popup (=modal) form.
   def illustrate 
@@ -285,12 +291,6 @@ class FigureController < ApplicationController
         end
       }
     end
-  end
-
-  def show_zoom
-    @size = params[:size].blank? ? :medium : params[:size].to_sym
-    @figure = Figure.find(params[:id])
-    render :layout => false
   end
 
 end

@@ -4,6 +4,6 @@ class AddIsObsoleteToOntologyClass < ActiveRecord::Migration
   end
 
   def self.down
-    drop_column :ontology_classes, :is_obsolete
+    remove_column :ontology_classes, :is_obsolete
   end
 end

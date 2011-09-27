@@ -4,7 +4,6 @@ class DataSourceController < ApplicationController
     render :action => 'list'
   end
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 
@@ -14,23 +13,18 @@ class DataSourceController < ApplicationController
 
   def show 
     @data_source = DataSource.find(params[:id])
-    session['data_source_view']  = 'show'
-    @show = ['show_default'] # not redundant with above- @show necessary for multiple display of items
+    @show = ['default'] 
   end
 
   def show_file_contents
     @data_source = DataSource.find(params[:id])
-
-    session['data_source_view']  = 'show_file_contents'
-    @show = ['show_file_contents'] # not redundant with above
     @no_right_col = true
     render :action => :show
   end
 
+  # TODO: Logic to model
   def show_convert
     @data_source = DataSource.find(params[:id])
-    session['data_source_view']  = 'show_convert'
-    @show = ['show_convert'] # not redundant with above
     @no_right_col = true
 
     if !@data_source.dataset
@@ -135,20 +129,15 @@ class DataSourceController < ApplicationController
      DataSource.find(params[:id]).dataset.destroy
      redirect_to :action => 'edit', :id => params[:id]
   end
-  
-  def auto_complete_for_data_source
-      @tag_id_str = params[:tag_id]
-      
-      if @tag_id_str == nil
-        redirect_to(:action => 'list', :controller => 'data_source') and return
-      else
-         
-        value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-     
-        @data_sources = DataSource.find(:all, :include => [:dataset], :conditions => ["(name LIKE ? OR datasets.filename like ? or data_sources.id = ? ) AND data_sources.proj_id=?", "%#{value}%", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name")
-      end
-      
-      render :inline => "<%= auto_complete_result_with_ids(@data_sources,
-        'format_obj_for_auto_complete', @tag_id_str) %>"
-    end
+
+   def auto_complete_for_data_source
+     value = params[:term]
+     if value.nil?
+       redirect_to(:action => 'list', :controller => 'data_source') and return
+     else
+       val = value.split.join('%') # hmm... perhaps should make this order-independent
+       @data_sources = DataSource.find(:all, :include => [:dataset], :conditions => ["(name LIKE ? OR datasets.filename like ? or data_sources.id = ? ) AND data_sources.proj_id=?", "%#{val}%", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name")
+     end
+     render :json => Json::format_for_autocomplete_with_display_name(:entries => @data_sources, :method => params[:method])
+   end
 end

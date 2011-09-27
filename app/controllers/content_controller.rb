@@ -19,7 +19,6 @@ class ContentController < ApplicationController
     # finds the OTU that the content belongs to, and jumps there
     id = params[:content][:id] if params[:content]
     id ||= params[:id]    
-
     @con = Content.find(id)
     redirect_to :action => :show_all_content, :controller => :otu, :id => @con.otu_id and return
   end
@@ -45,15 +44,12 @@ class ContentController < ApplicationController
   end 
 
   def auto_complete_for_content
-    @tag_id_str = params[:tag_id]
-
-    if @tag_id_str == nil
+    value = params[:term]
+    if value.nil?
       redirect_to(:action => 'index', :controller => 'content') and return
     else
-
-      value = params[@tag_id_str.to_sym].split.join('%') 
-
-      lim = case params[@tag_id_str.to_sym].length
+      # val = value.split.join('%') 
+      lim = case value.length
             when 1..2 then  10
             when 3..4 then  25
             else lim = false # no limits
@@ -61,9 +57,7 @@ class ContentController < ApplicationController
 
       @contents = Content.find(:all, :conditions => ["(text LIKE ? OR id = ?) AND proj_id = ? AND pub_content_id IS NULL", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "id", :limit => lim).uniq
     end
-
-    render :inline => "<%= auto_complete_result_with_ids(@contents,
-        'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @contents, :method => params[:method])
   end
 
   def publish_all

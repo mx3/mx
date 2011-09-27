@@ -1,13 +1,10 @@
 <div class='navigator'>
   <%= navigator2(:obj => @taxon_name, :do => session['taxon_name_view'], :ord => 'id') -%> 
-  <%= navigator_link_tag(:session_param => 'taxon_name_view', :do => 'show_immediate_child_otus', :link_text => "immediate child OTUs", :link_params => {:action => :show_immediate_child_otus, :id => @taxon_name.id}) -%> 
-  <%= navigator_link_tag(:session_param => 'taxon_name_view', :do => 'show_taxonomic_history', :link_text => "taxonomic history", :link_params => {:action => :show_taxonomic_history, :id => @taxon_name.id}) -%> 
-  <%= navigator_link_tag(:session_param => 'taxon_name_view', :do => 'show_tags', :link_text => "tags", :link_params => {:action => :show_show, :id => @taxon_name.id}) -%> 
-  <%= navigator_link_tag(:session_param => 'taxon_name_view', :do => 'show_images', :link_text => "images", :link_params => {:action => :show_images, :id => @taxon_name.id}) -%> 
-  <%= navigator_link_tag(:session_param => 'taxon_name_view', :do => 'show_summary', :link_text => "summary", :link_params => {:action => :show_summary, :id => @taxon_name.id}) -%> 
-  <%= navigator_link_tag(:session_param => 'taxon_name_view', :do => 'show_type_material', :link_text => "type material", :link_params => {:action => :show_type_material, :id => @taxon_name.id}) -%> 
-  <%= navigator_link_tag(:session_param => 'taxon_name_view', :do => 'show_material', :link_text => "material", :link_params => {:action => :show_material, :id => @taxon_name.id}) -%> 
-  
+
+  <% ['immediate child OTUs', 'taxonomic history', 'tags', 'images', 'summary', 'type material', 'material' ].each do |l| -%>
+    <%= show_nav_link(:obj => @taxon_name, :link => l)  -%>
+  <% end %>
+
   <div class="category">reports</div>
   <div class="item"> <%= link_to('taxon name report', :action => 'show_taxon_name_report', :id => @taxon_name.id) -%> </div>  
   <div class="item"> <%= link_to('ITIS dump', :action => 'show_ITIS_dump', :id => @taxon_name.id) -%> </div>  

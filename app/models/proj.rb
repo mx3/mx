@@ -127,7 +127,7 @@ class Proj < ActiveRecord::Base
   belongs_to :ontology_exclusion_keyword, :class_name => "Keyword", :foreign_key => 'ontology_exclusion_keyword_id'
   belongs_to :default_institution, :class_name => 'Repository', :foreign_key => 'default_institution_repository_id' # to where the specimens/data belong
 
-  scope :is_eol_exportable, :conditions => 'projs.is_eol_exportable = true';
+  scope :is_eol_exportable, :conditions => 'projs.is_eol_exportable = true'
 
   validates_length_of :name, :minimum => 2, :message => "Project name must be longer than 2."
   validates_uniqueness_of :name, :message => "A project of that name already exists."

@@ -63,8 +63,7 @@ namespace :mx do
 
         rescue ActiveRecord::RecordInvalid => e
           raise e
-        s
-      end
+        end
       true
     end
 

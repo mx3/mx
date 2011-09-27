@@ -2,20 +2,19 @@
   <%= navigator2(:obj => @otu_group,  :view => session['otu_group_view']) %>
 
   <div class="category"> Material </div>
-  <div class="item"><%= session['otu_group_view'] == 'show_material' ? '<span class="navigator_current">material</span>' :  link_to('material', :action => 'show_material', :id => @otu_group.id)  -%></div> 
-  <div class="item"><%= session['otu_group_view'] == 'show_collecting_events' ? '<span class="navigator_current">collecting events</span>' :  link_to('collecting events', :action => 'show_collecting_events', :id => @otu_group.id)  -%></div> 
+  <%= show_nav_link(:obj => @otu_group, :link => 'materia')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'collecting events')  -%>
 
   <div class="category"> Content/Papers </div>
-  <div class="item"><%= session['otu_group_view'] == 'show_content_grid' ? '<span class="navigator_current">content grid</span>' :  link_to('content grid', :action => 'show_content_grid', :id => @otu_group.id) -%></div> 
-  <div class="item"><%= session['otu_group_view'] == 'show_descriptions' ? '<span class="navigator_current">descriptions</span>' :  link_to('descriptions', :action => 'show_descriptions', :id => @otu_group.id) -%></div> 
-  <div class="item"><%= session['otu_group_view'] == 'show_verbose_specimens_examined' ? '<span class="navigator_current">verbose specimens</span>' :  link_to('verbose specimens', :action => 'show_verbose_specimens_examined', :id => @otu_group.id) -%></div> 
+  <%= show_nav_link(:obj => @otu_group, :link => 'content grid')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'descriptions')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'verbose specimens examined')  -%>
 
   <div class="category"> DNA </div>
-  <div class="item"><%= session['otu_group_view'] == 'show_extract_grid' ? '<span class="navigator_current">extract grid</span>' :  link_to('extract grid', :action => 'show_extract_grid', :id => @otu_group.id) -%></div> 
-  <div class="item"><%= session['otu_group_view'] == 'show_extract_by_gene_grid' ? '<span class="navigator_current">extract by gene grid</span>' :  link_to('extract by gene grid', :action => 'show_extract_by_gene_grid', :id => @otu_group.id) -%></div> 
-  <div class="item"><%= session['otu_group_view'] == 'show_extract_grid_by_extract' ? '<span class="navigator_current">extract grid by extracts</span>' :  link_to('extract grid by extracts', :action => 'show_extract_grid_by_extract', :id => @otu_group.id) -%></div> 
+  <%= show_nav_link(:obj => @otu_group, :link => 'extract grid')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'gene grid')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'grid by extract')  -%>
 
   <div class="category"> Other </div>
-  <div class="item"><%= session['otu_group_view'] == 'show_images' ? '<span class="navigator_current">images</span>' :  link_to('images', :action => 'show_images', :id => @otu_group.id)  -%></div> 
-
+  <%= show_nav_link(:obj => @otu_group, :link => 'images')  -%>
 </div>

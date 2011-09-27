@@ -5,7 +5,7 @@ class AddDefaultSpecimenIdentifierNamespaceToProjs < ActiveRecord::Migration
   end
 
   def self.down
-    drop column :projs, :default_specimen_identifier_namespace_id
+    remove_column :projs, :default_specimen_identifier_namespace_id
   end
   
 end

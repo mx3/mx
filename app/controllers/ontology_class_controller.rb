@@ -79,10 +79,25 @@ class OntologyClassController < ApplicationController
   end
 
   def show
-    session['ontology_class_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
     @no_right_col = true
     render :action => 'show'
+  end
+
+  def show_tags
+    @tags = @ontology_class.tags.group_by{|o| o.addressable_type}
+    @no_right_col = true
+    render :action => 'show'
+  end
+
+  def show_figures
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_history
+    @no_right_col = true
+    render :action => :show
   end
 
   def show_next_without
@@ -95,29 +110,6 @@ class OntologyClassController < ApplicationController
       redirect_to :action => :show, :id => @withouts.first.id
     end
   end
-
-  def show_tags
-    session['ontology_class_view']  = 'show_tags'
-    @tags = @ontology_class.tags.group_by{|o| o.addressable_type}
-    @show = ['show_tags']
-    @no_right_col = true
-    render :action => 'show'
-  end
-
-  def show_figures
-    @no_right_col = true
-    session['ontology_class_view']  = 'show_figures'
-    @show = ['show_figures']
-    render :action => :show
-  end
-
-  def show_history
-    @no_right_col = true
-    session['ontology_class_view']  = 'show_history'
-    @show = ['show_history']
-    render :action => :show
-  end
-
 
   def edit
     @ontology_class = OntologyClass.find(params[:id])
@@ -156,7 +148,6 @@ class OntologyClassController < ApplicationController
 
     if @ontology_class = OntologyClass.find(id)
       _show_params
-      session['ontology_class_view'] = 'show_visualize_newick'
       @show = ['ontology/visualize/show_visualize_newick']
       render :action => :show
     else
@@ -207,9 +198,9 @@ class OntologyClassController < ApplicationController
   end
 
   def auto_complete_for_ontology_class
-    @ontology_classes = OntologyClass.auto_complete_search_result(params.merge!(:proj_id => @proj.ontology_id_to_use))
-    render :inline => "<%= auto_complete_result_with_ids(@ontology_classes,
-    'format_obj_for_auto_complete', @tag_id_str) %>"
+    value = params[:term]
+    @ontology_classes = OntologyClass.auto_complete_search_result(params.merge!(:proj_id => @proj.ontology_id_to_use)) # TODO: need refactoring
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @ontology_classes, :method => params[:method])
   end
 
   def _populate_consituent_parts

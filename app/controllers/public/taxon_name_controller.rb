@@ -1,9 +1,7 @@
 class Public::TaxonNameController < Public::BaseController
 
-
   def search_taxon_names
   end
-
 
   def search_help
   end
@@ -16,10 +14,6 @@ class Public::TaxonNameController < Public::BaseController
   def search
     @taxon_name = TaxonName.new
   end
- 
-
-
-
 
   def list_by_repository
     @r = Repository.find_by_id(params[:repository_id])
@@ -37,7 +31,6 @@ class Public::TaxonNameController < Public::BaseController
 
     @head_text = "Taxonic names with types at #{@r.name} (#{@r.coden})."     
   end
-
   
   def list    
     genus = params['genus'] || ""
@@ -45,7 +38,7 @@ class Public::TaxonNameController < Public::BaseController
     author = params['author'] || ""
     other = params['other'] || ""
     
-  #  @proj.search_taxa(genus, species, author, other)
+    #  @proj.search_taxa(genus, species, author, other)
     
     if genus != ""
       @taxon_names_pages, @taxon_names = paginate :taxon_name, 
@@ -110,34 +103,22 @@ class Public::TaxonNameController < Public::BaseController
       redirect_to :action => 'index'
     end
   end
- 
 
   def auto_complete_for_taxon_name
-    tag_id_str = params[:tag_id]
-    return false if (tag_id_str == nil) #  || params[:proj_id].blank?)
-
-    value = params[tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-
-    lim = case params[tag_id_str.to_sym].length
-          when 1..2 then 3 
-          when 3..4 then 5 
-          else lim = false # no limits
-          end 
-
-    @result = []
-    @result += TaxonName.find(:all, :conditions => ["(name LIKE ? OR id = ?)", "%#{value}%", value], :order => "length(name), name", :limit => lim )
-    @result 
-
-
-   if @result # @result = Ontology::OntologyMethods.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
-     
-      render :inline => "<%= auto_complete_result_with_ids_and_class(@result,
-        'format_obj_for_auto_complete', params[:tag_id]) %>" and return
-    else
+    value = params[:term]
+    method = params[:method]
+    if value.nil? 
       redirect_to(:action => 'index', :controller => 'taxon_name') and return
+    else 
+      val = value.split.join('%') 
+      lim = case params[tag_id_str.to_sym].length
+            when 1..2 then 3 
+            when 3..4 then 5 
+            else lim = false 
+            end 
+      @taxon_names  TaxonName.find(:all, :conditions => ["(name LIKE ? OR id = ?)", "%#{value}%", value], :order => "length(name), name", :limit => lim )
+      render :json => Json::format_for_autocomplete_with_display_name(:entries => @taxon_names, :method => params[:method])
     end
-
-
   end
 
 

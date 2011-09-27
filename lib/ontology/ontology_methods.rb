@@ -183,7 +183,7 @@ module OntologyMethods
 
       # handle ontology_classes
       d = r.fields('definition').first
-      raise Ontology::OntologyMethods::BatchParseError, "Data row #{i} missing a value for definition column." if !d
+      raise Ontology::OntologyMethods::BatchParseError, "Data row #{x} missing a value for definition column." if !d
       if !ontology_classes[d]
         if ontology_class = OntologyClass.find_by_definition_and_proj_id(d, opt[:proj_id])
           ontology_classes.merge!(d => ontology_class)
@@ -337,7 +337,7 @@ module OntologyMethods
 
             # add the tag here
             if !params[:tag].blank? && !params[:tag][:keyword_id].blank?
-              tag = Tag.new(:keyword_id => params[:tag][:keyword_id], :addressable_type => 'Label', :addressable_id => prt.id)
+              tag = Tag.new(:keyword_id => params[:tag][:keyword_id], :addressable_type => 'Label', :addressable_id => p.id)
               tag.notes = params[:tag][:notes] if !params[:tag][:notes].blank?
               tag.referenced_object = params[:tag][:referenced_object] if !params[:tag][:referenced_object].blank?
               tag.save!

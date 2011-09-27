@@ -15,19 +15,23 @@ class ChrGroupController < ApplicationController
     @chr_group = ChrGroup.find(params[:id])
     @chrs_in = @chr_group.chr_groups_chrs(:include => :chr)
     @no_right_col = true
-    session['chr_group_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
   end
 
   def show_detailed
     @chr_group = ChrGroup.find(params[:id])
     @chrs  = @chr_group.chrs
     @no_right_col = true
-    session['chr_group_view']  = 'show_detailed'
-    @show = ['show_detailed'] 
     render :action => 'show' 
   end
-  
+ 
+  def show_content_mapping
+    @chr_group = ChrGroup.find(params[:id], :include => [:content_type, [:chrs => :chr_states]])
+    @no_right_col = true
+    @l = Linker.new(:link_url_base => self.request.host, :proj_id => @proj.ontology_id_to_use, :incoming_text => @chr_group.all_chr_txt, :adjacent_words_to_fuse => 5)
+    render :action => 'show' 
+  end
+
   def new
     @chr_group = ChrGroup.new
     render :action => :new
@@ -127,16 +131,6 @@ class ChrGroupController < ApplicationController
     @chr_group = ChrGroup.find(params[:id])
   end
 
-  def show_content_mapping
-    @chr_group = ChrGroup.find(params[:id], :include => [:content_type, [:chrs => :chr_states]])
-    @no_right_col = true
-    
-    @l = Linker.new(:link_url_base => self.request.host, :proj_id => @proj.ontology_id_to_use, :incoming_text => @chr_group.all_chr_txt, :adjacent_words_to_fuse => 5)
-    session['chr_group_view']  = 'show_content_mapping'
-    @show = ['show_content_mapping'] 
-    render :action => 'show' 
-  end
-
   def add_ungrouped_characters
     redirect_to(:action => :chrs_without_groups) and return if (params[:cg].blank? || params[:cg][:id].blank?)
     ChrGroup.find(params[:cg][:id]).add_ungrouped_chrs 
@@ -145,7 +139,7 @@ class ChrGroupController < ApplicationController
 
   def auto_complete_for_chr_group
     @chr_groups = ChrGroup.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
-    render(:inline => "<%= auto_complete_result_with_ids(@chr_groups, 'format_obj_for_auto_complete', @tag_id_str) %>")
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @chr_groups, :method => params[:method])
   end
 
 end

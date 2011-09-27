@@ -89,6 +89,11 @@ module HasStandardFields
             true if self.respond_to?(:id) and self.id
           end
 
+
+
+
+
+
          EOV
 
     end

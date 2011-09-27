@@ -35,7 +35,18 @@ class Serial < ActiveRecord::Base
   validates_presence_of :name
 
   def display_name(options = {})
-    name
+    opt = {
+     :type => nil
+    }.merge!(options.symbolize_keys)
+    s = ''
+    case opt[:type]
+    when :selected
+      name
+    when :for_select_list
+      "#{name}  <span class=\"small_grey\">(id: #{serial.id})</span>"
+    else
+      name
+    end
   end
 
   def biostor_table

@@ -63,9 +63,9 @@ class UUID
 
 		def mask v, str
 			if RUBY_VERSION >= "1.9.0"
-				return mask19 v, str
+				return mask19(v, str)
 			else
-				return mask18 v, str
+				return mask18(v, str)
 			end
 		end
 		private :mask, :mask18, :mask19
@@ -163,7 +163,7 @@ class UUID
 					open STATE_FILE, 'w' do |fp|
 						fp.flock IO::LOCK_EX
 						write_state fp, k, node
-						fp.chmod 0o777 # must be world writable
+						fp.chmod '0o777' # must be world writable
 					end
 				end
 				open STATE_FILE, 'r+' do |fp|

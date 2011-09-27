@@ -46,17 +46,14 @@ class LabelController < ApplicationController
   end
 
   def show
-    session['label_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
     @no_right_col = true
     @ocswl = @proj.ontology_classes.with_definition_containing(@label.name)
     render :action => 'show'
   end
 
   def show_tags
-    session['label_view']  = 'show_tags'
     @tags = @label.tags.group_by{|o| o.addressable_type}
-    @show = ['show_tags']
     @no_right_col = true
     render :action => 'show'
   end
@@ -154,9 +151,9 @@ class LabelController < ApplicationController
   end
 
   def auto_complete_for_label
+    value = params[:term]
     @labels = Label.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
-    render :inline => "<%= auto_complete_result_with_ids(@labels,
-          'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @labels, :method => params[:method])
   end
 
   protected

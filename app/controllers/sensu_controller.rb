@@ -78,8 +78,7 @@ class SensuController < ApplicationController
     id = params[:sensu][:id] if params[:sensu]
     id ||= params[:id]    
     @sensu = Sensu.find(id)
-    session['sensu_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['default'] 
   end
 
   def edit
@@ -190,8 +189,7 @@ class SensuController < ApplicationController
 
   def auto_complete_for_sensu
     @sensus = Sensu.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
-    render :inline => "<%= auto_complete_result_with_ids(@sensus,
-    'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @sensus, :method => params[:method])
   end
 
   protected

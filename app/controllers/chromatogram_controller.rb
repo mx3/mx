@@ -13,7 +13,7 @@ class ChromatogramController < ApplicationController
 
   def show
     @chromatogram = Chromatogram.find(params[:id])
-     @seqs = @chromatogram.seqs
+    @seqs = @chromatogram.seqs
   end
 
   def new

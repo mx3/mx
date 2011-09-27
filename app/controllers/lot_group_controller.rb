@@ -18,17 +18,12 @@ class LotGroupController < ApplicationController
     id = params[:id]
     id ||= params[:lot_group][:id]
     @lot_group = LotGroup.find(id)
-
-    session['lot_group_view']  = 'show'
-    @show = ['show_default'] # not redundant with above- @show necessary for multiple display of items
+    @show = ['default'] 
   end
 
   def show_members
     @lot_group = LotGroup.find(params[:id])
     @lots = @lot_group.lots
-    
-    session['lot_group_view']  = 'show_members'
-     @show = ['show_members'] # not redundant with above- @show necessary for multiple display of items
     @no_right_col = true
     render :action => 'show'
   end
@@ -93,25 +88,19 @@ class LotGroupController < ApplicationController
   end
 
   def auto_complete_for_lot_group
-    @tag_id_str = params[:tag_id]
-    
-    if @tag_id_str == nil
+    value = params[:term]
+    if value.nil? 
       redirect_to :previous 
     else
-       
-      value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
- 
-      lim = case params[@tag_id_str.to_sym].length
-        when 1..2 then  10
-        when 3..4 then  25
-        else lim = false # no limits
-      end 
-      
-      @lot_groups = LotGroup.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name", :limit => lim )
+      val = params[@tag_id_str.to_sym].split.join('%') 
+      lim = case value.length
+            when 1..2 then  10
+            when 3..4 then  25
+            else lim = false 
+            end 
+      @lot_groups = LotGroup.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name", :limit => lim )
     end
-    
-    render :inline => "<%= auto_complete_result_with_ids(@lot_groups,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @lot_groups, :method => params[:method])
   end
   
   

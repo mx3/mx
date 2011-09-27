@@ -17,26 +17,20 @@ class TreeController < ApplicationController
     id ||= params[:id]
     @tree = Tree.find(id)
     @no_right_col = true
-    session['tree_view']  = 'show'
-    @show = ['show_default'] # array of partials to render 
+    @show = ['default'] # array of partials to render 
   end
 
   def show_phylowidget
     @tree = Tree.find(params[:id])
-    session['tree_view']  = 'show_phylowidget'
-    @show = ['show_phylowidget'] # array of partials to render
     @no_right_col = true
     render :action => 'show'
   end
 
   def show_nested_set
     @tree = Tree.find(params[:id])
-    session['tree_view']  = 'show_nested_set'
-    @show = ['show_nested_set'] # array of partials to render
     @no_right_col = true
     render :action => 'show'
   end
-
 
   def new
     @tree = Tree.new
@@ -91,14 +85,10 @@ class TreeController < ApplicationController
   end
 
   def auto_complete_for_tree
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-
+    value = params[:term]
     conditions = ["(trees.tree_string LIKE ? OR trees.name LIKE ? OR trees.id = ?) and proj_id = ?",  "%#{value}%", "%#{value}%", value, @proj.id]
-    
-    @trees = Tree.find(:all, :conditions => conditions, :limit => 35,
-       :order => 'trees.name')
-    render(:inline => "<%= auto_complete_result_with_ids(@trees, 'format_obj_for_auto_complete', @tag_id_str) %>")
+    @trees = Tree.find(:all, :conditions => conditions, :limit => 35, :order => 'trees.name')
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @trees, :method => params[:method])
   end
 
   def phylowidget

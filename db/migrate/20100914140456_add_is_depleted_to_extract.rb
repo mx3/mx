@@ -4,6 +4,6 @@ class AddIsDepletedToExtract < ActiveRecord::Migration
   end
 
   def self.down
-    remove_Colun :extracts, :is_depleted
+    remove_column :extracts, :is_depleted
   end
 end

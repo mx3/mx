@@ -42,12 +42,10 @@ class TagController < ApplicationController
   def show
     id = params[:keyword][:id] if params[:keyword]
     id ||= params[:id]
-
     @tag = Tag.find(id, :include => :metatags)
     @keyword = @tag.keyword
     @no_right_col = true
-    session['tag_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
   end
 
   def new

@@ -61,25 +61,20 @@ class PrimerController < ApplicationController
   end
 
   def auto_complete_for_primer
-    @tag_id_str = params[:tag_id]
-    
+    value = params[:term]
     if @tag_id_str == nil
       redirect_to(:action => 'index', :controller => 'primer') and return
     else
-       
-      value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
- 
-      lim = case params[@tag_id_str.to_sym].length
+      val = value.split.join('%')
+      lim = case value.length
         when 1..2 then  10
         when 3..4 then  25
         else lim = false # no limits
       end 
       
-      @primers = Primer.find(:all, :conditions => ["(name LIKE ? or sequence like ? OR id = ?) AND proj_id=?", "%#{value}%",  "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name", :limit => lim )
+      @primers = Primer.find(:all, :conditions => ["(name LIKE ? or sequence like ? OR id = ?) AND proj_id=?", "%#{val}%",  "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name", :limit => lim )
     end
-    
-    render :inline => "<%= auto_complete_result_with_ids(@primers,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @primers, :method => params[:method])
   end
 
   

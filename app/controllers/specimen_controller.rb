@@ -52,20 +52,15 @@ class SpecimenController < ApplicationController
   def show
     id = params[:specimen][:id] if params[:specimen] # for ajax picker use
     id ||= params[:id]
-
     @specimen = Specimen.find(id, :include => [:identifiers])
     @dets = SpecimenDetermination.find_all_by_specimen_id(params[:id])
-
-    session['specimen_view']  = 'show'
-    @show = ['show_default']
+    @show = ['default']
   end
 
   def show_seqs
     id = params[:specimen][:id] if params[:specimen] # for ajax picker use
     id ||= params[:id]
     @specimen = Specimen.find(id)
-    session['specimen_view']  = 'show_seqs'
-    @show = ['show_seqs'] 
     render :action => :show
   end
 
@@ -276,21 +271,20 @@ class SpecimenController < ApplicationController
   end
 
   def auto_complete_for_specimen
-    @tag_id_str = params[:tag_id]
     value = params[:term]
+    method = params[:method]
     @specimens = Specimen.find_for_auto_complete(value)
-
     data = @specimens.collect do |specimen|
-      {:id=>specimen.id,
-       :label=>specimen.display_name,
+      {:id=> specimen.id,
+       :label=> specimen.display_name,
        :response_values=> {
-          'specimen[id]' => specimen.id,
-          :hidden_field_class_name => @tag_id_str
+          'specimen[id]' => specimen.id
+          # :hidden_field_class_name => @tag_id_str # not Sure wht this is for, probably delete.
        },
        :label_html => specimen.display_name(:type => :for_select_list) 
       }
     end
-    render :json => data
+    render :json => data 
   end
 
   def clone

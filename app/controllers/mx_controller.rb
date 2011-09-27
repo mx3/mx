@@ -32,8 +32,7 @@ class MxController < ApplicationController
    
     respond_to do |format|
       format.html {
-        session['mx_view']  = 'show'
-        @show = ['show_default'] # not redundant with above- @show necessary for multiple display of items 
+        @show = ['default'] # not redundant with above- @show necessary for multiple display of items 
       }
       format.xml {
         @xml = serialize(:mx => @mx)
@@ -44,6 +43,75 @@ class MxController < ApplicationController
         render :xml => @xml, :layout => false
       }
     end
+  end
+
+  def show_unused_character_states
+    @mx = Mx.find(params[:id])
+    @unused_chr_states = @mx.unused_chr_states.sort{|a,b| a.chr.name <=> b.chr.name}
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_trees
+    @mx = Mx.find(params[:id]) 
+    @trees = @mx.trees
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_otus
+    @mx = Mx.find(params[:id])
+    _set_otus
+    @chr = @mx.chrs.first # first chr to point 'code' at 
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_characters
+    @mx = Mx.find(params[:id])  
+    _set_chrs
+    @otu = @mx.otus.first # first otu to 'code' at
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_batch_code
+    @mx = Mx.find(params[:id])  
+    @chrs = @mx.chrs
+    @otus = @mx.otus
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_data_sources
+    @mx = Mx.find(params[:id], :include => :data_sources)  
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_figures
+    @mx = Mx.find(params[:id], :include => :data_sources)  
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_nexus
+    # see before_filter set_export_variables  
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_tnt
+    # see before_filter set_export_variables  
+    @no_right_col = true
+    render :action => :show
+  end
+
+  def show_ascii
+    # has its own layout
+    # see before_filter set_export_variables  
+    @interleave_width = Person.find($person_id).pref_mx_display_width 
+    render :layout =>  false, :action => 'export/show_ascii' 
   end
 
   def new
@@ -85,59 +153,6 @@ class MxController < ApplicationController
       flash[:notice] = "Error destroying matrix: #{@mx.errors.collect{|e| e.message.to_s}.join(";")}."
     end
     redirect_to :action => :list
-  end
-
-  def show_batch_code
-    @mx = Mx.find(params[:id])  
-    @chrs = @mx.chrs
-    @otus = @mx.otus
-
-    @no_right_col = true
-
-    session['mx_view']  = 'show_batch_code'
-    @show = ['show_batch_code']
-    render :action => :show
-  end
-
-  def show_data_sources
-    @mx = Mx.find(params[:id], :include => :data_sources)  
-    @no_right_col = true
-
-    session['mx_view']  = 'show_data_sources'
-    @show = ['show_data_sources']
-    render :action => :show
-  end
-
-  def show_figures
-    @mx = Mx.find(params[:id], :include => :data_sources)  
-    @no_right_col = true
-
-    session['mx_view']  = 'show_figures'
-    @show = ['show_figures']
-    render :action => :show
-  end
-
-  def show_nexus
-    # see before_filter set_export_variables  
-    @no_right_col = true
-    session['mx_view']  = 'show_nexus'
-    @show = ['show_nexus'] 
-    render :action => :show
-  end
-
-  def show_tnt
-    # see before_filter set_export_variables  
-    @no_right_col = true
-    session['mx_view']  = 'show_tnt'
-    @show = ['show_tnt'] 
-    render :action => :show
-  end
-
-  def show_ascii
-    # has its own layout
-    # see before_filter set_export_variables  
-    @interleave_width = Person.find($person_id).pref_mx_display_width 
-    render :layout =>  false, :action => 'export/show_ascii' 
   end
 
   def as_file
@@ -188,53 +203,10 @@ class MxController < ApplicationController
     redirect_to :action => :index
   end
 
-  def show_unused_chr_states
-    @mx = Mx.find(params[:id])
-    @unused_chr_states = @mx.unused_chr_states.sort{|a,b| a.chr.name <=> b.chr.name}
-    @no_right_col = true
-
-    session['mx_view']  = 'show_unused_chr_states'
-    @show = ['show_unused_chr_states']
-    render :action => :show
-  end
-
-
-  def show_trees
-    @mx = Mx.find(params[:id]) 
-    @trees = @mx.trees
-    @no_right_col = true
-    session['mx_view']  = 'show_trees'
-    @show = ['show_trees'] # not redundant with above- @show necessary for multiple display of items 
-    render :action => :show
-  end
-
-  def show_otus
-    @mx = Mx.find(params[:id])
-    _set_otus
-    
-    @chr = @mx.chrs.first # first chr to point 'code' at 
-    @no_right_col = true
-    session['mx_view']  = 'show_otus'
-    @show = ['show_otus']
-    render :action => :show
-  end
-
-  def show_chrs
-    @mx = Mx.find(params[:id])  
-    _set_chrs
-    
-    @otu = @mx.otus.first # first otu to 'code' at
-    @no_right_col = true
-    session['mx_view']  = 'show_chrs'
-    @show = ['show_chrs']
-    render :action => :show
-  end
-
   # TODO: move logic to model where possible
   # This method provides one-click coding, iterating through either chrs or OTUs
   # It handles both the post and show aspects.
   def fast_code
-
     id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
     id ||= params[:id] 
 
@@ -304,7 +276,6 @@ class MxController < ApplicationController
     # render the updates
     respond_to do |format|
       format.html {
-        session['mx_view']  = 'fast_coding'
         @show = ['fast_coding']
         render :action => :show
       }
@@ -388,8 +359,6 @@ class MxController < ApplicationController
 
       @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
       @no_right_col = true
-      session['mx_view']  = 'show_grid_coding'
-      @show = ['show_code']
       render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
     end
   end 
@@ -481,8 +450,6 @@ class MxController < ApplicationController
   def show_sort_otus
     @mx = Mx.find(params[:id])
     @mxes_otus = @mx.mxes_otus
-    session['mx_view']  = 'show_sort_otus'
-    @show = ['show_sort_otus'] 
     @no_right_col = true
     render :action => :show, :id => @mx.id and return
   end
@@ -510,11 +477,9 @@ class MxController < ApplicationController
 
   # character sorting
   
-  def show_sort_chrs
+  def show_sort_characters
     @mx = Mx.find(params[:id])
     @chrs_mxes = @mx.chrs_mxes
-    session['mx_view']  = 'show_sort_chrs'
-    @show = ['show_sort_chrs'] 
     @no_right_col = true
     render :action => :show, :id => @mx.id and return
   end
@@ -543,16 +508,14 @@ class MxController < ApplicationController
 
   # misc
   def auto_complete_for_mx
-    @tag_id_str = params[:tag_id]
-      
-    if @tag_id_str == nil
+    value = params[:term]
+    if value.nil? 
       redirect_to(:action => 'list', :controller => 'mx') and return
     else
-      value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-      @mxes = Mx.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name")
+      val = value.split.join('%') 
+      @mxes = Mx.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name")
     end
-      
-    render :inline => "<%= auto_complete_result_with_ids(@mxes, 'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @mxes, :method => params[:method])
   end
 
   def browse
@@ -616,7 +579,7 @@ class MxController < ApplicationController
   # TODO protect
   def _get_window_params
     @window = @matrix.slide_window(params)
-    @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start];
+    @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start]
     @mx = @matrix.codings_in_grid(@window)
   end
 
@@ -656,8 +619,7 @@ class MxController < ApplicationController
   
     respond_to do |format|
       format.html {
-        session['mx_view']  = 'show'
-        @show = ['show_default'] # not redundant with above- @show necessary for multiple display of items 
+        @show = ['default'] # not redundant with above- @show necessary for multiple display of items 
       }
       format.xml {
         render :xml => @xml, :layout => false

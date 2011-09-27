@@ -26,9 +26,7 @@ class LotController < ApplicationController
      flash[:notice] =  "Lot #{id} not found."  
      redirect_to :action => :list
    end
-    
-    session['lot_view']  = 'show'
-    @show = ['show_default'] 
+    @show = ['default'] 
   end
 
   # just set some params
@@ -119,12 +117,9 @@ class LotController < ApplicationController
   end
   
   def auto_complete_for_lot
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-        
+    value = params[:term]
     @lots = Lot.find_for_auto_complete(value)
-    render :inline => "<%= auto_complete_result_with_ids(@lots,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @lots, :method => params[:method])
   end
 
   # returns variables for grand_summary functions
