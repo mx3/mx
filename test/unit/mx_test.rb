@@ -101,13 +101,6 @@ class MxTest < ActiveSupport::TestCase
     assert_equal Coding.find(27), grid[:grid][2][2][0]
   end
 
-  def test_codings_by_xy
-   # assert_equal 23, @mk.codings_by_xy(2,3)[0].id
-   # assert_equal 10, @mk.codings_by_xy()[0].id # default to 0,0
-   # assert_equal false, @mk.codings_by_xy(29, 123)
-   # assert_equal 30, @mk.codings_by_xy(4, 0)[0].id
-  end
-
   def test_count
     assert_equal 4, Mx.count
   end
@@ -123,9 +116,7 @@ class MxTest < ActiveSupport::TestCase
   end
 
   # below test functions variously used primarily in multi-keys (but also elsewhere)  
-  
-  
-  
+
   def test_name
     assert_equal 'multikey test', @mk.name
   end
@@ -820,7 +811,15 @@ class MxTest < ActiveSupport::TestCase
   def test_codings_by_xy
     assert_equal Coding.find(18), @mk.codings_by_xy(1,3)[0]
   end
- 
+
+  def test_codings_by_xy2
+   # assert_equal 23, @mk.codings_by_xy(2,3)[0].id
+   # assert_equal 10, @mk.codings_by_xy()[0].id # default to 0,0
+   # assert_equal false, @mk.codings_by_xy(29, 123)
+   # assert_equal 30, @mk.codings_by_xy(4, 0)[0].id
+  end
+
+
   def test_reset_chr_positions
     assert @mk.reset_chr_positions
   end

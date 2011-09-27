@@ -63,13 +63,9 @@ class ContentTypeController < ApplicationController
   end
 
   def auto_complete_for_content_type
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-
+    value = params[:term]
     conditions = ["name LIKE ? AND proj_id = ?", "%#{value}%", @proj.id]
-    
-    @content_types = ContentType.find(:all, :conditions => conditions, 
-       :order => 'name')
-    render(:inline => "<%= auto_complete_result_with_ids(@content_types, 'format_obj_for_auto_complete', @tag_id_str) %>")
+    @content_types = ContentType.find(:all, :conditions => conditions, :order => 'name')
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @content_types, :method => params[:method])
   end
 end

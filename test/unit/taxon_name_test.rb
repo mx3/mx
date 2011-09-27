@@ -81,16 +81,16 @@ class TaxonNameTest < ActiveSupport::TestCase
     assert_equal "Charles", @t.name_at_rank('genus')
   end
   
+    def test_obj_at_rank2 # in our fixtures the family is the top level, so its nil!!
+    @t = TaxonName.find(3)
+    assert_equal nil, @t.obj_at_rank('family')
+  end
+
   def test_obj_at_rank
     @t = TaxonName.find(5)
     assert_equal TaxonName.find(3), @t.obj_at_rank('genus')
   end
-   
-  def test_obj_at_rank # in our fixtures the family is the top level, so its nil!!
-    @t = TaxonName.find(3)
-    assert_equal nil, @t.obj_at_rank('family')
-  end
-  
+
   def test_get_parent
     assert_equal nil, @bill.parent
     assert @bill.save

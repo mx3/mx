@@ -1,0 +1,10 @@
+    case o.class.name
+    when "Label"
+      content_tag('div', o.name, :class => 'ont_label', :style => 'padding: 2px;')
+    when "OntologyClass"
+      content_tag('div', o.definition, :class => 'ont_class', :style => 'padding: 2px;')
+    when "Tag"
+      content_tag('div', o.display_name, :class => 'ont_tag', :style => 'padding: 2px;')
+    else
+      content_tag('em', 'error', :class => 'failed')
+    end 

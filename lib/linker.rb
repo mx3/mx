@@ -3,13 +3,13 @@ class Linker
 
   # A utility class that matches words in a block of text to Labels/OntologyClasses in mx
 
-  require 'Strings' 
+  require 'Strings'
 
   attr_reader :all_words          # Array of all individual words
   attr_reader :link_root
   attr_reader :proj_id
   attr_reader :link_url_base      # replaces :public_server_name, the server_name to reference when creating links
-  attr_reader :public_server_name # Proj#public_server_name # DEPRECATED
+  # attr_reader :public_server_name # Proj#public_server_name # DEPRECATED
   attr_reader :text_to_link 
   attr_reader :proj           
 

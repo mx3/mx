@@ -353,7 +353,7 @@ class Seq < ActiveRecord::Base
         end
       end
       max_len == 0 and max_len = 1 # in case an interleave is completely empty, give it a character so paup doesn't barf
-      max_gene_strlen[gene.id] = max_len;
+      max_gene_strlen[gene.id] = max_len
       total_strlen += max_len
     end
        
@@ -363,7 +363,7 @@ class Seq < ActiveRecord::Base
     f << " Genes: " + @genes.collect{|o| o.name}.join(" | ") + "]\n\n"
     
     f << "Begin data;\n\n"
-    f << "Dimensions\n";
+    f << "Dimensions\n"
     f << "   ntax = #{@otus.length}\n   nchar = #{total_strlen};\n"
     f << "Format\n   data = DNA\n   missing = ?\n   gap = -\n"
     @genes.length > 1 and f << "interleave\n"

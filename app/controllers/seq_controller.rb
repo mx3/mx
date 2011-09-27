@@ -217,13 +217,14 @@ class SeqController < ApplicationController
   end
 
   def auto_complete_for_seq
-    @tag_id_str = params[:tag_id]
-    if @tag_id_str == nil
+    value = params[:term]
+    method = params[:method]
+    if value.nil?
       redirect_to(:action => 'index', :controller => 'ontology') and return
     else
-      @seqs = Seq.find_for_auto_complete(params[@tag_id_str.to_sym], @proj.id)
+      @seqs = Seq.find_for_auto_complete(value, @proj.id)
     end
-    render :inline => "<%= auto_complete_result_with_ids(@seqs, 'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @seqs, :method => params[:method])
   end
 
   # def blast

@@ -138,11 +138,9 @@ class ExtractController < ApplicationController
   end
  
   def auto_complete_for_extract
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
+    value = params[:term]
     @extracts = Extract.find_for_auto_complete(value)
-    render :inline => "<%= auto_complete_result_with_ids(@extracts,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @extracts, :method => params[:method])
   end
 
 end

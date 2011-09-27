@@ -87,12 +87,11 @@ class SerialController < ApplicationController
   end
 
   def auto_complete_for_serial
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-    @serials = Serial.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND synonymous_with_id is NULL", "%#{value}%", value],
+    value = params[:term]
+    val = value.split.join('%') # hmm... perhaps should make this order-independent
+    @serials = Serial.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND synonymous_with_id is NULL", "%#{val}%", val],
         :limit => 20, :order => "name")
-    render :inline => "<%= auto_complete_result_with_ids(@serials,
-      'format_serial_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @serials, :method => params[:method])
   end
 
   def _add_ref_to_proj

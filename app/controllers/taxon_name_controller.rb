@@ -253,28 +253,14 @@ class TaxonNameController < ApplicationController
     redirect_to :action => :visibility
   end
  
-  # -- Action for the ajax TaxonName picker -- 
-  # Relies on the following componenets
-  # - the partial taxon_name/picker, which contains the javascript
-  # - this action, which is called by the picker via ajax
-  # - Proj.sql_for_taxon_names, which provides just that and is called in this action
-  # - TaxonName.find_for_auto_complete, which uses the sql and is ugly
-  # - auto_complete_result_with_ids, in application helper, which renders the result
-  # - format_taxon_name_for_auto_complete, in application_helper, which is called by the above method
   def auto_complete_for_taxon_name
-    # because i am using find_by_sql and joining the TN table to itself, i need to alias 
-    # one of the TN tables and use that alias in all of the where and order by conditions, etc. -- not very clean
-    table_name = "tn" 
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-    
+    table_name = "tn"  # alias for the TaxonName joins needed
+    value = params[:term]
     if params[:use_proj] == 'false'
       proj_sql = ""
     else
       proj_sql = "AND (" + @proj.sql_for_taxon_names(table_name) + ")" 
     end
-   
-    # need to get the values to split (like in OTUs)
     
     # possible conditions are [all, genus, species, family]
     if params[:name_group] == 'all'
@@ -282,16 +268,23 @@ class TaxonNameController < ApplicationController
     else
       conditions = ["(#{table_name}.name LIKE ?  or #{table_name}.author LIKE ? or #{table_name}.year = ?) AND #{table_name}.iczn_group = ? #{proj_sql}", "#{value.downcase}%",  "#{value.downcase}%", "#{value.downcase}", params[:name_group]]
     end
+
     @taxon_names = TaxonName.find_for_auto_complete(conditions, table_name)
-    # this is found in application_helper, and helps the auto complete behave like a select 
-    render :inline => "<%= auto_complete_result_with_ids(@taxon_names,
-     'format_taxon_name_for_auto_complete', @tag_id_str) %>"
+    data = @taxon_names.collect do |t|
+      {:id=> t.id,
+       :label=> t.display_name(:type => :selected),
+       :response_values=> {
+        'taxon_name[id]' => t.id
+       },
+       :label_html => render_to_string(:partial => 'shared/autocomplete/taxon_name.html', :object => t)
+      }
+    end
+    render :json => data 
   end
 
   def search
     @taxon_name = TaxonName.new
   end
-  
 
   # runs from search, should AJAX this
   def search_list

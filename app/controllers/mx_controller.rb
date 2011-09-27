@@ -508,16 +508,14 @@ class MxController < ApplicationController
 
   # misc
   def auto_complete_for_mx
-    @tag_id_str = params[:tag_id]
-      
-    if @tag_id_str == nil
+    value = params[:term]
+    if value.nil? 
       redirect_to(:action => 'list', :controller => 'mx') and return
     else
-      value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-      @mxes = Mx.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name")
+      val = value.split.join('%') 
+      @mxes = Mx.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name")
     end
-      
-    render :inline => "<%= auto_complete_result_with_ids(@mxes, 'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @mxes, :method => params[:method])
   end
 
   def browse
@@ -581,7 +579,7 @@ class MxController < ApplicationController
   # TODO protect
   def _get_window_params
     @window = @matrix.slide_window(params)
-    @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start];
+    @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start]
     @mx = @matrix.codings_in_grid(@window)
   end
 

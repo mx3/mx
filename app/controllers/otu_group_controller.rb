@@ -249,25 +249,20 @@ class OtuGroupController < ApplicationController
   end
 
   def auto_complete_for_otu_group
-    @tag_id_str = params[:tag_id]
-    
-    if @tag_id_str == nil
+    value = params[:term]
+    method = params[:method]
+    if value.nil?
       redirect_to(:action => 'index', :controller => 'otu_group') and return
     else
-       
-      value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
- 
+      val = value.split.join('%') # hmm... perhaps should make this order-independent
       lim = case params[@tag_id_str.to_sym].length
-        when 1..2 then 10
-        when 3..4 then 25
-        else lim = false # no limits
-      end 
-      
-      @otu_groups = OtuGroup.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name", :limit => lim )
+            when 1..2 then 10
+            when 3..4 then 25
+            else lim = false # no limits
+            end 
+      @otu_groups = OtuGroup.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name", :limit => lim )
     end
-    
-    render :inline => "<%= auto_complete_result_with_ids(@otu_groups,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @otu_groups, :method => params[:method])
   end
 
   # merges (subtracts or adds)

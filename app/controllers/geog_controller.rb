@@ -65,19 +65,25 @@ class GeogController < ApplicationController
   end
   
   def auto_complete_for_geog
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-
+    value = params[:term]
     if params[:geog_types] != 'all'
       type_cond = params[:geog_types].split(",").collect{|t| "geogs.geog_type_id = #{t}"}.join(" OR ")
       conditions = ["(#{type_cond}) AND geogs.name LIKE ?", "#{value}%"]
     else
       conditions = ["geogs.name LIKE ?", "#{value}%"]
     end
-    
-    @geogs = Geog.find(:all, :conditions => conditions, :limit => 35,
-      :include => :geog_type, :order => 'geogs.name')
-    render(:inline => "<%= auto_complete_result_with_ids(@geogs, 'format_geog_for_auto_complete', @tag_id_str) %>")
+    @geogs = Geog.find(:all, :conditions => conditions, :limit => 35, :include => :geog_type, :order => 'geogs.name')
+
+    data = @geogs.collect do |g|
+      {:id=> g.id,
+       :label=> g.display_name,
+       :response_values=> {
+        'geog[id]' => g.id
+       },
+       :label_html => render_to_string(:partial => 'shared/autocomplete/geog.html', :object => g)
+      }
+    end
+    render :json => data 
   end
   
 end

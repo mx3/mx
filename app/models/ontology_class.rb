@@ -435,15 +435,10 @@ class OntologyClass < ActiveRecord::Base
   end
 
   def self.auto_complete_search_result(params = {}) # :yields: Array of OntologyClasses
-    tag_id_str = params[:tag_id]
-    return [] if (tag_id_str == nil || params[:proj_id].blank? || params[tag_id_str.to_sym].nil?)
-
-    value = params[tag_id_str.to_s]
+    return [] if (params[:term].nil? || params[:proj_id].blank?)
+    value = params[:term].split.join('%')
 
     result = []
-
-    value = value.split.join('%')
-
     # order our results
     result += OntologyClass.find(:all, :conditions => ["(labels.name = ? OR ontology_classes.id = ? OR ontology_classes.xref = ?) AND ontology_classes.proj_id = ?", value, value, value, params[:proj_id] ], :limit => 1, :include => [:labels] )
     result += OntologyClass.find(:all, :conditions => ["(labels.name LIKE ?) AND ontology_classes.proj_id = ?", "%#{value}%", params[:proj_id] ], :include => [:labels], :order => 'length(labels.name)' )

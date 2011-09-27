@@ -151,13 +151,8 @@ class CeController < ApplicationController
   end
 
   def auto_complete_for_ce
-    @tag_id_str = params[:tag_id]
-    
-    value = params[@tag_id_str.to_sym]
-
-    @ces = Ce.find_for_auto_complete(value)
-    render :inline => "<%= auto_complete_result_with_ids(@ces,
-      'format_obj_for_auto_complete', @tag_id_str) %>"
+    @ces = Ce.find_for_auto_complete(params[:term])
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @ces, :method => params[:method])
   end
  
   # label related functions
@@ -261,12 +256,13 @@ class CeController < ApplicationController
 
   def create_from_gmap # in development
     ce = Ce.new(params[:m])
+    res = Hash.new
     if ce.save
         res={:success=>true,:content=>"<div><strong>ID: </strong>#{ce.id}</div><div><strong>Verbatim Label: </strong>#{ce.verbatim_label}</div><div><strong>Notes: </strong>#{ce.notes}</div><div><strong>Lat: </strong>#{ce.latitude}</div><div><strong>Long: </strong>#{ce.longitude}</div>"}
       else
         res={:success=>false,:content=>"Could not save the marker!"}
       end
-    render :text=>res.to_json
+    render :text=> res.to_json
   end
  
   def batch_geocode

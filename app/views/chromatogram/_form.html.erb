@@ -40,7 +40,7 @@
   <span class="fld"><%= text_area 'chromatogram', 'notes', :cols => 50, :rows => 6, 'title' => 'notes on chromatogram'   %></span>
 </div>
 
-<div class="fr"><label><h4>Attached to these seqs:</h4></label></div>
+<div class="fr"><h4><label>Attached to these seqs:</label></h4></div>
 
 <% if params[:commit] != "Create"  %>
   <% if @seqs.size == 0 %>

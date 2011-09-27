@@ -151,9 +151,9 @@ class LabelController < ApplicationController
   end
 
   def auto_complete_for_label
+    value = params[:term]
     @labels = Label.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
-    render :inline => "<%= auto_complete_result_with_ids(@labels,
-          'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @labels, :method => params[:method])
   end
 
   protected

@@ -85,14 +85,10 @@ class TreeController < ApplicationController
   end
 
   def auto_complete_for_tree
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-
+    value = params[:term]
     conditions = ["(trees.tree_string LIKE ? OR trees.name LIKE ? OR trees.id = ?) and proj_id = ?",  "%#{value}%", "%#{value}%", value, @proj.id]
-    
-    @trees = Tree.find(:all, :conditions => conditions, :limit => 35,
-       :order => 'trees.name')
-    render(:inline => "<%= auto_complete_result_with_ids(@trees, 'format_obj_for_auto_complete', @tag_id_str) %>")
+    @trees = Tree.find(:all, :conditions => conditions, :limit => 35, :order => 'trees.name')
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @trees, :method => params[:method])
   end
 
   def phylowidget

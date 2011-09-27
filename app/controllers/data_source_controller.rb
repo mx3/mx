@@ -129,20 +129,15 @@ class DataSourceController < ApplicationController
      DataSource.find(params[:id]).dataset.destroy
      redirect_to :action => 'edit', :id => params[:id]
   end
-  
-  def auto_complete_for_data_source
-      @tag_id_str = params[:tag_id]
-      
-      if @tag_id_str == nil
-        redirect_to(:action => 'list', :controller => 'data_source') and return
-      else
-         
-        value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-     
-        @data_sources = DataSource.find(:all, :include => [:dataset], :conditions => ["(name LIKE ? OR datasets.filename like ? or data_sources.id = ? ) AND data_sources.proj_id=?", "%#{value}%", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name")
-      end
-      
-      render :inline => "<%= auto_complete_result_with_ids(@data_sources,
-        'format_obj_for_auto_complete', @tag_id_str) %>"
-    end
+
+   def auto_complete_for_data_source
+     value = params[:term]
+     if value.nil?
+       redirect_to(:action => 'list', :controller => 'data_source') and return
+     else
+       val = value.split.join('%') # hmm... perhaps should make this order-independent
+       @data_sources = DataSource.find(:all, :include => [:dataset], :conditions => ["(name LIKE ? OR datasets.filename like ? or data_sources.id = ? ) AND data_sources.proj_id=?", "%#{val}%", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name")
+     end
+     render :json => Json::format_for_autocomplete_with_display_name(:entries => @data_sources, :method => params[:method])
+   end
 end

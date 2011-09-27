@@ -242,10 +242,9 @@ class RefController < ApplicationController
   end
    
   def auto_complete_for_ref 
-    @tag_id_str = params[:tag_id]
     value = params[:term]
+    method = params[:method]
    
-    # TODO scope this  
     @refs = Ref.find(:all, :include => :projs, :select => "refs.id, refs.cached_display_name", 
       :conditions => ["(refs.cached_display_name LIKE ? OR refs.id = ?) AND projs.id = ?",
          "%#{value}%", value.gsub(/\%/, "").to_i, @proj],

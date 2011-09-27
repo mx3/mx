@@ -1,0 +1,41 @@
+<!-- logic from old helper, need refactoring and update in controller method 
+pl = options[:entry].preferred_label  
+str = ''
+definition = " " + content_tag(:span, options[:entry].definition, :style => 'font-family:"Times New Roman",Georgia,Serif;')
+if options[:search_text] == pl.name # search text is an exact match
+  str = content_tag(:strong, pl.name, :style => 'color:green;') + " " + content_tag(:span, '(preferred label)', :class => 'small_grey') + definition
+
+elsif options[:search_text] == options[:entry].id.to_s  # search is an mx id match
+  str = content_tag(:strong, options[:search_text], :style => 'color:green;') + content_tag(:span, " (matches mx ID for '#{pl.name})' ", :class => 'small_grey') + definition
+elsif options[:search_text] == options[:entry].xref # search is a xref match
+  str = content_tag(:strong, options[:search_text], :style => 'color:green;') + content_tag(:span, " (matches URI ID for '#{pl.name})' ", :class => 'small_grey') + definition
+else
+
+  lbls = options[:entry].labels.collect{|l| (l.name =~ /#{options[:search_text]}/i) ? l : nil}.compact
+
+  if lbls.size == 0 # search text found in a definition
+    str = content_tag(:span, "(in defintion for '#{options[:entry].preferred_label.name}')", :class => 'small_grey') + " " +
+      content_tag(:span, options[:entry].definition.gsub(/(#{options[:search_text]})/i, content_tag(:strong, "\\1", :style => 'color:green;')  ), :style => 'font-family:"Times New Roman",Georgia,Serif;'    )
+  else # search text is a synonym or partial match
+
+    exact_matches = lbls.collect{|m| m.name == options[:search_text] ? m : nil}.compact
+    if exact_matches.size > 0 # search text is a exact synonym match
+      str += exact_matches.collect{|m|m.name.gsub(/#{options[:search_text]}/i, content_tag(:strong, options[:search_text], :style => 'color:green;') )}.join("; ") +  " " + content_tag(:span, "(synonym for '#{options[:entry].preferred_label.name}')", :class => 'small_grey')  + definition
+    else
+      if lbls.size == 1
+        str =  lbls[0].name.gsub(/#{options[:search_text]}/i, content_tag(:strong, options[:search_text], :style => 'color:green;') )
+        if lbls[0] == pl # search text is a partial match
+          str += " " + content_tag(:span, "(partial match)", :class => 'small_grey') 
+        else # search text is a partial match of a synonymous label
+          str += " " + content_tag(:span, "(partial match of synonym for '#{options[:entry].preferred_label.name}')", :class => 'small_grey') 
+        end
+      else # multiple matches, most likely synonymous
+        str = lbls.collect{|l| l.name.gsub(/#{options[:search_text]}/i, content_tag(:strong, options[:search_text], :style => 'color:green;') ) }.compact.join("; ") + 
+        " " + content_tag(:span, "(multiple partial matches)", :class => 'small_grey') + " " + definition 
+      end
+      str += " " + definition 
+    end      
+  end
+end
+content_tag(:div, str, :style=> 'border-bottom: 1px dotted silver;padding:0.3em;font-size:larger; text-align:left;') 
+-->

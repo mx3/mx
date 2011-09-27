@@ -167,26 +167,15 @@ class ClaveController < ApplicationController
   end
     
   def auto_complete_for_clave
-    @tag_id_str = params[:tag_id]
-      
-      if @tag_id_str == nil
-        redirect_to(:action => 'index', :controller => 'clave') and return
-      else
-         
-        value = params[@tag_id_str.to_sym].split.join('%') # hmm... perhaps should make this order-independent
-   
-        lim = case params[@tag_id_str.to_sym].length
+    value = params[:term]
+    val = value.split.join('%')
+    lim = case value.length
           when 1..2 then  10
           when 3..4 then  25
-          else lim = false # no limits
-        end 
-        
-        @claves = Clave.find(:all, :conditions => ["(couplet_text LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "id", :limit => lim )
-      end
-      
-      render :inline => "<%= auto_complete_result_with_ids(@claves,
-        'format_obj_for_auto_complete', @tag_id_str) %>"
-   end
-
+          else lim = false 
+          end 
+    @claves = Clave.find(:all, :conditions => ["(couplet_text LIKE ? OR id = ?) AND proj_id=?", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "id", :limit => lim )
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @claves, :method => params[:method])
+  end
  
 end

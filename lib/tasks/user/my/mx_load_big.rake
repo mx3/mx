@@ -254,7 +254,7 @@ namespace :mx do
     # update the ref_ids to mx ids 
     text.scan(/<ref id="\d*">/).each do |m|
       i = m.scan(/\d+/).first # probably doable in cleaner fashion 
-      print "(#{i}:#{@refs[i].id}) ";
+      print "(#{i}:#{@refs[i].id}) "
       text.gsub!(/<ref id=\"#{i.to_s}\"\>/, "<ref id=\"#{@refs[i].id}\">") 
     end 
    

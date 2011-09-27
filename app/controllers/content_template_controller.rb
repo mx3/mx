@@ -99,21 +99,15 @@ class ContentTemplateController < ApplicationController
     redirect_to :action => 'list'
   end 
 
-
   def auto_complete_for_content_template
-    @tag_id_str = params[:tag_id]
-
-    if @tag_id_str == nil
+    value = params[:term]
+    if value.nil?
       redirect_to(:action => 'index', :controller => 'content_template') and return
     else
-
-      value = params[@tag_id_str.to_sym].split.join('%') 
-      @content_templates = ContentTemplate.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{value}%", value.gsub(/\%/, ""), @proj.id], :order => "name")
+      val = value.split.join('%') 
+      @content_templates = ContentTemplate.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name")
     end
-
-    render :inline => "<%= auto_complete_result_with_ids(@content_templates,
-    'format_obj_for_auto_complete', @tag_id_str) %>"
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @content_templates, :method => params[:method])
   end
-
 
 end

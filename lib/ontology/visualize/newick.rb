@@ -5,7 +5,6 @@ module Ontology::Visualize::Newick
   # update this array when the method is returns- ultimately class these out
   ONTOLOGY_COLOR_MODES = [:random, :tags, :depth, :immediate_part_of_children, :logical_children, :oldest_sensu_tag, :attached_muscles, :number_of_sensus, :number_of_labels]
 
-
   # return a Newick string representation of an Ontology
   # Is there a way to do the recursive traversal so the gsub cheat isn't neaded at the end?
   def self.newick_string(options = {})

@@ -93,8 +93,8 @@ class OntologyController < ApplicationController
 
   def auto_complete_for_ontology
     if @result = Ontology::OntologyMethods.auto_complete_search_result(params.merge!(:proj_id => @proj.ontology_id_to_use))
-      render :inline => "<%= auto_complete_result_with_ids_and_class(@result,
-        'format_ontology_result_for_auto_complete', params[:tag_id]) %>" 
+      # TODO mx3: NEEDS REFACTORING - won't work with typical search
+      render :json => Json::format_for_autocomplete_with_display_name(:entries => @result, :method => params[:method])
     else
       redirect_to(:action => 'index', :controller => 'ontology') and return
     end

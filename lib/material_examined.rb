@@ -9,7 +9,7 @@ class MaterialExamined
   # assumes all states have countries, and all counties have states
   
    attr_reader :me # the gi-normous hash
-   attr_reader :total_specimens
+ #  attr_reader :total_specimens
 
 #   attr_reader :holotype
 #   attr_reader :paratypes

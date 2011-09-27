@@ -355,7 +355,7 @@ class ChrController < ApplicationController
  
  def owl_export
    #TODO this duplicates some code from doc_export - should refactor
-   @chrs = []
+   @chrs = Array.new
     if params[:id]
       @chrs << Chr.find(params[:id])
     elsif params[:chr_group_id]
@@ -367,8 +367,8 @@ class ChrController < ApplicationController
     end
     graph = RDF::Graph.new
     owl = OWL::OWLDataFactory.new(graph)
-    @chrs.each do |chr|
-      Ontology::Mx2owl.translate_chr(chr, owl)
+    @chrs.each do |c|
+      Ontology::Mx2owl.translate_chr(c, owl)
     end
     #triples = RDF::Writer.for(:ntriples).buffer {|writer| writer << graph }
     # when rdfxml gem is updated with bugfix we can switch to next line
@@ -376,31 +376,12 @@ class ChrController < ApplicationController
     render(:text => (rdf + '\n\n' + triples))
  end
 
- def auto_complete_for_chr
-    @tag_id_str = params[:tag_id]
-    value = params[@tag_id_str.to_sym]
-
-    conditions = ["(chrs.name LIKE ? OR chrs.id = ?) and proj_id = ?",  "%#{value}%", value, @proj.id]
-    
-    @chrs = Chr.find(:all, :conditions => conditions, :limit => 35,
-       :order => 'chrs.name')
-    render(:inline => "<%= auto_complete_result_with_ids(@chrs, 'format_obj_for_auto_complete', @tag_id_str) %>")
-  end
-
- #def _markup_description
- #   if @chr = Chr.find(params[:id])
- #     if @chr.doc_char_descr.size == 0
- #        render(:text => '<i>no definition to markup</i>', :layout => false)
- #      else
- #        @l = Linker.new(:incoming_text => @chr.doc_char_descr, :proj_id => @proj.default_ontology_id, :adjacent_words_to_fuse => 5)
- #        render(:text => RedCloth.new(@l.linked_text(:proj_id => @proj.default_ontology.id, :is_public => true)).to_html, :layout => false )  
- #      end
- #   else
- #    flash[:notice] = "Something went wrong when trying to markup a definition."
- #    render :action => :index
- #  end
- #end
-  
-  
+ def autocomplete_for_chr
+   value = params[:term]
+   method = params[:method]
+   conditions = ["(chrs.name LIKE ? OR chrs.id = ?) and proj_id = ?",  "%#{value}%", value, @proj.id]
+   @chrs = Chr.find(:all, :conditions => conditions, :limit => 35, :order => 'chrs.name')
+   render :json => autocomplete_result(:entries => @chrs, :method => method)
+ end
   
 end

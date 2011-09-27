@@ -198,9 +198,9 @@ class OntologyClassController < ApplicationController
   end
 
   def auto_complete_for_ontology_class
-    @ontology_classes = OntologyClass.auto_complete_search_result(params.merge!(:proj_id => @proj.ontology_id_to_use))
-    render :inline => "<%= auto_complete_result_with_ids(@ontology_classes,
-    'format_obj_for_auto_complete', @tag_id_str) %>"
+    value = params[:term]
+    @ontology_classes = OntologyClass.auto_complete_search_result(params.merge!(:proj_id => @proj.ontology_id_to_use)) # TODO: need refactoring
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @ontology_classes, :method => params[:method])
   end
 
   def _populate_consituent_parts

@@ -25,8 +25,8 @@ class Public::OntologyClassController < Public::BaseController
   end
 
   def auto_complete_for_ontology_class
-    @ontology_classes = OntologyClass.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
-    render :inline => "<%= auto_complete_result_with_ids2(:entries => @ontology_classes, :format_method => 'format_ontology_class_for_auto_complete', :id_str => @tag_id_str, :search_text => params[:search_field_for_ontology_class_id]) %>"
+    @ontology_classes = OntologyClass.auto_complete_search_result(params.merge!(:proj_id => @proj.id)) # TODO: mx3 - needs major refactoring
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @ontology_classes, :method => params[:method])
   end  
 
 end

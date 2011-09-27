@@ -54,7 +54,7 @@ namespace :mx do
           p.save
         
          # ***VERY*** BAD STUFF HERE - because this was used for a first time import we matched up incoming ids DO NOT DO THIS IN GENERAL
-         sql = ActiveRecord::Base.connection();
+         sql = ActiveRecord::Base.connection()
          sql.execute("update pcrs set id = #{r[4]} where id = #{p.id}")
       end
     end

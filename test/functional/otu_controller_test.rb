@@ -30,11 +30,6 @@ class OtuControllerTest < ActionController::TestCase
     assert_response(:success)
   end
 
-  def test_list_all
-    get :list_all, @opts
-    assert_response(:success)
-  end
-
   def test_show
     @opts.update(:id => "1")
     get :show, @opts
@@ -57,18 +52,6 @@ class OtuControllerTest < ActionController::TestCase
  #   get :destroy, @opts
  #   assert_response(:success)
  # end
-
-   def test_show_map
-    @opts.update(:id => "1")
-    get :show_map, @opts
-    assert_response(:success)
-  end
-
-  def test_show_distribution
-    @opts.update(:id => "1")
-    get :show_distribution, @opts
-    assert_response(:success)
-  end
 
   def test_show_tags_no_layout
     @opts.update(:id => "1")

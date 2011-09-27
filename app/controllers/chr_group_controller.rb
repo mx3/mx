@@ -139,7 +139,7 @@ class ChrGroupController < ApplicationController
 
   def auto_complete_for_chr_group
     @chr_groups = ChrGroup.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
-    render(:inline => "<%= auto_complete_result_with_ids(@chr_groups, 'format_obj_for_auto_complete', @tag_id_str) %>")
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @chr_groups, :method => params[:method])
   end
 
 end
