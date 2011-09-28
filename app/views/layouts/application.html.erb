@@ -66,8 +66,8 @@
       </div>
 
       <div id="content">
-<a href="" data-tooltip="<%= tooltip_render(:partial=>"shared/test_tooltip")%>"> LINK FOR INLINE </a>
-<a href="" data-tooltip="/projects/1/tag/new?html_selector=%23tags_html_otu_1&tag_obj_class=Otu&tag_obj_id=1"> LINK FOR AJAX </a>
+        <a href="" data-tooltip="<%= tooltip_render(:partial=>"shared/test_tooltip")%>"> LINK FOR INLINE </a>
+        <a href="" data-tooltip="/projects/1/tag/new?html_selector=%23tags_html_otu_<%= Otu.first.id.to_s -%>&tag_obj_class=Otu&tag_obj_id=<%= Otu.first.id.to_s -%>"> LINK FOR AJAX </a>
         <% unless no_subnav.include?(self.controller.controller_name) -%>
           <div class="subnav">
             <div style="float:right;"><%= render(:partial => 'shared/class_navigator') unless no_sidenav.include?(self.controller.controller_name) -%></div>

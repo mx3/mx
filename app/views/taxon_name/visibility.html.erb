@@ -19,11 +19,21 @@
   <div class="subform">
     <div class="header">Add a name</div>
     <div class="content">
-    <div class="fr"> <label for="otu_name" class="lbl4">Name</label>
-      <span class="fld"><%= render :partial => "picker", :locals => {
-            :object => 'name_to_add', :method => 'id', :tag_id => "add_name", :use_proj => 'false',
-            :display => "" } %> <%= submit_tag "Add" %>
-      </span>
+      <div class="fr"> <label for="taxon_name_id" class="lbl4">Name</label>
+        <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+          :controller => 'taxon_name',
+          :object => 'name_to_add',
+          :method => 'id',
+          :use_proj => 'false',
+          :tag_id => "add_name",
+          :name_group => 'all',
+          :display => "",
+          :size => 80} -%> </span>
+      </div>
+
+
+      <%= submit_tag "Add" %>
+    
     </div>
     <br style="clear: both;" />
     </div>

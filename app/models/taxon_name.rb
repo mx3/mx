@@ -161,9 +161,9 @@ class TaxonName < ActiveRecord::Base
 
   def self.set_visibility(params = {})
     params.to_options!
-    if params[:name_to_add] && params[:name_to_add][:id] && !params[:name_to_add][:id].blank?
-      if !ProjTaxonName.combination_exists(params[:proj_id], params[:name_to_add][:id])
-        ProjTaxonName.create!(:proj_id => params[:proj_id], :taxon_name_id => params[:name_to_add][:id])
+    if params[:taxon_name] && params[:taxon_name][:id] && !params[:taxon_name][:id].blank?
+      if !ProjTaxonName.combination_exists(params[:proj_id], params[:taxon_name][:id])
+        ProjTaxonName.create!(:proj_id => params[:proj_id], :taxon_name_id => params[:taxon_name][:id])
       end
     end
     ProjTaxonName.destroy(params[:name_to_remove]) if params[:name_to_remove]
@@ -280,7 +280,7 @@ class TaxonName < ActiveRecord::Base
     else # These cached names won't have italics
       xml << (cached_display_name || "ERROR - cached_display_name has not yet been built, contact your adminstrator!")
     end
-    return opt[:target].html_safe
+    return opt[:target]
   end
 
   # DEPRECATED
@@ -531,7 +531,9 @@ class TaxonName < ActiveRecord::Base
   # TODO: revist vs. agreement_name 
   def self.find_for_auto_complete(conditions, table_name)
     self.find_by_sql "SELECT #{table_name}.*, p.name as parent_name FROM taxon_names AS #{table_name}
-      LEFT JOIN taxon_names AS p ON #{table_name}.parent_id = p.id WHERE #{sanitize_sql(conditions)} ORDER BY #{table_name}.name ASC limit 50"
+      LEFT JOIN taxon_names AS p ON #{table_name}.parent_id = p.id 
+      WHERE #{sanitize_sql(conditions)} 
+      ORDER BY #{table_name}.name ASC limit 50"
   end  
   
   def in_ranges?(ranges)
