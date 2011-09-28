@@ -21,7 +21,7 @@
   <% if @specimen.type_specimens.length > 0 -%>
     <div class="show_category"> Has type status </div>
     <ul style="list-style-type: disc;">
-      <%= @specimen.type_specimens.collect{|ts| content_tag(:li, ts.display_name)} -%>
+      <%= @specimen.type_specimens.collect{|ts| content_tag(:li, ts.display_name)}.flatten.join.html_safe -%>
     </ul>
   <% end -%>
 
@@ -61,7 +61,7 @@
   </div>
   <% end %>
 
-  <%= render(:partial => '/shared/show/tags', :locals => {:obj => @specimen}) -%>
+  <%= render(:partial => '/shared/show/record/tags', :locals => {:obj => @specimen}) -%>
 
 </div>
 

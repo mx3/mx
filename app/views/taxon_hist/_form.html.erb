@@ -18,18 +18,18 @@
     <span class="fld"> <%= render :partial =>'taxon_name_status/picker', :locals => {:c_name => 'taxon_hist', :f_name => 'taxon_name_status_id'} -%>(leave blank if valid)</span>
 </div>
 
-<br/>
+<br />
 
-<div class="box1" style="margin: 1em;">
+<div class="box1" style="margin:1em;">
   <div class="header">Applies to</div>
    
   <div class="fr"> <label for="taxon_hist_higher_taxon_id" class="lbl4">Higher taxon</label>
       <span class="fld"> <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
-        :object => 'taxon_hist', :method => 'higher_id', :tag_id => "taxon_hist_higher_id"
+        :object => 'taxon_hist', :method => 'higher_id', :tag_id => "taxon_hist_higher_id",
         :display => @taxon_hist.higher_taxon.andand.display_name(:type => :for_select_list) } -%></span>
   </div>
 
-  <i> or combination </i>
+  <em> or combination </em>
 
   <div class="fr"> <label for="taxon_hist_genus_id" class="lbl4">Genus</label>
       <span class="fld"> <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',

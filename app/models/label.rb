@@ -38,7 +38,9 @@ class Label < ActiveRecord::Base
   scope :all_singular_tied_to_ontology_classes, lambda {|*args| {:conditions => "(labels.id in (select s.label_id from sensus s))"}} 
 
   scope :ordered_by_label_length, :order => 'length(labels.name)'
-  scope :ordered_by_active_on, :order => 'labels.active_on DESC', :conditions => 'labels.active_on IS NOT NULL'
+
+  # TODO: this throws a mutex- what's the right form?
+  # scope :ordered_by_active_on, :order => 'labels.active_on DESC', :conditions => 'labels.active_on IS NOT NULL'
 
   # pass an Array of strings, escape results *before* you use with_label_from_array 
   scope :with_label_from_array, lambda {|*args| {:conditions => (args.first.size > 0 ? "(" + args.first.collect{|a| "(labels.name = \"#{a.gsub(/\"/, "\"")}\")"}.join(" OR ") + ")" : "labels.name = '-1'") }}

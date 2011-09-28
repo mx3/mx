@@ -62,19 +62,7 @@ class TaxonNameController < ApplicationController
     render :action => 'show'
   end
 
-  def show_ITIS_dump
-    @taxon_name = TaxonName.find(params[:id])
-    @list = @taxon_name.full_set
-    @header = "ITIS Dump (#{@list.size})"
-    render(:partial => 'show_ITIS_dump')
-  end
-  
-  def show_taxon_name_report
-    @taxon_name = TaxonName.find(params[:id])
-    @list = @taxon_name.full_set
-    @list.sort!{|a,b| a.name.downcase <=> b.name.downcase}
-    render(:layout => 'minimal') 
-  end
+
 
   def show_images
     @taxon_name = TaxonName.find(params[:id])
@@ -101,11 +89,9 @@ class TaxonNameController < ApplicationController
     render :action => :show
   end
 
-    
   def show_taxonomic_history
     @taxon_name = TaxonName.find(params[:id])
     @taxon_hists = @taxon_name.taxon_hists # visibility isn't an issue if you've got this far (hhm yes it might be)
-    @header = "Immediate children"
     @taxon_hist = TaxonHist.new
     @no_right_col = true
     @in_taxon_hists = false
@@ -191,11 +177,26 @@ class TaxonNameController < ApplicationController
     begin
       TaxonName.find(params[:id]).destroy
     rescue
-      notice = "Error deleting taxon name, does it have childre, or is it attached to something, or used in permission or visibility settings?"  
+      notice = "Error deleting taxon name, does it have children, or is it attached to something, or used in permission or visibility settings?"  
     end
     redirect_to :action => 'list'
   end
+ 
+  def report_ITIS_dump
+    @taxon_name = TaxonName.find(params[:id])
+    @list = @taxon_name.full_set
+    @header = "ITIS Dump (#{@list.size})"
+    render :action => 'taxon_name/reports/ITIS_dump'
+  end
   
+  def report_taxon_names
+    @taxon_name = TaxonName.find(params[:id])
+    @list = @taxon_name.full_set
+    @list.sort!{|a,b| a.name.downcase <=> b.name.downcase}
+    render :action => 'taxon_name/reports/taxon_names', :layout => 'minimal' # TODO mx3: minimal layout not working
+  end
+
+
   def rebuild_cached_display_name
     if @tn = TaxonName.find(params[:id]) 
       @tn.update_cached_display_name

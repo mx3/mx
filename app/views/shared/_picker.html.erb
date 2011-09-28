@@ -1,6 +1,5 @@
 <%# Configuration for all pickers  -%>
 <% css_class ||= 'ajaxPicker' -%>
-<% size ||= '100' -%>                      
 <% action ||= "auto_complete_for_#{controller}".html_safe -%> <%#refs from other projs specific %>
 
 <%# Taxon name specific  -%>
@@ -13,7 +12,9 @@
 <% url = url_for({:controller => controller, :action => action, :tag_id => tag_id, :method => "#{object}[#{method}]",
     :name_group => name_group, :use_proj => use_proj, :escape => false, :geog_types => geog_types}) -%> 
 <input autocomplete="off" title="find and select <%= controller.pluralize.html_safe -%>"
-  class="mx-autocomplete <%= css_class -%>" id="<%= tag_id %>" <%# we don't need name= here because we're setting hidden fields ?! %>
+  class="mx-autocomplete <%= css_class -%>" id="<%= tag_id %>" 
   data-mx-autocomplete-url='<%= url.html_safe %>'
   <%= ((size ||= nil).nil? ? 'style="width:98%;"' : "size=\"#{size}\"").html_safe -%>
   type="text" value="<%= display %>" />
+
+<%# we don't need name= here because we're setting hidden fields ?! %>

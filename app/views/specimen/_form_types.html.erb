@@ -15,7 +15,7 @@
   <h4> Associate as type of:</h4>
 
   <div class="fr"><label for="type_specimen_taxon_name_id"  class="lbl4">Taxon name</label>
-    <span class="fld"> <%= render :partial => "taxon_name/picker", :locals => {
+    <span class="fld"> <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
       :object => 'type_specimen', :method => 'taxon_name_id', :tag_id => "taxon_name_to_find", 
       :display => (@type_specimen ? @type_specimen.taxon_name.andand.display_name(:type => :selected) : '') } -%><em> Empty if OTU provided. </em></span>
   </div>

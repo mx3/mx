@@ -1,7 +1,7 @@
 <div> <!-- main content here -->
   <p> Welcome to the ontology builder.<p>
 
-  <% form_tag :action => :search, :controller => :ontology do -%>
+  <%= form_tag :action => :search, :controller => :ontology do -%>
   <%= hidden_field_tag "hidden_field_class_name"  -%>
 
   <div style="margin-top: 3em; margin-bottom: 6em; font-size: larger; text-align: center;">

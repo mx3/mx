@@ -1,2 +1,0 @@
-<%= report_headers.join("\t") + "\n" -%>
-<%= @list.collect{|i| report_data(i).map{|d| d.to_s.gsub(/<i>|<\/i>/, '')}.join("\t") + "\n"}.join -%>

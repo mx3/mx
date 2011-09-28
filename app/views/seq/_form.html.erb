@@ -45,7 +45,7 @@
 </div>
 
 <div class="fr"> <label for="seq_ref_id" class="lbl4">Reference</label>
-  <span class="fld">   <%= render :partial => "ref/picker", :locals => {
+  <span class="fld">   <%= render :partial => "shared/picker", :locals => {:controller => 'ref',
   :object => 'seq', :method => 'ref_id', :tag_id => "ref_to_find", 
   :display => (@seq.ref.display_name if @seq.ref) } %> </span>
 </div>

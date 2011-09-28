@@ -13,7 +13,8 @@ class OntologyController < ApplicationController
   verify :method => :post, :only => [:create], :redirect_to => { :action => :index }
 
   def index
-   #  @active_labels = @proj.labels.ordered_by_active_on.limit('10')
+    # almost certainly not right
+    @active_labels = @proj.labels.order('active_on DESC').limit(10).where(:active_on => 'NOT NULL') #    order_by_active_on # .limit('10')
   end
 
   def search

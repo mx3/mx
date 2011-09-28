@@ -1,4 +1,5 @@
-# require 'material_accessions'
+
+# TODO mx3: resolve this -  require 'material_accessions'
 
 class SpecimenController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
