@@ -21,6 +21,8 @@ function initialize_js(root) {
   find("a[data-ajaxify], input[data-ajaxify]").ajaxify();
   find("input[data-color-picker]").mx_color_picker();
 
+  find("*[data-tooltip]").mx_tooltip();
+
 }
 //
 $(document).ready(function(){
