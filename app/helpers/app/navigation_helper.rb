@@ -8,9 +8,16 @@ module App::NavigationHelper
   def show_nav_link(options = {})
     opt = {
       :obj => nil,
-      :link => nil   
+      :link => nil,
+      :bound_action => nil   
     }.merge(options)
-    bound_action = "show_#{opt[:link].gsub(/\s/, '_')}"
+   
+    if opt[:bound_action].nil? 
+      bound_action = "show_#{opt[:link].gsub(/\s/, '_')}"
+    else
+      bound_action = opt[:bound_action]
+    end
+    
     content_tag(:div, :class => 'item') do
      if params[:action].to_s == bound_action
        content_tag(:span, opt[:link], :class => 'navigator_current')

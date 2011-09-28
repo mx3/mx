@@ -1,14 +1,19 @@
-<% name_group ||= 'all' -%> <%# taxon name specific -%>
-<% use_proj ||= 'true' -%>  <%# taxon name specific -%>
-<% geog_types ||= 'all' -%> <%# geog specific -%>
-<% action ||= "auto_complete_for_#{controller}".html_safe -%><%#refs from other projs specific %>
+<%# Configuration for all pickers  -%>
 <% css_class ||= 'ajaxPicker' -%>
-<% size ||= '100' -%> <%# merge to width %?! -%>
+<% size ||= '100' -%>                      
+<% action ||= "auto_complete_for_#{controller}".html_safe -%> <%#refs from other projs specific %>
+
+<%# Taxon name specific  -%>
+<% name_group ||= 'all' -%>   
+<% use_proj ||= 'true'  -%>  
+
+<%# Taxon name specific  -%>
+<% geog_types ||= 'all' -%>   
 
 <% url = url_for({:controller => controller, :action => action, :tag_id => tag_id, :method => "#{object}[#{method}]",
     :name_group => name_group, :use_proj => use_proj, :escape => false, :geog_types => geog_types}) -%> 
 <input autocomplete="off" title="find and select <%= controller.pluralize.html_safe -%>"
-  class="mx-autocomplete <%= css_class -%>" id="<%= tag_id %>" name="<%= tag_id %>"
+  class="mx-autocomplete <%= css_class -%>" id="<%= tag_id %>" <%# we don't need name= here because we're setting hidden fields ?! %>
   data-mx-autocomplete-url='<%= url.html_safe %>'
   <%= ((size ||= nil).nil? ? 'style="width:98%;"' : "size=\"#{size}\"").html_safe -%>
   type="text" value="<%= display %>" />

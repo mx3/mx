@@ -7,7 +7,7 @@
     <span style="float: left;">Tagging: <%= params[:tag_obj_id] %></span>   
   </div>
   <br style="clear: both;" />
-  <%= form_remote_for :specimen, :html => {:id => "tpf_#{@obj.class.to_s}_#{@obj.id}"}, :url => url_for(:action => "create") do |f| %>
+  <%= form_remote_for :tag, :html => {:id => "tpf_#{@obj.class.to_s}_#{@obj.id}"}, :url => url_for(:action => "create") do |f| %>
   <%= submit_tag "Create" -%> 
   <%= render :partial => 'form', :locals => {:keyword_id => keyword_id} -%>
       <%= submit_tag "Create" -%>

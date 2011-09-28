@@ -7,7 +7,7 @@
 <% else %>
 
   <div class="fr"> <label for="taxon_hist_taxon_name_id" class="lbl4">For taxon name:</label>
-    <span class="fld">  <%= render :partial => "taxon_name/picker", :locals => {
+    <span class="fld">  <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
     :object => 'taxon_hist', :method => 'taxon_name_id', :tag_id => "taxon_name", 
     :display => @taxon_hist.taxon_name.andand.display_name(:type => :for_select_list) } %></span>
   </div>
@@ -24,39 +24,39 @@
   <div class="header">Applies to</div>
    
   <div class="fr"> <label for="taxon_hist_higher_taxon_id" class="lbl4">Higher taxon</label>
-      <span class="fld"> <%= render :partial => "taxon_name/picker", :locals => {
-        :object => 'taxon_hist', :method => 'higher_id', :tag_id => "taxon_hist_higher_id",
+      <span class="fld"> <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
+        :object => 'taxon_hist', :method => 'higher_id', :tag_id => "taxon_hist_higher_id"
         :display => @taxon_hist.higher_taxon.andand.display_name(:type => :for_select_list) } -%></span>
   </div>
 
   <i> or combination </i>
 
   <div class="fr"> <label for="taxon_hist_genus_id" class="lbl4">Genus</label>
-      <span class="fld"> <%= render :partial => "taxon_name/picker", :locals => {
+      <span class="fld"> <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
   :object => 'taxon_hist', :method => 'genus_id', :tag_id => "genus", :name_group => 'genus',
   :display => @taxon_hist.genus.andand.display_name(:type => :for_select_list) } %></span>
   </div>
 
   <div class="fr"> <label for="taxon_hist_subgenus_id" class="lbl4">Subgenus</label>
-      <span class="fld"><%= render :partial => "taxon_name/picker", :locals => {
+      <span class="fld"><%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
   :object => 'taxon_hist', :method => 'subgenus_id', :tag_id => "subgenus", :name_group => 'genus',
   :display => @taxon_hist.subgenus.andand.display_name(:type => :for_select_list) } %></span>
   </div>
 
   <div class="fr"> <label for="taxon_hist_species_id" class="lbl4">Species</label>
-      <span class="fld"><%= render :partial => "taxon_name/picker", :locals => {
+      <span class="fld"><%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
   :object => 'taxon_hist', :method => 'species_id', :tag_id => "species", :name_group => 'species',
   :display => @taxon_hist.species.andand.display_name(:type => :for_select_list) } %></span>
   </div>
 
   <div class="fr"> <label for="taxon_hist_subspecies_id" class="lbl4">Subspecies</label>
-      <span class="fld"><%= render :partial => "taxon_name/picker", :locals => {
+      <span class="fld"><%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
   :object => 'taxon_hist', :method => 'subspecies_id', :tag_id => "subspecies", :name_group => 'species',
   :display => @taxon_hist.subspecies.andand.display_name(:type => :for_select_list) } %></span>
   </div>
 
   <div class="fr"> <label for="taxon_hist_varietal_id" class="lbl4">Variety/Form/Infraspecific</label>
-      <span class="fld"><%= render :partial => "taxon_name/picker", :locals => {
+      <span class="fld"><%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
   :object => 'taxon_hist', :method => 'varietal_id', :tag_id => "variety", :name_group => 'all',
   :display => @taxon_hist.varietal.andand.display_name(:type => :for_select_list) } %></span>
   </div>
@@ -76,7 +76,7 @@
 </div>
 
 <div class="fr"> <label for="taxon_hist_ref_id" class="lbl4">Reference</label>
-    <span class="fld"><%= render :partial => "ref/picker", :locals => {
+    <span class="fld"><%= render :partial => "shared/picker", :locals => {:controller => 'ref',
 :object => 'taxon_hist', :method => 'ref_id', :tag_id => "taxon_hist_ref", 
 :display => (@taxon_hist.ref.display_name if @taxon_hist.ref) } %></span>
 </div>

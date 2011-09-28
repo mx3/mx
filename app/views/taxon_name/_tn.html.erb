@@ -51,6 +51,7 @@
     <% @taxon_name.tags.each do |t| -%>
     <%= render(:partial => '/tag/ts', :locals => {:ts => t}) -%>
     <% end -%>
+    <br style="clear:both;" />
   </div>
   <% end -%>
 

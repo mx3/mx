@@ -1,7 +1,7 @@
 <div class="navigator">
 
   <%= navigator2(:obj => @mx, :do => params['action'], :ord => "name") %> 
-  <%= show_nav_link(:obj => @mx, :link => 'browse')  -%>
+  <%= show_nav_link(:obj => @mx, :link => 'browse', :bound_action => 'browse')  -%>
   <% ['characters', 'otus', 'sort characters', 'sort otus', 'trees', 'batch code', 'data sources', 'figures'  ].each do |l| -%>
     <%= show_nav_link(:obj => @mx, :link => l)  -%>
   <% end %>

@@ -1,7 +1,5 @@
 class RefController < ApplicationController
 
-  include App::AutocompleteHelper
-
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 

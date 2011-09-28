@@ -26,7 +26,7 @@ class TaxonNameController < ApplicationController
       @children = @taxon_name.immediate_children
       @show = ['default'] 
     else
-      flash[:notice] = "Taxon name not found."  
+      notice = "Taxon name not found."  
       redirect_to :action => 'list'
     end
   end
@@ -128,7 +128,6 @@ class TaxonNameController < ApplicationController
 
   def create
     @taxon_name = TaxonName.create_new(:taxon_name => params[:taxon_name], :person => session[:person])
-
     begin TaxonName.transaction do
       if @taxon_name.errors.size > 0
         raise @taxon_name.errors
@@ -146,13 +145,13 @@ class TaxonNameController < ApplicationController
         if params[:commit] == 'Create and create associated OTU'
           Otu.create!(:taxon_name => @taxon_name)
         end
-        flash[:notice] = 'TaxonName was successfully created.'
+        notice = 'TaxonName was successfully created.'
         redirect_to :action => :show, :id => @taxon_name.id and return
       end
     end
 
     rescue  Exception => e 
-      flash[:notice] = e.message 
+      notice = e.message 
       render :action => :new and return
     end
   end
@@ -160,7 +159,7 @@ class TaxonNameController < ApplicationController
   def edit
     @taxon_name = TaxonName.find(params[:id])
     if !@taxon_name.in_ranges?(session[:person].editable_taxon_ranges)
-      flash[:notice] = "You don't have permission to edit that name.  Contact an administrator if you think there is a problem."
+      notice = "You don't have permission to edit that name.  Contact an administrator if you think there is a problem."
       redirect_to :action => :list and return
     end
   end
@@ -181,10 +180,10 @@ class TaxonNameController < ApplicationController
         end
       end
     rescue ActiveRecord::RecordInvalid => e 
-      flash[:notice] = "Failed to update the record: #{e.message}."
+      notice = "Failed to update the record: #{e.message}."
       render :action => :edit and return
     end
-    flash[:notice] = 'Taxon name was successfully updated.'
+    notice = 'Taxon name was successfully updated.'
     redirect_to :action => :show, :id => @taxon_name
   end
 
@@ -192,7 +191,7 @@ class TaxonNameController < ApplicationController
     begin
       TaxonName.find(params[:id]).destroy
     rescue
-      flash[:notice] = "Error deleting taxon name, does it have childre, or is it attached to something, or used in permission or visibility settings?"  
+      notice = "Error deleting taxon name, does it have childre, or is it attached to something, or used in permission or visibility settings?"  
     end
     redirect_to :action => 'list'
   end
@@ -201,9 +200,9 @@ class TaxonNameController < ApplicationController
     if @tn = TaxonName.find(params[:id]) 
       @tn.update_cached_display_name
       @tn.save
-      flash[:notice] = 'The cached version of the name, as presently rendered in the header of this record, was recalculated successfully.'
+      notice = 'The cached version of the name, as presently rendered in the header of this record, was recalculated successfully.'
     else
-      flash[:notice] = 'Could not find the requested name!'
+      notice = 'Could not find the requested name!'
     end
     redirect_to :action => 'show', :id => @tn, :controller => 'taxon_name'
   end
@@ -274,8 +273,9 @@ class TaxonNameController < ApplicationController
       {:id=> t.id,
        :label=> t.display_name(:type => :selected),
        :response_values=> {
-        'taxon_name[id]' => t.id
-       },
+        # 'taxon_name[id]' => t.id, <- pretty sure this will bork things.
+        params[:method] => t.id  
+      },
        :label_html => render_to_string(:partial => 'shared/autocomplete/taxon_name.html', :object => t)
       }
     end
@@ -329,14 +329,14 @@ class TaxonNameController < ApplicationController
       @ref = Ref.find(params[:taxon_name][:ref_id]) if params[:term] && !params[:taxon_name][:ref_id].blank?
  
     rescue ParseError => e
-      flash[:notice] = "#{e}"       
+      notice = "#{e}"       
       redirect_to :action => :batch_load and return
     end
   end
 
   def batch_create
     count = TaxonName.create_from_batch(params.update(:person => session[:person]))
-    flash[:notice] = "Created #{count} new names."
+    notice = "Created #{count} new names."
     redirect_to :action => :list
   end
   

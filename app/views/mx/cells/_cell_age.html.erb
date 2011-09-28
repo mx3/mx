@@ -7,5 +7,5 @@
 <% else -%>
   <% txt = '<div style="background-color:#e5993a; width: 12px; font-weight: bolder; margin: 0;">#</div>' -%>
 <% end -%>
-<%= link_to_remote(txt, :url => {:action => :_cell_zoom, :mx_id => mx_id, :chr_id => c.id, :otu_id => o.id, :x => i, :y => j},
+<%= link_to(txt, :remote => true, :url => {:action => :_cell_zoom, :mx_id => mx_id, :chr_id => c.id, :otu_id => o.id, :x => i, :y => j},
    :loading => "Element.show('update_spinner')", :complete => "Element.hide('update_spinner')"  )  -%>

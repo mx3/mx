@@ -30,7 +30,6 @@ class ApplicationControllerTest < ActionController::TestCase
     opts = {
       :controller => 'public/ref'
     }
-    debugger
     assert_generates('/public/ref', opts)
     assert_recognizes opts.update({:action => 'index'}), 'public/ref'
   end

@@ -60,8 +60,6 @@ class TagController < ApplicationController
     @obj = ActiveRecord::const_get(params[:tag_obj][:obj_class]).find(params[:tag_obj][:obj_id])
     @tag.addressable = @obj
 
-    @tag.ref_id = params[:ref] ? params[:ref][:id] : nil
-    @tag.keyword_id = params[:keyword] ? params[:keyword][:id] : nil
     @html_selector = params[:html_selector]
 
     if @tag.save

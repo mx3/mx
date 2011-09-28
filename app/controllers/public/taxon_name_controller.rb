@@ -116,7 +116,7 @@ class Public::TaxonNameController < Public::BaseController
             when 3..4 then 5 
             else lim = false 
             end 
-      @taxon_names  TaxonName.find(:all, :conditions => ["(name LIKE ? OR id = ?)", "%#{value}%", value], :order => "length(name), name", :limit => lim )
+      @taxon_names  = TaxonName.find(:all, :conditions => ["(name LIKE ? OR id = ?)", "%#{value}%", value], :order => "length(name), name", :limit => lim )
       render :json => Json::format_for_autocomplete_with_display_name(:entries => @taxon_names, :method => params[:method])
     end
   end

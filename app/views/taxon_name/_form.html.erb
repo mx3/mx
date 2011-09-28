@@ -14,9 +14,8 @@
 </div>
 
 <div class="fr"><label for="parent" class="lbl4">Parent</label>
-  <span class="fld">
-    <%= render :partial => "picker", :locals => {
-      :object => 'taxon_name', :method => 'parent_id', :tag_id => "parent_name", :display => @taxon_name.parent.andand.display_name(:type => :for_select_list) } %>
+  <span class="fld"><%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
+    :object => 'taxon_name', :method => 'parent_id', :tag_id => "parent_id_for_new_name", :display => @taxon_name.parent.andand.display_name(:type => :for_select_list)  } %>
   </span>
 </div>
 
@@ -38,13 +37,15 @@
 
 <div class="fr"><label for="taxon_name_year" class="lbl4">Year</label><span class="fld">
     <%= text_field 'taxon_name', 'year', 'title' => 'year published (made valid)', :size => 4  %>
-  </span></div>
+  </span>
+</div>
 
 <div class="fr"><label for="taxon_name_ref_name" class="lbl4">Reference </label><span class="fld">
-    <%= render :partial => "ref/picker", :locals => {
-      :object => 'taxon_name', :method => 'ref_id', :tag_id => "taxon_name_ref_name",
-      :display => (@taxon_name.ref.display_name if @taxon_name.ref), :size => 50 } %>
-  </span></div>
+<%= render :partial => "shared/picker", :locals => {:controller => 'ref',
+  :object => 'taxon_name', :method => 'ref_id', :tag_id => "taxon_name_ref_name", :size => 50, 
+  :display => (@taxon_name.ref.display_name if @taxon_name.ref) } %>
+  </span>
+</div>
 
 <div class="fr"><label for="taxon_name_page_validated_on" class="lbl4">Page "validated" on</label><span class="fld">
     <%= text_field 'taxon_name', 'page_validated_on', 'title' => 'page taxonomic name was validated on', :size => 6  %>
@@ -57,19 +58,19 @@
 <div class="header"> Original combination </div>
 
 <div class="fr"><label for="orig_genus" class="lbl4">Original genus</label><span class="fld">
-    <%= render :partial => "picker", :locals => {
+    <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
       :object => 'taxon_name', :method => 'orig_genus_id', :tag_id => "orig_genus", :name_group => 'genus',
       :display => @taxon_name.original_genus.andand.display_name(:type => :for_select_list) } %>
   </span></div>
 
 <div class="fr"><label for="orig_subgenus" class="lbl4">Original subgenus </label><span class="fld">
-    <%= render :partial => "picker", :locals => {
+    <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
       :object => 'taxon_name', :method => 'orig_subgenus_id', :tag_id => "orig_subgenus", :name_group => 'genus',
       :display => @taxon_name.original_subgenus.andand.display_name(:type => :for_select_list) } %>
   </span></div>
 
 <div class="fr"><label for="orig_species" class="lbl4">Original species </label><span class="fld">
-    <%= render :partial => "picker", :locals => {
+    <%= render :partial => "shared/picker", :locals => {:controller => 'taxon_name',
       :object => 'taxon_name', :method => 'orig_species_id', :tag_id => "orig_species", :name_group => 'species',
       :display => @taxon_name.original_species.andand.display_name(:type => :for_select_list) } %>
   </span></div>
@@ -82,7 +83,7 @@
 </div>
 
 <div class="fr"><label for="taxon_name_valid_name_id" class="lbl4">Valid name</label><span class="fld">
-    <%= render :partial => "picker", :locals => {
+    <%= render :partial => "shared/picker", :locals => {:controller => "taxon_name",
       :object => 'taxon_name', :method => 'valid_name_id', :tag_id => "valid_name",
       :display => @taxon_name.valid_name.andand.display_name(:type => :for_select_list) } %>
   </span></div>
