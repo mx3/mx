@@ -3,6 +3,36 @@
  * Attaches a mouseover to the given DOM element.
  * looks for data-tooltip = " .... "
  *
+ * put these styles in your CSS:
+    .mx-tooltip {
+      border: 3px solid #2171B5;
+      padding: 5px;
+      background: white;
+      -moz-box-shadow: 3px 3px 6px #aaaaaa;
+      -webkit-box-shadow: 3px 3px 6px #aaaaaa;
+      box-shadow: 3px 3px 6px #aaaaaa;
+    }
+
+    .mx-tooltip .notch {
+      position: absolute;
+      top: -10px;
+      left: 0px;
+      margin: 0;
+      border-top: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #2171B5;
+      padding: 0;
+      width: 0;
+      height: 0;
+      font-size: 0;
+      line-height: 0;
+      _border-right-color: pink;
+      _border-left-color: pink;
+      _filter: chroma(color=pink);
+    }
+ *
+ *
  */
 
 (function ($) {
