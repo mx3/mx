@@ -10,22 +10,9 @@
       # TODO: replicate the edge include_js that checks for google cs. local
     %>
 
-    <%= javascript_include_tag 'jquery-1.6.2',
-              'application',
-              'jquery-ui-1.8.13.custom.min',
-              'jquery.mx-autocompleter',
-              'jquery.basic-modal',
-              'jquery.ajaxify',
-              'jquery.mx-effects',
-              'jquery.mx-color-picker',
-              'jquery.mx-flash',
-              'jquery.mx-spinner',
-              'jquery.mx-tooltip',
-              'jquery.notifications',
-              'rails'
-              %>
+    <%= include_javascripts :application %>
+    <%= include_stylesheets :application %>
 
-    <%= stylesheet_link_tag "standard",'notifications' -%>
     <%= class_css -%>
     <%= csrf_meta_tag %>
 

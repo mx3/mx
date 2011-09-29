@@ -6,7 +6,7 @@
 # app/views/public/site/**/*
 
 # mx specific ignores
-
+/public/generated/
 /db/dumps/*
 *.sql
 /public/files/*
@@ -42,5 +42,3 @@ Icon?
 /vendor/bundle
 /log/*
 /tmp/*
-
-

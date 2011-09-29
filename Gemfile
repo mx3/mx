@@ -2,13 +2,11 @@ source :gemcutter
   # bundler requires these gems in all environments
   gem "rails", "3.0.7"
   gem "mysql2", '< 0.3'
-  gem "sass"
   gem 'alchemist',  '0.1.2.1'
   gem 'andand', :git => 'https://github.com/panozzaj/andand.git' # contains a couple of fixes to 1.3.1, seems to be the most uptodate
   gem "bio",  '1.4.1'
   # gem 'cmess',  '0.2.4' # character encoding guessing
   gem "echoe" # !! This may need to be commented out for recent versions of passenger.
-  gem "haml"
   gem "RedCloth"
 
   gem 'geokit'
@@ -33,6 +31,10 @@ source :gemcutter
 
   # gem 'prototype_legacy_helper', '0.0.0', :git => 'git://github.com/rails/prototype_legacy_helper.git'
 
+  gem 'jammit', "0.6.3"
+  gem "haml"
+  gem "sass"
+  gem "bourbon"
 
 
 group :production do

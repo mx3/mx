@@ -1,0 +1,26 @@
+<%= "package_assets: false" if RAILS_ENV == 'cucumber' %>
+package_path: generated/assets
+javascript_compressor: closure
+
+javascripts:
+  application:
+    - public/javascripts/jquery-1.6.2.js
+    - public/javascripts/jquery-ui-1.8.13.custom.min.js
+    - public/javascripts/application.js
+    - public/javascripts/jquery.ajaxify.js
+    - public/javascripts/jquery.basic-modal.js
+    - public/javascripts/jquery.mx-autocompleter.js
+    - public/javascripts/jquery.mx-color-picker.js
+    - public/javascripts/jquery.mx-effects.js
+    - public/javascripts/jquery.mx-flash.js
+    - public/javascripts/jquery.mx-spinner.js
+    - public/javascripts/jquery.mx-tooltip.js
+    - public/javascripts/jquery.notifications.js
+    - public/javascripts/rails.js
+    - public/colorpicker/js/colorpicker.js
+
+stylesheets:
+  application:
+    - public/stylesheets/standard.css
+    - public/colorpicker/css/colorpicker.css
+    - public/generated/**

@@ -4,15 +4,11 @@
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <title>MX - <%=  self.controller.controller_name.pluralize.gsub("_", " ") %> </title>
 
-  <%= javascript_src_tag "svg_web/svg.js", "data-path" => "/javascripts/svg_web" -%><!-- this must come first -->
-  <%= javascript_include_tag 'mx_svgweb' -%>
+  <%= include_javascripts :application %>
+  <%= include_stylesheets :application %>
 
-  <link rel="Stylesheet" href="/stylesheets/standard.css" type="text/css" />
- 
-  <%= javascript_include_tag "prototype" -%>
-  <%= javascript_include_tag "scriptaculous" -%> 
   <%= yield :head -%>
-  
+
 </head>
 <body>
   <div id="container">

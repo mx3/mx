@@ -23,6 +23,10 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    POpen4 (0.1.4)
+      Platform (>= 0.4.0)
+      open4
+    Platform (0.4.0)
     RedCloth (4.2.7)
     abstract (1.0.0)
     actionmailer (3.0.7)
@@ -57,6 +61,8 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.0.9)
     bio (1.4.1)
+    bourbon (0.1.9)
+      sass (>= 3.1)
     builder (2.1.2)
     columnize (0.3.2)
     daemons (1.0.10)
@@ -71,6 +77,8 @@ GEM
     geokit (1.5.0)
     haml (3.1.1)
     i18n (0.5.0)
+    jammit (0.6.3)
+      yui-compressor (>= 0.9.3)
     json_pure (1.5.1)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
@@ -87,6 +95,7 @@ GEM
     nexus_parser (1.1.4)
     nokogiri (1.4.4)
     obo_parser (0.3.4)
+    open4 (1.1.0)
     polyglot (0.3.1)
     rack (1.2.2)
     rack-mount (0.6.14)
@@ -131,6 +140,8 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
+    yui-compressor (0.9.6)
+      POpen4 (>= 0.1.4)
 
 PLATFORMS
   ruby
@@ -141,9 +152,11 @@ DEPENDENCIES
   andand!
   attachment_fu!
   bio (= 1.4.1)
+  bourbon
   echoe
   geokit
   haml
+  jammit (= 0.6.3)
   mongrel (= 1.2.0.pre2)
   mysql2 (< 0.3)
   nexus_parser (= 1.1.4)
