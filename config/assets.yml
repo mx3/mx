@@ -1,3 +1,20 @@
+# This file is used to tell Jammit what to include when you ask for an asset bundle.
+# Jammit is: http://documentcloud.github.com/jammit/
+#
+# You include an asset bundle like so:
+#   include_javascripts :bundle_name
+#   include_stylesheets :bundle_name
+#
+# Placing those in the layouts is usually all we need to do.
+#
+# In production - all the files specified in a bundle, are compressed, joined, gzipped and served as a single file.
+# In development - all the files are individually served, uncompressed, so you can debug so much easier.
+#
+# I've set up two generic bundles - javascripts:application and stylesheets:application
+# Any file you want included just include them in the appropriate bundle.
+# You can use wild-cards too - like I did on stylesheets.
+#
+# Javascripts is compressed using the google closure compiler.
 <%= "package_assets: false" if RAILS_ENV == 'cucumber' %>
 package_path: generated/assets
 javascript_compressor: closure
