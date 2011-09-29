@@ -9,7 +9,9 @@ module ModelExtensions::DefaultNamedScopes
     base.class_eval do
 
       # sensu Railscasts #112
-      scope :conditions, lambda { |*args| {:conditions => args}}
+      
+      # HMM- > this can't be good  in rails 3
+      # scope :conditions, lambda { |*args| {:conditions => args}}
 
       # scope :for_period, lambda { |from, to| {
       #             :conditions => ["#{self.table_name}.#{self.to_s.downcase}_date >= ? AND #{self.table_name}.#{self.to_s.downcase}_date <= ?", from, to] } }

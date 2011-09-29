@@ -79,4 +79,137 @@ child_left:
   updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
 child_middle: 
   id: 3
-  
+  name: Charles
+  l: 4
+  r: 11
+  external_id: 
+  author: "" 
+  cached_display_name: 
+  year: 1985
+  iczn_group: genus
+  namespace_id: 
+  parent_id: 1
+  valid_name_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+child_right: 
+  id: 4
+  name: Gus
+  l: 12
+  r: 19
+  external_id: 
+  author: "" 
+  cached_display_name: 
+  year: 1986
+  iczn_group: genus
+  namespace_id: 
+  parent_id: 1
+  valid_name_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+g_child_1: 
+  id: 5
+  name: foo
+  l: 5
+  r: 6
+  external_id: 
+  author: "" 
+  cached_display_name: 
+  year: 1987
+  iczn_group: species
+  namespace_id: 
+  parent_id: 3
+  valid_name_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+g_child_2: 
+  id: 6
+  name: foo
+  l: 7
+  r: 8
+  external_id: 
+  author:  
+  cached_display_name: 
+  year: 1988
+  iczn_group: species
+  namespace_id: 
+  parent_id: 3
+  valid_name_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+g_child_3: 
+  id: 7
+  name: foo
+  l: 9
+  r: 10
+  external_id: 
+  author:  
+  cached_display_name: 
+  year: 1989
+  iczn_group: species
+  namespace_id: 
+  parent_id: 3
+  valid_name_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+g_child_4: 
+  id: 8
+  name: foo
+  l: 13
+  r: 14
+  external_id: 
+  author: 
+  cached_display_name: 
+  year: 1990
+  iczn_group: species
+  namespace_id: 
+  parent_id: 4
+  valid_name_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+g_child_5: 
+  id: 9
+  name: foo
+  l: 15
+  r: 18
+  external_id: 
+  author: 
+  cached_display_name: 
+  year: 1991
+  iczn_group: species
+  namespace_id: 
+  parent_id: 4
+  valid_name_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
+gg_child: 
+  id: 10
+  name: foo
+  l: 16
+  r: 17
+  external_id: 
+  author: 
+  cached_display_name: 
+  year: 1992
+  iczn_group: species
+  namespace_id: 
+  parent_id: 9
+  valid_name_id: 
+  creator_id: 1
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 

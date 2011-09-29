@@ -98,6 +98,7 @@ class TaxonNameTest < ActiveSupport::TestCase
   end
   
   def test_full_set
+    debugger
     nodes = @child_right.full_set
     assert_equal 4, nodes.size
     assert nodes.include?(@child_right)
