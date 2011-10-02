@@ -1,20 +1,31 @@
-<% fields_for "ref[author_attributes][]", author do |author_form| -%>
-  <%= content_tag_for :li, author  do -%>
-    <%= error_messages_for 'author' %>
-    <%= author_form.hidden_field('id', :index => nil) if !author.new_record?  %>
-    <%= author_form.hidden_field('position', :index => nil) if !author.new_record?  %>
-
-    <span class="handle"> <%= !author.new_record? ? '[drag]' : 'needs save!' -%>
-      <table style="display:inline; position: relative; top: 5px;">
-        <tr>
-          <td><%= author_form.text_field :last_name, :index => nil -%></td>
-          <td><%= author_form.text_field :first_name, :index => nil -%></td>
-          <td><%= author_form.text_field :initials, :index => nil, "size" => 8  %></td>
-          <td><%= author_form.select :auth_is, ['author', 'editor'],{} , :index => nil -%></td>
-          <td><%= link_to_remote("X", :url => {:action => "_destroy_author", :author_id => author.id }) if !author.new_record? %></td>
-        </tr>
-      </table>
-    </span>
+<% prefix = "ref[author_attributes][]" -%>
+<tr id="author_<%=author.id%>">
+  <% if !author.new_record? -%>
+    <input type="hidden" name="<%=prefix-%>[id]" value="#{author.id}"/>
+    <input type="hidden" name="<%=prefix-%>[position]" value="#{author.position}"/>
   <% end %>
-<% end -%>
-
+  <td><%= error_messages_for 'author' %></td>
+  <% if author.new_record? -%>
+  <td> needs save! </td>
+  <%else%>
+  <td class='handle'><%= render("shared/drag_handle") -%></td>
+  <%end%>
+  <td>
+    <input type='text' name="<%=prefix-%>[last_name]"><%= author.last_name -%></input>
+  </td>
+  <td>
+    <input type='text' name="<%=prefix-%>[first_name]"><%= author.first_name -%></input>
+  </td>
+  <td>
+    <input type='text' size='8' name="<%=prefix-%>[initials]"><%= author.initials -%></input>
+  </td>
+  <td>
+    <select name="<%=prefix-%>[auth_is]">
+      <option value='author' <%= author.auth_is == 'author' ? 'selected' : '' -%>>Author</option>
+      <option value='editor' <%= author.auth_is == 'editor' ? 'selected' : '' -%>>Editor</option>
+    </select>
+  </td>
+  <td>
+    <%= link_to_remote("X", :url => {:action => "_destroy_author", :author_id => author.id }) if !author.new_record? %>
+  </td>
+</tr>

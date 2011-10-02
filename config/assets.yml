@@ -30,6 +30,8 @@ javascripts:
     - public/javascripts/jquery.mx-color-picker.js
     - public/javascripts/jquery.mx-effects.js
     - public/javascripts/jquery.mx-flash.js
+    - public/javascripts/jquery.mx-insert-element.js
+    - public/javascripts/jquery.mx-sortable.js
     - public/javascripts/jquery.mx-spinner.js
     - public/javascripts/jquery.mx-tooltip.js
     - public/javascripts/jquery.notifications.js

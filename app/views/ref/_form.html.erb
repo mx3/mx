@@ -1,10 +1,10 @@
 <%= error_messages_for 'ref' %>
-  
+
 <% if @ref.pdf.blank? -%>
   <p>
     <label for="pdf">Attach a pdf:</label>
     <%= file_field 'pdf', 'uploaded_data', :size => 70 -%>
-  </p>  
+  </p>
 <% end -%>
 
 <!--[form:ref]-->
@@ -17,25 +17,30 @@
   <div class="header">Authors / Editors </div>
 <% end -%>
 <%= error_messages_for 'author' -%>
-  <%= link_to_function 'add author / editor' do |page|
-    page.insert_html :bottom, :authors, :partial => 'author', :object => Author.new 
-  end %>
- <%= spinner_tag('move_spinner') -%>
+  <a href="#"
+    data-insert-element
+    data-insert-content="<%=CGI.escapeHTML(render(:partial=>'author', :locals=>{:author=>Author.new}))%>"
+    data-insert-parent=".subform"
+    data-insert-target="table[data-sortable]"> add author / editor </a>
 
-<table style="margin-left: 10em;">
-    <tr>
-        <th style="width: 20em;"><label for="author_last_name">Last name</label></th>
-        <th style="width: 15em;"><label for="author_first_name">First name</label></th>
-        <th style="width: 8em;"><label for="author_initials">Initials</label></th>
-        <th><label for="author_is">Is</label></th><th>&nbsp;</th>
-    </tr>
+<table style="margin-left: 2em;"
+    data-sortable
+    data-sortable-items="tr:not(.no-sort)"
+    data-sortable-on-change-url="<%= url_for(:action=>'sort_authors')%>">
+  <tr class='no-sort' >
+      <th> &nbsp; </th>
+      <th> &nbsp; </th>
+      <th style="width: 20em;"><label for="author_last_name">Last name</label></th>
+      <th style="width: 15em;"><label for="author_first_name">First name</label></th>
+      <th style="width: 8em;"><label for="author_initials">Initials</label></th>
+      <th><label for="author_is">Is</label></th><th>&nbsp;</th>
+  </tr>
+  <%= render(:partial => "author", :collection => @ref.authors) %>
 </table>
 
-  <ul id="authors">
-    <%= render(:partial => "author", :collection => @ref.authors) %>
-  </ul>
-
-  <%= sortable_element("authors", :url => {:action => 'sort_authors'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
+  <!--
+    <%= sortable_element("authors", :url => {:action => 'sort_authors'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
+  -->
 </div>
 
 <table>
@@ -69,7 +74,7 @@
 </table>
 
 <p>Reference type: <%= f.select 'ref_type', Ref.valid_reference_types, { :include_blank => true }  -%></p>
-	
+
 <p><label for="ref_language_id">Language</label>
 <%= render :partial => 'shared/picker', :locals => {
     :controller => 'language',
@@ -77,7 +82,7 @@
 		:size => 50,
 		:method => 'language_id',
     :tag_id => "ref_language_id",
-    :display =>  (@ref.language.display_name if @ref.language) } -%> 
+    :display =>  (@ref.language.display_name if @ref.language) } -%>
 </p>
 
 <div class="subform">
@@ -98,9 +103,9 @@
       <label for="ref_institution">Institution</label><br/>
       <%= f.text_field 'institution', 'title' => 'e.g., if dissertation', :size => 39 -%>
     </td>
-    
+
     <td>
-      </td>    
+      </td>
   </tr>
 </table>
 

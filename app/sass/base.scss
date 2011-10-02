@@ -103,3 +103,16 @@ form.delete-link {
     _filter: chroma(color=pink);
   }
 }
+
+.drag-handle {
+  background: transparent;
+  width: 10px;
+  height: 10px;
+  padding: 0px 2px;
+  .row {
+    background: #aeaeae;
+    margin: 2px 0px;
+    height: 2px;
+  }
+  cursor: move;
+}
