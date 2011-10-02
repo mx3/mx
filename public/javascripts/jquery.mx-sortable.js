@@ -1,4 +1,8 @@
 /*
+ * Wraps the sortable in some helpers so we can specify things in the DOM.
+ * sortable-items -> describes a selector for what is being sorted
+ * sortable-handle -> selector for the sortable handle
+ * sortable-on-change-url > URL to serialize and POST the resorted things to (when you drag n drop)
  * Saves a sortable set whenever you change it.
  */
 
@@ -15,8 +19,13 @@
           $this.css('opacity', 0.5);
           var serialized_data = $this.sortable("serialize");
           if (serialized_data) {
-            $.post(url, serialized_data, function() {
-              $this.css('opacity', 1.0);
+            $.ajax({
+              type: 'POST',
+              url: url,
+              data: serialized_data,
+              complete: function() {
+                $this.css('opacity', 1.0);
+              }
             });
           }
         }

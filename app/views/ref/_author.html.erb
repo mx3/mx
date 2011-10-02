@@ -1,5 +1,9 @@
-<% prefix = "ref[author_attributes][]" -%>
-<tr id="author_<%=author.id%>">
+<%
+  prefix = "ref[author_attributes][]"
+  element_id =  "author_#{author.id}"
+  element_selector="##{element_id}"
+-%>
+<tr id="<%= element_id %>">
   <% if !author.new_record? -%>
     <input type="hidden" name="<%=prefix-%>[id]" value="#{author.id}"/>
     <input type="hidden" name="<%=prefix-%>[position]" value="#{author.position}"/>
@@ -11,13 +15,13 @@
   <td class='handle'><%= render("shared/drag_handle") -%></td>
   <%end%>
   <td>
-    <input type='text' name="<%=prefix-%>[last_name]"><%= author.last_name -%></input>
+    <input type='text' name="<%=prefix-%>[last_name]" value="<%= author.last_name -%>"></input>
   </td>
   <td>
-    <input type='text' name="<%=prefix-%>[first_name]"><%= author.first_name -%></input>
+    <input type='text' name="<%=prefix-%>[first_name]" value="<%= author.first_name -%>"></input>
   </td>
   <td>
-    <input type='text' size='8' name="<%=prefix-%>[initials]"><%= author.initials -%></input>
+    <input type='text' size='8' name="<%=prefix-%>[initials]" value="<%= author.initials %>"></input>
   </td>
   <td>
     <select name="<%=prefix-%>[auth_is]">
@@ -26,6 +30,8 @@
     </select>
   </td>
   <td>
-    <%= link_to_remote("X", :url => {:action => "_destroy_author", :author_id => author.id }) if !author.new_record? %>
+    <% if !author.new_record? %>
+      <a href="<%= url_for(:action=>'destroy_author', :author_id=>author.id, :selector=>element_selector)%>" data-ajaxify='submit' > X </a>
+    <% end %>
   </td>
 </tr>
