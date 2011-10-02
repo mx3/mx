@@ -128,12 +128,8 @@ class RefController < ApplicationController
       Author.update_all(['position=?', index+1], ['id=?', id])
     end
 
-    ref = Author.find(params[:authors].first).ref
-    ref.save!
-
-    render :update do |page|
-      page.replace_html :display_name, :text => ref.cached_display_name
-    end and return
+    @ref = Author.find(params[:authors].first).ref
+    @ref.save!
   end
 
   def delete_pdf

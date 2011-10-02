@@ -17,10 +17,9 @@
   <% end -%>
   <%= error_messages_for 'author' -%>
   <a href="#"
-    data-insert-element
     data-insert-content="<%=CGI.escapeHTML(render(:partial=>'author', :locals=>{:author=>Author.new}))%>"
-    data-insert-parent=".subform"
-    data-insert-target="table[data-sortable]"> add author / editor </a>
+    data-insert-content-parent=".subform"
+    data-insert-content-target="table[data-sortable]"> add author / editor </a>
 
   <table style="margin-left: 2em;"
       data-sortable

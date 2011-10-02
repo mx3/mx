@@ -3,7 +3,9 @@
  * sortable-items -> describes a selector for what is being sorted
  * sortable-handle -> selector for the sortable handle
  * sortable-on-change-url > URL to serialize and POST the resorted things to (when you drag n drop)
- * Saves a sortable set whenever you change it.
+ * Saves a sortable set whenever you change it - and POSTs the serialized information to the URL.
+ *
+ * Will flip to opacity 50% while saving... to give some visual indicator that it's doing something.
  */
 
 (function ($) {
