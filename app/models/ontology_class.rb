@@ -26,12 +26,13 @@ class OntologyClass < ActiveRecord::Base
 
   # these next 3 return all related classes, regardless of object_relationship type
   has_many :immediately_related_ontology_classes, 
-      :class_name => "OntologyClass",
-      :finder_sql => 'SELECT DISTINCT oc.* FROM ontology_classes oc 
+      :class_name => 'OntologyClass',
+      :finder_sql => proc {"SELECT DISTINCT oc.* FROM ontology_classes oc 
                       LEFT JOIN ontology_relationships or1 ON oc.id = or1.ontology_class1_id
                       LEFT JOIN ontology_relationships or2 ON oc.id = or2.ontology_class2_id
-                      WHERE or1.ontology_class2_id = #{id} OR or2.ontology_class1_id = #{id};'
-  
+                      WHERE or1.ontology_class2_id = #{id} OR or2.ontology_class1_id = #{id};"}
+
+
   has_many :child_ontology_classes, :through => :secondary_relationships, :source => :ontology_class1 
   has_many :parent_ontology_classes, :through => :primary_relationships, :source => :ontology_class2 
 
