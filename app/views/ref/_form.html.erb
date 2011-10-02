@@ -10,37 +10,32 @@
 <!--[form:ref]-->
 
 <div class="subform">
-
-<% if (@target == 'update') || (@target == 'edit') -%>
-  <div class="header">Edit Author(s)</div>
-<% else -%>
-  <div class="header">Authors / Editors </div>
-<% end -%>
-<%= error_messages_for 'author' -%>
+  <% if (@target == 'update') || (@target == 'edit') -%>
+    <div class="header">Edit Author(s)</div>
+  <% else -%>
+    <div class="header">Authors / Editors </div>
+  <% end -%>
+  <%= error_messages_for 'author' -%>
   <a href="#"
     data-insert-element
     data-insert-content="<%=CGI.escapeHTML(render(:partial=>'author', :locals=>{:author=>Author.new}))%>"
     data-insert-parent=".subform"
     data-insert-target="table[data-sortable]"> add author / editor </a>
 
-<table style="margin-left: 2em;"
-    data-sortable
-    data-sortable-items="tr:not(.no-sort)"
-    data-sortable-on-change-url="<%= url_for(:action=>'sort_authors')%>">
-  <tr class='no-sort' >
-      <th> &nbsp; </th>
-      <th> &nbsp; </th>
-      <th style="width: 20em;"><label for="author_last_name">Last name</label></th>
-      <th style="width: 15em;"><label for="author_first_name">First name</label></th>
-      <th style="width: 8em;"><label for="author_initials">Initials</label></th>
-      <th><label for="author_is">Is</label></th><th>&nbsp;</th>
-  </tr>
-  <%= render(:partial => "author", :collection => @ref.authors) %>
-</table>
-
-  <!--
-    <%= sortable_element("authors", :url => {:action => 'sort_authors'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
-  -->
+  <table style="margin-left: 2em;"
+      data-sortable
+      data-sortable-items="tr:not(.no-sort)"
+      data-sortable-on-change-url="<%= url_for(:action=>'sort_authors')%>">
+    <tr class='no-sort' >
+        <th> &nbsp; </th>
+        <th> &nbsp; </th>
+        <th style="width: 20em;"><label for="author_last_name">Last name</label></th>
+        <th style="width: 15em;"><label for="author_first_name">First name</label></th>
+        <th style="width: 8em;"><label for="author_initials">Initials</label></th>
+        <th><label for="author_is">Is</label></th><th>&nbsp;</th>
+    </tr>
+    <%= render(:partial => "author", :collection => @ref.authors) %>
+  </table>
 </div>
 
 <table>
