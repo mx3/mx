@@ -1,6 +1,6 @@
 <div class="subform">
   <div class="header">Show images for: </div>
-  <% form_tag :action => 'summarize' do -%>    
+  <%= form_tag :action => 'summarize' do -%>    
   <p> Otu group: <%= render :partial => "otu_group/picker", :locals => {:c_name => 'view', :f_name => 'otu_group_id'} -%> </p>
 
   <p> Standard view group:  

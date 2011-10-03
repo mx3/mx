@@ -25,7 +25,7 @@
 			</td>
 		</tr>
 	</table>
-	<%= link_to_remote "[Add differentia]", :url => {:action => :new_differentia, :pc_edit_area => pc_edit_area_id, :pc_level_id => pc_level_id, :differentiae_id => differentiae_id} %>
+	<%= link_to "[Add differentia]", :remote => true, :url => {:action => :new_differentia, :pc_edit_area => pc_edit_area_id, :pc_level_id => pc_level_id, :differentiae_id => differentiae_id} %>
 	
 </div>
 <%= form_tag :remote => true, :url => {:action => :create_composition, :id => @phenotype, :role => role, :pc_level_id => pc_level_id} do %>

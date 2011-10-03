@@ -1,6 +1,6 @@
 .ont_tree_node
   - if tree_node.child_ontology_relationships(:relationship_type => relationship_type).size > 0 && open
-    .node_nav= link_to_remote( "+", :url => {:action => :_tree_navigate_through_child, :id => parent.id.to_s, :parent_relationship => parent_relationship, :open => true, :relationship_type => relationship_type})
+    .node_nav= link_to( "+", :remote => true, :url => {:action => :_tree_navigate_through_child, :id => parent.id.to_s, :parent_relationship => parent_relationship, :open => true, :relationship_type => relationship_type})
   - else
-    .node_nav= link_to_remote( "-", :url => {:action => :_tree_navigate_through_child, :id => parent.id.to_s, :parent_relationship => parent_relationship, :close => true, :relationship_type => relationship_type})
-  .lbl{:style => "border-bottom: 3px solid ##{(parent_relationship == 'root' || parent_relationship.html_color.blank?) ? "ffffff" : parent_relationship.html_color};"}= link_to_remote(tree_node.label_name(:type => :preferred), :url => {:action => :_tree_populate_target, :id => tree_node.id.to_s, :relationship_type => relationship_type})
+    .node_nav= link_to( "-", :remote => true, :url => {:action => :_tree_navigate_through_child, :id => parent.id.to_s, :parent_relationship => parent_relationship, :close => true, :relationship_type => relationship_type})
+  .lbl{:style => "border-bottom: 3px solid ##{(parent_relationship == 'root' || parent_relationship.html_color.blank?) ? "ffffff" : parent_relationship.html_color};"}= link_to(tree_node.label_name(:type => :preferred), :remote => true, :url => {:action => :_tree_populate_target, :id => tree_node.id.to_s, :relationship_type => relationship_type})

@@ -2,7 +2,7 @@
 
 <p> This function loads a series of terms from a text file.  Each line in the file is considered to be a single term (can be multiple words).  Results will display and you will be asked to confirm the load. During confirmation individual terms can be omitted.</p>
 <div class="box5">
-	<% form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'ce_batch_upload'}) do %>
+	<%= form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'ce_batch_upload'}) do %>
 
 	<div class="fr">
 		<label for="temp_file" class="lbl4">text file containing terms</label>

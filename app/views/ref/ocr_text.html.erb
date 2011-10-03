@@ -15,7 +15,7 @@
   <div class="box4" style="float:left; width: 30%;">
     <div class="header">Term usage</div>
     <div class="content">
-      <p> <%= link_to_remote('(re)count', :url => { :action => :_count_labels, :id => @ref.id}, :loading => "Element.show('count_labels')", :complete => "Element.hide('count_labels')") -%><%= spinner_tag('count_labels' ) -%> </p>
+      <p> <%= link_to('(re)count', :remote => true, :url => { :action => :_count_labels, :id => @ref.id}, :loading => "Element.show('count_labels')", :complete => "Element.hide('count_labels')") -%><%= spinner_tag('count_labels' ) -%> </p>
       <hr />
       <div id="term_usage">
         <%= render(:partial => 'term_usage', :locals => {:labels_refs => @ref.labels_refs}) -%>

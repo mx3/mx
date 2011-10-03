@@ -1,7 +1,7 @@
 <div class='navigator'>
 	<%= navigator2(:obj => @chr, :do =>  session['chr_view'], :ord => "position") %>
 	<% ["coded OTUs", "groups", "edit expanded", "mxes"].each do |l| -%>
-	<%= show_nav_link(:obj => chr, :link => l)  -%>
+	<%= show_nav_link(:obj => @chr, :link => l)  -%>
 	<% end %>
 	<br />
 	<%= render(:partial => 'shared/nav_functions', :object => @chr) -%>

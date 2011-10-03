@@ -28,10 +28,10 @@ class StandardView < ActiveRecord::Base
   has_many :continuous_characters, :class_name => 'Chr'
 
   # untested
-  # has_many :image_descriptions, :finder_sql => 'SELECT id.* FROM image_descriptions id JOIN labels l ON l.id = id.label_id
+  # has_many :image_descriptions, :finder_sql => proc { "SELECT id.* FROM image_descriptions id JOIN labels l ON l.id = id.label_id
   #             JOIN sensus s ON l.label_id = s.label_id
   #             JOIN ontology_classes oc ON oc.id = s.ontology_class_id
-  #             WHERE oc.id = #{ontology_class_id} AND id.image_view_id = #{image_view_id};' 
+  #             WHERE oc.id = #{ontology_class_id} AND id.image_view_id = #{image_view_id};"}
 
   validates_uniqueness_of :name, :scope => 'proj_id'
   validates_presence_of  :name

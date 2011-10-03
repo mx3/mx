@@ -1,5 +1,5 @@
 <h3>New OTU</h3>
-<% form_tag(:action => 'create') do -%>
+<%= form_tag(:action => 'create') do -%>
   <input type="submit" name="submit" value="create" />
   <div class="subform">
       <input type="checkbox" id="include_children" name="include_children" value="1"/> Create OTUs for all children of this taxon name as well? (creates multiple OTUs, one for the taxon name and each of its children, fields below Taxon Name are ignored)

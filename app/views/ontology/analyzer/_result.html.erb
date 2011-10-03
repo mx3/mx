@@ -12,7 +12,7 @@
 <%= @l.linked_text -%>
 
 <div class="show_category">Materials and methods
-  <% form_tag({:action => :download_analyzer_result, :controller => :ontology,  :match_type => @match_type, :exclude_common_words => @exclude_common_words, :adjacent_words_to_fuse => @adjacent_words_to_fuse, :type => :m_and_m, :method => :post}, {:style => 'display:inline;'} ) do -%>
+  <%= form_tag({:action => :download_analyzer_result, :controller => :ontology,  :match_type => @match_type, :exclude_common_words => @exclude_common_words, :adjacent_words_to_fuse => @adjacent_words_to_fuse, :type => :m_and_m, :method => :post}, {:style => 'display:inline;'} ) do -%>
     <%= hidden_field_tag :text, @txt -%>
     <%= submit_tag 'download result', :class => 'small_form_button', :style => 'margin: 2px;' -%>
   <% end -%>  

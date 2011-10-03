@@ -1,11 +1,11 @@
 <%# with some hints from http://demo.script.aculo.us/ajax/update_element# %>
 <div id="<%= "ti_#{addressable_type}_#{addressable_id}" -%>" class="popupform" style="z-index: 55; left: -20px; min-width: 280px; height: <%= 165 * @tags.size -%>px; overflow:auto;">
-  <span class="small_form_button" style="float: right;" > <%= link_to_remote("close",  :url => { :action => :_close_popup_info, :controller => :tag, :addressable_type => addressable_type, :addressable_id => addressable_id}) -%></span>
+  <span class="small_form_button" style="float: right;" > <%= link_to("close", :remote => true, :url => { :action => :_close_popup_info, :controller => :tag, :addressable_type => addressable_type, :addressable_id => addressable_id}) -%></span>
   <span style="float:left;"><%= @keyword.display_name %></span>
   <% @tags.each_with_index do |t,i|  %>
     <table style="width: 98%; margin: .2em; clear: both;  font-size: smaller; border: 1px solid gray; background-color: #ffffcc;" id ="popup_info_tbl_<%= t.id -%>" >
       <tr>
-        <td><%= i+1 %></td><td style="text-align:right;">this tag:<%= new_tag_tag(:object=>t,:link_text=>'tag' ) -%> | <%= link_to_remote("destroy", :url => { :action => 'destroy', :controller => 'tag', :id => t.id}) -%> | <%= link_to("edit", :action => :edit, :controller => :tag, :id => t.id) -%></td><td> </td>
+        <td><%= i+1 %></td><td style="text-align:right;">this tag:<%= new_tag_tag(:object=>t,:link_text=>'tag' ) -%> | <%= link_to("destroy", :remote => true, :url => { :action => 'destroy', :controller => 'tag', :id => t.id}) -%> | <%= link_to("edit", :action => :edit, :controller => :tag, :id => t.id) -%></td><td> </td>
       </tr>
       <tr>
         <td>notes/value:</td><td>

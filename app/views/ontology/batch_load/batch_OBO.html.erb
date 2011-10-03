@@ -3,7 +3,7 @@
 <p> After clicking verify you'll be shown the data to include. </p>
 
 <div class="box4">
-	<% form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'ce_batch_upload'}) do %>
+	<%= form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'ce_batch_upload'}) do %>
 
 	<div class="fr">
 		<label for="temp_file" class="lbl4">OBO file</label>

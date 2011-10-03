@@ -4,7 +4,7 @@
   <div class="show_category"> Locality </div>
   <div class="show_row"><span class="show_lbl">Geography:</span><span class="show_data"><%= @ce.geography -%></span></div>
   <div class="show_row"><span class="show_lbl">Tied Geography:</span><span class="show_data"><%= @ce.geog ? @ce.geog.display_name : content_tag(:em, 'none') -%></span></div>
-  <div class="show_row"><span class="show_lbl">Locality:</span><span class="show_data"><%= @ce.locality -%></span><span class="show_comment" style="float:right;"><%= link_to_remote('more like this', :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => { :action => :find_similar, :controller => :ce, :scope => 'with_locality_like', :arg => @ce.locality, :id => @ce.id}) if !@ce.locality.blank? -%></span></div>
+  <div class="show_row"><span class="show_lbl">Locality:</span><span class="show_data"><%= @ce.locality -%></span><span class="show_comment" style="float:right;"><%= link_to('more like this', :remote => true, :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => { :action => :find_similar, :controller => :ce, :scope => 'with_locality_like', :arg => @ce.locality, :id => @ce.id}) if !@ce.locality.blank? -%></span></div>
   <div class="show_row"><span class="show_lbl">Elevation</span><span class="show_data"><%= @ce.elevation('meters') -%> (<%= @ce.elevation('feet') -%>)</span></div>
 
   <div class="show_category"> Date/time </div>
@@ -22,19 +22,19 @@
   <div class="show_row"><span class="show_lbl">Determined lat/long:</span><span class="show_data"><%= @ce.lat_long -%></span></div>
   <div class="show_row"><span class="show_lbl">Determined uncertainty (m):</span><span class="show_data"><%= @ce.dc_coordinate_uncertainty_in_meters -%></span></div>
   <div class="show_row"><span class="show_lbl">Lat/long undeterminable:</span><span class="show_data"><%= @ce.undet_ll ? content_tag('yes', :class => 'failed') : '' -%></span></div>
-  <div class="show_row"><span class="show_lbl">Locality accuracy confidence</span><span class="show_data"><%= @ce.locality_confidence.andand.display_name  -%> </span><span class="show_comment" style="float:right;"><%= link_to_remote('more like this', :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => { :action => :find_similar, :controller => :ce, :scope => 'with_locality_accuracy_confidence_id', :arg => @ce.locality, :id => @ce.id}) if !@ce.locality_accuracy_confidence_id.blank? -%></span></div>
+  <div class="show_row"><span class="show_lbl">Locality accuracy confidence</span><span class="show_data"><%= @ce.locality_confidence.andand.display_name  -%> </span><span class="show_comment" style="float:right;"><%= link_to('more like this', :remote => true, :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => { :action => :find_similar, :controller => :ce, :scope => 'with_locality_accuracy_confidence_id', :arg => @ce.locality, :id => @ce.id}) if !@ce.locality_accuracy_confidence_id.blank? -%></span></div>
   <div class="show_row"><span class="show_lbl">Georeference sources:</span><span class="show_data"><%= @ce.dc_georeference_sources -%></span></div>
 
   <div class="show_category"> Identifiers  </div>
   <div class="show_row"><span class="show_lbl">Trip code:</span><span class="show_data"><%= @ce.trip_code -%></span></div>
   <div class="show_row"><span class="show_lbl">Trip code namespace:</span><span class="show_data"><%= @ce.trip_namespace.display_name if @ce.trip_namespace -%></span> 
-    <span class="show_comment" style="float:right;"><%= link_to_remote('more like this', :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => {:id => @ce.id, :action => :find_similar, :controller => :ce, :scope => 'with_trip_namespace_id', :arg => @ce.trip_namespace_id}) if @ce.trip_namespace -%></span>  </div>
+    <span class="show_comment" style="float:right;"><%= link_to('more like this', :remote => true, :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => {:id => @ce.id, :action => :find_similar, :controller => :ce, :scope => 'with_trip_namespace_id', :arg => @ce.trip_namespace_id}) if @ce.trip_namespace -%></span>  </div>
 
   <div class="show_row"><span class="show_lbl">External/import namespace:</span><span class="show_data"><%= @ce.external_id -%></span></div>
   <div class="show_row"><span class="show_lbl">External/import identifer:</span><span class="show_data"><%= @ce.namespace.display_name if @ce.namespace -%></span></div>
 
   <div class="show_category"> Habitat/hosts </div>
-  <div class="show_row"><span class="show_lbl">Macro habitat:</span><span class="show_data"><%= @ce.macro_habitat -%></span><span class="show_comment" style="float:right;"><%= link_to_remote('more like this', :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')",:url => { :id => @ce.id, :action => :find_similar, :controller => :ce, :scope => 'with_macro_habitat', :arg => @ce.macro_habitat}) if !@ce.macro_habitat.blank? -%></span></div>
+  <div class="show_row"><span class="show_lbl">Macro habitat:</span><span class="show_data"><%= @ce.macro_habitat -%></span><span class="show_comment" style="float:right;"><%= link_to('more like this', :remote => true, :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')",:url => { :id => @ce.id, :action => :find_similar, :controller => :ce, :scope => 'with_macro_habitat', :arg => @ce.macro_habitat}) if !@ce.macro_habitat.blank? -%></span></div>
   <div class="show_row"><span class="show_lbl">Micro habitat:</span><span class="show_data"><%= @ce.micro_habitat -%></span></div>
   <div class="show_row"><span class="show_lbl">Host genus:</span><span class="show_data"><%= @ce.host_genus -%></span></div>
   <div class="show_row"><span class="show_lbl">Host species:</span><span class="show_data"><%= @ce.host_species -%></span></div>

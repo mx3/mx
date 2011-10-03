@@ -1,5 +1,5 @@
 <h3>Edit key metadata</h3>
-<% form_tag :action => 'update_meta' do -%>
+<%= form_tag :action => 'update_meta' do -%>
   <%= hidden_field 'clave', 'id' %>
   <%= render :partial => 'new_form' %>
   <%= submit_tag "Update" %>

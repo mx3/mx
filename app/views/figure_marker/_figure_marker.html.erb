@@ -8,7 +8,7 @@
       <table style="display:inline; position: relative; top: 5px;">
         <tr>
           <td><%= figure_marker_form.text_area :svg, :rows => 6  -%></td>
-          <td><%= link_to_remote("X", :url => {:action => "_destroy_figure_marker", :figure_marker_id => figure_marker.id }) if !figure_marker.new_record? %></td>
+          <td><%= link_to("X", :remote => true, :url => {:action => "_destroy_figure_marker", :figure_marker_id => figure_marker.id }) if !figure_marker.new_record? %></td>
         </tr>
       </table>
     </span>

@@ -8,7 +8,7 @@
       <div class="header"><%= ct.display_name -%>
         <% if ct.can_markup && !content[ct].is_image_box -%>
         <div class="small_grey" style="float:right;"> <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "markup_ct_#{ct.id}", :style => "display: none; vertical-align:middle;" ) -%>
-          <%= link_to_remote("markup", :loading => "Element.show('markup_ct_#{ct.id}')", :complete => "Element.hide('markup_ct_#{ct.id}')", :postion => :top, :url => {:controller => 'public/public_content', :action => '_markup_description', :id => content[ct]}) -%>
+          <%= link_to("markup", :remote => true, :loading => "Element.show('markup_ct_#{ct.id}')", :complete => "Element.hide('markup_ct_#{ct.id}')", :postion => :top, :url => {:controller => 'public/public_content', :action => '_markup_description', :id => content[ct]}) -%>
         </div> 
         <% end -%>
       </div>

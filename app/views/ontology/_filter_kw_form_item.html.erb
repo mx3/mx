@@ -1,4 +1,4 @@
 <div id="kwf_<%= @keyword.id -%>" style="margin: 2px; border: 1px dotted silver; float: left;" >
-  <%= @keyword.display_name -%>&nbsp;<%= link_to_remote("x", :url => {:action => :_remove_kw_from_filter_form, :id => @keyword.id}) -%>
+  <%= @keyword.display_name -%>&nbsp;<%= link_to("x", :remote => true, :url => {:action => :_remove_kw_from_filter_form, :id => @keyword.id}) -%>
   <%= hidden_field_tag "words[kws_#{@keyword.id}]", @keyword.id -%>
 </div>

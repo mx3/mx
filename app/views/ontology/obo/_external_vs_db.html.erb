@@ -34,7 +34,7 @@
     </td>
 
     <td style="width: 650;" id="result_for_label_<%= l.gsub(/\s/, "_") -%>">
-      <%= link_to_remote("show context", :url => { :action => :_ref_context_for_label, :controller => :ontology, :label_name => l}, :loading => "Element.show('#{l}_spinner')", :complete => "Element.hide('#{l}_spinner')" ) -%>
+      <%= link_to("show context", :remote => true, :url => { :action => :_ref_context_for_label, :controller => :ontology, :label_name => l}, :loading => "Element.show('#{l}_spinner')", :complete => "Element.hide('#{l}_spinner')" ) -%>
       <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "#{l}_spinner", :style => "display: none; vertical-align:middle;"  ) %>
 
     </td>

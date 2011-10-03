@@ -18,7 +18,7 @@ class OtuGroup < ActiveRecord::Base
 
   has_many :otu_groups_otus, :order => 'position', :dependent => :destroy
   has_many :otus, :through => :otu_groups_otus, :order => 'otu_groups_otus.position'
-  has_many :lots, :finder_sql => 'Select l.* from lots l join otus o on l.otu_id = o.id join otu_groups_otus ogo on ogo.otu_id = #{id};', :class_name => 'Lot'
+  has_many :lots, :finder_sql => proc { "Select l.* from lots l join otus o on l.otu_id = o.id join otu_groups_otus ogo on ogo.otu_id = #{id};"}, :class_name => 'Lot'
 
   has_and_belongs_to_many :mxes
 

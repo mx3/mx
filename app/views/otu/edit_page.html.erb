@@ -2,7 +2,7 @@
 <% if !@content_template.nil? %>
 
 <div style="float: right; padding: .2em;">
-<% form_tag({:action => :edit_page, :id => @otu.id, :content_template_id => nil}, :style => 'display:inline;') do -%>
+<%= form_tag({:action => :edit_page, :id => @otu.id, :content_template_id => nil}, :style => 'display:inline;') do -%>
     Switch to tempate 
     <%= select_tag(:content_template_id, options_for_select(@templates.collect{|o| [o.name, o.id]}.insert(0,'')), :none => true)  -%>
     <%= submit_tag('go') -%> 
@@ -21,7 +21,7 @@
 
 <div id="form_notice"> </div>
 
-<% form_tag() do -%>
+<%= form_tag() do -%>
 
   <%= hidden_field_tag "content_template_id", @content_template.id  -%>
   <%= hidden_field_tag "otu_id", @otu.id -%>

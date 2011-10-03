@@ -2,7 +2,7 @@
 <div id="<%= "status_popup_#{gene.id}_#{extract.id}" -%>" class="popupform" style="width: auto; ">
   <div>
     <span class="small_form_button" style="float: right;" >
-      <%= link_to_remote("cancel",  :url => { :action => 'cancel_from_popup', :controller => :extracts_gene, :gene_id => gene.id, :extract_id => extract.id}) -%>
+      <%= link_to("cancel", :remote => true,  :url => { :action => 'cancel_from_popup', :controller => :extracts_gene, :gene_id => gene.id, :extract_id => extract.id}) -%>
     </span> 
     <span style="float: left;">Confidence for: <%= gene.name + " / " + extract.display_name -%></span>   
     <br style="clear: both;" />

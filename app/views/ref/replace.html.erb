@@ -4,7 +4,7 @@
 <p>Replace this reference:</p>
 <div style="padding: 2px;" class="failed"><%= @ref.display_name %> (ID: <%= @ref.id %>) </div>
 <p>with this reference:</p>
-<% form_tag :action => 'replace', :id => @ref do -%>
+<%= form_tag :action => 'replace', :id => @ref do -%>
 
 <p>
 <%= render :partial => 'shared/picker', :locals => {

@@ -88,7 +88,7 @@ module ActionView
       #    options = { :url => {:action => 'list'}, :update => 'results' }
       #    html_options = { :href => url_for(:action => 'list') }
       #
-      #    link_to_remote(link.to_s, options, html_options)
+      #    link_to(link.to_s, :remote => true, options, html_options)
       #  end
       def pagination_links_each(paginator, options, prefix = nil, suffix = nil)
         options = DEFAULT_OPTIONS.merge(options)

@@ -8,7 +8,7 @@
 
   <p> The following terms were read and match those in the database.  If you do not wish to update a term leave it unchecked.</p>
 
-  <% form_tag(:action => 'batch_update') do -%>
+  <%= form_tag(:action => 'batch_update') do -%>
     <%= submit_tag("Update") -%>
     <%= hidden_field_tag("taxon_name_id",  @taxon_name.id) if @taxon_name -%>
     <%= hidden_field_tag("ref_id",  @ref.id) if @ref -%>
@@ -30,7 +30,7 @@
 <%= '<p>The following terms already exist in this project: ' + @terms.existing.collect{|t| link_to(t.word, :action => :show, :controller => '/ontology', :id => t.id)}.join(", ") + '</p>' if @terms.existing.size > 0 -%>
 
   <% if @terms.not_present.size > 0 %>
-    <% form_tag(:action => 'batch_create') do -%>
+    <%= form_tag(:action => 'batch_create') do -%>
       <%= submit_tag("Create") -%>
       <%= hidden_field_tag("taxon_name_id",  @taxon_name.id) if @taxon_name -%>
       <%= hidden_field_tag("ref_id",  @ref.id) if @ref -%>
