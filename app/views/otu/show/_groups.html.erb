@@ -12,7 +12,7 @@
 
   <div class="subform">
     <div class="header">Add to group</div>
-    <% form_tag(:action => 'add_to_otu_group') do  %>
+    <%= form_tag(:action => 'add_to_otu_group') do  %>
     <%= hidden_field "otu_hook", "id", 'value' => @otu.id %>
 
     <%= select_tag("otu_group_id", "<option value=\"\"></option>" + options_for_select(@otu_groups_out.collect {|o| [ o.name, o.id ]})) %>

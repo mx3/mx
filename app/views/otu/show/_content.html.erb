@@ -6,7 +6,7 @@
     <% end -%>
   </div>
 
-  <hr style="width:33%; color:#ccc; margin-bottom: 10;" />
+  <hr style="width:33%; color:#ccc; margin-bottom:10px;" />
 
   <div id="contents">
     <% if !@content_template.blank? -%>
@@ -26,7 +26,7 @@
     <%= link_to('matrix syncing', :action => 'show_matrix_sync', :id => @otu) -%> <hr />
     <%= link_to('show all content for this OTU', :action => 'show_all_content', :id => @otu) -%> <hr />
     <%= link_to('compare 2 OTUs for 1 content type', :action => 'show_compare_content', :controller => 'otu', :id => @otu) -%> <hr />
-    <% form_tag(:action => 'refresh') do -%> 
+    <%= form_tag(:action => 'refresh') do -%> 
     <span class="lbl4">switch template to </span> <%= select("tmplt", "choice", @templates.collect{|o| [o.name, o.id]}, :include_blank => true)  -%>
     <%= observe_field("tmplt_choice",  :on => "changed", :url => {:action => '_update_content_page', :otu_id => @otu.id}, :loading => "Element.show('tmplt_spinner')", :complete => "Element.hide('tmplt_spinner')" ) -%> 
     <%= spinner_tag('tmplt_spinner') -%>

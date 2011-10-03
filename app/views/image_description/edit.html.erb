@@ -2,7 +2,7 @@
 
 <%= image_thumb_tag(@image_description.image) -%>
 
-<% form_tag :action => 'update', :id => @image_description do -%>
+<%= form_tag :action => 'update', :id => @image_description do -%>
   <%= submit_tag 'Update' %>
     <%= submit_tag 'Update and next', :name => 'update_and_next' %>
     <%= link_to 'Cancel and Show', :action => 'show', :controller => :image, :id => @image_description.image.id %>

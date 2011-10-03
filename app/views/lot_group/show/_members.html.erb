@@ -1,7 +1,7 @@
 <% content_for :center do -%>
   <div class="subform">
     <div class="header">Add a lot</div>
-    <% form_tag :action => 'add_lot' do -%>
+    <%= form_tag :action => 'add_lot' do -%>
     <label for="lot_id">Lot</label>&nbsp;
     <%= render :partial => "lot/picker", :locals => {
     :object => 'lot', :method => 'id', :tag_id => "lot_to_find",

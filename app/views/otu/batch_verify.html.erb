@@ -3,7 +3,7 @@
  <%= '<p><b>Setting reference to:</b> ' + @ref.display_name + '</p>' if @ref %> 
  <%= '<p><b>Adding these OTUs to group:</b> ' + @otu_group.display_name + '</p>' if @otu_group %> 
 
-<% form_tag(:action => 'batch_create') do -%>
+<%= form_tag(:action => 'batch_create') do -%>
 
   <%= hidden_field_tag("otu_group_id", @otu_group.id) if @otu_group -%>
   <%= hidden_field_tag("ref_id",  @ref.id) if @ref %>

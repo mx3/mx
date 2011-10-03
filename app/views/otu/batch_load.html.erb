@@ -5,7 +5,7 @@
 <div class="subform">
 <div class="header"> Choose file </div>
 
-	<% form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'otu_batch_upload'}) do %>
+	<%= form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'otu_batch_upload'}) do %>
 
 		<div class="fr"> <label for="temp_file" class="lbl4">Text file containing OTUs: </label>
 		  <span class="fld"><%= file_field 'temp_file', 'file', :size => 50  %></span>

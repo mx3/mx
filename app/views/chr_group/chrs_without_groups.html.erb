@@ -8,7 +8,7 @@
     <div class="header">Add all above to character group</div>
     <div class="content">
       <i> This may take some time to run. </i>
-      <% form_tag(:action => :add_ungrouped_characters) do  -%>
+      <%= form_tag(:action => :add_ungrouped_characters) do  -%>
         <div class="fr"> <label for="chr_group" class="lbl4">Character group</label>
           <span class="fld"><%= render :partial => 'shared/picker', :locals => {
             :controller => 'chr_group',

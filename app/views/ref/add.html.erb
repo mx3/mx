@@ -1,7 +1,7 @@
 <div class="subform">
   <div class="header">Add an individual reference</div>
   <div class="content">
-    <% form_tag :action => :add do %>
+    <%= form_tag :action => :add do %>
     <%= render :partial => 'shared/picker', :locals => {
         :controller => 'ref',
         :action => 'auto_complete_for_ref_other_projs',

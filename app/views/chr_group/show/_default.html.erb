@@ -3,7 +3,7 @@
 
   <p><b>Total members:</b> <%= @chrs_in.length -%></p>
 
-  <% form_tag :action => 'add_chr', :id => @chr_group.id do -%>
+  <%= form_tag :action => 'add_chr', :id => @chr_group.id do -%>
   <%= hidden_field 'chr_group', 'id' %>
 
   <div class="subform">

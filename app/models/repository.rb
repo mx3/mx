@@ -26,12 +26,12 @@ class Repository < ActiveRecord::Base
   # this may be merged with type_specimens, above
   has_many :type_taxon_names, :class_name => "TaxonName", :foreign_key => "type_repository_id", :order => "l"
   
-  has_many :type_specimen_taxon_names, :class_name => "TaxonName", :finder_sql =>
-      'SELECT DISTINCT taxon_names.* FROM specimens ' +
-      'LEFT JOIN type_specimens ON specimens.id = type_specimens.specimen_id ' +
-      'LEFT JOIN taxon_names ON type_specimens.taxon_name_id = taxon_names.id ' +
-      'WHERE specimens.repository_id = #{id} AND taxon_names.id IS NOT NULL ' +
-      'ORDER BY taxon_names.l'
+  has_many :type_specimen_taxon_names, :class_name => "TaxonName", :finder_sql => proc {
+      "SELECT DISTINCT taxon_names.* FROM specimens \ 
+      LEFT JOIN type_specimens ON specimens.id = type_specimens.specimen_id \
+      LEFT JOIN taxon_names ON type_specimens.taxon_name_id = taxon_names.id \
+      WHERE specimens.repository_id = #{id} AND taxon_names.id IS NOT NULL \
+      ORDER BY taxon_names.l" }
 
   validates_presence_of :name
 

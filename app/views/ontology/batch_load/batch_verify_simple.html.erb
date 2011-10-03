@@ -39,7 +39,7 @@
     If you do not wish to update a term leave it unchecked.</p>
     <div style="clear: both; margin: 4px;"><%= render :partial => 'shared/checkbox_selector_buttons' -%></div>
 
-    <% form_tag(:action => 'batch_create_simple') do -%>
+    <%= form_tag(:action => 'batch_create_simple') do -%>
     <%= submit_tag("Create") -%>
       <%= hidden_field_tag("taxon_name_id", @result[:taxon_name].id) if @result[:taxon_name] -%>
       <%= hidden_field_tag("isa_id",  @result[:isa].id) if !@result[:isa].blank? -%>

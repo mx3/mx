@@ -2,7 +2,7 @@
 <%# don't need the image_tag gsub here, only for MB images that have a different edit form %>
 <%= link_to(image_tag(@image.path_for), :action => 'show', :id => @image) %>
 
-<% form_tag({:action => 'update', :id => @image},  {:multipart => true, :name => 'img_form'}) do -%>
+<%= form_tag({:action => 'update', :id => @image},  {:multipart => true, :name => 'img_form'}) do -%>
 
 <%= render(:partial => 'form') %>
 

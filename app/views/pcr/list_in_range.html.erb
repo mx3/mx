@@ -1,7 +1,7 @@
 <div class="subform">
   <div class="header">List PCRs in id range</div>
   <div class="content">
-    <% form_tag({:action => :list_in_range})  do -%>
+    <%= form_tag({:action => :list_in_range})  do -%>
 
     <div class="fr"> <label for="start" class="lbl4">range start</label>
       <span class="fld"><%= text_field_tag :start -%> </span>

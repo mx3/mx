@@ -3,7 +3,7 @@
 <div class="subform">
   <div class="header">Choose OBO file</div>
   <div class="content"> 
-  <% form_tag({:action => :show_external_OBO_file}, {:multipart => true} ) do -%>
+  <%= form_tag({:action => :show_external_OBO_file}, {:multipart => true} ) do -%>
   
     <div class="fr"> <label for="temp_file" class="lbl4">OBO file:</label>
       <span class="fld"><%= file_field_tag  'file', :size => 80  %></span>

@@ -11,7 +11,7 @@
     <div class="header"> Add words (<%= @unmatched.size -%> total) </div>
     <div class="content"> 
 
-      <% form_tag(:action => 'proofer_batch_create') do -%>
+      <%= form_tag(:action => 'proofer_batch_create') do -%>
 
       <p><em> Check terms to add then click </em> <%= submit_tag("Add", :style => "display:inline;") -%> </p>
 

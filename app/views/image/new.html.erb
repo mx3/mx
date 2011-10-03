@@ -3,7 +3,7 @@
 <% end %>
 
 <h3>New image</h3>
-<% form_tag({:action => 'create'}, {:multipart => true, :name => 'img_form'}) do %>
+<%= form_tag({:action => 'create'}, {:multipart => true, :name => 'img_form'}) do %>
   <%= render :partial => "form" %>
   <div class="subform">
     <div class="header">Description (additional descriptions can be added by showing the image)</div>
