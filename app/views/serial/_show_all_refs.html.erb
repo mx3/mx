@@ -1,4 +1,4 @@
-<div> <%# don't (re)move me! -%>
+<div> 
   <% if @part == 'center' -%>
     <h4> Attached references </h4>(<%=@serial.refs.size -%>)
     <p> <span class="passed"> In this project. </span>&nbsp;<span class="failed"> Not in this project. </span> &nbsp; <em> Merging refs will work primarily when the both are in this project. </em> </p>
@@ -9,22 +9,20 @@
         <li id="srid_<%= "#{r.id}" -%>">
           <% if r.in_proj?(@proj) -%>
             <div class="passed" style="padding: 2px; margin: 2px;"> <%= txt %>
-           <% else -%>
+            <% else -%>
               <div class="failed" style="padding: 2px; margin: 2px;">
-                <span class="small_form_button" >  <%= link_to_remote('add', :url => {:action => '_add_ref_to_proj', :ref_id => r.id, :controller => :serial}) -%>  </span>&nbsp;
+                <span class="small_form_button" >  <%= link_to('add', :remote => true, :url => {:action => '_add_ref_to_proj', :ref_id => r.id, :controller => :serial}) -%>  </span>&nbsp;
                 <%= txt %>
-                </div>
+              </div>
             <% end -%>
-              <%= " [#{r.id}] "-%>
-              <% if r.can_edit?($person_id) -%>
-                <span class="small_form_button"><%= link_to("merge", :action => :replace, :controller => :ref, :id => r.id) -%></span>
-                <span class="small_form_button"><%= link_to 'proof', :action => :proofer, :controller => :ontology, :ref_id => r.id -%> </span>
-                &nbsp;<span class="small_form_button"><%= link_to 'ocr text', :action => :ocr_text, :controller => :ref, :id => r.id -%> </span>
-              <% end -%>
-            
-            </div><!-- might be a rendering problem -->
-
-          </li>
+            <%= " [#{r.id}] "-%>
+            <% if r.can_edit?($person_id) -%>
+              <span class="small_form_button"><%= link_to("merge", :action => :replace, :controller => :ref, :id => r.id) -%></span>
+              <span class="small_form_button"><%= link_to 'proof', :action => :proofer, :controller => :ontology, :ref_id => r.id -%> </span>
+              &nbsp;<span class="small_form_button"><%= link_to 'ocr text', :action => :ocr_text, :controller => :ref, :id => r.id -%> </span>
+            <% end -%>
+          </div><!-- might be a rendering problem -->
+        </li>
       <% end %>
     </ul>
   <% end -%>

@@ -10,5 +10,5 @@
         <% end %> 
       <% end %>
     </div>
-    <span class="small_grey">  <%= link_to_remote("hide", :update =>  "more_#{@image_description.id}",  :url => { :action => 'less', :controller => 'image_description'}) -%> </span>
+    <span class="small_grey">  <%= link_to("hide", :remote => true, :update =>  "more_#{@image_description.id}",  :url => { :action => 'less', :controller => 'image_description'}) -%> </span>
  </div>

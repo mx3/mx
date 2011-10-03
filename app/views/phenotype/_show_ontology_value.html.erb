@@ -1,12 +1,12 @@
 <div>
 <% if term.class == OntologyTerm %>
 <%= html_ontology_value(term) -%>
-<%= link_to_remote "[x]", :url => {:action => :remove_ontology_value, :id => @phenotype, :role => role, :pc_edit_area => pc_edit_area} %>
+<%= link_to "[x]", :remote => true, :url => {:action => :remove_ontology_value, :id => @phenotype, :role => role, :pc_edit_area => pc_edit_area} %>
 <% elsif term.class == OntologyComposition %>
 <%= html_ontology_value(term) -%>
 <!-- Currently this forces user to delete whole composition and start over - may want to edit in place instead -->
-<%= link_to_remote "[x]", :url => {:action => :remove_ontology_value, :id => @phenotype, :role => role, :pc_edit_area => pc_edit_area} %>
+<%= link_to "[x]", :remote => true, :url => {:action => :remove_ontology_value, :id => @phenotype, :role => role, :pc_edit_area => pc_edit_area} %>
 <% else %>
-<em>None</em> <%= link_to_remote "[Edit]", :url => {:action => :new_term, :id => @phenotype, :role => role, :pc_edit_area => pc_edit_area} %>
+<em>None</em> <%= link_to "[Edit]", :remote => true, :url => {:action => :new_term, :id => @phenotype, :role => role, :pc_edit_area => pc_edit_area} %>
 <% end %>
 </div>

@@ -3,7 +3,7 @@
   <span style="float: right; background: #FF9933; padding: 0 .2em;"><%= link_to('?', :action => 'show', :controller =>'chr', :id => ch) -%></span>
   <% if  @mk.figures_by_chr(ch.id.to_i).size > 0 -%>
   <span class="small_grey" style="float:right; margin: 0 .2em;">
-    &nbsp;&nbsp;<%= link_to_remote("figures", :update => 'img', :url => { :action => '_show_figures_for_chr', :id => ch.id }) -%>  
+    &nbsp;&nbsp;<%= link_to("figures", :remote => true, :update => 'img', :url => { :action => '_show_figures_for_chr', :id => ch.id }) -%>
   </span>
   <% end -%>    
   <%= ch.display_name -%>

@@ -8,7 +8,7 @@
     <div class="browse_label_view"><%= id.display_name(:type => :label_view) -%></div>
      <!-- TODO: ug, terrible old code, can be greatly simplified  
       <span class="small_grey" style="text-align: right;">
-      <%# link_to_remote("more", :update =>  "more_#{id.id}", :postion => :top, :url => { :action => 'more', :controller => 'image_description', :id => id}) -%></span>
+      <%# link_to("more", :remote => true, :update =>  "more_#{id.id}", :postion => :top, :url => { :action => 'more', :controller => 'image_description', :id => id}) -%></span>
     -->
 
     <div style="position: absolute; z-index: 300;" id = "more_<%= id.id -%>"> </div>

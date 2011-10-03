@@ -1,10 +1,10 @@
 <div style="font-weight: bolder; clear: both;">keywords: <%= @keywords.gsub(/%20/, " ") -%>, returned: <%= @num_results_returned -%>, first: <%= @first_result -%>, total: <%= @num_results -%></div>
 
 <div>
-  <%= @first_result == 0 ? 'start' : link_to_remote('start', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')",  :url => {  :action => 'navigate', :direction => 'start', :keywords => @keywords, :num_results_returned => @num_results_returned})  -%>
-  | <%= @lnk_bck ? link_to_remote('previous', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')",  :url => {  :action => 'navigate', :direction => 'bck', :keywords => @keywords, :num_results => @num_results, :num_results_returned => @num_results_returned, :first_result =>  @first_result}) : "previous"  -%>
-  | <%= @lnk_fwd ? link_to_remote('next', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')",  :url => {  :action => 'navigate', :direction => 'fwd', :keywords => @keywords, :num_results => @num_results, :num_results_returned => @num_results_returned, :first_result =>  @first_result}) : "next"  -%>
-  | <%= ((@first_result + @num_results_returned) >= @num_results) ? "last" : link_to_remote('last', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')", :url => { :action => 'navigate', :direction => 'end', :keywords => @keywords, :num_results => @num_results, :num_results_returned => @num_results_returned})   -%>
+  <%= @first_result == 0 ? 'start' : link_to('start', :remote => true, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')",  :url => {  :action => 'navigate', :direction => 'start', :keywords => @keywords, :num_results_returned => @num_results_returned})  -%>
+  | <%= @lnk_bck ? link_to('previous', :remote => true, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')",  :url => {  :action => 'navigate', :direction => 'bck', :keywords => @keywords, :num_results => @num_results, :num_results_returned => @num_results_returned, :first_result =>  @first_result}) : "previous"  -%>
+  | <%= @lnk_fwd ? link_to('next', :remote => true,  :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')",  :url => {  :action => 'navigate', :direction => 'fwd', :keywords => @keywords, :num_results => @num_results, :num_results_returned => @num_results_returned, :first_result =>  @first_result}) : "next"  -%>
+  | <%= ((@first_result + @num_results_returned) >= @num_results) ? "last" : link_to('last', :remote => true,  :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')", :url => { :action => 'navigate', :direction => 'end', :keywords => @keywords, :num_results => @num_results, :num_results_returned => @num_results_returned})   -%>
   <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'spinner', :style => "display: none; vertical-align:middle;"  ) %>
 </div>
 

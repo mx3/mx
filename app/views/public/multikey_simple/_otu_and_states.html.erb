@@ -3,7 +3,7 @@
   <div style="margin: .1em 0; padding: .2em; clear:none;">
     
     <div id="figs_for_state_<%=s.id%>" style="padding: .2em; float: right; display: inline; font-size: smaller;">
-      <%= link_to_remote('figure(s)', :url => { :action => '_popup_figs_for_state', :id => s.id}) -%> 
+      <%= link_to('figure(s)', :remote => true, :url => { :action => '_popup_figs_for_state', :id => s.id}) -%>
     </div> 
     <span class="no_decision" style="padding: 0 .3em;"><%= s.chr.display_name -%>:</span>
       <%= link_to(s.display_name, :action => 'add_state', :id => s)  -%>

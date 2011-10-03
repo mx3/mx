@@ -140,7 +140,7 @@ module TagHelper
         when 'list'
           s << link_to(w.keyword, :action => :show_tags, :controller => :keyword, :id => w.id)
         when 'info'
-          s << link_to_remote(w.keyword, :url => {:action => :_popup_info, :controller => :tag, :addressable_id => o.id, :addressable_type => o.class.to_s, :keyword_id => w.id})
+          s << link_to(w.keyword, :remote => true, :url => {:action => :_popup_info, :controller => :tag, :addressable_id => o.id, :addressable_type => o.class.to_s, :keyword_id => w.id})
         else
           s << w.keyword
       end

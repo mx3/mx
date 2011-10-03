@@ -42,7 +42,7 @@
     <div style="float:left; width: 50%;">
       <div class="box4">
         <div class="header">Constituent parts</div>
-        <div class="content" style="text-align: center;" id="constituent_parts"> <%= link_to_remote('show',:loading => "Element.show('child_spinner')", :complete => "Element.hide('child_spinner')", :url => {:action => :_populate_consituent_parts, :controller => :ontology_class, :id => @ontology_class.id}) -%>  <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'child_spinner', :style => "display: none; vertical-align:middle;" ) %> </div> 
+        <div class="content" style="text-align: center;" id="constituent_parts"> <%= link_to('show', :remote => true, :loading => "Element.show('child_spinner')", :complete => "Element.hide('child_spinner')", :url => {:action => :_populate_consituent_parts, :controller => :ontology_class, :id => @ontology_class.id}) -%>  <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'child_spinner', :style => "display: none; vertical-align:middle;" ) %> </div>
       </div>
     </div>
     <br style="clear: both;" />

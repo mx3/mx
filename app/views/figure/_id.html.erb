@@ -8,8 +8,8 @@
     <div class="browse_otu"><%= id.otu ? id.otu.display_name(:type => :dual_name) : content_tag(:em, 'See specimen.')  -%></div>
     <div class="browse_label_view"><%= id.display_name(:type => :label_view) -%></div>
     <span class="small_grey" style="text-align: right;">
-      <!-- TODO: make this a Tooltip like mouseover  some metadata via a partial--%>
-      <%# link_to_remote("more", :update =>  "more_#{id.id}", :postion => :top, :url => { :action => 'more', :controller => 'image_description', :id => id}) -%>
+      <!-- TODO: make this a Tooltip like mouseover  some metadata via a partial -->
+      <%# link_to("more", :remote => true, :update =>  "more_#{id.id}", :postion => :top, :url => { :action => 'more', :controller => 'image_description', :id => id}) -%>
     </span>
   </div>
 

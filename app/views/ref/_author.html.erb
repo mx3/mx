@@ -11,7 +11,7 @@
           <td><%= author_form.text_field :first_name, :index => nil -%></td>
           <td><%= author_form.text_field :initials, :index => nil, "size" => 8  %></td>
           <td><%= author_form.select :auth_is, ['author', 'editor'],{} , :index => nil -%></td>
-          <td><%= link_to_remote("X", :url => {:action => "_destroy_author", :author_id => author.id }) if !author.new_record? %></td>
+          <td><%= link_to("X", :remote => true, :url => {:action => "_destroy_author", :author_id => author.id }) if !author.new_record? %></td>
         </tr>
       </table>
     </span>
