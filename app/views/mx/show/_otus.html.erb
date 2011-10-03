@@ -107,7 +107,7 @@
       <div class="box4">
         <div class="header" >OTUs -</div>
         <div class="content">
-          <%= content_tag(em, 'none') if @otus_minus.size == 0 -%>
+          <%= content_tag(:em, 'none') if @otus_minus.size == 0 -%>
           <ul style="list-style-type:square;">
             <% @otus_minus.each do |otu| -%>
               <li>

@@ -1,3 +1,4 @@
+# Rails.env = 'test' # TODO: do we need this or below?
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'

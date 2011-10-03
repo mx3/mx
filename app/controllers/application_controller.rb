@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
   #
   # The following variables are set on every call:
   # @public         - determines whether login is required and used as a check in various method calls
-  # @server_name    - primarily used as a conditional for ease of working in different RAILS_ENV (development, test, production)
+  # @server_name    - primarily used as a conditional for ease of working in different Rails.env (development, test, production)
 
   # HOME_SERVER is defined in config/initializers/local_config.rb
   # login_required and proj_required are defined in lib/login_system
@@ -131,7 +131,7 @@ class ApplicationController < ActionController::Base
       public_route_failure and return
     end
 
-    # TODO: just make this test for RAILS_ENV=development?
+    # TODO: just make this test for Rails.env == development?
     # recognizes both http://www.foo.org and http://foo.org
     if ["0.0.0.0", "127.0.0.1"].include?(self.request.remote_addr)
       @server_name = 'development'

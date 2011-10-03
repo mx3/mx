@@ -15,6 +15,7 @@
 # You can use wild-cards too - like I did on stylesheets.
 #
 # Javascripts is compressed using the google closure compiler.
+# TODO: RAILS_ENV should be Rails.env ?
 <%= "package_assets: false" if RAILS_ENV == 'cucumber' %>
 package_path: generated/assets
 javascript_compressor: closure
