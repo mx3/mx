@@ -17,17 +17,22 @@
 
     <div>
       <p><i> Drag to sort.</i>  <%= spinner_tag('move_spinner') -%></p>
-      <ul id="otus">
+      <ul id="otus"
+        data-sortable
+        data-sortable-items="li"
+        data-sortable-on-change-url="<%= url_for(:action=>'sort_otus')%>">
+
         <% @otus_in.each do |otugo| -%>
           <% content_tag_for :li, otugo do -%>
-            <span class="handle">[drag]</span><span> &nbsp; <%= otugo.otu.id -%></span> &nbsp;
+            <span class="handle"><%= render("shared/drag_handle")%></span>
+            <span> &nbsp; <%= otugo.otu.id -%></span> &nbsp;
             <%= link_to(otugo.otu.display_name(:type => :multi_name), :action => :show, :id => otugo.otu.id, :controller => :otu) -%>
-            &nbsp;&nbsp; <%= link_to("x", :action => :remove_otu, :id => @otu_group.id, :otu_id => otugo.otu.id, :controller => :otu_group) -%>
+            &nbsp;&nbsp;
+            <a data-ajaxify='submit' href="<%= url_for(:action=>:remove_otu, :id => @otu_group.id, :otu_id => otugo.otu.id, :controller => :otu_group) %>">x</a>
           <% end %>
         <% end %>
       </ul>
     </div>
-    <%= sortable_element("otus", :url => {:action => 'sort_otus'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
 
     <div class="subform">
       <%= form_tag :action => 'edit_multiple_content', :otu_group_id => @otu_group.id do %>
