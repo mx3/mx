@@ -23,7 +23,7 @@
         data-sortable-on-change-url="<%= url_for(:action=>'sort_otus')%>">
 
         <% @otus_in.each do |otugo| -%>
-          <% content_tag_for :li, otugo do -%>
+          <%= content_tag_for :li, otugo do -%>
             <span class="handle"><%= render("shared/drag_handle")%></span>
             <span> &nbsp; <%= otugo.otu.id -%></span> &nbsp;
             <%= link_to(otugo.otu.display_name(:type => :multi_name), :action => :show, :id => otugo.otu.id, :controller => :otu) -%>

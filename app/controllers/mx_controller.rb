@@ -235,7 +235,7 @@ class MxController < ApplicationController
     elsif @mode == 'col'
       unless @otus.length > @present_position
         flash[:notice] = "You've finished one-click coding for that character."
-        redirect_to :action =>'show_chrs', :id => @mx.id and return
+        redirect_to :action => 'show_characters', :id => @mx.id and return
       end
       @chr = Chr.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:chr_id]}, :include => [:chr_states])
       @otu = @otus[@present_position]
@@ -264,7 +264,7 @@ class MxController < ApplicationController
     elsif @mode == 'col'
       unless @otus.length > @present_position # these check for POST, the checks above check for AJAX
         flash[:notice] = "You've finished one-click coding for that character."
-        redirect_to :action =>'show_chrs', :id => @mx.id and return
+        redirect_to :action =>'show_characters', :id => @mx.id and return
       end
       @otu = @otus[@present_position]
     end
@@ -387,7 +387,7 @@ class MxController < ApplicationController
       flash[:notice] = "Problem with the addition, is choice, ready present?"
     end
 
-    redirect_to :action => :show_chrs, :id => @mx.id    
+    redirect_to :action => :show_characters, :id => @mx.id
   end
 
   def remove_chr
@@ -399,7 +399,7 @@ class MxController < ApplicationController
     else
       render :action => :list and return
     end
-    redirect_to :action => :show_chrs, :id => @mx.id    
+    redirect_to :action => :show_characters, :id => @mx.id
   end
 
   # managing OTUs

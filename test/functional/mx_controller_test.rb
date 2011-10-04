@@ -53,15 +53,15 @@ class MxControllerTest < ActionController::TestCase
     assert_response(:success)
   end
 
-  def test_show_chrs
+  def test_show_characters
     @opts.update(:id => "1")
-    get :show_chrs, @opts
+    get :show_characters, @opts
     assert_response(:success)
   end
 
-  def test_show_sort_chrs
+  def test_show_sort_characters
     @opts.update(:id => "1")
-    get :show_sort_chrs, @opts
+    get :show_sort_characters, @opts
     assert_response(:success)
   end
 

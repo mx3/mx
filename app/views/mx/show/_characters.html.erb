@@ -60,7 +60,7 @@
             <% @chrs.each do |chr| %>
               <tr>
                 <td>
-                  <%= chr.name -%> &nbsp;&nbsp; <%= link_to('(show)',  {:action => :show, :controller => :chr, :id => chr.id}, :popup => true) -%> &nbsp;&nbsp;
+                  <%= chr.name -%> &nbsp;&nbsp; <%= link_to('(show)',  {:action => :show, :controller => :chr, :id => chr.id}) -%> &nbsp;&nbsp;
                   <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :chr_id => chr, :otu_id => @otu.id, :mode => 'col', :position => '0'}) if @otu -%>
                 </td>
                 <td style="background-color:rgb(<%= ColorHelper::ranged_color(@hash_heat[chr.id] || 0, 'green') -%>);">

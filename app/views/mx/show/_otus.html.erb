@@ -60,7 +60,7 @@
             <% @otus.each do |otu| %>
               <tr>
                 <td>
-                  <%= otu.display_name(:type => :matrix_name) -%> &nbsp;&nbsp; <%= link_to('(show)', {:action => :show, :controller => :otu, :id => otu.id}, :popup => true) -%> &nbsp;&nbsp;
+                  <%= otu.display_name(:type => :matrix_name) -%> &nbsp;&nbsp; <%= link_to('(show)', :action => :show, :controller => :otu, :id => otu.id) -%> &nbsp;&nbsp;
                   <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :otu_id => otu, :chr_id => @chr.id, :mode => 'row', :position => '0'}) if @chr -%>
                 </td>
                 <td style="background-color:rgb(
