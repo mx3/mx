@@ -142,18 +142,19 @@ class OtuGroupController < ApplicationController
   end
 
   def add_otu
+debugger
     if @otu_group = OtuGroup.find(params[:id])
       if o = Otu.find(params[:otu][:id])
         if @otu_group.add_otu(Otu.find(params[:otu][:id])) # !! NOT << , previous membership is checked in .add_otu
-          flash[:notice] = 'Added an OTU.'
+          notice 'Added an OTU.'
         else
-          flash[:notice] = "Problem adding OTU, perhaps its in the list already?"
+          error "Problem adding OTU, perhaps its in the list already?"
         end
       else
-        flash[:notice] = "Incorrect parameters to add OTU."
+        error "Incorrect parameters to add OTU."
       end
     else
-      flash[:notice] = "Can't find that OTU."
+      error "Can't find that OTU."
     end
     redirect_to :action => 'show', :id => @otu_group.id
   end
@@ -165,9 +166,10 @@ class OtuGroupController < ApplicationController
   end
 
   def sort_otus
-    params[:otus].each_with_index do |id, index|
+    params[:otu_groups_otu].each_with_index do |id, index|
       OtuGroupsOtu.update_all(['position=?', index+1], ['id=?', id])
     end
+    notice "Updated OTU Order"
     render :nothing => true
   end
 

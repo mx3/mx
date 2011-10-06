@@ -42,5 +42,6 @@ javascripts:
 stylesheets:
   application:
     - public/stylesheets/standard.css
+    - public/stylesheets/notifications.css
     - public/colorpicker/css/colorpicker.css
     - public/generated/**
