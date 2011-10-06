@@ -7,11 +7,12 @@ require 'otu_group_controller'
 class OtuGroupController; def rescue_action(e) raise e end; end
 
 class OtuGroupControllerTest < ActionController::TestCase
-  fixtures :otu_groups, :otus
+  fixtures :otu_groups, :otus, :projs, :people
 
   def setup
     super
     login
+    @proj = projs(:projs1)
     @opts =  {:controller => "otu_group", :proj_id => "1"}
   end
 
@@ -22,22 +23,40 @@ class OtuGroupControllerTest < ActionController::TestCase
   test "re sorting the OTU groups on the details page" do
     # Add 3 of them
     assert_difference "OtuGroupsOtu.count", 1 do
-      debugger
-      otu = otus(:otus1)
-      post :add_otu, @opts.merge(:id=>1, :otu=>{:id=>otu.id})
-      puts @response.body
-      assert_response :success
+      post :add_otu, @opts.merge(:id=>1, :otu=>{:id=>otus(:otus1).id})
+      assert_redirected_to :action=>:show, :id=>1
     end
 
     assert_difference "OtuGroupsOtu.count", 1 do
       post :add_otu, @opts.merge(:id=>1, :otu=>{:id=>otus(:otus2).id})
+      assert_redirected_to :action=>:show, :id=>1
     end
 
     assert_difference "OtuGroupsOtu.count", 1 do
       post :add_otu, @opts.merge(:id=>1, :otu=>{:id=>otus(:otus3).id})
+      assert_redirected_to :action=>:show, :id=>1
     end
 
-    post :sort_otus, @opts.merge(:id=>1, :otu_groups_otu => [1,2,3])
+    get :show, @opts.merge(:id=>1)
+    assert_response :success
+    current_order = @controller.instance_eval{ @otus_in }.map(&:id)
+    new_order = current_order.reverse
+
+    # Flip the order
+    post :sort_otus, @opts.merge(:id=>1, :otu_groups_otu => new_order)
+
+    get :show, @opts.merge(:id=>1)
+    assert_response :success
+    assert_equal new_order, @controller.instance_eval{ @otus_in }.map(&:id)
+
+    current_order = new_order
+    new_order = new_order.reverse
+    # Flip it back
+    post :sort_otus, @opts.merge(:id=>1, :otu_groups_otu => new_order)
+    get :show, @opts.merge(:id=>1)
+    assert_response :success
+    assert_equal new_order, @controller.instance_eval{ @otus_in }.map(&:id)
+
   end
 
   def test_route_to_index

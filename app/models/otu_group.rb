@@ -36,8 +36,8 @@ class OtuGroup < ActiveRecord::Base
       self.save
 
       self.mxes.each do |m|
-        if !m.mxes_otus.include?(Otu.find(o.id))  
-          m.mxes_otus.create(:otu_id => o.id, :mx_id => self.id) 
+        if !m.mxes_otus.include?(Otu.find(o.id))
+          m.mxes_otus.create(:otu_id => o.id, :mx_id => self.id)
           m.save
         end
       end
@@ -99,12 +99,12 @@ class OtuGroup < ActiveRecord::Base
     Otu.find_by_sql(["SELECT DISTINCT o.* FROM otus AS o LEFT JOIN otu_groups_otus AS ogo ON o.id = ogo.otu_id
     WHERE (((ogo.otu_group_id) Is Null) AND ((o.proj_id)=?));", (proj)])
   end
- 
+
   def self.find_for_auto_complete(value)
     value.downcase!
     OtuGroup.find(:all, :conditions => ["proj_id = ? and (name like ? or name like ? or name like ?)", @proj.id, "#{value}%", "%#{value}%", "%#{value}"])
   end
-  
+
   private
 
   # called on before_destroy

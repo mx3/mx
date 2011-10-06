@@ -8,42 +8,42 @@ require_dependency "person"
 # 4) all other controllers require a project, a user, and for the user to be a member of that project
 
 # 5) some controllers require the user to be an administrator
-           
+
 ## 6) some evironments don't require logins (test) ???? likely a bad idea
 
-module LoginSystem 
-  
+module LoginSystem
+
   protected
-  
+
   # overwrite this if you want to restrict access to only a few actions
-  # or if you want to check if the person has the correct rights  
+  # or if you want to check if the person has the correct rights
   def authorize?(person)
     true
   end
-  
+
   # overwrite this method to un-protect certain actions of the controller
   def protect?(action)
     true
   end
-   
-  # login_required filter. added to all controllers (through application.rb), so everything requires 
+
+  # login_required filter. added to all controllers (through application.rb), so everything requires
   # login by default. override the relevant methods in the individual controllers to free things up.
   def login_required
-    
+
     $person_id = nil
 
     if not protect?(action_name) # action_name comes from routing
-      return true  
+      return true
     end
-    
+
     if session[:person] and authorize?(session[:person])
-      
-      # this allows all models to record who makes changes 
+
+      # this allows all models to record who makes changes
       # (in conjunction with the standard field manager mixin stuff)
-      # i know globals are bad, but don't see another way to make 
+      # i know globals are bad, but don't see another way to make
       # the user_id available to all models automatically
       $person_id = session[:person].id
-      
+
       return true
     end
 
@@ -52,24 +52,24 @@ module LoginSystem
 
     # call overwriteable reaction to unauthorized access
     access_denied
-    return false 
+    return false
   end
 
   # Reload the project every time- we might be able to cache/not do so ultimately
-  def load_proj(id) 
-    proj = Proj.find(id, :include => :people)  
-    
+  def load_proj(id)
+    proj = Proj.find(id, :include => :people)
+
     if proj.people.include? session[:person]
-        session[:proj] = proj     
+        session[:proj] = proj
       return true
     else
       return false
     end
   end
-    
+
   # check if we are 'in' a project, and if so, if the user is a member of that project
   def proj_required
-   
+
     if self.class.parent == Api
     #  return false
      #  debugger
@@ -78,29 +78,29 @@ module LoginSystem
      #  $proj_id = @proj.id
      #  return false
      #else
-     #  return true 
+     #  return true
      #end
     end
 
     session[:proj] = nil unless params[:proj_id]
-        
+
     # exceptions: you do not need to have selected a project to use these controllers
     if ['account', 'admin', 'namespace', 'doc', 'image_view'].include?(controller_name)
       return true
     end
-    
+
     # There is presently no option for allowed or not (e.g. news), but see mod to check_proj in standard fields
-    
+
     # the tn autocomplete is needed by the admin controller
     if ('taxon_name' == controller_name) && ('auto_complete_for_taxon_name' == action_name)
       return true unless params["proj_id"] # nasty: if we are in a project, we will need the @proj variable
     end
-    
+
     # ditto for news
-    if 'news' == controller_name 
+    if 'news' == controller_name
       return true unless params["proj_id"] # nasty: if we are in a project, we will need the @proj variable
     end
-     
+
     # or these methods of of the proj controller
     if 'proj' == controller_name and ['index','new', 'create', 'list'].include?(action_name)
       return true
@@ -111,7 +111,7 @@ module LoginSystem
       if load_proj(params[:proj_id]) # only succeeds if person is a member
         @proj = session[:proj]
         $proj_id = @proj.id
-        return true 
+        return true
       end
     end
 
@@ -119,18 +119,18 @@ module LoginSystem
     redirect_to :controller => :proj, :action => :list # "/proj", :action =>"list"
     return false
   end
-  
+
   # overwrite if you want to have special behavior in case the person is not authorized
-  # to access the current operation. 
+  # to access the current operation.
   # the default action is to redirect to the login screen
   def access_denied
     redirect_to :controller => :account, :action => :login # "/account", :action =>"login"
-  end  
-  
+  end
+
   # store current uri in the session.
   # we can return to this location by calling return_location
   def store_location
-    # modified for oddness, perhaps new routing in 2.0 
+    # modified for oddness, perhaps new routing in 2.0
     session['return-to'] = request.parameters # (request.request_uri == '/' ? nil : request.request.request_uri)
   end
 

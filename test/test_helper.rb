@@ -14,13 +14,14 @@ class ActiveSupport::TestCase
 
   # can be outside class and still work...but what's best?
   def login # a pseudo login- sets a session to have a valid user such that protected controllers can be called
-     @p = Person.find(4)
-     # assert_equal "test", @p.login
-     # assert_equal Person, @p.class
+    @p = Person.find(4)
 
-     @request.session[:person] = @p
-     @request.session['proj_id'] = Proj.find(1).id
-     true
+    @request.session[:person] = @p
+    @request.session['proj_id'] = Proj.find(1).id
+    proj = Proj.find(@request.session['proj_id'])
+    proj.people << @p
+    proj.save!
+    true
   end
 
   # def select_proj(proj = '1')

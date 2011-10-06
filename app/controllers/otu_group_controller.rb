@@ -142,7 +142,6 @@ class OtuGroupController < ApplicationController
   end
 
   def add_otu
-debugger
     if @otu_group = OtuGroup.find(params[:id])
       if o = Otu.find(params[:otu][:id])
         if @otu_group.add_otu(Otu.find(params[:otu][:id])) # !! NOT << , previous membership is checked in .add_otu

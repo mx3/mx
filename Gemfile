@@ -50,4 +50,5 @@ end
 group :test do
   # gem "rspec"
   # gem "faker"
+  gem 'minitest'
 end
