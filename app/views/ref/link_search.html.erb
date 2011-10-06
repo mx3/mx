@@ -1,7 +1,13 @@
 <%= form_tag :action => 'link_search' do -%>
-  <%= render :partial => "ref/picker", :locals => {
-  :object => 'ref', :method => 'id', :tag_id => "ref_to_find", :display => ("") } %>
+<%= render :partial => 'shared/picker', :locals => {
+  :controller => 'ref',
+    :object => 'ref',
+    :method => 'id',
+    :tag_id => "ref_to_find",
+    :display => ""}
+  -%>
   <%= submit_tag 'show link' %>
+
 <% end -%>
 
 <% if @ref %>

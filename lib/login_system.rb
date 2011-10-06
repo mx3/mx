@@ -70,7 +70,7 @@ module LoginSystem
   # check if we are 'in' a project, and if so, if the user is a member of that project
   def proj_required
 
-    if self.class.parent == Api
+    # if self.class.parent == Api
     #  return false
      #  debugger
      #if @proj = Proj.find_by_api_name(self.request.server_name)
@@ -80,7 +80,7 @@ module LoginSystem
      #else
      #  return true
      #end
-    end
+    # end
 
     session[:proj] = nil unless params[:proj_id]
 

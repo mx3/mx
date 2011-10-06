@@ -1,6 +1,4 @@
-<% content_for :head do -%>
-  <%= render(:partial => '/shared/colorPicker_header')  -%>
-<% end %>
+
 
 <%= error_messages_for 'object_relationship' %>
 
@@ -43,17 +41,7 @@
 </div>
 
 <div class="fr"> <label for="object_relationship_html_color" class="lbl4">html color</label>
-  <span class="fld"><%= text_field 'object_relationship', 'html_color', :size => 6, :default => 'dddddd'  %> <i> click to pick</i></span>
+  <span class="fld"><%= text_field 'object_relationship', 'html_color', :size => 6, :default => 'dddddd' , 'data-color-picker'=>true %> <i> click to pick</i></span>
 </div>
 
-<script type="text/javascript">
-  new Control.ColorPicker("object_relationship_html_color");
-</script>
-
-
-
-
-
-
 <!--[eoform:object_relationship]-->
-

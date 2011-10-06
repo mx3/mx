@@ -42,7 +42,7 @@
   <div class="show_category"> Tags </div>
     <div>
     <% @lot.tags.each do |t| -%>
-    <%= render(:partial => '/tag/ts', :locals => {:ts => t}) -%>
+      <%= render(:partial => '/tag/ts', :locals => {:ts => t}) -%>
     <% end -%>
   </div>
   <% end -%>
@@ -55,10 +55,9 @@
   <%= render(:partial => '/shared/gmap_shell', :locals => {:markers => @lot.ce.gmap_array, :zoom => 4}) if @lot.ce && @lot.ce.mappable  -%>
 <% end -%>
 
-  <% content_for(:left) do -%>
-    <% if @lot.key_specimens > 1 || @lot.value_specimens > 1 -%>
-      <hr style="width: 80%;margin:1em;" />
-
-      <%= render(:partial => 'divide_form') -%>
-    <% end -%>
-  <% end %>
+<% content_for(:left) do -%>
+  <% if @lot.key_specimens > 1 || @lot.value_specimens > 1 -%>
+    <hr style="width: 80%;margin:1em;" />
+    <%= render(:partial => 'divide_form') -%>
+  <% end -%>
+<% end %>

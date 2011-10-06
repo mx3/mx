@@ -24,11 +24,11 @@
     <p><i> Drag to sort.</i>  <%= image_tag('/images/spinner.gif', :alt => 'Updating', :id => 'move_spinner', :style => "display: none; vertical-align:middle;"  ) %> </p>
     <ul id="chrs">
       <% @chrs_in.each do |chrgc| -%>
-      <% content_tag_for :li, chrgc do -%>
-      <span class="handle">[drag]</span><span> &nbsp; <%= chrgc.chr.id -%></span> &nbsp;
-      <%= link_to(chrgc.chr.display_name, :action => :show, :id => chrgc.chr.id, :controller => :chr) -%>
-      &nbsp;&nbsp; <%= link_to("x", :action => :remove_chr, :id => @chr_group.id, :chr_id => chrgc.chr.id, :controller => :chr_group) -%>
-      <% end %>
+        <%= content_tag_for :li, chrgc do -%>
+          <span class="handle">[drag]</span><span> &nbsp; <%= chrgc.chr.id -%></span> &nbsp;
+          <%= link_to(chrgc.chr.display_name, :action => :show, :id => chrgc.chr.id, :controller => :chr) -%>
+          &nbsp;&nbsp; <%= link_to("x", :action => :remove_chr, :id => @chr_group.id, :chr_id => chrgc.chr.id, :controller => :chr_group) -%>
+        <% end %>
       <% end %>
     </ul>
   </div>

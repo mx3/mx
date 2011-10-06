@@ -112,7 +112,7 @@ class MultikeyController < ApplicationController
   def _show_figures_for_chr
     @figures = Figure.find(@mk.figures_by_chr(params[:id]))
     @chr = Chr.find(params[:id])
-    render(:layout => false, :partial => "figures"  ) 
+    render(:layout => false, :partial => "figures" ) 
   end
 
   # not implemented yet

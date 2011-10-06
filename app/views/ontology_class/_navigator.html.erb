@@ -2,7 +2,7 @@
   <%= navigator2(:obj => @ontology_class, :do =>  session['ontology_class_view'], :ord => 'id') -%>
 
   <% ['tags', 'figures', 'visualize newick', 'history'].each do |l| -%>
-    <%= show_nav_link(:ontology_class => @otu, :link => l)  -%>
+    <%= show_nav_link(:obj => @ontology_class, :link => l)  -%>
   <% end %>
 
   <br />
