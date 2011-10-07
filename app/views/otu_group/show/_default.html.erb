@@ -28,7 +28,7 @@
             <td class="handle"><%= render("shared/drag_handle")%></td>
             <td> <%= otugo.otu.id -%> </td>
             <td>
-              <%= link_to(otugo.otu.display_name(:type => :multi_name), :action => :show, :id => otugo.otu.id, :controller => :otu) -%>
+              <%= link_to('foo'.html_safe, :action => :show, :id => otugo.otu.id, :controller => :otu) -%>
             </td>
             <td>
               <a data-ajaxify='submit' href="<%= url_for(:action=>:remove_otu, :id => @otu_group.id, :otu_id => otugo.otu.id, :controller => :otu_group) %>">x</a>

@@ -32,8 +32,8 @@ source :gemcutter
   # gem 'prototype_legacy_helper', '0.0.0', :git => 'git://github.com/rails/prototype_legacy_helper.git'
 
   gem 'jammit', "0.6.3"
-  gem "haml"
-  gem "sass"
+  gem "haml", "3.1.1"
+  gem "sass", "3.1.1"
   gem "bourbon"
 
 

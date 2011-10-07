@@ -156,7 +156,7 @@ DEPENDENCIES
   bourbon
   echoe
   geokit
-  haml
+  haml (= 3.1.1)
   jammit (= 0.6.3)
   minitest
   mongrel (= 1.2.0.pre2)
@@ -169,5 +169,5 @@ DEPENDENCIES
   ruby-debug19 (= 0.11.6)
   ruby-graphviz (= 0.9.21)
   rubyMorphbank (~> 0.2.4)
-  sass
+  sass (= 3.1.1)
   vestal_versions!
