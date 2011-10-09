@@ -54,10 +54,7 @@ class OtuGroupController < ApplicationController
         @no_right_col = true
         render :action => 'show'
       }
-      wants.js {
-        @tmplt = ContentTemplate.find(:first, :conditions => "content_templates.id = #{params.keys.sort[0].to_i} and content_templates.proj_id = #{@proj.id}", :include => :content_types) # kludge, prolly better way to label the id you need
-        render(:layout => false, :partial => 'content_template/otu_group_grid')
-      }
+      wants.js
     end
   end
 
@@ -67,13 +64,13 @@ class OtuGroupController < ApplicationController
     @otu_group = OtuGroup.find(id, :include => :otus)
     @templates = @proj.content_templates
 
-    if request.xml_http_request?
-      @content_template = ContentTemplate.find(params[:content_template_id], :include => :content_types)
-      render(:layout => false, :partial => 'text/descriptions', :locals => {:otus => @otu_group.otus, :contents => @otu_group.contents(@content_template)} ) and return
+    respond_to do |wants|
+      wants.html {
+        @no_right_col = true
+        render :action => 'show'
+      }
+      wants.js
     end
-
-    @no_right_col = true
-    render :action => 'show'
   end
 
   def show_verbose_specimens_examined

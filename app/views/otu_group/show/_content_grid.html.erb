@@ -16,14 +16,6 @@
     <div id="contents" class="small_grey" style='min-height: 200px'>
       <%= render(:partial => "content_template/otu_group_grid", :locals => {:style => 'float: right;'}) %>
     </div>
-
-<!-- erve_field("content_template_tmplt_id",
-            :update => "contents",
-            :on => "updated",
-            :url => {:action => 'show_content_grid', :otu_group_id => @otu_group.id} ,
-            :loading => "Element.show('content_template_search_spinner')",
-            :complete => "Element.hide('content_template_search_spinner')"  )
-   -->
   <% end -%>
 </div>
 <% end -%>

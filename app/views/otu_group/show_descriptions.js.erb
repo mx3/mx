@@ -1,0 +1,4 @@
+<%
+  @content_template = ContentTemplate.find(params[:content_template_id], :include => :content_types)
+%>
+$("<%= params[:css_target] %>").html("<%= escape_javascript( render(:layout => false, :partial => 'text/descriptions', :locals => {:otus => @otu_group.otus, :contents => @otu_group.contents(@content_template)})) -%>");
