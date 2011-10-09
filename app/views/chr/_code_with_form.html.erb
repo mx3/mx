@@ -6,7 +6,6 @@
   <div class="content" style="font-size:smaller;">
     <%= form_tag :action => 'fast_code',  :controller => :mx, :chr_id => @chr.id, :mode => 'col' do %>
       matrix <br/> <%=  collection_select(:mx, :id, @chr.mxes.with_otus, :id, :truncated_name, {:prompt => ''} ) -%>
-      <%= render :partial => 'shared/spinner', :locals => {:spinner_id => 'otus_to_update'} -%>
       <br/>
       OTU <div id="otus_to_code"><%= select_tag('otu_id', :disabled => true) -%>  </div>
       <%= submit_tag "code" -%>
@@ -22,4 +21,3 @@
     -%>
   </div>
 </div>
-

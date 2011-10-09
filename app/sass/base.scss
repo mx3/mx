@@ -116,3 +116,12 @@ form.delete-link {
   }
   cursor: move;
 }
+
+.mx-spinner {
+  position: absolute;
+  background-image: url(/images/modal_spinner.gif);
+  background-position: 50% 25%;
+  background-repeat: no-repeat;
+  background-color: #aeaeae;
+  opacity: 0.7;
+}
