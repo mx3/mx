@@ -10,12 +10,15 @@
         var target = $(this);
         var overlay =  target.data('mx_spinner');
 
-        if (overlay) {
-          overlay.remove();
-        }
         target.data('mx_spinner', null);
-
-        if (action != 'hide') {
+        if (action == 'hide') {
+          if (overlay) {
+            overlay.fadeOut(300, function() { overlay.remove(); });
+          }
+        } else  {
+          if (overlay) {
+            overlay.remove();
+          }
           var offset = target.offset();
           overlay = $("<div>&nbsp;</div>")
                         .outerWidth(target.outerWidth())
@@ -23,9 +26,11 @@
                         .css('left', offset.left)
                         .css('top', offset.top)
                         .css('margin', target.css('margin'))
-                        .addClass('mx-spinner');
+                        .addClass('mx-spinner')
+                        .hide();
           target.data('mx_spinner', overlay);
-          target.append(overlay);
+          $('body').append(overlay);
+          overlay.fadeIn(300);
         }
     });
   };

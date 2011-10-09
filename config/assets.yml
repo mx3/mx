@@ -30,6 +30,7 @@ javascripts:
     - public/javascripts/jquery.mx-autocompleter.js
     - public/javascripts/jquery.mx-color-picker.js
     - public/javascripts/jquery.mx-effects.js
+    - public/javascripts/jquery.mx-field-observer.js
     - public/javascripts/jquery.mx-flash.js
     - public/javascripts/jquery.mx-insert-content.js
     - public/javascripts/jquery.mx-sortable.js

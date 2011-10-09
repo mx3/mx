@@ -3,15 +3,27 @@
   <%= form_tag(:action => 'refresh') do -%>
     <div style="text-align: right">
       <h4 style="display: inline;"> show content grid for template </h4>
-      <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'content_template_search_spinner', :style => "display: none; vertical-align:middle;"  ) %>
-      <%= select("content_template", "tmplt_id", @templates.collect{|o| [o.name, o.id]}, :include_blank => true)  -%>
+      <select id='content_template_tmplt_id'
+        name='content_template[tmplt_id]'
+        data-observe-field
+        data-observe-field-action="<%=url_for(:action=> :show_content_grid, :otu_group_id=>@otu_group.id, :css_target => "#contents") %>"
+        data-observe-field-spinner-target="#contents"
+        >
+        <%= options_for_select(@templates.collect{|o| [o.name, o.id]}, :include_blank => true)  %>
+      </select>
     </div>
 
-    <div id="contents" class="small_grey">
+    <div id="contents" class="small_grey" style='min-height: 200px'>
       <%= render(:partial => "content_template/otu_group_grid", :locals => {:style => 'float: right;'}) %>
     </div>
 
-    <%= observe_field("content_template_tmplt_id", :update => "contents", :on => "updated", :url => {:action => 'show_content_grid', :otu_group_id => @otu_group.id} , :loading => "Element.show('content_template_search_spinner')", :complete => "Element.hide('content_template_search_spinner')"  ) -%>
+<!-- erve_field("content_template_tmplt_id",
+            :update => "contents",
+            :on => "updated",
+            :url => {:action => 'show_content_grid', :otu_group_id => @otu_group.id} ,
+            :loading => "Element.show('content_template_search_spinner')",
+            :complete => "Element.hide('content_template_search_spinner')"  )
+   -->
   <% end -%>
 </div>
 <% end -%>

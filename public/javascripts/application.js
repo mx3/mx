@@ -11,6 +11,7 @@ function initialize_js(root) {
   find("*[data-insert-content]").mx_insert_content();
   find("*[data-sortable]").mx_sortable();
   find("*[data-tooltip]").mx_tooltip();
+  find("*[data-observe-field]").mx_field_observer();
 
 }
 //
