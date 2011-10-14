@@ -1,25 +1,22 @@
-
 <!-- TODO mx3 -> rethink this functionality --!>
 
 <div class="subform" >
   <div class="header"> Code with this character </div>
   <div class="content" style="font-size:smaller;">
     <%= form_tag :action => 'fast_code',  :controller => :mx, :chr_id => @chr.id, :mode => 'col' do %>
-      matrix <br/> <%=  collection_select(:mx, :id, @chr.mxes.with_otus, :id, :truncated_name, {:prompt => ''} ) -%>
-      <%= render :partial => 'shared/spinner', :locals => {:spinner_id => 'otus_to_update'} -%>
+      matrix
+      <br/>
+        <%=  collection_select(:mx, :id, @chr.mxes.with_otus, :id, :truncated_name, {:prompt => ''},
+              'data-observe-field' => true,
+              'data-observe-field-action'  =>
+                url_for(:action=> :_find_otus_for_mx, :css_target => "#otus_to_code", :chr_id=>@chr.id),
+              'data-observe-field-spinner-target' => "#otus_to_code"
+           ) -%>
       <br/>
       OTU <div id="otus_to_code"><%= select_tag('otu_id', :disabled => true) -%>  </div>
       <%= submit_tag "code" -%>
     <% end %>
 
     <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :chr_id => chr, :otu_id => @otu.id, :mode => 'col', :position => '0'}) if @otu -%>
-
-    <%# observe_field :mx_id, :url => {:action => :_find_otus_for_mx},
-      :loading => "Element.show('otus_to_update')", :complete => "Element.hide('otus_to_update')",
-      :frequency => 0.45,
-      :update => :otus_to_code,
-      :with => "'chr_id='+#{@chr.id}+'&id='+encodeURIComponent(value)"
-    -%>
   </div>
 </div>
-
