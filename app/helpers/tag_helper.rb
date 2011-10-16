@@ -5,6 +5,15 @@ module TagHelper
     "tag-class-#{tag.id}"
   end
 
+  def edit_tag_link(tag, options = {})
+
+    url = url_for(:controller => :tag,
+                  :action => :edit,
+                  :id => tag.id,
+                  )
+    content_tag(:a, "edit", :href=>url, 'data-basic-modal' => true)
+      #<!--link_to('edit', :action => :edit, :controller => :tag, :id => ts.id) -->
+  end
   def new_tag_tag(options ={})
     opt = {
       :object => nil,     # required
@@ -25,8 +34,7 @@ module TagHelper
                   :ref_id => opt[:ref_id])
 
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
-    content_tag(:a, opt[:link_text], :href => url, 'data-basic-modal' => '' ,
-                    'data-basic-modal-width' => '300', :style => 'display:inline;')
+    content_tag(:a, opt[:link_text], :href => url, 'data-basic-modal' => '' , :style => 'display:inline;')
   end
 
   def link_to_tagged(tag)

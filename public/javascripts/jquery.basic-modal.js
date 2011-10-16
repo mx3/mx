@@ -139,12 +139,17 @@
         }
         var padding = (modal.css('padding-left') !== '' ? parseInt(modal.css('padding-left'), 10) : 0) +
                       (modal.css('padding-right') !== '' ? parseInt(modal.css('padding-right'), 10) : 0);
+        if ($.trim(modal.html()) === "") {
+          // Don't show the thing!
+          $.basicModal('hide');
+        } else {
+          var width = (modal.children().first().outerWidth() + padding) + "px";
 
-        var width = (modal.children().first().outerWidth() + padding) + "px";
-        modal.css({
-            visibility: 'visible',
-            width: width
-          });
+          modal.css({
+              visibility: 'visible',
+              width: width
+            });
+        }
         $(show_options.event_target).trigger("basicModal:show", content);
       }
     }
@@ -170,10 +175,27 @@
       $this.click(function(evt) {
         $.basicModal('loading');
 
+        var url = null;
+        var type = 'GET';
+        var data = null;
+
+        if ($this.is("a")) {
+          url = $this.attr("href");
+        } else {
+          var form = $this.closest('form');
+          url = form.attr('action');
+          type = form.attr('method');
+          var tmp = $("<input type='hidden'>")
+                    .attr('name', $this.attr('name'))
+                    .attr('value', $this.attr('value'));
+          data = form.serialize(true);
+        }
+
         // Do the AJAX request to the HREF in the anchor
         $.ajax({
-            url: $this.attr('href'),
-            type: 'GET',
+            url: url,
+            type: type,
+            data: data,
             dataType: "html",
             success: function(data) {
               $.basicModal('show', {'content':data, 'anchor':$this});
@@ -187,7 +209,3 @@
     });
   };
 })(jQuery);
-
-$(document).ready(function(){
-  $("a[data-basic-modal]").basicModal();
-});

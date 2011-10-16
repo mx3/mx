@@ -1,5 +1,8 @@
 <div class="<%= tag_class(ts) %>" style="width:200px; height:200px; padding:4px; margin:2px; border:1px solid silver; float: left;" id="tag_<%= ts.id -%>">
-  <div style="float:right;" ><span class="small_form_button"><%= link_to('edit', :action => :edit, :controller => :tag, :id => ts.id) -%></span>
+  <div style="float:right;" >
+    <span class="small_form_button">
+      <%= edit_tag_link(ts) -%>
+    </span>
     &nbsp;
     <%= destroy_tag_link(ts) -%>
   </div>

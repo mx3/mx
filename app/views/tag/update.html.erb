@@ -1,0 +1,5 @@
+<script>
+  // You need to update the HTML of the tag.
+  <% tag_html = escape_javascript(render('tag/ts', :ts=>@tag)) %>
+  $(".<%= tag_class(@tag)%>").replaceWith("<%= tag_html %>");
+</script>

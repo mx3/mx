@@ -1,0 +1,16 @@
+<script>
+  <% unless @tag.errors.empty? %>
+    $.basicModal('error_shake');
+  <% end %>
+</script>
+
+<div id="<%= "tp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform" style='width: 420px;'>
+<a style='float: right' class='basic-modal-close' href='#'>X</a>
+<p> <strong>Tagging: <%= @obj.id %></span>
+<p> <strong>for:</strong> <%= @tag.tagged_obj.display_name + " a " + @tag.addressable_type + " with id = " +  @tag.addressable_id.to_s  %>  </p>
+<p> <strong>by: </strong> <%= @tag.creator.full_name -%>, <strong>last updated:</strong> <%= time_ago_in_words(@tag.updated_on) -%> ago </p>
+
+<%= form_tag :action => 'update', :id => @tag do -%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' , 'data-basic-modal'=>true %>
+<% end -%>

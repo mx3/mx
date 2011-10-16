@@ -314,13 +314,13 @@ class OtuController < ApplicationController
     if @otu = Otu.find(params[:id])
       begin
         @otu.destroy
-        flash[:notice] =  "OTU deleted."
+        notice  "OTU deleted."
       rescue StandardError => e
-        flash[:notice] =  "OTU not deleted.  Perhaps you are using it somewhere. (#{e.message})"
+        notice "OTU not deleted.  Perhaps you are using it somewhere. (#{e.message})"
         redirect_to :action => :show, :id => @otu and return
       end
     else
-      flash[:notice] =  "Can't find that OTU!"
+      notice "Can't find that OTU!"
     end
     redirect_to :action => 'list'
   end
