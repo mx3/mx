@@ -52,7 +52,6 @@ class TagController < ApplicationController
     @tag = Tag.new
     @obj = ActiveRecord::const_get(params[:tag_obj_class]).find(params[:tag_obj_id])
     @keyword_id = params[:keyword_id]
-    render :layout => false
   end
 
   def create
@@ -86,7 +85,6 @@ class TagController < ApplicationController
 
     if @tag.update_attributes(params[:tag])
       notice 'Tag was successfully updated.'
-      redirect_to :action => 'show', :id => @tag
     else
       render :action => 'edit'
     end

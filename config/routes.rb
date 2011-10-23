@@ -138,7 +138,4 @@ Edge::Application.routes.draw do |map|
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match 'projects/:proj_id/:controller(/:action(/:id(.:format)))'
   match ':controller(/:action(/:id(.:format)))'
-
-
 end
-

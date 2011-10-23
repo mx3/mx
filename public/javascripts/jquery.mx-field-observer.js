@@ -34,6 +34,7 @@
             type: 'POST',
             url: url,
             data: data,
+            dataType: 'script',
             complete: function() {
               spinner_target.mx_spinner('hide');
             }

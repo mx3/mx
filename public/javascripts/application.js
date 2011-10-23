@@ -12,9 +12,10 @@ function initialize_js(root) {
   find("*[data-sortable]").mx_sortable();
   find("*[data-tooltip]").mx_tooltip();
   find("*[data-observe-field]").mx_field_observer();
-
+  find("*[data-basic-modal]").basicModal();
 }
-//
+
+
 $(document).ready(function(){
   initialize_js($("body"));
   $('body').mx_flash();

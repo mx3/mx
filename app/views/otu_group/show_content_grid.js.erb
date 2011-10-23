@@ -1,0 +1,2 @@
+<% @tmplt = ContentTemplate.find(:first, :conditions => "content_templates.id = #{params.keys.sort[0].to_i} and content_templates.proj_id = #{@proj.id}", :include => :content_types) # kludge, prolly better way to label the id you need %>
+$("<%= params[:css_target] %>").html("<%= escape_javascript(render(:layout => false, :partial => 'content_template/otu_group_grid'))-%>");
