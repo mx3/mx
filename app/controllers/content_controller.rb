@@ -5,14 +5,13 @@ class ContentController < ApplicationController
 
   # Content isn't directly dealt with, rather this is controller for grouping various functions
 
-  def index
-    list
-    render :action => :list
+   def index
+    redirect_to :action => :list # render :action => :list
   end
 
-  def list  
-    @otus = @proj.otus.with_content
-    @display_data = ByTnDisplay.new(nil, @otus)
+  def list
+   @otus = @proj.otus.with_content.to_a
+   @display_data = ByTnDisplay.new(@otus)
   end
 
   def show

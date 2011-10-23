@@ -13,6 +13,6 @@
     o.id,
     o.m_by,
     time_ago_in_words(o.updated_on),
-    link_to('Image', :action => 'new', :controller => 'image', :otu_id => ((o.most_recent_determination and o.most_recent_determination.otu) ? o.most_recent_determination.otu : ''), :specimen_id => o)]} ) %>
+    link_to('Image', :action => 'new', :controller => 'image', :otu_id => ((o.most_recent_determination && o.most_recent_determination.otu) ? o.most_recent_determination.otu : ''), :specimen_id => o)]} ) %>
   <% end %>
 </table>

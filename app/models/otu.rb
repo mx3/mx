@@ -37,7 +37,6 @@ class Otu < ActiveRecord::Base
   has_many :codings, :dependent => :destroy
   has_many :chrs, :through => :codings
   has_many :contents, :dependent => :destroy # this is both public and "private" versions
-
   has_many :content_types, :through => :contents, :uniq => true
   has_many :distributions, :dependent => :destroy
   has_many :geogs, :through => :distributions
@@ -65,23 +64,28 @@ class Otu < ActiveRecord::Base
   scope :with_taxon_name, lambda {|*args| {:conditions => ['otus.taxon_name_id = ?', (args.first || -1)]}}
   scope :with_taxon_name_populated, :conditions => 'otus.taxon_name_id IS NOT NULL'
   scope :within_mx_range, lambda {|*args| {:include => :mxes_otus, :conditions => ["mxes_otus.position >= ? AND mxes_otus.position <= ?", (args.first || -1), (args[1] || -1)]}}
-
   scope :with_seqs_not_through_specimens, lambda {|*args| {:include => :seqs, :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
 
-  # scope :with_seqs_through_specimens, lambda {|*args| {:include => [:specimen_deteriminations, :specimens, :extracts, :seqs, :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
-  # scope :with_seqs_through_extracts, lambda {|*args| {:include => [:specimen_deteriminations, :specimens, :extracts, :seqs, :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
+  # TODO: mx3 following two scopes untested 
+  scope :with_seqs_through_specimens, lambda {|*args| {:include => [:specimen_deteriminations, :specimens, :extracts, :seqs], :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
+  scope :with_seqs_through_extracts, lambda {|*args| {:include => [:specimen_deteriminations, :specimens, :extracts, :seqs], :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
 
-  scope :with_content, {:conditions => 'otus.id IN (SELECT otu_id FROM contents)', :include => :taxon_name}
-  scope :with_published_content, {:conditions => 'otus.id IN (SELECT otu_id FROM contents WHERE pub_content_id IS NOT NULL)', :include => :taxon_name}
+  # NOTE: the 'scope :with_content, joins(:contents).includes(:taxon_name)'
+  #  version presently throws the Marshall, Mutex error. Who knows why. Other scopes appear to work fine.
+  #  Possible leads on debugging: look at 1) #method_missing code, 2) the alchemist gem, 3) session stores, 4) some content reserved word
+  #  The non-suggary version here works
+  def self.with_content
+    joins(:contents).includes(:taxon_name).group(:id) 
+  end
+
+  scope :with_published_content, joins(:taxon_name).where('otus.id IN (SELECT otu_id FROM contents WHERE pub_content_id IS NOT NULL)')
   scope :in_otu_group,  lambda {|*args| {:include => :otu_groups_otus, :conditions =>  ["otus.id in (SELECT otu_id from otu_groups_otus WHERE otu_group_id = ?)", (args.first || -1)]}}
   scope :ordered_taxonomically, {:include => [:taxon_name], :order => 'taxon_names.l, otus.name, otus.matrix_name'}
-
-  # scope :with_public_content_for_template, lambda {|*args| {:include => :contents, :join => 'public_contents.content_type_id on public_contents.content_type_id = contents.content_type_id',  :conditions => ["otus.id IN (SELECT otu_id from public_contents) AND contents.content_type_id not null"}}
+  scope :with_public_content_for_template, lambda {|*args| {:include => :contents, :join => 'public_contents.content_type_id on public_contents.content_type_id = contents.content_type_id',  :conditions => ["otus.id IN (SELECT otu_id from public_contents) AND contents.content_type_id not null"]}}
 
   # TODO: before_save filter to update non normalized Codings fields
 
   before_destroy :check_image_descriptions
-
   def check_image_descriptions
     raise 'Unable to delete OTU, there are attached image descriptions.' if self.image_descriptions.length > 0
   end

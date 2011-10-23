@@ -27,7 +27,7 @@ module ModelExtensions::DefaultNamedScopes
 
       # `is_public` scopes
       if self.columns.map(&:name).include?('is_public')
-        scope :is_public, :conditions => {:is_public => true}
+        scope :is_public, where(:is_public => true) 
       end
 
       # `confidence` scopes
@@ -76,7 +76,6 @@ module ModelExtensions::DefaultNamedScopes
       # TODO:
       # scope :without_tags
       # scope :with_tags
-        
     end
   end
 end

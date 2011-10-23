@@ -5,15 +5,15 @@
     <% if s.items.size > 1 -%>
       <tr class="failed">
         <td colspan=5>
-          <%= "#{'&nbsp;' * rank_n(s.header.iczn_group) * 2 }" %> 
-          <%= s.header.display_name -%>
+          <%= "#{'&nbsp;' * rank_n(s.header.iczn_group) * 2 }".html_safe %> 
+          <%= s.header.display_name.html_safe -%>
         </td>
       </tr>
     <% end -%>
 
     <% s.items.each do |i| -%>
       <tr class="<%= 'passed' if i.contents.that_are_published.count > 0 -%>">
-        <td><%= "#{'&nbsp;' * rank_n(s.header.iczn_group) * 2 }" %><%= '&nbsp;&nbsp;-&nbsp;' if s.items.size > 1 -%> <%= link_to(i.display_name, :action => :show_content, :controller => :otu, :id => i.id) -%></td>
+        <td><%= "#{'&nbsp;' * rank_n(s.header.iczn_group) * 2 }".html_safe %><%= '&nbsp;&nbsp;&nbsp;'.html_safe if s.items.size > 1 -%> <%= link_to(i.display_name, :action => :show_content, :controller => :otu, :id => i.id) -%></td>
         <td><%= i.id.to_s -%> </td>
         <td><%= i.contents.that_are_publishable.count -%> </td>
         <td><%= i.contents.that_are_published.count -%> </td>
