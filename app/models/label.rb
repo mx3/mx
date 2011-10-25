@@ -36,7 +36,6 @@ class Label < ActiveRecord::Base
   scope :without_ontology_classes, :conditions => "labels.id NOT IN (SELECT label_id FROM sensus)" 
   scope :all_for_ontology_class, lambda {|*args| {:conditions => ["(labels.id in (select s.label_id from sensus s where s.ontology_class_id = ?)) OR (labels.id in (select lp.id from labels lp where lp.plural_of_label_id in (select s.label_id from sensus s where s.ontology_class_id = ?))) ", args.first || -1, args.first || -1]}}
   scope :all_singular_tied_to_ontology_classes, lambda {|*args| {:conditions => "(labels.id in (select s.label_id from sensus s))"}} 
-
   scope :ordered_by_label_length, :order => 'length(labels.name)'
 
   # TODO: this throws a mutex- what's the right form?
@@ -59,7 +58,6 @@ class Label < ActiveRecord::Base
 
   scope :with_first_letter, lambda {|*args| { :conditions => ["name LIKE ?", (args.first ? "#{args.first}%" : -1)]}} 
   scope :without_plural_forms, :conditions => 'id NOT IN (SELECT plural_of_label_id id FROM labels where plural_of_label_id IS NOT NULL)'
-
 
   before_validation :strip_whitespace_from_label
 

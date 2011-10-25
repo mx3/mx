@@ -188,7 +188,7 @@ class MultikeyController < ApplicationController
     @mk = session[:multikey]
     # windows are default set 
     rescue
-      flash[:notice] = "No such key."
+      flash[:notice] = "A key not yet selected or the requested key does not exist."
       redirect_to :action => :list and return
     end
 
@@ -210,7 +210,5 @@ class MultikeyController < ApplicationController
     @no_right_col = true if @mk.view == 'compare'
     true # it's a filter
   end
-
-
 
 end

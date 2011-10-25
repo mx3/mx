@@ -5,6 +5,8 @@ class OntologyClass < ActiveRecord::Base
   # is_obsolete classes in OBO have NO relationships but relationships can be maintained for obsolete terms (they are excluded programatically from the OBO dump in mx)
 
   # IMPORTANT in_place_editing has been hacked to handle versioned (when this is gemified it will have to be updated)
+  
+  # versioned presently has deprecations with hash/index 
   versioned
 
   set_table_name "ontology_classes"
@@ -78,11 +80,11 @@ class OntologyClass < ActiveRecord::Base
   scope :that_are_obsolete, :conditions => "is_obsolete = 1"
   scope :that_are_not_obsolete, :conditions => "is_obsolete != 1"
 
-  validates_presence_of :definition
-  validates_presence_of :written_by 
-  validates_uniqueness_of :definition, :scope => :proj_id, :allow_blank => false, :allow_nil => false, :message => "That defintion already exists in this ontology."
-  validates_uniqueness_of :xref, :message => 'xref alredy exists, pick a new one', :allow_blank => true, :allow_nil => true, :scope => "proj_id" 
-  validates_format_of :xref, :with => /\A\w+\:\d+\Z/i, :message => 'must be in the format "foo:123"', :if => Proc.new{|o| !o.xref.blank?} 
+ validates_presence_of :definition
+ validates_presence_of :written_by 
+ validates_uniqueness_of :definition, :scope => :proj_id, :allow_blank => false, :allow_nil => false, :message => "That defintion already exists in this ontology."
+ validates_uniqueness_of :xref, :message => 'xref alredy exists, pick a new one', :allow_blank => true, :allow_nil => true, :scope => "proj_id" 
+ validates_format_of :xref, :with => /\A\w+\:\d+\Z/i, :message => 'must be in the format "foo:123"', :if => Proc.new{|o| !o.xref.blank?} 
 
   before_update :energize_update_class
   after_destroy :energize_destroy_class
@@ -116,6 +118,7 @@ class OntologyClass < ActiveRecord::Base
     if is_obsolete && is_obsolete_reason.blank?
       errors.add(:is_obsolete_reason, "You must provide a reason for obsoleting this class.")
     end
+
     if !is_obsolete && !is_obsolete_reason.blank?
       errors.add(:is_obsolete, "You provided a reason for obsoletion, you must also check the box.")
     end
@@ -123,16 +126,15 @@ class OntologyClass < ActiveRecord::Base
     if !xref.blank? && obo_label_id.blank?
       errors.add(:obo_label_id, "You must select a OBO label before generating a xref for a class.")
     end
-
   end
 
   # TODO: is this safe? does written_by really equate to sensu?! (probably not)
   after_save :ensure_that_labels_contains_obo_label
 
-  before_save :set_illustration_ip_votes
-  def set_illustration_ip_votes
-    self.illustration_IP_votes = [] if self.illustration_IP_votes == nil
-  end
+  #before_save :set_illustration_ip_votes
+  #def set_illustration_ip_votes
+  #  self.illustration_IP_votes = [] if self.illustration_IP_votes == nil
+  #end
 
   before_destroy :check_for_xref
   def check_for_xref

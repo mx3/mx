@@ -12,7 +12,7 @@ class SeqControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     login
-    @opts =  {:controller => "mx", :proj_id => "1"}
+    @opts =  {:controller => :seq, :proj_id => 1}
   end
 
   # just testing loads 

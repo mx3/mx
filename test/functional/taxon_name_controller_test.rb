@@ -13,7 +13,7 @@ class TaxonNameControllerTest < ActionController::TestCase
     @request, @response = ActionController::TestRequest.new, ActionController::TestResponse.new
     @controller = TaxonNameController.new
     login
-    @opts =  {:controller => "taxon_name", :proj_id => "1"}
+    @opts =  {:controller => 'taxon_name', :proj_id => "1"}
   end
 
   # just testing loads 
@@ -53,9 +53,15 @@ class TaxonNameControllerTest < ActionController::TestCase
     assert_response(:success)
   end
 
-  def test_show_ITIS_dump
+  def test_report_ITIS_dump
     @opts.update(:id => "1")
-    get :show_ITIS_dump, @opts
+    get :report_ITIS_dump, @opts
+    assert_response(:success)
+  end
+
+  def test_report_taxon_names
+    @opts.update(:id => "1")
+    get :report_taxon_names, @opts
     assert_response(:success)
   end
 
@@ -88,8 +94,5 @@ class TaxonNameControllerTest < ActionController::TestCase
     get :show_tags, @opts
     assert_response(:success)
   end
-
-
-
 
 end

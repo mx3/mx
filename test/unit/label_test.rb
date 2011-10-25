@@ -105,7 +105,7 @@ class LabelTest < ActiveSupport::TestCase
   end
   
   test "that labels tied to ontology classes with xref can not be destroyed" do
-    l = Label.create!(:name => "a")
+    l = Label.create!(:name => 'a')
     oc = OntologyClass.create!(:definition => "Bar is not a thing with foosball.", :written_by => @ref, :obo_label => l)
     l.reload
     assert l.destroy 
@@ -115,14 +115,17 @@ class LabelTest < ActiveSupport::TestCase
     l2 = Label.create!(:name => "b")
     oc.obo_label_id = l2.id
     oc.xref = 'ABC:123'
+
     oc.save
+    
     oc.reload
     l2.reload
+
     assert l2.ontology_classes_in_OBO.include?(oc)
-   
     assert !l2.destroy 
   end
 
+  # TODO mx3: The Hash#key warning is from vestal_versions ('versioned' in OntologyClass model)
   test "that label spelling can be changed if not used as obo_labels" do
     l = Label.create!(:name => "a")
     oc = OntologyClass.create!(:definition => "Foo is a thing with foosball.", :written_by => @ref, :obo_label => l)
@@ -134,7 +137,6 @@ class LabelTest < ActiveSupport::TestCase
     l1 = Label.create!(:name => "c")
     l1.name = "d"
     assert l1.save
-    
   end
 
 

@@ -3,7 +3,7 @@
 <div class="box4">
   <div class="header">Has many</div>
 <% klass.constantize.reflect_on_all_associations(:has_many).collect{|o| o.name}.each_with_index do |r, i| -%>
-  <%= "#{i+1}. #{r.to_s.humanize}" -%>: <% t = obj.send(r).size  -%><% @tot += t -%><%= t > 0 ? "<b>#{t}</b>" : "<i>none</i>" -%><br/>
+  <%= "#{i+1}. #{r.to_s.humanize}" -%>: <% t = obj.send(r).size  -%><% @tot += t -%><%= t > 0 ? content_tag(:strong, "#{t}") : content_tag(:i, 'none') -%><br />
 <% end %>
 <% if @tot == 0 -%>
   <p style="color: red;"><em> This object has no "has many" records.</em> </p>
@@ -24,7 +24,7 @@
   <div class="header">Has and belongs to many</div>
 <% @tot = 0 -%>
 <% klass.constantize.reflect_on_all_associations(:has_and_belongs_to_many).collect{|o| o.name}.each_with_index do |r, i| -%>
-  <%= "#{i+1}. #{r.to_s.humanize}" -%>: <% t = obj.send(r).size  -%><% @tot += t -%><%= t > 0 ? "<b>#{t}</b>" : "<i>none</i>" -%><br/>
+  <%= "#{i+1}. #{r.to_s.humanize}" -%>: <% t = obj.send(r).size  -%><% @tot += t -%><%= t > 0 ? content_tag(:strong, "#{t}") : content_tag(:i, 'none')  -%><br />
 <% end %>
 <% if @tot == 0 -%>
   <p style="color: red;"><em> This object has no "has and belongs to many" records.</em></p>
