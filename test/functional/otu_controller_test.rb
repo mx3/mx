@@ -17,7 +17,7 @@ class OtuControllerTest < ActionController::TestCase
   # just testing loads 
   def test_index
     get :index, @opts
-    assert_response(:success)
+    assert_response(:redirect)
   end
 
   def test_list

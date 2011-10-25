@@ -30,7 +30,6 @@
 
 require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 
-
 class MorphbankImageTest < ActiveSupport::TestCase
 
   def setup
@@ -69,8 +68,6 @@ class MorphbankImageTest < ActiveSupport::TestCase
 
     assert_equal 20, mb_img.height
 
-
   end
-
 
 end

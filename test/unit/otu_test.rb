@@ -213,7 +213,7 @@ class OtuTest < ActiveSupport::TestCase
 
     @fam.reload
 
-    @foo = ByTnDisplay.new(@fam, @otus)
+    @foo = ByTnDisplay.new(@otus)
    
     assert_equal 2, @foo.unplaced_items.size
     assert_equal [@o1, @o2], @foo.unplaced_items

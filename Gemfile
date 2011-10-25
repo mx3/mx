@@ -14,10 +14,11 @@ source :gemcutter
   gem "ruby-graphviz", '0.9.21', :require => "graphviz"
   gem 'rdf',  '0.3.3'
   gem 'rdf-rdfxml',  '0.3.3.1', :require => 'rdf/rdfxml'
+
   gem 'vestal_versions',  :tag => 'v1.2.2', :git => 'https://github.com/adamcooper/vestal_versions.git'
-
+  # gem 'vestal_versions',   :git => 'git://github.com/teambox/vestal_versions.git'
+  
   gem 'attachment_fu', :git =>  'https://github.com/jmoses/attachment_fu.git', :branch => 'rails3'
-
 
   # gems that have spawned from mx!
   gem "obo_parser"   ,  "0.3.4"

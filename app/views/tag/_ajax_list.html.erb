@@ -7,7 +7,7 @@
     'cell_data' =>[
     link_to_tagged(o),
     o.addressable_type,
-    ( o.keyword.blank? ? '<strong style="color:red;">something terribly wrong.</strong>' : link_to(o.keyword.display_name, :action => :show_tags, :controller => :keyword, :id => o.keyword) ),
+    ( o.keyword.blank? ? content_tag(:strong, 'Something terribly wrong.', :style => "color:red;") : link_to(o.keyword.display_name, :action => :show_tags, :controller => :keyword, :id => o.keyword) ),
     {o.notes => 'smaller_font'},
     short_ref_link_tag(o.ref),
     link_to_referenced_object(o),   

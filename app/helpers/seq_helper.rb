@@ -2,7 +2,7 @@
 module SeqHelper
 
   def seq_source_otus_tag(seq)
-    seq.bound_otus.collect{|o| o.display_name(:type => :list)}.join(';')
+    seq.bound_otus.collect{|o| o.display_name(:type => :list)}.join(';').html_safe
   end
 
   def display_seq_tag(seq)
@@ -13,7 +13,7 @@ module SeqHelper
     while cs.length > 0
       s << cs.slice!(0..80) + '<br />'     
     end
-    s
+    s.html_safe
   end
 
    def display_protein_tag(options = {})
@@ -29,7 +29,7 @@ module SeqHelper
     while prot.length > 0
       s << prot.slice!(0..80) + '<br />'     
     end
-    s
+    s.html_safe
   end
 
   def seq_source_genes_tag(seq)
@@ -48,14 +48,14 @@ module SeqHelper
   # which is now not true as all that is required is gene and or specimen or otu
   # can modify to pass obj, then detect class and search as such, also needs multiple results if found
  
-  def seq_from_specimen_gene(specimen_id, gene_id)
-    Seq.find(:first, :conditions => ["(specimen_id = (?)) and (gene_id = (?)) and (proj_id = (?))", specimen_id, gene_id, @proj.id])
-  end
+  # def seq_from_specimen_gene(specimen_id, gene_id)
+  #  Seq.find(:first, :conditions => ["(specimen_id = (?)) and (gene_id = (?)) and (proj_id = (?))", specimen_id, gene_id, @proj.id])
+  # end
   
   # TODO: Deprecate for Otu.sequences
-  def seq_from_otu_gene(otu_id, gene_id)
-    Seq.find(:first, :conditions => ["(otu_id = (?)) and (gene_id = (?)) and (proj_id = (?))", otu_id, gene_id, @proj.id])
-  end
+  # def seq_from_otu_gene(otu_id, gene_id)
+  #  Seq.find(:first, :conditions => ["(otu_id = (?)) and (gene_id = (?)) and (proj_id = (?))", otu_id, gene_id, @proj.id])
+  # end
 
   # TODO: enhance the simple integer count 
   def seq_cell_status(otu, gene) # :yields: HTML cell representation of this gene/OTU combination results 

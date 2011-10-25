@@ -186,14 +186,14 @@ class TaxonNameController < ApplicationController
     @taxon_name = TaxonName.find(params[:id])
     @list = @taxon_name.full_set
     @header = "ITIS Dump (#{@list.size})"
-    render :action => 'taxon_name/reports/ITIS_dump'
+    render :template => 'taxon_name/reports/ITIS_dump'
   end
   
   def report_taxon_names
     @taxon_name = TaxonName.find(params[:id])
     @list = @taxon_name.full_set
     @list.sort!{|a,b| a.name.downcase <=> b.name.downcase}
-    render :action => 'taxon_name/reports/taxon_names', :layout => 'minimal' # TODO mx3: minimal layout not working
+    render :template => 'taxon_name/reports/taxon_names', :layout => 'minimal' # TODO mx3: minimal layout not working
   end
 
 

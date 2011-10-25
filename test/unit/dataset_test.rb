@@ -55,8 +55,7 @@ class DatasetTest < ActiveSupport::TestCase
     not_ds.uploaded_data = fixture_file_upload('/test_files/serial_upload_test.txt', 'text/plain')
     not_ds.save!
 
-    print "Ignore this error message: "
-    assert_raises NexusParser::ParseError do
+    assert_raise(NexusParser::ParseError) do
       not_ds.nexus_file
     end
     
