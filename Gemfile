@@ -1,12 +1,12 @@
 source :gemcutter
   # bundler requires these gems in all environments
-  gem "rails", "3.0.7"
+  gem "rails", "3.0.10"
   gem "mysql2", '< 0.3'
   gem 'alchemist',  '0.1.2.1'
   gem 'andand', :git => 'https://github.com/panozzaj/andand.git' # contains a couple of fixes to 1.3.1, seems to be the most uptodate
   gem "bio",  '1.4.1'
   # gem 'cmess',  '0.2.4' # character encoding guessing
-  gem "echoe" # !! This may need to be commented out for recent versions of passenger.
+  # gem "echoe" # !! This may need to be commented out for recent versions of passenger.
   gem "RedCloth"
 
   gem 'geokit'
@@ -42,7 +42,7 @@ group :production do
 end
 
 group :development do
-  # gem "rails-footnotes"
+  gem "rails-footnotes"
   gem "mongrel", "1.2.0.pre2"
   # gem 'cgi_multipart_eof_fix'
   # gem 'fastthread'
