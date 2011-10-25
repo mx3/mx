@@ -37,7 +37,6 @@ source :gemcutter
   gem "sass", "3.1.1"
   gem "bourbon"
 
-
 group :production do
 end
 
