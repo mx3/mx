@@ -1,7 +1,3 @@
-<% content_for :head do -%>
-   <%= javascript_include_tag('bioportal_form_complete') -%>
-<% end %>
-
 <%= error_messages_for 'image_description' %>
 
 <!--[form:image_description]-->
@@ -100,7 +96,7 @@
 
 <div class="fr"> <label for="image_description_is_public" class="lbl4">Is public?</label>
   <span class="fld">
-    <%= check_box 'image_description', 'is_public' -%> 
+    <%= check_box 'image_description', 'is_public' -%>
   </span>
 </div>
 
