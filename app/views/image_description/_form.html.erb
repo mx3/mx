@@ -24,7 +24,7 @@
 
 <% if !@image_description.otu -%>
 <div class="fr"> <label for="taxon_name_id" class="lbl4">--or-- create a new OTU from a taxon name</label>
-  <span class="fld">   <%= render :partial => "taxon_name/picker", :locals => {
+  <span class="fld">   <%= render :partial => "shared/picker", :locals => {:controller => "taxon_name",
       :object => 'taxon_name', :method => 'id', :tag_id => "taxon_name_for_otu",
       :display => "" } %></span>
 </div>
