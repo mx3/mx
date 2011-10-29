@@ -48,7 +48,7 @@ class RoutingTest < ActionController::TestCase
   end 
 
   def test_generates_default_basic_public_pattern
-    assert_generates("/projects/1/public/otu/index", controller: "public/otu", proj_id: "1")
+    assert_generates("/projects/1/public/otu", controller: "public/otu", proj_id: "1", action: 'index')
   end 
 
   def test_generates_default_basic_public_pattern_with_id

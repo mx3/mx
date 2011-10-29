@@ -31,6 +31,9 @@ Edge::Application.routes.draw do
   # The exact same format is used for the non-public controllers, so I think we *should* be able
   # to use this format (we did in 2.3.10 edge ... but I can't seem to convert them)
 
+
+  match "/projects/:proj_id/:controller/:action/:id", :constraints => {:controller => /\/public\/[^\/]+\//}
+
   match "/projects/:proj_id/:controller(/:action(/:id(.:format)))"
   match "/:controller(/:action(/:id(.:format)))"
 
