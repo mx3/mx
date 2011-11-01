@@ -126,3 +126,7 @@ form.delete-link {
   background-color: #aeaeae;
   opacity: 0.7;
 }
+
+.inplace-hover {
+  @include box-shadow(0px 0px 5px darken(#E0EEE0, 55%));
+}

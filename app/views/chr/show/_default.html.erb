@@ -30,13 +30,25 @@
 
 
 <div><strong>Document character description: </strong>
-  <div id="chr_desc_id<%= @chr.id -%>" class="inplaceeditor-text"><%= @chr.doc_char_descr.blank? ? content_tag(:em, 'none provided, click to add') : htmlize(@chr.doc_char_descr) -%> </div>
-  <%= in_place_editor("chr_desc_id#{@chr.id}", :url => url_for(:controller => :chr, :action => :_in_place_description_update, :id => @chr.id), :rows => 5, :style => 'width: 100%;') -%>
+  <div
+    data-inplace-editor
+    data-inplace-editor-type='textarea'
+    data-inplace-editor-text="<%= @chr.doc_char_descr %> "
+    data-inplace-editor-url='<%= url_for(:controller => :chr, :action => :_in_place_description_update, :id => @chr.id)%>'
+    class="inplaceeditor-text">
+      <%= @chr.doc_char_descr.blank? ? content_tag(:em, 'none provided, click to add') : htmlize(@chr.doc_char_descr) -%>
+  </div>
 </div>
 
 <b>Notes: </b>
-<div id="chr_notes_id<%= @chr.id -%>" class="inplaceeditor-text" ><%= @chr.notes.blank? ? content_tag(:em, 'none provided, click to add') : @chr.notes -%></div>
-<%= in_place_editor("chr_notes_id#{@chr.id}", :url => url_for(:controller => :chr, :action => :_in_place_notes_update, :id => @chr.id), :rows => 4, :cols => 80) -%>
+<div
+  data-inplace-editor
+  data-inplace-editor-type='textarea'
+  data-inplace-editor-text='<%= @chr.notes %>'
+  data-inplace-editor-url='<%=url_for(:controller => :chr, :action => :_in_place_notes_update, :id => @chr.id)%>'
+  class="inplaceeditor-text" >
+  <%= @chr.notes.blank? ? content_tag(:em, 'none provided, click to add') : @chr.notes -%>
+</div>
 
 
 <b>Cited in: </b><%= @chr.cited_in_ref ? @chr.cited_in_ref.display_name : "" -%><br />

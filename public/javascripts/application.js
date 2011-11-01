@@ -13,6 +13,7 @@ function initialize_js(root) {
   find("*[data-tooltip]").mx_tooltip();
   find("*[data-observe-field]").mx_field_observer();
   find("*[data-basic-modal]").basicModal();
+  find("*[data-inplace-editor]").mx_inplace_editor();
 }
 
 
