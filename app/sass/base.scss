@@ -130,3 +130,11 @@ form.delete-link {
 .inplace-hover {
   @include box-shadow(0px 0px 5px darken(#E0EEE0, 55%));
 }
+
+#attached_figures {
+  max-height: 285px;
+  overflow-y: auto;
+}
+#find_images_results {
+  max-height: 235px;
+}
