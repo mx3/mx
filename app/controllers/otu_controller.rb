@@ -537,15 +537,18 @@ class OtuController < ApplicationController
   protected
 
   def list_params
+    @otus = Otu.in_project(@proj)
+          .page(params[:page])
+          .per(20)
+          .order('taxon_names.l, otus.name, otus.matrix_name')
+
     # project specific, so only find member of current project
     if session['group_ids'] && session['group_ids']['otu']
-      @otu_group = OtuGroup.find(session['group_ids']['otu'])
-      @otu_pages, @otus = paginate :otus, :per_page => 20, :conditions => "((proj_id = #{@proj.id}) and (otu_group_id = #{session['group_ids']['otu']}))",
-        :join => "as o inner join otu_groups_otus on otu_groups_otus.otu_id = o.id", :include => [:taxon_name], :order => 'taxon_names.l, otus.name, otus.matrix_name'
+      @default_otu_group  = @otu_group = OtuGroup.find(session['group_ids']['otu'])
+      @otus               = @otus.with_otu_group(@otu_group).includes(:taxon_name)
     else
-      @otu_pages, @otus = paginate :otus, :per_page => 20, :conditions => "(proj_id = #{@proj.id})", :include => [{:taxon_name => :parent}, :creator, :updator], :order => 'taxon_names.l, otus.name, otus.matrix_name'
+      @otus = @otus.includes({:taxon_name => :parent}, :creator, :updator)
     end
-    @default_otu_group = OtuGroup.find(session['group_ids']['otu']) if session['group_ids'] && session['group_ids']['otu']
   end
 
   # see before_filter, used in all 'show' calls

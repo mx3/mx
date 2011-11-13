@@ -145,7 +145,6 @@ span.link_section {color:#888;border-bottom: 1px dotted;width: 100%;}
 
 /* 'List' pagination */
 div.list_scope { float: right; color: gray; font-size: smaller}
-div.list_pagination { margin-left: .2em; margin-bottom: .2em; background: #eee; padding: .1em;}
 td.list_action {font-size: smaller;}
 
 /* Show navigation (left col) */

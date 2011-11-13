@@ -1,7 +1,5 @@
-<% if not @otu_pages.blank? %>
-  <%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @otu_pages}) -%>
-  <%= render(:partial => 'shared/page_nav', :locals => {:pages => @otu_pages}) -%>
-<% end %>
+<%= paginate(@otus, :total_count => @otus.total_count) %>
+
 <table>
   <%= t_col_heads( [{'name' => "", 'style' => 'width: 50%;'}, "id", "mod by", "mod age"] ) -%>
   <% @otus.each_with_index do |otu, i| -%>

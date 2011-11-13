@@ -74,6 +74,8 @@ GEM
     jammit (0.6.3)
       yui-compressor (>= 0.9.3)
     json (1.6.1)
+    kaminari (0.12.4)
+      rails (>= 3.0.0)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     mail (2.2.19)
@@ -155,6 +157,7 @@ DEPENDENCIES
   geokit
   haml (= 3.1.1)
   jammit (= 0.6.3)
+  kaminari
   minitest
   mongrel (= 1.2.0.pre2)
   mysql2 (< 0.3)

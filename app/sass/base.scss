@@ -138,3 +138,18 @@ form.delete-link {
 #find_images_results {
   max-height: 235px;
 }
+
+nav.list_pagination {
+  label {
+    color: #bbb;
+  }
+  label.count_report {
+    float: right;
+    color: black;
+    margin: 0px 4px;
+  }
+  background: #eee;
+  padding: 1px 5px;
+  height: 18px;
+  vertical-align: middle;
+}

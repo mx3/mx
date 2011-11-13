@@ -2,6 +2,7 @@ source :gemcutter
   # bundler requires these gems in all environments
   gem "rails", "3.0.10"
   gem "mysql2", '< 0.3'
+  gem 'kaminari'
   gem 'alchemist',  '0.1.2.1'
   gem 'andand', :git => 'https://github.com/panozzaj/andand.git' # contains a couple of fixes to 1.3.1, seems to be the most uptodate
   gem "bio",  '1.4.1'
@@ -17,7 +18,7 @@ source :gemcutter
 
   gem 'vestal_versions',  :tag => 'v1.2.2', :git => 'https://github.com/adamcooper/vestal_versions.git'
   # gem 'vestal_versions',   :git => 'git://github.com/teambox/vestal_versions.git'
-  
+
   gem 'attachment_fu', :git =>  'https://github.com/jmoses/attachment_fu.git', :branch => 'rails3'
 
   # gems that have spawned from mx!
