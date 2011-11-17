@@ -14,18 +14,20 @@ class ChrStateController < ApplicationController
   def show_figures
     @chr_state = ChrState.find(params[:id])
     redirect_to :action => :show, :controller => :chr, :id => @chr_state.chr_id
-  end 
+  end
 
   def _in_place_notes_update
     c = ChrState.find(params[:id])
     c.notes = params[:value]
     if c.save
+      notice "Notes updated"
       render :text => c.notes
     else
-      render :text => '<span style="color: red;">Validation failed, record not updated.</span>'
+      error 'Validation failed, record not updated.'
+      head :status=>400
     end
   end
-  
+
   def destroy_phenotype
     chr_state = ChrState.find(params[:id])
     chr_state.phenotype = nil

@@ -1,11 +1,7 @@
-<% content_for :head do -%>
-   <%= javascript_include_tag('bioportal_form_complete') -%>
-<% end %>
-
 <%= error_messages_for 'standard_view' %>
 
 <!--[form:standard_view]-->
-   
+
 <div class="fr"> <label for="standard_view_name" class="lbl4">Name</label>
   <span class="fld"><%= text_field 'standard_view', 'name', 'title' => 'name of standard view'  %></span>
 </div>
@@ -40,8 +36,4 @@
 <div class="fr" style="padding: .5em; border: 1px dotted red;"> <label for="standard_view_formula" class="lbl4">Formula</label>
   <span class="fld"><%= text_field 'standard_view', 'formula', 'title' => 'defines how measurements are summarized'  %><em> defines how measurements are computed in summary: TO BE COMPLETED </em></span> <br style="clear:both;" />
 </div>
-
-
-
 <!--[eoform:standard_view]-->
-

@@ -2,22 +2,22 @@
 module App::NavigationHelper
   # Links and similar methods, should minimally influence layout (but see the tabs code)
 
-  # Used in _navigator renderings when show methods are called to 
-  # display an individual record.  
+  # Used in _navigator renderings when show methods are called to
+  # display an individual record.
   # :link => must have a corresponding show_<link> method in the controller, and partial in the /show/ for the given model
   def show_nav_link(options = {})
     opt = {
       :obj => nil,
       :link => nil,
-      :bound_action => nil   
+      :bound_action => nil
     }.merge(options)
-   
-    if opt[:bound_action].nil? 
+
+    if opt[:bound_action].nil?
       bound_action = "show_#{opt[:link].gsub(/\s/, '_')}"
     else
       bound_action = opt[:bound_action]
     end
-    
+
     content_tag(:div, :class => 'item') do
      if params[:action].to_s == bound_action
        content_tag(:span, opt[:link], :class => 'navigator_current')
@@ -54,7 +54,7 @@ module App::NavigationHelper
   def navigator2(options = {}) # :yields: String (html, navigator for a particular show view)
     opt = {
       :obj => nil,     # the Object instance being shown
-      :do => 'show',   # we just repeat the last action called 
+      :do => 'show',   # we just repeat the last action called
       :ord => 'id'     # the field to sort on for left/right navigation
     }.merge!(options)
 
@@ -342,9 +342,11 @@ module App::NavigationHelper
     end
   end
 
+
   # ripped straight out of Rails docs, modified for ajax
   # see also here http://www.reality.com/roberts/markus/software/ruby/rails/wiki/How%20to%20Paginate%20With%20Ajax.textile
   def pagination_links_with_ajax(paginator, options={})
+    return  "<span>This is being converted over to Kaminari!</span>"
     options.merge!(ActionView::Helpers::PaginationHelper::DEFAULT_OPTIONS) {|key, old, new| old}
     options[:window_size] = 5
 

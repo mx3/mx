@@ -15,7 +15,7 @@ class ImageDescriptionController < ApplicationController
   end
 
   def new
-    if @target == 'manage' 
+    if @target == 'manage'
       @image_description = ImageDescription.new(:standard_view, 'otu_id' => otu_id)
     else
       @image_description = ImageDescription.new
@@ -23,7 +23,7 @@ class ImageDescriptionController < ApplicationController
   end
 
   def destroy_from_image
-    # ajax 
+    # ajax
     @image_description = ImageDescription.find(params[:id])
     @image = @image_description.image
 
@@ -35,11 +35,11 @@ class ImageDescriptionController < ApplicationController
 
     @image_description = ImageDescription.new
     @image_descriptions = @image.image_descriptions.by_proj(@proj.id)
-    if @image_descriptions.size == 0 
+    if @image_descriptions.size == 0
       flash[:notice] = "You destroyed the last reference to this image in this project. If you don't add a new reference here, the image will be removed from this project when you leave this page."
     end
 
-    render :layout => false, :partial => 'image_description/ajax_list_add' 
+    render :layout => false, :partial => 'image_description/ajax_list_add'
   end
 
   def create
@@ -50,7 +50,7 @@ class ImageDescriptionController < ApplicationController
     if params[:taxon_name]
       if not params[:taxon_name][:id].blank?
         taxon_id = params[:taxon_name][:id]
-        if Otu.find_by_taxon_name_id_and_proj_id(params[:taxon_name][:id], @proj.id)   
+        if Otu.find_by_taxon_name_id_and_proj_id(params[:taxon_name][:id], @proj.id)
           @image_description.errors.add(:base, "There is already an OTU assciated with that taxon name. Use the existing OTU or manually create a new one.")
           flash[:notice] = "Failed to create image."
         end
@@ -71,7 +71,7 @@ class ImageDescriptionController < ApplicationController
     @image_description = ImageDescription.new
     @image_descriptions = @image.image_descriptions.by_proj(@proj)
 
-    render :layout => false, :partial => 'image_description/ajax_list_add' 
+    render :layout => false, :partial => 'image_description/ajax_list_add'
   end
 
   def edit
@@ -88,7 +88,7 @@ class ImageDescriptionController < ApplicationController
       if params[:update_and_next]
         @id = ImageDescription.find(:first, :conditions => ["proj_id = #{@proj.id} AND id > ?", @image_description.id], :order => 'id ASC')
         if @id
-          redirect_to(:action => 'edit', :id => @id) 
+          redirect_to(:action => 'edit', :id => @id)
         else
           flash[:notice] = 'Last record reached.'
           redirect_to(:action => 'list', :controller => 'image')
@@ -126,7 +126,7 @@ class ImageDescriptionController < ApplicationController
       if params[:add] # add the image description
         if @new_id = ImageDescription.add_from_project(params.merge(:proj_id => @proj.id)     )
           render :update do |page|
-            page.replace_html params[:form], :text => '<div class="box1" style="margin-top: 1em;"> <i> You added this image to your project! </i></div> ' 
+            page.replace_html params[:form], :text => '<div class="box1" style="margin-top: 1em;"> <i> You added this image to your project! </i></div> '
           end and return
         else
           render :update do |page|
@@ -172,16 +172,16 @@ class ImageDescriptionController < ApplicationController
 
     elsif  params[:view][:standard_view_group_id].empty? # show by otu_group
       @otugroup = OtuGroup.find(params[:view][:otu_group_id])
-      @otus = @otugroup.otus 
+      @otus = @otugroup.otus
 
-      @img_descrs = @otus.inject([]){|sum, o| sum += o.image_descriptions(@proj.id)} 
+      @img_descrs = @otus.inject([]){|sum, o| sum += o.image_descriptions(@proj.id)}
 
       @header = 'OTU group'
-      render :action => 'browse_list'      
+      render :action => 'browse_list'
 
     else # show OTU group X standard view group
       @otugroup = OtuGroup.find(params[:view][:otu_group_id])
-      @otus = @otugroup.otus 
+      @otus = @otugroup.otus
 
       @standardviewgroup = StandardViewGroup.find(params[:view][:standard_view_group_id])
       @standard_views = @standardviewgroup.standard_views
@@ -190,9 +190,9 @@ class ImageDescriptionController < ApplicationController
         flash[:notice] = 'Hmm... one (or both) of your groups is empty, given them some members and try again!'
         @target = ''
         render :action => 'index' and return
-      end 
+      end
       render :action => 'browse_table'
-    end 
+    end
   end
 
 end

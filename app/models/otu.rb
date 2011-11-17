@@ -65,8 +65,13 @@ class Otu < ActiveRecord::Base
   scope :with_taxon_name_populated, :conditions => 'otus.taxon_name_id IS NOT NULL'
   scope :within_mx_range, lambda {|*args| {:include => :mxes_otus, :conditions => ["mxes_otus.position >= ? AND mxes_otus.position <= ?", (args.first || -1), (args[1] || -1)]}}
   scope :with_seqs_not_through_specimens, lambda {|*args| {:include => :seqs, :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
+  scope :in_project, lambda {|proj| where(:proj_id => proj.id) }
+  scope :with_otu_group, lambda {|id_or_rec|
+      id_or_rec = id_or_rec.id if (id_or_rec.is_a?(ActiveRecord::Base))
+      joins(:otu_groups_otus).where('otu_groups_otus.otu_group_id' => id_or_rec)
+    }
 
-  # TODO: mx3 following two scopes untested 
+  # TODO: mx3 following two scopes untested
   scope :with_seqs_through_specimens, lambda {|*args| {:include => [:specimen_deteriminations, :specimens, :extracts, :seqs], :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
   scope :with_seqs_through_extracts, lambda {|*args| {:include => [:specimen_deteriminations, :specimens, :extracts, :seqs], :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
 
@@ -75,7 +80,7 @@ class Otu < ActiveRecord::Base
   #  Possible leads on debugging: look at 1) #method_missing code, 2) the alchemist gem, 3) session stores, 4) some content reserved word
   #  The non-suggary version here works
   def self.with_content
-    joins(:contents).includes(:taxon_name).group(:id) 
+    joins(:contents).includes(:taxon_name).group(:id)
   end
 
   scope :with_published_content, joins(:taxon_name).where('otus.id IN (SELECT otu_id FROM contents WHERE pub_content_id IS NOT NULL)')

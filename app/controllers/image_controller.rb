@@ -1,9 +1,9 @@
 class ImageController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
-          
+
   auto_complete_for :image, :maker
-  
+
   # Ajax search for popup
   # likely better placed in figures or images
   def search_list
@@ -30,7 +30,7 @@ class ImageController < ApplicationController
   end
 
   def list_by_id
-    @images = @proj.images 
+    @images = @proj.images
   end
 
   def _show_params
@@ -40,15 +40,15 @@ class ImageController < ApplicationController
     if params[:image] || params[:shared] # we are actually passed an image description id
       @image = (params[:shared] ? ImageDescription.find(params[:id]).image : ImageDescription.find(params[:image][:id]).image)
     else
-      @image = Image.find(params[:id])    
+      @image = Image.find(params[:id])
     end
     @image_descriptions = @image.image_descriptions.by_proj(@proj)
     @with_figure_markers = @image.figures.with_figure_markers.by_proj(@proj)
-  end 
+  end
 
   def show
-    _show_params 
-    if (@image_descriptions.size == 0) 
+    _show_params
+    if (@image_descriptions.size == 0)
       flash[:notice] = "You don't have that image described for this project, try adding it first."
       redirect_to :action => :list and return
     end
@@ -89,9 +89,9 @@ class ImageController < ApplicationController
     @image = Image.new(params[:image])
     @image_description = ImageDescription.new(params[:image_description])
     if params[:taxon_name]
-      if params[:taxon_name][:id].to_i > 0  
+      if params[:taxon_name][:id].to_i > 0
         taxon_id = params[:taxon_name][:id]
-       if Otu.find_by_taxon_name_id_and_proj_id(params[:taxon_name][:id], @proj.id)   
+       if Otu.find_by_taxon_name_id_and_proj_id(params[:taxon_name][:id], @proj.id)
          @image_description.errors.add(:base, "There is already an OTU assciated with that taxon name. Use the existing OTU or manually create a new one.")
          flash[:notice] = "Failed to create image."
          render :action => 'new' and return
@@ -118,7 +118,7 @@ class ImageController < ApplicationController
   def edit
     @image = Image.find(params[:id])
 
-    # somewhat weak 
+    # somewhat weak
     if @image.image_descriptions.by_proj(@proj).size == 0
       flash[:notice] = "You don't have that image described for this project, try adding it first."
       redirect_to :action => :list and return
@@ -129,7 +129,7 @@ class ImageController < ApplicationController
   def update
     @image = Image.find(params[:id])
 
-    # somewhat weak 
+    # somewhat weak
     if @image.image_descriptions.by_proj(@proj).count == 0
       flash[:notice] = "You don't have that image described for this project, try adding it first."
       redirect_to :action => :list and return
@@ -146,14 +146,14 @@ class ImageController < ApplicationController
   def destroy
     if o = Image.find(params[:id])
       begin
-        o.destroy 
-        flash[:notice] =  "Image deleted."         
+        o.destroy
+        flash[:notice] =  "Image deleted."
       rescue
-        flash[:notice] =  "Can't delete image, you're likely using it in a figure, or it belongs to another project."         
+        flash[:notice] =  "Can't delete image, you're likely using it in a figure, or it belongs to another project."
       end
     else
-      flash[:notice] =  "Can't find that image!" 
-    end 
+      flash[:notice] =  "Can't find that image!"
+    end
     redirect_to :action => :list
   end
 
@@ -162,14 +162,14 @@ class ImageController < ApplicationController
     if value.nil?
       redirect_to(:action => 'index', :controller => 'image') and return
     else
-      val = value.split.join('%') 
+      val = value.split.join('%')
       @ids = ImageDescription.find(:all,
                                   :joins => 'LEFT OUTER JOIN taxon_names t on otus.taxon_name_id = t.id',
-                                  :conditions => 
+                                  :conditions =>
                                   ["(images.id LIKE ? OR
                                     otus.name LIKE ? OR
-                                    taxon_names.cached_display_name LIKE ? OR 
-                                    labels.name LIKE ? OR 
+                                    taxon_names.cached_display_name LIKE ? OR
+                                    labels.name LIKE ? OR
                                     image_views.name LIKE ? OR
                                     t.cached_display_name LIKE ? OR
                                     images.user_file_name LIKE ?) AND
@@ -186,17 +186,17 @@ class ImageController < ApplicationController
   end
 
   def browse_figure_markers
- 
+
     if (@proj.figure_markers.length == 0)
       flash[:notice] = "Create some figure markers first!"
-      redirect_to(:action => :index) 
+      redirect_to(:action => :index)
     end and return
 
     if params[:id].blank?
-      @image = @proj.images.with_figure_markers.first 
+      @image = @proj.images.with_figure_markers.first
     else
       @image = Image.find(params[:id])
-    end 
+    end
 
     @next = @proj.images.with_figure_markers.after_id(@image.id).first
     @previous = @proj.images.with_figure_markers.before_id(@image.id).first

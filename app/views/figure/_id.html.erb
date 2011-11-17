@@ -1,6 +1,6 @@
 <%= content_tag :div, :id => illustrate_image_description_id(id), :class => 'browse_rec' do -%>
   <div id ="img_<%= "#{id.image.id}" -%>" class="browse_thumb" <%= (id.image.is_morphbank == true) ? 'style="background-color: #b1c2e6;"' : '' -%> >
-    <%= create_figure_tag(:image => id.image, :object => object, :link_text => 'attach') -%><br />
+    <%= create_figure_tag(:image => id.image, :object => object, :link_text => 'attach', :onclick=>"$('#attached_figures').mx_spinner();") -%><br />
     <%= image_thumb_tag(id.image).html_safe -%>
   </div>
 

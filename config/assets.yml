@@ -33,6 +33,7 @@ javascripts:
     - public/javascripts/jquery.mx-field-observer.js
     - public/javascripts/jquery.mx-flash.js
     - public/javascripts/jquery.mx-insert-content.js
+    - public/javascripts/jquery.mx-inplace-editor.js
     - public/javascripts/jquery.mx-sortable.js
     - public/javascripts/jquery.mx-spinner.js
     - public/javascripts/jquery.mx-tooltip.js

@@ -16,8 +16,14 @@
 
     <tr>
       <td><span class="lbl4">notes: </span>
-        <div id="chr_state_notes_id<%= cs.id -%>" class="inplaceeditor-text" ><%= cs.notes.blank? ? content_tag(:em, 'none provided, click to add') : cs.notes -%></div>
-        <%= in_place_editor("chr_state_notes_id#{cs.id}", :url => url_for(:controller => :chr_state, :action => :_in_place_notes_update, :id => cs.id), :rows => 4, :cols => 80) -%>
+        <div
+          data-inplace-editor
+          data-inplace-editor-type='textarea'
+          data-inplace-editor-text='<%= cs.notes %> '
+          data-inplace-editor-url='<%= url_for(:controller => :chr_state, :action => :_in_place_notes_update, :id => cs.id) %>'
+          class="inplaceeditor-text" >
+            <%= cs.notes.blank? ? content_tag(:em, 'none provided, click to add') : cs.notes -%>
+        </div>
       </td>
     </tr>
 

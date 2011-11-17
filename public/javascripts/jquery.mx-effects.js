@@ -13,7 +13,7 @@
           $(this).effect("shake", {times: 3 }, 50);
           break;
         case 'highlight':
-           $(this).effect("highlight", {}, 250);
+           $(this).effect("highlight", {}, 750);
           break;
       }
     });
