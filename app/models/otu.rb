@@ -65,7 +65,10 @@ class Otu < ActiveRecord::Base
   scope :with_taxon_name_populated, :conditions => 'otus.taxon_name_id IS NOT NULL'
   scope :within_mx_range, lambda {|*args| {:include => :mxes_otus, :conditions => ["mxes_otus.position >= ? AND mxes_otus.position <= ?", (args.first || -1), (args[1] || -1)]}}
   scope :with_seqs_not_through_specimens, lambda {|*args| {:include => :seqs, :conditions => "otus.id IN (SELECT otu_id from seqs)"}}
-  scope :in_project, lambda {|proj| where(:proj_id => proj.id) }
+
+  # use in_proj from /lib/default_named_scopes
+  # scope :in_project, lambda {|proj| where(:proj_id => proj.id) }
+
   scope :with_otu_group, lambda {|id_or_rec|
       id_or_rec = id_or_rec.id if (id_or_rec.is_a?(ActiveRecord::Base))
       joins(:otu_groups_otus).where('otu_groups_otus.otu_group_id' => id_or_rec)

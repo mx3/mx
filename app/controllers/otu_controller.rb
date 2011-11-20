@@ -537,7 +537,7 @@ class OtuController < ApplicationController
   protected
 
   def list_params
-    @otus = Otu.in_project(@proj)
+    @otus = Otu.by_proj(@proj)
           .page(params[:page])
           .per(20)
           .order('taxon_names.l, otus.name, otus.matrix_name')
