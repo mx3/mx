@@ -2,6 +2,50 @@ Edge::Application.routes.draw do
 
   root :to => "proj#index"
 
+  RESOURCES = {
+    'otus' => {:members =>  %w{foo}, :collections => %w{bar} },
+    'chrs' => {:members =>  %w{foo}, :collections => %w{bar} }, 
+  }
+
+  RESOURCES.keys.each do |r|
+    RESOURCES[r][:members] = [] if RESOURCES[r][:members].nil?
+    RESOURCES[r][:collections] = [] if RESOURCES[r][:collections].nil?
+  end
+
+  #   resource :chr do
+  #     match ':controller/:action(/:id)'
+  #   end
+
+  RESOURCES.keys.each do |c|
+
+    scope :projects, :path => "/projects/:proj_id/public" do
+      resources c.to_sym , :controller => "public/#{c}"
+    end
+
+    scope :projects, :path => "/projects/:proj_id" do
+      resources c.to_sym, :controller => c.to_sym do
+
+        # Collections add non-ided actions like otus/foo
+        collection do
+          RESOURCES[c][:collections].each do |col|   
+            get col
+          end
+        end
+
+        # Members add ided actions like otus/1/bar
+        RESOURCES[c][:members].each do |mem|
+          member do 
+            get mem
+          end
+        end
+
+      end
+    end
+
+  end 
+
+
+
   # Some non-RESTfull API calls
   match "/projects/:proj_id/api/ontology/obo_file", :action => :obo_file, :controller => "api/ontology"
   match "/projects/:proj_id/api/ontology/class_depictions", :action => :class_depictions, :controller => "api/ontology"
@@ -32,8 +76,10 @@ Edge::Application.routes.draw do
   # Regardless- why don't the constraints work?!?  And neither does the block version (maybe that's only Rails 3.0)
 
 
-  match "/projects/:proj_id/:controller(/:action(/:id(.:format)))", :controller=> /(public\/)?[^\/]+/
-  match "/:controller(/:action(/:id(.:format)))", :controller=> /(public\/)?[^\/]+/
+ #match "/projects/:proj_id/:controller(/:action(/:id(.:format)))", :controller=> /(public\/)?[^\/]+/
+ #match "/:controller(/:action(/:id(.:format)))", :controller=> /(public\/)?[^\/]+/
+
+
 
 
 
