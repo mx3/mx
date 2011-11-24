@@ -8,14 +8,23 @@ class RoutingTest < ActionController::TestCase
     {:controller => 'proj',   :action => 'index'                  } =>
     '/',
 
-    {:controller => 'otu',    :action => 'new',       :proj_id => '1'} =>
-    "/projects/1/otu/new",
+    {:controller => 'otus',    :action => 'new',       :proj_id => '1'} =>
+    "/projects/1/otus/new",
 
-    {:controller => 'otu',    :action => 'show',      :proj_id => '1', :id => "1"} =>
-    "/projects/1/otu/show/1",
+    {:controller => 'otus',    :action => 'show',      :proj_id => '1', :id => "1"} =>
+    "/projects/1/otus/1",
 
-    {:controller => 'otu',    :action => 'show',      :proj_id => '1', :id => "1", :format => "json"} =>
-    "/projects/1/otu/show/1.json",
+    {:controller => 'otus',    :action => 'edit',      :proj_id => '1', :id => "1"} =>
+    "/projects/1/otus/1/edit",
+
+    {:controller => 'otus',    :action => 'foo',      :proj_id => '1', :id => "1"} =>
+    "/projects/1/otus/1/foo",
+
+    {:controller => 'otus',    :action => 'bar',      :proj_id => '1', } =>
+    "/projects/1/otus/bar",
+
+    {:controller => 'otus',    :action => 'show',      :proj_id => '1', :id => "1", :format => "json"} =>
+    "/projects/1/otus/1.json",
 
     {:controller => 'admin',  :action => 'new_proj'} =>
     "/admin/new_proj",
@@ -42,14 +51,12 @@ class RoutingTest < ActionController::TestCase
 
   # Generates
   {
-    "/projects/1/otu/new" =>
-    {controller: "otu", action: "new", proj_id: "1"},
+    "/projects/1/chrs/1" =>
+    {controller: "chrs", action: "show", proj_id: "1", id: "1"},
 
-    "/projects/1/public/otu" =>
-    {controller: "public/otu", proj_id: "1"},
+    "/projects/1/public/chrs" =>
+    {controller: "public/chrs", proj_id: "1", action: "index"},
 
-    "/projects/1/public/otu/show/1" =>
-    {:proj_id=>"1", :controller=>"public/otu", :action=>"show", :id=>"1"}
    # {controller: "public/otu", action: "show", proj_id: "1", id: "1"}
   }.each_pair do |from, to|
     test "#{from.to_json} recognized as #{to.to_json}" do
@@ -59,14 +66,14 @@ class RoutingTest < ActionController::TestCase
 
   # Routing
   {
-    "/projects/1/public/otu/show/1" =>
-    {:controller => "public/otu", :action => 'show', :proj_id => "1", :id => "1"},
+    "/projects/1/public/chrs/1" =>
+    {:controller => "public/chrs", :action => 'show', :proj_id => "1", :id => "1"},
 
-    "/projects/1/public/otu" =>
-    {:controller => "public/otu", :action => 'index',:proj_id => "1"},
+    "/projects/1/public/chrs" =>
+    {:controller => "public/chrs", :action => 'index',:proj_id => "1"},
 
-    "/projects/1/otu/show/1" =>
-    { proj_id: "1", controller: "otu", action: "show", id: "1"}
+    "/projects/1/otus/1" =>
+    { proj_id: "1", controller: "otus", action: "show", id: "1"}
   }.each_pair do |from, to|
     test "#{from.to_json} recognized as #{to.to_json}" do
       assert_routing from, to

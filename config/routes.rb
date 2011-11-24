@@ -2,48 +2,61 @@ Edge::Application.routes.draw do
 
   root :to => "proj#index"
 
-  RESOURCES = {
+  # Collections add non-ided actions like otus/foo
+  # Members add ided actions like otus/1/bar
+  PRIVATE_RESOURCES = {
     'otus' => {:members =>  %w{foo}, :collections => %w{bar} },
-    'chrs' => {:members =>  %w{foo}, :collections => %w{bar} }, 
+    'chrs' => {:members =>  %w{foo}, :collections => %w{bar} } 
   }
 
-  RESOURCES.keys.each do |r|
-    RESOURCES[r][:members] = [] if RESOURCES[r][:members].nil?
-    RESOURCES[r][:collections] = [] if RESOURCES[r][:collections].nil?
+  PUBLIC_RESOURCES = {
+    'otus' => {:members =>  %w{foo}, :collections => %w{bar} },
+    'chrs' => {:members =>  %w{foo}, :collections => %w{bar} } 
+  }
+
+  [PUBLIC_RESOURCES, PRIVATE_RESOURCES].each do |resource|
+    resource.keys.each do |r|
+      resource[r][:members] = [] if resource[r][:members].nil?
+      resource[r][:collections] = [] if resource[r][:collections].nil?
+    end
   end
 
-  #   resource :chr do
-  #     match ':controller/:action(/:id)'
-  #   end
+  resources = {:private => PRIVATE_RESOURCES, :public => PUBLIC_RESOURCES}
 
-  RESOURCES.keys.each do |c|
+  resources.keys.each do |r|
+    resources[r].keys.each do |c|
+      scope :projects, :path => "/projects/:proj_id#{r == :public ? "/public" : ''}" do
 
-    scope :projects, :path => "/projects/:proj_id/public" do
-      resources c.to_sym , :controller => "public/#{c}"
-    end
+        resources c.to_sym, 
+          :controller => (r == :public ? "public/#{c}" : c.to_sym),
+          :except => (r == :public ? [:create, :destroy, :edit, :new, :update] : []  ) do
+          collection do
+            resources[r][c][:collections].each do |col|   
+              get col
+            end
+          end
 
-    scope :projects, :path => "/projects/:proj_id" do
-      resources c.to_sym, :controller => c.to_sym do
-
-        # Collections add non-ided actions like otus/foo
-        collection do
-          RESOURCES[c][:collections].each do |col|   
-            get col
+          get 'list', :on => :collection
+          resources[r][c][:members].each do |mem|
+            member do 
+              get mem
+            end
           end
         end
-
-        # Members add ided actions like otus/1/bar
-        RESOURCES[c][:members].each do |mem|
-          member do 
-            get mem
-          end
-        end
-
       end
+    end 
+  end
+
+  resource :account, :controller => 'account', :only => [] do
+    collection do
+      get :change_email
+      get :change_password
+      post :delete
+      post :login
+      get :logout
+      get :signup
     end
-
-  end 
-
+  end
 
 
   # Some non-RESTfull API calls
@@ -79,10 +92,6 @@ Edge::Application.routes.draw do
  #match "/projects/:proj_id/:controller(/:action(/:id(.:format)))", :controller=> /(public\/)?[^\/]+/
  #match "/:controller(/:action(/:id(.:format)))", :controller=> /(public\/)?[^\/]+/
 
-
-
-
-
   # TODO: review all these for mx3
   ## associations
   #map.connect "/projects/:proj_id/:controller/:action/association/:association_id/:id",
@@ -101,5 +110,5 @@ Edge::Application.routes.draw do
   #                      :id => /\d+/,
   #                      :con_template_id => /\d+/}
 
-  # match "*anything", :to => "application#index", :unresolvable => "true"
+   match "*anything", :to => "application#index", :unresolvable => "true"
 end
