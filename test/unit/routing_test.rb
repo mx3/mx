@@ -5,8 +5,8 @@ class RoutingTest < ActionController::TestCase
 
   # Recognizes
   {
-    {:controller => 'project',   :action => 'index' } =>
-    '/',
+    {:controller => 'projs',   :action => 'index' } =>
+    '/projs',
 
     {:controller => 'otus',    :action => 'new',       :proj_id => '1'} =>
     "/projects/1/otus/new",
@@ -17,30 +17,27 @@ class RoutingTest < ActionController::TestCase
     {:controller => 'otus',    :action => 'edit',      :proj_id => '1', :id => "1"} =>
     "/projects/1/otus/1/edit",
 
-    {:controller => 'otus',    :action => 'foo',      :proj_id => '1', :id => "1"} =>
-    "/projects/1/otus/1/foo",
-
-    {:controller => 'otus',    :action => 'bar',      :proj_id => '1', } =>
-    "/projects/1/otus/bar",
+    {:controller => 'otus',    :action => 'batch_load',      :proj_id => '1', } =>
+    "/projects/1/otus/batch_load",
 
     {:controller => 'otus',    :action => 'show',      :proj_id => '1', :id => "1", :format => "json"} =>
     "/projects/1/otus/1.json",
 
-    {:controller => 'otu',    :action => 'foo',      :project_id => '1', :id => "1", :format => "json"} =>
-    "/project/1/otu/1/foo.json",
+    {:controller => 'otus',    :action => 'show_tags',   :proj_id => '1', :id => "1", :format => "json"} =>
+    "/projects/1/otus/1/show_tags.json",
 
-    {:controller => 'admin',  :action => 'new_project'} =>
-    "/admin/new_project",
+    {:controller => 'admin',  :action => 'new_proj'} =>
+    "/admin/new_proj",
 
     # TODO: (later) Should reformulate to hit CodingController CRUD, then redirect
-    {:controller => "mx",     :action => 'show_code', :project_id => "1", :otu_id => "1", :chr_id => "1", :id => "1"} =>
-    "/project/1/mx/code/1/1/1",
+    {:controller => "mx",     :action => 'show_code', :proj_id => "1", :otu_id => "1", :chr_id => "1", :id => "1"} =>
+    "/projects/1/mx/code/1/1/1",
 
-    {:controller => "mx",     :action => 'fast_code', :project_id => "1", :position => "1", :chr_state_id => "1", :mode => "row", :otu_id => "1", :chr_id => "1", :id => "1"} =>
-    "/project/1/mx/fast_code/1/row/1/1/1/1",
+    {:controller => "mx",     :action => 'fast_code', :proj_id => "1", :position => "1", :chr_state_id => "1", :mode => "row", :otu_id => "1", :chr_id => "1", :id => "1"} =>
+    "/projects/1/mx/fast_code/1/row/1/1/1/1",
 
-    {:controller => "api/ontology", :action => "obo_file", :project_id => "1"} =>
-    "/project/1/api/ontology/obo_file",
+    {:controller => "api/ontology", :action => "obo_file", :proj_id => "1"} =>
+    "/projects/1/api/ontology/obo_file",
 
     {:controller => "api/ontology", :action => "obo_file"} =>
     "/api/ontology/obo_file",
