@@ -1245,6 +1245,9 @@ Edge::Application.routes.draw do
    end
   end 
 
+
+  # resource :ontology, :path => '/api'
+
   # Some non-RESTfull API calls
   match "/projects/:proj_id/api/ontology/obo_file", :action => :obo_file, :controller => "api/ontology"
   match "/projects/:proj_id/api/ontology/class_depictions", :action => :class_depictions, :controller => "api/ontology"
