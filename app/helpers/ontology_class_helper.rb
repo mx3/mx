@@ -2,7 +2,7 @@
 module OntologyClassHelper
   
   def ontology_class_postfixed_with_label(oc, id_match = nil)
-    link_to(oc.definition.blank? ? content_tag(:em, 'no definition provided') : oc.definition, :action => :show, :id => oc.id, :controller => :ontology_class) + "&nbsp;" +
+    link_to(oc.definition.blank? ? content_tag(:em, 'no definition provided') : oc.definition, :action => :show, :id => oc.id, :controller => :ontology_classes) + "&nbsp;" +
      content_tag(:span, :style => "padding: 2px; background-color: #ddd; color:gray;") do
       if oc.id == id_match
         content_tag(:span, oc.label_name(:type => :preferred), :style => "padding: 1px;", :class => "highlight")
@@ -14,7 +14,7 @@ module OntologyClassHelper
   
   def labels_banner_tag(oc)
     return content_tag(:em, 'no labels attached to this class') if oc.labels.size == 0
-    content_tag :span, oc.labels.ordered_by_name.collect{|l| content_tag(:span, link_to(l.name, :action => :show, :controller => :label, :id => l), :style => label_style(oc, l)) }.join(", "), :style => 'font-size: larger;'
+    content_tag :span, oc.labels.ordered_by_name.collect{|l| content_tag(:span, link_to(l.name, :action => :show, :controller => :labels, :id => l), :style => label_style(oc, l)) }.join(", "), :style => 'font-size: larger;'
   end
 
   def public_labels_banner_tag(oc)
@@ -22,7 +22,7 @@ module OntologyClassHelper
     s = content_tag(:span, oc.label_name(:type => :preferred), :style => 'font-size:150%') 
     if synonyms.size > 0 
      s +=  content_tag(:span, :style => 'color:#888; ') do 
-        ' synonyms: ' + content_tag(:span, synonyms.collect{|l| link_to(l.name, :action => :show, :controller => :label, :id => l.id)}.join(", "))
+        ' synonyms: ' + content_tag(:span, synonyms.collect{|l| link_to(l.name, :action => :show, :controller => :labels, :id => l.id)}.join(", "))
       end
     end
     s

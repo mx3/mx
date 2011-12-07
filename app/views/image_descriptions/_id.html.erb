@@ -1,0 +1,30 @@
+<div class="browse_rec">
+  <div id ="img_<%= "#{id.id}" -%>" class="browse_thumb" <%= (id.image.is_morphbank == true) ? 'style="background-color: #b1c2e6;"' : '' -%> >
+    <%= link_to(image_thumb_tag(id.image).html_safe, :action => 'show', :controller => 'images', :id => id.image) -%>
+  </div>
+
+  <div class="box1" >
+    <div class="browse_otu"><%= image_description_taxon_tag(id) -%></div>
+    <div class="browse_label_view"><%= id.display_name(:type => :label_view) -%></div>
+     <!-- TODO: ug, terrible old code, can be greatly simplified  
+      <span class="small_grey" style="text-align: right;">
+      <%# link_to("more", :remote => true, :update =>  "more_#{id.id}", :postion => :top, :url => { :action => 'more', :controller => 'image_descriptions', :id => id}) -%></span>
+    -->
+
+    <div style="position: absolute; z-index: 300;" id = "more_<%= id.id -%>"> </div>
+  </div>
+
+  <table>
+    <tr class="small_grey">
+      <td>id: <%= id.image.id -%><%= ", mb_id:#{id.image.mb_id}" if id.image.is_morphbank -%></td>
+      <td>    
+        <%= link_to('edit', :action => :edit, :controller => ((id.image.is_morphbank == true) ? 'morphbank_images' : 'images'), :id => id.image.id) -%>
+      </td>
+      <td>
+        <%= link_to('delete', {:action => :destroy,  :controller => :images, :id => id.image}, :method => "post", :confirm => "You clicked to destroy an IMAGE (not the image description).  This will destroy the image and all associated figures and image descriptions in this project.  You will not be allowed to delete this image (the request will fail) if the image is being used in another project. Are you sure you want to do this?") -%>
+      </td>
+    </tr>
+  </table>
+
+  <%= draggable_element("img_#{id.id}", :revert => true) -%>
+</div>

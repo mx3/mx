@@ -1,4 +1,3 @@
-# encoding: utf-8
 module App::NavigationHelper
   # Links and similar methods, should minimally influence layout (but see the tabs code)
 
@@ -64,6 +63,8 @@ module App::NavigationHelper
     klass = 'content_type' if klass =~ /content_type/ || klass =~ /text_content/
     klass = 'image' if klass == 'morphbank_image' && opt[:obj].is_morphbank == true
 
+    klass = klass.pluralize
+
     content_tag(:div, :style => 'border-bottom:1px dotted silver;padding:2px;') do
       id_box_tag(opt[:obj]) +
         content_tag(:div, link_to('show', :action => :show, :id => opt[:obj]), :class => (opt[:do] == 'show' ? 'navigator_current' : ''), :style => 'margin:3px 0;') +
@@ -79,7 +80,7 @@ module App::NavigationHelper
 
   end
 
-  # returns the previous/next record as sorted by Model#ord
+  # Returns the previous/next record as sorted by Model#ord
   def next_rec(rec, ord = 'id', prev = false)
     search_table = ActiveSupport::Inflector.underscore(rec.class.to_s).pluralize
     search_table = 'content_types' if rec.class.to_s =~ /ContentType::/ || rec.class.to_s == 'TextContent'
@@ -109,18 +110,22 @@ module App::NavigationHelper
       order = "chr_groups_chrs.position #{asc_desc}" if session['group_ids'] && session['group_ids']['chr']
     end
 
+    bj = nil
+
     order =  "#{search_table}.#{ord} #{asc_desc}" if !order
-    if id = klass.find(:first, :include => inc,
+    if obj = klass.find(:first, :include => inc,
         :conditions => ["#{c ? (c + " AND ") : ''} #{search_table}.#{ord} #{lt_gt} ?", rec.send(ord)],
         :order => order )
-      return id
+      return obj.id
     else
       # hack. if c is false, above fails
       if c
-        klass.find(:first, :include => inc, :conditions => c, :order => order) # we hit the last record, go back to the first
+       obj = klass.find(:first, :include => inc, :conditions => c, :order => order) # we hit the last record, go back to the first
       else
-        klass.find(:first, :include => inc, :order => order)
+       obj = klass.find(:first, :include => inc, :order => order)
       end
+  
+      return (obj.nil? ? rec.id : obj.id) # We have to return an id to ensure the routes work.
     end
   end
 
@@ -159,95 +164,94 @@ module App::NavigationHelper
       "login" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
       "signup" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
       "account" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
-      "person" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
-      "association_support" => {"text" => "", "group" => "association", "subnav" => {'default' => {"controller" => "association" , "text" => ""}}},
+      "people" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
+      "association_supports" => {"text" => "", "group" => "associations", "subnav" => {'default' => {"controller" => "associations" , "text" => ""}}},
 
-      "namespace" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
-      "news" => {"text" => "News", "group" => "content", "subnav" => {'default' => {'controller' => "news",  "text" => "News"}}},
+      "namespaces" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
+      "news" => {"text" => "News", "group" => "contents", "subnav" => {'default' => {'controller' => "news",  "text" => "News"}}},
       "doc" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
 
-      "lot" => { "text" => "Lot", "group" => "specimen", "subnav" => {'default' => {"controller" => "lot" , "text" => "Lots"}}},
-      "lot_group" => { "text" => "", "group" => "specimen", "subnav" => {'default' => {"controller" => "lot_group" , "text" => "Lot&nbsp;groups".html_safe}}},
-      "specimen" => { "text" => "Material", "group" => "specimen", "subnav" => {'default' => {"controller" => "specimen" , "text" => "Specimens"}}},
-      "repository" => { "text" => "Repositories", "group" => "specimen", "subnav" => {'default' => {"controller" => "repository" , "text" => "Repositories"}}},
-      "ce" => { "text" => "Collecting&nbsp;Events".html_safe, "group" => "specimen", "subnav" => {'default' => {"controller" => "ce" , "text" => "Collecting&nbsp;Events".html_safe}}},
-      "geog" => { "text" => "Geographical&nbsp;Names".html_safe, "group" => "specimen", "subnav" => {'default' => {"controller" => "geog" , "text" => "Geographical&nbsp;Names".html_safe}}},
-      "measurement" => { "text" => "Measurements", "group" => "measurement", "subnav" => {'default' => {"controller" => "measurement" , "text" => "Measurements"}}},
-      "distribution" => { "text" => "Distributions", "group" => "specimen", "subnav" => {'default' => {"controller" => "distribution" , "text" => "Distribution"}}},
+      "lots" => { "text" => "Lot", "group" => "specimens", "subnav" => {'default' => {"controller" => "lots" , "text" => "Lots"}}},
+      "lot_groups" => { "text" => "", "group" => "specimens", "subnav" => {'default' => {"controller" => "lot_groups" , "text" => "Lot&nbsp;groups".html_safe}}},
+      "specimens" => { "text" => "Material", "group" => "specimens", "subnav" => {'default' => {"controller" => "specimens" , "text" => "Specimens"}}},
+      "repositories" => { "text" => "Repositories", "group" => "specimens", "subnav" => {'default' => {"controller" => "repositories" , "text" => "Repositories"}}},
+      "ces" => { "text" => "Collecting&nbsp;Events".html_safe, "group" => "specimens", "subnav" => {'default' => {"controller" => "ces" , "text" => "Collecting&nbsp;Events".html_safe}}},
+      "geogs" => { "text" => "Geographical&nbsp;Names".html_safe, "group" => "specimens", "subnav" => {'default' => {"controller" => "geogs" , "text" => "Geographical&nbsp;Names".html_safe}}},
+      "measurements" => { "text" => "Measurements", "group" => "measurements", "subnav" => {'default' => {"controller" => "measurements" , "text" => "Measurements"}}},
+      "distributions" => { "text" => "Distributions", "group" => "specimens", "subnav" => {'default' => {"controller" => "distributions" , "text" => "Distribution"}}},
 
-      "seq" => { "text" => "DNA", "group" => "seq", "subnav" => {'default' => {"controller" => "seq" , "text" => "Sequences"}}},
-      "gene" => { "text" => "Genes", "group" => "seq", "subnav" => {'default' => {"controller" => "gene" , "text" => "Genes"}}},
-      "gene_group" => { "text" => "Gene groups", "group" => "seq", "subnav" => {'default' => {"controller" => "gene_group" , "text" => "Gene groups"}}},
-      "primer" => { "text" => "Primers", "group" => "seq", "subnav" => {'default' => {"controller" => "primer" , "text" => "Primers"}}},
-      "extract" => { "text" => "Extracts", "group" => "seq", "subnav" => {'default' => {"controller" => "extract" , "text" => "Extracts"}}},
-      "protocol" => { "text" => "Protocols", "group" => "seq", "subnav" => {'default' => {"controller" => "protocol" , "text" => "Protocols"}}},
-      "protocol_step" => { "text" => "Protocol step", "group" => "seq", "subnav" => {'default' => {"controller" => "protocol" , "text" => "Protocols"}}},
-      "chromatogram" => { "text" => "Chromatograms", "group" => "seq", "subnav" => {'default' => {"controller" => "chromatogram" , "text" => "Chromatograms"}}},
-      "pcr" => { "text" => "PCRs", "group" => "seq", "subnav" => {'default' => {"controller" => "pcr" , "text" => "PCRs"}}},
+      "seqs" => { "text" => "DNA", "group" => "seqs", "subnav" => {'default' => {"controller" => "seqs" , "text" => "Sequences"}}},
+      "genes" => { "text" => "Genes", "group" => "seqs", "subnav" => {'default' => {"controller" => "genes" , "text" => "Genes"}}},
+      "gene_groups" => { "text" => "Gene groups", "group" => "seqs", "subnav" => {'default' => {"controller" => "gene_groups" , "text" => "Gene groups"}}},
+      "primers" => { "text" => "Primers", "group" => "seqs", "subnav" => {'default' => {"controller" => "primers" , "text" => "Primers"}}},
+      "extracts" => { "text" => "Extracts", "group" => "seqs", "subnav" => {'default' => {"controller" => "extracts" , "text" => "Extracts"}}},
+      "protocols" => { "text" => "Protocols", "group" => "seqs", "subnav" => {'default' => {"controller" => "protocols" , "text" => "Protocols"}}},
+      "protocol_steps" => { "text" => "Protocol step", "group" => "seqs", "subnav" => {'default' => {"controller" => "protocols" , "text" => "Protocols"}}},
+      "chromatograms" => { "text" => "Chromatograms", "group" => "seqs", "subnav" => {'default' => {"controller" => "chromatograms" , "text" => "Chromatograms"}}},
+      "pcrs" => { "text" => "PCRs", "group" => "seqs", "subnav" => {'default' => {"controller" => "pcrs" , "text" => "PCRs"}}},
 
-      "proj" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
+      "projs" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
       "admin" => { "text" => "", "group" => "none", "subnav" => {'default' => {"controller" => "none" , "text" => ""}}},
 
-      "otu" => { "text" => "OTUs", "group" => "main", "subnav" => {'default' => {"controller" => "otu" , "text" => "OTUs"}}},
-      "otu_group" => {"text" =>'OTU groups', "group" => "otu", "subnav" =>{ 'default' => {"controller" => "otu_group", "text" => 'OTU groups' }}},
+      "otus" => { "text" => "OTUs", "group" => "main", "subnav" => {'default' => {"controller" => "otus" , "text" => "OTUs"}}},
+      "otu_groups" => {"text" =>'OTU groups', "group" => "otus", "subnav" =>{ 'default' => {"controller" => "otu_groups", "text" => 'OTU groups' }}},
 
-      "chr" => { "text" => "Characters", "group" => "main" , "subnav" => {'default' => {"controller" => "chr" , "text" => "Characters"}}},
-      "mx" => { "text" => "Matrices", "group" => "main"},
-      "chr_group" => {"text" => 'Character groups', "group" => "chr", "subnav" => { 'default' => {'controller' => "otu_group", "text" => 'Character groups'}}},
-      "chr_state" => { "text" => "Character state", "group" => "chr" , "subnav" => {'default' => {"controller" => "chr_state" , "text" => "Character state"}}},
-      "phenotype" => { "text" => "Phenotype", "group" => "chr" , "subnav" => {'default' => {"controller" => "phenotype" , "text" => "Phenotype"}}},
+      "chrs" => { "text" => "Characters", "group" => "main" , "subnav" => {'default' => {"controller" => "chrs" , "text" => "Characters"}}},
+      "mxes" => { "text" => "Matrices", "group" => "main"},
+      "chr_groups" => {"text" => 'Character groups', "group" => "chrs", "subnav" => { 'default' => {'controller' => "otu_groups", "text" => 'Character groups'}}},
+      "chr_states" => { "text" => "Character state", "group" => "chrs" , "subnav" => {'default' => {"controller" => "chr_states" , "text" => "Character state"}}},
+      "phenotypes" => { "text" => "Phenotype", "group" => "chrs" , "subnav" => {'default' => {"controller" => "phenotypes" , "text" => "Phenotype"}}},
 
-      "multikey" => { "text" => "Multikeys", "group" => "clave" , "subnav" => {'default' => {"controller" => "multikey" , "text" => "Multikeys"}}},
-      "clave" => { "text" => "Keys", "group" => "clave" , "subnav" => {'default' => {"controller" => "clave" , "text" => "Keys"}}},
+      "multikey" => { "text" => "Multikeys", "group" => "claves" , "subnav" => {'default' => {"controller" => "/multikey" , "text" => "Multikeys"}}},
+      "claves" => { "text" => "Keys", "group" => "claves" , "subnav" => {'default' => {"controller" => "claves" , "text" => "Keys"}}},
 
       "d_key" => {"text" =>"Keys", "group" => "main"},
       "foo" => {"text" => "Images", "group" => "main"},
 
       "foo1" => {"text" => "Genes", "group" => "main"},
-      "association" => {"text" => "Associations", "group" => "main", "subnav" => {'default' => {"controller" => "association" , "text" => "Association"}}},
+      "associations" => {"text" => "Associations", "group" => "main", "subnav" => {'default' => {"controller" => "associations" , "text" => "Association"}}},
 
-      "content" => {"text" => "Content", "group" => "main", "subnav" => {'default' => {'controller' => "content",  "text" => "Content"}}},
-      "content_type" => {"text" => "Content types", "group" => "content", "subnav" => { 'default' => {'controller' => "content_type", "text" => "Content types"}}},
-      "content_template" => {"text" => "Templates", "group" => "content", "subnav" => {'default' => {'controller' => "content_type",  "text" => "Templates"}}},
-      "public_content" => {"text" => "Public content", "group" => "content", "subnav" => {'default' => {'controller' => "content_type",  "text" => "Public content"}}},
+      "contents" => {"text" => "Content", "group" => "main", "subnav" => {'default' => {'controller' => "contents",  "text" => "Content"}}},
+      "content_types" => {"text" => "Content types", "group" => "contents", "subnav" => { 'default' => {'controller' => "content_types", "text" => "Content types"}}},
+      "content_templates" => {"text" => "Templates", "group" => "contents", "subnav" => {'default' => {'controller' => "content_templates",  "text" => "Templates"}}},
+      "public_contents" => {"text" => "Public content", "group" => "contents", "subnav" => {'default' => {'controller' => "content_types",  "text" => "Public content"}}},
 
-      "confidence" => {"text" => "Confidence", "group" => "tag", "subnav" => {'default' => {'controller' => 'association' , "text" => "Confidence"}}},
+      "confidences" => {"text" => "Confidence", "group" => "tags", "subnav" => {'default' => {'controller' => 'confidences' , "text" => "Confidence"}}},
 
-      "ref" => {"text" => "Refs", "group" => "main", "subnav" =>{ 'default' => {"controller" => "ref", "text" => "Refs"}}},
-      "serial" => {"text" => "Serials", "group" => "ref", "subnav" =>{ 'default' => {"controller" => "serial", "text" => "Serials"}}},
+      "refs" => {"text" => "Refs", "group" => "main", "subnav" =>{ 'default' => {"controller" => "refs", "text" => "Refs"}}},
+      "serials" => {"text" => "Serials", "group" => "refs", "subnav" =>{ 'default' => {"controller" => "serials", "text" => "Serials"}}},
 
-      "keyword" => {"text" => "keywords", "group" => "tag", "subnav" =>{ 'default' => {"controller" => "tag", "text" => "Keywords"}}},
-      "tag" => {"text" => "Tags", "group" => "tag", "subnav" =>{ 'default' => {"controller" => "tag", "text" => "Tags"}}},
+      "keywords" => {"text" => "keywords", "group" => "tags", "subnav" =>{ 'default' => {"controller" => "keywords", "text" => "Keywords"}}},
+      "tags" => {"text" => "Tags", "group" => "tags", "subnav" =>{ 'default' => {"controller" => "tags", "text" => "Tags"}}},
 
-      "sensu" => {"text" => "sensu", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "sensu", "text" => "Sensu"}}},
-      "label" => {"text" => "labels", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "label", "text" => "Labels"}}},
       "ontology" => {"text" => "Ontology", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "ontology", "text" => "Home"}}},
-      "ontology_class" => {"text" => "classes", "group" => "ontology", "subnav" =>{'default' => {"controller" => "ontology_class", "text" => "Classes"}}},
-      "object_relationship" => {"text" => "relationships", "group" => "ontology", "subnav" =>{'default' => {"controller" => "ontology_class", "text" => "Relationships"}}},
+      "ontology_classes" => {"text" => "classes", "group" => "ontology", "subnav" =>{'default' => {"controller" => "ontology_classes", "text" => "Classes"}}},
+      "sensus" => {"text" => "sensu", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "sensus", "text" => "Sensu"}}},
+      "labels" => {"text" => "labels", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "labels", "text" => "Labels"}}},
+      "object_relationships" => {"text" => "relationships", "group" => "ontology", "subnav" =>{'default' => {"controller" => "object_relationships", "text" => "Relationships"}}},
 
-      "taxon_name" => {"text" => 'Taxon&nbsp;names'.html_safe, "group" => "main", "subnav" =>{ 'default' => {"controller" => "taxon_name", "text" => content_tag(:span, "Taxon names", :style => 'white-space:nowrap')}}},
-      "taxon_hist" => {"text" => "Taxon name histories", "group" => "taxon_name", "subnav" =>{ 'default' => {"controller" => "taxon_name", "text" => "Taxon name histories"}}},
+      "taxon_names" => {"text" => 'Taxon&nbsp;names'.html_safe, "group" => "main", "subnav" =>{ 'default' => {"controller" => "taxon_names", "text" => content_tag(:span, "Taxon names", :style => 'white-space:nowrap')}}},
+      "taxon_hists" => {"text" => "Taxon name histories", "group" => "taxon_names", "subnav" =>{ 'default' => {"controller" => "taxon_hists", "text" => "Taxon name histories"}}},
 
-      "image" => {"text" => "Images", "group" => "main", "subnav" =>{ 'default' => {"controller" => "image", "text" => "images"}}},
-      "part" => {"text" => "Parts", "group" => "image", "subnav" =>{ 'default' => {"controller" => "part", "text" => "parts"}}},
-      "figure" => {"text" => "Figures", "group" => "image", "subnav" =>{ 'default' => {"controller" => "figure", "text" => "figures"}}},
-      "image_view" => {"text" => "Image views", "group" => "none", "subnav" =>{ 'default' => {"controller" => "none", "text" => ""}}},
-      "standard_view" => {"text" => "Standard views", "group" => "image", "subnav" =>{ 'default' => {"controller" => "standard_view", "text" => "standard views"}}},
-      "standard_view_group" => {"text" => "Standard view groups", "group" => "image", "subnav" =>{ 'default' => {"controller" => "standard_view_group", "text" => "standard view groups"}}},
-      "morphbank_image" => {"text" => "Morphbank image", "group" => "image", "subnav" =>{ 'default' => {"controller" => "image", "text" => "morphbank image"}}},
+      "images" => {"text" => "Images", "group" => "main", "subnav" =>{ 'default' => {"controller" => "images", "text" => "images"}}},
+      "figures" => {"text" => "Figures", "group" => "images", "subnav" =>{ 'default' => {"controller" => "figures", "text" => "figures"}}},
+      "image_views" => {"text" => "Image views", "group" => "none", "subnav" =>{ 'default' => {"controller" => "none", "text" => ""}}},
+      "standard_views" => {"text" => "Standard views", "group" => "images", "subnav" =>{ 'default' => {"controller" => "standard_views", "text" => "standard views"}}},
+      "standard_view_groups" => {"text" => "Standard view groups", "group" => "images", "subnav" =>{ 'default' => {"controller" => "standard_view_groups", "text" => "standard view groups"}}},
+      "morphbank_images" => {"text" => "Morphbank image", "group" => "images", "subnav" =>{ 'default' => {"controller" => "images", "text" => "morphbank image"}}},
 
-      "image_description" => {"text" => "summarize/manage", "group" => "image", "subnav" =>{ 'default' => {"controller" => "image_description", "text" => "summarize/manage"}}},
+      "image_descriptions" => {"text" => "summarize/manage", "group" => "images", "subnav" =>{ 'default' => {"controller" => "image_descriptions", "text" => "summarize/manage"}}},
 
-      "tree" => {"text" => "Phylo", "group" => "tree", "subnav" =>{ 'default' => {"controller" => "tree", "text" => "Trees"}}},
-      "data_source" => {"text" => "Data sources", "group" => "tree", "subnav" =>{'default' => {"controller" => "data_source", "text" => "Data sources"}}},
-      "test" => {"text" => "TEST", "group" => "tree", "subnav" =>{ 'default' => {"controller" => "test", "text" => "Trees"}}}
+      "trees" => {"text" => "Phylo", "group" => "trees", "subnav" =>{ 'default' => {"controller" => "trees", "text" => "Trees"}}},
+      "data_sources" => {"text" => "Data sources", "group" => "trees", "subnav" =>{'default' => {"controller" => "data_sources", "text" => "Data sources"}}},
+      "test" => {"text" => "TEST", "group" => "trees", "subnav" =>{ 'default' => {"controller" => "test", "text" => "Trees"}}}
     }
     # "statement" => { "text" => "Statements", "group" => "main"},
   end
 
   # The default Tab layout, elements are controller names
   def calc_nav_tabs
-    ["otu", "chr", "mx", "content", "specimen", "measurement", "seq", "ref", "association",  "taxon_name", "image", "ontology", "clave", "tag", "tree" ] # statements are not developed
+    ["otus", "chrs", "mxes", "contents", "specimens", "measurements", "seqs", "refs", "associations",  "taxon_names", "images", "ontology", "claves", "tags", "trees" ] # statements are not developed
   end
 
   # Array containing the first level tabs/keys to subtabs
@@ -263,22 +267,22 @@ module App::NavigationHelper
   # Defines the structure of the tabs/subnav, these are controller names
   def calc_navbars
     {
-      "proj" => ["namespace"],
+      "projs" => ["namespaces"],
       "main" => main_navbar,
-      "ontology" => ["ontology", "label", "ontology_class", "sensu",  "object_relationship"],
-      "otu" => ["otu", "otu_group"],
-      "chr" => ["chr", "chr_group"],
-      "association" => ["association", "object_relationship" ],
-      "specimen" => [ "specimen", "lot", "lot_group", "ce", "distribution", "repository", "geog"],
-      "measurement" => ["measurement", "standard_view", "standard_view_group"],
-      "ref" => ["ref",  "serial"],
-      "seq" => ["seq", "extract", "pcr", "gene", "primer", "gene_group", "chromatogram", "protocol"] ,
-      "content" => [ "content", "public_content", "content_type", "content_template", "news"],
-      "image" => ["image", "image_description",   "label", "standard_view", "standard_view_group", "figure"],
-      "taxon_name" => ["taxon_name", "taxon_hist"],
-      "clave" => ["clave", "multikey"],
-      "tag" => ['tag', 'keyword', 'confidence'],
-      "tree" => ['tree', 'data_source']
+      "otus" => ["otus", "otu_groups"],
+      "ontology" => ["ontology", "labels", "ontology_classes", "sensus", "object_relationships"],
+      "chrs" => ["chrs", "chr_groups"],
+      "associations" => ["associations", "object_relationships" ],
+      "specimens" => [ "specimens", "lots", "lot_groups", "ces", "distributions", "repositories", "geogs"],
+      "measurements" => ["measurements", "standard_views", "standard_view_groups"],
+      "refs" => ["refs",  "serials"],
+      "seqs" => ["seqs", "extracts", "pcrs", "genes", "primers", "gene_groups", "chromatograms", "protocols"] ,
+      "contents" => [ "contents", "public_contents", "content_types", "content_templates", "news"],
+      "images" => ["images", "image_descriptions",   "labels", "standard_views", "standard_view_groups", "figures"],
+      "taxon_names" => ["taxon_names", "taxon_hists"],
+      "claves" => ["claves", "multikey"],
+      "tags" => ['tags', 'keywords', 'confidences'],
+      "trees" => ['trees', 'data_sources']
     }
   end
 
@@ -296,9 +300,9 @@ module App::NavigationHelper
 
   # Creates the nav links for the standard project layout, legal 'types' are ('main', 'subnav', 'none')
   def menu_tabs(type = 'main')
-    return '' if not @proj
+    return '' if !@proj
     c_name = self.controller.controller_name
-    result_str = "<div " + (type == "main" ? "id= \"tabs" : "class =\"subnav" ) + "\">"
+    result_str = '<div ' + (type == "main" ? 'id= "tabs' : 'class ="subnav' ) + '">'
 
     # nothing special has to be done for type 'main'!!!
     if (type == 'subnav')
@@ -317,12 +321,12 @@ module App::NavigationHelper
 
     # render the bars
     navbars[type].each{|tab|
-      if not (type == "main" and @proj and @proj.hidden_tabs and @proj.hidden_tabs.include?(tab))
-        linktext = ( type == "main" ? links[tab]['text'] : links[tab]['subnav']['default']['text']  )
+      if not (type == "main" && @proj && @proj.hidden_tabs && @proj.hidden_tabs.include?(tab))
+        linktext = ( type == "main" ? links[tab]['text'] : links[tab]['subnav']['default']['text'] )
         if (c_name == tab) || ((links[c_name]['group'] == tab) && (type == "main"))
-          result_str << link_to(linktext,  {:controller => tab} , {:class => "current"})
+          result_str << link_to(linktext, {:controller => tab, :proj_id => @proj.id} , {:class => "current"})
         else
-          result_str << link_to(linktext, {:controller => tab})
+          result_str << link_to(linktext, {:controller => tab, :proj_id => @proj.id})
         end
       end
     }

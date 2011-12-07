@@ -16,7 +16,7 @@
 #
 # Javascripts is compressed using the google closure compiler.
 # TODO: RAILS_ENV should be Rails.env ?
-<%= "package_assets: false" if RAILS_ENV == 'cucumber' %>
+<%= "package_assets: false" if ::Rails.env == 'cucumber' %>
 package_path: generated/assets
 javascript_compressor: closure
 

@@ -19,7 +19,7 @@ module ContentHelper
       :content_template_id => nil
     }.merge!(options)
     if opt[:text]["<otu"]
-      opt[:text].gsub(/<otu\s+id=\"(\d+)\">(.+?)<\/otu>/) {|s| link_to($2, :controller => (opt[:public] ? 'public/public_content' : :otu ), :action => 'show', :id => $1, :content_template_id => opt[:content_template_id])}
+      opt[:text].gsub(/<otu\s+id=\"(\d+)\">(.+?)<\/otu>/) {|s| link_to($2, :controller => (opt[:public] ? 'public/public_contents' : :otus ), :action => 'show', :id => $1, :content_template_id => opt[:content_template_id])}
     else
       opt[:text]
     end
@@ -36,7 +36,7 @@ module ContentHelper
     
    # was [^+<]+ 
     if opt[:text]["<ref"]
-      opt[:text].gsub(/<ref\s+id=\"(\d+)\">(.+?)<\/ref>/) {|s| link_to($2, :controller => :ref, :action => :show, :id => $1, :content_template_id => opt[:content_template_id])}
+      opt[:text].gsub(/<ref\s+id=\"(\d+)\">(.+?)<\/ref>/) {|s| link_to($2, :controller => :refs, :action => :show, :id => $1, :content_template_id => opt[:content_template_id])}
     else
       opt[:text]
     end

@@ -1,1 +1,0 @@
-<div id="c_<%= "#{obj.class.to_s}_#{obj.id}" -%>" style="float:left;margin:2px;padding:1px;"><span id="cl_<%= "#{obj.class.to_s}_#{obj.id}"-%>"><%= link_to obj.display_name(:type => :confidence), :remote => true, :url => { :action => :popup, :controller => :confidence, :confidence_obj_id => obj.id, :confidence_obj_class => obj.class.to_s} -%></span></div>

@@ -1,0 +1,9 @@
+<div class="subform">
+  <div class="header">Search Morphbank</div>
+  <%= form_tag :remote => true, :url => {:controller => :morphbank_images, :action => :search}, :loading => "Element.show('search_spinner')", :complete => "Element.hide('search_spinner')" do -%>
+      <div class="fr"> <label for="keywords" class="lbl4">With keywords:</label>
+        <span class="fld"><%= text_field_tag 'keywords', '', {:size => 60}  -%> <%= submit_tag "search" %>  <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'search_spinner', :style => "display: none; vertical-align:middle;"  ) %></span>
+      </div>
+      <br style="clear: both;" />
+  <% end -%>
+</div>

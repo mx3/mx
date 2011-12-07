@@ -1,0 +1,36 @@
+<div class="ref_alphabet_links">
+  <% for c in (65.chr..90.chr) %>
+  <span class="<%= c == params['letter'] ? "alphabet_current_letter" : "alphabet_letter" %>">
+       <%= link_to(c, :controller => 'refs', :action => "list_by_author", :letter => c ) %>
+   </span>
+<% end %> 
+</div>
+
+<% if @target == 'name' %>
+  <div class="ref_list">
+      <ul style="list-style-type: disc;">
+       <% @refs.each do |ref| -%>
+         <div class="ref">
+           <li> <%= link_to(ref.display_name.to_s.length > 0 ? ref.display_name : ( ref.full_citation.to_s.length > 0 ? ref.full_citation : "unparsed ref"),  :controller => 'refs', :action => "show", :id => ref.id )  %></li>
+         </div>
+       <% end %>
+      </ul>
+  </div>
+
+<% elsif @target == 'letter' -%> 
+  <div>
+    <% if @refs.empty? -%>
+      <br/><i> no refs found </i>
+    <% else %>
+      <div class="ref_list">
+        <% @refs.each do |ref| -%>
+          <span class="ref">
+            <%= link_to(ref.last_name.to_s.length > 0 ? ref.last_name : "not given", :controller => 'refs', :action => "list_by_author", :name => ref.last_name ) %> (<%= ref.total %>)  <br/>
+          </span>
+      <% end -%>
+      </div>
+    <% end -%>
+  </div>
+<% end -%>
+
+

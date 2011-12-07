@@ -2,7 +2,7 @@
 <div id="<%= "status_popup_#{gene.id}_#{extract.id}" -%>" class="popupform" style="width: auto; ">
   <div>
     <span class="small_form_button" style="float: right;" >
-      <%= link_to("cancel", :remote => true,  :url => { :action => 'cancel_from_popup', :controller => :extracts_gene, :gene_id => gene.id, :extract_id => extract.id}) -%>
+      <%= link_to("cancel", :remote => true,  :url => { :action => 'cancel_from_popup', :controller => :extracts_genes, :gene_id => gene.id, :extract_id => extract.id}) -%>
     </span> 
     <span style="float: left;">Confidence for: <%= gene.name + " / " + extract.display_name -%></span>   
     <br style="clear: both;" />
@@ -17,7 +17,7 @@
         <p><%= f.radio_button :id, c.id, :checked => (confidence && confidence.id  == c.id ? true : false) -%> <%= c.display_name -%></p>
       <% end -%>
     <% end -%>
-    <%= observe_form "spf_#{gene.id}_#{extract.id}", :url => { :action => :apply_from_popup, :controller => :extracts_gene, :extract_id => extract.id, :gene_id => gene.id}, :frequency => "0.25" %>
+    <%= observe_form "spf_#{gene.id}_#{extract.id}", :url => { :action => :apply_from_popup, :controller => :extracts_genes, :extract_id => extract.id, :gene_id => gene.id}, :frequency => "0.25" %>
   <% else -%>
     <em> First create some Confidences like 'gene_extract_status: good'" </em>
   <% end -%>

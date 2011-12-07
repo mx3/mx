@@ -1,0 +1,32 @@
+<% if @claves.size > 0 %>
+
+<h3>Available bifurcating keys</h3>
+<table class='list_table'>
+  <%= t_col_heads( [ '', { 'name'=> "published in", 'style' => 'width: 25%;'}, "# couplets",  " last modified"] ) -%>
+  <% for c in @claves -%>
+    <%=  t_row( { 'obj' =>  c, 'close_tr' => true, 'inc_actions' => false, 
+    'cell_data' => [
+    link_to(c.couplet_text, :action => 'show', :id => c),
+    (c.ref_id? ? link_to(c.ref.authors_year, :action => 'show_unlinked', :id => c.ref.id, :controller => "/public/refs") : '<i>not given OR unpublished</i>'),
+    c.all_children.size / 2,
+    c.m_on] }) -%>
+    <%= '<tr><td style="padding: .2em; color: #777;">' + c.head_annotation + '</td></tr> <tr><td>&nbsp; </td> </tr>' if c.head_annotation %>
+   <% end -%>
+</table>
+<% end %> 
+
+
+<% if @multikeys.size > 0 %>
+<h3>Available multiple entry keys</h3>
+<table class='list_table'>
+  <%= t_col_heads( [ {'name' => '', 'style' => 'width: 25%;'}, 'description' ]) -%>
+  <% for o in @multikeys %>
+  <%=  t_row({ 'obj' => o, 'inc_actions' => false,
+    'cell_data' => [
+    (o.codings.size > 0 ? link_to(o.name, :action => :show, :controller => '/public/multikey_simple', :id => o) : "<i>#{o.name} - not yet coded.</i>" ),
+    o.web_description]} ) %>
+    <% end %>
+</table>
+<% end %> 
+
+<%= '<i>No keys have currently been made public.</i>' if @multikeys.size == 0 and @claves.size == 0 -%>

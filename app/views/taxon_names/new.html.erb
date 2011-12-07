@@ -1,0 +1,8 @@
+<h3>New taxon name</h3>
+<%= form_tag :action => 'create' do -%>
+  <%= submit_tag "Create" -%>
+  <%= submit_tag "Create and create associated OTU" -%>
+  <%= render :partial => 'form' -%>
+  <%= render :partial => '/identifiers/subform' -%>
+  <%= submit_tag "Create" -%>
+<% end -%>

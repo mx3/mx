@@ -1,0 +1,5 @@
+<p>
+  <b>Content for <%= @ct.display_name %></b><br/>
+  <i> Click on an OTU name to see that OTU. </i> <br/>
+</p>
+<%= render(:partial => 'contents/c', :collection => @ct.contents) -%>

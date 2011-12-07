@@ -1,0 +1,17 @@
+<%= error_messages_for 'morphbank_image' %>
+
+<div class="fr"> <label for="morphbank_image_mb_id" class="lbl4">Morphbank Image ID</label>
+  <span class="fld"><%= text_field 'morphbank_image', 'mb_id', :size => 10 %></span>
+</div>
+
+<% if @target == 'new' %>
+  <div class="fr"> <label for="morphbank_image_otu_id" class="lbl4">OTU</label>
+  <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
+      :controller => 'otus',
+      :object => 'image_description',
+      :method => 'otu_id',
+      :tag_id =>  "otu_name",
+      :display =>   (@image_description.otu.display_name if @image_description.otu),
+      :size => 60} -%><span class="small_grey"> (Required!) </span> </span>
+  </div>
+<% end %>

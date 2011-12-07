@@ -15,7 +15,7 @@ class Public::OntologyController < Public::BaseController
       render :action => :index
     else 
       if @ontology_class = OntologyClass.find(params[:search][:ontology_class_id])
-        redirect_to :action => :show, :controller => :ontology_class, :id => @ontology_class.id
+        redirect_to :action => :show, :controller => :ontology_classes, :id => @ontology_class.id
       else
         flash[:notice] = not_found 
         redirect_to :action => :index 
@@ -67,7 +67,7 @@ class Public::OntologyController < Public::BaseController
   def tree
     @treetop = @proj.default_ontology_class
     @proj.ontology_classes.first if !@treetop
-    redirect_to :action => :new, :controller => :ontology_class and return if !@treetop 
+    redirect_to :action => :new, :controller => :ontology_classes and return if !@treetop
     @colored_object_relationships = @proj.object_relationships.with_color_set
     @all_object_relationships = @proj.object_relationships 
     render :action => 'tree/index'
@@ -108,7 +108,7 @@ class Public::OntologyController < Public::BaseController
     @definition = Linker.new(:link_url_base => self.request.host, :proj_id => @proj.ontology_id_to_use, :is_public => true, :incoming_text => @ontology_class.definition, :adjacent_words_to_fuse => 5).linked_text
     render :update do |page|
       txt = render(:partial => '/public/ontology_class/oc_def', :locals => {:oc => @ontology_class} ) 
-      page.replace_html "ontology_tree_info_target", txt + content_tag(:div, link_to('- more detail -', :action => :show_expanded, :controller => :ontology_class, :id => @ontology_class.id), :style => 'text-align: center;', :target => '_blank') 
+      page.replace_html "ontology_tree_info_target", txt + content_tag(:div, link_to('- more detail -', :action => :show_expanded, :controller => :ontology_classes, :id => @ontology_class.id), :style => 'text-align: center;', :target => '_blank')
     end and return       
   end
 

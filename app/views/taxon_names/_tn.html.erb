@@ -1,0 +1,60 @@
+<div class="show_rec">
+
+<div class="show_row"><span class="show_lbl">Name: </span><span class="show_data"><%= @taxon_name.name -%></span><span class="show_comment" style='font-style:normal;color:black;padding:0.5em;' ><%=  content_tag(:span, '&nbsp;not valid&nbsp;', :class => 'failed') if @taxon_name.valid_name   -%></span></div>
+<div class="show_row"><span class="show_lbl">Author, year: </span><span class="show_data"><%= @taxon_name.author_year -%></span></div>
+<div class="show_row"><span class="show_lbl">ICZN Group: </span><span class="show_data"><%= @taxon_name.iczn_group -%></span></div>
+
+<% if ['species', 'variety'].include?(@taxon_name.iczn_group) -%>
+<div class="show_row"><span class="show_lbl">Current combination:</span><span class="show_data"><%= @taxon_name.display_name(:type => :name_with_author_year) -%></span></div>
+<% end -%>
+
+<% if !@taxon_name.valid_name_id.blank? -%>
+  <div class="show_row"><span class="show_lbl">Valid name: </span><span class="show_data"><%= link_to(@taxon_name.valid_name.display_name(:type => :name_with_author_year), :action => :show, :id => @taxon_name.valid_name_id) -%></span></div>
+<% end %>
+
+<% if !@taxon_name.original_spelling.blank? -%>
+  <div class="show_row"><span class="show_lbl">Original orthography: </span><span class="show_data"><%= @taxon_name.original_spelling -%></span></div>
+<% end -%>
+
+<% if !@taxon_name.agreement_name.blank? -%>
+  <div class="show_row"><span class="show_lbl">Genus agreement orthography: </span><span class="show_data"><%= @taxon_name.agreement_name -%></span></div>
+  <div class="show_row"><span class="show_lbl">Current rendering: </span><span class="show_data"><%= @taxon_name.display_name(:type => :name_with_author_year) -%></span></div>
+<% end -%>
+
+<div class="show_category"> Original publication </div>
+
+<div class="show_row"><span class="show_lbl">Reference:</span><span class="show_data"><%= @taxon_name.ref ? @taxon_name.ref.display_name : content_tag(:em, 'not provided') -%></span></div>
+<div class="show_row"><span class="show_lbl">Page validated on:</span><span class="show_data"><%= @taxon_name.page_validated_on -%></span><span class="show_comment">For reference only, there is no concept of page priority in the ICZN. </span></div>
+<div class="show_row"><span class="show_lbl">Page of first occurance:</span><span class="show_data"><%= @taxon_name.page_first_appearance -%></span><em>  </em></div>
+
+  <%= render(:partial => '/shared/show/record/notes', :locals => {:obj => @taxon_name}) -%>
+
+  <% if !@taxon_name.original_genus.blank? || !@taxon_name.original_subgenus.blank? || !@taxon_name.original_species.blank?  -%>
+    <div class="show_category"> Original combination </div>
+    <div class="show_row"><span class="show_lbl">Genus: </span><span class="show_data"><%= @taxon_name.original_genus.display_name if !@taxon_name.original_genus.blank? -%></span></div>
+    <div class="show_row"><span class="show_lbl">Subgenus: </span><span class="show_data"><%= @taxon_name.original_subgenus.display_name if !@taxon_name.original_subgenus.blank? -%></span></div>
+    <div class="show_row"><span class="show_lbl">Species: </span><span class="show_data"><%= @taxon_name.original_species.display_name if !@taxon_name.original_species.blank? -%></span></div>
+  <% end -%>
+
+  <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @taxon_name}) -%>
+
+  <% if @taxon_name.synonyms.size > 0 -%>
+    <div class="show_category"> Synonyms </div>
+    <% @taxon_name.synonyms.ordered_by_date_of_availability.each do |n| -%>
+      <div class="show_row"><span class="show_data"><%= link_to n.display_name(:type => :original_combination), :action => :show, :id => n.id -%></span></div>
+    <% end -%>
+  <% end -%>
+
+  <% if @taxon_name.tags.length > 0 -%>
+  <div class="show_category"> Tags </div>
+    <div>
+    <% @taxon_name.tags.each do |t| -%>
+    <%= render(:partial => '/tags/ts', :locals => {:ts => t}) -%>
+    <% end -%>
+    <br style="clear:both;" />
+  </div>
+  <% end -%>
+
+ <%= render(:partial => 'identifiers/existing_identifier_list', :locals => {:obj => @taxon_name}) -%>
+
+</div>

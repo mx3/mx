@@ -7,7 +7,7 @@ module LabelHelper
 
   def brief_activity_report(label)
     [content_tag(:span, label.activator.first_name), content_tag(:span, label.active_msg),
-    link_to(label.display_name, :action => :show, :id => label, :controller => :label),  time_ago_in_words(label.active_on) + " ago."].join(" ")
+    link_to(label.display_name, :action => :show, :id => label, :controller => :labels),  time_ago_in_words(label.active_on) + " ago."].join(" ")
   end
 
   def brief_activity_report_string(label)

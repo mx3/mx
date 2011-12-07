@@ -1,0 +1,20 @@
+<div class='navigator'>  
+  <%= navigator2(:obj => @otu_group,  :view => session['otu_group_view']) %>
+
+  <div class="category"> Material </div>
+  <%= show_nav_link(:obj => @otu_group, :link => 'material')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'collecting events')  -%>
+
+  <div class="category"> Content/Papers </div>
+  <%= show_nav_link(:obj => @otu_group, :link => 'content grid')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'descriptions')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'verbose specimens examined')  -%>
+
+  <div class="category"> DNA </div>
+  <%= show_nav_link(:obj => @otu_group, :link => 'extract grid')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'extract grid by gene')  -%>
+  <%= show_nav_link(:obj => @otu_group, :link => 'extract grid by extract')  -%>
+
+  <div class="category"> Other </div>
+  <%= show_nav_link(:obj => @otu_group, :link => 'images')  -%>
+</div>

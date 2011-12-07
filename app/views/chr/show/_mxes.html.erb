@@ -1,8 +1,0 @@
-<% content_for :center do -%>
-  <h4> Included in the following matrices: </h4>
-  <ul style="list-style-type: square;">
-    <%  @mxes.each do |m| %>
-    <li>  <%= link_to( m.name, :action => :show, :controller => :mx, :id => m.id) %> </li>
-    <% end %>
-  </ul>
-<% end %>

@@ -1,0 +1,26 @@
+<div> 
+  <% if @part == 'center' %>
+    <p>
+    <h3 style="display: inline;">Taxon names</h3>
+    <% if not @tn == nil -%>
+      (for parent <%= @tn.display_name -%>)<br /><br />
+      <%= render(:partial => @view_type) -%>
+    <% else %>
+      <i>choose a name at right </i>
+    <% end %>
+  </p>
+
+<% elsif @part == 'right' %>
+  <div class="subform">
+    <%= form_tag(:action => 'browse_taxon_names') do %>
+      <h4>Delimit by</h4>
+      <b>Taxon name:</b><br/>
+      <%= render :partial => "taxon_names/public_names_picker", :locals => {:c_name => 'taxon_name', :f_name => 'id'}  -%> <br /><br />
+      <b>Report type:</b><br />
+      <p><%= select_tag('view_type', options_for_select({'list' => 'browse_taxon_names_table2', 'table' => 'browse_taxon_names_table'}) ) %></p>
+      <%= submit_tag "show" %>
+      <p> Help: the results returned (those that are linked) represent the taxon names that are directly tied to an association through an OTU.</p>
+    <% end %>
+  </div>
+<% end %>
+</div>

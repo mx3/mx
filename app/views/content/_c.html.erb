@@ -1,7 +1,0 @@
-<div class="box4">
-<div class="header">
-  <%= '<div style="float: right;" class="small_grey">' + c.id.to_s + '</div>' if !@public %> <%= link_to(c.otu.display_name(:type => :multi_name), :action => 'show_content', :controller => :otu, :id => c.otu) -%>
-</div>
-<div class="content"><%= htmlize(tags_to_links(:text => c.text)) -%></div>
-  <%= render_figs_for_obj(c) -%>
-</div>

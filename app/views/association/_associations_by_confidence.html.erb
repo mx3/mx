@@ -1,1 +1,0 @@
-<% for conf in @confidences %> <h4><%= conf.name %></h4><ul>  <% for as in conf.association_supports %>    <% @assoc = Association.find(as.association_id) %>    <li>  <%= link_to render :partial => "part", :collection => @assoc.association_parts, :action => 'show', :id => @assoc.id %> </li>    <% end %>  </ul><% end %>

@@ -3,7 +3,7 @@ module RefHelper
 
   def short_ref_link_tag(ref)
     return "" if !ref
-    link_to(ref.authors_year, :action => :show, :controller => :ref, :id => ref.id)
+    link_to(ref.authors_year, :action => :show, :controller => :refs, :id => ref.id)
   end
 
   def context_for_label(ref, label_name)

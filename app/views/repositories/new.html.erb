@@ -1,0 +1,9 @@
+<h3>New repository</h3>
+
+<%= form_tag :action => 'create' do -%>
+<%= render :partial => "form" %>
+  <%= submit_tag "Create" %>
+  <%= render :partial => '/identifiers/subform' -%>
+<% end -%>
+
+<%= link_to 'Back', :action => 'list' %>

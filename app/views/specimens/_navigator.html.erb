@@ -1,0 +1,15 @@
+<div class='navigator'>
+  <%= navigator2(:obj => @specimen, :do => session['specimen_view'], :ord => "id") -%>
+
+  <% if @specimen.sequences.length > 0 -%>
+    <%= show_nav_link(:obj => @specimen, :link => 'seqs')  -%>
+  <% end -%>
+
+  <% if @specimen.has_lat_long %>
+    <div class="item"> <%= link_to('BerkeleyMapper map', :action => 'map', :controller => 'berkeley_mapper_result', :specimen_id => @specimen.id) -%> </div>
+  <% end %>
+
+  <div class="category">functions</div>
+  <div class="item"> <%= link_to('create extract', :action => :new, :controller => :extracts, :specimen_id => @specimen.id) -%> </div>
+  <div class="item"> <%= link_to('clone', url_for(:action => :clone, :controller => :specimens, :id => @specimen), :confirm => "Are you sure you want to clone this specimen? Identifiers will not be cloned.") -%> </div>
+</div>

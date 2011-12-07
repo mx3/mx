@@ -1,7 +1,0 @@
-<div class='navigator' style ="text-align: center;">
-  <%= navigator2(:obj => @serial, :do => params['action'] :ord => "id") -%>
-  <%= show_nav_link(:obj => @serial, :link => 'all refs')  -%>
-
-  <br />
-  <div class="item"> <%= link_to('download', :action => :_download_biostor, :id => @serial.id) -%> (biostor format)</div> 
-</div>

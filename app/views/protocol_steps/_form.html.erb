@@ -1,0 +1,23 @@
+<%= error_messages_for 'protocol_step' %>
+
+<!--[form:protocol_step]-->
+
+<p><label for="protocol_step_description">Description</label><br/>
+<%= text_area 'protocol_step', 'description', :cols => 60, :rows => 5  %></p>
+
+<p><label for="protocol_step_reagent">Reagent</label><br/>
+<%= text_field 'protocol_step', 'reagent'  %></p>
+
+<p><label for="protocol_step_reagent_quanitity">Reagent quanitity</label><br/>
+<%= text_field 'protocol_step', 'reagent_quanitity'  %></p>
+
+<p><label for="protocol_step_time">Step length (time)</label><br/>
+<%= text_field 'protocol_step', 'step_time'  %></p>
+
+<p><label for="protocol_step_temp">Temp</label><br/>
+<%= text_field 'protocol_step', 'step_temp'  %></p>
+
+<p><label for="protocol_step_cycles">Cycles/Reps</label><br/>
+<%= text_field 'protocol_step', 'step_cycles'  %></p>
+
+<!--[eoform:protocol_step]-->

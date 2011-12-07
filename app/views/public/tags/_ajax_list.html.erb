@@ -1,0 +1,22 @@
+<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @tag_pages}) -%>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @tag_pages}) -%>
+<table>
+  <%= t_col_heads( ["tagged to", "type", "keyword", "notes", 'ref', "pg_start", "pg_end", "pages", "mod on", "mod by"] ) -%>
+  <% @tags.each_with_index do |o,i| -%>
+    <% tagged_obj = o.tagged_obj -%> 
+  <%=  t_row({ 'obj' => o, 'no_show' => true, 'tr_css' => (o ? i : 'failed'),
+    'cell_data' =>[
+    (tagged_obj ? link_to(tagged_obj.display_name, :action => 'show', :controller => o.addressable_type.pluralize, :id => o.addressable_id) : 'INVALID RECORD'),
+    o.addressable_type,
+    link_to(o.keyword.display_name, :action => :show_tags, :controller => :keywords, :id => o.keyword),
+    {o.notes => 'smaller_font'},
+    (o.ref.blank? ? '' : link_to(o.ref.authors_year, :action => :show, :controller => :refs, :id => o.ref.id)),
+    o.pg_start,
+    o.pg_end,
+    o.pages,
+    o.m_on,
+    o.m_by ]}) -%>
+  <% end -%>
+</table>
+<br/>
+<%= render(:partial => 'shared/page_nav', :locals => {:pages => @tag_pages}) -%>

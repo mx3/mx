@@ -1,0 +1,75 @@
+<%= error_messages_for 'lot' %>
+<!--[form:lot]-->
+<div class="fr"><label for="otu_name" class="lbl4">OTU</label><span class="fld">
+  <%= render :partial => 'shared/picker', :locals => {
+        :controller => 'otus',
+        :object => 'lot',
+        :method => 'otu_id',
+        :tag_id => "otu_name",
+        :display => @lot.otu.andand.display_name(:type => :selected),
+        :size => 40} -%>
+        <%= check_box_tag :lock_otu,{}, @lock_otu ? true : false -%> <em>lock</em>
+      </span>
+</div>
+
+<div class="fr"><label for="lot_key_specimens" class="lbl4">key specimens</label>
+  <span class="fld"><%= text_field 'lot', 'key_specimens', 'title' => 'number of specimens that cannot be destroyed', :size => 4 %></span>
+</div>
+
+<div class="fr">
+  <label for="lot_value_specimens" class="lbl4">value specimens</label>
+  <span class="fld"><%= text_field 'lot', 'value_specimens', 'title' => 'number of specimens that can be dissected/extracted/etc.' , :size => 4 %></span>
+</div>
+
+<div class="fr"><label for="lot_ce_id" class="lbl4">Collecting Event</label><span class="fld">
+<%= render :partial => 'shared/picker', :locals => {
+    :controller => 'ces',
+    :object => 'lot',
+    :method => 'ce_id',
+    :tag_id => "ce_name",
+    :display =>  (@lot.ce.andand.display_name(:type => :selected)),
+    :size => 80 } -%>
+ </span></div>
+
+<div class="fr"><label for="lot_dna_usable" class="lbl4">Usable for DNA?</label>
+<span class="fld"><%= check_box('lot', 'dna_usable')%></span></div> 
+
+<div class="fr"><label for="lot_mixed_lot" class="lbl4">Mixed lot? (spp.)</label>
+  <span class="fld"><%= check_box('lot', 'mixed_lot')%></span>
+</div>
+
+<div class="fr"> <label for="lot_preparation_protocol_id" class="lbl4">Preparation</label>
+  <span class="fld"><%= select("lot", "preparation_protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260;'} ) %></span>
+</div>
+
+<div class="fr">
+  <label for="lot_disposition" class="lbl4">Disposition</label>
+  <span class="fld"><%= text_field 'lot', 'disposition', 'title' => 'where (lost/exactly) the lot is'  %></span>
+</div>
+
+<div class="fr"> <label for="lot_is_public" class="lbl4">Is public?</label>
+  <span class="fld"><%= check_box 'lot', 'is_public', 'title' => 'exportable to public?' -%></span>
+</div>
+
+<div class="fr"><label for="lot_ce_labels" class="lbl4">Collecting Event Labels</label><span class="fld">
+<%= text_area 'lot', 'ce_labels', 'title' => 'verbatim collecting event label', :cols => 60, :rows => 3  %></span></div>
+
+<div class="fr"><label for="lot_rarity" class="lbl4">Rarity</label>
+  <span class="fld"> <%= text_field 'lot', 'rarity', 'title' => 'rarity of specimen(s)', :size => 16  %></span></div>
+<div class="fr"><label for="lot_source_quality" class="lbl4">Source quality</label><span class="fld">
+<%= text_field 'lot', 'source_quality', 'title' => 'quality of specimen(s)', :size => 16  %></span></div>
+<div class="fr"><label for="lot_sex" class="lbl4">Sex</label><span class="fld">
+<%= select("lot", "sex",SEX , { :include_blank => true }) -%></span></div>
+
+<div class="fr"><label for="repository_name" class="lbl4">Repository</label><span class="fld">
+<%= render :partial => 'shared/picker', :locals => {
+    :controller => 'repositories',
+    :object => 'lot',
+		:method => 'repository_id',
+    :tag_id => "repository_name",
+    :display => (@lot.repository.display_name if @lot.repository)} -%></span></div>
+
+<div class="fr"><label for="lot_notes" class="lbl4">Notes</label><span class="fld">
+<%= text_area 'lot', 'notes', 'title' => 'notes about this lot', :cols => 60, :rows => 3 %></span></div>
+<br style="clear:both;"/>
+<!--[eoform:lot]-->

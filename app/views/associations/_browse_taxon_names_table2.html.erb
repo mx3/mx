@@ -1,0 +1,41 @@
+ 
+    <% headsf = {}; headsg = {}; %> <%# headers- crude but functioning, should be moved to a helper %>
+   
+    <table>
+    
+    <% for tn in  @taxon_names  %> 
+      <% pf = (@tn.iczn_group == 'family' ? tn.obj_at_rank('subfamily') : tn.obj_at_rank('family') ) ; pg = tn.obj_at_rank('genus') %> 
+
+      
+      <% if pf and not headsf["#{pf.name}"] %>  <%# check for family/subfamily header %>  
+      <tr><td colspan=4>
+        <h4 style="padding: 0; margin-bottom: 0; margin-top: .5em;"> <%= "#{pf.name}" %>  </h4>
+        <% headsf["#{pf.name}"] = true %> 
+        </td></tr>
+      <% end %>
+
+      <% if pg and not headsg["#{pg.name}"] %>  <%# check for genus header %>  
+      <tr><td></td><td colspan=3>
+          <h4 style="padding: 0; margin-bottom: 0; margin-top:.5em;"><!-- &nbsp;&nbsp;&nbsp; --><%= "#{pg.name}" %>  </h4>
+        <% headsg["#{pg.name}"] = true %> 
+         </td></tr>
+      <% end %>
+
+      <%# Specific name/Genus name %>  
+      <tr><td></td> <td colspan=3><!-- # = "#{'&nbsp;' * rank_n(tn.iczn_group) * 5 }" %> --><%= tn.display_name -%> </td></tr>
+
+      <%# foo %>
+      
+        <% for a in Association.by_taxon_name(tn, @proj.id) -%>
+          <tr> 
+            <td></td><td></td>
+            <td style="width: 400;">&nbsp;&nbsp;<%= link_to(a.display_name, :action => 'show', :controller => 'associations', :id => a) -%></td>
+            <td style="width: 200;"><%= a.supporting_refs.collect{|r| r ? link_to(r.authors_year, :action => 'show', :controller => 'refs', :id => r ) : "ERROR"}.join("; ") -%>  </td>
+          </tr>
+        <% end %>
+      
+      <%# end foo %>
+     
+      <% end  %>
+
+    </table>

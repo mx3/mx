@@ -1,0 +1,16 @@
+
+  <div class="category">output</div>
+  <div class="item"> <%= session['mx_view'] == 'show_nexus' ? '<div class="navigator_current">nexus</div>' :  link_to('nexus', :action => 'show_nexus', :id => @mx.id)  -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_tnt' ? '<div class="navigator_current">tnt</div>' :  link_to('tnt', :action => 'show_tnt', :id => @mx.id)  -%> </div>  
+  <div class="item"> <%= session['mx_view'] == 'show_ascii' ? '<div class="navigator_current">ascii</div>' :  link_to('ascii', :action => 'show_ascii', :id => @mx.id)  -%> </div>   
+  <div class="item"> <%= link_to('NeXML', :action => :show, :controller =>  '/mxes', :format => :xml, :id => @mx) -%> </div>
+  <div class="item"> <%= link_to('OWL', :action => :owl_export, :controller =>  '/mxes', :id => @mx) -%> </div>
+  <% if !@public -%>
+  <div class="item"> <%= link_to('export character descriptions', :action => :doc_export, :controller => :chrs, :mx_id => @mx.id) -%> </div>
+  <% end -%>
+
+  <div class="category">save as file</div>
+  <%= link_to('tnt', :action => 'as_file', :controller => '/mxes', :id => @mx.id, :filetype => :tnt) -%>
+  <%= link_to('NeXML', :action => 'as_file', :controller => '/mxes',  :id => @mx.id, :filetype => :nexml) -%>
+  <br style="clear: both;" />
+

@@ -11,7 +11,7 @@ module TaxonNameHelper
     if taxon_name.ref.blank?
       taxon_name.display_name(:type => :name_with_author_year)
     else
-      (taxon_name.display_name + " " + link_to(taxon_name.display_author_year, :action => :show, :controller => :ref, :id => taxon_name.ref_id))
+      (taxon_name.display_name + " " + link_to(taxon_name.display_author_year, :action => :show, :controller => :refs, :id => taxon_name.ref_id))
     end
   end
 

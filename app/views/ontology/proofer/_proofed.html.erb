@@ -16,7 +16,7 @@
       <p><em> Check terms to add then click </em> <%= submit_tag("Add", :style => "display:inline;") -%> </p>
 
       <p> add a tag to all <strong>labels</strong>:</p>
-      <%= render :partial => 'tag/form_simple' -%>
+      <%= render :partial => 'tags/form_simple' -%>
 
       <br/>
 
@@ -25,7 +25,7 @@
       <div class="fr">
         <label class="lbl4">reference</label>
         <span class="fld"><%= render :partial => 'shared/picker', :locals => {
-          :controller => 'ref',
+          :controller => 'refs',
           :object => 'ontology_class',
           :method => 'written_by_ref_id',
           :tag_id => "ref_name_to_find_for_proofer_batch",
@@ -36,7 +36,7 @@
       <div class="fr">
         <label class="lbl4">highest applicable taxon (sets for all) </label> 
         <span class="fld">	<%= render :partial => 'shared/picker', :locals => {
-          :controller => 'taxon_name',
+          :controller => 'taxon_names',
           :object => 'ontology_class',
           :method => 'highest_applicable_taxon_name_id',
           :tag_id => "taxon_name_to_find",

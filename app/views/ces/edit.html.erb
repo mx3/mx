@@ -1,0 +1,19 @@
+<p><b>Editing Collecting Event</b> <span class="small_grey">(id: <%= @ce.id %>)</span></p>
+<%= form_tag({:action => 'update', :id => @ce}, {:name => 'ce_form'}) do -%>
+
+  <div style="border-bottom: 1px dotted silver; padding: 2px;margin: 2px;">
+    <%= submit_tag "Update" %>
+    or <%= submit_tag 'Update and next', :name => 'update_and_next' %>
+    or <%= link_to 'Cancel and next', {:action => :edit, :id => next_rec(@ce) }, :class => 'small_form_button', :style => 'padding: 2px;' %>
+    or <%= link_to "Cancel and new specimen from here", {:action => 'new', :controller => :specimens, :start_with_ce_id => @ce.id}, :class => 'small_form_button', :style => 'padding: 2px;'%>
+    or <%= link_to "Cancel and show", {:action => :show, :controller => :ces, :id => @ce.id}, :class => 'small_form_button',:style => 'padding: 2px;' %>
+  </div>
+
+  <%= render :partial => "form" %><br/>
+  <hr style="color:gray; width: 98%" />
+  <%= submit_tag "Update" %>
+  or <%= submit_tag 'Update and next', :name => 'update_and_next' %>
+  or <%= link_to 'Cancel and next', :action => 'edit', :id => next_rec(@ce) %>
+
+<% end -%>
+

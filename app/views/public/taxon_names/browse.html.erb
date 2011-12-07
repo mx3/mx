@@ -1,0 +1,10 @@
+<div id="taxon_name_nav">
+  <h3>Families</h3>
+ 
+  <% for f in @families %>
+  <div class="item">
+   <%= link_to h(f.name), :controller => 'taxon_names', :action => 'browse', :family => h(f.name) -%> (<%=h f.count%>)  <br />
+   </div>
+   <% end %>
+
+</div>

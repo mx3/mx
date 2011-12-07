@@ -1,0 +1,98 @@
+<%= error_messages_for 'tag' %>
+
+<!--[form:tag]-->
+
+<div style="padding: 2px;">
+
+<input type=hidden name='tag_obj[obj_class]' value="<%= @obj.class.name %>" />
+<input type=hidden name='tag_obj[obj_id]'    value="<%= @obj.id %>" />
+<input type=hidden name='return_to'          value="<%= params[:return_to] %>" />
+
+<table>
+  <tr>
+    <td style="text-align:right;">
+      <label for="tag_keyword_name">keyword</label>
+    </td>
+    <td>
+      <% keyword_id ||= nil -%>
+      <% if !keyword_id -%>
+        <%= render :partial => 'shared/picker', :locals => {
+        :controller => 'keywords',
+        :object => 'tag',
+        :method => 'keyword_id',
+        :tag_id => "tag_keyword_name",
+        :size => 40,
+        :display => (@tag.keyword.keyword if @tag.keyword)} -%>
+      <% else -%>
+        <%= hidden_field "tag", "keyword_id", :value => keyword_id -%>
+        <div style="display:inline;"><%= "#{Keyword.find(keyword_id).display_name}" -%>   </div>
+    <% end -%>
+    </td>
+  </tr>
+
+  <tr>
+    <%# only show if object is not a reference %>
+    <td style="text-align:right;">
+      <label for="tag_ref_name">Ref</label>
+    </td>
+    <td>
+
+        <%= render(:partial=>'shared/picker', :locals=> {
+              :controller=>'refs',
+              :object=> 'tag',
+              :method=> 'ref_id',
+              :tag_id=> 'tag_ref_name',
+              :display=> (@tag.ref.andand.display_name),
+              :size => 40
+           })
+        %>
+
+
+    </td>
+  </tr>
+
+  <%# end only show %>
+  <tr>
+    <td style="text-align:right;">
+      <label for="tag_pg_start">Page start</label><br/>
+    </td>
+    <td>
+      <%= text_field 'tag', 'pg_start', :size => 4 %>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;">
+      <label for="tag_pg_end">Page end</label>
+    </td>
+    <td>
+      <%= text_field 'tag', 'pg_end', :size => 4 %>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: right;">
+      <label for="tag_pg_start">Page other</label>
+    </td>
+    <td>
+      <%= text_field 'tag', 'pages', :size => 8 %>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="text-align:right;">
+      <label for="tag_notes">Referenced object</label>
+    </td>
+    <td>
+      <%= text_field 'tag', 'referenced_object', :size => 35  %>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;">
+      <label for="tag_notes">Notes</label>
+    </td>
+    <td>
+      <%= text_area 'tag', 'notes', :style => "width:288px; height: 5em;"   %>
+    </td>
+  </tr>
+</table>
+<!--[eoform:tag]-->
+</div>

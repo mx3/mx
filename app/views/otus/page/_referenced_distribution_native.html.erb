@@ -1,0 +1,35 @@
+<%# remember we only have @otu in otu/page partials -%>
+
+<% @native = @otu.distributions.native.ordered_by_geog_name.using_geogs.group_by(&:geog).sort_by{|a,b| [a.country?, a.display_name,  a.name]} -%>
+<% @introduced = @otu.distributions.introduced.ordered_by_geog_name.using_geogs.group_by(&:geog).sort_by{|a,b| [a.country?, a.display_name, a.name]} -%>
+<% @unclassified = @otu.distributions.unclassified.ordered_by_geog_name.using_geogs.group_by(&:geog).sort_by{|a,b| [a.country?, a.display_name, a.name]} -%>
+
+<a name="distribution"></a>
+<div class="box4">
+  <div class="header">Distribution</div>
+  <div class="content">
+
+    <% if @native.size == 0 && @introduced.size == 0 && @unclassified.size == 0 -%>
+        <em> No referenced distribution records have been added to the database for this OTU. </em>
+    <% else -%>
+
+      <% if @native.size > 0 -%>
+        <div style="padding: 4px; font-size: larger; border-bottom: 1px dotted silver;"><strong>Native</strong></div>
+        <%= render(:partial => '/distributions/grouped_table', :locals => {:distributions => @native}) -%>
+      <% end -%>
+
+      <% if @introduced.size > 0 -%>
+        <div style="padding: 4px; margin: 4px; font-size: larger; border-bottom: 1px dotted silver;"><strong>Introduced</strong></div>
+        <%= render(:partial => '/distributions/grouped_table', :locals => {:distributions => @introduced}) -%>
+      <% end -%>
+
+      <% if @unclassified.size > 0 -%>
+        <div style="padding: 4px; margin: 4px; font-size: larger; border-bottom: 1px dotted silver;"><strong>Unclassified</strong></div>
+        <%= render(:partial => '/distributions/grouped_table', :locals => {:distributions => @unclassified}) -%>
+      <% end -%>
+
+    <% end -%>
+
+  </div>
+</div>
+

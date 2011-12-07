@@ -10,17 +10,20 @@ class AccountController < ApplicationController
     end
   end
 
+  # should make this do something else, or delete
+   def index
+    redirect_to :action => :login
+  end
+
   def login
    @news = News.current_app_news('warning')  
    @page_title = "Please login"
-    
     case request.method
-      
       when 'POST'
         if session[:person] = Person.authenticate(params[:person_login], params[:person_password])
           flash[:notice]  = "Login successful"
           session['group_ids'] = {} # used to display temporary user preferences
-          redirect_back_or_default(:controller => :proj, :action => :list)
+          redirect_back_or_default(:controller => :projs, :action => :list)
         else
           @login = params[:person_login]
           flash[:notice]  = "Login unsuccessful" 
@@ -37,7 +40,7 @@ class AccountController < ApplicationController
           session[:person] = Person.authenticate(@person.login, params[:person][:password])
           flash[:notice]  = "Signup successful"
           session['group_ids'] = {}
-          redirect_back_or_default :controller => "proj", :action => "list"          
+          redirect_back_or_default :controller => "projs", :action => "list"
         end
       when :get
         @page_title = "Signup"
@@ -54,7 +57,7 @@ class AccountController < ApplicationController
           session[:person] = @person
           flash[:notice]  = "E-mail updated."
           @page_title = nil
-          redirect_to  :controller => "proj", :action => "list"
+          redirect_to  :controller => "projs", :action => "list"
         end
       else
         flash[:notice]  = "Couldn't confirm request."
@@ -72,7 +75,7 @@ class AccountController < ApplicationController
           session[:person] = @person
           flash[:notice]  = "Password changed"
           @page_title = nil
-          redirect_back_or_default :controller => "proj", :action => "list"
+          redirect_back_or_default :controller => "projs", :action => "list"
         end
       else
         flash[:notice]  = "Old password did not match"
@@ -89,7 +92,7 @@ class AccountController < ApplicationController
         flash[:notice]  = "WARNING! Delete failed"
       end
     end
-    redirect_back_or_default :controller => "proj", :action => "list"
+    redirect_back_or_default :controller => "projs", :action => "list"
   end  
     
   def logout

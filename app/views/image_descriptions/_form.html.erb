@@ -1,0 +1,124 @@
+<%= error_messages_for 'image_description' %>
+
+<!--[form:image_description]-->
+
+<% if @target == 'manage' %>
+  <p><label for="image_description_image_id">Image to attach existing image:</label></p>
+  <%= render :partial => "images/picker", :locals => {:f_name => "image_id", :c_name => "image_description"} %>
+<% end %>
+
+
+<div class="header"> Choose either OTU or specimen </div>
+
+<div class="fr"> <label for="image_description_otu_id" class="lbl4">OTU</label>
+  <span class="fld">
+    <%= render :partial => 'shared/picker', :locals => {
+      :controller => 'otus',
+      :object => 'image_description',
+      :method => 'otu_id',
+      :tag_id =>  "otu_name",
+      :display =>   (@image_description.otu.display_name if @image_description.otu),
+    } -%>
+  </span>
+</div>
+
+<% if !@image_description.otu -%>
+<div class="fr"> <label for="taxon_name_id" class="lbl4">--or-- create a new OTU from a taxon name</label>
+  <span class="fld">   <%= render :partial => "shared/picker", :locals => {:controller => "taxon_names",
+      :object => 'taxon_name', :method => 'id', :tag_id => "taxon_name_for_otu",
+      :display => "" } %></span>
+</div>
+
+<% end -%>
+
+
+<div class="fr">
+  <label for="image_description_specimen_id" class="lbl4">Specimen</label>
+  <span class="fld">
+    <%= render :partial => 'shared/picker', :locals => {
+      :controller => 'specimens',
+      :object => 'image_description',
+      :method => 'specimen_id',
+      :tag_id => "parent_specimen_id_to_find",
+      :display => (@image_description.specimen ? @image_description.specimen.display_name : '')
+    } -%>
+  </span>
+</div>
+
+
+<div class="header"> Choose one or neither of label or ontology class </div>
+
+<% if !@image_description.ontology_class_xref.blank? -%>
+
+<div class="fr"> <label for="image_description_ontology_class_xref" class="lbl4">Ontology class (existing value): </label>
+  <span class="fld"><%= @image_description.ontology_class_xref -%><% oc = @image_description.ontology_class -%> <%= oc ? oc.display_name(:type => :label_first) : content_tag(:em, "not found in db") -%> &nbsp;<%= content_tag(:em, 'at present - delete this record to change the ontology class', :class => 'small_grey') -%> </span>
+</div>
+
+<% else -%>
+
+<div class="fr"> <label for="image_description_label_id" class="lbl4">Label</label>
+  <span class="fld">
+    <%= render :partial => 'shared/picker', :locals => {
+      :controller => 'labels',
+      :object => 'image_description',
+      :method => 'label_id',
+      :tag_id =>  "label_name_for_image_description",
+      :display =>   (@image_description.label.display_name if @image_description.label),
+    } -%>
+  </span>
+</div>
+
+<div class="fr"> <label for="image_description_ontology_class_xref" class="lbl4">Ontology class</label>
+  <span class="fld"><%= render(:partial => 'shared/bio_portal_picker', :locals => {:role => 'xref'}) -%> </span>
+</div>
+
+<% end %>
+
+<div class="header"> Other </div>
+
+<div class="fr"> <label for="image_description_view_id" class="lbl4">View</label>
+  <span class="fld">
+    <%= render(:partial => "image_views/picker" , :locals => {:c_name=> 'image_description', :f_name => 'image_view_id'} ) -%>
+  </span>
+</div>
+
+<div class="fr"> <label for="image_description_stage" class="lbl4">Stage</label>
+  <span class="fld">
+    <%= select("image_description", "stage", ['adult', 'egg', 'larva', 'pupa', 'nymph', 'imago' ]  , { :include_blank => true} )  %>
+  </span>
+</div>
+
+<div class="fr"> <label for="image_description_sex" class="lbl4">Sex</label>
+  <span class="fld">
+    <%= select("image_description", "sex", SEX, { :include_blank => true }) %>
+  </span>
+</div>
+
+<div class="fr"> <label for="image_description_is_public" class="lbl4">Is public?</label>
+  <span class="fld">
+    <%= check_box 'image_description', 'is_public' -%>
+  </span>
+</div>
+
+
+<% if @target == 'manage' or @target == 'request' %>
+  <!-- under construction -->
+  <div class="fr"> <label for="image_description_priority" class="lbl4">Priority</label>
+    <span class="fld"> <%= select("image_description", "priority", ['low', 'medium', 'high'], { :include_blank => true }) %></span>
+  </div>
+
+  <div class="fr"> <label for="image_description_request_notes" class="lbl4">Request notes</label>
+    <span class="fld"> <%= text_area 'image_description', 'request_notes', :cols => 60, :rows => 5  %></span>
+  </div>
+
+  <div class="fr"> <label for="image_description_status" class="lbl4">Status</label>
+    <span class="fld"> <i style="clear:both; float: right;">not implemented</i>  <%= text_field 'image_description', 'status'  %></span>
+  </div>
+<% end %>
+
+<div class="fr"> <label for="image_description_notes" class="lbl4">Notes </label>
+  <span class="fld"><i style="clear:both; float: right;">pertaining to description</i> <%= text_area 'image_description', 'notes', :rows => 2, :cols => 60   %></span>
+</div>
+
+<br style="clear: both;"/>
+<!--[eoform:image_description]-->

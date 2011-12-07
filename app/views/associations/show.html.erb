@@ -1,0 +1,9 @@
+<%= render(:partial => "association") -%>
+<div>
+  <strong>By id:</strong> (<%= render(:partial => "association_by_id", :locals => {:a => @association}) -%>)
+</div>
+<br/><br/>
+<%= render_show(@association) -%>
+<h4>Supporting data</h4>
+<%= render(:partial => "associations/support_table", :locals => {:a => @association}) -%>
+<%= link_to 'Back', :action => 'list' -%>

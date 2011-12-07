@@ -1,0 +1,68 @@
+<%= error_messages_for 'specimen' -%>
+
+ <div class="fr"> <label for="specimen_repository_id" class="lbl4">Repository</label>
+  <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+      :controller => 'repositories',
+      :object => 'specimen',
+      :method => 'repository_id',
+      :tag_id => "repository_name",
+      :display =>(@specimen.repository.display_name if @specimen.repository)} -%></span>
+      </div>
+
+  <div class="fr"> <label for="specimen_ce_id" class="lbl4">Collecting Event</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+        :controller => 'ces',
+        :object => 'specimen',
+        :method => 'ce_id',
+        :tag_id => "ce_name",
+        :display => (@specimen.ce.andand.display_name(:type => :selected)),
+        :size => 80,
+        } -%>  <%= check_box_tag :lock_ce,{}, @lock_ce ? true : false -%> <em>lock</em>
+  </span>
+   </div>
+
+  <div class="fr"> <label for="specimen_temp_ce" class="lbl4">Temporary Labels (use collecting event dropdown if possible)</label>
+    <span class="fld"><%= text_area 'specimen', 'temp_ce', 'title' => 'temporary collecting event label', :cols => 60, :rows => 4 -%></span>
+   </div>
+     
+  <div class="fr"> <label for="specimen_sex" class="lbl4">Sex</label>
+    <span class="fld"> <%= select("specimen", "sex", SEX , { :include_blank => true }) -%></span>
+  </div>
+  
+  <div class="fr"> <label for="specimen_stage" class="lbl4">Stage</label>
+    <span class="fld"><%= select("specimen", "stage", ['adult', 'egg', 'larva', 'pupa', 'nymph', 'imago' ]  , { :include_blank => true} )  -%></span>
+  </div>
+  
+  <div class="fr"> <label for="specimen_dna_usable" class="lbl4">Usable for DNA extraction?</label>
+    <span class="fld"><%= check_box( 'specimen', 'dna_usable' ) -%></span>
+  </div>
+
+  <div class="fr"> <label for="specimen_preparation_protocol_id" class="lbl4">Preparation</label>
+    <span class="fld"><%= select("specimen", "preparation_protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260;'} ) %></span>
+  </div>
+
+  <div class="fr"> <label for="specimen_disposition" class="lbl4">Disposition</label>
+    <span class="fld"><%= text_field 'specimen', 'disposition', 'title' => 'status (location/lost etc.) of the specimen now' -%></span>
+  </div>
+
+  <div class="fr"> <label for="specimen_is_public" class="lbl4">Is public?</label>
+    <span class="fld"><%= check_box 'specimen', 'is_public', 'title' => 'exportable to public?' -%></span>
+  </div>
+
+  <div class="fr"> <label for="specimen_notes" class="lbl4">Notes</label>
+    <span class="fld"><%= text_area 'specimen', 'notes', 'title' => 'notes about this specimen', :cols => 60, :rows => 4  -%></span>
+  </div>
+
+  <div class="fr"> <label for="specimen_parent_specimen_id" class="lbl4">Parent Specimen</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+    :controller => 'specimens',
+    :object => 'specimen',
+    :method => 'parent_specimen_id',
+    :tag_id => "parent_specimen_id_to_find",
+    :display => (@specimen.parent_specimen ? @specimen.parent_specimen.display_name : ''),
+    :size => 80,} -%> </span>
+  </div>
+
+
+  <br style="clear:both;" />
+<!--[eoform:specimen]-->

@@ -1,0 +1,88 @@
+<%= error_messages_for 'lot_group' -%>
+
+<!--[form:lot_group]-->
+
+<div class="fr"> <label for="lot_group_name" class="lbl4">Name</label>
+  <span class="fld"><%= text_field 'lot_group', 'name', 'title' => 'name of lot group', :size => 80  -%></span>
+</div>
+
+<div class="fr"> <label for="lot_notes" class="lbl4">Notes</label>
+  <span class="fld"><%= text_area 'lot_group', 'notes', 'title' => 'notes about lot group', :rows => 4, :cols => 60  -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_is_loan" class="lbl4">Is loan?</label>
+  <span class="fld"><%= check_box('lot_group', 'is_loan') -%> </span>
+</div>
+
+<div class="fr"> <label for="lot_group_outgoing_loan" class="lbl4">Outgoing loan</label>
+  <span class="fld"> <%= check_box('outgoing_loan', 'outgoing_loan') -%> </span>
+</div>
+
+<div class="fr"> <label for="lot_group_incoming_transaction_code" class="lbl4">Incoming transaction code</label>
+  <span class="fld"> <%= text_field 'lot_group', 'incoming_transaction_code', 'title' => 'e.g., loan number' -%> </span>
+</div>
+
+<div class="fr"> <label for="lot_group_repository_id" class="lbl4">Loan Repository</label>
+  <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
+          :controller => 'repositories',
+          :object => 'lot_group',
+          :method => 'repository_id',
+          :tag_id => "lot_group_repository_id",
+          :display => (@lot_group.repository.blank? ? "" : @lot_group.repository.display_name),
+          :size => 60 } -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_material_requested" class="lbl4">Material requested</label>
+  <span class="fld"> <%= text_area 'lot_group', 'material_requested', 'title' => 'what material was requested for this loan', :rows => 4, :cols => 60  -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_date_requested" class="lbl4">Date requested</label>
+  <span class="fld"> <%= date_select 'lot_group', 'date_requested', :include_blank => true,  :order => [:month, :day, :year],  :start_year => 1900  -%></span>
+</div>
+
+
+<div class="fr"> <label for="lot_group_date_recieved" class="lbl4">Date recieved</label>
+  <span class="fld">  <%= date_select 'lot_group', 'date_recieved', :include_blank => true,  :order => [:month, :day, :year],  :start_year => 1900  -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_total_specimens_recieved" class="lbl4">Total specimens recieved</label>
+  <span class="fld"> <%= text_field 'lot_group', 'total_specimens_recieved', 'title' => 'number of specimens received' -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_loan_start_date" class="lbl4">Loan start date</label>
+  <span class="fld">   <%= date_select 'lot_group', 'loan_start_date', :include_blank => true,  :order => [:month, :day,  :year],  :start_year => 1900 -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_loan_end_date" class="lbl4">Loan end date</label>
+  <span class="fld">    <%= date_select 'lot_group', 'loan_end_date', :include_blank => true, :order => [:month, :day, :year],  :start_year => 1900 -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_specimens_returned_date" class="lbl4">Specimens returned date</label>
+  <span class="fld"><%= date_select 'lot_group', 'specimens_returned_date', :include_blank => true,  :order => [:month, :day,  :year],  :start_year => 1900 -%></span>
+</div>
+
+
+<div class="fr"> <label for="lot_group_loan_closed" class="lbl4">Loan closed/complete</label>
+  <span class="fld"><%= check_box('lot_group', 'loan_closed') -%> </span>
+</div>
+
+<div class="fr"> <label for="lot_group_contact_name" class="lbl4">Contact name</label>
+  <span class="fld"><%= text_field 'lot_group', 'contact_name', 'title' => 'name of contact at loaning institution'  -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_contact_email" class="lbl4">Contact email</label>
+  <span class="fld">  <%= text_field 'lot_group', 'contact_email', 'title' => 'email of contact at loaning institution'  -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_policy_page_url" class="lbl4">Policy page URL</label>
+  <span class="fld"><%= text_field 'lot_group', 'policy_page_url', 'title' => 'loaning institutions web page with loan policies', :size => 80 -%></span>
+</div>
+
+<div class="fr"> <label for="lot_group_loan_notes" class="lbl4">Loan notesL</label>
+  <span class="fld"><%= text_area 'lot_group', 'loan_notes', 'title' => 'notes about this loan', :rows => 4, :cols => 60 -%></span>
+</div>
+
+<br style="clear: both;" />
+
+<!--[eoform:lot_group]-->
+

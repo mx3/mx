@@ -1,0 +1,18 @@
+<div style="float: left; min-width: 50%">
+  <ul>
+    <% for proj in @all_projs -%>
+      <% if @persons_projs.include?(proj.id)  %>
+        <li><%= link_to proj[:name], :proj_id => proj.id, :controller => proj.starting_tab, :action => :index -%></li>
+      <% elsif @is_admin %>
+        <li><%= "[#{proj.id}] #{proj.name}" %></li>
+      <% end %>   
+    <% end -%>
+  </ul>
+</div>
+
+<div style="float: right; width: 300px;">
+  <% if @news.size > 0 %>
+  <br />
+    <%= render :partial =>"news/brief_display" -%>
+  <% end -%>
+</div>

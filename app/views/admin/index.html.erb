@@ -1,4 +1,4 @@
-<%= link_to "Back to list of existing projects", :controller => '/proj' -%>
+<%= link_to "Back to list of existing projects", :controller => '/projs' -%>
 
 <div style="text-align: center; width:100%; color: red;">Hey, you're an admin! Now aren't you special. Don't go wrecking things!</div>
 
@@ -17,8 +17,8 @@
 
 <div class="show_category">Cross-project data/settings</div>
 <div class="show_row"><%= link_to 'Administrative news', :controller => "news", :action => 'list_admin' -%></div>
-<div class="show_row"><%= link_to 'Namespaces', :controller => "namespace" -%></div>
-<div class="show_row"><%= link_to 'Image views', :controller => "image_view" -%></div>
+<div class="show_row"><%= link_to 'Namespaces', :controller => "namespaces" -%></div>
+<div class="show_row"><%= link_to 'Image views', :controller => "image_views" -%></div>
 <div class="show_row"><%= link_to "Orphaned Images", :action => :orphaned_images  -%></div>
 
 <div class="show_category">Taxon names</div>
@@ -33,13 +33,6 @@
     </tr>
   <% end -%>
 </table>
-
-<!--
-<i> Unless your taxon names tree is small the following three functions will likely fail.  See the wiki for how to rebuild your left/right indices.</i><br />
-<p><%= link_to "Perform a <strong>quick</strong> check of taxon name numbering.", :action => "check_all_quick_taxon_names" -%></p>
-<p><%= link_to "Perform a <strong>detailed</strong> check of taxon name numbering.", :action => "check_all_taxon_names" -%></p>
-<p><%= link_to "Renumber (reindex) all taxon names (also rebuilds display_name).", :action => "renumber_taxon_names" -%></p>
--->
 
 
 

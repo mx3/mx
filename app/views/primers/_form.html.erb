@@ -1,0 +1,43 @@
+<%= error_messages_for 'primer' %>
+<!--[form:primer]-->
+<table>
+  <tr>
+    <td>
+      <p><label for="primer_name">Name</label><br/>
+      <%= text_field 'primer', 'name', 'title' => 'name of this primer'  %></p>
+    </td>
+    <td>
+      <p><label for="primer_gene_id">Gene</label><br/>
+      <%= select("primer", "gene_id", @proj.genes.collect {|o| [ o.display_name, o.id ] }, { :include_blank => true }) %></p>
+    </td>
+  </tr>
+</table>
+
+<p><label for="primer_sequence">Sequence (5'-3')</label><br/>
+<%= text_field 'primer', 'sequence', 'title' => 'nucleotide sequence of this primer', :size => 70 %></p>
+
+<p><label for="target_otu_name">For OTU</label><br/>
+     <%= render :partial => 'shared/picker', :locals => {
+            :controller => 'otus',
+            :object => 'primer',
+            :method => 'target_otu_id',
+            :tag_id =>  "target_otu_name",
+            :display =>  (@primer.target_otu.andand.display_name(:type => :for_select_list)),
+            :size => 60} -%>
+</p>
+
+<p><label for="ref_name">Reference (original citation)</label><br/>
+<%= render :partial => "refs/picker", :locals => {
+  :object => 'primer', :method => 'ref_id', :tag_id => "ref_name", 
+  :display => (@primer.ref.display_name if @primer.ref) } %></p>
+
+  <p><label for="primer_designed_by">Designed by</label><br/>
+<%= text_field 'primer', 'designed_by', 'title' => 'person who designed this primer',  :size => 70 %></p>
+  
+<p><label for="gene_notes">Notes</label><br/>
+<%= text_area 'primer', 'notes', 'title' => 'notes about this primer', :cols => 60, :rows => 3  %></p>
+
+<p><label for="primer_regex">Regex (5'-3')</label><br/>
+<%= text_field 'primer', 'regex', 'title' => 'string of text used as a search pattern in VIM or perl',  :size => 70 %></p>
+
+<!--[eoform:primer]-->

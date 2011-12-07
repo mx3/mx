@@ -1,0 +1,47 @@
+<% content_for :head do -%>
+   <%= javascript_include_tag('bioportal_form_complete') -%>
+<% end %>
+
+<%= error_messages_for 'standard_view' %>
+
+<!--[form:standard_view]-->
+   
+<div class="fr"> <label for="standard_view_name" class="lbl4">Name</label>
+  <span class="fld"><%= text_field 'standard_view', 'name', 'title' => 'name of standard view'  %></span>
+</div>
+
+<div class="fr"> <label for="standard_view_view_id" class="lbl4">View</label>
+  <span class="fld"><%= render(:partial => "image_views/picker", :locals => {:c_name=> 'standard_view', :f_name => 'image_view_id'} ) %></span>
+</div>
+
+<div class="fr"> <label for="standard_view_sex" class="lbl4">Sex</label>
+  <span class="fld"><%= select("standard_view", "sex", ['female', 'male', 'gynandromorph', 'unknown', 'other'], { :include_blank => true }) %></span>
+</div>
+
+<div class="fr"> <label for="standard_view_ontology_class_xref" class="lbl4">Ontology class</label>
+  <span class="fld"><%= render(:partial => 'shared/bio_portal_picker', :locals => {:role => 'xref'}) -%> </span>
+</div>
+
+<% if !@standard_view.ontology_class_xref.blank? -%>
+<div class="fr"> <label for="standard_view_ontology_class_xref" class="lbl4">Ontology class (existing value): </label>
+  <span class="fld"><%= @standard_view.ontology_class_xref -%><% oc = @standard_view.ontology_class -%> <%= oc ? oc.display_name(:type => :label_first) : content_tag(:em, "not found in db") -%> </span>
+</div>
+<% end -%>
+
+
+
+
+<div class="fr"> <label for="standard_view_notes" class="lbl4">Notes</label>
+  <span class="fld"><%= text_area 'standard_view', 'notes', 'title' => 'notes about this standard view', :cols => 60, :rows => 3  %></span>
+</div>
+
+
+
+<div class="fr" style="padding: .5em; border: 1px dotted red;"> <label for="standard_view_formula" class="lbl4">Formula</label>
+  <span class="fld"><%= text_field 'standard_view', 'formula', 'title' => 'defines how measurements are summarized'  %><em> defines how measurements are computed in summary: TO BE COMPLETED </em></span> <br style="clear:both;" />
+</div>
+
+
+
+<!--[eoform:standard_view]-->
+

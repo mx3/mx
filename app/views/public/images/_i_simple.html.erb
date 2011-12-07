@@ -1,0 +1,5 @@
+<div class="browse_rec" style="height: auto;">
+  <div id ="img_<%= "#{i_simple.id}" -%>" class="browse_thumb" <%= (i_simple.image.is_morphbank == true) ? 'style="background-color: #b1c2e6;"' : '' -%> >
+    <%= link_to(image_thumb_tag(i_simple.image), :action => 'show', :controller => 'images', :id => i_simple.image) -%>
+  </div>
+</div>

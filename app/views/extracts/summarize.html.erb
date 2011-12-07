@@ -1,0 +1,102 @@
+<h3>Summarize PCRs by extract</h3>
+
+<div class="subform">
+  <div class="header">Options</div>
+  <%= form_tag :url => {:action => :summarize, :controller => :extracts} do -%>
+
+  <p><em> Select extracts and genes from (combinining multiple selections combines from each result!): </em></p>
+
+  <div class="fr"> <label for="extract_specimen_id" class="lbl4">From specimen</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+      :controller => 'specimens',
+      :object => 'search',
+      :method => 'specimen_id',
+      :tag_id => "specimen_id_to_find_for_extract_summary",
+      :size => 80} -%> </span>
+  </div>
+
+  <div class="fr"> <label for="extract_otu_group_id" class="lbl4">From OTU</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+      :controller => 'otus',
+      :object => 'search',
+      :method => 'otu_id',
+      :tag_id => "otu_id_to_find_for_extract_summary",
+      :size => 80} -%> </span>
+  </div>
+
+  <div class="fr"> <label for="extract_otu_group_id" class="lbl4">From OTU group</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+      :controller => 'otu_groups',
+      :object => 'search',
+      :method => 'otu_group_id',
+      :tag_id => "otu_group_id_to_find_for_extract_summary",
+      :size => 80} -%> </span>
+  </div>
+
+  <div class="fr"> <label for="extract_keyword_id" class="lbl4">Extracts tagged with</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+      :controller => 'keywords',
+      :object => 'search',
+      :method => 'keyword_id',
+      :tag_id => "otu_keyword_id_to_find_for_extract_summary",
+      :size => 40} -%> </span>
+  </div>
+
+  <div class="fr"><label for="extract_range" class="lbl4">Extracts in id range</label>
+    <span class="fld"><%= text_field_tag 'search[extract_range]',  1, :size => 20 -%> <em> like "1-23, 43, 99-100, 55", returns only valid (existing) matches </em></span>
+  </div>
+
+  <div class="fr"> <label for="extract_report_type" class="lbl4">Extracts with gene/extract status</label>
+    <span class="fld"><%= select_tag('search[extract_confidence_id]', options_for_select(@proj.confidences.by_namespace('gene_extract_status').collect{|t| [t.short_name, t.id]}.insert(0, ''), :none => true)  ) -%></span>
+  </div>
+
+  <hr style="clear:both; margin: 2px;" />
+
+  <div class="fr"> <label for="extract_otu_group_id" class="lbl4">Gene</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+      :controller => 'genes',
+      :object => 'search',
+      :method => 'gene_id',
+      :tag_id => "gene_id_to_find_for_extract_summary",
+      :size => 40} -%> </span>
+  </div>
+
+  <div class="fr"> <label for="extract_gene_group_id" class="lbl4">Gene group</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+      :controller => 'gene_groups',
+      :object => 'search',
+      :method => 'gene_group_id',
+      :tag_id => "gene_group_id_to_find_for_extract_summary",
+      :size => 40} -%> </span>
+  </div>
+
+  <div class="fr"> <label for="extract_primer_id" class="lbl4">Gene using primer</label>
+    <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+      :controller => 'primers',
+      :object => 'search',
+      :method => 'primer_id',
+      :tag_id => "gene_primer_to_find_for_extract_summary",
+      :size => 40} -%> </span>
+  </div>
+
+
+  <hr style="clear:both; margin: 2px;" />
+
+  <div class="fr"> <label for="extract_report_type" class="lbl4">Summary format</label>
+    <span class="fld"><%= select_tag(:report_type, options_for_select(ExtractController::REPORT_SUMMARY_TYPES.collect{|t| [t.to_s.humanize, t]}) ) -%></span>
+  </div>
+
+  <br style="clear:both;" />
+  <%= submit_to_remote "to_screen_btn", "to screen", :url => {:action => :summarize, :controller => :extracts}, :loading => "Element.show('extract_summarize')", :complete => "Element.hide('extract_summarize')" -%>
+  <%= submit_tag "to file" -%>
+
+  <%= spinner_tag('extract_summarize') -%>
+  <% end -%>
+
+</div>
+
+<h3> Extracts by Gene </h3>
+
+<div id="result">
+  <em> submit a search </em>
+</div>

@@ -1,0 +1,9 @@
+<%= render :partial => "associations/association" %> 
+<h3>Edit support</h3>
+
+<%= form_tag :action => 'update', :id => @association_support, :association_id => @association do -%>
+<%= render :partial => "form" %>
+<%= submit_tag "Edit" %>
+<% end -%>
+
+<%= link_to 'Back', :controller => 'associations', :action => 'show', :id => @association %>

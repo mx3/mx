@@ -1,0 +1,6 @@
+<h3>Editing MorphBank image</h3>
+  <%= link_to(image_thumb_tag(@morphbank_image), :action => 'show', :controller => :images,  :id => @morphbank_image.id) %>
+  <%= form_tag ({:action => 'update', :id => @morphbank_image}) do -%>
+  <%= render(:partial => 'form') %>
+  <%= submit_tag 'Update' %>
+<% end -%>

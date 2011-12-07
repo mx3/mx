@@ -1,0 +1,11 @@
+<% for object_relationship in @object_relationships %> 
+  <h4><%= "#{object_relationship.interaction} / #{object_relationship.complement}" %></h4>
+  <ul>
+    <% for as in object_relationship.association_parts %>
+    <% @assoc = Association.find(as.association_id) %>
+    <li><%= link_to render :partial => "part", :collection => @assoc.association_parts, :action => 'show', :id => @assoc.id %> </li>
+    <% end %>
+  </ul>
+<% end %>
+
+

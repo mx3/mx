@@ -1,6 +1,4 @@
 class NewsController < ApplicationController
-   verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
   
   def index
     list

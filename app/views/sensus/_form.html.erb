@@ -1,0 +1,39 @@
+<%= error_messages_for 'sensu' %>
+<!--[form:sensu]-->
+
+<div class="fr"><label for="sensu_ontology_class_id" class="lbl4">class</label><span class="fld">
+<%= render :partial => 'shared/picker', :locals => {
+    :controller => 'ontology_classes',
+		:object => 'sensu',
+		:size => 50,
+		:method => 'ontology_class_id',
+    :tag_id => "sensu_popup_ontology_class_id",
+    :display =>  (@sensu.ontology_class.display_name(:type => :selected) if @sensu.ontology_class) } -%> 
+</span></div>
+
+<div class="fr"><label for="sensu_label_id" class="lbl4">label</label><span class="fld">
+<%= render :partial => 'shared/picker', :locals => {
+    :controller => 'labels',
+		:object => 'sensu',
+		:size => 50,
+		:method => 'label_id',
+    :tag_id => "sensu_popup_label_id",
+    :display =>  (@sensu.label.display_name if @sensu.label) } -%> 
+</span></div>
+
+<div class="fr"><label for="sensu_ref_id" class="lbl4">reference</label><span class="fld">
+<%= render :partial => 'shared/picker', :locals => {
+    :controller => 'refs',
+		:object => 'sensu',
+		:size => 50,
+		:method => 'ref_id',
+    :tag_id => "sensu_popup_ref_id",
+    :display =>  (@sensu.ref.display_name(:type => :selected) if @sensu.ref) } -%> </span>
+</div>
+
+<div class="fr"><label for="ref_title" class="lbl4">notes</label><span class="fld">
+<%= f.text_area 'notes', 'title' => 'notes', :rows => 6 -%></span>
+</div>
+
+<br style="clear:both;"/>
+<!--[eoform:sensu]-->

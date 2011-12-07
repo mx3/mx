@@ -10,8 +10,6 @@
 
 class OntologyController < ApplicationController
 
-  verify :method => :post, :only => [:create], :redirect_to => { :action => :index }
-
   def index
     # almost certainly not right
     @active_labels = @proj.labels.order('active_on DESC').limit(10).where(:active_on => 'NOT NULL') #    order_by_active_on # .limit('10')
@@ -60,7 +58,7 @@ class OntologyController < ApplicationController
       flash[:notice] = "Something went wrong: #{e}"
       render :action => 'ontology/proofer/index' and return
     end
-    redirect_to :action => :list_by_active_on, :controller => :label
+    redirect_to :action => :list_by_active_on, :controller => :labels
   end
 
  # Simple text-file import
@@ -106,7 +104,7 @@ class OntologyController < ApplicationController
   def tree
     @treetop = @proj.default_ontology_class
     @proj.ontology_classes.first if !@treetop
-    redirect_to :action => :new, :controller => :ontology_class and return if !@treetop 
+    redirect_to :action => :new, :controller => :ontology_classes and return if !@treetop
     @colored_object_relationships = @proj.object_relationships.with_color_set
     @all_object_relationships = @proj.object_relationships 
     render :action => 'ontology/tree/index'
@@ -157,7 +155,7 @@ class OntologyController < ApplicationController
     # a little check
     if @proj.ontology_namespace.blank?
       flash[:notice] = "Project not fully configured to dump OBO files.  Check that ontology namespace is set."
-      redirect_to :controller => :proj, :id => @proj.id, :action => :edit and return 
+      redirect_to :controller => :projs, :id => @proj.id, :action => :edit and return
     end
 
     @terms = @proj.ontology_classes.with_xref_namespace(@proj.ontology_namespace).with_obo_label.ordered_by_xref # sort{|a,b| a.obo_xref <=> b.obo_xref}

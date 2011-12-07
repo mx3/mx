@@ -1,0 +1,33 @@
+<div class="subform">
+  <div class="header">Add an individual reference</div>
+  <div class="content">
+    <%= form_tag :action => :add do %>
+    <%= render :partial => 'shared/picker', :locals => {
+        :controller => 'refs',
+        :action => 'auto_complete_for_ref_other_projs',
+        :object => 'ref_for_proj_add',
+        :method => 'id',
+        :tag_id => "ref_to_find_for_cross_project",
+        :display => ""
+        } -%>
+
+      <%= submit_tag 'add' %>
+    <% end %>
+  </div>
+</div>
+<br/>
+<div class="subform">
+  <div class="header">Add all references used by another project</div>
+  <div class="content">
+    <p><i> Think carefully about before you do this!</i> </p>
+    <% for other_proj in @projects -%>
+      <% count = Ref.count(:conditions => ["projs.id = ?", other_proj], :include => :projs) -%>
+      <% if count > 0 -%>
+        <p><%= other_proj.name %>
+        <strong>(<%= count %>)</strong>
+        <%= link_to "add all", {:action => 'add', :other_proj_id => other_proj}, :method => :post, 
+          :confirm => "Are you sure you want to add all #{count} references from #{other_proj.name}?" %></p>
+      <% end -%>
+    <% end -%>
+  </div>
+</div>

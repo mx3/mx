@@ -87,7 +87,7 @@ module App::DisplayHelper
 
     opt["tr_css"].to_s.to_i == opt["tr_css"] && opt["tr_css"] = ( opt["tr_css"] % 2 == 0 ? 'stripe' : "")
     opt['open_tr'] && ( r << "<tr id='#{tags_html_id(opt['obj'])}' class=\"" + opt["tr_css"]  + "\">")
-    r << opt["cell_data"].collect{|c| c.class.to_s == 'Hash' ? ("<td class=\"" + c.values[0] + "\">#{h c.keys[0]}</td>") : "<td>#{h c}</td>" }.join("") ## IS THIS SECURE??
+    r << opt["cell_data"].collect{|c| c.class == Hash ? ("<td class=\"" + c.values[0] + "\">#{h c.keys[0]}</td>") : "<td>#{h c}</td>" }.join("") ## IS THIS SECURE??
     if opt['inc_actions']
       r << self.t_cell_obj_actions(opt["obj"])
     end
@@ -97,10 +97,10 @@ module App::DisplayHelper
 
   def t_cell_obj_actions(o) # return show/edit/destroy tables cells for object o
     r = ''
-    klass = ActiveSupport::Inflector.underscore(o.class.to_s)
+    klass = ActiveSupport::Inflector.underscore(o.class.to_s).pluralize
     if o.taggable
       r << "<td class='list_action'>" +
-        render( :partial => "tag/tag_link", :locals => { :html_selector => "##{tags_html_id(o)}",
+        render( :partial => "tags/tag_link", :locals => { :html_selector => "##{tags_html_id(o)}",
           :tag_obj => o, :link_text => "Tag"})+ "</td>"
     end
     r << content_tag(:td, link_to('Show', :action => 'show', :controller => klass , :id => o.id, :target =>'show'), :class => :list_action)

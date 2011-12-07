@@ -1,0 +1,5 @@
+<div id="node_<%= n.id -%>" style="clear: both; background-color:<%= colour(colour) -%>;" >
+  <%= n.id -%> <%= link_to(n.display_name, :remote => true, :url => {:action => :_select_node, :controller => :trees, :id => n.id, :col_id => col_id }) -%>
+  <% @tree_node = n %>
+ <%= in_place_editor_field :tree_node, :label, {}, :url=>{:controller=> :tree_nodes, :action=> 'set_tree_node_label', :id=> n.id} -%>
+</div> 

@@ -18,3 +18,8 @@ mx3 uses bundler, ruby 1.9.2, and MySQL at present
 * rake db:migrate
 * create an admin user (Person.create!(....,:is_admin=>true, :is_ontology_admin=>true, :creates_projects=>true)
 * log in
+
+
+=== Notes on migrating the database
+* Check projs#public_controller, it will have to be cleared and reconfigured manually
+

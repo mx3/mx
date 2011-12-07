@@ -1,6 +1,6 @@
 <div style="padding: 0 .2em; margin: .3em 0;">
   <% if o.has_public_content? %>
-    <%= link_to(o.display_name, :action => 'show', :controller => 'public_content', :id => o.id) -%>  
+    <%= link_to(o.display_name, :action => 'show', :controller => 'public_contents', :id => o.id) -%>
   <% else %>
      <%= o.display_name -%>
   <% end %>

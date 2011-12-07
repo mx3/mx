@@ -1,0 +1,8 @@
+<h3>New MorphBank image</h3>
+<p> MB images can be added <%= link_to("here as well", :action => :search, :controller => :morphbank_images) -%>.</p>
+<%= form_tag :action => 'create', :controller => 'morphbank_images' do -%>
+<%= render(:partial => 'form') %>
+<%= submit_tag 'Create', :style => 'margin-left: 26%;' %>
+<% end -%>
+
+

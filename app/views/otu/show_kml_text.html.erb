@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://earth.google.com/kml/2.2">
- <Document>
-  <% @otu.markers_for_currently_determined_specimens.each do |m| -%>
-  <%= render(:partial => '/ce/kml_marker', :object => m) -%>
-  <% end %>
-  </Document>
-</kml>

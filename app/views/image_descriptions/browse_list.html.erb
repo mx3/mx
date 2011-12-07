@@ -1,0 +1,17 @@
+<h3>Images by <%= @header %>
+  <%= @otugroup.display_name if @otugroup %>
+  <%= @standardviewgroup.display_name if @standardviewgroup %>
+</h3>
+
+<div>
+
+  <% if @img_descrs.size >0 %>
+
+  <%= render(:partial => 'image_descriptions/id', :collection => @img_descrs, :locals => {:dragmode => false}) %>
+
+  <% else %>
+    <i> None. </i>
+  <% end %>
+
+  <div style="clear: both;"> </div>
+</div>

@@ -1,0 +1,101 @@
+<div>
+  <div style="border-right: 1px dotted silver; width: 73%; float: left;">
+    <% content_template.text_content_types.each do |content_type|  -%>
+    <% con = nil -%>
+    <% con = @editable_otu_contents.detect{|c| c.content_type_id == content_type.id} -%>
+      <div class="subform">
+        <div class="header">
+            <div style="float:right; display: inline; font-size: smaller;">
+           
+              <div style="display: inline; border-right: 1px solid silver; padding:0 2px; margin-right: 4px;">
+                <label for="content_<%= content_type.id -%>_is_image_box" >Images only?</label>
+                <% if con -%>
+                  <input style="" <%= con.is_image_box == true ? 'checked="checked"' : '' -%> id="<%= "content_#{content_type.id}_is_image_box" -%>"  name="content[<%= content_type.id %>][is_image_box]" value="<%= con.is_image_box == true ? '1' : '0' -%>"  type="checkbox" /> 
+                <% else -%>
+                  <input style="" id="<%= "content_#{content_type.id}_is_image_box" -%>"  name="content[<%= content_type.id %>][is_image_box]" value="0" type="checkbox" /> 
+                <% end -%>
+             
+              </div>
+           
+              <% if !con.andand.text.blank? -%>
+                <label for="content_<%= content_type.id -%>_is_public" >Public?</label>
+                <input style="" <%= con.is_public == true ? 'checked="checked"' : '' -%> id="<%= "content_#{content_type.id}_is_public" -%>"  name="content[<%= content_type.id %>][is_public]" value="<%= con.is_public == true ? '1' : '0' -%>"  type="checkbox" /> 
+              <% end -%>
+            </div>
+
+          <label for="content_<%= content_type.id %>_text"><strong><%= content_type.name -%></strong></label><br /> 
+        </div>
+
+        <% if !con.andand.is_image_box -%>    
+          <textarea class="rc_markup" style="width: 100%;" rows="<%= con && con.text.size > 300 ? 10 : 3 %>" id="content_<%= content_type.id -%>_text" name="content[<%= content_type.id -%>][text]"><%= con.text if con -%></textarea>
+        <% else -%>
+          <input type="hidden" name="content[<%=content_type.id-%>][text]" value="--image box--" />
+        <% end -%>
+      
+        <%= render_figs_for_obj(con) if con -%>
+      
+      </div>
+    <% end -%>
+  </div>
+
+  <div style="float: left; width: 23%;">
+    <div class="subform">
+      <div class="header">Options for content:</div>
+      <% content_template.text_content_types.each do | content_type | -%>
+      <% con = nil -%>
+      <% con = @editable_otu_contents.detect{|c| c.content_type_id == content_type.id} -%>  
+     
+      <% if con -%>
+      <div style="border-bottom: 1px dotted silver; padding:0.3em;margin-bottom:2px;">
+        <%=  content_type.name -%> <br />
+        <%=  fig_link(con)   -%> |
+        <%= link_to('Figure all', :action => :create_all_for_content_by_otu, :controller => :figures, :otu_id => @otu.id, :content_id => con.id) -%> |
+        <%= link_to('Attribution', :action => :edit, :controller => :contents, :id => con, :content_template_id => content_template.id ) -%>
+        <br  style="clear: both;"/>
+      </div>
+     
+      <% end %>
+      <% end -%>
+      <p style="font-size: smaller;">HELP: Click 'Fig' to add figures to that content type. The 'figure all' link will create figures for every image attached to this OTU, use it with caution.  Duplicate figures will be created if the image is already being used in a figure elsewhere.</p>
+    </div>
+    <div class="box4">
+      <div class="header"> Other editing options </div>
+      <div class="content">
+        <ul style="list-style-type: disc;margin-left:-10;">
+        <li> Use <%= link_to('Redcloth', 'http://redcloth.org') -%> markup - and see the wiki-help link for more information on editing content. </li>
+        <li> Link to another OTU page: <br /> <p> &lt;otu id="123"&gt; Foo taxon &lt;/otu&gt; </p> </li>
+        <li> Link to a reference in mx: <br /> <p> &lt;ref id="123"&gt; your text &lt;/ref&gt; </p>  <%= link_to "Generate a reference link", {:controller => 'refs', :action => 'link_search'}, :target => "_blank" %></li>
+      </ul>
+      </div>
+    </div>
+
+    <div class="box4">
+      <div class="header"> Sharing / integration </div>
+      <div class="content">
+          Expose the published version of this page in your blog/webpage by pasting this in to your html:
+          <div style="font-family:fixed Courier; padding: 1em;"> &lt;iframe height='<%= content_template.content_types.size * 200 -%>px' width='100%' name='mx_otu_page_<%= @otu.id -%>' frameborder='0' scrolling='auto' src="<%= 'http://' + HOME_SERVER + otu_blog_link(otu, content_template) -%>"&gt; &lt;/iframe&gt; </div>
+      </div>
+    </div>
+
+
+  <div class="subform">
+      <div class="header"> additional view/edit options </div>
+      <div class="content"> 
+        <%= link_to('matrix syncing', :action => 'show_matrix_sync', :id => @otu) -%> <hr />
+        <%= link_to('show all content for this OTU', :action => 'show_all_content', :id => @otu) -%> <hr />
+        <%= link_to('compare 2 OTUs for 1 content type', :action => 'show_compare_content', :controller => 'otus', :id => @otu) -%> <hr />
+      </div>
+    </div>
+
+    <% if @content_template -%>
+      <div id="transfer_form">
+        <%= render(:partial => 'contents/transfer_form') -%>
+      </div>
+    <% end -%>
+
+  </div>
+
+  <br style="clear:both;" />
+</div>
+
+

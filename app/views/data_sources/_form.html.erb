@@ -1,0 +1,44 @@
+<%= error_messages_for 'data_source' %>
+<!--[form:data_source]-->
+
+<div class="fr"> <label for="data_source_name" class="lbl4">Name</label>
+  <span class="fld"> <%= text_field 'data_source', 'name'  %></span>
+</div>
+
+<% if @data_source.dataset.blank? -%>
+  <div class="fr"> <label for="data_source_dataset" class="lbl4">Attach a dataset </label>
+    <span class="fld"><%= file_field 'dataset', 'uploaded_data', :size => 70 -%></span>
+  </div>
+<% else %>
+  <div class="fr"> <label for="" class="lbl4">dataset: </label>
+    <span class="fld"><%= @data_source.dataset.display_name %> <%= link_to('delete', :action => :_delete_dataset, :id =>@data_source) -%></span>
+  </div>
+  
+<% end -%>
+
+<div class="fr"> <label for="data_source_mx_id" class="lbl4">mx Matrix</label>
+  <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
+    :controller => 'mxes',
+    :object => 'data_source',
+    :method => 'mx_id',
+    :tag_id => "mx_id_to_find_for_data_source",
+    :display => (@data_source.mx.display_name if @data_source.mx),
+	:size => 60 } -%></span>
+</div>
+
+<div class="fr"> <label for="data_source_ref_id" class="lbl4">Reference</label>
+  <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
+    :controller => 'refs',
+    :object => 'data_source',
+    :method => 'ref_id',
+    :tag_id => "ref_id_to_find_for_data_source",
+    :display => (@data_source.ref.display_name if @data_source.ref),
+		:size => 60 } -%></span>
+</div>
+
+<div class="fr"> <label for="data_source_notes" class="lbl4">Notes</label>
+  <span class="fld"> <%= text_area 'data_source', 'notes', :cols => 60, :rows => 4  %></span>
+</div>
+
+<br style="clear: both;" />
+<!--[eoform:data_source]-->

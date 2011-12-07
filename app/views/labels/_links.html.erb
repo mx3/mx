@@ -1,0 +1,12 @@
+<%= content_tag :li, "<span style='color: silver;'>List</span>" -%>
+<%= content_tag :li, link_to("by keyword with class edit", :action => "list_by_keyword")-%>
+<%= content_tag :li, link_to("latest edits (updated on)", :action => "list_by_scope", :scope => 'recently_changed')-%>
+<%= content_tag :li, link_to("latest activity (active on)", :action => "list_by_active_on")-%>
+<%= content_tag :li, link_to("homonyms", :action => "list_homonyms", :proj_id => @proj.id)-%>
+<%= content_tag :li, link_to("synonyms", :action => "list_synonyms", :proj_id => @proj.id)-%>
+<%= content_tag :li, link_to("by first letter", :action => "list_alpha") -%>
+<%= content_tag :li, link_to("without definitions (classes/sensus)", :action => "list_without_definitions") -%>
+<%= content_tag :li, link_to("labels in definitions without ontology classes", :action => "list_lbls_in_defs_wo_ontology_classes")-%>
+<%= content_tag :li, link_to("labels without plurals", :action => "list_without_plural")-%>
+<%= content_tag :li, link_to("simple with tags", :action => "list_simple_with_tags")-%>
+

@@ -1,1 +1,0 @@
-<%= link_to 'New association', :action => 'new' %> <h4> Unique refs supporting associations</h4><p> total: <%= @refs.length.to_s %> </p><% if @refs.length > 0 %>  <%= render :collection => @refs, :partial => 'ref/r' %><% else %>  <p><i>none</i></p><% end %>

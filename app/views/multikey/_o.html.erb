@@ -1,5 +1,5 @@
 <div style="padding: 0 .2em; margin: .3em 0;">
-  <%= link_to(o.display_name, :action => :show, :controller =>  :otu, :id => o.id) %> 
+  <%= link_to(o.display_name, :action => :show, :controller => :otus, :id => o.id) %>
   <% if link_txt != '' %>
     <span style="border:1px solid gray; margin: 0; padding: 0 .2em;" class="failed"><%= link_to(link_txt, :action => action, :id => o) -%></span>
   <% end %>

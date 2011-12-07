@@ -1,0 +1,17 @@
+<h3>Listing matrices</h3>
+
+<% if @mxes.size > 0 %>
+<table>
+  <%= t_col_heads( ["name",  "notes"] ) %>
+  <% for m in @mxes %>
+  <%=  t_row({ 'obj' => m, 'inc_actions' => false,
+    'cell_data' => [
+    link_to(m.name, :action => :show, :controller => :mxes, :id => m.id),
+    m.notes] } ) -%>
+    <% end %>
+  </table>
+
+  <% else %>
+  <i> No matrices have been made public. </i>
+  <% end %>
+

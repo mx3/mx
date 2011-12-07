@@ -1,0 +1,17 @@
+<%= form_tag :action => 'link_search' do -%>
+<%= render :partial => 'shared/picker', :locals => {
+  :controller => 'refs',
+    :object => 'ref',
+    :method => 'id',
+    :tag_id => "ref_to_find",
+    :display => ""}
+  -%>
+  <%= submit_tag 'show link' %>
+
+<% end -%>
+
+<% if @ref %>
+  <p>Result:</p> 
+  <strong>&lt;ref id="<%= @ref.id %>"&gt;<%= @ref.text_citation %>&lt;/ref&gt;</strong>
+  <p>Note: you can put any text you want inside the ref tags; the citation above is only intended as a starting point.</p>
+<% end %>

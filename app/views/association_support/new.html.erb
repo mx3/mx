@@ -1,9 +1,0 @@
-<%= render(:partial => "association/association") -%> 
-<div class="box4" style="padding: .5em; margin: .2em;">
-<h3>New support:</h3>
-<%= form_tag :action => 'create', :association_id => @association do %>
-  <%= render(:partial => "form") -%>
-  <%= submit_tag "Create" -%>
-<% end %>
-</div>
-<p><%= link_to 'Back', :controller => 'association', :action => 'show', :id => @association -%></p>

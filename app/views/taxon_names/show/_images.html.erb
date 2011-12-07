@@ -1,0 +1,23 @@
+<% content_for :center do -%>
+  <h3> Images for <%= @taxon_name.display_name  %> and its children </h3>
+
+  <p> <i> This list is all images  attached to OTUs that are tagged by the current taxon name OR its children. </i> <br/>
+  <b style="color: red;">If your OTU is not linked to a taxon name its images will not appear here. </b>
+  </p>
+  <%= @image_descriptions.size if not @image_descriptions.blank? %>
+  <div>
+    <%= render :partial => "image_descriptions/id", :collection => @image_descriptions, :locals => {:dragmode => false} -%>
+    <p style="clear: left">&nbsp;</p>
+  </div>
+<% end %>
+
+<% content_for :right do -%>
+  <ul>
+    <h4>Parents</h4>
+    <i> show images for: </i>
+    <% for p in @parents %>
+    <li><%= link_to(p.display_name, :action => 'show_images', :id => p.id) %></li>
+    <% end %>
+  </ul>
+
+<% end %>

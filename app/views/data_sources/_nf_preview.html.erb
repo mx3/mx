@@ -1,0 +1,14 @@
+<div class="box4">
+  <div class="header"> File coversion preview </div>
+
+  <div class="content">
+    <em> Linked characters or OTUs are matches with existing data. </em>
+    <p><strong>Taxa:</strong> (<%= @nexus_file.taxa.size -%>) <%= @nexus_file.taxa.collect{|i| 
+      ((o = Otu.find(:first, :conditions => ["name = ? OR matrix_name = ?", i.name, i.name] )) ? link_to(i.name, :action => :show, :controller => :otus, :id => o.id) : i.name)}.join(", ") -%>
+    </p>
+    
+    <p><strong>Characters:</strong> (<%= @nexus_file.characters.size -%>) <%= @nexus_file.characters.collect{|i|
+       ((c = Chr.find(:first, :conditions => ["name = ?", i.name] )) ? link_to(i.name, :action => :show, :controller => :chrs, :id => c.id) : i.name)}.join(", ") -%>
+    <p><strong>Reference (from this data source):</strong> <%= @data_source.ref ? @data_source.ref.display_name : '<i>none attached</i>' -%></p>
+  </div>
+</div>

@@ -1,8 +1,0 @@
-<div class="lots_list">
-  <% for lot in @lots_in %>
-    <div class="lot">
-      <%=h lot.display_for_list  %> <%= link_to("show", :controller => "lot", :action => "show", :id => lot.id) %> 
-      <%= link_to "x", {:action => 'remove_lot', :id => @lot_group.id, :params => {"lot_id" => lot.id}} %><br />
-    </div>
-    <% end %>
-</div>

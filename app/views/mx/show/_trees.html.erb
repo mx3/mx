@@ -1,7 +1,0 @@
-<% content_for :center do -%>
-    <h3> Trees associated with this matrix through data sources</h3>
-    <p><i> click to view </i></p>
-    <% @trees.each do |t| %>
-      <%= link_to(t.display_name, :action => 'show_phylowidget', :controller => :tree, :id => t.id) -%> <br/>
-  <% end %>
-<% end %>

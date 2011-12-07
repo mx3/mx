@@ -1,0 +1,22 @@
+<div class="navigator">
+
+  <%= navigator2(:obj => @mx, :do => params['action'], :ord => "name") %> 
+  <%= show_nav_link(:obj => @mx, :link => 'browse', :bound_action => 'browse')  -%>
+  <% ['characters', 'otus', 'sort characters', 'sort otus', 'trees', 'batch code', 'data sources', 'figures'  ].each do |l| -%>
+    <%= show_nav_link(:obj => @mx, :link => l)  -%>
+  <% end %>
+
+  <div class="category">clone</div>
+  <div class="item"><%= link_to('simple', :action => :clone, :clone_type => :simple, :id => @mx.id) -%></div>
+
+  <div class="category">generate</div>
+  <div class="item"><%= link_to('character Group', :action => :generate, :generate_type => :chr_group, :id => @mx.id) -%></div>
+  <div class="item"><%= link_to('OTU group', :action => :generate, :generate_type => :otu_group, :id => @mx.id) -%></div>
+  <div class="item"><%= link_to('concensus OTU', :action => :generate, :generate_type => :concensus_otu, :id => @mx.id) -%></div>
+
+  <div class="category">report</div>
+  <%= show_nav_link(:obj => @mx, :link => 'unused character states')  -%>
+
+  <%= render(:partial => '/mxes/export/navigator_options') -%>
+</div>
+

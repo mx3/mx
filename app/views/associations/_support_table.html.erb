@@ -1,0 +1,50 @@
+<% if not @public -%>
+  <table>
+    <tr><td><%= render(:partial => "associations/add_support_links", :locals => {:a => (@association.blank? ? a : @association)} ) -%> </td></tr>
+  </table>
+<% end -%>
+  
+<% if @supports.size > 0 -%>
+  <% for @s in @supports -%>
+    <table class="<%= @s.class.to_s -%>" <%= 'style="background-color: #ffdddd; margin-bottom: 2em;"' if @s.negative -%>>    
+
+      <%# support items render rows -%>
+      <%= case @s.class.to_s;
+        when "RefSupport" then render(:partial => '/associations/support_item_ref')
+        when "VoucherLotSupport" then render(:partial => '/associations/support_item_lot')
+        when "SpecimenSupport" then render(:partial => '/associations/support_item_specimen')
+        end
+      -%>
+
+      <tr><td class = "lbl1">confidence</td> <td> <%=  @s.confidence.name -%></td></tr>
+      <% if not @s.notes.empty? -%>
+        <tr><td class = "lbl1">notes</td> <td><%= @s.notes -%>  </td></tr>
+      <% end -%>
+      <tr><td class = "lbl1">setting</td><td> <%= @s.setting -%></td></tr>
+      <tr><td class = "lbl1">created/modified</td><td> <%= "#{@s.c_on} #{@s.m_on}" -%></td></tr>
+
+       <% if not @public -%>
+        <tr>
+          <td style = "text-align: right;">
+            <%= link_to("edit", :action => 'edit', :controller => "association_supports", :id => @s.id, :association_id => @s.association_id ) -%>
+            <%= link_to("delete", {:action => 'destroy', :controller => "association_supports", :id => @s.id, :association_id => @s.association_id}, :method => "post" ) -%>
+          </td>
+          <td>
+            <div class="subform" style ="font-size: 87%; width: 280;">
+              <%= form_tag(:action => 'move', :controller => 'association_supports') do -%>
+                <%= hidden_field('support','id', :value => @s.id) -%>
+                 move to association: <%= render :partial => "associations/picker", :locals => {:c_name => 'move', :f_name => 'id'} -%> 
+                <%= submit_tag "Move" -%>
+              <% end -%>
+            </div>
+          </td>
+          </tr>
+        <% end -%> 
+    
+    </table>   
+    <br/>
+  <% end -%>   
+      
+<% else -%>
+  <p><i class="failed"> No supporting references or specimens are currently tied to this record. </i> </p>
+<% end %>

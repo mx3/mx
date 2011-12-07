@@ -4,12 +4,12 @@ module PublicContentHelper
   # both required, not used at present 
   def link_to_content_by_tn_section(by_tn_section, content_template_id = nil)
     return 'misconfigured, provide a content_template_id' if content_template.nil? || by_tn_section.nil?
-    link = (link_to(by_tn_section.header.name, :action => :show, :controller => '/public/public_content', :id => by_tn_section.items.first.id, :content_template_id => content_template_id) + " " + by_tn_section.header.display_author_year).strip
+    link = (link_to(by_tn_section.header.name, :action => :show, :controller => '/public/public_contents', :id => by_tn_section.items.first.id, :content_template_id => content_template_id) + " " + by_tn_section.header.display_author_year).strip
     if by_tn_section.items.size > 1
       i = 0 
       alternates = []
       by_tn_section.items[1..by_tn_section.items.size].each do |i|
-        alternates << link_to("alternate page #{i}", :action => :show, :controller => '/public/public_content', :id => i.id, :content_template_id => content_template_id) 
+        alternates << link_to("alternate page #{i}", :action => :show, :controller => '/public/public_contents', :id => i.id, :content_template_id => content_template_id)
         i += 1
       end
       link + alternates.join(", ")
@@ -34,7 +34,7 @@ module PublicContentHelper
 
     # link or not
     if otu.has_public_content?
-      str += link_to(link_txt, :action => :show, :controller => '/public/public_content', :id => otu.id, :content_template_id => content_template_id)
+      str += link_to(link_txt, :action => :show, :controller => '/public/public_contents', :id => otu.id, :content_template_id => content_template_id)
     else
       str += link_txt 
     end

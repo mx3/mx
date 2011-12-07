@@ -1,0 +1,9 @@
+<%= render_show(@repository, true, true) %>
+
+<%= render(:partial => '/identifiers/existing_identifier_list', :locals => {:obj => @repository}) -%>
+
+<h3>Taxon names of type specimens at this repository</h3>
+<p>(Types that are only recorded in 'type repository notes' will not show up here)</p>
+<% for tn in @repository.all_type_taxon_names -%>
+  <%= tn.display_name %><br/>
+<% end -%>

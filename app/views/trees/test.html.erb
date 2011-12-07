@@ -1,0 +1,38 @@
+
+<div id="all_columns" style="width: 95%; clear: both;">
+  <%= render(:partial => 'atv_col', :locals => {:col_id => 1, :node => '' }) -%>
+  <%= render(:partial => 'atv_col', :locals => {:col_id => 2, :node => @root }) -%>
+  <%= render(:partial => 'atv_col', :locals => {:col_id => 3, :node => ''}) -%>
+</div>
+<br style="clear:both;"/>
+
+<div style="background-color:black; color: white; ; width: 800px; font-weight: 900; padding: 0 .2em;  ">
+<% (1..@t.max_depth.to_i).each do |i| -%>
+  <div style="float: left; width: <%= 800/@t.max_depth -%>px; text-align:center;">
+    <%= @t.leaves_at_depth(i) -%>&nbsp;
+  </div>
+<% end %>
+<br style="clear: both;" />
+</div>
+
+
+<div style="background-color:black; color: white; width: 800px; font-weight: 900; padding: 0 .2em; ">
+<% (1..@t.max_depth.to_i).each do |i| -%>
+  <div style="float: left; width: <%= 800/@t.max_depth -%>px; text-align:center;">
+    <%= link_to('.', :remote => true, :url => {:action => :_select_node, :controller => :trees, :tree_id => @t.id, :depth => i, :col_id => 2 }, :title => i) -%>
+  </div>
+<% end %>
+<br style="clear: both;" />
+</div>
+
+<div style="background-color: black; padding: 0 .2em .5em .2em; width: 800px; height: 200px; ">
+<% @max_at_depth = @t.max_nodes_at_depth -%>
+<% (1..@t.max_depth.to_i).each do |i| -%>
+  <% @pct = (@t.nodes_at_depth(i).size.to_f / @t.tree_nodes.size.to_f) -%>
+  <div style="float: left; width:<%= 800/@t.max_depth -%>px; background-color:rgb(<%= ranged_color(@pct, 'red') -%>); height:<%= @t.nodes_at_depth(i).size.to_f * 200 / @max_at_depth -%>px;">&nbsp;</div>
+<% end %>
+<br style="clear: both;" />
+</div>
+
+
+

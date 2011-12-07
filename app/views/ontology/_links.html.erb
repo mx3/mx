@@ -15,11 +15,3 @@
 
 <%= content_tag :li, content_tag(:span, 'Visualize', :class => 'link_section') -%>
 <%= content_tag :li, link_to("generate DOT", :action => "visualize_dot") -%>
-
-<%= content_tag :li, "BELOW NOT YET RE-IMPLEMENTED" -%>
-
-<%= content_tag :li, link_to("OBO batch", :action => "batch_OBO") -%>
-<%= content_tag :li, link_to("simple batch", :action => "batch_simple") -%>
-<%= content_tag :li, content_tag(:span, "Admin", {:style => 'color: silver;'}) -%>
-<%= content_tag :li, link_to("Manage", :action => "admin")-%>
-

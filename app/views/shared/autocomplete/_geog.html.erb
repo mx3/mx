@@ -1,8 +1,8 @@
 <% n = geog.name %>
 <% if geog.geog_type -%>
-  <%  n << content_tag(:span, " [#{geog.geog_type.name}]", :style => 'color:#888;') %>
-  <%  n << " #{geog.state.name}" if (geog.state and (geog.geog_type.name != 'state')) %>  
-  <%  n << " #{geog.country.name}" if (geog.country and geog.geog_type.name != 'country') %> 
+  <%  n << content_tag(:span, " [#{geog.geog_type.name}]", :style => 'color:#888;') -%>
+  <%  n << " #{geog.state.name}" if (geog.state && (geog.geog_type.name != 'state')) -%>  
+  <%  n << " #{geog.country.name}" if (geog.country && geog.geog_type.name != 'country') -%> 
 <% else %>
   <% n << 'foo' %>
 <% end %>
