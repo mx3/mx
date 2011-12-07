@@ -1,7 +1,4 @@
-class OtuController < ApplicationController
-
-  verify :method => :post, :only => [ :destroy, :create, :update, :remove_from_otu_group],
-    :redirect_to => { :action => :list }
+class OtusController < ApplicationController
 
   before_filter :show_params, :only => [:show, :show_summary, :show_map, :show_distribution, :show_tags_no_layout, :show_groups, :show_material_examined, :show_content, :show_matrix_sync, :show_compare_content, :show_all_content, :show_codings, :show_material, :show_molecular, :show_images, :show_tags, :show_matrices ]
   before_filter :list_params, :only => [:list]
@@ -85,7 +82,7 @@ class OtuController < ApplicationController
 
     if @content_template.nil?
       flash[:notice] = 'To visualize content for an OTU you must create a content template first.'
-      redirect_to :action => :new, :controller => :content_template and return
+      redirect_to :action => :new, :controller => :content_templates and return
     end
 
     @public = true
@@ -136,7 +133,7 @@ class OtuController < ApplicationController
 
     if !@content_type
       flash[:notice] = "Create a content type and template first."
-      redirect_to :action => :index, :controller => :content_type and return
+      redirect_to :action => :index, :controller => :content_types and return
     end
 
     @no_right_col = true
@@ -229,7 +226,7 @@ class OtuController < ApplicationController
       render :action => 'show'
     else
       flash[:notice] =  "can't find that OTU!"
-      redirect_to :action => 'list', :controller => 'otu'
+      redirect_to :action => 'list', :controller => 'otus'
     end
   end
 
@@ -560,7 +557,7 @@ class OtuController < ApplicationController
       @parents =  @otu.taxon_name.parents if @otu.taxon_name
     else
       flash[:notice] =  "can't find that OTU!"
-      redirect_to :action => 'list', :controller => 'otu'
+      redirect_to :action => 'list', :controller => 'otus'
     end
     true
   end

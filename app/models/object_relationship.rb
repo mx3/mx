@@ -31,7 +31,7 @@ class ObjectRelationship < ActiveRecord::Base
       :div_id => 'new_object_relationship'
     }.merge!(params)
 
-    content_tag :div, link_to("Add relationship", :url =>  opts.merge(:action => :new, :controller => :object_relationship), :remote => true ), :id => opts[:div_id]
+    content_tag :div, link_to("Add relationship", :url =>  opts.merge(:action => :new, :controller => :object_relationships), :remote => true ), :id => opts[:div_id]
   end
 
   def as_json

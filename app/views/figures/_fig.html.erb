@@ -1,0 +1,20 @@
+<% @figure = fig -%>
+<div id="<%= figure_class(@figure) -%>" style="border:1px solid purple;margin:0.2em;border: 1px solid gray;padding:0.5em;float:left;background-color:#ffc;" >
+  <%= image_thumb_tag(fig.image).html_safe -%><br />
+
+  <%= form_for :figure, :remote => true, :url => url_for(:action => 'update', :controller => 'figures', :id => @figure.id)  do -%>
+    <input type='hidden' name='html_selector' value='<%= @html_selector %>'/><!-- Cary - necessary? -->
+    <label for="figure_caption">Caption</label>&nbsp;<%= submit_tag "Save", :class => 'small_form_button' -%> <br />
+    <%= text_area "figure", "caption", { :rows => 2, :cols => 20 } -%>
+  <% end -%>
+
+  <div style="font-size:smaller;">
+      <%= link_to("up", {:action => 'up', :controller => 'figures', :id => @figure.id}, :remote => true, :method => 'post' ) -%> |
+      <%= link_to("down", {:action => 'down', :controller => 'figures', :id => @figure.id}, :remote => true, :method => 'post') -%> |
+      <%= link_to("annotate", :action => 'annotate', :controller => 'figures', :id => @figure.id) -%> |
+       id: <%= fig.id %> | 
+      <%= link_to("destroy", {:action => 'destroy', :controller => 'figures', :id => @figure.id}, :remote => true, :method => "post") -%>
+  </div>
+
+  <br style="clear:both;" />
+</div>

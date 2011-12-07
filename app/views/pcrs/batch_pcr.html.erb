@@ -1,0 +1,162 @@
+<h3>Batch create PCRs</h3>
+<%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'pcr_batch_spinner', :style => "display: none; vertical-align:middle;"  ) -%>
+
+<table style="width: 100%">
+  <tr>
+    <td style="width:49%; border-right:1px solid silver;"> <h3> Add extracts </h3>
+      <div class="subform">
+        <div class="header"> Select extract(s) </div>
+        <div class="content" style="padding-bottom: 4px;">
+
+          <% form_remote_tag :loading => "Element.show('pcr_batch_spinner')", :complete => "Element.hide('pcr_batch_spinner')", :url => {:controller => :pcrs, :action => :_add_extract_to_batch} do -%>
+            <div class="fr"> <label for="extract_id_for_batch_pcr" class="lbl4">Extract </label>
+              <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
+                  :controller => 'extracts',
+                  :object => 'extract',
+                  :method => 'id',
+                  :tag_id => "find_extract_for_batch",
+                  :size => 35} -%> <%= submit_tag "add" -%></span>
+            </div>
+          <% end -%>
+
+          <br style="clear: both;" />
+          <hr />
+
+          <% form_remote_tag :loading => "Element.show('pcr_batch_spinner')", :complete => "Element.hide('pcr_batch_spinner')", :url => {:controller => :pcrs, :action => :_batch_add_extracts_to_batch} do -%>
+            <div class="fr"><%= submit_tag "add", :name => 'past_two_weeks' -%> <span class="lbl4"> extracts created in past 2 weeks  </span> </div>
+            <div class="fr"><%= submit_tag "add" , :name => 'last_20' -%>      <span class="lbl4"> most recent 20 extracts created in past 2 weeks</span> </div>
+            <div class="fr"><%= submit_tag "add" , :name => 'without_pcrs' -%> <span class="lbl4"> all extracts without PCRs</span> </div>
+          <% end -%>
+
+          <hr />
+          <% form_remote_tag :loading => "Element.show('pcr_batch_spinner')", :complete => "Element.hide('pcr_batch_spinner')", :url => {:controller => :pcrs, :action => :_batch_add_extracts_to_batch_via_tags} do -%>
+            <span class="lbl4">extracts by tag keyword: </span>
+            <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
+                :controller => 'keywords',
+                :object => 'keyword',
+                :method => 'id',
+                :tag_id => "find_keyword_for_batch_extract_add",
+                :size => 30} -%> <%= submit_tag "add" -%></span>
+          <% end -%>
+
+          <hr />
+
+          Add by gene/extract status:<br />
+
+          <% form_remote_tag :loading => "Element.show('pcr_batch_spinner')", :complete => "Element.hide('pcr_batch_spinner')", :url => {:controller => :pcrs, :action => :_batch_add_extracts_to_batch_via_confidence} do -%>
+            <div class="fr"> <label for="confidence_id" class="lbl4">Status</label>
+              <span class="fld"><%= select_tag(:confidence_id , options_for_select(@proj.confidences.by_namespace('gene_extract_status').collect{|t| [t.short_name, t.id]}.insert(0, ''), :none => true)  ) -%> <em>required</em></span>
+            </div>
+
+            <div class="fr"> <label for="gene_id" class="lbl4">and gene</label>
+              <span class="fld">
+                <%= render :partial => 'shared/picker', :locals => {
+                  :controller => 'genes',
+                  :object => 'gene',
+                  :method => 'id',
+                  :tag_id => "find_gene_for_batch_extract_add",
+                  :size => 30} -%><em>optional</em>
+              </span>
+            </div>
+
+            <%= submit_tag "add" -%>
+
+          <% end -%>
+
+        </div>
+      </div>
+    </td>
+
+    <td style="width: 49%;">
+      <table style="width: 100%;">
+        <tr>
+          <td> <h3> Selected extracts / reaction </h3> 
+            <%= form_tag :action => :_worksheet, :controller => :pcrs do -%>
+              <div class="subform">
+                <div class="header">Data</div>
+                <div class="content">
+                  <div class="fr"> <label for="pcr_fwd_primer_id" class="lbl4">fwd primer</label>
+                    <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
+                        :controller => 'primers',
+                        :object => 'pcr',
+                        :method => 'fwd_primer_id',
+                        :tag_id => "fwd_primer_to_find",
+                        :size => 30} -%> <em style="color: red;"> required </em></span>
+                  </div>
+
+                  <div class="fr"> <label for="pcr_rev_primer_id" class="lbl4">rev primer</label>
+                    <span class="fld">  <%= render :partial => 'shared/picker', :locals => {
+                        :controller => 'primers',
+                        :object => 'pcr',
+                        :method => 'rev_primer_id',
+                        :tag_id => "rev_primer_to_find",
+                        :size => 30} -%><em style="color: red;"> required </em></span>
+                  </div>
+
+                  <div class="fr"> <label for="pcr_done_by" class="lbl4">by</label>
+                    <span class="fld">  <%= text_field_tag 'done_by' -%></span>
+                  </div>
+
+                  <div class="fr"> <label for="pcr_protocol_id" class="lbl4">protocol</label>
+                    <span class="fld"><%= select("pcr", "protocol_id", @proj.protocols.collect {|o| [o.display_name(:type => :for_select_list),  o.id ] }, { :include_blank => true}, {:style => 'width: 260;'} ) %></span>
+                  </div>
+
+                  <div class="fr"> <label for="pcr_notes" class="lbl4">notes</label>
+                    <span class="fld"><%= text_area_tag 'pcr_notes', nil, :cols => 30 -%></span>
+                  </div>
+
+                  <div style="width: 100%; clear: both; border-top: 1px solid silver;">
+                    <div style="float: left; width: 200;">
+                      <div class="fr"> <label for="pcr_protocol_id" class="lbl4">Rxn volume</label>
+                        <span class="fld" style="width: 65%;"><%= text_field("batch", "rxn_vol", :size => 3, :value => Pcr.default_vol[:rxn_vol]) -%></span>
+                      </div>
+
+                      <div class="fr"> <label for="pcr_protocol_id" class="lbl4">dNTP</label>
+                        <span class="fld" style="width: 65%;"><%= text_field("batch", "dntp", :size => 3, :value =>  Pcr.default_vol[:dntp]) -%></span>
+                      </div>
+
+                      <div class="fr"> <label for="pcr_protocol_id" class="lbl4">Buffer</label>
+                        <span class="fld" style="width: 65%;"><%= text_field("batch", "buffer", :size => 3, :value => Pcr.default_vol[:buffer]) -%></span>
+                      </div>
+
+                      <div class="fr"> <label for="pcr_protocol_id" class="lbl4">Other</label>
+                        <span class="fld" style="width: 65%;"><%= text_field("batch", "other", :size => 3, :value => Pcr.default_vol[:other]) -%></span>
+                      </div>
+                    </div>
+
+                    <div style="float:right; width: 200;">
+                      <div class="fr"> <label for="pcr_protocol_id" class="lbl4">MgSO4</label>
+                        <span class="fld"style="width: 65%;"><%= text_field("batch", "mg", :size => 3, :value => Pcr.default_vol[:mg]) -%></span>
+                      </div>
+
+                      <div class="fr"> <label for="pcr_protocol_id" class="lbl4">Taq</label>
+                        <span class="fld"style="width: 65%;"><%= text_field("batch", "taq", :size => 3, :value => Pcr.default_vol[:taq]) -%></span>
+                      </div>
+
+                      <div class="fr"> <label for="pcr_protocol_id" class="lbl4">Primer / direction</label>
+                        <span class="fld"style="width: 65%;"><%= text_field("batch", "primers", :size => 3, :value => Pcr.default_vol[:primers]) -%> </span>
+                      </div>
+
+                      <div class="fr"> <label for="pcr_protocol_id" class="lbl4">Template</label>
+                        <span class="fld"style="width: 65%;"><%= text_field("batch", "template", :size => 3, :value => Pcr.default_vol[:templ]) -%></span>
+                      </div>
+                    </div>
+                  </div>
+                  <br style="clear:both;" />
+                </div>
+              </div><!-- end subform -->
+
+              <h3> Extracts </h3>
+              <ol id="extracts" style="margin-left: 22px; padding: 4px; margin-bottom: 5px; border-top:1px solid silver; border-bottom:1px solid silver;"> </ol>
+
+              <%= submit_tag("batch create", :confirm => "Are you sure you want to create new PCR records for this list? If you did not include both primers the form will be cleared and extracts will have to be selected again.") -%>
+            <% end %>
+
+          </td>
+        </tr>
+      </table>
+
+    </td>
+
+  </tr>
+</table>

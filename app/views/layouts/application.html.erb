@@ -31,7 +31,7 @@
           <div style="float:right; padding-top: 2px;" class="links">
             <span class="links">Logged in as <%= session[:person].login -%>
               (<%= link_to 'logout', :controller => '/account', :action => :logout -%> |
-              <%= link_to "my preferences", :action => 'preferences', :controller => 'person' -%> |
+               <%= link_to "my preferences", :action => 'preferences', :controller => 'people' -%> |
               <span style="background: #F7B346; padding: 0 2px 0 2px; border: 1px;"><%= wiki_help_link -%></span> |
               <span style="background: #D7D435; padding: 0 2px 0 2px; border: 1px;"><%= link_to('SF', 'https://sourceforge.net/tracker/?group_id=175927', :target => "_blank") -%></span>)
             </span>
@@ -41,7 +41,13 @@
         <% if @page_title -%>
           <p><%= @page_title -%></p>
         <% elsif @proj -%>
-          <p><%= @proj.name -%><span class="links"> ( <%= link_to "settings", :controller => :proj, :action => :show, :id => @proj.id -%> | <%= link_to "change projects", :controller => '/proj', :action => 'list' -%> | <%= link_to "my data", :controller => '/proj', :action => 'my_data' -%>   )</span></p>
+        <p><%= @proj.name -%>
+        <span class="links"> ( 
+            <%= link_to "settings", :controller => :projs, :action => :show, :id => @proj.id -%> | 
+            <%= link_to "change projects", :controller => '/projs', :action => 'list' -%> | 
+            <%= link_to "my data", :controller => '/projs', :action => 'my_data' -%>   )
+        </span>
+        </p>
         <% end -%>
 
         <% if @proj.andand.id -%>

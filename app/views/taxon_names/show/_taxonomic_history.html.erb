@@ -1,0 +1,13 @@
+<% content_for :center do -%>
+  <h4> Taxonomic History for <%= @taxon_name.display_name  %></h4>
+  <%= render :partial =>("taxon_hists/table_list") %>
+  <hr />
+  <div class="subform">
+    <div class="header">Add new history</div>
+    <%= form_tag :action => 'create', :controller => 'taxon_hists' do -%>
+    <%= render :partial =>("taxon_hists/form") %>
+    <%= submit_tag "Add" %>
+    <% end -%>
+  <br style="clear:both;" />
+  </div>
+<% end %>

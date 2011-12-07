@@ -1,7 +1,0 @@
-<div> <%# this div must stay here! give it a name sometime and edit childrens as well %>
-  <% if @part == 'center' %>
-  <h3> Associations </h3>
-    <%= link_to('new association for this OTU', :action => 'new', :controller => 'association', :otu_id => @otu) %>
-    <%= render(:partial => "association/associations_by_otu") %>
-  <% end %>
-</div>

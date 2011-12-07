@@ -1,0 +1,17 @@
+<div class="subform">
+  <div class="header"> clone or transfer content </div>
+  <div class="content">
+    <%= form_tag(:action => :clone_or_transfer_template_content, :controller => :otus, :id => @otu) do -%>
+      <%= hidden_field_tag :content_template_id, @content_template.id -%>
+      <span class="lbl4">Transfer or clone this content to OTU </span> <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+          :controller => 'otus',
+          :object => 'transfer_otu',
+          :method => 'id',
+          :tag_id => "otu_transfer_to_id",
+          :display => ""
+          } -%> </span> <br/>
+      <%= check_box_tag :delete_after, false -%>delete after transfer?
+      <%= submit_tag 'transfer',  {'class' => 'small_form_button'} -%> 
+    <% end %>   
+  </div>
+</div>

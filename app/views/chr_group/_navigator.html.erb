@@ -1,7 +1,0 @@
-<div class='navigator'>  
-  <%= navigator2(:obj => @chr_group, :do => params["action"], :ord => 'position') %>
-  <%= show_nav_link(:obj => @chr_group, :link => 'detailed')  -%>
-  <%= show_nav_link(:obj => @chr_group, :link => 'content mapping')  -%>
-  <br />
-  <div class="item"> <%= link_to('export character descriptions', :action => :doc_export, :controller => :chr, :chr_group_id => @chr_group.id) -%> </div>
-</div>

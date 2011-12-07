@@ -34,7 +34,7 @@ class MultikeyControllerTest < ActionController::TestCase
   end
 
   def test_route_to_index
-    opts = {:controller => "multikey", :action => "index", :proj_id => "1"}
+    opts = {:controller => "multikey", :action => 'index', :proj_id => "1"}
     assert_recognizes opts , 'projects/1/multikey'
     assert_routing "projects/1/multikey", opts   
   end

@@ -1,0 +1,85 @@
+<div>
+  <table>
+    <tr>
+      <td style="width: 280; padding-right: 20;">
+        <p><strong>Coding:</strong><%= spinner_tag('zoom_spinner') -%></p>
+
+        <p><%=@otu.display_name %> (matrix name: <%= @otu.display_name(:type => :matrix_name) -%>)&nbsp;<span class="small_grey">id: <%= link_to(@otu.id, :action => 'show', :controller => 'otus', :id => @otu) %></span></p>
+
+        <em>for</em>
+
+        <div>
+
+          <p><%=@chr.name%> <span class="small_grey"> &nbsp;id: <%= link_to(@chr.id, :action => 'show', :controller => 'chrs', :id => @chr) %></span></p>
+          <%= form_tag(:remote => true, :url => {:action => 'show_code', :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id, :x => @x , :y => @y}, :loading => "Element.show('zoom_spinner')", :complete => "Element.hide('zoom_spinner')") do  %>
+
+          <% if @chr.is_continuous -%>
+            <% @c_value = continuous_cell_value(@chr, @otu) -%>
+            <div style="text-align:center;padding:1em;margin:0.5em;"> value: <%= text_field_tag(:continuous_value, @c_value, :size => 6 ) -%> </div>
+
+          <% else -%>
+
+            <input type="submit" name="from_grid_coding" value="submit" />
+
+            <% for state in @chr.chr_states %>
+              <div style="border: 1px dotted silver; margin: 2px; padding: 2px;">
+                <input name="state[<%= state.id -%>]" type="hidden" value="0" /> <!-- must come before! -->
+
+                <% if @coding = state.coded?(@otu.id) %>
+                  <input type="checkbox" name="state[<%= state.id %>]" value="1" checked="checked"/> <%= state.s_and_m -%><br />
+                <% else %>
+                  <input type="checkbox" name="state[<%= state.id -%>]" value="1" /> <%= state.s_and_m -%> <br />
+                <% end -%>
+
+                <%- if @confidences.size > 0 -%>
+                  <div style="background-color: #eeeeee; padding: 2px; margin: 2px 0; text-align: center;">
+                    <span style="color: gray; font-size: smaller;">confidence</span>
+                    <%= select("coding",  'confidence_id', @confidences.collect {|p| [ p.name, p.id ] }, {:include_blank => true,}, { :name => "confidence[#{state.id}]", :style => 'font-size: smaller; color: red;'}) -%>
+                  </div>
+                <% end -%>
+
+                <%= render(:partial => 'tags/t', :collection => @coding.tags) if @coding && (@coding.tags.size) > 0  %>
+
+              </div>
+            <% end %><!-- end state loop -->
+
+          <% end -%>
+
+          <br />
+
+          <input type="submit" name="from_grid_coding" value="submit" />
+          <% end -%>
+        </div>
+      </td>
+
+
+      <td style="border-left: 1px solid silver; width: auto;">
+
+         <!-- break this out to partial? -->
+        <div class="box4" style="border: none;">
+          <div style="border-bottom: 1px dotted silver; width: 98%;"> state details and cell tagging </div>
+
+          <% if @chr.is_continuous -%>
+
+          <% if !@c_value.nil? -%>
+          <table><tr><td>state is presently coded, tag the coding: <%= new_tag_tag(:object=>Coding.find_by_chr_id_and_otu_id(@chr.id, @otu.id)) -%></td></tr></table>
+          <% end -%>
+
+          <% else %>
+            <% @chr.chr_states.each do |state| -%>
+              <div class="content" style="border-bottom:1px solid silver;">
+                <b><%= state.s_and_m  -%></b>
+                <% if @s = state.coded?(@otu.id) -%>
+                  <table><tr><td>state is presently coded, tag the coding: <%= new_tag_tag(:object=>@s) -%></td></tr></table>
+                <% end -%>
+                <%= render_figs_for_obj(state, 'thumb') -%>
+              </div>
+            <% end -%>
+          <% end -%>
+        </div>
+
+      </td>
+    </tr>
+  </table>
+
+</div>

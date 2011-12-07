@@ -37,7 +37,7 @@ class AccountControllerTest < ActionController::TestCase
     post :login, "person_login" => "test", "person_password" => "test01"
     
     assert_equal "Login successful", flash[:notice]
-    assert_redirected_to :action => "list", :controller => 'proj' # we assume a root request (not necessarily the case)
+    assert_redirected_to :action => "list", :controller => 'projs' # we assume a root request (not necessarily the case)
     
     assert_not_nil(@request.session[:person])
     assert(@request.session[:person])

@@ -14,8 +14,8 @@ function changeDate(y,m,d) {
 <div class="show_row"><span class="show_lbl">IPT/GBIF records:</span>
   <span class="show_data"><%= @total_ipt_records.to_s -%>
     <% if @total_ipt_records > 0 -%>
-      <% if @otu %> <%= (@total_ipt_records > 0 ? link_to('Download', :action => :download_by_otu, :controller => :ipt_record, :id => @otu.id) : "") -%>
-      <% elsif @ce -%><%= (@total_ipt_records > 0 ? link_to('Download', :action => :download_by_otu, :controller => :ipt_record, :id => @otu.id) : "") -%>
+      <% if @otu %> <%= (@total_ipt_records > 0 ? link_to('Download', :action => :download_by_otu, :controller => :ipt_records, :id => @otu.id) : "") -%>
+      <% elsif @ce -%><%= (@total_ipt_records > 0 ? link_to('Download', :action => :download_by_otu, :controller => :ipt_records, :id => @otu.id) : "") -%>
       <% end %>
     <% else %>
       <span class="show_comment"> Build records to allow them to be downloaded. </span>
@@ -24,9 +24,9 @@ function changeDate(y,m,d) {
     <% if (@total_specimens <= 500) && (@total_lots <= 500) -%>
     |
       <% if @otu -%>
-        <%= link_to('Build export', :action => :serialize_by_otu, :controller => :ipt_record, :id => @otu) -%>
+        <%= link_to('Build export', :action => :serialize_by_otu, :controller => :ipt_records, :id => @otu) -%>
       <% elsif @ce %>
-        <%= link_to('Build export', :action => :serialize_by_ce, :controller => :ipt_record, :id => @ce) -%>
+        <%= link_to('Build export', :action => :serialize_by_ce, :controller => :ipt_records, :id => @ce) -%>
       <% else %>
       <% end %>
 
@@ -38,7 +38,7 @@ function changeDate(y,m,d) {
 
 <div class="subform">
   <i> add a specimen </i>
-  <%= form_for(:specimen, :remote => true, :html => {:id => 'specimen_form', :name => 'specimen_form'}, :url => url_for(:controller => "specimen", :action => "create"),  :loading => "Element.show('add_specimen_spinner')", :complete => "Element.hide('add_specimen_spinner')")  do |f| %>
+  <%= form_for(:specimen, :remote => true, :html => {:id => 'specimen_form', :name => 'specimen_form'}, :url => url_for(:controller => "specimens", :action => "create"),  :loading => "Element.show('add_specimen_spinner')", :complete => "Element.hide('add_specimen_spinner')")  do |f| %>
   <%= hidden_field_tag :total_specimens, :value => @specimens.size -%>
     <div id="vertical_container" >
       <h3 class="accordion_toggle">basic fields</h3>
@@ -49,7 +49,7 @@ function changeDate(y,m,d) {
 
           <div class="fr"> <label for="otu_name" class="lbl4">OTU</label>
             <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
-              :controller => 'otu',
+              :controller => 'otus',
               :object => 'specimen_determination',
               :method => 'otu_id',
               :tag_id => "otu_name",
@@ -63,7 +63,7 @@ function changeDate(y,m,d) {
 
             <div class="fr"> <label for="specimen_ce_id" class="lbl4">Collecting Event</label>
             <span class="fld"> <%= render :partial => 'shared/picker', :locals => {
-              :controller => 'ce',
+              :controller => 'ces',
               :object => 'specimen',
               :method => 'ce_id',
               :tag_id => "ce_name",
@@ -88,7 +88,7 @@ function changeDate(y,m,d) {
 
         <div class="fr"><label for="repository_name" class="lbl4">Repository</label> <span class="fld">
           <%= render :partial => 'shared/picker', :locals => {
-              :controller => 'repository',
+              :controller => 'repositories',
               :object => 'specimen',
               :method => 'repository_id',
               :tag_id => "repository_name",
@@ -150,7 +150,7 @@ function changeDate(y,m,d) {
 <div class="show_category">Existing material</div>
 
 <h3> Specimens </h3>
-<%= render(:partial => 'specimen/specimens') -%>
+<%= render(:partial => 'specimens/specimens') -%>
 <br />
 
 <% if @lots.size > 0 -%>

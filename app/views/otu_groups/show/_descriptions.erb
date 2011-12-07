@@ -1,0 +1,21 @@
+<% content_for :center do -%>
+<div>
+  <%= form_tag(:action => 'refresh') do -%>
+  <div>
+    <h4 style="display: inline;"> show descriptions grid for template </h4>
+    <select
+      id='content_template_id'
+      name='content_template_id'
+      data-observe-field
+      data-observe-field-action="<%= url_for(:action => :show_descriptions, :css_target=>"#contents", :otu_group=>{:id => @otu_group.id}) -%>"
+      data-observe-field-spinner-target="#contents"
+      <%= options_for_select(@templates.collect{|o| [o.name, o.id]}.insert(0, ''))  -%> >
+    </select>
+  </div>
+
+  <div id="contents" >
+    <%= render(:partial => "text/descriptions", :locals => {:otus => [], :contents => []}) %>
+  </div>
+  <% end -%>
+</div>
+<% end -%>

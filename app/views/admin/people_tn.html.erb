@@ -1,16 +1,16 @@
 <%= link_to 'Back', :action => :index %>
-<p>Editable taxon names for <strong><%=h @person.full_name %></strong></p>
+<p>Editable taxon names for <strong><%= @person.full_name %></strong></p>
 
 <% if @names_in.length > 0 -%> 
   <p><b>Remove a current name: </b><br/>
-    <%= render(:partial => "taxon_name/name_in", :collection => @names_in) %></p>
+    <%= render(:partial => "taxon_names/name_in", :collection => @names_in) %></p>
 <% end -%>
 
 <%= form_tag :action => 'people_tn', :id => @person do -%>
   <div class="fr">
     <label class="lbl4">Add a name: </label>
     <span class="fld"><%= render :partial => 'shared/picker', :locals => {
-        :controller => 'taxon_name',
+        :controller => 'taxon_names',
         :object => 'name_to_add',
         :method => 'id',
         :tag_id => 'add_name',

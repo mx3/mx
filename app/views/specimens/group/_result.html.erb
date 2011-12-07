@@ -1,0 +1,39 @@
+<div>
+
+  <div style="float:left; margin-right:0.2em;">
+    <div style="border-bottom:1px dotted silver;text-align:center;"> Results </div>
+    <%= render(:partial => 'specimens/group/result_row', :collection => specimens) %>
+    <br style="clear: both;" />
+  </div>
+
+  <div style="float:left; padding:0.2em;margin-left:0.2em; border-left:1px dotted silver;">
+
+    <div>
+
+      <div style="border-bottom:1px dotted silver;text-align:center;">Add determination to these specimens <%= spinner_tag('group_result_spinner') -%>  </div>
+      <%= form_tag(:remote => true, :url => {:action => 'group_result_update'}, :html => { :name => 'specimen_form'}, :loading => "Element.show('group_result_spinner')", :complete => "Element.hide('group_spinner')"  ) do -%>
+      <%= render(:partial =>  'specimens/form_specimen_det') -%>
+
+      <div class="fr"> <label for="delete_existing_determination" class="lbl4"> Delete existing determinations? </label>
+        <span class="fld">  <%= check_box_tag(:delete_exsisting_determinations) %></span>
+      </div>
+
+      <br style="clear: both;" />
+
+      <% specimens.each do |s| -%>
+        <%= hidden_field_tag "specimens[]", s.id, :id => "hidden_#{s.id}" -%>
+      <% end -%>
+      <%= submit_tag 'submit' -%>
+      <% end -%>
+    </div>
+
+    <div id='details' style="padding:0.2em;margin:0.2em;">
+    </div> 
+
+    <br style="clear:both;" />
+
+  </div>
+
+  <br style="clear:both;" />
+
+</div>

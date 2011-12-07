@@ -1,0 +1,126 @@
+<div><!-- outer containter -->
+
+  <table><!-- chr nav -->
+     <tr><td colspan="2" style="padding-left: 15px; background-color: <%= @mode =='row' ? 'rgb(243,243,243)' : 'none' -%>;">
+          <% @chrs.each_with_index do |c, i| -%>
+          <% coded = Coding.by_chr(c).by_otu(@otu).count  -%>
+          <a class="quicknavbox" style="background-color:<%= (c == @chr ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(c.display_name) -%>" href="/projects/<%= @proj.id -%>/mx/fast_code/<%= @mx.id -%>/<%= @mode -%>/<%= @mode == 'row' ? i : @present_position -%>/<%= @otu.id -%>/<%= c.id -%>" id="chr_<%= c.id -%>"></a>
+          <% end -%>
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <!-- otu nav -->
+      <td style="width: 10; background-color: <%= @mode =='col' ? 'rgb(243,243,243)' : 'none' -%>;">
+          <% @otus.each_with_index do |o, i| -%>
+            <% coded = Coding.by_chr(@chr).by_otu(o).count  -%>
+            <a  class="quicknavbox" style="background-color:<%= (o == @otu ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(o.display_name) -%>" href="/projects/<%= @proj.id -%>/mx/fast_code/<%= @mx.id -%>/<%= @mode -%>/<%= @mode == 'col' ? i : @present_position -%>/<%= o.id -%>/<%= @chr.id -%>" id="otu_<%= o.id -%>"></a>
+          <% end -%>
+      </td>
+
+      <td style="width: 430; padding-right: 25px;">
+        <p><b>One click coding (by <%= @mode == 'col' ? 'character' : 'OTU' %>):</b></p>
+        <p><%=@otu.display_name %> (matrix name: <%= @otu.display_name(:type => :matrix_name) -%>)&nbsp;<span class="small_grey">id: <%= link_to(@otu.id, :action => 'show', :controller => 'otus', :id => @otu) %></span></p>
+        <em>for</em>
+
+        <%= form_tag(:remote => true, :url => {:action => 'fast_code', :controller => :mxes, :id => @mx, :otu_id => @otu, :position => @present_position}, :html => {:name => "myform", :style => "width: 400;"} ) do -%>
+            <p><%= @chr.name %> <span class="small_grey">id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chrs', :id => @chr}, :target => '_blank') -%></span></p>
+
+            <%= hidden_field_tag('mode', @mode) -%>
+            <%= hidden_field_tag('chr_id', @chr.id) -%>
+
+
+            <% if @chr.continuous? && !@chr.is_continuous -%><!-- auto filed from measurements, no tags/confidence -->
+
+                <div> From specimens TODO</div>
+
+            <% else %> <!-- can have confidence/tags -->
+
+            <!-- confidence levels -->
+            <% if @confidences.size > 0 -%>
+              <table style="float: right; font-size: smaller; margin-right: -22px; ">
+                <tr>
+                  <td>apply confidence <%= select("coding", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200; color:red;"}) -%> to this click</td>
+                </tr>
+              </table>
+            <% end %>
+
+
+            <br style="clear:both;" />
+
+            <% if @chr.is_continuous -%>
+                <%= render(:partial => 'fc_continuous') -%>
+            <% else -%>
+                <%= render(:partial => 'fc_multistate') -%>
+            <% end -%>
+
+
+          <!-- tag form -->
+          <div class="subform" style="width: 400;">
+            <div class="header"> include a tag with this coding &nbsp;&nbsp;&nbsp;&nbsp;
+              <%=  link_to_function('toggle form', nil, :id => "more_link") do |page|
+                page.visual_effect(:toggle_blind, 'tag_form')
+              end %></div>
+            <div id="tag_form" style="display: none;"> <i> tag will not be saved if you skip </i> <%= render(:partial => 'tags/form') %></div>
+           </div>
+
+
+           <% end -%> <!-- end taggable/confidenceable cells -->
+
+        <% end -%>
+
+        <table style="clear: both;">
+          <tr>
+              <td style="padding-left: 5em;"><%= link_to("previous",                 {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}) if @previous_position != 0 -%></td>
+              <td style="padding-left: 5em;"><%= link_to "destroy existing codings", {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position, :nuke => 'true'}, :confirm => 'This will delete all the states presently coded? Are you sure?' -%></td>
+              <td style="padding-left: 5em;"><%= link_to "skip",                     {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position + 1} -%></td>
+          </tr>
+        </table>
+
+        <div class="box4" style="border: none;">
+          <div class="header" style="border: none;"> character description </div>
+          <div class="content"> <%= @chr.doc_char_descr.blank? ? '<i>none</i>' : @chr.doc_char_descr -%></div>
+        </div>
+
+        <p class="passed" style="margin-top: 100; font-size: smaller; border: 1px solid silver; text-align: center;"> green background - state is already coded, clicking toggles off!  </p>
+
+      </td>
+
+      <!-- coding data -->
+      <td style="border-left: 1px solid silver;">
+
+        <div class="box4" style="border: none;">
+          <div class="header"> state details and cell tagging </div>
+
+          <% if @chr.continuous? -%>
+                Character is continuous.
+          <% else -%>
+
+          <% @chr.chr_states.each do |state| -%>
+            <div class="content" style="border-bottom:1px solid silver;">
+              <b><%= state.s_and_m  -%></b>
+              <% if @s = state.coded?(@otu.id) -%>
+              <% if @s.confidence -%><br/>&nbsp;&nbsp; coded with confidence: <span style="color:red;"><%= @s.confidence.display_name -%></span> <% end %>
+              <% end -%>
+              <%= render_figs_for_obj(state, 'thumb') -%>
+            </div>
+          <% end -%>
+
+          <% end %>
+
+        </div>
+
+
+
+      </td>
+
+  </tr>
+</table>
+
+</div>
+
+<script type="text/javascript">
+ document.myform.chr_state_id.focus();
+</script>

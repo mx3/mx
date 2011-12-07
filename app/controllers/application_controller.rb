@@ -13,11 +13,11 @@ class ApplicationController < ActionController::Base
   end
 
   # Include these helpers all the time
-  helper 'app/layout', 'app/layout' , 'app/display', 'app/navigation',  :javascript, :otu, :seq, :specimen, :taxon_name, :figure, :image, :confidence,  :ref, :sensu, :content, :geog, :ontology_relationship, :ontology_class, :tag, :image_description, :public_content, :extracts_gene, :label, :ontology, :phenotype, :ce, :namespace
+  helper 'app/layout', 'app/layout' , 'app/display', 'app/navigation',  :javascript, :otus, :seq, :specimen, :taxon_name, :figures, :image, :confidence,  :ref, :sensu, :content, :geog, :ontology_relationship, :ontology_class, :tags, :image_description, :public_content, :extracts_gene, :label, :ontology, :phenotype, :ce, :namespace
 
   include LoginSystem
 
-  before_filter :configure_site # forks to a public or private mode, calling the authentications if private
+  before_filter :configure_site                # forks to a public or private mode, calling the authentications if private
   around_filter :ffx_xhr_redirect_hack
   after_filter  :add_flash_to_json_header
 #  before_filter :set_charset
@@ -139,7 +139,6 @@ class ApplicationController < ActionController::Base
       @server_name = self.request.server_name.sub(/^www\./, "")
     end
 
-
     if (@server_name == HOME_SERVER || @server_name == 'development') && (self.class.controller_path[0,7] != "public/")
       # Hitting the "private" application interface
       if login_required
@@ -148,11 +147,11 @@ class ApplicationController < ActionController::Base
       @public = false
 
     else
-      # Hitting the public application interface, login not required
+      # Hitting the public API, login not required
       @public = true
 
       # For requests like "http://foo.bar.com/ with no controller redirect to the appropriate home_controller
-      if self.controller_name == "proj"
+      if self.controller_name == "projs"
         unix_name = Proj.return_by_public_server_name(@server_name).unix_name
         redirect_to :action => 'index', :controller => "public/site/#{unix_name}/home" and return
       end

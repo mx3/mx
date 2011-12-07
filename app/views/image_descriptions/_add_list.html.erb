@@ -1,0 +1,64 @@
+<% if @image_description_pages %>
+  <div class="list_pagination"><span class="lbl1" style="color: #bbb;">view page: </span> <%= pagination_links_with_ajax(@image_description_pages, { :element_name => 'search_results', :action => 'add_list', :proj_to_search => proj_to_search}) -%></div>
+<% end %>
+
+<div class="notice"><%= flash[:notice] -%></div>
+
+<% for id in @ids %>
+
+  <div class="box4">
+    <table>
+      <tr>
+        <td> <!-- image -->
+          <%= render(:partial => 'image_descriptions/cid', :locals => {:cid => id}) %>
+        </td>
+
+        <td> <!-- form -->
+
+          <% if @existing_images.include?(id.image_id) %>
+            <div class="box1" style="margin-top: 1em;"> <i> Your project already includes this image.</i></div>        
+           <% else %>
+
+            <div id="<%= id.id %>_form_to_update">
+              <% form_remote_tag  :url => { :action => 'add_list', :form => "#{id.id}_form_to_update"}, :html => {:id => 'myform'}, :loading => "Element.show('spinner_#{id.id}')", :complete => "Element.hide('spinner_#{id.id}')"  do  %>
+                <%= hidden_field_tag(:image_id,  id.image_id  ) %>
+                <%= hidden_field_tag(:incoming_proj_id,  proj_to_search) %>
+                <%= hidden_field_tag(:image_description_id, id.id) -%>
+
+                <table>
+                  <tr>
+                    <td colspan='2'>Add this image to your project with these data (OTU is required):</td></tr>
+                  <tr>
+                    <td>OTU:</td> <td> <%= render :partial => 'shared/picker', :locals => {
+                        :controller => 'otus',
+                        :object => 'otu',
+                        :method => "id_#{id.id}",
+                        :tag_id => "otu_to_find_#{id.id}",
+                        :display => "",
+                        :size => 50} -%> </td>
+                  </tr>
+                  <tr>
+                    <td>Part/label: </td> <td> <%= render :partial => 'shared/picker', :locals => {
+                        :controller => 'labels',
+                        :object => 'label',
+                        :method => "id_#{id.id}",
+                        :tag_id => "label_to_find_#{id.id}",
+                        :display => "",
+                        :size => 50} -%> </td>
+                  </tr>
+                  <tr>
+                    <td>View:</td><td> <%= render :partial =>"image_views/picker", :locals => {:c_name=> 'image_description', :f_name => 'image_view_id'}  -%></td>
+                  </tr>
+                </table>
+                <%= submit_tag('add', :name => 'add') -%><%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => "spinner_#{id.id}", :style => "display: none; vertical-align:middle;"  ) %>
+              <% end %><!-- end form tag -->
+            </div>
+
+          <% end %>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+
+<% end %>

@@ -1,4 +1,4 @@
-class Public::ChrController < Public::BaseController
+class Public::ChrsController < Public::BaseController
 
   def index
     

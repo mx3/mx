@@ -1,0 +1,67 @@
+  <p><i> Note that we have now tied type information to specimen records. YOU SHOULD NOT USE THE FIELDS BELOW, THEY ARE DEPRECATED and here for reference only. Contact us if you questions.</i></p>
+  <table>
+    <tr>
+      <td>
+        <label for="taxon_name_type_taxon_id">Type taxon (if genus/family)</label><br/>
+        <%= render :partial => "picker", :locals => {
+          :object => 'taxon_name', :method => 'type_taxon_id', :tag_id => "taxon_name_type_taxon_id",
+          :display => @taxon_name.type_taxon.andand.display_name(:type => :for_select_list) } %>
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td>
+        <label for="taxon_name_type_by">Type by (if genus/family)</label><br/>
+        <%= text_field 'taxon_name', 'type_by', 'title' => 'e.g., by monotypy or designation', :size => 20  %>
+      </td>
+      <td>
+        <label for="taxon_name_type_type">type</label><br/>
+        <%= select("taxon_name", "type_type", TYPE_TYPES, { :include_blank => true }) %>
+      </td>
+      <td><label for="taxon_name_type_count">Count</label><br/>
+        <%= text_field 'taxon_name', 'type_count', 'title' => 'number of type specimens', :size => 3  %>
+      </td>
+      <td>
+        <label for="taxon_name_type_sex">Sex</label><br/>
+        <%= select("taxon_name", "type_sex", SEX, { :include_blank => true }) %>
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td>
+        <p><label for="type_repository_name">Repository</label><br/>
+          <%= render :partial => 'shared/picker', :locals => {
+            :controller => 'repositories',
+            :object => 'taxon_name',
+            :method => 'type_repository_id',
+            :tag_id => "type_repository_name",
+            :display =>  (@taxon_name.type_repository.display_name if @taxon_name.type_repository)} -%></p>
+      </td>
+      <td>
+        <label for="taxon_name_type_lost">Lost?</label><br/><%= check_box 'taxon_name', 'type_lost', 'title' => 'check box if type is lost'  %>
+      </td>
+    </tr>
+  </table>
+
+  <p><label for="taxon_name_type_repository_notes">Repository notes</label><br/>
+    <%= text_area 'taxon_name', 'type_repository_notes', 'title' => 'notes about repository', :rows => 2, :cols => 60 %></p>
+
+  <p><label for="type_geog_name">Type geography (finest level at which specimen was taken)</label><br/>
+    <%= render :partial => "geog/picker", :locals => {
+      :object => 'taxon_name', :method => 'type_geog_id', :tag_id => "type_geog_name",
+      :display => (@taxon_name.type_geog.display_name if @taxon_name.type_geog) } %></p>
+
+  <p><label for="taxon_name_type_locality">Type locality</label><br/>
+    <%= text_area 'taxon_name', 'type_locality', 'title' => 'locality where type was collected', :rows => 2, :cols => 60 %></p>
+
+  <p><label for="taxon_name_type_notes">Type notes</label><br/>
+    <%= text_area 'taxon_name', 'type_notes', 'title' => 'notes about type', :rows => 2, :cols => 60 %></p>
+</div>
+
+<!-- end type information -->
+
+

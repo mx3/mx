@@ -1,6 +1,6 @@
 <div style="display:inline;  color: <%= color -%>; ">
   <% if o.has_public_content? %>
-    <%= link_to(o.display_name, :action => 'show', :controller => 'public_content', :id => o.id) -%>  
+    <%= link_to(o.display_name, :action => 'show', :controller => 'public_contents', :id => o.id) -%>
   <% else %><%= o.display_name -%><% end %> <% if link_txt != '' %>
 	  <span style="border:1px solid gray; margin: 0; padding: 0 .1em; font-size:smaller;" class="failed"><%= link_to(link_txt, :action => action, :id => o) -%></span>
 	<% end %>

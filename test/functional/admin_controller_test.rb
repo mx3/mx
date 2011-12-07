@@ -15,12 +15,6 @@ class AdminControllerTest < ActionController::TestCase
 
   # just tests to see that the pages can be loaded
 
-  def test_index 
-    opts = {:controller => "admin"}
-    get :index, opts
-    assert_response(:success)
-  end
-
   def test_stats
     opts = {:controller => "admin"}
     get :stats, opts

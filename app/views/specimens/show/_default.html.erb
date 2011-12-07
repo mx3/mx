@@ -1,0 +1,76 @@
+<% content_for :center do -%>
+
+<div class="show_rec">
+
+  <% if @dets.size > 0 -%> 
+  <div class="show_category"> Determinations </div>
+  <i style="font-size: smaller;"> Click on an OTU to show all material for that OTU</i>
+  <ul style="list-style-type: disc; ">
+    <% for d in @dets -%>
+    <li style="margin-left: -2em;">
+    <% if d.otu_id -%>
+      <%= link_to(d.otu.display_name(:type => :multi_name), :action => 'show_material', :controller => 'otus', :id => d.otu_id) -%>
+    <% else -%>
+      <%= d.display_name -%>
+    <% end -%>
+    </li>
+    <% end -%>
+  </ul> 
+  <% end -%>
+
+  <% if @specimen.type_specimens.length > 0 -%>
+    <div class="show_category"> Has type status </div>
+    <ul style="list-style-type: disc;">
+      <%= @specimen.type_specimens.collect{|ts| content_tag(:li, ts.display_name)}.flatten.join.html_safe -%>
+    </ul>
+  <% end -%>
+
+  <% if @specimen.identifiers.length > 0 %>
+  <div class="show_category"> Identifiers </div>
+  <ul style="list-style-type: disc;">
+    <% for id in @specimen.identifiers %>
+    <li style="margin-left: -2em; color:#000;"> <%= id.cached_display_name -%> </li>
+    <% end -%>
+  </ul>
+  <% end -%>
+
+  <div class="show_category"> Repository/location </div>
+  <div class="show_row"><span class="show_lbl">Disposition (location etc.):</span><span class="show_data"><%= @specimen.disposition -%></span></div>
+  <div class="show_row"><span class="show_lbl">Repository:</span><span class="show_data"><%= @specimen.repository.andand.display_name -%></span></div>
+
+  <div class="show_category"> Attributes </div>
+  <div class="show_row"><span class="show_lbl">Sex:</span><span class="show_data"><%= @specimen.sex -%></span></div>
+  <div class="show_row"><span class="show_lbl">Stage:</span><span class="show_data"><%= @specimen.stage -%></span></div>
+  <div class="show_row"><span class="show_lbl">DNA usable:</span><span class="show_data"><%= @specimen.dna_usable -%></span></div>
+  <div class="show_row"><span class="show_lbl">Preparations:</span><span class="show_data"><%= @specimen.preparation.andand.display_name -%></span></div>
+  <div class="show_row"><span class="show_lbl">Parent (e.g. part of whole specimen):</span><span class="show_data"><%= @specimen.parent_specimen.andand.display_name -%></span></div>
+
+  <% if !@specimen.temp_ce.blank? -%>
+  <div class="show_category"> Temporary collecting event (not linked in database) </div>
+  <div class="show_row highlight" style="padding:0.2em;" ><span class="show_data"><%= @specimen.temp_ce -%></span></div>
+  <% end -%>
+
+  <%= render(:partial => '/shared/show/record/notes', :locals => {:obj => @specimen}) -%>
+  <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @specimen}) -%>
+
+  <% if @specimen.image_descriptions.size > 0 -%>
+  <div class="show_category"> Images attached to this specimen </div>
+  <div style="padding:0.5em;"> 
+    <%= render :partial => 'image_descriptions/id', :collection => @specimen.image_descriptions -%>
+    <br style="clear:both;" />
+  </div>
+  <% end %>
+
+  <%= render(:partial => '/shared/show/record/tags', :locals => {:obj => @specimen}) -%>
+
+</div>
+
+<% end -%>
+
+<% content_for :right do -%>
+
+<%= render(:partial => 'ces/ce', :locals => {:ce => @specimen.ce}) if !@specimen.ce.blank? -%>
+<%= render(:partial => '/shared/gmap_shell', :locals => {:markers => @specimen.ce.gmap_array, :zoom => 3}) if @specimen.mappable  -%>
+<%= render(:partial => 'shared/tag_cloud', :object => @specimen) -%>
+
+<% end %>

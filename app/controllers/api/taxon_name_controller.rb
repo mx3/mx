@@ -14,7 +14,7 @@ class Api::TaxonNameController < ApplicationController
 #   if id = OntologyMethods.xref_from_params(params[:id])
 #     if @ontology_class = OntologyClass.find(:first, :conditions => {:proj_id => @proj.id, :xref => id})
 #       respond_to do |format|
-#         format.html { redirect_to :action => :show_expanded, :id => @ontology_class.id, :controller => '/public/ontology_class'}
+#         format.html { redirect_to :action => :show_expanded, :id => @ontology_class.id, :controller => '/public/ontology_classes'}
 #         format.json {
 #           render :json => @ontology_class.ontology_class_as_json, :content_type => "text/html" # application/json <- firefox downloads as file
 #         }

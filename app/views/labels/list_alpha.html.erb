@@ -1,0 +1,8 @@
+<h3>Listing labels</h3>
+<div class="alphabet_links">
+  <% for c in (65.chr..90.chr) %>
+    <span class="<%= c == params['letter'] ? "alphabet_current_letter" : "alphabet_letter" %>"><%= link_to(c, :controller => 'labels', :action => "list_alpha", :letter => c ) -%></span>
+  <% end %> 
+</div>
+<br />
+<%= render(:partial => 'labels/list', :locals => {:labels => @labels}) %>

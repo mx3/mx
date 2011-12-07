@@ -1,8 +1,0 @@
-<%= content_tag :li, content_tag(:span, 'Reports/Views' , :class => 'link_section') -%>
-<%= content_tag :li, link_to('views and files', :action => "summarize") -%>
-
-<%= content_tag :li, link_to("list my sequences", :action => "list_by_named_scope", :scope => 'created_by')  -%>
-<%= content_tag :li, link_to("list recently changed", :action => "list_by_named_scope", :scope => 'recently_changed')  -%>
-
-<%= content_tag :li, content_tag(:span, 'Batch' , :class => 'link_section') -%>
-<%= content_tag :li, link_to('load FASTA file', :action => "seqs_from_FASTA") -%>

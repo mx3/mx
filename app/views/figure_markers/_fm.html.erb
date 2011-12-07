@@ -1,0 +1,8 @@
+<li class="handle" id="figure_marker_<%= "#{fm.id}" -%>" style="margin: 1em; padding-bottom: 15px;">
+  <div style="width: 100%;">
+    <div style="width: 75%; float:left; font-family:courier;"><%= expandable_caption(html_escape(fm.svg), "svg_txt_#{fm.id}", 100) -%></div>
+    <div style="width: 10%; float:left;"><%= fm.marker_type -%></div>
+    <div style="width: 5%; float:left;"><%= link_to("X", :remote => true, :url => {:action => "destroy", :controller => :figure_markers, :id => fm.id}) -%></div>
+    <div style="width: 10%; float:left;"><%= link_to("edit", :remote => true, :url => {:action => "edit", :controller => :figure_markers, :id => fm.id}) -%></div>
+  </div>
+</li>

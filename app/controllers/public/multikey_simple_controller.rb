@@ -16,7 +16,7 @@ class Public::MultikeySimpleController < Public::BaseController
 
   def list
     # public keys are now all listed through clave/list (both bifurcating and multikey
-    redirect_to :action => :list, :controller => :clave
+    redirect_to :action => :list, :controller => :claves
   end
 
   def show

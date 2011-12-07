@@ -1,9 +1,4 @@
-
-<div class="memo">
-
-    <p>You are now logged out of the system...</p>
-      
-    <%= link_to "&#171; login", :action=>"login"%>  
-      
+<div>
+    <p>You are now logged out of the system.</p>
+    <%= link_to "&#171; login".html_safe, :action => :login -%>  
 </div>
-

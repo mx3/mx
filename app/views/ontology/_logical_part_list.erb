@@ -1,5 +1,5 @@
 <% if children_of_part.size == 0 -%>
   <i> none </i>
 <% else -%>
-<ol style="text-align: left;"><%= children_of_part.keys.collect{|t| content_tag :li, link_to(t.display_name, :action => :show, :id => t.id, :controller => :ontology_class), :style => (children_of_part[t] ? 'color: red;' : '')} -%></ol>
+<ol style="text-align: left;"><%= children_of_part.keys.collect{|t| content_tag :li, link_to(t.display_name, :action => :show, :id => t.id, :controller => :ontology_classes), :style => (children_of_part[t] ? 'color: red;' : '')} -%></ol>
 <% end -%>

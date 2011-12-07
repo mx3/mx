@@ -70,7 +70,7 @@ module SeqHelper
         end
 
       else 
-        return content_tag(:td,  link_to('add', {:controller => "seq", :action => "new_from_table", :otu_id => otu_id, :gene_id => gene_id  }), :class => "no_decision")
+        return content_tag(:td,  link_to('add', {:controller => :seqs, :action => "new_from_table", :otu_id => otu_id, :gene_id => gene_id  }), :class => "no_decision")
       end
 
       #rescue 

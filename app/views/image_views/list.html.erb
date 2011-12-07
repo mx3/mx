@@ -1,0 +1,15 @@
+<h3>Listing image views</h3>
+
+<i> These are shared across all projects. </i>
+
+<table>
+  <%= t_col_heads( ["id", "name",  "mod by", "mod on"] ) %>
+  <% @image_views.each do |i| -%>
+  <tr> 
+  <td> <%= i.id -%> </td>
+  <td> <%= link_to i.name, :action => :show, :id => i -%> </td>
+  <td> <%= i.m_by -%> </td>
+  <td> <%= i.m_on -%> </td>
+</tr>
+  <% end -%>
+</table>

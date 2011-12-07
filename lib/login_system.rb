@@ -21,14 +21,15 @@ module LoginSystem
     true
   end
 
-  # overwrite this method to un-protect certain actions of the controller
-  def protect?(action)
-    true
-  end
+   # overwrite this method to un-protect certain actions of the controller
+   def protect?(action)
+     true
+   end
 
-  # login_required filter. added to all controllers (through application.rb), so everything requires
-  # login by default. override the relevant methods in the individual controllers to free things up.
-  def login_required
+   # login_required filter. added to all controllers (through application.rb), so everything requires
+   # login by default. override the relevant methods in the individual controllers to free things up.
+   # The only time fals is returned is if the session[:person] is not previously set. 
+   def login_required
 
     $person_id = nil
 
@@ -36,14 +37,12 @@ module LoginSystem
       return true
     end
 
-    if session[:person] and authorize?(session[:person])
-
+    if session[:person] && authorize?(session[:person])
       # this allows all models to record who makes changes
       # (in conjunction with the standard field manager mixin stuff)
       # i know globals are bad, but don't see another way to make
       # the user_id available to all models automatically
       $person_id = session[:person].id
-
       return true
     end
 
@@ -56,6 +55,7 @@ module LoginSystem
   end
 
   # Reload the project every time- we might be able to cache/not do so ultimately
+  # TODO: can we mem-cache this?
   def load_proj(id)
     proj = Proj.find(id, :include => :people)
 
@@ -70,29 +70,18 @@ module LoginSystem
   # check if we are 'in' a project, and if so, if the user is a member of that project
   def proj_required
 
-    # if self.class.parent == Api
-    #  return false
-     #  debugger
-     #if @proj = Proj.find_by_api_name(self.request.server_name)
-
-     #  $proj_id = @proj.id
-     #  return false
-     #else
-     #  return true
-     #end
-    # end
-
     session[:proj] = nil unless params[:proj_id]
 
+    # TODO: this is borked somewhat re hitting the /projs/ controller. 
     # exceptions: you do not need to have selected a project to use these controllers
-    if ['account', 'admin', 'namespace', 'doc', 'image_view'].include?(controller_name)
+    if ['account', 'admin',  'namespaces','image_views'].include?(controller_name)
       return true
     end
 
     # There is presently no option for allowed or not (e.g. news), but see mod to check_proj in standard fields
 
     # the tn autocomplete is needed by the admin controller
-    if ('taxon_name' == controller_name) && ('auto_complete_for_taxon_name' == action_name)
+    if ('taxon_names' == controller_name) && ('auto_complete_for_taxon_names' == action_name)
       return true unless params["proj_id"] # nasty: if we are in a project, we will need the @proj variable
     end
 
@@ -102,7 +91,7 @@ module LoginSystem
     end
 
     # or these methods of of the proj controller
-    if 'proj' == controller_name and ['index','new', 'create', 'list'].include?(action_name)
+    if controller_name == 'projs' # REMOVED WITH NEW CONTROLLERS && ['index','new', 'create', 'list'].include?(action_name)
       return true
     end
 
@@ -116,7 +105,7 @@ module LoginSystem
     end
 
     # if you got to here you're in big trouble, and we're sending you back to choose a proj
-    redirect_to :controller => :proj, :action => :list # "/proj", :action =>"list"
+    redirect_to :controller => '/projs', :action => :list # "/proj", :action =>"list"
     return false
   end
 

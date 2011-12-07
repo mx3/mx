@@ -9,7 +9,7 @@ class Api::OntologyController < ApplicationController
     if id = Ontology::OntologyMethods.xref_from_params(params[:id])
       if @ontology_class = OntologyClass.find(:first, :conditions => {:proj_id => @proj.id, :xref => id})
         respond_to do |format|
-          format.html { redirect_to :action => :show_expanded, :id => @ontology_class.id, :controller => '/public/ontology_class'}
+          format.html { redirect_to :action => :show_expanded, :id => @ontology_class.id, :controller => '/public/ontology_classes'}
           format.json {
             render :json => @ontology_class.ontology_class_as_json, :content_type => "text/html" # application/json <- firefox downloads as file
           }
@@ -86,7 +86,7 @@ class Api::OntologyController < ApplicationController
     # a little check
     if @proj.ontology_namespace.blank?
       flash[:notice] = "Project not fully configured to dump OBO files.  Check that ontology namespace is set."
-      redirect_to :controller => :proj, :id => @proj.id, :action => :edit and return 
+      redirect_to :controller => :projs, :id => @proj.id, :action => :edit and return
     end
 
     @terms = @proj.ontology_classes.with_xref_namespace(@proj.ontology_namespace).with_obo_label.ordered_by_xref 

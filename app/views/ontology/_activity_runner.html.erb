@@ -1,3 +1,3 @@
 <div id="ontology_activity_runner" >
-    <%= @active_labels.size > 0 ? render(:partial => 'label/active_item', :collection => @active_labels) : content_tag(:em, '&nbsp; Nothing! The ontology grows stale and musty, please give it some attention.') -%>
+    <%= @active_labels.size > 0 ? render(:partial => 'labels/active_item', :collection => @active_labels) : content_tag(:em, '&nbsp; Nothing! The ontology grows stale and musty, please give it some attention.') -%>
 </div>

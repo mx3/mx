@@ -1,4 +1,0 @@
-<div class="show_category"> The following records were updated </div>
-<% specimens.each do |s| -%>
-  <div class="show_row"> <%= link_to(s.display_name, :action => :show, :id => s.id, :controller => :specimen) -%> </div>
-<% end -%>

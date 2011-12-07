@@ -1,0 +1,31 @@
+<%= error_messages_for 'tree' %>
+<%= hidden_field "tree", "id" %>
+<!--[form:tree]-->
+
+<div class="fr"><label for="tree_name" class="lbl4">Name</label>
+  <span class="fld"><%= text_field 'tree', 'name', :size => 50  %></span>
+</div>
+
+<div class="fr"><label for="tree_tree_string" class="lbl4">Tree string</label>
+  <span class="fld"><%= text_area 'tree', 'tree_string', :rows => 6, :cols => 60  %></span>
+</div>
+
+<div class="fr"><label for="tree_notes" class="lbl4">Notes</label>
+  <span class="fld"><%= text_area 'tree', 'notes', :rows => 3, :cols => 60  %></span>
+</div>
+
+<div class="fr"><label for="tree_data_source_id" class="lbl4">Data source</label>
+  <span class="fld">
+<%= render :partial => 'shared/picker', :locals => {
+    :controller => 'data_sources',
+    :object => 'tree', # for some :filter reasons we can't include this directly as a Tree param
+    :method => 'data_source_id', 
+    :tag_id => "data_source_id_for_tree",
+    :display => (@tree.data_source.display_name if @tree.data_source),
+		:size => 60 } -%>
+  </span>
+</div>
+
+<br style="clear: both;">
+<!--[eoform:tree]-->
+

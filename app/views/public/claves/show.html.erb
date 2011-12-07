@@ -1,0 +1,144 @@
+<div id="clave_page">
+
+  <div id="head">
+    <%= '<span class="lbl4">Couplet ' +  @clave.manual_id + '.</span>' unless @clave.manual_id.to_s == '' -%>
+
+    <div id="history" class="claves_top_history">
+      <span class="lbl4">History</span><br/>
+      <%= render(:partial => 'history', :locals => {:act => 'show'}) -%>
+    </div>
+
+    <% unless @clave.pub_annotation.to_s == '' -%>
+    <div class="clave_top_history"><span class="lbl4">Notes:</span> <%= @clave.pub_annotation -%> 
+    </div>
+    <% end -%>
+
+    <!-- up button -->
+
+    <% unless @clave.parent_id  == nil  -%> 
+    <div align="center" class="claves_up_navigator">
+      <%= link_to('up', :action =>  'show', :id => @clave.parent.id) -%>
+    </div>
+    <% end -%>
+  </div>
+
+  <div id="couplets">
+
+    <!-- begin floating left -->
+
+    <div id="left" class="claves_gray_box">
+
+      <!-- top left go button -->
+
+      <% if @left.children.size > 0 -%>
+      <div id="go_top" align="center" class="claves_navigator">
+        <br />
+        <%= link_to('go', :action => 'show', :id => @left.go_id) -%>
+      </div>
+      <% end -%>      
+
+      <!-- left couplet -->
+
+      <div class="claves_couplet_box">
+        <%= htmlize(@left_text) -%>
+        
+        <% if @left.otu_id or not ( @left.link_out_text.blank? or @left.link_out.blank?)  %>
+        
+          <div style="float: right; padding: .4em;" class="navigator_button">
+            <% if not ( @left.link_out_text.blank? or @left.link_out.blank?) -%>
+              <%= link_to htmlize(@left.link_out_text), "http://#{@left.link_out}", :popup  => true -%>
+             <% elsif PublicContent.find_by_otu_id(@left.otu.id) -%>
+              <%= link_to(@left.otu.display_name, :action => 'show', :id => @left.otu.id, :controller => 'public_contents') -%>
+            <% else -%>
+              <%= @left.otu.display_name -%>
+            <% end -%>              
+          </div>
+
+          <div style="clear:both;">
+          </div>
+         
+       <% end %>
+      
+      </div>
+
+      <!-- left figure  -->
+
+      <%= render_figs_for_obj(@left, 'thumb', false) -%>
+
+      <!-- left future  -->
+      
+      <% if @left_future.size > 0 -%>
+      <div class="claves_white_box">
+        <span class="lbl4">future couplets</span><br/>
+        <%= render(:partial => "/public/clave/future", :locals => {:act => 'show', :future => @left_future}) -%>
+      </div>
+      <% end -%>
+
+      <!-- bottom left go button  -->
+      <% if @left.children.size > 0 -%>
+      <div id="go_bottom" align="center" class="claves_navigator">
+        <%= link_to('go', :action => 'show', :id => @left.go_id) -%>
+      </div>
+      <br />
+      <% end -%>      
+    </div>
+
+    <!-- begin floating right -->
+
+    <div id="right"  class="claves_gray_box">
+
+      <!-- right top go button -->
+
+      <% if @right.children.size > 0 -%>
+      <div id="go_top" align="center" class="claves_navigator">
+        <br />
+        <%= link_to('go', :action => 'show', :id => @right.go_id) -%>
+      </div>
+      <% end -%>      
+
+      <!-- right couplet -->
+
+      <div class="claves_couplet_box">
+        <%= htmlize(@right_text) -%>
+        <% if @right.otu_id or  not ( @right.link_out_text.blank? or @right.link_out.blank?)  %>        
+        <div style="float: right; padding: .4em;" class="navigator_button">
+          <% if not ( @right.link_out_text.blank? or @right.link_out.blank?) -%>
+            <%= link_to htmlize(@right.link_out_text), "http://#{@right.link_out}", :popup  => true -%>    
+          <% elsif PublicContent.find_by_otu_id(@right.otu.id) -%>
+            <%= link_to(@right.otu.display_name, :action => 'show', :id => @right.otu.id, :controller => 'public_contents') -%>
+          <% else -%>
+            <%= @right.otu.display_name -%>
+          <% end -%>
+        </div>
+        <div style="clear:both;"></div>
+        <% end -%>
+      </div>
+
+      <!-- right figure  -->
+      <%= render_figs_for_obj(@right, 'thumb', false) -%>
+
+      <!-- right future -->
+      <% if @right_future.size > 0 %>
+      <div class="claves_white_box">
+        <span class="lbl4">future couplets</span><br/>
+
+        <%= render(:partial => "/public/clave/future",  :locals => {:act => 'show', :future => @right_future}) -%>
+      </div>
+      <% end %>
+    
+      <!-- right bottom go button -->
+      <% if @right.children.size > 0 -%>
+      <div id="go_bottom" align="center" class="claves_navigator">
+        <%= link_to('go', :action => 'show', :id => @right.go_id) -%>
+      </div>
+      <br />
+      <% end -%>      
+
+    </div>
+  </div>
+
+
+  <div style="clear: both;">&nbsp; </div>
+
+</div>
+

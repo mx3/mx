@@ -1,0 +1,5 @@
+<%= content_tag :li, content_tag(:span, 'List' , :class => 'link_section') -%>
+<%= content_tag :li, link_to('with figure markers', :action => :list_by_scope, :scope => 'with_figure_markers') -%>
+<%= content_tag :li, link_to('without figure markers', :action => 'list_by_scope', :scope => 'without_figure_markers') -%>
+<%= content_tag :li, link_to("personally created or updated", :action => "list_by_scope", :scope => 'changed_by', :arg => $person_id)  -%>
+<%= content_tag :li, link_to("recently changed (past 2 weeks)", :action => "list_by_scope", :scope => 'recently_changed')  -%>

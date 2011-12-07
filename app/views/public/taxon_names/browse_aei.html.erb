@@ -1,0 +1,16 @@
+<div class="heading">Type Specimens</div><br /><br />
+<%= link_to("Search Type Specimen Database", :action => "search",:controller => @proj.home_controller) %> | 
+<%= link_to("Browse Type Specimen Database", :action => "browse",:controller => @proj.home_controller) %> |
+<a href="http://www.amentinst.org/documents/AEI_User_Guide_2-4.doc">Type Specimen listed in Excel</a> |
+<%= link_to("Bibliography", :action => 'ref', :controller => @proj.home_controller) %><br /><br />
+	
+<div id="taxon_name_nav">
+  <h3>Families</h3>
+ 
+  <% for f in @families %>
+  <div class="item">
+   <%= link_to h(f.name), :controller => 'taxon_names', :action => 'browse', :family => h(f.name) -%> (<%=h f.count%>)  <br />
+   </div>
+   <% end %>
+
+</div>

@@ -1,0 +1,6 @@
+<div class="box4">
+  <div class="header"> Synonymous label given this ontology class </div>
+  <div class="content">
+    <%= label.synonyms_by_ontology_class(ontology_class).collect{|s| link_to s.display_name, :action => :show, :id => s.id, :controller => :labels}.join("; ") -%>
+  </div>
+</div>

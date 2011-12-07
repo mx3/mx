@@ -1,0 +1,13 @@
+<% content_for :center do -%>
+  <h4><%= @header if @header %></h4>
+    <table>
+      <% for i in @list %>
+        <% if i.class.to_s == 'TaxonName' %>
+          <tr><td><%= i.display_name %></td><td> <%= link_to(i.id, :action => 'show', :id => i.id) %></td></tr>
+        <% elsif i.class.to_s == 'Otu' %>
+          <tr><td><%= i.display_name(:type => :multi_name) %></td><td> <%= link_to(i.id, :action => 'show', :controller => 'otus', :id => i.id) %></td></tr>
+        <% end %>
+      <% end %>
+      <%= "<i>none</i>" if @list.size == 0 %>
+    </table>
+<% end %>

@@ -1,7 +1,0 @@
-<li id="<%= "#{i}" -%>">
-  <%= extract_line_item.display_name -%>
-  <% if pcr_batch_link -%>
-    <span class="small_grey"><%= link_to('(remove)', :remote => true, :url => {:action => :_remove_extract_from_batch, :controller => :pcr, :id => i}, :loading => "Element.show('pcr_batch_spinner')",  :complete => "Element.hide('pcr_batch_spinner')" )  -%></span>
-   <%= hidden_field_tag "extract[ext_#{i}_#{extract_line_item.id}]", extract_line_item.id -%> 
-  <% end -%>
-</li>

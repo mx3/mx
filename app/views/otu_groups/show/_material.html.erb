@@ -1,0 +1,20 @@
+<% content_for :center do -%>
+
+<% if @markers.length > 0 -%>
+  <%= link_to('download kml', :action => :download_kml, :id => @otu_group.id) -%>
+  <%= render(:partial => '/shared/gmap', :locals => {:markers => @markers, :centerLatitude => @markers[0][:latitude], :centerLongitude => @markers[0][:longitude], :zoom => 2, :height => 200}) -%>
+  <script type="text/javascript">init_map();</script>
+<% end -%>
+
+<div class="show_category"> Material </div>
+<div>
+  <div style="padding: 2px;">
+    <div style="float:left; width: 40%"><strong> OTU  </strong></div>
+    <div style="float:left; width: 80;"><strong> Specimens  </strong></div>
+    <div style="float:left; width: 200;"><strong> Lots - count (total specimens) </strong></div>
+    <br style="clear: both;" />
+  </div>
+  <%= render :partial => '/otus/material', :collection => @otu_group.otus -%>
+  <br style="clear:both;" />
+</div>
+<% end -%>

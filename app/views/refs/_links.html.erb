@@ -1,0 +1,12 @@
+<%= content_tag :li, "<span style='color: silver;'>List</span>" -%>
+<%= content_tag :li, link_to('by author', :action => 'list_by_author') -%>
+<%= content_tag :li, link_to("with pdfs", :action => "list_by_scope", :scope => 'with_pdfs')  -%>
+<%= content_tag :li, link_to("without serials", :action => "list_by_scope", :scope => 'without_serials')  -%>
+<%= content_tag :li, link_to("used in sensus", :action => "list_by_scope", :scope => 'used_in_sensus')  -%>
+<%= content_tag :li, link_to("used in ontology class written_by", :action => "list_by_scope", :scope => 'used_in_ontology_class_written_by')  -%>
+<%= content_tag :li, link_to("personally created or updated", :action => "list_by_scope", :scope => 'changed_by', :arg => $person_id)  -%>
+<%= content_tag :li, link_to("recently changed (past 2 weeks)", :action => "list_by_scope", :scope => 'recently_changed')  -%>
+<%= content_tag :li, "<span style='color: silver;'>Other</span>" -%>
+<%= content_tag :li, link_to("add from another project", :action => "add") -%>
+<%= content_tag :li, "<span style='color: silver;'>Batch add</span>" -%>
+<%= content_tag :li, link_to("import Endnote", :action => "endnote") -%>

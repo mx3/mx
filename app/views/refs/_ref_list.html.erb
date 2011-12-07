@@ -1,0 +1,7 @@
+<div class="ref_list">
+  <% for ref in @refs %>
+  <div class="ref">
+    <%=h ref.full_citation  %> <%= link_to("show", :controller => "refs", :action => "show", :id => ref.id) %>  <br/>
+  </div>
+    <% end %>
+</div>

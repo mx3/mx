@@ -1,0 +1,55 @@
+
+<div class="box4">
+  <div class="header"> Configure measurement batch </div>
+  <div class="content">
+
+    <% form_remote_tag :action => :batch_new , :loading => "Element.show('batch_new_spinner')", :complete => "Element.hide('batch_new_spinner')" do -%>
+
+      <div class="fr"><label for="measurement_batch_otu_id" class="lbl4">OTU</label>
+        <span class="fld">
+          <% if @otu %>
+            <%= @otu.display_name -%><%= hidden_field("measurement_batch", "otu_id", :value => @otu.id) -%>
+          <% else %>
+            <%= render :partial => 'shared/picker', :locals => {
+              :controller => 'otus',
+              :object => 'measurement_batch',
+              :method => 'otu_id',
+              :tag_id => "otu_for_measurement_batch",
+              :size => 80
+            } -%>
+          <% end %>
+          <em>specimens most recently determined as this OTU will be listed on the form</em>
+        </span>
+      </div>
+
+
+      <div class="fr"><label for="measurement_standard_view_group_id" class="lbl4">Standard view group </label>
+        <span class="fld">
+          <%= render :partial => 'shared/picker', :locals => {
+            :controller => 'standard_view_groups',
+            :object => 'measurement_batch',
+            :method => 'standard_view_group_id',
+            :tag_id => "standard_group_for_measurement_batch",
+            :size => 80,
+            :display => ''} -%><em>group of measurements to be taken</em>
+        </span>
+      </div>
+
+      <div class="fr"><label for="measurement_batch_conversion_factor" class="lbl4">Conversion factor</label>
+        <span class="fld"><%= text_field_tag 'measurement_batch[conversion_factor]', @conversion_factor, :size => 10 -%><em> factor will be stored and multiplied to the measurement </em></span>
+      </div>
+
+      <div class="fr"><label for="measurement_batch_units" class="lbl4">Units</label>
+        <span class="fld"><%= select_tag 'measurement_batch[units]', options_for_select(['mm', 'cm', 'um']) -%></span>
+      </div>
+
+      <%= submit_tag 'submit' -%>  <%= spinner_tag('batch_new_spinner' ) -%>
+
+    <% end -%>
+
+  </div>
+</div>
+
+<div id="results" style="padding: 1em;">
+  <em> submit a search </em>
+</div>

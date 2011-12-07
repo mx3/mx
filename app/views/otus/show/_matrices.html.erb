@@ -1,0 +1,8 @@
+<% content_for :center do -%>
+  <ul>
+    <% for m in @mxes %>
+      <li><%= link_to(m.display_name, :action => 'show', :controller => 'mxes', :id => m)  -%></li>
+    <% end %>
+  </ul>
+  <%= '<i>not in any matrix</i>' if @mxes.blank? -%>
+<% end %>

@@ -1,9 +1,0 @@
-<% content_for :center do -%>
-  <h3> extracts X gene </h3>
-  <p> The data is scoped by the OTUs in this group. </p>
-  <% if @extracts.size > 0 -%>
-    <%= render :partial => 'extract/extracts_by_gene_colored', :locals => {:genes => @genes, :extracts => :extracts} -%>
-  <% else -%>
-    <em> No extracts found for OTUs in this group. </em>
-  <% end -%>
-<% end -%>

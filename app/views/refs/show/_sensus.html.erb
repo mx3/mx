@@ -1,0 +1,29 @@
+<% content_for :center do -%>
+<p><em>See the bottom of this page for acts of synonymy that occured in this reference.</em></p>
+
+<div class="box4">
+  <div class="header">Sensus</div>
+
+  <div class="content"><ol> <%= render :partial => 'sensus/s', :collection => @sensus -%> </ol></div>
+</div>
+
+<div style="width: 100%;">
+  <div class="box4" style="float:left;width: 48%;">
+    <div class="header">Acts of synonymy for ref</div>
+    <div class="content">
+      <%= render :partial => 'sensus/acts_of_synonymy', :collection => @sensus -%>
+    </div>
+  </div>
+
+  <div class="box4" style="float: left; width: 48%;">
+    <div class="header">Acts of homonymy for ref</div>
+    <div class="content">
+      <p><em> There really shouldn't be any of these unless the authors messed up or something is wrong in the ontology. </em> </p>
+      <%= render :partial => 'sensus/acts_of_homonymy', :collection => @sensus -%>
+    </div> 
+  </div>
+
+  <br style="clear:both;">
+</div>
+
+<% end -%>

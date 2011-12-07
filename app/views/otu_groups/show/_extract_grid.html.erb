@@ -1,0 +1,21 @@
+<% content_for :center do -%>
+<p><em> Specimen id and extract id do not necessarily correspond in the list (i.e. the first specimen listed is not necessarily in the first extract).</em></p>
+<table>
+  <tr>
+    <th>OTU</th>
+    <th>specimens</th>
+    <th>extracts</th>
+    <th>PCRs</th>
+    <th>sequences</th>
+  </tr>
+  <% @otu_group.otus.each_with_index do |o, i| -%>
+  <tr class="<%= (i % 2 == 0 ? 'stripe' : "") -%>">
+    <td><%= o.display_name(:type => :list) -%></td>
+    <td><%= o.specimens.collect{|s| link_to(s.display_name(:type => :identifiers), :action => :show, :controller => :specimens, :id => s.id)}.join(", ") -%></td>
+    <td><%= o.extracts.collect{|e| link_to(e.id, :action => :show, :controller => :extracts, :id => e.id)}.join(", ") -%></td>
+    <td><%= o.pcrs.collect{|p| link_to(p.id, :action => :show, :controller => :pcrs, :id => p.id)}.join(", ") -%></td>
+    <td><%= o.extracts.inject([]){|sum, e| sum += e.seqs}.flatten.collect{|s| link_to(s.id, :action => :show, :controller => :seqs, :id => s.id)}.join(", ") -%></td>
+  </tr>
+  <% end -%>
+</table>
+<% end -%>

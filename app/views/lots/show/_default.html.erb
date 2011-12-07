@@ -1,0 +1,63 @@
+<%= content_for(:center) do -%>
+
+<div class="show_rec">
+
+  <div class="show_row"><span class="show_lbl">OTU:</span><span class="show_data"><%= @lot.otu.display_name -%></span></div>
+
+  <% if @lot.identifiers.size > 0 %>
+    <div class="show_category"> Identifiers </div>
+      <ul style="list-style-type: disc; color:silver;">
+        <% for id in @lot.identifiers %>
+        <li style="margin-left: -2em; color:#000;"> <%= id.cached_display_name -%> </li>
+          <% end -%>
+        </ul>
+   <% end -%>
+
+  <div class="show_category"> Size/Quantity </div>
+  <div class="show_row"><span class="show_lbl">Key:</span><span class="show_data"><%= @lot.key_specimens -%></span><span class="show_comment"> Typically used to tally specimens that can not be destroyed or that will act as references.  </span></div>
+  <div class="show_row"><span class="show_lbl">Value:</span><span class="show_data"><%= @lot.value_specimens -%></span><span class="show_comment"> Typically used to tally specimens that labwork can be done on (e.g. dissect, extract). </span></div>
+
+  <div class="show_category"> Repository/location </div>
+  <div class="show_row"><span class="show_lbl">Repository:</span><span class="show_data"><%= @lot.repository.andand.display_name -%></span></div>
+  <div class="show_row"><span class="show_lbl">Disposition (location etc.):</span><span class="show_data"><%= @lot.disposition -%></span></div> 
+
+  <% if !@lot.ce_labels.blank? -%>
+    <div class="show_category"> Temporary collecting event (not linked in database) </div>
+    <div class="show_row highlight" style="padding:0.2em;" ><span class="show_data"><%= @lot.ce_labels -%></span></div>
+  <% end -%>
+
+  <div class="show_category"> Attributes </div>
+  <div class="show_row"><span class="show_lbl">Sex(es):</span><span class="show_data"><%= @lot.sex -%></span></div>
+  <div class="show_row"><span class="show_lbl">Stage(s):</span><span class="show_data"><%= @lot.stage -%></span></div>
+  <div class="show_row"><span class="show_lbl">Rarity:</span><span class="show_data"><%= @lot.rarity -%></span></div>
+  <div class="show_row"><span class="show_lbl">Source quality:</span><span class="show_data"><%= @lot.source_quality -%></span></div>
+  <div class="show_row"><span class="show_lbl">DNA usable:</span><span class="show_data"><%= @lot.dna_usable -%></span></div>
+  <div class="show_row"><span class="show_lbl">Mixed lot?:</span><span class="show_data"><%= @lot.mixed_lot -%></span><span class="show_comment"> Contains multiple species or morphotypes. </span></div>
+  <div class="show_row"><span class="show_lbl">Preparation:</span><span class="show_data"><%= @lot.preparation.andand.display_name -%></span></div>
+
+  <%= render(:partial => '/shared/show/record/notes', :locals => {:obj => @lot}) -%>
+  <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @lot}) -%>
+
+  <% if @lot.tags.length > 0 -%>
+  <div class="show_category"> Tags </div>
+    <div>
+    <% @lot.tags.each do |t| -%>
+      <%= render(:partial => '/tags/ts', :locals => {:ts => t}) -%>
+    <% end -%>
+  </div>
+  <% end -%>
+
+</div> 
+<% end -%>
+
+<%= content_for(:right) do -%>
+  <%= render(:partial => 'ce/ce', :locals => {:ce => @lot.ce}) if not @lot.ce.blank? -%>
+  <%= render(:partial => '/shared/gmap_shell', :locals => {:markers => @lot.ce.gmap_array, :zoom => 4}) if @lot.ce && @lot.ce.mappable  -%>
+<% end -%>
+
+<%= content_for(:left) do -%>
+  <% if @lot.key_specimens > 1 || @lot.value_specimens > 1 -%>
+    <hr style="width: 80%;margin:1em;" />
+    <%= render(:partial => 'divide_form') -%>
+  <% end -%>
+<% end %>

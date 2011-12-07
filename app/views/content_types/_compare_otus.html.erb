@@ -1,0 +1,49 @@
+<div class='subform'>
+  <div class="header"> Comparison options </div>
+  <%= form_tag(:remote => true, :update => 'contents', :url => {:action => '_refresh_compare_content'}, :loading => "Element.show('compare_spinner')", :complete => "Element.hide('compare_spinner')") do -%>
+
+    Select content type: <%= render(:partial => 'content_types/picker', :locals => {:c_name => 'content_type', :f_name => 'id'}) -%> <br/>
+
+    <% if !@left_lock -%>
+    Update left side to OTU:
+
+  <%= render :partial => 'shared/picker', :locals => {
+        :controller => 'otus',
+        :object => 'left_otu',
+        :method => 'id',
+        :tag_id => "left_otu_to_find",
+        :display => "",
+        :size => 30} -%>
+      
+    <% else -%>
+      <%= hidden_field('left_otu', 'id', :value => left_otu.id) -%>
+    <% end -%>
+
+    <% if !@right_lock -%>
+         Update right side to OTU:
+
+      <%= render :partial => 'shared/picker', :locals => {
+            :controller => 'otus',
+            :object => 'right_otu',
+            :method => 'id',
+            :tag_id => "right_otu_to_find",
+            :display => "",
+            :size => 30} -%>
+    <% else %>
+      <%= hidden_field('right_otu', 'id', :value => right_otu.id) -%> 
+    <% end -%>
+
+    <%= hidden_field('right', 'lock', :value => @right_lock) -%>
+    <%= hidden_field('left', 'lock', :value => @left_lock) -%>
+    <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'compare_spinner', :style => "display: none; vertical-align:middle;"  ) %> 
+    <%= submit_tag('refresh') %>
+  <% end -%>
+</div>
+
+<div id="msg">
+</div>
+     
+<div id="contents">
+  <%= flash[:notice] %>
+  <%= render(:partial => 'content_types/compare', :locals => {:left_otu => left_otu, :right_otu => right_otu}) -%>
+</div>

@@ -1,4 +1,0 @@
-<h3>Otus not in otu groups</h3>
-<% @otus.each do |o| -%>
-  <%= link_to(o.display_name(:type => :multi_name), :action => 'show', :controller => 'otu', :id => o.id) -%><br/>
-<% end -%>

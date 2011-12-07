@@ -1,0 +1,8 @@
+<%# an in_groups_of array [geog, [distributions]] -%>
+<% distributions.each do |geog, grp| -%>
+  <div style="padding:4px;margin:4px;">
+      <%= indented_geog_tag(geog, grp.collect{|g| link_to(g.ref.authors_year, :controller => :refs, :action => :show, :id => g.ref)}.join("; ")) -%>
+  </div>   
+<% end -%>
+
+

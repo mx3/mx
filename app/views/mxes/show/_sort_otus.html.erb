@@ -1,0 +1,17 @@
+<% content_for :center do -%>
+<h4> sorting OTUs </h4>
+<p>  <%= link_to('reset otu sorting', :action => :reset_otu_positions, :id => @mx) -%><i> resets based on matrix name then OTU name</i> </p>
+<div>
+  <p><i> Drag to sort.</i>  <%= image_tag('/images/spinner.gif', :alt => 'Updating', :id => 'move_spinner', :style => "display: none; vertical-align:middle;"  ) %> </p>
+  <ul id="otus">
+    <% @mxes_otus.each do |mxotu| -%>
+    <%= content_tag_for :li, mxotu do -%>
+    <span class="handle">[drag]</span><span> &nbsp; <%= mxotu.otu.id -%></span> &nbsp;
+    <%= link_to(mxotu.otu.display_name(:type => :multi_name), :action => :show, :controller => :otus, :id => mxotu.otu.id) -%>
+    <% end %>
+    <% end %>
+  </ul>
+</div>
+<%= sortable_element("otus", :url => {:action => 'sort_otus'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
+
+<% end %>

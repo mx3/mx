@@ -9,7 +9,7 @@
     <% form_remote_tag :loading => "Element.show('tree_spinner')", :complete => "Element.hide('tree_spinner')", :url => {:action => :_tree_set_root, :controller => :ontology}, :update => :tree  do  -%>
       <label for="ontology_part_id" class="lbl4">Term</label>
         <span class="fld"><%= render :partial => 'shared/picker', :locals => {
-          :controller => 'ontology_class',
+          :controller => 'ontology_classes',
           :object => 'ontology_class',
           :method => 'id',
           :size => 40,

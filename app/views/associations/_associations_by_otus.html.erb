@@ -1,0 +1,5 @@
+<% for otu in @otus %>
+  <% @otu = Otu.find(otu.otu_id) %>
+  <h3><%= @o.display_name %></h3>
+  <%= render :partial =>("associations_by_otu") %>
+<% end %>

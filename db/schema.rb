@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110902181135) do
+ActiveRecord::Schema.define(:version => 20111129035626) do
 
   create_table "association_parts", :force => true do |t|
     t.integer "association_id",         :null => false
@@ -1457,21 +1458,21 @@ ActiveRecord::Schema.define(:version => 20110902181135) do
   add_index "primers", ["updator_id"], :name => "updator_id"
 
   create_table "projs", :force => true do |t|
-    t.string    "name",                                                                      :null => false
+    t.string    "name",                                                                       :null => false
     t.text      "hidden_tabs"
     t.string    "public_server_name"
     t.string    "unix_name",                                :limit => 32
     t.text      "public_controllers"
     t.string    "public_tn_criteria",                       :limit => 32
     t.integer   "default_institution_repository_id"
-    t.string    "starting_tab",                             :limit => 32, :default => "otu"
+    t.string    "starting_tab",                             :limit => 32, :default => "otus"
     t.integer   "default_ontology_id"
     t.integer   "default_content_template_id"
     t.string    "gmaps_API_key",                            :limit => 90
-    t.integer   "creator_id",                                                                :null => false
-    t.integer   "updator_id",                                                                :null => false
-    t.timestamp "updated_on",                                                                :null => false
-    t.timestamp "created_on",                                                                :null => false
+    t.integer   "creator_id",                                                                 :null => false
+    t.integer   "updator_id",                                                                 :null => false
+    t.timestamp "updated_on",                                                                 :null => false
+    t.timestamp "created_on",                                                                 :null => false
     t.string    "ontology_namespace",                       :limit => 32
     t.integer   "default_ontology_class_id"
     t.text      "obo_remark"

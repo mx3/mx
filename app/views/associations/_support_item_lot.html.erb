@@ -1,0 +1,7 @@
+<tr><td class = "lbl1">repository</td> <td> <%= @s.lot.repository ? @s.lot.repository.display_name : "<i>not given</i>" %></td></tr>
+<tr><td class = "lbl1"># specimens</td> <td> <%= @s.lot.total_specimens %></td></tr>
+<tr><td class = "lbl1">determination</td> <td> <%= @s.lot.otu.display_name %></td></tr>  
+<% unless @public == true %>
+  <tr><td class = "lbl1">lot id</td> <td> <%= link_to(@s.lot.id, :action => 'show', :controller => 'lots', :id => @s.lot.id) %></td></tr>
+<% end %>
+

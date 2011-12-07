@@ -5,7 +5,7 @@ module ImageDescriptionHelper
   def image_description_cell_status(otu_id, std_view) 
     img_descrs = std_view.image_descriptions_by_otu_id(otu_id)
     if img_descrs.size > 0
-      return content_tag(:td, render(:partial => 'image_description/id', :collection => img_descrs))
+      return content_tag(:td, render(:partial => 'image_descriptions/id', :collection => img_descrs))
     else  # No images are found for this otu/view combination      
       return content_tag(:td, 'none', :class => 'failed') 
     end

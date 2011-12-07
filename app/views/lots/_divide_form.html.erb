@@ -1,0 +1,24 @@
+<div class="subform">
+<div class="header"> Divide lot </div>
+
+<div class="content">
+
+<%= form_tag({:action => :divide, :controller => :lots}) do -%>
+
+<%= hidden_field_tag :id, @lot.id -%>
+
+  <% if @lot.key_specimens - 1 > 0 -%>
+    key: <%= select_tag(:key, options_for_select( (0..(@lot.key_specimens - 1)).to_a) ) -%> <br />
+  <% end -%>
+
+  <% if @lot.value_specimens - 1 > 0 -%>
+    value: <%= select_tag(:value, options_for_select( (0..(@lot.value_specimens - 1)).to_a) ) -%> <br />
+  <% end -%>
+
+  <%= submit_tag "divide" -%>
+
+<% end -%>
+
+</div>
+
+</div>

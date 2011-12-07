@@ -40,40 +40,6 @@ class AdminController < ApplicationController
   def debug
   end 
 
-  #def renumber_taxon_names
-  #  TaxonName.renumber_all
-  #  flash[:notice] = 'Taxon names have been renumbered.'
-  #  redirect_to :action => :index
-  #end
-  #
-  #def check_all_taxon_names
-  #  if TaxonName.check_all
-  #    flash[:notice] = 'Taxon names passed a detailed check of left/right indexing.'
-  #  else
-  #    flash[:notice] = 'Warning: Taxon names FAILED a detailed check of left/right indexing.'
-  #  end
-  #  redirect_to :action => :index
-  #end
-
-  #def check_all_quick_taxon_names
-  #  if TaxonName.check_all_quick
-  #    flash[:notice] = 'Taxon names passed a quick check of left/right indexing.'
-  #  else
-  #    flash[:notice] = 'Warning: Taxon names FAILED a quick check of left/right indexing.'
-  #  end
-  #  redirect_to :action => :index 
-  #end
-
-  ## I'm guessing there are no links to this action because of problems with project ownership security
-  #def update_all_ref_display_names
-  #  @refs = Ref.find(:all)
-  #  for r in @refs
-  #    r.save
-  #  end
-  #  flash[:notice] = 'Updated display_name field for all refs'
-  #  redirect_to :action => :index 
-  #end
-
   def people_tn
     @person = Person.find(params[:id], :include => :editable_taxon_names)
     if request.post?
@@ -151,7 +117,7 @@ class AdminController < ApplicationController
     if o = Image.find(params[:id]) 
       if o.image_descriptions.size > 0 || Person.find($person_id).is_admin == false
         flash[:notice] = 'Hmm... what are you doing?'
-        redirect_to :action => :index, :controller => :proj and return
+        redirect_to :action => :index, :controller => :projs and return
       end
       begin
         old_id = $proj_id

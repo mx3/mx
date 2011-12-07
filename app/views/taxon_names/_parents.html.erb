@@ -1,0 +1,6 @@
+<div class="show_category"> Classification </div>
+<% @parents.reverse.each do |p| -%>
+  <% unless p.name == 'root' -%>
+  <div class="show_row"><span class="show_data" style="margin-left: <%= rank_n(p.rank)  -%>em;" ><%= link_to(p.display_name(:type => :name_with_author_year), :action => :show, :controller => :taxon_names, :id => p.id) -%></span></div>
+  <% end -%>
+<% end -%>

@@ -1,0 +1,250 @@
+<%= error_messages_for 'ce' %>
+
+<!--[form:ce]-->
+
+<script type="text/javascript">
+
+function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the print label
+  document.ce_form.ce_print_label.value = document.ce_form.ce_verbatim_label.value
+}
+
+function guestimateLabel() { // replaces the verbatim_label with a calculation based on parsed fields
+  // we don't use verbatim values here, assumes we're entering new values directly
+
+  var dt = ""; 
+  if ((document.ce_form.ce_sd_y.value ==  document.ce_form.ce_ed_y.value) && ( document.ce_form.ce_sd_y.value.length > 0)) { // shared year and both values filled
+    dt =  document.ce_form.ce_sd_d.value + "-" + document.ce_form.ce_ed_d.value + ".";
+    if (document.ce_form.ce_sd_m.value == document.ce_form.ce_ed_m.value) { // same month
+      dt = dt + document.ce_form.ce_sd_m.value + ".";
+    } else {
+      dt = dt + document.ce_form.ce_sd_m.value + "-" + document.ce_form.ce_ed_m.value + ".";
+    }
+    dt = dt + document.ce_form.ce_sd_y.value
+  } else {
+
+    var sd = document.ce_form.ce_sd_d.value + "." + document.ce_form.ce_sd_m.value + "." + document.ce_form.ce_sd_y.value;
+    if (sd == '..') {sd = ''} 
+
+    var ed = document.ce_form.ce_ed_d.value + "." + document.ce_form.ce_ed_m.value + "." + document.ce_form.ce_ed_y.value;
+    if (ed == '..') {ed = ''} 
+
+    var dt = ''; 
+    if (ed != '') {
+      dt = sd + '-' + ed
+    } else {
+      dt = sd
+    }
+
+  }
+
+  var elev = document.ce_form.ce_elev_min.value;
+  if (document.ce_form.ce_elev_min.value.length > 0) {
+    elev = elev + '-' + document.ce_form.ce_elev_max.value  }
+  if (document.ce_form.ce_elev_unit.value == 'meters') {
+    u = 'm'
+  } else if ( document.ce_form.ce_elev_unit.value == 'feet' ) {
+    u = 'ft'
+  }
+
+  elev = elev + u;
+
+  var ll = document.ce_form.ce_latitude.value;
+  if (ll.length > 0) {
+    if (document.ce_form.ce_latitude.value < 0) {
+      ll = ll + 'S';
+    } else {
+      ll = ll + 'N';
+    }
+
+    ll = ll + ";" + document.ce_form.ce_longitude.value;
+    if (document.ce_form.ce_longitude.value < 0) {
+      ll = ll + 'W';
+    } else {
+      ll = ll + 'E';
+    }
+  }
+
+  var elements = [ document.ce_form.ce_geography.value, 
+      document.ce_form.ce_locality.value,
+      dt + " " + elev, ll, 
+      document.ce_form.ce_collectors.value + " " + document.ce_form.ce_mthd.value, document.ce_form.ce_trip_code.value ];
+
+  document.ce_form.ce_print_label.value = elements.filter(notEmpty).join("\n"); 
+}
+
+function notEmpty(element) {
+  return element.length > 0;    
+}
+</script>
+
+<div>
+<div style="width: 500; float: left;">
+<div class="header"> Common fields </div> 
+
+<div class="fr"><label for="ce_geography">Geography</label>
+<span class="fld"><%= text_area 'ce', 'geography', 'title' => 'geopolitical area (e.g., country and province)', :cols => 60, :rows=> 2, :style => 'width:98%; height: 2.5em;'  %></span>
+</div>
+
+<div class="fr"><label for="geog_name">Finest Geography</label>
+<span class="fld"> <%= render :partial => "geogs/picker", :locals => {:object => 'ce', :method => 'geog_id', :tag_id => "geog_name",
+  :display => (@ce.geog.display_name if @ce.geog) } %>
+  </span></div>
+
+
+  <div class="fr"><label for="ce_locality">Locality</label>
+  <span class="fld"><%= text_field_with_auto_complete  'ce', 'locality', 'title' => 'specific locality (e.g., mountain range and trailhead)', :cols => 60, :rows=> 2, :style => 'width:98%;', :class => 'free_text_autocomplete' -%></span>
+  </div>
+
+  <div class="fr"><label for="ce_start_date">Start Date</label>
+  <div class="fld"> 
+  <div style="float:left;"> <label for="ce_sd_d" style="color:gray;width:auto;margin:0 4px;">Day </label><%= text_field 'ce', 'sd_d' , :size => 2 %> </div>
+  <div style="float:left;"> <label for="ce_sd_m" style="color:gray;width:auto;margin:0 4px;">Month </label><%= text_field 'ce', 'sd_m' ,:size => 2 %></div>
+  <div style="float:left;"> <label for="ce_sd_y" style="color:gray;width:auto;margin:0 4px;">Year </label><%= text_field 'ce', 'sd_y', :size => 4 %></div>
+  <br style ="clear: both;" />
+  </div>
+  </div>
+
+  <div class="fr"><label for="ce_end_date">End Date</label>
+  <div class="fld"> 
+  <div style="float:left;"> <label for="ce_ed_d" style="color:gray;width:auto;margin:0 4px;">Day </label><%= text_field 'ce', 'ed_d' , :size => 2 %> </div>
+  <div style="float:left;"> <label for="ce_ed_m" style="color:gray;width:auto;margin:0 4px;">Month </label><%= text_field 'ce', 'ed_m' ,:size => 2 %></div>
+  <div style="float:left;"> <label for="ce_ed_y" style="color:gray;width:auto;margin:0 4px;">Year </label><%= text_field 'ce', 'ed_y', :size => 4 %></div>
+  <br style ="clear: both;" />
+  </div>
+  </div>
+
+  <div class="fr"><label for="ce_time">Time</label>
+  <div class="fld">
+  <div style="float:left;"> <label for="ce_time_start" style="color:gray;width:auto;margin:0 4px;">Start</label><%= text_field 'ce', 'time_start' , :size => 6 %> </div>
+  <div style="float:left;"> <label for="ce_time_end" style="color:gray;width:auto;margin:0 4px;">End </label><%= text_field 'ce', 'time_end' ,:size => 6 %></div>
+  &nbsp;<span class="small_grey">hh:mm:ss or hh:mm, 24hr format </span>
+  <br style ="clear: both;" />
+  </div>
+  </div>
+
+  <div class="fr"><label for="ce_elevation">Elevation</label>
+  <div class="fld"> 
+  <div style="float:left;"><label for="ce_elev_min"  style="color:gray;width:auto;margin:0 4px;">Min</label><%= text_field 'ce', 'elev_min', 'title' => 'minimum elevation', :size => 5  %></div>
+  <div style="float:left;"><label for="ce_elev_max"  style="color:gray;width:auto;margin:0 4px;">Max </label><%= text_field 'ce', 'elev_max', 'title' => 'maximum elevation', :size => 5 %></div>
+  <div style="float:left;"><label for="ce_elev_unit" style="color:gray;width:auto;margin:0 4px;">Units </label><%= select('ce', 'elev_unit', ['meters', 'feet']) %></div>
+  <br style ="clear: both;" />
+  </div>
+  </div>
+
+  <div class="fr">  <label for="ce_collectors">Collector(s)</label>
+  <span class="fld"> <%= text_field_with_auto_complete 'ce', 'collectors', 'title' => 'name(s) of collector(s)', :size => 40, :style => 'width: 98%;', :class => 'free_text_autocomplete'  %></span>
+  </div>
+
+  <div class="header"> Collecting method  </div> 
+
+  <div class="fr"><label for="ce_verbatim_method">Verbatim</label>
+  <span class="fld">   <%= text_field_with_auto_complete 'ce', 'verbatim_method', 'title' => 'collection method on label', :class => 'free_text_autocomplete' , :style => 'width: 98%;' %> </span>
+  </div>
+
+  <div class="fr"><label for="ce_mthd">Determined</label>
+  <span class="fld"> <%= text_field_with_auto_complete 'ce', 'mthd', 'title' => 'collection method', :class => 'free_text_autocomplete' , :style => 'width: 98%;' %></span>
+  </div>
+
+  <div class="header"> Georeferencing </div> 
+  <div class="fr"><label for="ce_cords">Verbatim</label>
+  <span class="fld">
+  <div style="float: left;"> <label for="ce_dc_verbatim_latitude" style="color:gray;width:auto;margin:0 4px;">Latitude</label> <%= text_field 'ce', 'dc_verbatim_latitude', 'title' => 'verbatim latitude from label', :size => 12 %></div>
+  <div style="float: left;"> <label for="ce_dc_verbatim_longitude" style="color:gray;width:auto;margin:0 4px;">Longitude</label> <%= text_field 'ce', 'dc_verbatim_longitude', 'title' => 'verbatim latitude from label', :size => 12  %></div>
+  <br style="clear:both;" />
+  </span>
+  </div>
+
+  <div class='fr'><span class="fld small_grey">Determined GPS or map coordinates in <strong>decimal degrees</strong>. Note: western longitudes (e.g. USA), and southern latitudes (e.g. Australia) are negative.</span> </div>
+  <div class="fr"><label for="ce_cords">Determined</label>
+  <span class="fld">
+  <div style="float: left;"><label for="ce_latitude" style="color:gray;width:auto;margin:0 4px;">Latitude</label>  <%= text_field 'ce', 'latitude', 'title' => 'North/South, 90 to -90 degrees', :size => 12 %></div>
+  <div style="float: left;"><label for="ce_longitude" style="color:gray;width:auto;margin:0 4px;">Longitude</label>  <%= text_field 'ce', 'longitude', 'title' => 'East/West, 180 to -180 degrees', :size => 12  %>  </div>
+  <br style="clear:both;" />
+  </span>
+  </div>
+
+  <div class="fr"><label for="ce_dc_coordinate_uncertainty_in_meters">Determined error</label><span class="fld"> <%= text_field 'ce', 'dc_coordinate_uncertainty_in_meters', 'title' => 'in meters', :size => 12  %><em> in meters</em></span>  </div>
+  <div class="fr"><label for="ce_undet_ll">Undeterminable</label><span class="fld"><%= check_box( "ce", "undet_ll") %><em> Latitude/longitude can not be derived</em></span> </div>
+  <div class="fr"><label for="ce_undet_ll">Georeference sources</label><span class="fld"><%= text_area 'ce', 'dc_georeference_sources', 'title' => 'sources consulted to determine lat/long', :cols => 60, :rows=> 2, :style => 'width:98%; height: 2.5em;'  %></span> </div>
+
+  <div class="fr"> <label for="ce_locality_accuracy_confidence_id" class="lbl4">Locality accuracy confidence</label>
+  <span class="fld"><%= confidence_picker_tag(:ce, :locality_accuracy_confidence_id, @ce.locality_accuracy_confidence_id) -%> </span>
+  </div>
+
+  <div class="header"> Trip code </div> 
+
+  <div class="fr"><label for="ce_trip_code"> Code</label>
+  <span class="fld">
+  <%= text_field 'ce', 'trip_code', 'title' => 'collection code'  %>
+  </span>
+  </div>
+
+  <div class="fr"><label for="ce_trip_namespace_id">Namespace</label>
+  <span class="fld"><%= render :partial => "namespaces/picker", :locals => { :f_name => "trip_namespace_id", :c_name => "ce"} %></span>
+  </div>
+
+  <div class="header"> Host / Habitat  </div> 
+  <div class="fr"> <label for="ce_host_genus">Host Genus</label> <span class="fld"><%= text_field 'ce', 'host_genus' %> </span>  </div>
+  <div class="fr"> <label for="ce_host_species">Host Species</label> <span class="fld"><%= text_field 'ce', 'host_species' %></span>  </div>
+
+  <div class="fr"> <label for="ce_host_species">Macro Habitat</label> <span class="fld"><%= text_field_with_auto_complete 'ce', 'macro_habitat', :style => 'width:98%;', :class => 'free_text_autocomplete' %></span></div>
+  <div class="fr"> <label for="ce_host_species">Micro Habitat</label> <span class="fld"><%= text_field_with_auto_complete 'ce', 'micro_habitat', :style => 'width:98%;', :class => 'free_text_autocomplete' %></span></div>
+
+  <div class="header"> Errors / Checking  </div> 
+  <%= check_box( "ce", "err_entry") %><label for="ce_err_entry"> Error in data entry (label/data was incorrectly entered)</label><br/>
+  <%= check_box( "ce", "err_label") %><label for="ce_err_label"> Error due to label (nothing can be done)</label><br/>
+  <%= check_box( "ce", "err_checked") %><label for="ce_err_checked"> Error checked (whatever appears to be an error, isn't)</label><br/>
+  <%= check_box( "ce", "undetgeog") %><label for="ce_undetgeog"> Undeterminable finest geography (can not determine a geographic unit)</label><br/>
+
+  <div class="header"><label for="ce_notes">Notes</label>  </div> 
+  <%= text_area 'ce', 'notes', 'title' => 'notes about collecting event', :rows => 3, :cols => 60  %>
+
+
+  <div class="fr"> <label for="ce_is_public" class="lbl4">Is public?</label>
+  <span class="fld"><%= check_box 'ce', 'is_public', 'title' => 'exportable to public?' -%></span>
+  </div>
+
+  <br style="clear:both;" />
+  </div>
+
+  <div style="width: 400; float: left; padding-left:0.5em;">
+
+  <div class="header"> Labels </div> 
+
+  <div class="fr"><label for="ce_num_to_print">Number to Print</label>
+  <span class="fld"><%= text_field 'ce', 'num_to_print', 'title' => 'used to generate labels', :size => 6 %></span>
+  </div>
+
+  <br style="clear:both;" /><br />
+
+
+  <div style="padding-bottom:0.5em;"><label for="ce_label">Verbatim Label</label> <a href="javascript:cloneVerbatimToPrint()" style="font-size:smaller;margin-left:1em;">copy to print label</a><span style="float:right;"> &ordm;</span> </div>
+  <%= text_area 'ce', 'verbatim_label', 'title' => 'verbatim (fast) collecting event label', :cols => 25, :rows=> 12, :style => 'width:9cm' -%><br /><br />
+
+  <div style="padding-bottom:0.5em;"><label for="ce_label">Print Label</label>  <a href="javascript:guestimateLabel()" style="font-size:smaller;margin-left:1em;">generate</a> <em style="margin-left: 1cm;color:gray;">rule intervals at 0.5cm for 4pt font</em></div>
+  <div><!-- ruler -->
+  <div style="font-size:4pt;margin-left:2px;">
+  <div style="float:left; width:1.5cm;background-color:#88d;padding-top:5px;"></div>
+  <div style="float:left; width:1.5cm;background-color:#ddd; padding-top:5px;"></div>
+
+  <div style="float:left; width:1.5cm;background-color:#88d;padding-top:5px;"></div>
+  <div style="float:left; width:1.5cm;background-color:#ddd; padding-top:5px;"></div>
+
+  <div style="float:left; width:1.5cm;background-color:#88d;padding-top:5px;"></div>
+  <div style="float:left; width:1.5cm;background-color:#ddd; padding-top:5px;"></div>
+  </div>
+
+  <%= text_area 'ce', 'print_label', 'title' => 'version to print', :cols => 37, :rows=> 12, :style => 'width:9cm; color:#333; font-family:Times; font-size:12pt;' %><br />
+
+  <br style="clear: both;" />
+  </div>
+
+  <label for="ce_doc_label">Document label</label><br/>
+  <%= text_area 'ce', 'doc_label', 'title' => 'collecting event label as formated for print', :cols => 25, :rows=> 12, :style => 'width:9cm' %>
+
+  <br style="clear:both;" />
+  </div>
+
+  <br style="clear:both;" />
+  </div>
+

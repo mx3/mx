@@ -1,0 +1,21 @@
+<%= error_messages_for 'ontology_relationship' -%>
+<!--[form:ontology_relationship]-->
+<%= hidden_field(:ontology_relationship, :ontology_class1_id) -%>
+
+<div style = "padding: 3px;" >
+  <label for="ontology_relationship_object_relationship_id" class="lbl4">Relationship</label>
+  <span class="fld"><%= select('ontology_relationship', 'object_relationship_id', @proj.object_relationships.collect  {|o| [ o.display_name, o.id ] }, { :include_blank => true }) -%></span>
+</div>
+
+<div>
+  <label for="ontology_relationship_ontology_class2_id" class="lbl4">to class</label>
+  <span class="fld">	<%= render :partial => 'shared/picker', :locals => {
+      :controller => 'ontology_classes',
+      :object => 'ontology_relationship',
+      :method => 'ontology_class2_id',
+      :tag_id => "ontology_class_id_for_ontology_relationship",
+      :display => '' } -%>
+  </span>
+</div>
+<br style="clear:both;"/>
+<!--[eoform:ontology_relationship]-->

@@ -1,0 +1,41 @@
+<h3>Batch load names</h3>
+
+<p> This function loads a series of names from a tab delimited text file. Each line in the file is considered to be a single name. Columns are name, author, year, only name is required.
+  Results will display and you will be asked to confirm the load. During confirmation individual names can be omitted or updated. All names have a single parent.  Duplicate names (matching name only) under the same parent will not be added, you can do this manually though.</p>
+<div class="box5">
+  <%= form_tag({:action => 'batch_verify'}, {:multipart => true, :name => 'tn_batch_upload'}) do -%>
+
+    <div class="fr">
+      <label for="temp_file" class="lbl4">text file containing names <i>required</i></label>
+      <span class="fld">	<%= file_field 'temp_file', 'file', :size => 50  %>	</span>
+    </div>
+
+    <div class="fr">
+      <label class="lbl4">parent taxon taxon (sets for all) <i>required</i> </label>
+      <span class="fld">	<%= render :partial => 'shared/picker', :locals => {
+          :controller => 'taxon_names',
+          :object => 'taxon_name',
+          :method => 'parent_id',
+          :tag_id => "parent_taxon_name_to_find_for_batch",
+          :display => '' } -%> </span>
+    </div>
+
+    <div class="fr">
+      <label for="taxon_name_iczn_group" class="lbl4">ICZN group <i>required</i></label>
+      <span class="fld"><%= select("taxon_name", "iczn_group", TaxonName.iczn_groups, { :include_blank => true }) %></span>
+    </div>
+
+
+    <div class="fr">
+      <label class="lbl4">reference (sets for all) </label>
+      <span class="fld"><%= render :partial => 'shared/picker', :locals => {
+          :controller => 'refs',
+          :object => 'taxon_name',
+          :method => 'ref_id',
+          :tag_id => "ref_name_to_find",
+          :display => '' } -%></span>
+    </div>
+    <%= submit_tag "Verify" -%>
+
+  <% end -%>
+</div> 

@@ -1,9 +1,0 @@
-<div>
-  <% if @part == 'center' %>
-    <ul>
-      <% for chr in @chrs %>
-        <li><%= link_to(chr.name, :controller => :chr, :action => :show, :id => chr)  -%></li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>

@@ -1,0 +1,8 @@
+<%= content_for :center do -%>
+  <%= render_show(@sensu, true, false) -%>
+<% end -%>
+
+<%= content_for :right do -%>
+  <%= render :partial => '/labels/synonyms_by_ontology_class', :locals => {:label => @sensu.label, :ontology_class => @sensu.ontology_class} -%>
+  <%= render :partial => '/labels/homonymous_ontology_classes', :locals => {:label => @sensu.label, :ontology_class => @sensu.ontology_class} -%>
+<% end %>

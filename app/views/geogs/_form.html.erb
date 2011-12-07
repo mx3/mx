@@ -1,0 +1,66 @@
+<%= error_messages_for 'geog' %>
+
+<!--[form:geog]-->
+
+<table>
+  <tr>
+    <td>
+      <p><label for="geog_name">Name</label><br/>
+      <%= text_field 'geog', 'name', 'title' => 'name of new geographic area'  %></p>
+    </td>
+    <td>
+      <p><label for="geog_abbreviation">Abbreviation</label><br/>
+      <%= text_field 'geog', 'abbreviation', 'title' => 'abbreviation for geographic area'  %></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p><label for="geog_FIPScode">Fipscode</label><br/>
+        <%= text_field 'geog', 'fips_code', 'title' => 'Federal Information Processing Standards Code (US Census)'  %></p>
+    </td>
+    <td>
+      <p> Geography type <br/>
+      <%= render :partial => "geog_types/picker", :locals => {  :c_name => "geog", 'title' => 'type of geographic area' } -%> </p>
+    </td>
+  </tr>
+</table>
+<p><label for="country_name">Country</label><br/>
+<%= render :partial => "geogs/picker", :locals => {
+  :object => 'geog', :method => 'country_id', :tag_id => "country_name", :geog_types => '320',
+  :display => (@geog.country.display_name if @geog.country) } %></p>
+
+<p><label for="state_name">State</label><br/>
+<%= render :partial => "geogs/picker", :locals => {
+  :object => 'geog', :method => 'state_id', :tag_id => "state_name", :geog_types => '315',
+  :display => (@geog.state.display_name if @geog.state) } %></p>
+  
+<p><label for="county_name">County</label><br/>
+<%= render :partial => "geogs/picker", :locals => {
+  :object => 'geog', :method => 'county_id', :tag_id => "county_name", :geog_types => '76',
+  :display => (@geog.county.display_name if @geog.county) } %></p>
+
+<p><label for="biogeo_region_name">Bio-Geographical Unit</label><br/>
+<%= render :partial => "geogs/picker", :locals => {
+  :object => 'geog', :method => 'inclusive_biogeo_region_id', :tag_id => "biogeo_region_name", :geog_types => '318',
+  :display => (@geog.biogeo_region.display_name if @geog.biogeo_region) } %></p>
+
+<p><label for="continent_ocean_name">Continent/Ocean</label><br/>
+<%= render :partial => "geogs/picker", :locals => {
+  :object => 'geog', :method => 'continent_ocean_id', :tag_id => "continent_ocean_name", :geog_types => '319,197',
+  :display => (@geog.continent_ocean.display_name if @geog.continent_ocean) } %></p>
+
+<table>
+  <tr>
+    <td>
+      <p><label for="geog_center_lat">Center lat</label><br/>
+      <%= text_field 'geog', 'center_lat', 'title' => 'center latitude for area'  %></p>
+    </td>
+    <td>
+      <p><label for="geog_center_long">Center long</label><br/>
+      <%= text_field 'geog', 'center_long', 'title' => 'center longitude for area'  %></p>
+    </td>
+  </tr>
+</table>
+
+<!--[eoform:geog]-->
+

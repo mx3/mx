@@ -1,0 +1,8 @@
+<div style="padding: 2px; border-bottom: 1px dotted silver; width: 100%;" id="ontology_relationship_in_list_<%= r.id -%>">
+  <div style="float:left; width: 35%;"><%= ontology_class_postfixed_with_label(r.ontology_class1, matching_id) -%></div>
+  <div style="float:left; width: 13%;"><%= r.object_relationship.display_name -%> </div> 
+  <div style="float:left; width: 35%;"><%= ontology_class_postfixed_with_label(r.ontology_class2, matching_id) -%> </div>
+  <div style="float:left; width: 10%;"><%= time_ago_in_words(r.updated_on) -%> </div>
+  <div style="float:left; width: 2%;"> <%= link_to('x', :remote => true, :url => {:action => :destroy, :controller => :ontology_relationships, :id => r.id}, :method => "post", :confirm => 'Are you sure?') -%> </div>
+  <br style="clear: both;" />
+</div>

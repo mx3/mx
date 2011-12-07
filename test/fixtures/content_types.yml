@@ -19,7 +19,7 @@
 con_types1: 
   name: "BAD TYPE!!!"
   id: "1"
-  proj_id: "2"
+  proj_id: "1"
   sti_type: ContentType::TextContent
   is_public: true
   creator_id: 1
