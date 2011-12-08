@@ -13,13 +13,13 @@
   <!-- ontology class base  -->
   <div style="color:#aaa; margin:0.5em;"> mx id: <%= @ontology_class.id -%> | OBO id: <%=  @ontology_class.xref.blank? ? content_tag(:em, 'none') : @ontology_class.xref -%> | URI: <%= obo_uri(@ontology_class) ? link_to(obo_uri(@ontology_class), obo_uri(@ontology_class)) : content_tag(:em, 'none')  -%>  </div> 
 
-  <%= render :partial => 'public/ontology_class/oc', :object => @ontology_class -%>
+  <%= render :partial => 'public/ontology_classes/oc', :object => @ontology_class -%>
 
   <% if @figures.size > 1 -%>
   <div>
   <div class="header">Additional figures</div>
     <%= content_tag(:em, 'none') if @figures.size == 0 -%>
-    <%= render(:partial => 'figure/figure', :collection => @figures[1..@figures.size]) -%>
+    <%= render(:partial => 'figures/figure', :collection => @figures[1..@figures.size]) -%>
     <br style="clear: both;" />
   </div>
   <% end %>

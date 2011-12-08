@@ -74,7 +74,15 @@ module App::NavigationHelper
         content_tag(:span, link_to('&#8680;'.html_safe, {:action => opt[:do], :controller => klass, :id => next_rec(opt[:obj], opt[:ord])}, :class => 'navigator_link'), :class => 'navigator_button')
       end  +
        content_tag(:div, :style => 'width: 100%; font-size:smaller;padding:2px;' ) do
-        new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp".html_safe + content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
+
+        if opt[:obj].respond_to?('taggable?') && opt[:obj].taggable?
+         tg = new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp".html_safe 
+        else
+          tg = ''
+        end
+
+        tg + content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
+       
        end
     end
 

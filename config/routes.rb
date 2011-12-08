@@ -258,14 +258,22 @@ Edge::Application.routes.draw do
 
   'figures' => {
     members: %w{
-
-   },
+    get up
+    get down
+    post draw_save
+    get draw
+    post update_marker
+    get test 
+  },
     collections: %w{
+    post find_images
+    get create_al_content_for_otu
     get list_by_scope 
     get move
     get illustrate 
     get annotate
     get show_zoom
+    get sort_figure_markers
   }
   },
 

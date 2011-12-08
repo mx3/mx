@@ -32,7 +32,7 @@ module FiguresHelper
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
 
     # Cary - TODO - this should call
-    link_to(opt[:link_text], url, 'data-remote' => 'true', :method => 'post')
+    link_to(opt[:link_text], url, 'data-remote' => 'true', :onclick=>opt[:onclick], :method => 'post')
   end
 
 

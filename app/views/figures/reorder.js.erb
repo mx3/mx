@@ -1,2 +1,4 @@
-$("#attached_figures").html("<%= escape_javascript( render(:partial => 'figures/fig', :collection => @figures)  ) -%>");
-$("#attached_figures").append('<br style="clear:both;" />');
+$("#attached_figures").html("<%= escape_javascript( render(:partial => 'figures/fig', :collection => @figures) ) -%>");
+$("#attached_figures").mx_spinner('hide');
+
+

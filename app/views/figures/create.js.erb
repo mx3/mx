@@ -1,1 +1,3 @@
-$("#attached_figures").append("<%= escape_javascript( render(:partial => 'figures/fig', :object => @figure)  ) -%>");
+$("#attached_figures").append("<%= escape_javascript( render(:partial => 'figures/fig', :object => @figure) ) -%>");
+$("#attached_figures").mx_spinner('hide');
+$("#attached_figures .empty-message").remove();

@@ -1,18 +1,20 @@
 module ModelExtensions
   module Taggable
-    # include Taggable in the Model
+    # include Taggable in a Model like 
+    #   include ModelExtensions::Taggable
 
     def self.included(base)
       base.class_eval do
-
-        # tn = self.table_name                        # like otus
-        # cn = self.table_name.singularize.capitalize # like Otu
 
         has_many :tags, :as => :addressable, :dependent => :destroy, :include => [:keyword, :ref], :order => 'refs.cached_display_name ASC'
         has_many :public_tags, :as => :addressable, :class_name => "Tag", :include => [:keyword, :ref], :order => 'refs.cached_display_name ASC', :conditions => 'keywords.is_public = true'
         has_many :keywords, :through => :tags
 
         scope :include_tags, :include => :tags
+
+        def taggable?
+          true
+        end
 
         # returns the year (integer) of the "oldest" tag by Ref#year
         def oldest_tag_by_ref_year(kw)

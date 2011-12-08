@@ -18,6 +18,8 @@
 
 class ContentType < ActiveRecord::Base
   has_standard_fields  
+
+  # content types are not taggable 
   include ModelExtensions::DefaultNamedScopes 
 
   self.inheritance_column = 'sti_type'

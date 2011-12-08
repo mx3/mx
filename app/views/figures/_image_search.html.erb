@@ -1,6 +1,5 @@
 <div id="search_form" style="margin:0.5em;padding:0.5em; border:1px solid blue;">
   <%= form_for(:object, :remote => true, :url => {:action => 'find_images', :controller => 'figures', :fig_obj_class => @obj.class.to_s, :fig_obj_id => @obj.id},:html => {:id => 'image_search_form'}) do -%>
-  <%= submit_tag("Search") -%> 
   <!-- what's this -> --> <input type='hidden' name='html_selector' value='<%= @html_selector %>'/>
 
   <div class="fr"> <label for="specimen_for_img_search" class="lbl4">Specimen</label> 
@@ -42,6 +41,8 @@
   <div class="fr"> <label for="image_id_for_fig_popup" class="lbl4">Image ID</label> 
     <span class="fld"><%= text_field :image_description, :image_id %></span>
   </div>
+
+  <%= submit_tag("Search", :onclick=>"$('#find_images_results').mx_spinner()") -%>
 
   <% end -%>
 

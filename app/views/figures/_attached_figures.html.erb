@@ -1,11 +1,14 @@
 <div id="fbin_<%= "#{@obj.class.to_s}_#{@obj.id}" -%>" class="<%= @klass -%>">
   <%= render(:partial => "figures/figure",
-             :collection => @figures, 
+             :collection => @figures,
              :locals => {:size => @size,
              :mb_annotation => @mb_annotation}) -%>
   <div class="p_below_fig" style="clear: both;">&nbsp;</div>
 </div>
 
+<!--
+Need to resolve this.
 <script type="text/javascript">
  appendFigsToSvgonload();
 </script>
+-->

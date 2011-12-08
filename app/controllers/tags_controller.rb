@@ -15,7 +15,7 @@ class TagsController < ApplicationController
   def list
     @tags = Tag.by_proj(@proj).page(params[:page]).per(20).order('keyword_id, Created_on DESC, Updated_on DESC').includes(:keywords)
   end
-
+  
   def list_by_keyword
     @keyword = Keyword.find(params[:keyword][:id])
     @tags = @keyword.tags.group_by {|o| o.addressable_type}
@@ -32,6 +32,7 @@ class TagsController < ApplicationController
 
   def new
     @tag = Tag.new
+    debugger
     @obj = ActiveRecord::const_get(params[:tag_obj_class]).find(params[:tag_obj_id])
     @keyword_id = params[:keyword_id]
   end
