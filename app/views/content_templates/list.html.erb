@@ -1,7 +1,8 @@
 <h3>Listing content templates</h3>
+<%= paginate(@content_templates, :total_count => @content_templates.total_count) -%>
 <table class="list_table">
   <%= t_col_heads( ["name",  "id", "is public option?", "mod on", "mod by", "", "", "", "", "make default"] ) -%>
-  <% for c in @con_templates -%>
+  <% for c in @content_templates -%>
   <%=  t_row({ 'obj' => c, 'close_tr' => false,
     'cell_data' =>[
     link_to(c.name, :action => :show, :id => c),
@@ -13,6 +14,4 @@
       <%= check_box("c", "is_default", {:onclick => "document.location.href='#{my_url}'"}) -%> </td>
     <% end -%>
 </table>
-
-
-
+<%= paginate(@content_templates, :total_count => @content_templates.total_count) -%>

@@ -22,6 +22,8 @@
 
 class Primer < ActiveRecord::Base
   has_standard_fields
+  include ModelExtensions::DefaultNamedScopes
+
   has_many :tags, :as => :addressable 
   belongs_to :gene # can be independant
   belongs_to :proj

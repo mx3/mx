@@ -13,15 +13,8 @@ class CesController < ApplicationController
     render :action => 'list'
   end
 
-  def list_params
-    @ce_pages, @ces = paginate :ce, :per_page => 25, :conditions => "(proj_id = #{@proj.id})", :order => "updated_on DESC"
-  end
-  
   def list
-    list_params
-     if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @ces = Ce.by_proj(@proj).page(params[:page]).per(20).order('updated_on DESC')
   end
 
   def list_by_scope

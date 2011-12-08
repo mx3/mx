@@ -1,6 +1,8 @@
 <h3>Listing content types</h3>
 <p><i> Click on a number under the "times used" header to see all the content for a given content type.</i></p>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@content_types, :total_count => @content_types.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@content_types, :total_count => @content_types.total_count) -%>
 </div>
 

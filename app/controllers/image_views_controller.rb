@@ -6,7 +6,7 @@ class ImageViewsController < ApplicationController
   end
 
   def list
-    @image_views = ImageView.find(:all, :order => 'name')
+    @image_views = ImageView.all 
   end
 
   def show

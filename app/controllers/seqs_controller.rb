@@ -1,19 +1,15 @@
 class SeqsController < ApplicationController
-  
+
   layout "layouts/application",  :except => :seqs_as_fasta_file
   layout "layouts/application",  :except => :seqs_as_oneline_file
-  
+
   def index
     list
     render :action => 'list'
   end
 
   def list  
-    @seq_pages, @seqs = paginate :seqs, :per_page => 30, :conditions => ["proj_id = (?)", @proj.id], :order_by => 'updated_on DESC'
-    @target = 'list' # hmm- why is this here?
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @seqs = Seq.by_proj(@proj).page(params[:page]).per(30).order('updated_on DESC')
   end
 
   def show
@@ -21,7 +17,7 @@ class SeqsController < ApplicationController
     id ||= params[:id]
     @seq = Seq.find(id)
     @chromatograms = @seq.chromatograms
-    @show = ['default'] # not redundant with above- @show necessary for display of multiple of items 
+    @show = ['default']
   end
 
   def new
@@ -57,7 +53,7 @@ class SeqsController < ApplicationController
     end
     redirect_to :action => :list
   end
-  
+
   def edit
     @seq = Seq.find(params[:id])
   end
@@ -86,18 +82,16 @@ class SeqsController < ApplicationController
     @list_title = "Sequences #{params[:scope].humanize.downcase}" 
     render :action => :list_simple
   end
-  
 
   def summarize
-
-  if request.post? 
-    @otus = []
-    @genes = []
-    if search = Seq.summary_grid(params[:view])
-      @genes = search[:genes]
-      @otus = search[:otus]
+    if request.post? 
+      @otus = []
+      @genes = []
+      if search = Seq.summary_grid(params[:view])
+        @genes = search[:genes]
+        @otus = search[:otus]
+      end
     end
-  end
 
     respond_to do |format|
       format.html {
@@ -107,7 +101,7 @@ class SeqsController < ApplicationController
             render :action => :summarize and return
           end
 
-        case params[:report_type].to_sym
+          case params[:report_type].to_sym
           when :extracts_by_gene_colored
             flash[:notice] = '<strong style="color:red;">That report not available as a file.</strong>'
             render :action => :summarize and return 
@@ -138,7 +132,7 @@ class SeqsController < ApplicationController
     end
 
   end
-  
+
   def view_query  ## call summarize or some such???
     # check that both a groups have been selected
     if  params[:view][:otu_group_id].empty? || params[:view][:gene_group_id].empty? # params[:view][:all_otus].empty? && 
@@ -157,7 +151,7 @@ class SeqsController < ApplicationController
 
     @report_type = params[:report][:type] if params[:report]
     @report_type ||= 'report_grid_summary'
-    
+
     render :action => :views, :otu_group_id => params[:view][:otu_group_id] 
   end
 
@@ -205,13 +199,13 @@ class SeqsController < ApplicationController
   end
 
   def _batch_add_FASTA 
-   if r =  Seq.add_FASTA_after_verify(params)
-    flash[:notice] = "Added #{r.size} sequences."
-    redirect_to :action => :list, :controller => :seqs and return
-   else
-    flash[:notice] = "Problem adding sequences!"
-    redirect_to :action =>  :verify_seqs_from_FASTA and return
-   end
+    if r =  Seq.add_FASTA_after_verify(params)
+      flash[:notice] = "Added #{r.size} sequences."
+      redirect_to :action => :list, :controller => :seqs and return
+    else
+      flash[:notice] = "Problem adding sequences!"
+      redirect_to :action =>  :verify_seqs_from_FASTA and return
+    end
   end
 
   def auto_complete_for_seq
@@ -226,12 +220,12 @@ class SeqsController < ApplicationController
   end
 
   # def blast
-    # remote_blast_factory = Bio::Blast.remote('blastn', 'SWISS', '-e 0.0001', 'genomenet')
-    
-    # report = remote_blast_factory.query(params[:seq])
-    # render :update do |page|
-    #  page.replace_html :result, debug(report)
-    # end and return
+  # remote_blast_factory = Bio::Blast.remote('blastn', 'SWISS', '-e 0.0001', 'genomenet')
+
+  # report = remote_blast_factory.query(params[:seq])
+  # render :update do |page|
+  #  page.replace_html :result, debug(report)
+  # end and return
   # end
 
 end

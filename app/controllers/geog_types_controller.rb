@@ -6,7 +6,7 @@ class GeogTypesController < ApplicationController
   end
 
   def list
-    @geog_type_pages, @geog_types = paginate :geog_type, :per_page => 10
+    @geog_types = GeogType.page(params[:page]).per(20)
   end
 
   def show

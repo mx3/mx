@@ -5,15 +5,8 @@ class ContentTypesController < ApplicationController
     render :action => 'list'
   end
   
-  def list_params
-    @content_type_pages, @content_types = paginate :content_type, :per_page => 20, :order => 'doc_name, name', :conditions => ['proj_id = (?)', @proj.id]
-  end
-
   def list
-    list_params
-     if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @content_types = ContentType.by_proj(@proj).page(params[:page]).per(20).order('name')
   end
 
   def list_by_type

@@ -1,4 +1,6 @@
 <h3>Listing lots</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@lots, :total_count => @lots.total_count) %>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@lots, :total_count => @lots.total_count) %>
 </div>

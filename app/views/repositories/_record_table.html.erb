@@ -1,17 +1,13 @@
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @repository_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @repository_pages}) -%>
-<table class="list_table">
+<table class="record_list">
   <%= t_col_heads(["coden", "repository name", "url", "id",  "modified by", "modified on"]) %>  
   <% @repositories.each_with_index do |repository, i| -%>
   <%=  t_row({'obj' => repository, 'tr_css' => i,
   'cell_data' => [
     repository.coden,
-    link_to(repository.name, :action => :show, :id => repository),
+    link_to(repository.name, repository_path(:id => repository, :proj_id => @proj.id)),
     repository.url ? link_to(repository.url, repository.url) : '' ,
     repository.id,
     repository.m_by,
     repository.m_on ] }) %>
   <% end %>
 </table>
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @repository_pages}) -%>

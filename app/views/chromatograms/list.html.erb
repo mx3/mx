@@ -1,5 +1,6 @@
 <h3>Listing chromatograms</h3>
-<table>
+<%= paginate(@chromatograms, :total_count => @chromatograms.total_count) -%>
+<table class="record_list">
   <%= t_col_heads( ["id", 'pcr' , "primer", "result", "file",  "modified on", "modified by" ] ) %>
   <% for o in @chromatograms %>
   <%=  t_row( {'obj' => o,
@@ -13,7 +14,4 @@
     o.m_by] }  ) %>
   <% end %>
 </table>
-<br />
-<% unless @chromatogram_pages.first == @chromatogram_pages.last %>
-  <strong>View page <%= pagination_links @chromatogram_pages, :window_size => 3 %></strong>
-<% end %>
+<%= paginate(@chromatograms, :total_count => @chromatograms.total_count) -%>

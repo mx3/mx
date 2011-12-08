@@ -1,5 +1,7 @@
 <h3>Listing measurements</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@measurements, :total_count => @measurements.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@measurements, :total_count => @measurements.total_count) -%>
 </div>
 

@@ -18,6 +18,8 @@
 
 class DataSource < ActiveRecord::Base
   has_standard_fields
+  include ModelExtensions::DefaultNamedScopes
+
   has_many :trees
 
   belongs_to :dataset, :dependent => :destroy

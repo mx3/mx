@@ -1,6 +1,6 @@
 <h3>Listing standard view groups</h3>
-
-<table>
+<%= paginate(@standard_view_groups, :total_count => @standard_view_groups.total_count) %>
+<table class="record_list">
   <%= t_col_heads( ["id", "name", "notes", "other id", "mod by","mod on"] ) %>
   <% for svgrp in @standard_view_groups %>
   <%=  t_row({ 'obj' => svgrp, 
@@ -12,7 +12,4 @@
     svgrp.m_on] } ) %>
   <% end %>
 </table>  
-
-<%= link_to 'Previous page', { :page => @standard_view_group_pages.current.previous } if @standard_view_group_pages.current.previous %>
-<%= link_to 'Next page', { :page => @standard_view_group_pages.current.next } if @standard_view_group_pages.current.next %> 
-
+<%= paginate(@standard_view_groups, :total_count => @standard_view_groups.total_count) %>

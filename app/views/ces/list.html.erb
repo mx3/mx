@@ -1,4 +1,6 @@
 <h3>Listing Collecting Events</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@ces, :total_count => @ces.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@ces, :total_count => @ces.total_count) -%>
 </div>

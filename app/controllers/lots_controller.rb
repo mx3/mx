@@ -8,11 +8,10 @@ class LotsController < ApplicationController
   end
 
   def list  
-    @lots = Lot.find(:all, :conditions => ["lots.proj_id = ?", @proj.id], :include => [:otu, :ce, :repository, :identifiers])
-    @lot_pages, @lots = paginate :lots, :per_page => 30, :conditions => "(lots.proj_id = #{@proj.id})", :include => [{:identifiers => :namespace},:repository, :updator, :creator, {:otu => {:taxon_name => :parent}}, :ce, :tags]
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @lots = Lot.by_proj(@proj)
+    .page(params[:page])
+    .per(20)
+    .includes(:otu, :ce, :repository, {:identifiers => :namespace}, :repository, :updator, :creator, {:otu => {:taxon_name => :parent}}, :tags)
   end
 
   def show

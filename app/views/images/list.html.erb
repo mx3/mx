@@ -1,4 +1,6 @@
 <h3>Images</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@image_descriptions, :total_count => @image_descriptions.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@image_descriptions, :total_count => @image_descriptions.total_count) -%>
 </div>

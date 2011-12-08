@@ -6,7 +6,7 @@ class ChromatogramsController < ApplicationController
   end
 
   def list
-     @chromatogram_pages, @chromatograms = paginate :chromatograms,  :per_page => 20, :conditions => "(proj_id = #{@proj.id})"
+    @chromatograms = Chromatogram.by_proj(@proj).page(params[:page]).per(20)
   end
 
   def show
@@ -21,7 +21,6 @@ class ChromatogramsController < ApplicationController
   end
 
   def create
-
     @chromatogram = Chromatogram.new(params[:chromatogram])  
     
     begin

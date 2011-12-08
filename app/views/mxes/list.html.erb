@@ -1,6 +1,7 @@
-
 <h3>Listing matrices</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@mxes, :total_count => @mxes.total_count) %>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@mxes, :total_count => @mxes.total_count) %>
 </div>
 

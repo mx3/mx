@@ -6,10 +6,7 @@ class SensusController < ApplicationController
   end
 
   def list
-    list_params
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @sensus = Sensu.by_proj(@proj).page(params[:page]).per(20).includes(:proj, :ref, :ontology_class, :label)
   end
 
   def new
@@ -190,9 +187,4 @@ class SensusController < ApplicationController
   end
 
   protected
-  def list_params
-    @sensu_pages, @sensus = paginate :sensu, { :per_page => 20, :include => [:proj, :ref, :ontology_class, :label],
-      :conditions => [ 'projs.id =?', @proj.id ]} 
-  end
-
-  end
+end

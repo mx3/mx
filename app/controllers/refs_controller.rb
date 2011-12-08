@@ -6,10 +6,7 @@ class RefsController < ApplicationController
   end
 
   def list
-    list_params
-     if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @refs = Ref.from_proj(@proj).page(params[:page]).per(20).includes(:projs, :creator, :updator, :authors).order('refs.cached_display_name')
   end
 
   def list_by_scope
@@ -360,9 +357,5 @@ class RefsController < ApplicationController
 
   protected
 
-  def list_params
-    @ref_pages, @refs = paginate :ref, { :per_page => 20, :include => [:projs, :creator, :updator, :authors],
-        :conditions => [ 'projs.id =?', @proj.id ], :order_by => 'cached_display_name'} # cached_display_name should have all this - author, year, full_citation
-  end
 
 end

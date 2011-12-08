@@ -1,6 +1,4 @@
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @serial_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @serial_pages}) -%>
-<table class="list_table">
+<table class="record_list">
   <%= t_col_heads( ["id", "name", "abbreviation", "city", "# refs in proj", "all refs",  "syn with", 'URL', "created by" ] ) %>
   <% @serials.each_with_index do |serial, i| %>
   <%=  t_row({ 'obj' => serial, 'tr_css' => i, 
@@ -15,5 +13,3 @@
     serial.c_by] } ) %>
   <% end %>
 </table>
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @serial_pages})  -%>

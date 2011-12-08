@@ -8,11 +8,7 @@ class TaxonNamesController < ApplicationController
   end
 
   def list
-    @taxon_name_pages, @taxon_names = paginate :taxon_name, :per_page => 25,
-    :order_by => 'iczn_group, cached_display_name', :conditions =>  @proj.sql_for_taxon_names 
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @taxon_names = TaxonName.where(@proj.sql_for_taxon_names).page(params[:page]).per(20).order('iczn_group, cached_display_name')
   end
 
   def show

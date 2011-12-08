@@ -1,4 +1,6 @@
 <h3>Listing PCRs</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@pcrs, :total_count => @pcrs.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@pcrs, :total_count => @pcrs.total_count) -%>
 </div>

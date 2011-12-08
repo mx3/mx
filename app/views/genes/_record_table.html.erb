@@ -1,0 +1,12 @@
+<table class="record_list">
+  <%= t_col_heads( ["Name", "Primers", "Notes", "mod on", "mod by"] ) %>
+  <% @genes.each_with_index do |g, i| -%>
+  <%= t_row({ 'obj' => g, 'tr_css' => i,
+      'cell_data' =>[
+      link_to(g.display_name, :action => :show, :id => g),
+      g.primers.collect{|p| p.display_name}.join(", "),
+      g.notes,
+      time_ago_in_words(g.updated_on),
+      g.m_by]}) %>
+  <% end -%>
+</table>

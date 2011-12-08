@@ -4,10 +4,9 @@ class StandardViewGroupsController < ApplicationController
     list
     render :action => 'list'
   end
-
+ 
   def list
-    @standard_view_group_pages, @standard_view_groups = paginate :standard_view_group, :per_page => 25,
-    :order_by => 'name', :conditions => ['proj_id = (?)', @proj.id]
+    @standard_view_groups = StandardViewGroup.by_proj(@proj).page(params[:page]).per(20).order('name')
   end
 
   def show

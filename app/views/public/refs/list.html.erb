@@ -1,1 +1,5 @@
-<% unless @ref_pages.first == @ref_pages.last -%>  <strong>View page <%= pagination_links @ref_pages, :window_size => 3, :sort => @sort %></strong><% end -%><%= render :collection => @refs, :partial => 'r' %><% unless @ref_pages.first == @ref_pages.last %>  <strong>View page <%= pagination_links @ref_pages, :window_size => 3, :sort => @sort %></strong><% end %>
+<%# We might need a public paginator. %>
+<%= paginate(@refs, :total_count => @refs.total_count) %>
+<%= render :collection => @refs, :partial => 'r' %>
+<%= paginate(@refs, :total_count => @refs.total_count) %>
+

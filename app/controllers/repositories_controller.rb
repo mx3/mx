@@ -6,10 +6,7 @@ class RepositoriesController < ApplicationController
   end
 
   def list
-    @repository_pages, @repositories = paginate :repository, :per_page => 30, :order_by => "coden, name"
-     if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @repositories = Repository.page(params[:page]).per(20).order("coden, name")
   end
 
   def show

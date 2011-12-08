@@ -6,8 +6,7 @@ class DistributionsController < ApplicationController
   end
 
   def list
-    @distribution_pages, @distributions = paginate :distributions, :per_page => 30,
-    :order_by => 'otu_id', :conditions => ['proj_id = (?)', @proj.id]
+    @distributions = Distribution.by_proj(@proj).page(params[:page]).per(20).order('otu_id')
   end
 
   def show

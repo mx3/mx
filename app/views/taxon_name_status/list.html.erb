@@ -1,6 +1,7 @@
-<h3>Listing taxon_name_status</h3>
+<!-- is this used!? -->
+<h3>Listing taxon name status values</h3>
 
-<table>
+<table class="record_list">
   <tr>
   <% for column in TaxonNameStatus.content_columns %>
     <th><%= column.human_name %></th>
@@ -19,9 +20,5 @@
 <% end %>
 </table>
 
-<%= link_to 'Previous page', { :page => @taxon_name_status_pages.current.previous } if @taxon_name_status_pages.current.previous %>
-<%= link_to 'Next page', { :page => @taxon_name_status_pages.current.next } if @taxon_name_status_pages.current.next %> 
+<%= paginate(@taxon_name_statuses, :total_count => @taxon_name_statuses.total_count) -%>
 
-<br />
-
-<%= link_to 'New taxon_name_status', :action => 'new' %>

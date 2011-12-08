@@ -6,7 +6,7 @@ class ContentTemplatesController < ApplicationController
   end
 
   def list
-    @con_templates = @proj.content_templates
+    @content_templates = ContentTemplate.by_proj(@proj).page(params[:page]).per(20)
   end
 
   def show

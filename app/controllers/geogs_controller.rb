@@ -6,10 +6,7 @@ class GeogsController < ApplicationController
   end
 
   def list 
-    @geog_pages, @geogs = paginate :geog, :per_page => 30, :order_by => 'name' 
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @geogs = Geog.page(params[:page]).per(20).order('name')
   end
 
   def show 

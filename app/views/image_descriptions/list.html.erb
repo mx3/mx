@@ -1,7 +1,6 @@
-
 <h3>Listing image descriptions</h3>
-
-<table>
+<%= paginate(@image_descriptions, :total_count => @image_descriptions.total_count) %>
+<table class="record_list">
   <tr>
   <% for column in ImageDescription.content_columns %>
     <th><%= column.human_name %></th>
@@ -19,7 +18,4 @@
   </tr>
 <% end %>
 </table>
-
-<%= link_to 'Previous page', { :page => @image_description_pages.current.previous } if @image_description_pages.current.previous %>
-<%= link_to 'Next page', { :page => @image_description_pages.current.next } if @image_description_pages.current.next %> 
-
+<%= paginate(@image_descriptions, :total_count => @image_descriptions.total_count) %>

@@ -1,4 +1,6 @@
 <h3>Sequences</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@seqs, :total_count => @seqs.total_count) %>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@seqs, :total_count => @seqs.total_count) %>
 </div>

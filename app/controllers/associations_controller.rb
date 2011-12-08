@@ -6,8 +6,7 @@ class AssociationsController < ApplicationController
   end
 
   def list
-    @association_pages, @associations = paginate :associations, :per_page => 30,
-      :conditions => ['proj_id = (?)', @proj.id] #   :order_by => 'display_name',
+    @associations = Association.by_proj(@proj).page(params[:page]).per(20)
   end
 
   def show

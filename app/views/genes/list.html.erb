@@ -1,4 +1,6 @@
 <h3>Listing Genes</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@genes, :total_count => @genes.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@genes, :total_count => @genes.total_count) -%>
 </div>

@@ -18,6 +18,7 @@
 
 class Keyword < ActiveRecord::Base
   has_standard_fields
+  include ModelExtensions::DefaultNamedScopes
 
   has_many :tags, :dependent => :destroy, :include => :ref, :order => 'refs.cached_display_name'
   

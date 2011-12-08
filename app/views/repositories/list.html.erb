@@ -1,4 +1,6 @@
 <h3>Listing repositories</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@repositories, :total_count => @repositories.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@repositories, :total_count => @repositories.total_count) -%>
 </div>

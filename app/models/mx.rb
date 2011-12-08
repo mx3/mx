@@ -20,6 +20,7 @@ class Mx < ActiveRecord::Base
 
   include ModelExtensions::Taggable
   include ModelExtensions::Figurable
+  include ModelExtensions::DefaultNamedScopes 
 
   has_many :data_sources, :dependent => :nullify # can be used in multiple pubs etc.
   has_many :trees, :through => :data_sources

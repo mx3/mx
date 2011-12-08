@@ -13,10 +13,10 @@ Edge::Application.routes.draw do
 
   'associations' => {
     members: %w{
-    get  list_supporting_refs
     post destroy_part
   },
   collections: %w{
+    get list_supporting_refs
     get association_tree
     get browse
     get browse_by_confidence
@@ -257,9 +257,15 @@ Edge::Application.routes.draw do
   },
 
   'figures' => {
-    members: %w{},
+    members: %w{
+
+   },
     collections: %w{
+    get list_by_scope 
+    get move
     get illustrate 
+    get annotate
+    get show_zoom
   }
   },
 
@@ -277,11 +283,6 @@ Edge::Application.routes.draw do
     get sort
 	  post sort_genes
   }
-  },
-
-  'geog_types' => {
-    members: %w{},
-    collections: %w{}
   },
 
   'geogs' => {
@@ -365,12 +366,13 @@ Edge::Application.routes.draw do
 
   'lot_groups' => {
     members: %w{
-     get grand_summary
      get show_members
      post	add_lot
      post remove_lot
   },
-    collections: %w{}
+  collections: %w{
+     get grand_summary
+    }
   },
 
  'lots' => {
@@ -1238,6 +1240,14 @@ Edge::Application.routes.draw do
   end
 
   resources :namespaces
+
+  resources :geog_types do
+    collection do
+      get 'list'
+      get 'auto_complete_for_geog_types'
+    end
+  end
+ 
   resources :image_views do
    collection do
     get 'auto_complete_for_image_views'

@@ -10,10 +10,11 @@ class LabelsController < ApplicationController
   end
 
   def list
-    list_params
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+      @labels = Label.by_proj(@proj)
+          .page(params[:page])
+          .per(20)
+          .order(:name)
+          .includes( :creator, :updator, :ontology_classes, :plural_form)
   end
 
   def new
@@ -159,10 +160,6 @@ class LabelsController < ApplicationController
     id = params[:label][:id] if params[:label]
     id ||= params[:id]
     @label = Label.find(id)
-  end
-
-  def list_params
-    @label_pages, @labels = paginate :label, :per_page => 25, :conditions => "(labels.proj_id = #{@proj.id})", :include => [:creator, :updator, :ontology_classes, :plural_form]
   end
 
 end

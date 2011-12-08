@@ -1,4 +1,5 @@
-<h3>Listing protocol_steps</h3>
+<!-- Not used -->
+<h3>Listing protocol steps</h3>
 
 <table>
   <tr>
@@ -19,9 +20,5 @@
 <% end %>
 </table>
 
-<%= link_to "Previous page", { :page => @protocol_step_pages.current.previous } if @protocol_step_pages.current.previous %>
-<%= link_to "Next page", { :page => @protocol_step_pages.current.next } if @protocol_step_pages.current.next %> 
+<%= paginate(@protocol_steps, :total_count => @protocol_steps.total_count) -%>
 
-<br />
-
-<%= link_to 'New protocol_step', :action => 'new' %>

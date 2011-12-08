@@ -1,15 +1,12 @@
 class TreesController < ApplicationController
+  
   def index
     list
     render :action => 'list'
   end
 
-  # GETs should be safe (see http://www.w3/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
   def list
-     @trees_pages, @trees = paginate :trees, :per_page => 20, :conditions => "(proj_id = #{@proj.id})"
+    @trees = Tree.by_proj(@proj).page(params[:page]).per(20) 
   end
 
   def show

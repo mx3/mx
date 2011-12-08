@@ -1,6 +1,4 @@
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @content_type_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @content_type_pages}) -%>
-<table>
+<table class="record_list">
   <%= t_col_heads( ["name", "display_name", 'subject',  "id","publishable?", "markup?", "subheading?", "times used", "mod by", "mod on"] ) -%>
   <% @content_types.each_with_index do |con_type, i| -%>
     <%=  t_row({ 'obj' => con_type, 'tr_css' => i, 'inc_actions' => false,
@@ -17,5 +15,3 @@
     (con_type.sti_type == "TextContent" ?  con_type.m_on : "n/a")] }) -%>
   <% end -%>
 </table>
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @content_type_pages}) -%>

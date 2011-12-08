@@ -8,10 +8,7 @@ class PcrsController < ApplicationController
   end
 
   def list
-    @pcr_pages, @pcrs = paginate :pcr, :per_page => 30,  :conditions => ['proj_id = (?)', @proj.id]
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @pcrs = Pcr.by_proj(@proj).page(params[:page]).per(20)
   end
 
   def list_by_scope
@@ -46,9 +43,6 @@ class PcrsController < ApplicationController
 
   def create
     @pcr = Pcr.new(params[:pcr])
-
-    # wrap it in a transaction, modeled after images
-
     begin
       Pcr.transaction do
         if  params[:gel_image][:file].size != 0

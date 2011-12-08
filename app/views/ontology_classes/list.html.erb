@@ -1,6 +1,8 @@
-<h3>Listing labels</h3>
+<h3>Listing ontology_classes</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@ontology_classes, :total_count => @ontology_classes.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@ontology_classes, :total_count => @ontology_classes.total_count) -%>
 </div>
 
 

@@ -6,7 +6,7 @@ class DataSourcesController < ApplicationController
   end
 
   def list
-    @data_source_pages, @data_sources = paginate :data_sources, :per_page => 20, :conditions => {:proj_id => @proj.id}
+   @data_sources = DataSource.by_proj(@proj).page(params[:page]).per(20)
   end
 
   def show 

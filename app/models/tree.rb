@@ -18,6 +18,8 @@
 
 class Tree < ActiveRecord::Base
   has_standard_fields
+  include ModelExtensions::DefaultNamedScopes
+
   require 'phylo_tree'
   require 'nexml/nexml_parser'
 

@@ -37,16 +37,7 @@ class ChrsController < ApplicationController
   end
 
   def list
-    if session['group_ids'] && session['group_ids']['chr']
-      @chr_group = ChrGroup.find(session['group_ids']['chr'])
-      @chr_pages, @chrs = paginate :chrs, :per_page => 25, :conditions => "((chrs.proj_id = #{@proj.id}) AND (chr_group_id = #{session['group_ids']['chr']}))",
-      :join => "inner join chr_groups_chrs on chr_groups_chrs.chr_id = chrs.id", :order => 'chr_groups_chrs.position', :include => [{:cited_in_ref => :authors}, :chr_states, :creator, :updator, :codings]
-    else
-       @chr_pages, @chrs = paginate :chrs, :per_page => 25, :conditions => "(chrs.proj_id = #{@proj.id})", :include => [{:cited_in_ref => :authors}, :chr_states, :creator, :updator, :codings]
-    end
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @chrs = Chr.by_proj(@proj).page(params[:page]).per(20).includes({:cited_in_ref => :authors}, :chr_states, :creator, :updator, :codings)
   end
 
   def show
@@ -193,14 +184,14 @@ class ChrsController < ApplicationController
   end
 
   def list_recent_changes_by_chr_state
-    @chrs = @proj.chrs.recently_changed_by_chr_state(1.week.ago, :limit => 50) # Chr.find(:all, :limit => 20, :conditions => "(proj_id = #{@proj.id})", :include => 'chr_states',   :order => 'chr_states.created_on DESC, chr_states.updated_on DESC, chrs.id')
+    @chrs = Chr.by_proj(@proj).recently_changed_by_chr_state(1.week.ago, :limit => 50).page(nil).per(100) # Chr.find(:all, :limit => 20, :conditions => "(proj_id = #{@proj.id})", :include => 'chr_states',   :order => 'chr_states.created_on DESC, chr_states.updated_on DESC, chrs.id')
     @by_header = '(upto 50 most recent changes, by character state)'
     @hide_pagination = true
     render :template => 'chrs/list'
   end
 
   def list_recent_changes_by_chr
-    @chrs = @proj.chrs.recently_changed(1.week.ago, :limit => 50) 
+    @chrs = Chr.by_proj(@proj).recently_changed(1.week.ago, :limit => 50).page(nil).per(100)
     @by_header = '(upto 50 most recent changes, by character)'    
     @hide_pagination = true
     render :template => 'chrs/list'

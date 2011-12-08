@@ -1,4 +1,6 @@
 <h3>Listing sensus</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@sensus, :total_count => @sensus.total_count) %>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@sensus, :total_count => @sensus.total_count) %>
 </div>

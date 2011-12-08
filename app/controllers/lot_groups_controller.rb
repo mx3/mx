@@ -6,10 +6,9 @@ class LotGroupsController < ApplicationController
   end
 
   def list
-    @lot_group_pages, @lot_groups = paginate :lot_group, :per_page => 25, :conditions => "(proj_id = #{@proj.id})"
-     if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @lot_groups = LotGroup.by_proj(@proj)
+    .page(params[:page])
+    .per(20)
   end
 
   def show 

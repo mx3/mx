@@ -5,15 +5,10 @@ class GenesController < ApplicationController
     render :action => 'list'
   end
 
-  def list_params
-    @gene_pages, @genes = paginate :gene, :per_page => 30, :order_by => 'position, name', :conditions => ['proj_id = (?)', @proj.id]
-  end
-
   def list
-    list_params
-     if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @genes = Gene.by_proj(@proj)
+        .page(params[:page])
+        .per(20)
   end
 
   def show

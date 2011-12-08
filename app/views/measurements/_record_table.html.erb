@@ -1,6 +1,4 @@
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @measurement_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @measurement_pages}) -%>
-<table style="width: 98%;" >
+<table class="record_list" >
   <%= t_col_heads( [ "specimen", "standard view",  "measurement", "units", "coversion factor",   "mx id", "mod by", "mod on" ] ) %>
   <%  @measurements.each_with_index do |o, i| %>
   <%=  t_row({ 'obj' => o, 'tr_css' => i,
@@ -15,5 +13,3 @@
     o.m_on]} ) %>
   <% end %>
 </table>
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @measurement_pages}) -%>

@@ -28,8 +28,8 @@ class Otu < ActiveRecord::Base
 
   include ModelExtensions::Taggable
   # Otus are not directly figurable ... yet
-  include ModelExtensions::DefaultNamedScopes # default_scopes'
   include ModelExtensions::MiscMethods
+  include ModelExtensions::DefaultNamedScopes
 
   has_many :association_parts, :dependent => :destroy # need to change this to a through relationship
   has_many :associations, :through => :association_parts

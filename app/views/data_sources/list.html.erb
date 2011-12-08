@@ -1,6 +1,8 @@
-<div class="lbl3">Listing data sources</div>
+<h3>Listing data sources</h3>
 <p> <i> Now in beta, please test. </i> </p>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@data_sources, :total_count => @data_sources.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@data_sources, :total_count => @data_sources.total_count) -%>
 </div>
 

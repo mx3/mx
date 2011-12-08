@@ -5,13 +5,10 @@ class NewsController < ApplicationController
     render :action => 'list'
   end
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
   def list
-    @news_pages, @news = paginate :news, :per_page => 30,
-    :conditions => ['proj_id = (?)', @proj.id]
+    @news = News.by_proj(@proj)
+     .page(params[:page])
+     .per(20)
   end
 
   def list_admin

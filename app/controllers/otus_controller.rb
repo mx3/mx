@@ -1,22 +1,26 @@
 class OtusController < ApplicationController
 
   before_filter :show_params, :only => [:show, :show_summary, :show_map, :show_distribution, :show_tags_no_layout, :show_groups, :show_material_examined, :show_content, :show_matrix_sync, :show_compare_content, :show_all_content, :show_codings, :show_material, :show_molecular, :show_images, :show_tags, :show_matrices ]
-  before_filter :list_params, :only => [:list]
 
   def index
     redirect_to :action => :list
   end
 
   def list
+    @otus = Otu.by_proj(@proj)
+          .includes(:taxon_name)
+          .page(params[:page])
+          .per(20)
+          .order('taxon_names.l, otus.name, otus.matrix_name')
   end
 
   def test_modal
-    render :layout=>false
+    render :layout => false
   end
 
   def list_all
     @otu_pages = nil
-    @otus = Otu.find(:all, :conditions => "(proj_id = #{@proj.id})")
+    @otus = Otu.by_proj(@proj).page(params[:page]).per(999999)
     render :action => 'list'
   end
 
@@ -532,21 +536,6 @@ class OtusController < ApplicationController
   end
 
   protected
-
-def list_params
-    @otus = Otu.by_proj(@proj)
-          .page(params[:page])
-          .per(20)
-          .order('taxon_names.l, otus.name, otus.matrix_name')
-
-    # project specific, so only find member of current project
-    if session['group_ids'] && session['group_ids']['otu']
-      @default_otu_group = @otu_group = OtuGroup.find(session['group_ids']['otu'])
-      @otus = @otus.with_otu_group(@otu_group).includes(:taxon_name)
-    else
-      @otus = @otus.includes({:taxon_name => :parent}, :creator, :updator)
-    end
-  end
 
   # see before_filter, used in all 'show' calls
   def show_params

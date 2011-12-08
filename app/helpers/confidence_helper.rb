@@ -3,7 +3,7 @@ module ConfidenceHelper
  
   def confidence_link(o)
     # TODO: check that confidence_id is present!
-    render(:partial => "confidence/confidence_link", :locals => {:obj => o, :msg => ''})
+    render(:partial => "confidences/confidence_link", :locals => {:obj => o, :msg => ''})
   end
 
   def confidence_picker_tag(model, method, index) # :yields: a HTML select for scoped by Confidences of applicable_model 

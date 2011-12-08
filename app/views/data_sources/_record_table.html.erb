@@ -1,8 +1,4 @@
-<% if not @data_source_pages.blank? %>
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @data_source_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @data_source_pages}) -%>
-<% end %>
-<table>
+<table class="record_list">
   <%= t_col_heads( [ "id", "name", "matrix", "ref", "dataset", "mod by", "mod on"] ) -%>
   <% for t in @data_sources -%>
     <%= t_row({ 'obj' => t,
@@ -16,5 +12,3 @@
     t.m_on] } ) -%>
   <% end -%>
 </table>
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @data_source_pages}) if not @data_source_pages.blank? -%>

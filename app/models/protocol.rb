@@ -18,6 +18,8 @@ class Protocol < ActiveRecord::Base
   KINDS =  ["extraction", "chromatogram", "clean", "PCR", "preparation", "other" ]
 
   has_standard_fields
+  include ModelExtensions::DefaultNamedScopes
+
   has_many :pcrs, :dependent => :nullify
   has_many :primers, :dependent => :nullify
   has_many :chromatograms, :dependent => :nullify

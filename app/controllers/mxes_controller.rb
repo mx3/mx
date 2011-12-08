@@ -16,10 +16,11 @@ class MxesController < ApplicationController
   end
 
   def list
-    list_params
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+   @mxes = Mx.by_proj(@proj)
+    .page(params[:page])
+    .per(20)
+    .includes(:creator, :updator, :otus, :chrs)
+    .order('name')
   end
 
   def show
@@ -632,10 +633,6 @@ class MxesController < ApplicationController
 
   private
   
-  def list_params
-    @mx_pages, @mxes = paginate :mx, :per_page => 20, :order_by => 'name', :conditions => ['mxes.proj_id = (?)', @proj.id], :include => [:creator, :updator, :otus, :chrs]
-  end
-
   def set_export_variables
     @mx = Mx.find(params[:id])  
     @multistate_characters = @mx.chrs.that_are_multistate

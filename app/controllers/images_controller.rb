@@ -20,11 +20,11 @@ class ImagesController < ApplicationController
   end
 
   def list
-   @image_description_pages, @descriptions = paginate :image_description, :per_page => 20, :include => [:image, :otu, :image_view], :order => "image_descriptions.image_id",
-   :conditions => "image_descriptions.proj_id = #{@proj.id}"
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @image_descriptions = ImageDescription.by_proj(@proj)
+      .page(params[:page])
+      .per(20)
+      .includes(:image, :otu, :image_view)
+      .order('image_descriptions.image_id')
   end
 
   def list_by_id

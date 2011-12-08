@@ -1,18 +1,13 @@
 class ClavesController < ApplicationController
-  # = bifurcating/dichotomous keys
+  # Claves are bifurcating/dichotomous keys
   
   def index
     list
     render :action => 'list'
   end
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [:create, :update], # deestroy should be here too...
-  :redirect_to => { :action => :list }
-
   def list
-    @clave_pages, @claves = paginate :clave, :per_page => 20,
-    :order_by => 'couplet_text', :conditions => ['proj_id = (?) AND parent_id is null', @proj.id]
+    @claves = Clave.by_proj(@proj).page(params[:page]).per(20).order('couplet_text').where('parent_id is null')
   end
 
   def show

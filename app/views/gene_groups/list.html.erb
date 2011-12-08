@@ -1,5 +1,6 @@
 <h3>Listing gene groups</h3>
-<table>
+<%= paginate(@gene_groups, :total_count => @gene_groups.total_count) %>
+<table class="record_list">
   <%= t_col_heads( ["id", "name", "notes", "updated on", "updated by" ] ) %>
   <% for gene_group in @gene_groups %>
   <%=  t_row({ 'obj' => gene_group, 
@@ -10,6 +11,4 @@
     gene_group.m_by] }) %>
   <% end %>
 </table>
-
-<%= link_to "Previous page", { :page => @gene_group_pages.current.previous } if @gene_group_pages.current.previous %>
-<%= link_to "Next page", { :page => @gene_group_pages.current.next } if @gene_group_pages.current.next %>
+<%= paginate(@gene_groups, :total_count => @gene_groups.total_count) %>

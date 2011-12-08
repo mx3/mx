@@ -10,11 +10,13 @@ class SpecimensController < ApplicationController
     render :action => :list
   end
 
-  def list 
-    list_params
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+  def list
+    @specimens = Specimen.by_proj(@proj)
+      .page(params[:page])
+      .per(20)
+      .includes(:ce, :repository, {:most_recent_determination => [:creator, {:otu => {:taxon_name => :parent}}]},{:identifiers => :namespace},:creator, :updator)
+      .order('identifiers.cached_display_name, specimens.id')
+    @inc_actions = true # the specimen table is used various places
   end
 
   def search_by_identifier
@@ -368,16 +370,5 @@ class SpecimensController < ApplicationController
   end 
 
   private
-
-  def list_params
-    @specimen_pages = Paginator.new self, @proj.specimens.count, 20, params[:page]
-    @specimens = Specimen.find(:all, :conditions => "specimens.proj_id = #{@proj.id}", :offset => @specimen_pages.current.offset, :limit => 20,
-                               :include => [:ce, :repository,
-                                            {:most_recent_determination => [:creator, {:otu => {:taxon_name => :parent}}]},
-                                            {:identifiers => :namespace},
-                                            :creator, :updator], :order => 'identifiers.cached_display_name, specimens.id')
-    @inc_actions = true # the specimen table is used various places
-  end
-
 
 end

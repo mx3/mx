@@ -18,6 +18,7 @@ class Repository < ActiveRecord::Base
   has_standard_fields
 
   include ModelExtensions::Identifiable
+  include ModelExtensions::DefaultNamedScopes
 
   has_many :lots
   has_many :specimens

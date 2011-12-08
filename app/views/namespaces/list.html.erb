@@ -1,6 +1,7 @@
 <h3>Listing namespaces</h3>
-<p><i> You should not alter these unless you understand the consequences!! </i></p>
-<table >
+<p><span class="failed"> You should not alter these unless you understand the consequences!! </span></p>
+<%= paginate(@namespaces, :total_count => @namespaces.total_count) %>
+<table class="record_list" >
   <%= t_col_heads(['name','short name/collection code', 'owner', 'notes', 'id', 'mod on', 'creator']) %>
   <% @namespaces.each_with_index do |n, i| -%>
   <%= t_row({ 'obj' => n, 'tr_css' => i, 
@@ -14,5 +15,4 @@
   n.m_by ]}) -%>
   <% end -%>
 </table>
-<%= link_to "Previous page", { :page => @namespace_pages.current.previous } if @namespace_pages.current.previous %>
-<%= link_to "Next page", { :page => @namespace_pages.current.next } if @namespace_pages.current.next %> 
+<%= paginate(@namespaces, :total_count => @namespaces.total_count) %>

@@ -1,6 +1,4 @@
-<%= paginate(@otus, :total_count => @otus.total_count) %>
-
-<table>
+<table class="record_list">
   <%= t_col_heads( [{'name' => "", 'style' => 'width: 50%;'}, "id", "mod by", "mod age"] ) -%>
   <% @otus.each_with_index do |otu, i| -%>
   <tr id='<%=tags_html_id(otu)%>' class="<%= (i % 2 == 0 ? 'stripe' : "") -%>">
@@ -12,10 +10,3 @@
         time_ago_in_words(otu.updated_on)] } ) -%>
   <% end -%>
 </table>
-<br />
-
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @otu_pages}) if not @otu_pages.blank? -%>
-
-<%= javascript_tag do  %>
-  bind_class_to_spinner('ajax_page_nav_link', 'pg_spinner');
-<% end %>

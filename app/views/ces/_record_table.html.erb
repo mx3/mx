@@ -1,6 +1,4 @@
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @ce_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @ce_pages}) -%>
-<table  style="font-size: smaller;">
+<table class="record_list"> 
   <%= t_col_heads([{"name" => "tied geog", 'style' => 'font-size: larger;'},
   {"name" => "geography", 'style' => 'font-size: larger;'},
   {"name" => "locality", 'style' => 'font-size: larger;'},
@@ -27,6 +25,3 @@
     ce.m_by ]}) -%>
   <% end -%>
 </table>
-
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @ce_pages}) -%>

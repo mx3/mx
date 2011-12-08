@@ -1,6 +1,8 @@
 <h3>Listing keywords</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@keywords, :total_count => @keywords.total_count) %>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@keywords, :total_count => @keywords.total_count) %>
 </div>
 
 

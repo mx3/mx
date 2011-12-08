@@ -1,12 +1,6 @@
 <h3>Listing taxon name histories</h3>
-
-<% unless @taxon_hist_pages.first == @taxon_hist_pages.last %>
-	<strong>View page <%= pagination_links @taxon_hist_pages, :window_size => 3 %></strong><br/>
-  <%= @taxon_hist_pages.current.first_item %> to <%= @taxon_hist_pages.current.last_item %> of <%= @taxon_hist_pages.item_count %> 
-<% end %>
-
-<%= render :partial =>"table_list" %>
-
-<% unless @taxon_hist_pages.first == @taxon_hist_pages.last %>
-  <strong>View page <%= pagination_links @taxon_hist_pages, :window_size => 3 %></strong>
-<% end %>
+<div id="search_results">
+  <%= paginate(@taxon_hists, :total_count => @taxon_hists.total_count) -%>
+  <%= render :partial =>"table_list" %>
+  <%= paginate(@taxon_hists, :total_count => @taxon_hists.total_count) -%>
+</div>

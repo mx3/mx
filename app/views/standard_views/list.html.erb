@@ -1,5 +1,5 @@
 <h3>Listing standard views</h3>
-
+<%= paginate(@standard_views, :total_count => @standard_views.total_count) -%>
 <table>
   <%= t_col_heads( ["name", "view", "ontology class","sex", "formula", "continuous characters", "mx id", "notes", "mod by", "mod"] ) %>
   <% for sv in @standard_views %>
@@ -17,7 +17,5 @@
     ] } ) %>
   <% end %>
 </table>
-
-<%= link_to 'Previous page', { :page => @standard_view_pages.current.previous } if @standard_view_pages.current.previous %>
-<%= link_to 'Next page', { :page => @standard_view_pages.current.next } if @standard_view_pages.current.next %> 
+<%= paginate(@standard_views, :total_count => @standard_views.total_count) -%>
 

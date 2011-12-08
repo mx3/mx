@@ -6,12 +6,7 @@ class PrimersController < ApplicationController
   end
 
   def list # sorts by gene name!
-    @primer_pages = Paginator.new self, @proj.primers.count, 30, params['page']
-    @primers = Primer.find :all, :order => 'genes.position, genes.name',
-                          :conditions => "(primers.proj_id = #{@proj.id})",
-                          :limit  =>  @primer_pages.items_per_page,
-                          :offset =>  @primer_pages.current.offset,
-                          :include => :gene
+    @primers = Primer.by_proj(@proj).includes(:gene).order('genes.position, genes.name').page(params[:page]).per(20)
   end
 
   def show

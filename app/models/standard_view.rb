@@ -21,6 +21,8 @@
 
 class StandardView < ActiveRecord::Base
   has_standard_fields
+  include ModelExtensions::DefaultNamedScopes 
+
   has_and_belongs_to_many :standard_view_groups
   
   belongs_to :image_view

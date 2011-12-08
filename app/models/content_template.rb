@@ -16,6 +16,7 @@
 
 class ContentTemplate < ActiveRecord::Base
   has_standard_fields
+  include ModelExtensions::DefaultNamedScopes
 
   # has_and_belongs_to_many :content_types
   has_many :content_types, :through => :content_templates_content_types, :order => 'content_templates_content_types.position'

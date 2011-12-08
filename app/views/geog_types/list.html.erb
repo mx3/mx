@@ -1,5 +1,7 @@
-<h3>Listing geog types</h3>
+<!-- Not used? -->
+<h3>Listing geographic name types</h3>
 
+<%= paginate(@geog_types, :total_count => @geog_types.total_count) -%>
 <table>
   <tr>
 <% for column in GeogType.content_columns %>
@@ -19,9 +21,4 @@
 <% end %>
 </table>
 
-<%= link_to "Previous page", { :page => @geog_type_pages.current.previous } if @geog_type_pages.current.previous %>
-<%= link_to "Next page", { :page => @geog_type_pages.current.next } if @geog_type_pages.current.next %> 
-
-<br />
-
-<%= link_to 'New geog_type', :action => 'new' %>
+<%= paginate(@geog_types, :total_count => @geog_types.total_count) -%>

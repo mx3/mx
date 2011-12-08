@@ -6,23 +6,12 @@ class SerialsController < ApplicationController
   end
 
   def list
-    page_params = {:per_page => 30, :order_by => 'name'}
-    if params[:search]
-      value = params[:search].split.join('%')
-      page_params[:conditions] = ['name like ?', "%#{value}%"]
-      page_params[:per_page] = 99999 # all of them
-    end
-    
-    @serial_pages, @serials = paginate(:serial, page_params)
-    @paginate = true
-   
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    # TODO: rebuild search 
+    @serials = Serial.page(params[:page]).per(20)
   end
 
   def show
-    _show_params # TODO: before filter
+    _show_params
     @show = ['default'] 
   end
 

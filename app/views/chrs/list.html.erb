@@ -4,5 +4,7 @@
   <h3>Listing characters <%= @by_header ? @by_header : '' -%></h3>
 <% end -%>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@chrs, :total_count => @chrs.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@chrs, :total_count => @chrs.total_count) -%>
 </div>

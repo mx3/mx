@@ -8,5 +8,7 @@
 <% end %>
 
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@otus, :total_count => @otus.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@otus, :total_count => @otus.total_count) -%>
 </div>

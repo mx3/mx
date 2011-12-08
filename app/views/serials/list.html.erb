@@ -1,4 +1,6 @@
 <h3>Listing serials</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@serials, :total_count => @serials.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@serials, :total_count => @serials.total_count) -%>
 </div>

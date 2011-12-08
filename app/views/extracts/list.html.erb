@@ -1,5 +1,7 @@
 <h3>Listing extracts</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@extracts, :total_count => @extracts.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@extracts, :total_count => @extracts.total_count) -%>
 </div>
 

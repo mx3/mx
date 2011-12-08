@@ -15,6 +15,9 @@
 
 class GeneGroup < ActiveRecord::Base
   has_standard_fields
+
+  include ModelExtensions::DefaultNamedScopes
+
   has_and_belongs_to_many :genes
 
   validates_presence_of :name

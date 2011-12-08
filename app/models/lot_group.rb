@@ -31,7 +31,9 @@
 
 class LotGroup < ActiveRecord::Base
   has_standard_fields
- 
+
+  include ModelExtensions::DefaultNamedScopes
+
   belongs_to :repository
   has_and_belongs_to_many :lots
   

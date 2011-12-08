@@ -6,14 +6,12 @@ class StandardViewsController < ApplicationController
   end
 
   def list
-    @standard_view_pages, @standard_views = paginate :standard_view, :per_page => 1000,
-      :order_by => 'standard_views.name', :conditions => ['standard_views.proj_id = (?)', @proj.id]
+    @standard_views = StandardView.by_proj(@proj).page(params[:page]).per(100).order('standard_views.name')
   end
 
   def show
     id = params[:standard_view][:id] if params[:standard_view]
     id ||= params[:id]
-   
     @standard_view = StandardView.find(id)
   end
 

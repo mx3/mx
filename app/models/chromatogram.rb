@@ -24,7 +24,9 @@
 
 class Chromatogram < ActiveRecord::Base
   has_standard_fields
-  
+
+  include ModelExtensions::DefaultNamedScopes
+
   belongs_to :pcr  
   belongs_to :primer
   belongs_to :protocol

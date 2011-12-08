@@ -1,5 +1,6 @@
-<div class="lbl3">Listing trees</div>
-<p > <i> Now in beta, please test. </i></p>
+<h3> Listing trees </h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@trees, :total_count => @trees.total_count) %>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@trees, :total_count => @trees.total_count) %>
 </div>

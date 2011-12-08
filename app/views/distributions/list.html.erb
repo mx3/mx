@@ -1,5 +1,5 @@
 <h3>Listing distributions</h3>
-
+<%= paginate(@distributions, :total_count => @distributions.total_count) -%>
 <table class="list_table">
   <%= t_col_heads([ "geography", "otu", "reference", "verbatim geography", "introduced", "confidence", "id", "mod on", "mod by"]) %>
   <% for d in @distributions %>
@@ -15,8 +15,4 @@
     d.m_on] }) %>
   <% end %>
 </table>
-
-
-<% unless @distribution_pages.first == @distribution_pages.last %>
-  <strong>View page <%= pagination_links @distribution_pages, :window_size => 3 %></strong>
-<% end %>
+<%= paginate(@distributions, :total_count => @distributions.total_count) -%>

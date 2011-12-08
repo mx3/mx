@@ -8,10 +8,6 @@ class OntologyClassesController < ApplicationController
     render :action => 'list'
   end
 
-  def list_params
-    @ontology_class_pages, @ontology_classes = paginate :ontology_classes, :per_page => 25, :conditions => "(ontology_classes.proj_id = #{@proj.id})", :include => [:written_by, :obo_label, :creator, :labels, :updator, :taxon_name]
-  end
-
   def list_by_scope
     if params[:arg]
       @ontology_classes = @proj.ontology_classes.send(params[:scope],params[:arg]).ordered_by_label_name
@@ -23,10 +19,10 @@ class OntologyClassesController < ApplicationController
   end
 
   def list
-    list_params
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @ontology_classes = OntologyClass.by_proj(@proj)
+     .page(params[:page])
+     .per(20)
+     .includes(:written_by, :obo_label, :creator, :labels, :updator, :taxon_name) 
   end
 
   def list_tip_figures

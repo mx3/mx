@@ -1,6 +1,4 @@
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @taxon_name_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @taxon_name_pages}) -%>
-<table>
+<table class="record_list">
   <%= t_col_heads( ["name", "author/year", "parent", "valid name", "id", "mod by", "mod on", "","","", "display"] ) %>
   <% @taxon_names.each_with_index do |tn, i| -%>
   <%=  t_row({ 'obj' => tn, 'close_tr' => false, 'tr_css' => i,
@@ -15,5 +13,3 @@
     <td class="smaller_font"> <%= tn.display_name %></td></tr><!-- closes t_row -->
   <% end %>
 </table>
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @taxon_name_pages}) -%>

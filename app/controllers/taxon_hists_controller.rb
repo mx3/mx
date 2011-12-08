@@ -5,14 +5,9 @@ class TaxonHistsController < ApplicationController
     render :action => 'list'
   end
 
-  def list # only show those attached to visible names
-    sql_conditions = @proj.sql_for_taxon_names('taxon_names')
-    @taxon_hist_pages = Paginator.new self, TaxonHist.find(:all, :conditions => sql_conditions, :include => [:taxon_name]).size, 30, params['page']
-    @taxon_hists = TaxonHist.find(:all, 
-    :conditions => sql_conditions,
-    :include => [:taxon_name],
-    :limit  =>  @taxon_hist_pages.items_per_page,
-    :offset =>  @taxon_hist_pages.current.offset)
+  def list 
+    # Only show those attached to visible names
+    @taxon_hists = TaxonHist.where(@proj.sql_for_taxon_names('taxon_names')).includes(:taxon_name).page(params[:page]).per(20)  
   end
 
   def show

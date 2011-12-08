@@ -1,5 +1,5 @@
-<h3>Listing association_supports</h3>
-
+<h3>Listing association supports</h3>
+<%= paginate(@associations_supports, :total_count => @associations_supports.total_count) -%>
 <table>
   <tr>
 <% for column in AssociationSupport.content_columns %>
@@ -18,10 +18,4 @@
   </tr>
 <% end %>
 </table>
-
-<%= link_to "Previous page", { :page => @association_support_pages.current.previous } if @association_support_pages.current.previous %>
-<%= link_to "Next page", { :page => @association_support_pages.current.next } if @association_support_pages.current.next %> 
-
-<br />
-
-<%= link_to 'New association_support', :action => 'new' %>
+<%= paginate(@associations_supports, :total_count => @associations_supports.total_count) -%>

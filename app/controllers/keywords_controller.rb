@@ -7,15 +7,11 @@ class KeywordsController < ApplicationController
     render :action => 'list'
   end
 
-  def list_params
-    @keyword_pages, @keywords = paginate :keyword, :per_page => 30, :conditions => "(proj_id = #{@proj.id})", :order => "keyword"
-  end
-
   def list
-      list_params
-     if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+      @keywords = Keyword.by_proj(@proj)
+          .page(params[:page])
+          .per(20)
+          .order('keyword')
   end
 
   def _show_params

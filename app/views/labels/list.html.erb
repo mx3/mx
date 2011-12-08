@@ -1,6 +1,8 @@
 <h3>Listing labels</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@labels, :total_count => @labels.total_count) %>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@labels, :total_count => @labels.total_count) %>
 </div>
 
 

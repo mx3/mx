@@ -1,4 +1,6 @@
 <h3>Listing geographical names</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@geogs, :total_count => @geogs.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@geogs, :total_count => @geogs.total_count) -%>
 </div>

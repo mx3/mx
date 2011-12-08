@@ -32,7 +32,8 @@ class Clave < ActiveRecord::Base
 
   include ModelExtensions::Taggable
   include ModelExtensions::Figurable
-
+  include ModelExtensions::DefaultNamedScopes
+  
   acts_as_list :scope => :parent_id
   belongs_to :otu
   belongs_to :ref

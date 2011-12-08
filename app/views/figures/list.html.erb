@@ -1,9 +1,8 @@
-<p><i>Figures are images tagged to objects. To create new figures use the figure tag link at the respective object.  To view figures visit the figured object.  </i>
-</p>
-
 <h3>Listing figures</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@figures, :total_count => @figures.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@figures, :total_count => @figures.total_count) -%>
 </div>
 
 <%= render_svged_figures -%><!-- collectively renders appended figures on non-ajax calls -->

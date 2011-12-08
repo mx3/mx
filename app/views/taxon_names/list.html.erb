@@ -1,4 +1,6 @@
 <h3>Listing (visible) taxon names</h3>
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@taxon_names, :total_count => @taxon_names.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@taxon_names, :total_count => @taxon_names.total_count) -%>
 </div> 

@@ -6,12 +6,9 @@ class MeasurementsController < ApplicationController
   end
 
   def list
-    @measurement_pages, @measurements = paginate :measurement, :per_page => 20,
-    :conditions => ['proj_id = (?)', @proj.id]
-
-     if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @measurements = Measurement.by_proj(@proj)
+    .page(params[:page])
+    .per(20)
   end
 
   def show

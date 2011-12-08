@@ -1,6 +1,4 @@
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @extract_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @extract_pages}) -%>
-<table class="list_table">
+<table class="record_list">
   <%= t_col_heads( ["mx id", "specimen id", "material voucher#", "OTU", "locality", "quality", "extract notes", "other id",  "extracted on", "mod on", "mod by" ] ) %>
   <% @extracts.each_with_index do |o, i| -%>
   <%=  t_row({ 'obj' => o, 'tr_css' => ( o.quality == 'failed') ? "Failed" : "", 'tr_css' => i,
@@ -18,5 +16,3 @@
     o.m_by]}) %>
   <% end %>
 </table>
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @extract_pages}) -%>

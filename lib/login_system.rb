@@ -74,7 +74,7 @@ module LoginSystem
 
     # TODO: this is borked somewhat re hitting the /projs/ controller. 
     # exceptions: you do not need to have selected a project to use these controllers
-    if ['account', 'admin',  'namespaces','image_views'].include?(controller_name)
+    if ['account', 'admin', 'geog_types',  'namespaces','image_views'].include?(controller_name)
       return true
     end
 

@@ -6,8 +6,7 @@ class GeneGroupsController < ApplicationController
   end
 
   def list
-    @gene_group_pages, @gene_groups = paginate :gene_group, :per_page => 30, 
-    :order_by => 'name',  :conditions => "(proj_id = #{@proj.id})"
+    @gene_groups = GeneGroup.by_proj(@proj).order('name').page(params[:page]).per(20)
   end
 
   def show
@@ -25,7 +24,6 @@ class GeneGroupsController < ApplicationController
 
   def create
     @gene_group = GeneGroup.new(params[:gene_group])
-  
     if @gene_group.save
       flash[:notice] = 'GeneGroup was successfully created.'
       redirect_to :action => 'show', :id => @gene_group.id
@@ -52,7 +50,6 @@ class GeneGroupsController < ApplicationController
     GeneGroup.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
-
 
   def add_gene
     @gene_group = GeneGroup.find(params[:id])
@@ -85,6 +82,5 @@ class GeneGroupsController < ApplicationController
     end
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @gene_groups, :method => params[:method])
   end
-  
   
 end

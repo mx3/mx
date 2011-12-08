@@ -1,6 +1,4 @@
-<%= render(:partial => 'shared/page_nav_scope', :locals => {:pages => @mx_pages}) -%>
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @mx_pages}) -%>
-<table>
+<table class="record_list">
   <%= t_col_heads( ["name", "id", 'otus', 'chrs', "multikey", "public", "notes", "mod by", "mod on"] ) %>
   <% for m in @mxes %>
   <%=  t_row({ 'obj' => m, 
@@ -15,6 +13,3 @@
     m.m_on ] } ) -%>
     <% end %>
 </table>
-<br />
-<%= render(:partial => 'shared/page_nav', :locals => {:pages => @mx_pages}) -%>
-

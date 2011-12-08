@@ -1,0 +1,10 @@
+<table class="record_list">
+<% @figures.in_groups_of(4, false) do |grp| -%>
+  <tr> 
+  <% grp.each do |f| -%>
+
+    <td><%= render :partial => 'figures/figure', :collection => [f] -%> </td>
+  <% end -%>
+</tr>
+<% end -%>
+</table>

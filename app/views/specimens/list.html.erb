@@ -11,5 +11,7 @@
 <% @inc_actions = true %>
 
 <div id='search_results'>
-  <%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@specimens, :total_count => @specimens.total_count) -%>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@specimens, :total_count => @specimens.total_count) -%>
 </div>

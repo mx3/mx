@@ -18,7 +18,8 @@
 
 class ContentType < ActiveRecord::Base
   has_standard_fields  
-  
+  include ModelExtensions::DefaultNamedScopes 
+
   self.inheritance_column = 'sti_type'
 
    # If you create a new subclass you must include the CamelCase sti_name

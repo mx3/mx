@@ -1,4 +1,6 @@
 <h3>Listing protocols</h3>
 <div id='search_results'>
-<%= render(:partial => 'ajax_list') -%>
+  <%= paginate(@protocols, :total_count => @protocols.total_count) %>
+  <%= render(:partial => 'record_table') -%>
+  <%= paginate(@protocols, :total_count => @protocols.total_count) %>
 </div>

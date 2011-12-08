@@ -5,15 +5,8 @@ class ProtocolsController < ApplicationController
     render :action => 'list'
   end
 
-  def list_params
-    @protocol_pages, @protocols = paginate :protocol, :per_page => 20, :conditions => "(proj_id = #{@proj.id})"
-  end
-
   def list
-    list_params
-    if request.xml_http_request?
-      render(:layout => false, :partial => 'ajax_list')
-    end
+    @protocols = Protocol.by_proj(@proj).page(params[:page]).per(20) 
   end
 
   def show
