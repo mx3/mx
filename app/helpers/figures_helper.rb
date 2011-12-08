@@ -15,6 +15,7 @@ module FiguresHelper
       :object => nil,        # required
       :image => nil,         # required
       :caption => nil,       #
+      :onclick => nil,       #
       :link_text => 'Attach' #
     }.merge!(options)
 

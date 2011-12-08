@@ -263,7 +263,10 @@ class FiguresController < ApplicationController
   def find_images
     # Display images via reference to their description
     @image_descriptions = ImageDescription.find_for_auto_complete(params.merge(:proj_id => @proj.id))
-    @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id])  
+    @obj = ActiveRecord::const_get(params[:fig_obj_class]).find(params[:fig_obj_id]) 
+
+    # Delete figures that already exist for this object 
+
     respond_to do |wants|
       wants.js {}   
       wants.html { } # What TODO here? 
