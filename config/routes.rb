@@ -180,7 +180,7 @@ Edge::Application.routes.draw do
   'content_templates' => {
     members: %w{
     get show_page
-    post add_remove_type
+    get add_remove_type
     post make_default
     post sort_content_types
   },
