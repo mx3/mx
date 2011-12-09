@@ -20,9 +20,11 @@ class ChrStatesController < ApplicationController
     c = ChrState.find(params[:id])
     c.notes = params[:value]
     if c.save
+      notice "Notes updated"
       render :text => c.notes
     else
-      render :text => '<span style="color: red;">Validation failed, record not updated.</span>'
+      error 'Validation failed, record not updated.'
+      head :status=>400 
     end
   end
   

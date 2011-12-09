@@ -10,9 +10,11 @@ class ChrsController < ApplicationController
     c = Chr.find(params[:id])
     c.notes = params[:value]
     if c.save
+      notice "Updated notes" 
       render :text => c.notes
     else
-      render :text => '<span style="color: red;">Validation failed, record not updated.</span>'
+      error "Validation failed, record not updated."
+     render :text => 'Validation failed, record not updated.', :status=>400 
     end
   end
 
@@ -20,9 +22,11 @@ class ChrsController < ApplicationController
     c = Chr.find(params[:id])
     c.doc_char_descr = params[:value]
     if c.save
+      notice "Updated description"
       render :text => c.doc_char_descr
     else
-      render :text => '<span style="color: red;">Validation failed, record not updated.</span>'
+      error "Validation failed, record not updated"
+      render :text => 'Validation failed, record not updated.', :status=>400
     end
   end
 
