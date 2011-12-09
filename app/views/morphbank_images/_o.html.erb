@@ -3,6 +3,5 @@
     
   <b>id:</b> <%= o %> &nbsp; &nbsp; &nbsp; <%= link_to('info', "http://www.morphbank.net/Show/index.php?id=#{o}", :popup => true)  -%>  <br/>
       <div style="display:inline;"><img src="<%= "http://morphbank.net/?id=#{o}&imgType=thumb"  -%>" alt="a morphbank image" />  </div>
-      <%= draggable_element("mbthumb_#{o}", :revert => true) -%>
     <% end -%>
 </div>
