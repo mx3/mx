@@ -4,9 +4,9 @@ class ContentType::SpecimensContent < ContentType
     'A specimen table. Includes all specimens with the current determination of the given OTU.'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/specimens"
+    "/otus/page/specimens"
   end
 
   def self.display_name

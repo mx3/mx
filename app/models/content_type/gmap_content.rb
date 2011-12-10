@@ -8,9 +8,9 @@ class ContentType::GmapContent < ContentType
     "Google map"
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/gmap"
+    "/otus/page/gmap"
   end
 
   def display_name
@@ -22,4 +22,3 @@ class ContentType::GmapContent < ContentType
   end
 
 end
-

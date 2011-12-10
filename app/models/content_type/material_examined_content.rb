@@ -4,9 +4,9 @@ class ContentType::MaterialExaminedContent < ContentType
     'A formatted material examined section as one would use for publication.  Specimens only.'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/material_examined"
+    "/otus/page/material_examined"
   end
 
   def self.display_name
@@ -26,6 +26,3 @@ class ContentType::MaterialExaminedContent < ContentType
   end
 
 end
-
-
-
