@@ -2,10 +2,16 @@
   <ul>
     <% for proj in @all_projs -%>
       <% if @persons_projs.include?(proj.id)  %>
-        <li><%= link_to proj[:name], :proj_id => proj.id, :controller => proj.starting_tab, :action => :index -%></li>
+        <li>
+          <% begin %>
+            <%= link_to proj[:name], :proj_id => proj.id, :controller => proj.starting_tab, :action => :index -%>
+          <% rescue Exception => e %>
+            <%= link_to proj[:name], :proj_id => proj.id, :controller => 'otus', :action => :index -%>
+          <% end %>
+        </li>
       <% elsif @is_admin %>
         <li><%= "[#{proj.id}] #{proj.name}" %></li>
-      <% end %>   
+      <% end %>
     <% end -%>
   </ul>
 </div>

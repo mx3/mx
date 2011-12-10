@@ -76,13 +76,13 @@ module App::NavigationHelper
        content_tag(:div, :style => 'width: 100%; font-size:smaller;padding:2px;' ) do
 
         if opt[:obj].respond_to?('taggable?') && opt[:obj].taggable?
-         tg = new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp".html_safe 
+         tg = new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp".html_safe
         else
           tg = ''
         end
 
         tg + content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
-       
+
        end
     end
 
@@ -132,7 +132,7 @@ module App::NavigationHelper
       else
        obj = klass.find(:first, :include => inc, :order => order)
       end
-  
+
       return (obj.nil? ? rec.id : obj.id) # We have to return an id to ensure the routes work.
     end
   end
@@ -298,8 +298,7 @@ module App::NavigationHelper
   def main_navbar
     b = nav_tabs
     if @proj
-      b.delete(@proj.starting_tab)
-      b.insert(0, @proj.starting_tab)
+      b.sort_by {|proj| proj == @proj.starting_tab}
     else
       b = []
     end
