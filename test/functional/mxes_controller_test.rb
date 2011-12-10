@@ -90,15 +90,18 @@ class MxesControllerTest < ActionController::TestCase
   end
 
   def test_fast_coding_route_in_nav_without_coding
-    opts = {:controller => "mxes", :id => "1", :action => "fast_code", :proj_id => "1", :otu_id => "1", :chr_id => "2", :mode => "row", :position => "5" }
-    assert_recognizes opts, 'projects/1/mxes/1/fast_code/row/5/1/2'
-    assert_routing 'projects/1/mxes/1/fast_code/row/5/1/2', opts   
+      opts = {:controller => "mxes", :id => "1", :action => "fast_code", :proj_id => "1", :otu_id => "1", :chr_id => "2", :mode => "row", :position => "5" }
+      assert_recognizes opts , 'projects/1/mxes/1/fast_code/row/5/1/2'
+      assert_routing 'projects/1/mxes/1/fast_code/row/5/1/2', opts   
   end
 
   def test_fast_coding_route_coding
-    opts = {:controller => "mxes", :id => "1", :action => "fast_code", :proj_id => "1", :otu_id => "1", :chr_id => "2", :mode => "row", :position => "5", :chr_state_id => "2" }
-    assert_recognizes opts , 'projects/1/mxes/1/fast_code/row/5/1/2/2'
-    assert_routing 'projects/1/mxes/1/row/5/1/2/2', opts
+      opts = {:controller => "mxes", :id => "1", :action => "fast_code", :proj_id => "1", :otu_id => "1", :chr_id => "2", :mode => "row", :position => "5", :chr_state_id => "2" }
+      assert_recognizes opts , 'projects/1/mxes/1/fast_code/row/5/1/2/2'
+      assert_routing 'projects/1/mxes/1/fast_code/row/5/1/2/2', opts
   end
+
+
+
 
 end

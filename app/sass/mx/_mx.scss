@@ -1,9 +1,9 @@
 table.mx {
   border-collapse: collapse;
-}
 
-table.mx tr.odd {
-  background-color: #ddddff; 
+  tr.odd {
+    background-color: #ddddff; 
+  }
 }
 
 td.mx_cell {
@@ -40,16 +40,22 @@ div.nexus {
   font-family: "Courier New", Courier, monospace;
   padding: 1em;
   width: 98%; overflow: auto; 
-}
 
-div.nexus td.taxname {
-  padding-right: 2em;
-}
+  td.taxname {
+    padding-right: 2em;
+  }
 
-div.nexus td {
-  padding: 0;
+  td {
+    padding: 0;
+  }
 }
 
 a.quicknavbox {
-  position: relative; display: block; float: left; width: 5px; margin: 1px; border: 1px solid silver; height: 5px;
+  position: relative;
+  display: block;
+  float: left;
+  width: 5px;
+  margin: 1px;
+  border: 1px solid silver;
+  height: 5px;
 }

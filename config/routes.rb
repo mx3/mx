@@ -2,6 +2,11 @@ Edge::Application.routes.draw do
 
   root :to => "projs#index"
 
+  # matrix/coding routes
+ match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id/:chr_state_id", :controller => 'mxes', :action => "fast_code" , :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+ match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id", :controller => 'mxes', :action => "fast_code", :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/}
+
+
   # All non-RESTful routes that are unique to a Resource are defined here.
   # Shared restful routes (e.g. 'autocomplete_for_xxx') are defined together
   # below, and need not be included here.
@@ -430,7 +435,6 @@ Edge::Application.routes.draw do
     get current_cycle
     get cycle
     get excerpt
-    get fast_code
     get generate
     get highlight
     get invalid_codings
@@ -439,6 +443,7 @@ Edge::Application.routes.draw do
     get show_batch_code
     get show_characters
     get show_code
+    post show_code
     get show_data_sources
     get show_figures
     get show_nexus
@@ -456,6 +461,7 @@ Edge::Application.routes.draw do
     post add_chr
     post add_otu
     post clone    
+    post code  
     post remove_chr
     post remove_otu
     post reset_chr_positions
@@ -1285,11 +1291,6 @@ Edge::Application.routes.draw do
   #  api.resources :ontology
   #  api.resources :ref
   # end
-
-  # matrix/coding routes
-  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id/:chr_state_id", :controller => 'mxes', :action => "fast_code" , :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
-  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id", :controller => 'mxes', :action => "fast_code", :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/}
-  match "/projects/:proj_id/mxes/:id/code/:otu_id/:chr_id", :controller => 'mxes', :action => "show_code",  :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/} # for cell clicks
 
  #  match "*anything", :to => "application#index", :unresolvable => "true"
 end

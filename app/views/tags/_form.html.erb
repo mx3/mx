@@ -4,9 +4,12 @@
 
 <div style="padding: 2px;">
 
-<input type=hidden name='tag_obj[obj_class]' value="<%= @obj.class.name %>" />
-<input type=hidden name='tag_obj[obj_id]'    value="<%= @obj.id %>" />
-<input type=hidden name='return_to'          value="<%= params[:return_to] %>" />
+<!-- The form can be used to create both a new @obj and a new Tag at the same time.  Check to see if this is the case. -->
+<% if @obj -%>
+  <input type=hidden name='tag_obj[obj_class]' value="<%= @obj.class.name %>" />
+  <input type=hidden name='tag_obj[obj_id]'    value="<%= @obj.id %>" />
+  <input type=hidden name='return_to'          value="<%= params[:return_to] %>" />
+<% end %>
 
 <table>
   <tr>
@@ -46,8 +49,6 @@
               :size => 40
            })
         %>
-
-
     </td>
   </tr>
 

@@ -270,7 +270,9 @@ class MxesController < ApplicationController
     @last_otu = (@mode == 'row' ? @otu : @otus[@present_position - 1])
     @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
     @previous_position ||= @present_position
-      
+
+    #  @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
+
     # render the updates
     respond_to do |format|
       format.html {

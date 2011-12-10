@@ -68,7 +68,7 @@
               <div class="content" style="border-bottom:1px solid silver;">
                 <b><%= state.s_and_m  -%></b>
                 <% if @s = state.coded?(@otu.id) -%>
-                  <table><tr><td>state is presently coded, tag the coding: <%= tag_link_for_show(@s) %></td></tr></table>
+                  <table><tr><td>state is presently coded, tag the coding: <%= new_tag_tag(:object => @s) %></td></tr></table>
                 <% end -%>
                 <%= render_figs_for_obj(state, 'thumb') -%>
               </div>

@@ -1,5 +1,11 @@
 <!-- char state choices -->
-<select style="width: 420;" onchange="document.myform.submit();" name="chr_state_id" size="<%= @chr.chr_states.length + 1 -%>" multiple="multiple">
+<select style="width: 420px;"
+  id="chr_state_id"
+  size="<%= @chr.chr_states.length + 1 -%>" 
+  multiple="multiple"
+  data-observe-select 
+  >
+
   <% @chr.chr_states.each do |s| -%>
     <option value="<%= s.id -%>" <%= "class='passed'" if s.coded?(@otu.id) -%>><%= s.s_and_m -%></option>
   <% end -%>

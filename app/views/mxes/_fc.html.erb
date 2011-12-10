@@ -1,10 +1,9 @@
 <div><!-- outer containter -->
-
   <table><!-- chr nav -->
      <tr><td colspan="2" style="padding-left: 15px; background-color: <%= @mode =='row' ? 'rgb(243,243,243)' : 'none' -%>;">
           <% @chrs.each_with_index do |c, i| -%>
           <% coded = Coding.by_chr(c).by_otu(@otu).count  -%>
-          <a class="quicknavbox" style="background-color:<%= (c == @chr ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(c.display_name) -%>" href="/projects/<%= @proj.id -%>/mx/fast_code/<%= @mx.id -%>/<%= @mode -%>/<%= @mode == 'row' ? i : @present_position -%>/<%= @otu.id -%>/<%= c.id -%>" id="chr_<%= c.id -%>"></a>
+          <a class="quicknavbox" style="background-color:<%= (c == @chr ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(c.display_name) -%>" href="/projects/<%= @proj.id -%>/mxes/<%= @mx.id -%>/fast_code/<%= @mode -%>/<%= @mode == 'row' ? i : @present_position -%>/<%= @otu.id -%>/<%= c.id -%>" id="chr_<%= c.id -%>"></a>
           <% end -%>
       </td>
     </tr>
@@ -13,10 +12,10 @@
   <table>
     <tr>
       <!-- otu nav -->
-      <td style="width: 10; background-color: <%= @mode =='col' ? 'rgb(243,243,243)' : 'none' -%>;">
+      <td style="width: 10px; background-color: <%= @mode =='col' ? 'rgb(243,243,243)' : 'none' -%>;">
           <% @otus.each_with_index do |o, i| -%>
             <% coded = Coding.by_chr(@chr).by_otu(o).count  -%>
-            <a  class="quicknavbox" style="background-color:<%= (o == @otu ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(o.display_name) -%>" href="/projects/<%= @proj.id -%>/mx/fast_code/<%= @mx.id -%>/<%= @mode -%>/<%= @mode == 'col' ? i : @present_position -%>/<%= o.id -%>/<%= @chr.id -%>" id="otu_<%= o.id -%>"></a>
+            <a  class="quicknavbox" style="background-color:<%= (o == @otu ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(o.display_name) -%>" href="/projects/<%= @proj.id -%>/mxes/<%= @mx.id -%>/fast_code/<%= @mode -%>/<%= @mode == 'col' ? i : @present_position -%>/<%= o.id -%>/<%= @chr.id -%>" id="otu_<%= o.id -%>"></a>
           <% end -%>
       </td>
 
@@ -25,12 +24,11 @@
         <p><%=@otu.display_name %> (matrix name: <%= @otu.display_name(:type => :matrix_name) -%>)&nbsp;<span class="small_grey">id: <%= link_to(@otu.id, :action => 'show', :controller => 'otus', :id => @otu) %></span></p>
         <em>for</em>
 
-        <%= form_tag(:remote => true, :url => {:action => 'fast_code', :controller => :mxes, :id => @mx, :otu_id => @otu, :position => @present_position}, :html => {:name => "myform", :style => "width: 400;"} ) do -%>
+        <%= form_tag(:remote => true, :url => {:action => 'fast_code', :controller => :mxes, :id => @mx, :otu_id => @otu, :position => @present_position}, :html => {:id => 'one_click_form', :name => "myform", :style => "width: 400;"} ) do -%>
             <p><%= @chr.name %> <span class="small_grey">id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chrs', :id => @chr}, :target => '_blank') -%></span></p>
 
             <%= hidden_field_tag('mode', @mode) -%>
             <%= hidden_field_tag('chr_id', @chr.id) -%>
-
 
             <% if @chr.continuous? && !@chr.is_continuous -%><!-- auto filed from measurements, no tags/confidence -->
 
@@ -47,7 +45,6 @@
               </table>
             <% end %>
 
-
             <br style="clear:both;" />
 
             <% if @chr.is_continuous -%>
@@ -60,12 +57,11 @@
           <!-- tag form -->
           <div class="subform" style="width: 400;">
             <div class="header"> include a tag with this coding &nbsp;&nbsp;&nbsp;&nbsp;
-              <%=  link_to_function('toggle form', nil, :id => "more_link") do |page|
+              <%= link_to_function('toggle form', nil, :id => "more_link") do |page|
                 page.visual_effect(:toggle_blind, 'tag_form')
               end %></div>
             <div id="tag_form" style="display: none;"> <i> tag will not be saved if you skip </i> <%= render(:partial => 'tags/form') %></div>
            </div>
-
 
            <% end -%> <!-- end taggable/confidenceable cells -->
 

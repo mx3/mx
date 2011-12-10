@@ -13,13 +13,14 @@ module TagsHelper
     content_tag(:a, "edit", :href=>url, 'data-basic-modal' => true)
       #<!--link_to('edit', :action => :edit, :controller => :tags, :id => ts.id) -->
   end
+  
   def new_tag_tag(options ={})
     opt = {
-      :object => nil,     # required
-      :keyword_id => nil, # optional, to preset the form with this keyword
-      :ref_id => nil,     # options, to preset the form with this keyword
+      :object => nil,        # required
+      :keyword_id => nil,    # optional, to preset the form with this keyword
+      :ref_id => nil,        # options, to preset the form with this keyword
       :html_selector => nil, # Optional, specifies what should 'highlight' on success
-      :link_text => 'Tag' # if you want to use other text than "Tag" for the tag link
+      :link_text => 'Tag'    # if you want to use other text than "Tag" for the tag link
     }.merge!(options)
 
     return content_tag(:em, opt[:link_text]) if opt[:object].nil?
