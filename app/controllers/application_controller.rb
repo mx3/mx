@@ -47,6 +47,7 @@ class ApplicationController < ActionController::Base
 
   # built in Rails-ness
   def method_missing(methodname, *args)
+    Rails.logger.error "Method missing: #{methodname}"
     @methodname = methodname
     @args = args
     public_route_failure and return

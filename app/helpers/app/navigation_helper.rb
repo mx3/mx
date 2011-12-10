@@ -298,7 +298,8 @@ module App::NavigationHelper
   def main_navbar
     b = nav_tabs
     if @proj
-      b.sort_by {|proj| proj == @proj.starting_tab}
+      # It is a stable sort, so it effecively just moves the starting tab (if present) to the front
+      b.sort_by! {|proj| [proj == @proj.starting_tab ? 0 : 1] }
     else
       b = []
     end
