@@ -1,6 +1,11 @@
 class OtusController < ApplicationController
 
-  before_filter :show_params, :only => [:show, :show_summary, :show_map, :show_distribution, :show_tags_no_layout, :show_groups, :show_material_examined, :show_content, :show_matrix_sync, :show_compare_content, :show_all_content, :show_codings, :show_material, :show_molecular, :show_images, :show_tags, :show_matrices ]
+  before_filter :show_params, :only => [:show, :show_summary, :show_map,
+                                        :show_distribution, :show_tags_no_layout, :show_groups,
+                                        :show_material_examined, :show_content, :show_matrix_sync,
+                                        :show_compare_content, :show_all_content, :show_codings,
+                                        :show_material, :show_molecular, :show_images,
+                                        :show_tags, :show_matrices ]
 
   def index
     redirect_to :action => :list
@@ -397,7 +402,7 @@ class OtusController < ApplicationController
     end
   end
 
-  def auto_complete_for_otu
+  def auto_complete_for_otus
     value = params[:term]
     @otus = Otu.find_for_auto_complete(value)
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @otus, :method => params[:method])

@@ -11,7 +11,6 @@
         <% if self.methods.include?("class_picker")  -%>
           <%= class_picker %>
           <% else %>
-          <!-- Cary- I think I had this commented out to run some tests, it's been a while.  You might want to check what happened when you run the tests with and without the form being rendered ... or just fix the picker. -->
           <%= render(:partial => 'shared/picker_form', :locals => {:show_and_edit => true, :form_action => :show_or_edit , :form_controller => 'shared' }) unless no_pickers.include?(self.controller.controller_name) -%>
         <% end %>
       </td>
