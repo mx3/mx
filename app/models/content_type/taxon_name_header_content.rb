@@ -4,9 +4,9 @@ class ContentType::TaxonNameHeaderContent < ContentType
     'A header including the taxon/OTU name and author year.'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/taxon_name_header"
+    "/otus/page/taxon_name_header"
   end
 
   def self.display_name
@@ -21,11 +21,8 @@ class ContentType::TaxonNameHeaderContent < ContentType
     true
   end
 
-  def render_header? 
+  def render_header?
     false
   end
 
 end
-
-
-

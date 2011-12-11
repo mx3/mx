@@ -1,12 +1,12 @@
 class ContentType::TagsOnOtuByKeywordContent < ContentType
 
   def self.description
-    'A report of the tags on this OTU, organized by keyword' 
+    'A report of the tags on this OTU, organized by keyword'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/tags_on_otu_by_keyword"
+    "/otus/page/tags_on_otu_by_keyword"
   end
 
   def self.display_name
@@ -22,6 +22,3 @@ class ContentType::TagsOnOtuByKeywordContent < ContentType
   end
 
 end
-
-
-

@@ -1,12 +1,13 @@
 class ContentType::ReferencedDistributionContent < ContentType
 
+
   def self.description
     'A summary of the distribution of this OTU as tied to published references (not directly through specimen records).'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/referenced_distribution"
+    "/otus/page/referenced_distribution"
   end
 
   def self.display_name
@@ -20,8 +21,4 @@ class ContentType::ReferencedDistributionContent < ContentType
   def renders_as_text?
     true
   end
-
 end
-
-
-

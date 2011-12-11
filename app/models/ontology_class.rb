@@ -5,8 +5,8 @@ class OntologyClass < ActiveRecord::Base
   # is_obsolete classes in OBO have NO relationships but relationships can be maintained for obsolete terms (they are excluded programatically from the OBO dump in mx)
 
   # IMPORTANT in_place_editing has been hacked to handle versioned (when this is gemified it will have to be updated)
-  
-  # versioned presently has deprecations with hash/index 
+
+  # versioned presently has deprecations with hash/index
   versioned
 
   set_table_name "ontology_classes"
@@ -27,28 +27,28 @@ class OntologyClass < ActiveRecord::Base
   has_many :secondary_relationships, :class_name => 'OntologyRelationship', :foreign_key => 'ontology_class2_id', :dependent => :destroy # parents
 
   # these next 3 return all related classes, regardless of object_relationship type
-  has_many :immediately_related_ontology_classes, 
+  has_many :immediately_related_ontology_classes,
       :class_name => 'OntologyClass',
-      :finder_sql => proc {"SELECT DISTINCT oc.* FROM ontology_classes oc 
+      :finder_sql => proc {"SELECT DISTINCT oc.* FROM ontology_classes oc
                       LEFT JOIN ontology_relationships or1 ON oc.id = or1.ontology_class1_id
                       LEFT JOIN ontology_relationships or2 ON oc.id = or2.ontology_class2_id
                       WHERE or1.ontology_class2_id = #{id} OR or2.ontology_class1_id = #{id};"}
 
 
-  has_many :child_ontology_classes, :through => :secondary_relationships, :source => :ontology_class1 
-  has_many :parent_ontology_classes, :through => :primary_relationships, :source => :ontology_class2 
+  has_many :child_ontology_classes, :through => :secondary_relationships, :source => :ontology_class1
+  has_many :parent_ontology_classes, :through => :primary_relationships, :source => :ontology_class2
 
   has_many :sensus, :dependent => :destroy, :order => 'sensus.position'
-  has_many :labels, :through => :sensus, :uniq => true # singular only now, these are homonyms 
-  has_many :all_labels_through_sensus, :through => :sensus, :source => :label  
+  has_many :labels, :through => :sensus, :uniq => true # singular only now, these are homonyms
+  has_many :all_labels_through_sensus, :through => :sensus, :source => :label
 
   #  has_one :preferred_label, :through => :sensus, :source => :label, :order => 'sensus.position', :limit => 1
 
   # pass a String or Array of Strings, filters by singular or plural forms of Labels matching arguments
   scope :by_label_including_plurals, lambda {|*args| {
-    :conditions => "ontology_classes.id IN (select id from 
+    :conditions => "ontology_classes.id IN (select id from
     ((SELECT ontology_class_id id from sensus s  JOIN labels l ON s.label_id = l.id WHERE #{SqlHelper::where_scope_for_name(:l, *args)} )
-    UNION (SELECT ontology_class_id id from sensus s2 JOIN labels l1 ON s2.label_id = l1.id JOIN labels lj on l1.id = lj.plural_of_label_id WHERE #{SqlHelper::where_scope_for_name(:lj, *args)})) alias_b)"} 
+    UNION (SELECT ontology_class_id id from sensus s2 JOIN labels l1 ON s2.label_id = l1.id JOIN labels lj on l1.id = lj.plural_of_label_id WHERE #{SqlHelper::where_scope_for_name(:lj, *args)})) alias_b)"}
   }
 
   # TODO: ordered_by_label_name needs re-visiting, this isn't right
@@ -64,27 +64,27 @@ class OntologyClass < ActiveRecord::Base
   end
 
   scope :with_populated_xref, :conditions => "xref IS NOT NULL AND xref != ''"
-  scope :with_xref_namespace, lambda {|*args| {:conditions => ["xref LIKE ?", args.first + ":%"]}} # :order => 'xref', 
-  scope :with_figures, lambda {|*args| {:conditions => "ontology_classes.id IN (SELECT addressable_id from figures WHERE addressable_type = 'OntologyClass')"}} 
+  scope :with_xref_namespace, lambda {|*args| {:conditions => ["xref LIKE ?", args.first + ":%"]}} # :order => 'xref',
+  scope :with_figures, lambda {|*args| {:conditions => "ontology_classes.id IN (SELECT addressable_id from figures WHERE addressable_type = 'OntologyClass')"}}
   scope :with_obo_label, :conditions => 'obo_label_id IS NOT NULL and obo_label_id != ""'
 
   # Without
-  scope :without_xref, :conditions => 'xref IS NULL OR xref = ""' 
-  scope :without_ontology_relationships, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT ontology_class1_id from ontology_relationships) AND ontology_classes.id NOT IN (SELECT ontology_class2_id from ontology_relationships)" }} 
-  scope :without_sensus, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT ontology_class_id from sensus)"}} 
-  scope :without_figures, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT addressable_id from figures WHERE addressable_type = 'OntologyClass')"}} 
-  scope :without_figure_markers, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT addressable_id FROM figures WHERE (addressable_type = 'OntologyClass') AND figures.id IN (SELECT DISTINCT figure_id FROM figure_markers)   )"}} 
-  scope :without_child_relationship, lambda {|*args| {:group => 'ontology_classes.id', :conditions => ["ontology_classes.id NOT IN (SELECT ontology_class2_id from ontology_relationships WHERE object_relationship_id = ?)", (args.first ?  args.first : -1)] }} 
-  
+  scope :without_xref, :conditions => 'xref IS NULL OR xref = ""'
+  scope :without_ontology_relationships, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT ontology_class1_id from ontology_relationships) AND ontology_classes.id NOT IN (SELECT ontology_class2_id from ontology_relationships)" }}
+  scope :without_sensus, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT ontology_class_id from sensus)"}}
+  scope :without_figures, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT addressable_id from figures WHERE addressable_type = 'OntologyClass')"}}
+  scope :without_figure_markers, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT addressable_id FROM figures WHERE (addressable_type = 'OntologyClass') AND figures.id IN (SELECT DISTINCT figure_id FROM figure_markers)   )"}}
+  scope :without_child_relationship, lambda {|*args| {:group => 'ontology_classes.id', :conditions => ["ontology_classes.id NOT IN (SELECT ontology_class2_id from ontology_relationships WHERE object_relationship_id = ?)", (args.first ?  args.first : -1)] }}
+
   scope :include_tags, :include => [:tags]
   scope :that_are_obsolete, :conditions => "is_obsolete = 1"
   scope :that_are_not_obsolete, :conditions => "is_obsolete != 1"
 
  validates_presence_of :definition
- validates_presence_of :written_by 
+ validates_presence_of :written_by
  validates_uniqueness_of :definition, :scope => :proj_id, :allow_blank => false, :allow_nil => false, :message => "That defintion already exists in this ontology."
- validates_uniqueness_of :xref, :message => 'xref alredy exists, pick a new one', :allow_blank => true, :allow_nil => true, :scope => "proj_id" 
- validates_format_of :xref, :with => /\A\w+\:\d+\Z/i, :message => 'must be in the format "foo:123"', :if => Proc.new{|o| !o.xref.blank?} 
+ validates_uniqueness_of :xref, :message => 'xref alredy exists, pick a new one', :allow_blank => true, :allow_nil => true, :scope => "proj_id"
+ validates_format_of :xref, :with => /\A\w+\:\d+\Z/i, :message => 'must be in the format "foo:123"', :if => Proc.new{|o| !o.xref.blank?}
 
   before_update :energize_update_class
   after_destroy :energize_destroy_class
@@ -101,7 +101,7 @@ class OntologyClass < ActiveRecord::Base
     labels.each do |l|
       l.energize(person_id, 'destroyed a class labeled with')
         l.save!
-      end 
+      end
     true
   end
 
@@ -111,7 +111,7 @@ class OntologyClass < ActiveRecord::Base
   validate :check_record
   def check_record
     definition.strip! if !definition.nil?
-    errors.add(:definition, "invalid format for definition") if definition =~ /\A\s/i  
+    errors.add(:definition, "invalid format for definition") if definition =~ /\A\s/i
     errors.add(:definition, "contains linebreaks") if (definition =~ /\r\n/) || (definition =~ /\r/) || (definition =~ /\n/)
 
     # NOTE could just build one field logic (reason = true), but we want caution when obsoleting, so extra step OK.
@@ -131,11 +131,6 @@ class OntologyClass < ActiveRecord::Base
   # TODO: is this safe? does written_by really equate to sensu?! (probably not)
   after_save :ensure_that_labels_contains_obo_label
 
-  #before_save :set_illustration_ip_votes
-  #def set_illustration_ip_votes
-  #  self.illustration_IP_votes = [] if self.illustration_IP_votes == nil
-  #end
-
   before_destroy :check_for_xref
   def check_for_xref
     if !self.xref.blank?
@@ -154,7 +149,7 @@ class OntologyClass < ActiveRecord::Base
   end
 
   def display_name(options = {}) # :yields: String
-    opt = {:type => :inline 
+    opt = {:type => :inline
     }.merge!(options.symbolize_keys)
     case opt[:type]
     when :for_select_list
@@ -166,15 +161,15 @@ class OntologyClass < ActiveRecord::Base
     when :figure
       "#{self.definition} <span style='padding:1px;background-color:#b5ebc7;'>#{self.label_name(:type => :preferred)}</span>"
     when :inline
-      definition 
+      definition
     else
-      definition 
-    end  
+      definition
+    end
   end
 
   def label_name(options = {}) # :yields: String
     opt = {
-      :type => :preferred 
+      :type => :preferred
     }.merge!(options.symbolize_keys)
     if self.labels.size > 0 || !self.obo_label
       case opt[:type]
@@ -199,19 +194,19 @@ class OntologyClass < ActiveRecord::Base
 
   # TODO: refactor to a single SQL in Label?
   def all_labels # :yields: Array of Strings
-    # includes plurals etc. 
+    # includes plurals etc.
     self.labels.inject([]){|sum, l| sum + l.all_forms}.sort
   end
 
   def hash_labels # :yields: {Label => [id_string, id_string ... id_string]
-    # See Linker.rb 
+    # See Linker.rb
     all_labels.inject({}){|h, l| h.merge(l => [self.id])}
   end
 
   # ? TODO: make this a has_one with finder?
   def preferred_label # :yields: Label or Label.new
     ss = self.sensus.ordered_by_position.first
-    ss ? ss.label : Label.new 
+    ss ? ss.label : Label.new
   end
 
   def relationships
@@ -219,12 +214,12 @@ class OntologyClass < ActiveRecord::Base
   end
 
   def self.by_label_including_count(proj_id)
-    OntologyClass.find_by_sql(["SELECT oc.*, count(distinct s.label_id) as total_labels from ontology_classes oc join sensus s on oc.id = s.ontology_class_id WHERE oc.proj_id = ? GROUP BY s.ontology_class_id ORDER BY total_labels DESC;", proj_id]) 
+    OntologyClass.find_by_sql(["SELECT oc.*, count(distinct s.label_id) as total_labels from ontology_classes oc join sensus s on oc.id = s.ontology_class_id WHERE oc.proj_id = ? GROUP BY s.ontology_class_id ORDER BY total_labels DESC;", proj_id])
   end
 
   def xrefs_from_tags # :yields: Array of Strings
   # items are are 'Foo:1234' style references derived from Tags that use is_xref Keywords
-    xrefs = [] 
+    xrefs = []
     xrefs += self.tags.with_xref_keywords.collect{|x| !x.referenced_object.blank? ? x.referenced_object : nil}
     xrefs.compact.uniq
   end
@@ -242,56 +237,56 @@ class OntologyClass < ActiveRecord::Base
 
   def is_a_parents         # :yields: Array of immediate is_a related OntologyClasses
     self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 1, :direction => :parents).collect{|o| o.ontology_class2}
-  end                      
+  end
 
   def is_a_descendants     # :yields: Array of all is_a related OntologyClasses
     self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 20000, :direction => :children).collect{|o| o.ontology_class1}
-  end                      
+  end
 
   def is_a_ancestors       # :yields: Array of all is_a related OntologyClasses
     self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 20000, :direction => :parents).collect{|o| o.ontology_class2}
-  end                      
-                          
-  def part_of_ancestors    # :yields: Array of all the OntologyClasses this instance is part of (additionally logically chained through is_a)
-    self.logical_relatives(:direction => :parents).keys    
   end
-                           
+
+  def part_of_ancestors    # :yields: Array of all the OntologyClasses this instance is part of (additionally logically chained through is_a)
+    self.logical_relatives(:direction => :parents).keys
+  end
+
   def part_of_descendants  # :yields: Array of all the OntologyClasses this instance is part of (additionally logically chained through is_a)
-    self.logical_relatives(:direction => :children).keys    
+    self.logical_relatives(:direction => :children).keys
   end
 
   def part_of_children # :yields: Array of the immediate child part_of related OntologyClasses (additionally logically chained through is_a)
-    children = [] 
+    children = []
     part_of_id = ObjectRelationship.find_by_interaction_and_proj_id('part_of', self.proj_id).id
     children += self.secondary_relationships.by_object_relationship(part_of_id).collect{|o| o.ontology_class1}     # get the part of children - that's easy
-    self.is_a_descendants.each do |d| # get all the things that are (is_a) self 
+    self.is_a_descendants.each do |d| # get all the things that are (is_a) self
       children += d.secondary_relationships.by_object_relationship(part_of_id).collect{|o| o.ontology_class1}          # get all their children, and only those children
     end
     children.uniq
-  end                   
+  end
 
   def part_of_parents # :yields: Array of the immediate parent part_of related OntologyClasses (additionally logically chained through is_a)
     parents = []
-    
+
     part_of_id = ObjectRelationship.find_by_interaction_and_proj_id('part_of', self.proj_id).andand.id
     return [] if part_of_id.nil?
 
     parents += self.primary_relationships.by_object_relationship(part_of_id).collect{|o| o.ontology_class2} # get the part of children - that's easy
-    self.is_a_ancestors.each do |d| # get all the things that are (is_a) self 
+    self.is_a_ancestors.each do |d| # get all the things that are (is_a) self
       parents += d.primary_relationships.by_object_relationship(part_of_id).collect{|o| o.ontology_class2}  # get all their children, and only those children
     end
-    parents.uniq 
-  end                      
+    parents.uniq
+  end
 
   def parents_by_relationship(relationship) # :yields: Array of the immediate parent part_of related OntologyClasses (includes those inferred through given is_a relationships)
     # pass a String
     parents = []
     if relationship = ObjectRelationship.find_by_interaction_and_proj_id(relationship, self.proj_id)
     parents += self.primary_relationships.by_object_relationship(relationship.id).collect{|o| o.ontology_class2} # get the part of children - that's easy
-    self.is_a_ancestors.each do |d| # get all the things that are (is_a) self 
+    self.is_a_ancestors.each do |d| # get all the things that are (is_a) self
       parents += d.primary_relationships.by_object_relationship(relationship.id).collect{|o| o.ontology_class2}  # get all their children, and only those children
     end
-    parents.uniq 
+    parents.uniq
     else
       []
     end
@@ -299,10 +294,10 @@ class OntologyClass < ActiveRecord::Base
 
   def children_by_relationship(relationship = '') # :yields: Array of the immediate child part_of related OntologyClasses (includes those inferred through given is_a relationships)
     # pass a String
-    children = [] 
+    children = []
     if relationship = ObjectRelationship.find_by_interaction_and_proj_id(relationship, self.proj_id)
       children += self.secondary_relationships.by_object_relationship(relationship.id).collect{|o| o.ontology_class1}  # get the part of children - that's easy
-      self.is_a_descendants.each do |d| # get all the things that are (is_a) self 
+      self.is_a_descendants.each do |d| # get all the things that are (is_a) self
         children += d.secondary_relationships.by_object_relationship(relationship.id).collect{|o| o.ontology_class1}   # get all their children, and only those children
       end
       children.uniq
@@ -311,18 +306,18 @@ class OntologyClass < ActiveRecord::Base
     end
   end
 
-  # Returns immediately attached OntologyRelationships only (does not recurse nor infer) 
+  # Returns immediately attached OntologyRelationships only (does not recurse nor infer)
   def child_ontology_relationships(options = {}) # :yields: Array of OntologyRelationships
-    opt = { 
+    opt = {
       :relationship_type => 'all'      # or a ObjectRelationships#id
     }.merge!(options.symbolize_keys)
 
     # TODO: modify to sort by first(top) label
-    if opt[:relationship_type] == 'all'    
+    if opt[:relationship_type] == 'all'
       OntologyRelationship.find(:all, :include => [:ontology_class1, :object_relationship, :ontology_class2], :conditions => ['ontology_class2_id = ?', self.id]) # .sort{|x,y| x.ontology_class1.preferred_label.name <=> y.ontology_class1.preferred_label.name}
     else
       OntologyRelationship.find(:all, :include => [:ontology_class1, :object_relationship, :ontology_class2], :conditions => ['ontology_class2_id = ? AND object_relationship_id = ?', self.id, opt[:relationship_type]]) # .sort{|x,y| x.ontology_class1.preferred_label.name <=> y.ontology_class1.preferred_label.name}
-    end 
+    end
   end
 
   # A precursor example of finding all transitive relationships, in this case defaulted for is_a/part_of
@@ -331,15 +326,15 @@ class OntologyClass < ActiveRecord::Base
 
     rel1 = Proj.find(self.proj_id).object_relationships.by_interaction('is_a').first.id
     rel2 = Proj.find(self.proj_id).object_relationships.by_interaction('part_of').first.id
-    return [] if !rel1 || !rel2 
+    return [] if !rel1 || !rel2
 
-    opt = { 
+    opt = {
       :direction => :children,  # [:parents | :children]
       :rel1 => rel1,
-      :rel2 => rel2 
+      :rel2 => rel2
     }.merge!(options.symbolize_keys)
 
-      return nil if ![:parents, :children].include?(opt[:direction]) 
+      return nil if ![:parents, :children].include?(opt[:direction])
 
       first_result = []  # all the part_of
       second_result = [] # part_of through is_a
@@ -347,7 +342,7 @@ class OntologyClass < ActiveRecord::Base
       result = {}
 
       # Find/recurse the isa/part_of tree, this gets us a unique array of pertinent OntologyRelationships
-      # that reflect OntologyClass relationships that are related by one of rel1 or rel2 at each inspection. 
+      # that reflect OntologyClass relationships that are related by one of rel1 or rel2 at each inspection.
       rels = self.related_ontology_relationships(opt.merge(:relationship_type => [opt[:rel1], opt[:rel2]]))
 
       return {} if rels == nil
@@ -359,18 +354,18 @@ class OntologyClass < ActiveRecord::Base
         if r.object_relationship_id == opt[:rel2]
           nuke = true
           if opt[:direction] == :parents
-            first_result.push(r.ontology_class2) 
+            first_result.push(r.ontology_class2)
           else
-            first_result.push(r.ontology_class1) 
+            first_result.push(r.ontology_class1)
           end
         end
-        to_nuke.push(r) if nuke 
+        to_nuke.push(r) if nuke
       end
 
       # !! don't do uniq on first result
 
-      # try to invoke some loop speedup by deleting values we don't need to loop through  
-      rels.delete_if{|r| to_nuke.include?(r)} 
+      # try to invoke some loop speedup by deleting values we don't need to loop through
+      rels.delete_if{|r| to_nuke.include?(r)}
       rels.delete_if{|r| !r.object_relationship_id == opt[:rel1]} # we only need to deal with isas of rel1 now
 
       # for all of the part_of results also get the is_a children (or whatever rel2 -> rel1 relationship is)
@@ -378,17 +373,17 @@ class OntologyClass < ActiveRecord::Base
       rels.each do |rel|
         first_result.uniq.each_with_index do |r,i|
           if opt[:direction] == :parents
-            second_result.insert(-1, rel.ontology_class2) if (rel.ontology_class1 == r) 
+            second_result.insert(-1, rel.ontology_class2) if (rel.ontology_class1 == r)
           else
             second_result.insert(-1, rel.ontology_class1) if (rel.ontology_class2 == r)
           end
         end
-      end 
+      end
 
       second_result.uniq! # don't imply redundancies from hitting an is_a twice (is this right?! - gives "correct" result AFAIKT)
 
       (first_result + second_result).each do |r|
-        result.merge!(r => (!result.keys.include?(r) ? false : true)) 
+        result.merge!(r => (!result.keys.include?(r) ? false : true))
       end
 
     result
@@ -396,14 +391,14 @@ class OntologyClass < ActiveRecord::Base
 
   def related_ontology_relationships(options = {}) # :yields: An Array of OntologyRelationships
     # Recurses based on provided :relationship_types to return related OntologyRelationships. Does *NOT* infer.
-    # return [] at depths of > 50, this could be incremented or the check changed to properly detect recursion 
-   
-    opt = {                             
+    # return [] at depths of > 50, this could be incremented or the check changed to properly detect recursion
+
+    opt = {
       :relationship_type => 'all',      # 'all' or an Array of [ObjecRelationship#id, ObjecRelationship#id2 ... ]
       :max_depth => 999,                # limit to recursion
       :direction => :children,          # OR :parents
-      :result => [],                    # internal 
-      :depth_tracker => 0               # internal counter, do NOT initialize               
+      :result => [],                    # internal
+      :depth_tracker => 0               # internal counter, do NOT initialize
     }.merge!(options.symbolize_keys)
     os = []
 
@@ -415,7 +410,7 @@ class OntologyClass < ActiveRecord::Base
       cond = 'ontology_class1_id'
     end
 
-    if opt[:depth_tracker] < opt[:max_depth] 
+    if opt[:depth_tracker] < opt[:max_depth]
       opt[:depth_tracker] = opt[:depth_tracker] + 1
       if (opt[:relationship_type].to_s == 'all')
         os = OntologyRelationship.find(:all, :include => [:ontology_class1, :object_relationship, :ontology_class2], :conditions => "#{cond} = #{self.id}")
@@ -446,12 +441,12 @@ class OntologyClass < ActiveRecord::Base
     result += OntologyClass.find(:all, :conditions => ["(labels.name = ? OR ontology_classes.id = ? OR ontology_classes.xref = ?) AND ontology_classes.proj_id = ?", value, value, value, params[:proj_id] ], :limit => 1, :include => [:labels] )
     result += OntologyClass.find(:all, :conditions => ["(labels.name LIKE ?) AND ontology_classes.proj_id = ?", "%#{value}%", params[:proj_id] ], :include => [:labels], :order => 'length(labels.name)' )
     result += OntologyClass.find(:all, :conditions => ["(definition LIKE ?) AND ontology_classes.proj_id = ?", "%#{value}%", params[:proj_id] ],  :include => [:labels] )
-    
+
     result.uniq
   end
 
   # returns a String in the form of a flat js hash
-  def js_flat_hash(options = {}) # :yield: String 
+  def js_flat_hash(options = {}) # :yield: String
     @opt = {
       :max_depth => 999,
       :depth => 0,
@@ -459,10 +454,10 @@ class OntologyClass < ActiveRecord::Base
       :relationship_type => 'all' # or an Isa#id
     }.merge!(options.symbolize_keys)
     @opt[:depth] = @opt[:depth] + 1
-    if @opt[:depth] < @opt[:max_depth]          
+    if @opt[:depth] < @opt[:max_depth]
       self.child_ontology_relationships(@opt).each do |n|
         @opt[:children] << n
-        n.ontology_class1.js_flat_hash(@opt)   
+        n.ontology_class1.js_flat_hash(@opt)
       end
     end
     return @opt[:children]
@@ -474,22 +469,22 @@ class OntologyClass < ActiveRecord::Base
       :max_depth => 999,
       :depth => 0,
       :string => '',
-      :key_is_id => true, 
+      :key_is_id => true,
       :relationship_type => 'all' # or an Isa#id
     }.merge!(options.symbolize_keys)
     @opt[:depth] = @opt[:depth] + 1
-    if @opt[:key_is_id]    
+    if @opt[:key_is_id]
       @n = self.id
-    else 
+    else
       @n = self.display_name.gsub(/[^a-zA-Z]/, "_") # these all have to be javascript variables, and then can't be used to round trip search, for things like "-"
     end
 
-    if @opt[:depth] < @opt[:max_depth]          
-      children = self.child_ontology_relationships(@opt) 
+    if @opt[:depth] < @opt[:max_depth]
+      children = self.child_ontology_relationships(@opt)
 
       if children.size == 0
-        @opt[:string] << "#{@n}," # fake size this for the protovis stuff like "#{@n}:10," 
-        return @opt[:string] 
+        @opt[:string] << "#{@n}," # fake size this for the protovis stuff like "#{@n}:10,"
+        return @opt[:string]
       else
         if @opt[:depth] + 1 < @opt[:max_depth]
           @opt[:string] << "#{@n}:{"
@@ -499,20 +494,20 @@ class OntologyClass < ActiveRecord::Base
       end
 
       children.each do |n|
-        n.ontology_class1.js_hash(@opt)   
+        n.ontology_class1.js_hash(@opt)
       end
 
       if @opt[:depth] + 1 < @opt[:max_depth]
         if children.size > 0
           @opt[:string] << "},"
-        else 
+        else
           @opt[:string] << "}"
         end
       end
     end
 
-    # hack, to deal with the extra "," in the "join" 
-    return "{#{@opt[:string]}}".gsub(/\,\}/, "}") 
+    # hack, to deal with the extra "," in the "join"
+    return "{#{@opt[:string]}}".gsub(/\,\}/, "}")
   end
 
   def js_hash2(options = {})
@@ -520,45 +515,45 @@ class OntologyClass < ActiveRecord::Base
       :max_depth => 999,
       :depth => 0,
       :string => '',
-      :key_is_id => true, 
+      :key_is_id => true,
       :relationship_type => 'all' # or an Isa#id
     }.merge!(options.symbolize_keys)
     @opt[:depth] = @opt[:depth] + 1
 
-    if @opt[:key_is_id]    
+    if @opt[:key_is_id]
       @n = self.id
-    else 
+    else
       @n = self.display_name.gsub(/[^a-zA-Z]/, "_") # these all have to be JS variables, and then can't be used to round trip search, for things like "-"
     end
 
-    if @opt[:depth] < @opt[:max_depth]          
-      children = self.child_ontology_relationships(@opt) 
+    if @opt[:depth] < @opt[:max_depth]
+      children = self.child_ontology_relationships(@opt)
 
       if children.size == 0
         @opt[:string] << "#{@n}:10,"
-        return @opt[:string] 
+        return @opt[:string]
       else
         if @opt[:depth] + 1 < @opt[:max_depth]
           @opt[:string] << "#{@n}:{"
         else
-          @opt[:string] << "#{@n}:10," # this is a fake size 
+          @opt[:string] << "#{@n}:10," # this is a fake size
         end
       end
 
       children.each do |n|
-        n.ontology_class1.js_hash2(@opt)   
+        n.ontology_class1.js_hash2(@opt)
       end
 
       if @opt[:depth] + 1 < @opt[:max_depth]
         if children.size > 0
           @opt[:string] << "},"
-        else 
+        else
           @opt[:string] << "}"
         end
       end
     end
 
-    # hack, to deal with the extra "," in the "join" 
+    # hack, to deal with the extra "," in the "join"
     return "{#{@opt[:string]}}".gsub(/\,\}/, "}").gsub(/\,/, "")
   end
 
@@ -568,9 +563,9 @@ class OntologyClass < ActiveRecord::Base
       :proj_id => nil,
       :prefix => nil,
       :initial_value => nil,
-      :padding => 7, 
+      :padding => 7,
       :ontology_classes => [] # OntologyClasses to be numbered
-    }.merge!(options.symbolize_keys)  
+    }.merge!(options.symbolize_keys)
     return false if !opt[:proj_id] || !opt[:prefix] || opt[:ontology_classes].size == 0
 
     opt[:initial_value] = OntologyClass.largest_xref_identifier(opt) + 1
@@ -579,34 +574,34 @@ class OntologyClass < ActiveRecord::Base
 
     i = opt[:initial_value].to_i
 
-    OntologyClass.transaction do 
+    OntologyClass.transaction do
       begin
         opt[:ontology_classes].each do |oc|
           if oc.xref.blank?
             if opt[:use_mx_ids]
-              oc.xref = "#{opt[:prefix]}:#{oc.id.to_s}" 
-            else 
-              oc.xref = "#{opt[:prefix]}:#{i.to_s.rjust(opt[:padding], "0")}" 
-              while !oc.valid? 
-                i += 1 
-                oc.xref = "#{opt[:prefix]}:#{i.to_s.rjust(opt[:padding], "0")}" 
-              end 
-            end    
+              oc.xref = "#{opt[:prefix]}:#{oc.id.to_s}"
+            else
+              oc.xref = "#{opt[:prefix]}:#{i.to_s.rjust(opt[:padding], "0")}"
+              while !oc.valid?
+                i += 1
+                oc.xref = "#{opt[:prefix]}:#{i.to_s.rjust(opt[:padding], "0")}"
+              end
+            end
             oc.save
           end
-        end 
+        end
       rescue ActiveRecord::RecordInvalid => e
-        raise e 
+        raise e
       end
     end
-    true 
+    true
   end
 
   # returns the largest integer in a xref of format prefix:integer or -1 if no ontology_classes with prefix exist
   def self.largest_xref_identifier(options = {})
     return false if options[:proj_id].nil?
     candidates = Proj.find(options[:proj_id]).ontology_classes.with_populated_xref.with_xref_namespace(options[:prefix]).ordered_by_xref
-    candidates.size > 0 ? candidates.last.xref.split(":")[1].to_i : -1 
+    candidates.size > 0 ? candidates.last.xref.split(":")[1].to_i : -1
   end
 
 
@@ -614,10 +609,10 @@ class OntologyClass < ActiveRecord::Base
   def self.strip_candidacy_tags(options = {})
     opt = {
       :ontology_classes => [],
-      :proj_id => nil 
-    }.merge!(options.symbolize_keys)  
-    return false if opt[:proj_id] == nil 
-    proj = Proj.find(opt[:proj_id]) 
+      :proj_id => nil
+    }.merge!(options.symbolize_keys)
+    return false if opt[:proj_id] == nil
+    proj = Proj.find(opt[:proj_id])
     return false if proj.ontology_inclusion_keyword.blank?
     begin
       OntologyClass.transaction do
@@ -723,10 +718,10 @@ class OntologyClass < ActiveRecord::Base
   #end
 
   # maintainence
-  
+
   def self.update_all_sensu_positions(proj_id)
     begin
-      OntologyClass.transaction do 
+      OntologyClass.transaction do
         Proj.find(proj_id).ontology_classes.each do |oc|
           puts "updating #{oc.id}"
           oc.update_sensu_positions
@@ -737,14 +732,22 @@ class OntologyClass < ActiveRecord::Base
     end
   end
 
-  def update_sensu_positions 
+  def update_sensu_positions
     sensus.ordered_by_position.each_with_index do |s, i|
       puts "#{s.id} #{i}"
-      s.update_attributes(:position => i) 
+      s.update_attributes(:position => i)
     end
   end
 
   # TODO: is this used? deprecate?
+  def illustration_IP_votes
+    if (votes = read_attribute(:illustration_IP_votes))
+      votes
+    else
+      write_attribute(:illustration_IP_votes, [])
+      illustration_IP_votes
+    end
+  end
   def illustration_IP_vote=(value)
     # validate and/or Raise
     self.illustration_IP_votes = [] if self.illustration_IP_votes == nil
@@ -794,15 +797,15 @@ class OntologyClass < ActiveRecord::Base
     h
   end
 
-  def self.all_uris # :yields Array of URIs for all 
-    # TODO (fast)  
+  def self.all_uris # :yields Array of URIs for all
+    # TODO (fast)
   end
 
   protected
 
   def ensure_that_labels_contains_obo_label
     if !self.obo_label_id.blank? && !self.labels.map(&:id).include?(self.obo_label_id)
-      self.sensus << Sensu.create!(:label => Label.find(self.obo_label_id), :ontology_class => self, :ref_id => self.written_by_ref_id) 
+      self.sensus << Sensu.create!(:label => Label.find(self.obo_label_id), :ontology_class => self, :ref_id => self.written_by_ref_id)
     end
     true
   end

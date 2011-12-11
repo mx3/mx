@@ -4,9 +4,9 @@ class ContentType::TaxonNameDeprecatedTypeInfoContent < ContentType
     'Contains the deprecated type info attached to the Taxon Name model (you should be using specimens!)'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/taxon_name_deprecated_type_info"
+    "/otus/page/taxon_name_deprecated_type_info"
   end
 
   def self.display_name
@@ -18,10 +18,7 @@ class ContentType::TaxonNameDeprecatedTypeInfoContent < ContentType
   end
 
   def renders_as_text?
-    false 
+    false
   end
 
 end
-
-
-

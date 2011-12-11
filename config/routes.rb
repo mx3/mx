@@ -75,7 +75,7 @@ Edge::Application.routes.draw do
     get new_from_geocoder
     get new_from_gmap
     post batch_verify
-  } 
+  }
   },
 
   'chr_groups' => {
@@ -93,7 +93,7 @@ Edge::Application.routes.draw do
     collections: %w{
     get chrs_without_groups
     post clear_default
-    post reset_position 
+    post reset_position
   }
   },
 
@@ -167,7 +167,7 @@ Edge::Application.routes.draw do
   'codings' => {
     members: %w{},
     collections: %w{
-    get owl_export 
+    get owl_export
   }
   },
 
@@ -204,9 +204,9 @@ Edge::Application.routes.draw do
     get show_figures
   },
     collections: %w{
-    get sync	
+    get sync
     post publish_all
-    post sync	  
+    post sync
   }
   },
 
@@ -268,14 +268,14 @@ Edge::Application.routes.draw do
     post draw_save
     get draw
     post update_marker
-    get test 
+    get test
   },
     collections: %w{
     post find_images
     get create_al_content_for_otu
-    get list_by_scope 
+    get list_by_scope
     get move
-    get illustrate 
+    get illustrate
     get annotate
     get show_zoom
     get sort_figure_markers
@@ -348,7 +348,7 @@ Edge::Application.routes.draw do
 
   'keywords' => {
     members: %w{
-    get show_tags   
+    get show_tags
   },
     collections: %w{}
   },
@@ -391,7 +391,7 @@ Edge::Application.routes.draw do
  'lots' => {
     members: %w{
     get gs
-    post clone_to_specimen 
+    post clone_to_specimen
     post destroy_identifier
     post divide
     post extract_specimen
@@ -479,7 +479,7 @@ Edge::Application.routes.draw do
   'news' => {
     members: %w{},
     collections: %w{
-    get list_admin 
+    get list_admin
   }
   },
 
@@ -554,7 +554,7 @@ Edge::Application.routes.draw do
   },
 
   'otus' => {
-    members: %w{ 
+    members: %w{
     get	_refresh_compare_content
     get _update_codings
     get _update_compare_content
@@ -597,7 +597,7 @@ Edge::Application.routes.draw do
   post batch_create
   post batch_verify
   post update_content_from_matrix_sync
-  post update_edit_page 
+  post update_edit_page
   }
   },
 
@@ -609,9 +609,9 @@ Edge::Application.routes.draw do
     get _batch_add_extracts_to_batch_via_confidence
     get _batch_add_extracts_to_batch_via_tags
     get batch_pcr
-    get list_by_scope 
+    get list_by_scope
     get list_in_range
-    post _add_extract_to_batch  
+    post _add_extract_to_batch
     post _remove_extract_from_batch
     post _worksheet
     post list_in_range
@@ -627,7 +627,7 @@ Edge::Application.routes.draw do
     members: %w{
   },
     collections: %w{
-    get edit 
+    get edit
     get new_concrete_phenotype
     get new_differentia
     get new_term
@@ -659,7 +659,7 @@ Edge::Application.routes.draw do
   'public_contents' => {
     members: %w{},
     collections: %w{
-    post unpublish  
+    post unpublish
   }
   },
 
@@ -741,23 +741,23 @@ Edge::Application.routes.draw do
     get accordion
     get show_seqs
     get test
-    post clone  
+    post clone
     post destroy_determination
     post destroy_identifier
     post destroy_type_assignment
   },
   collections: %w{
    get batch_load
-   get batch_verify_or_create  
+   get batch_verify_or_create
    get group
    get group_result_update
-   get identifier_search  
+   get identifier_search
    get list_all
    get list_by_creator
    get list_by_current_user
-   get list_by_id  
+   get list_by_id
    get quick_new
-   post batch_verify_or_create  
+   post batch_verify_or_create
    post quick_create
    post search_by_identifier
   }
@@ -766,7 +766,7 @@ Edge::Application.routes.draw do
   'standard_view_groups' => {
     members: %w{
    post add_standard_view
-   post remove_standard_view 
+   post remove_standard_view
   },
   collections: %w{}
   },
@@ -816,8 +816,8 @@ Edge::Application.routes.draw do
     get search_list
     get visibility
     post batch_create
-    post rebuild_cached_display_name 
-    post toggle_public  
+    post rebuild_cached_display_name
+    post toggle_public
   }
   },
 
@@ -828,7 +828,7 @@ Edge::Application.routes.draw do
     get show_nested_set
     get show_phylowidget
     get test
-    get test2 
+    get test2
   },
     collections: %w{
   }
@@ -860,7 +860,7 @@ Edge::Application.routes.draw do
     get conditional
   },
   },
-  
+
   'blog' => {
     members: %w{},
     collections: %w{
@@ -873,13 +873,13 @@ Edge::Application.routes.draw do
     collections: %w{
   },
   },
- 
+
   'claves' => {
     members: %w{},
     collections: %w{
   },
   },
- 
+
   'images' => {
     members: %w{},
     collections: %w{
@@ -893,7 +893,7 @@ Edge::Application.routes.draw do
     get show_via_name
   },
   },
- 
+
   'multikey' => {
     members: %w{
     get _close_popup_figs
@@ -924,7 +924,7 @@ Edge::Application.routes.draw do
     collections: %w{
   },
   },
- 
+
 
   'multikey_simple' => {
     members: %w{
@@ -948,7 +948,7 @@ Edge::Application.routes.draw do
     collections: %w{
   },
   },
- 
+
 
   'mxes' => {
     members: %w{
@@ -972,13 +972,13 @@ Edge::Application.routes.draw do
     collections: %w{
   },
   },
- 
+
   'news' => {
     members: %w{},
     collections: %w{
   },
   },
- 
+
   'ontology_classes' => {
     members: %w{},
     collections: %w{
@@ -986,7 +986,7 @@ Edge::Application.routes.draw do
    get random
    get show_expanded
   },
-  
+
   },
 
  'public_contents' => {
@@ -1005,7 +1005,7 @@ Edge::Application.routes.draw do
     get list_simple
   },
   },
-  
+
  'repostories' => {
     members: %w{},
     collections: %w{
@@ -1018,7 +1018,7 @@ Edge::Application.routes.draw do
     get refs
   },
   },
- 
+
   'taxon_names' => {
     members: %w{},
     collections: %w{
@@ -1046,35 +1046,35 @@ Edge::Application.routes.draw do
     mx_resources[r].keys.each do |c|
       scope :projects, :path => "/projects/:proj_id#{r == :public ? "/public" : ''}" do
 
-        resources c.to_sym, 
+        resources c.to_sym,
           :controller => (r == :public ? "public/#{c}" : c.to_sym),
           :except => (r == :public ? [:create, :destroy, :edit, :new, :update] : %w{} ) do
 
-          # CAUTION! The following collection and member blocks 
+          # CAUTION! The following collection and member blocks
           # define actinos available to all public/private resources.
           collection do
             get 'list'
-            post "auto_complete_for_#{c}" 
+            get "auto_complete_for_#{c}"
           end
-         
+
           collection do
-            mx_resources[r][c][:collections].each_slice(2) do |rt| 
-              next if rt.size == 0 
+            mx_resources[r][c][:collections].each_slice(2) do |rt|
+              next if rt.size == 0
               method,action = rt.to_a
               case method
               when 'get'
-                get action 
+                get action
               when 'post'
-                post action 
+                post action
               else
                 raise
               end
             end
           end
 
-          member do 
+          member do
             mx_resources[r][c][:members].each_slice(2) do |rt|
-              next if rt.size == 0 
+              next if rt.size == 0
               method,action = rt.to_a
               case method
               when 'get'
@@ -1089,7 +1089,7 @@ Edge::Application.routes.draw do
 
         end
       end
-    end 
+    end
   end
 
 
@@ -1110,7 +1110,7 @@ Edge::Application.routes.draw do
 
   resource :admin, :controller => 'admin', :only => [] do
     collection do
-      get :index 
+      get :index
       post :create_proj
       get :debug
       post :destroy_image
@@ -1126,7 +1126,7 @@ Edge::Application.routes.draw do
   end
 
   resources 'association_supports', :controller => 'associations_supports', :only => [] do
-    collection do 
+    collection do
       post :move
       post :new_ref
       post :new_specimen
@@ -1136,14 +1136,14 @@ Edge::Application.routes.draw do
 
   # TODO: remove from above
   resources 'people' do
-    collection do 
+    collection do
       get :preferences
     end
   end
 
   resource :shared, :controller => 'shared', :only => [] do
     collection do
-      get :show_or_edit
+      get  :show_or_edit
     end
   end
 
@@ -1167,7 +1167,7 @@ Edge::Application.routes.draw do
      get :visualize_dot
      post :analyze
      post :proofer_batch_create
-    end 
+    end
   end
 
   resource 'public_ontology', :controller => 'public/ontology', :only => [] do
@@ -1188,7 +1188,7 @@ Edge::Application.routes.draw do
 
   # why can't we include :show, :index in :only?! (tests fail)
   resource :multikey, :controller => 'multikey', :path => '/projects/:proj_id/multikey', :only => [] do
-    collection do 
+    collection do
       get :index
       get '_close_popup_figs'
       get '_cycle_elim_chr_txt_choices'
@@ -1223,10 +1223,10 @@ Edge::Application.routes.draw do
 
   # NON /project/proj_id specified routes (?!)
 
-  # TODO: merge 
+  # TODO: merge
   resources :projs do
      collection do
-      get :list 
+      get :list
       get :eol_dump
       get :my_data
       get :summary
@@ -1237,19 +1237,19 @@ Edge::Application.routes.draw do
 
   resources :taxon_names, :only => [] do
      collection do
-      post 'auto_complete_for_taxon_names' 
+      post 'auto_complete_for_taxon_names'
     end
   end
 
   resources :geogs, :only => [] do
      collection do
-      post 'auto_complete_for_geogs' 
+      post 'auto_complete_for_geogs'
     end
   end
 
   resources :news, :only => [] do
      collection do
-      post 'list_admin' 
+      post 'list_admin'
     end
   end
 
@@ -1261,13 +1261,13 @@ Edge::Application.routes.draw do
       get 'auto_complete_for_geog_types'
     end
   end
- 
+
   resources :image_views do
    collection do
     get 'auto_complete_for_image_views'
     get 'list'
    end
-  end 
+  end
 
 
   # resource :ontology, :path => '/api'
@@ -1291,6 +1291,7 @@ Edge::Application.routes.draw do
   #  api.resources :ontology
   #  api.resources :ref
   # end
+
 
  #  match "*anything", :to => "application#index", :unresolvable => "true"
 end

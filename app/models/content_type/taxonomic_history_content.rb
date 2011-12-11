@@ -4,9 +4,9 @@ class ContentType::TaxonomicHistoryContent < ContentType
     'A header including the taxonic history for the taxonomic name attached to this OTU.'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/taxonomic_history"
+    "/otus/page/taxonomic_history"
   end
 
   def self.display_name
@@ -22,6 +22,3 @@ class ContentType::TaxonomicHistoryContent < ContentType
   end
 
 end
-
-
-

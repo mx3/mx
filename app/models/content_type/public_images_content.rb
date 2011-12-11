@@ -4,9 +4,9 @@ class ContentType::PublicImagesContent < ContentType
     'All the images attached to this OTU that are checked as public.'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/public_images"
+    "/otus/page/public_images"
   end
 
   def self.display_name
@@ -20,7 +20,4 @@ class ContentType::PublicImagesContent < ContentType
   def display_name
     "Public images"
   end
-
-
 end
-

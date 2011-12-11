@@ -1,12 +1,12 @@
 class ContentType::TaxonomicCatalogContent < ContentType
 
   def self.description
-    'A taxonomic history formatted catalog-style for print. Does not display a header.' 
+    'A taxonomic history formatted catalog-style for print. Does not display a header.'
   end
 
-  # the partial to render, required for custom types 
+  # the partial to render, required for custom types
   def partial
-    "/otu/page/taxonomic_catalog"
+    "/otus/page/taxonomic_catalog"
   end
 
   def self.display_name
@@ -26,6 +26,3 @@ class ContentType::TaxonomicCatalogContent < ContentType
   end
 
 end
-
-
-

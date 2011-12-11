@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_site                # forks to a public or private mode, calling the authentications if private
   around_filter :ffx_xhr_redirect_hack
   after_filter  :add_flash_to_json_header
-#  before_filter :set_charset
+
   layout :layout_for_xhr
 
   [:notice, :warning, :error].each do |type|
@@ -47,6 +47,7 @@ class ApplicationController < ActionController::Base
 
   # built in Rails-ness
   def method_missing(methodname, *args)
+    Rails.logger.error "Method missing: #{methodname}"
     @methodname = methodname
     @args = args
     public_route_failure and return
