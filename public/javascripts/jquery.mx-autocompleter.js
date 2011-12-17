@@ -41,7 +41,7 @@
          *  otu[id] as a response value.
          * If you want a controller[:method] combination in the response do
          *   params[:method] => obj.id in the autocomplete response.
-         * There is no name parameter in the visible picker, the name is set in the hidden field set here. 
+         * There is no name parameter in the visible picker, the name is set in the hidden field set here.
          */
         .bind( "autocompleteselect", function( event, ui ) {
           var selected = ui.item;
@@ -49,7 +49,7 @@
 
           if (response_values) {
             $.each(response_values, function(key, value) {
-              var input = $form.find("input[name='"+key+"']").remove(); 
+              var input = $form.find("input[name='"+key+"']").remove();
               $('<input>').attr({
                   type: 'hidden',
                   name: key,
@@ -73,7 +73,7 @@
         } else  {
           this.close();
         }
-        this.pending--;
+        this.pending -= 1;
         if (this.pending === 0) {
           this.element.removeClass("ui-autocomplete-loading");
         }

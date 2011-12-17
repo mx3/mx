@@ -17,7 +17,7 @@ function changeDate(y,m,d) {
 
 <br/><br/>
 
-<table style="margin-left: 7.5%;"> 
+<table style="margin-left: 7.5%;">
   <tr>
     <td class="lbl4"> taken on (originally)</td>
     <td><label for="image_taken_on_year" class="lbl4">year</label></td>
@@ -29,17 +29,21 @@ function changeDate(y,m,d) {
     <td><a href="javascript:changeDate(<%= "#{Date.today.year}, #{Date.today.month}, #{Date.today.day}" %>)">Today!</a></td>
   </tr>
 </table>
- 
+
 <div class="fr"> <label for="image_technique" class="lbl4">Technique</label>
   <span class="fld">  <%= select "image", "technique", Image::TECHNIQUES, :include_blank => true %></span>
 </div>
 
 <div class="fr"> <label for="image_maker" class="lbl4">Creator/photographer</label>
-  <span class="fld"><%= text_field_with_auto_complete "image", "maker" %></span>
+  <span class="fld">
+    <input type='text' data-mx-autocomplete-url="<%= auto_complete_for_images_images_path(:field=>:maker) %>"></input>
+  </span>
 </div>
 
 <div class="fr"> <label for="image_copyright_holder" class="lbl4">Copyright holder</label>
-  <span class="fld"><%= text_field_with_auto_complete "image", "copyright_holder" %></span>
+  <span class="fld">
+    <input type='text' data-mx-autocomplete-url="<%= auto_complete_for_images_images_path(:field=>:copyright_holder) %>"></input>
+  </span>
 </div>
 
 <div class="fr"> <label for="image_license" class="lbl4">License</label>
@@ -68,4 +72,3 @@ function changeDate(y,m,d) {
 
 <br style="clear: both;"/>
 <!--[eoform:image]-->
-

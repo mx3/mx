@@ -8,7 +8,7 @@ module HasStandardFields
 
   module ClassMethods
     def has_standard_fields
-      return true if !self.table_exists? # don't run this on migrations   
+      return true if !self.table_exists? # don't run this on migrations
       class_eval <<-EOV
           # ASSOCIATIONS
 
@@ -46,14 +46,14 @@ module HasStandardFields
 
           def set_proj
             # modified below to not set proj_id when proj not set
-            self[:proj_id] = $proj_id if self.respond_to?(:proj_id) 
+            self[:proj_id] = $proj_id if self.respond_to?(:proj_id)
           end
 
           def set_updator
             self[:updator_id] = $person_id if self.respond_to?(:updator_id) && (self.new_record? ? self.updator_id.blank? : true)
           end
 
-          #== PROJECT SECURITY CALLBACKS 
+          #== PROJECT SECURITY CALLBACKS
           # security measure to prevent people from altering data in other projects.
           # the user has already been authenticated as a member of $proj_id, so we just check the id on the object
           before_save :check_proj
@@ -61,7 +61,7 @@ module HasStandardFields
 
           def check_proj
             if self.respond_to?(:proj_id) && !$merge == true
-               unless (self.proj_id == $proj_id) or ((self.proj_id == nil) and (Person.find($person_id).is_admin == true)) 
+               unless (self.proj_id == $proj_id) or ((self.proj_id == nil) and (Person.find($person_id).is_admin == true))
                  raise "Not owned by current project: " + self.class.name + "#" + self.id.to_s
                end
             end

@@ -3,8 +3,8 @@ Edge::Application.routes.draw do
   root :to => "projs#index"
 
   # matrix/coding routes
- match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id/:chr_state_id", :controller => 'mxes', :action => "fast_code" , :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
- match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id", :controller => 'mxes', :action => "fast_code", :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/}
+  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id/:chr_state_id", :controller => 'mxes', :action => "fast_code" , :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id", :controller => 'mxes', :action => "fast_code", :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/}
 
 
   # All non-RESTful routes that are unique to a Resource are defined here.
@@ -327,7 +327,7 @@ Edge::Application.routes.draw do
    get show_image_descriptions
   },
   collections: %w{
-   get auto_complete_for_image_maker
+   get auto_complete_for_images
    get browse_figure_markers
    get list_by_id
    get search_list
@@ -460,8 +460,8 @@ Edge::Application.routes.draw do
     post _set_overlay_preference
     post add_chr
     post add_otu
-    post clone    
-    post code  
+    post clone
+    post code
     post remove_chr
     post remove_otu
     post reset_chr_positions
