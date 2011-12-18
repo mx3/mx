@@ -52,13 +52,7 @@ Edge::Application.routes.draw do
     get clone
   },
     collections: %w{
-    get auto_complete_for_ce
-    get auto_complete_for_ce_collectors
-    get auto_complete_for_ce_locality
-    get auto_complete_for_ce_macro_habitat
-    get auto_complete_for_ce_micro_habitat
-    get auto_complete_for_ce_mthd
-    get auto_complete_for_ce_verbatim_method
+    get auto_complete_for_ces
     get batch_create
     get batch_geocode
     get batch_load

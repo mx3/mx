@@ -33,3 +33,10 @@ Image.blueprint do
   file_name { "file_#{sn}.png" }
   file_md5 { UUID.create_v4.to_s }
 end
+
+Ce.blueprint do
+  proj { Proj.make! }
+  creator { Person.make! }
+  updator { object.creator }
+  is_public { true }
+end

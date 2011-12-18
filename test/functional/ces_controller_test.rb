@@ -18,7 +18,7 @@ class CesControllerTest < ActionController::TestCase
     @opts =  {:controller => "ces", :proj_id => "1"}
   end
 
-  # just testing loads 
+  # just testing loads
   def test_index
     get :list, @opts
     assert_response(:success)
@@ -47,4 +47,26 @@ class CesControllerTest < ActionController::TestCase
     assert_response(:redirect)
   end
 
+  %w(collectors locality mthd verbatim_method macro_habitat micro_habitat).each do |field|
+    test "autocompleter for ces on #{field}" do
+      ces = [ Ce.make!(:proj => @proj, field => 'foo'),
+              Ce.make!(:proj => @proj, field => 'foobar'),
+              Ce.make!(:proj => @proj, field => 'bar')
+            ]
+      get :auto_complete_for_ces, :proj_id => @proj.id, :field => field
+      assert_response :bad_request
+
+      get :auto_complete_for_ces, :proj_id => @proj.id, :field => field, :term=>'foo'
+      assert_response :success
+      assert_equal 2, ActiveSupport::JSON.decode(@response.body).size
+
+      get :auto_complete_for_ces, :proj_id => @proj.id, :field => field, :term=>'bar'
+      assert_response :success
+      assert_equal 2, ActiveSupport::JSON.decode(@response.body).size
+
+      get :auto_complete_for_ces, :proj_id => @proj.id, :field => field, :term=>'foobar'
+      assert_response :success
+      assert_equal 1, ActiveSupport::JSON.decode(@response.body).size
+    end
+  end
 end

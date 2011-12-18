@@ -7,12 +7,12 @@ class Ce < ActiveRecord::Base
 
   # CSS styles are in /class/ce.css and are listed by key
   LABEL_PRINT_STYLES = {
-    :ce_lbl_insect_compressed => "4 pt insect label, compressed", 
-    :ce_lbl_insect => "4 pt insect label", 
-    :ce_lbl_4_dram_ETOH => "4 dram ETOH",  
+    :ce_lbl_insect_compressed => "4 pt insect label, compressed",
+    :ce_lbl_insect => "4 pt insect label",
+    :ce_lbl_4_dram_ETOH => "4 dram ETOH",
   }
 
-  include ActionView::Helpers::TextHelper 
+  include ActionView::Helpers::TextHelper
   include ModelExtensions::Taggable
   include ModelExtensions::Figurable
   include ModelExtensions::DefaultNamedScopes
@@ -20,7 +20,7 @@ class Ce < ActiveRecord::Base
   include ModelExtensions::Identifiable
 
   has_standard_fields
-  
+
   belongs_to :geog
   belongs_to :namespace
   belongs_to :trip_namespace, :class_name => 'Namespace', :foreign_key => 'trip_namespace_id'
@@ -30,30 +30,30 @@ class Ce < ActiveRecord::Base
   has_many :public_tags, :as => :addressable, :class_name => "Tag", :include => [:keyword, :ref], :order => 'refs.cached_display_name ASC', :conditions => 'keywords.is_public = true'
   has_many :lots, :dependent => :nullify
   has_many :specimens, :dependent => :nullify
-  has_many :ipt_records, :dependent => :nullify 
+  has_many :ipt_records, :dependent => :nullify
 
   scope :to_print, {:conditions => "ces.num_to_print > 0"}
   scope :with_verbatim_label, {:conditions => 'length(verbatim_label) > 0'}
   scope :without_geog, {:conditions => 'geog_id is null'}
   scope :without_lat_long, {:conditions => 'latitude is null and longitude is null'}
   scope :mappable, {:conditions => 'latitude is not null and longitude is not null'}
-  scope :with_locality_accuracy_confidence_id, lambda {|*args| {:conditions => ["locality_accuracy_confidence_id = ?",  (args.first ? args.first : -1)]}} 
-  scope :with_macro_habitat, lambda {|*args| {:conditions => ["macro_habitat = ?",  (args.first ? args.first : -1)]}} 
-  scope :with_trip_namespace_id, lambda {|*args| {:conditions => ["trip_namespace_id = ?",  (args.first ? args.first : -1)]}} 
-  scope :with_locality_like, lambda {|*args| {:conditions => ["locality like ?",  (args.first ? "%#{args.first}%" : -1)]}} 
-  scope :excluding_id, lambda {|*args| {:conditions => ["ces.id != ?",  (args.first ? args.first : -1)]}} 
-  
+  scope :with_locality_accuracy_confidence_id, lambda {|*args| {:conditions => ["locality_accuracy_confidence_id = ?",  (args.first ? args.first : -1)]}}
+  scope :with_macro_habitat, lambda {|*args| {:conditions => ["macro_habitat = ?",  (args.first ? args.first : -1)]}}
+  scope :with_trip_namespace_id, lambda {|*args| {:conditions => ["trip_namespace_id = ?",  (args.first ? args.first : -1)]}}
+  scope :with_locality_like, lambda {|*args| {:conditions => ["locality like ?",  (args.first ? "%#{args.first}%" : -1)]}}
+  scope :excluding_id, lambda {|*args| {:conditions => ["ces.id != ?",  (args.first ? args.first : -1)]}}
+
   validates_numericality_of :latitude, :longitude, :allow_nil => true
   validates_format_of :time_start, :with => /\d\d:\d\d/, :allow_nil => true, :allow_blank => false
   validates_format_of :time_end,   :with => /\d\d:\d\d/, :allow_nil => true, :allow_blank => false
 
   before_save :validate_md5_uniqueness_for_non_nil_verbatim_labels
-  
+
   def validate_md5_uniqueness_for_non_nil_verbatim_labels
     # reset the MD5
     if self.verbatim_label.blank?
       return true # always allow blank verbatim labels
-    else 
+    else
       data = Ce.generate_md5(self.verbatim_label)
     end
 
@@ -64,11 +64,11 @@ class Ce < ActiveRecord::Base
     end
 
     if ce # we've found a duplicate verbatim label
-      errors.add(:verbatim_label, " is already present in the database") 
+      errors.add(:verbatim_label, " is already present in the database")
       return false
-    end 
- 
-    self.verbatim_label_md5 = data 
+    end
+
+    self.verbatim_label_md5 = data
     true
   end
 
@@ -76,7 +76,7 @@ class Ce < ActiveRecord::Base
     return nil if text.blank?
     Digest::MD5.hexdigest(text.gsub(/\s*/, '').downcase)
   end
- 
+
   def update_md5
     self.verbatim_label_md5 = Ce.generate_md5(self.verbatim_label)
     self.save
@@ -88,7 +88,7 @@ class Ce < ActiveRecord::Base
 
   def display_name(options = {}) # :yields: String
     opt = {
-      :type => :line 
+      :type => :line
     }.merge!(options.symbolize_keys)
     s = ''
 
@@ -98,8 +98,8 @@ class Ce < ActiveRecord::Base
       if s.blank?
         s = self.display_name(:type => :verbose_material_examined_string)
       end
-     when :verbose_material_examined_string 
-      s << [self.locality, self.verbatim_method, self.date_range, self.collectors].compact.reject(&:blank?).join(", ")     
+     when :verbose_material_examined_string
+      s << [self.locality, self.verbatim_method, self.date_range, self.collectors].compact.reject(&:blank?).join(", ")
      when :for_select_list
        if verbatim_label.blank?
         s << (truncate(geography, :length => 20) + '<br />') if !geography.blank?
@@ -121,29 +121,29 @@ class Ce < ActiveRecord::Base
        else
         tmp_str = verbatim_label
        end
-       
-       s << "<div class=\"dn_#{opt[:type].to_s}\">" 
+
+       s << "<div class=\"dn_#{opt[:type].to_s}\">"
        s << "<div class=\"dnsid\">id: #{id}</div>"
        # the label content
           s << '<span class="hd">ce: </span>' if opt[:type] == :sub_select
-          # case views for :list, :head, etc. here 
+          # case views for :list, :head, etc. here
           # case opt[:type]
-          # when :list 
+          # when :list
           s << '<div class="small_grey">'
           if tmp_str.blank? && verbatim_label.blank?
            s << "<span style=\"color: red;\">stub only</span>"
-          elsif !verbatim_label.blank? && tmp_str.blank? 
+          elsif !verbatim_label.blank? && tmp_str.blank?
             s << verbatim_label
           else
            s << "#{tmp_str}"
           end
           s << "</div>"
-          # end 
+          # end
 
         s << "</div>"
      end
     return nil if s == ""
-    s 
+    s
   end
 
   def start_day_of_year
@@ -166,14 +166,14 @@ class Ce < ActiveRecord::Base
   def date_range # :yields: String for start and end dates
     dt = ""
 
-    sd = Strings.unify_from_roman(sd_d) 
-    sm = Strings.unify_from_roman(sd_m) 
-    sy = Strings.unify_from_roman(sd_y) 
-    ed = Strings.unify_from_roman(ed_d) 
-    em = Strings.unify_from_roman(ed_m) 
-    ey = Strings.unify_from_roman(ed_y) 
+    sd = Strings.unify_from_roman(sd_d)
+    sm = Strings.unify_from_roman(sd_m)
+    sy = Strings.unify_from_roman(sd_y)
+    ed = Strings.unify_from_roman(ed_d)
+    em = Strings.unify_from_roman(ed_m)
+    ey = Strings.unify_from_roman(ed_y)
 
-    return "" if sy.blank? && sm.blank? # can you have month alone? 
+    return "" if sy.blank? && sm.blank? # can you have month alone?
     return self.start_date if (ed.blank? && em.blank? && ey.blank?)
 
     range = ''
@@ -191,15 +191,15 @@ class Ce < ActiveRecord::Base
     else # different years
       return (sy + "-" + ey) if sd.blank? && em.blank?
       if sd.blank? && ed.blank?
-        range = sm + "." + sy + "-" + em + "." + ey 
+        range = sm + "." + sy + "-" + em + "." + ey
       else
         range = self.start_date + "-" + self.end_date
       end
-    end 
+    end
 
     range.gsub(/(\A[\.\-])|(\z[\.\-])/, '')
   end
-  
+
   def lat_long # :yields: String representing lat/long
     ll = ''
     if latitude
@@ -207,14 +207,14 @@ class Ce < ActiveRecord::Base
     end
     ll
   end
-  
+
   def elevation(units = 'meters') # :yeilds: String representing elevation range, valid units are 'meters' and 'feet'
     rng = []
     return "" if elev_min.blank? && elev_max.blank?
     if units == elev_unit
       rng = [elev_min, elev_max]
     else # doesn't match, convert
-      if units == 'meters' # convert to meters 
+      if units == 'meters' # convert to meters
         rng  = [ '%.2f' %  elev_min.to_f.meters.to.feet.to_s, (elev_max.blank? ? nil : '%.2f' % elev_max.to_f.meters.to.feet.to_s) ]
       elsif units == 'feet' # convert to feet
         rng  = ['%.2f' % elev_min.to_f.feet.to.meters.to_s, (elev_max.blank? ? nil : '%.2f' % elev_max.to_f.feet.to.meters.to_s) ]
@@ -226,7 +226,7 @@ class Ce < ActiveRecord::Base
     str = rng.reject(&:blank?).join('-')
     str.blank? ? "" : str + " #{units}"
   end
-  
+
   def convert_elevation(min_or_max, units)
     case min_or_max
     when 'min'
@@ -245,11 +245,11 @@ class Ce < ActiveRecord::Base
     return true if !latitude.blank? && !longitude.blank?
     false
   end
-  
-  def gmap_hash # :yields: Hash 
+
+  def gmap_hash # :yields: Hash
     if self.mappable
-      # name should be description, to match up 
-      # need better character escaping here 
+      # name should be description, to match up
+      # need better character escaping here
       {:latitude => self.latitude, :longitude => self.longitude, :name => self.display_name(:type => :summary).gsub(/[\r\n|\n|\r]/, '<br />').gsub(/\'/, "&#39;")} # cross platform newlines STILL SUCK, even in Ruby AFAIKT
     else
       false
@@ -267,7 +267,7 @@ class Ce < ActiveRecord::Base
   end
 
   def self.new_from_geocoder(params = {})
-    res = GoogleGeocoder.reverse_geocode([params[:lat].to_f, params[:long].to_f]) 
+    res = GoogleGeocoder.reverse_geocode([params[:lat].to_f, params[:long].to_f])
     if res.success
       Ce.new(
              :locality => res.full_address,
@@ -291,7 +291,7 @@ class Ce < ActiveRecord::Base
       :seconds => 0
      }.merge!(options.symbolize_keys)
   end
-  
+
   # TODO: move this to a utilities/admin module
   # Console calls only.
   def self.regenerate_all_md5s
@@ -304,12 +304,12 @@ class Ce < ActiveRecord::Base
           c.update_md5
         end
       rescue ActiveRecord::RecordInvalid => e
-        raise "Unable to complete update: #{e}" 
-      end 
+        raise "Unable to complete update: #{e}"
+      end
     end
     true
-  end 
-  
+  end
+
   # As in Specimen batch loading - '++' = '\n\n', '||' => '\n'
   def self.from_text(text)
     text.split(/\n{2,}/m).map {|x| x.strip.gsub(/\|\|/, "\n").gsub(/\+\+/, "\n\n") + "\n"}
@@ -324,7 +324,7 @@ class Ce < ActiveRecord::Base
   end
 
   def self.find_for_auto_complete(value)
-    conditions = value.split.collect { |t| 
+    conditions = value.split.collect { |t|
       sanitize_sql(["((c.verbatim_label like ?) OR
                    (c.geography like ?) OR
                    (c.locality like ?) OR
@@ -336,14 +336,14 @@ class Ce < ActiveRecord::Base
                    con.name like ? OR
                    c.collectors LIKE ?)",
         "%#{t}%", "%#{t}%", "%#{t}%", "%#{t}%", "#{t}%", "#{t}", "%#{t}%","%#{t}%", "%#{t}%", "%#{t}%"])
-    }.join " AND "    
-        
+    }.join " AND "
+
     find_by_sql("SELECT c.* FROM ces c
                     LEFT JOIN geogs g ON c.geog_id = g.id
                     LEFT JOIN geogs co ON g.country_id = co.id
                     LEFT JOIN geogs st ON g.state_id = st.id
                     LEFT JOIN geogs con ON g.county_id = con.id
-                    WHERE c.proj_id = #{$proj_id} AND #{conditions} LIMIT 30") 
+                    WHERE c.proj_id = #{$proj_id} AND #{conditions} LIMIT 30")
   end
 
   protected
@@ -364,6 +364,4 @@ class Ce < ActiveRecord::Base
   # batch uploading
   def path_to_file
   end
-
 end
-

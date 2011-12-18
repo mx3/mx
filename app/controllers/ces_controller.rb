@@ -1,13 +1,5 @@
 class CesController < ApplicationController
 
-  auto_complete_for :ce, :collectors, :limit => 100
-  auto_complete_for :ce, :locality, :limit => 100
-  auto_complete_for :ce, :mthd, :limit => 100
-  auto_complete_for :ce, :verbatim_method, :limit => 100
-
-  auto_complete_for :ce, :macro_habitat, :limit => 100
-  auto_complete_for :ce, :micro_habitat, :limit => 100
-
   def index
     list
     render :action => 'list'
@@ -22,18 +14,18 @@ class CesController < ApplicationController
       @ces = @proj.ces.send(params[:scope],params[:arg])
     else
       @ces = @proj.ces.send(params[:scope])
-    end 
-    @list_title = "Collecting events #{params[:scope].humanize.downcase}" 
+    end
+    @list_title = "Collecting events #{params[:scope].humanize.downcase}"
     render :action => :list_simple
   end
 
   def _show_params
     id = params[:ce][:id] if params[:ce] # for autocomplete/ajax picker use (must come first!)
     id ||= params[:id]
-   
+
     @ce = Ce.find(id)
   end
-  
+
   def show
     _show_params
     @no_right_col = false
@@ -46,11 +38,11 @@ class CesController < ApplicationController
     @specimens = @ce.specimens.limit(500).include_identifiers.include_has_manys.include_tags
     @total_specimens = @ce.specimens.count
     @total_lots = @ce.lots.count
-    @total_ipt_records = @ce.ipt_records.count 
+    @total_ipt_records = @ce.ipt_records.count
     @no_right_col = true
     render :action => 'show'
   end
-  
+
   def new
     @ce = Ce.new
   end
@@ -80,7 +72,7 @@ class CesController < ApplicationController
         when 'Create, clone and next'
           flash[:notice] << ' This is the clone.'
           render :action => :new and return
-        when 'Create and new specimen' 
+        when 'Create and new specimen'
           redirect_to(:action => :new, :controller => :specimens, 'specimen[ce_id]' => @ce.id) and return
         else
           flash[:notice] << " This is the new record."
@@ -106,7 +98,7 @@ class CesController < ApplicationController
       if params[:update_and_next]
         @id = Ce.find(:first, :conditions => ["proj_id = #{@proj.id} AND id > ?", @ce.id], :order => 'id ASC')
           if @id
-            redirect_to(:action => :edit, :id => @id) 
+            redirect_to(:action => :edit, :id => @id)
           else
             flash[:notice] = 'Last record reached.'
             redirect_to(:action => :list)
@@ -137,15 +129,34 @@ class CesController < ApplicationController
       flash[:notice] = "Failed to clone the Ce, contact an admin."
       redirect_to :action => :show, :id => ce.id and return
     end
-    flash[:notice] = "Cloned! From #{ce.id}." 
+    flash[:notice] = "Cloned! From #{ce.id}."
     render :action => :new
   end
 
-  def auto_complete_for_ce
-    @ces = Ce.find_for_auto_complete(params[:term])
-    render :json => Json::format_for_autocomplete_with_display_name(:entries => @ces, :method => params[:method])
+  #auto_complete_for :ce, :collectors, :limit => 100
+  #auto_complete_for :ce, :locality, :limit => 100
+  #auto_complete_for :ce, :mthd, :limit => 100
+  #auto_complete_for :ce, :verbatim_method, :limit => 100
+  #auto_complete_for :ce, :macro_habitat, :limit => 100
+  #auto_complete_for :ce, :micro_habitat, :limit => 100
+
+  def auto_complete_for_ces
+    value = params[:term]
+    field = %w(collectors locality mthd verbatim_method macro_habitat micro_habitat).include?(params[:field]) && params[:field]
+
+    if field && value
+      @ids = Ce.select(field.downcase).where([ "ces.proj_id = ? AND LOWER(ces.#{field.downcase}) LIKE (?)", params[:proj_id], '%' + value.downcase + '%' ])
+        .group(field.downcase).order("#{field.downcase} ASC").limit(100).map {|v| v.send(field.downcase.to_sym)}
+
+      render :json => Json::simple_autocomplete(@ids)
+    elsif value
+      @ces = Ce.find_for_auto_complete(value)
+      render :json => Json::format_for_autocomplete_with_display_name(:entries => @ces, :method => params[:method])
+    else
+      head(:bad_request)
+    end
   end
- 
+
   # label related functions
 
   def labels
@@ -153,11 +164,11 @@ class CesController < ApplicationController
   end
 
   def labels_clear_to_zero
-    for l in  @proj.ces.to_print 
+    for l in  @proj.ces.to_print
        l.num_to_print = nil
        l.save
      end
-      
+
     redirect_to :action => 'labels'
   end
 
@@ -166,7 +177,7 @@ class CesController < ApplicationController
     # perfectly
 
     redirect_to :action => :labels and return if params[:lbl].blank?
-    
+
     # This will change to map more cleverly, its a hack for Jonathon
 
     @css = params[:lbl][:type].to_s
@@ -183,9 +194,9 @@ class CesController < ApplicationController
   def batch_verify
      if params[:temp_file][:file].blank?
        flash[:notice] = "Choose a text file with your labels in it before verifying!"
-       redirect_to(:action => :batch_load) and return  
+       redirect_to(:action => :batch_load) and return
      end
-   
+
     # read the contents of the uploaded file
     @ces = Ce.from_text(params[:temp_file][:file].read)
   end
@@ -212,14 +223,14 @@ class CesController < ApplicationController
       flash[:notice] = "Something went wrong (at label #{@count} :: #{@c.errors.to_yaml}): #{e}"
       redirect_to :action => :batch_load and return
     end
-     
-    flash[:notice] = "Successfully added #{@count} labels. Matched with existing data, and did NOT add #{@existing_labels.size} labels." 
+
+    flash[:notice] = "Successfully added #{@count} labels. Matched with existing data, and did NOT add #{@existing_labels.size} labels."
     redirect_to :action => :batch_load
   end
 
   def new_from_gmap
   end
- 
+
   def new_from_geocoder
     @ce = Ce.new_from_geocoder(params)
     render :action => :new
@@ -230,10 +241,10 @@ class CesController < ApplicationController
       @ces = @proj.ces.send(params[:scope],params[:arg]).excluding_id(params[:id])
     else
       @ces = [] # @proj.ces.send(params[:scope])
-    end 
+    end
     respond_to do |format|
     format.html {
-      redirect_to :action => :index} 
+      redirect_to :action => :index}
     format.js {
       render :update do |page|
         @ces =  @ces.collect{|c| content_tag(:div, link_to(c.display_name, :action => :show, :id => c.id)) }.join
@@ -255,9 +266,9 @@ class CesController < ApplicationController
       end
     render :text=> res.to_json
   end
- 
+
   def batch_geocode
-    @ces = @proj.ces.with_verbatim_label.mappable[15..20] 
-  end 
+    @ces = @proj.ces.with_verbatim_label.mappable[15..20]
+  end
 
 end
