@@ -26,7 +26,7 @@ end
 
 Image.blueprint do
   proj    { Proj.make! }
-  creator { Person.make!}
+  creator { object.proj.people.first }
   updator { object.creator }
   maker { "maker_#{sn}" }
   copyright_holder {"copyright_holder_#{sn}" }
@@ -36,7 +36,16 @@ end
 
 Ce.blueprint do
   proj { Proj.make! }
-  creator { Person.make! }
+  creator { object.proj.people.first }
   updator { object.creator }
   is_public { true }
+end
+
+Confidence.blueprint do
+  name { ActiveSupport::SecureRandom.hex(6) }
+  proj { Proj.make! }
+  creator { object.proj.people.first }
+  updator { object.creator }
+  html_color { "abcdef" }
+  applicable_model {Confidence::MODELS_WITH_CONFIDENCE.values.sample}
 end

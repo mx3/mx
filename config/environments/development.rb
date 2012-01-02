@@ -1,3 +1,6 @@
+require 'ruby-debug'
+Debugger.start_remote if ENV['RDEBUG_START_REMOTE']
+
 Edge::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -23,4 +26,3 @@ Edge::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 end
-

@@ -2,7 +2,7 @@
 
 <div id="inner_wrapper">
   <div id="inner_header" style="text-align: center;">
-    <h3 style="display: inline"><%= @obj.display_name %> <span class='small_grey'> id:<%= @obj.id %></span></h3>
+    <h3 style="display: inline; color:%<=contrasting_text_color(@obj.html_color) %>"><%= @obj.display_name.html_safe %> <span class='small_grey'> id:<%= @obj.id %></span></h3>
   </div>
 
   <div id="inner_container" <%= 'style="padding-right: 0;"' if @no_right_col -%>>
@@ -21,7 +21,7 @@
             <% if column.name.rindex('_id') -%>
               <% r = column.name.gsub('_id','') -%>
               <% if @obj.respond_to?(r) and @obj.send(r).respond_to?('display_name') -%>
-                <td class="lbl2"><i><%= column.name  -%>:</i></td><td><%= @obj.send(r).display_name -%></td>
+                <td class="lbl2"><i><%= column.name  -%>:</i></td><td><%= @obj.send(r).display_name.html_safe -%></td>
               <% else -%>
 				<%# TODO: reformulate this logic to use the relationships -%>
                 <td class="lbl2"><%= column.name -%></td><td><i><%= @obj.send(column.name).blank? ? "no  value" : @obj.send(column.name) -%></i></td>

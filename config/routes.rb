@@ -169,10 +169,11 @@ Edge::Application.routes.draw do
     members: %w{
 	  get popup
 	  post merge
-	  post sort_confidences
   	post apply_from_popup
   },
-    collections: %w{}
+    collections: %w{
+      post sort
+    }
   },
 
 
