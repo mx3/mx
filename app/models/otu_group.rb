@@ -18,7 +18,7 @@ class OtuGroup < ActiveRecord::Base
 
   has_many :otu_groups_otus, :order => 'position', :dependent => :destroy
   has_many :otus, :through => :otu_groups_otus, :order => 'otu_groups_otus.position'
-  has_many :lots, :finder_sql => proc { "Select l.* from lots l join otus o on l.otu_id = o.id join otu_groups_otus ogo on ogo.otu_id = #{id};"}, :class_name => 'Lot'
+  has_many :lots, :finder_sql => proc { "SELECT l.* FROM lots l JOIN otus o ON l.otu_id = o.id JOIN otu_groups_otus ogo ON ogo.otu_id = #{id};"}, :class_name => 'Lot'
 
   has_and_belongs_to_many :mxes
 
@@ -56,7 +56,7 @@ class OtuGroup < ActiveRecord::Base
     OtuGroupsOtu.find_by_otu_id_and_otu_group_id(o.id, self.id).destroy
   end
 
-    def position_otu(o, acts_as_list_method)
+  def position_otu(o, acts_as_list_method)
     false
   end
 
@@ -88,7 +88,7 @@ class OtuGroup < ActiveRecord::Base
     self.otus.inject([]){|sum, o| sum += o.extracts}.flatten.uniq.sort{|a,b| a.id <=> b.id}
   end
 
-  def genes  # :yields: Array of Strings (Gene names)
+  def genes # :yields: Array of Strings (Gene names)
     self.otus.collect{|o|
       o.extracts.inject([]){|sum, e| sum += e.pcrs}.collect{|p| p.gene_name_array}}.flatten.uniq.sort{|a,b| a.name <=> b.name
     }

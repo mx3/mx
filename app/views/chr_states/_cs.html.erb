@@ -33,10 +33,10 @@
         <% if egs.size > 0 %>
           <%= egs[0..4].collect{|o| o.display_name}.join(', ') %>
           <% if egs.size > 5 %>
-            <a onclick="Element.toggle('cs_<%= cs.id %>_more'); Element.toggle('more_economic')">(toggle remainder)</a>
-            <div id="cs_<%=cs.id%>_more" style="display: inline; display: none;">
-              <%= egs[5..6].collect{|o| o.display_name}.join(', ') %>
-            </div>
+          <div style='display:inline;' 
+            data-tooltip="<%= egs[5..6].collect{|o| o.display_name}.join(', ') %>
+            "><a href=''>remainder coded</a> 
+          </div>
           <% end %>
         <% else %>
           <i> none coded </i>

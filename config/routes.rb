@@ -2,10 +2,9 @@ Edge::Application.routes.draw do
 
   root :to => "projs#index"
 
-  # matrix/coding routes
+ # matrix/coding routes
  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id/:chr_state_id", :controller => 'mxes', :action => "fast_code" , :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id", :controller => 'mxes', :action => "fast_code", :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/}
-
 
   # All non-RESTful routes that are unique to a Resource are defined here.
   # Shared restful routes (e.g. 'autocomplete_for_xxx') are defined together
@@ -99,7 +98,6 @@ Edge::Application.routes.draw do
 
   'chr_states' => {
     members: %w{
-    get show_figures
     post _in_place_notes_update
     post destroy_phenotype
     post set_chr_state_notes
@@ -116,7 +114,6 @@ Edge::Application.routes.draw do
 
   'chrs' => {
     members: %w{
-  get _find_otus_for_mx
   get owl_export
   get show_coded_otus
   get show_edit_expanded
@@ -201,7 +198,6 @@ Edge::Application.routes.draw do
 
   'contents' => {
     members: %w{
-    get show_figures
   },
     collections: %w{
     get sync
@@ -323,7 +319,6 @@ Edge::Application.routes.draw do
   'images' => {
     members: %w{
    get show_figure_markers
-   get show_figures
    get show_image_descriptions
   },
   collections: %w{
@@ -348,14 +343,12 @@ Edge::Application.routes.draw do
 
   'keywords' => {
     members: %w{
-    get show_tags
   },
     collections: %w{}
   },
 
   'labels' => {
     members: %w{
-     get show_tags
   },
   collections: %w{
      get list_alpha
@@ -445,7 +438,6 @@ Edge::Application.routes.draw do
     get show_code
     post show_code
     get show_data_sources
-    get show_figures
     get show_nexus
     get show_otus
     get show_sort_characters
@@ -467,8 +459,11 @@ Edge::Application.routes.draw do
     post reset_chr_positions
     post reset_cycle
     post reset_otu_positions
+    post otus_select
   },
-    collections: %w{}
+    collections: %w{
+    post code_with 
+  }
   },
 
  'namespaces' => {
@@ -494,10 +489,8 @@ Edge::Application.routes.draw do
  'ontology_classes' => {
     members: %w{
     get _render_newick
-    get show_figures
     get show_history
     get show_next_without
-    get show_tags
     get show_visualize_newick
     post _in_place_definition_update
     post _populate_consituent_parts
@@ -580,7 +573,6 @@ Edge::Application.routes.draw do
     get show_molecular
     get show_params
     get show_summary
-    get show_tags
     get show_tags_no_layout
     get test_modal
     get tree
@@ -672,7 +664,6 @@ Edge::Application.routes.draw do
   get show_associations
   get show_distributions
   get show_sensus
-  get show_tags
   post _count_labels
   post create_tags_for_all_parts
   post delete_pdf
@@ -802,7 +793,6 @@ Edge::Application.routes.draw do
     get show_immediate_child_otus
     get show_material
     get show_summary
-    get show_tags
     get show_taxonomic_history
     get show_type_material
     get test
@@ -919,7 +909,6 @@ Edge::Application.routes.draw do
     get show_default
     get show_otu_by_chr
     get show_remaining_figures
-    get show_tags
   },
     collections: %w{
   },
@@ -943,7 +932,6 @@ Edge::Application.routes.draw do
     get show_compare
     get show_default
     get show_otu_by_chr
-    get show_tags
   },
     collections: %w{
   },
@@ -1055,6 +1043,11 @@ Edge::Application.routes.draw do
           collection do
             get 'list'
             get "auto_complete_for_#{c}"
+          end
+
+          member do
+            get "show_figures"
+            get "show_tags"
           end
 
           collection do
@@ -1291,7 +1284,6 @@ Edge::Application.routes.draw do
   #  api.resources :ontology
   #  api.resources :ref
   # end
-
 
  #  match "*anything", :to => "application#index", :unresolvable => "true"
 end

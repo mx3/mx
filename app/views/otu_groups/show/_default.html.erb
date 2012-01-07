@@ -5,7 +5,6 @@
     <div class="show_row"><span class="show_lbl">Is public?: </span><span class="show_data"><%= @otu_group.is_public -%></span></div>
     <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @otu_group}) -%>
 
-
     <div class="show_category"> Members <%= @otu_group.otus.count -%> </div>
 
     <div>
@@ -28,7 +27,7 @@
             <td class="handle"><%= render("shared/drag_handle")%></td>
             <td> <%= otugo.otu.id -%> </td>
             <td>
-              <%= link_to('foo'.html_safe, :action => :show, :id => otugo.otu.id, :controller => :otus) -%>
+              <%= link_to(otugo.otu.display_name.html_safe, :action => :show, :id => otugo.otu.id, :controller => :otus) -%>
             </td>
             <td>
               <a data-ajaxify='submit' href="<%= url_for(:action=>:remove_otu, :id => @otu_group.id, :otu_id => otugo.otu.id, :controller => :otu_groups) %>">x</a>
@@ -44,9 +43,7 @@
           <%= render :partial => '/content_types/picker', :locals => {:c_name => 'content_type', :f_name => 'id'} -%>
         <% end %>
     </div>
-
   </div>
-
 
 <% end -%>
 
@@ -74,7 +71,6 @@
     <div class="content">
       <p><i> A one time addition of subtraction of OTUs to this group. See help.</i></p>
       <%= form_tag :action => 'combine', :id => @otu_group do -%>
-
         <%= select_tag('operation', options_for_select(['add', 'subtract'], 'add')) %>
         <%= render :partial => 'shared/picker', :locals => {
           :controller => 'otu_groups',

@@ -67,7 +67,7 @@ module App::DisplayHelper
           (c['class'] ? (" class=\"" + c['class'] + "\"") : "") +
           (c['style'] ? (" style=\"" + c['style'] + "\"") : "") + ">" +
           c['name'] + "</th>") :
-        (content_tag(:th, "#{h c}"))}.join("") + "</tr>"
+        (content_tag(:th, c.html_safe))}.join("") + "</tr>"
     html.html_safe
   end
   # A unique HTML id for an object.

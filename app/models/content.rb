@@ -21,7 +21,7 @@ class Content < ActiveRecord::Base
 
   # IMPORTANT
   # pub_content_id is not null in PUBLISHED (PubContent) content, it contains the original (working) content#id
-  # revision is null in Content, populated starting at 1 in PubContent
+  # Revision is null in Content, populated starting at 1 in PubContent
 
   has_standard_fields
 
@@ -41,6 +41,7 @@ class Content < ActiveRecord::Base
   scope :that_are_published, where("contents.pub_content_id IS NOT NULL")
 
   scope :by_otu, lambda {|*args| {:conditions => ["contents.otu_id = ?", args.first || -1] }}
+
   scope :by_content_type, lambda {|*args| {:conditions => ["contents.content_type_id = ?", args.first || -1], :include => [:content_type, :figures] }}
 
   scope :by_eol_legal_content_type, :include => [:content_type, :figures], :conditions => 'content_types.subject IS NOT NULL AND length(content_types.subject) != 0'

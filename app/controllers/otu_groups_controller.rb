@@ -14,7 +14,6 @@ class OtuGroupsController < ApplicationController
     id ||= params[:id]
     @otu_group = OtuGroup.find(id, :include => [:otus])
     @otus_in = @otu_group.otu_groups_otus(:include => :otus)
-    @otus_out = @proj.otus - @otus_in
     @show = ['default']
   end
 
