@@ -11,7 +11,7 @@ function cloneVerbatimToPrint() { // copies (replaces) the verbatim label to the
 function guestimateLabel() { // replaces the verbatim_label with a calculation based on parsed fields
   // we don't use verbatim values here, assumes we're entering new values directly
 
-  var dt = ""; 
+  var dt = "";
   if ((document.ce_form.ce_sd_y.value ==  document.ce_form.ce_ed_y.value) && ( document.ce_form.ce_sd_y.value.length > 0)) { // shared year and both values filled
     dt =  document.ce_form.ce_sd_d.value + "-" + document.ce_form.ce_ed_d.value + ".";
     if (document.ce_form.ce_sd_m.value == document.ce_form.ce_ed_m.value) { // same month
@@ -23,12 +23,12 @@ function guestimateLabel() { // replaces the verbatim_label with a calculation b
   } else {
 
     var sd = document.ce_form.ce_sd_d.value + "." + document.ce_form.ce_sd_m.value + "." + document.ce_form.ce_sd_y.value;
-    if (sd == '..') {sd = ''} 
+    if (sd == '..') {sd = ''}
 
     var ed = document.ce_form.ce_ed_d.value + "." + document.ce_form.ce_ed_m.value + "." + document.ce_form.ce_ed_y.value;
-    if (ed == '..') {ed = ''} 
+    if (ed == '..') {ed = ''}
 
-    var dt = ''; 
+    var dt = '';
     if (ed != '') {
       dt = sd + '-' + ed
     } else {
@@ -64,22 +64,22 @@ function guestimateLabel() { // replaces the verbatim_label with a calculation b
     }
   }
 
-  var elements = [ document.ce_form.ce_geography.value, 
+  var elements = [ document.ce_form.ce_geography.value,
       document.ce_form.ce_locality.value,
-      dt + " " + elev, ll, 
+      dt + " " + elev, ll,
       document.ce_form.ce_collectors.value + " " + document.ce_form.ce_mthd.value, document.ce_form.ce_trip_code.value ];
 
-  document.ce_form.ce_print_label.value = elements.filter(notEmpty).join("\n"); 
+  document.ce_form.ce_print_label.value = elements.filter(notEmpty).join("\n");
 }
 
 function notEmpty(element) {
-  return element.length > 0;    
+  return element.length > 0;
 }
 </script>
 
 <div>
 <div style="width: 500; float: left;">
-<div class="header"> Common fields </div> 
+<div class="header"> Common fields </div>
 
 <div class="fr"><label for="ce_geography">Geography</label>
 <span class="fld"><%= text_area 'ce', 'geography', 'title' => 'geopolitical area (e.g., country and province)', :cols => 60, :rows=> 2, :style => 'width:98%; height: 2.5em;'  %></span>
@@ -92,11 +92,21 @@ function notEmpty(element) {
 
 
   <div class="fr"><label for="ce_locality">Locality</label>
-  <span class="fld"><%= text_field_with_auto_complete  'ce', 'locality', 'title' => 'specific locality (e.g., mountain range and trailhead)', :cols => 60, :rows=> 2, :style => 'width:98%;', :class => 'free_text_autocomplete' -%></span>
+  <span class="fld">
+    <input type='text'
+      data-mx-autocomplete-url="<%= auto_complete_for_ces_ces_path(:field=>'locality')%>"
+      title="specific locality (e.g., mountain range and trailhead)"
+      cols="60"
+      row="2"
+      style='width:98%'
+      class='free_text_autocomplete'
+      >
+      </input>
+    </span>
   </div>
 
   <div class="fr"><label for="ce_start_date">Start Date</label>
-  <div class="fld"> 
+  <div class="fld">
   <div style="float:left;"> <label for="ce_sd_d" style="color:gray;width:auto;margin:0 4px;">Day </label><%= text_field 'ce', 'sd_d' , :size => 2 %> </div>
   <div style="float:left;"> <label for="ce_sd_m" style="color:gray;width:auto;margin:0 4px;">Month </label><%= text_field 'ce', 'sd_m' ,:size => 2 %></div>
   <div style="float:left;"> <label for="ce_sd_y" style="color:gray;width:auto;margin:0 4px;">Year </label><%= text_field 'ce', 'sd_y', :size => 4 %></div>
@@ -105,7 +115,7 @@ function notEmpty(element) {
   </div>
 
   <div class="fr"><label for="ce_end_date">End Date</label>
-  <div class="fld"> 
+  <div class="fld">
   <div style="float:left;"> <label for="ce_ed_d" style="color:gray;width:auto;margin:0 4px;">Day </label><%= text_field 'ce', 'ed_d' , :size => 2 %> </div>
   <div style="float:left;"> <label for="ce_ed_m" style="color:gray;width:auto;margin:0 4px;">Month </label><%= text_field 'ce', 'ed_m' ,:size => 2 %></div>
   <div style="float:left;"> <label for="ce_ed_y" style="color:gray;width:auto;margin:0 4px;">Year </label><%= text_field 'ce', 'ed_y', :size => 4 %></div>
@@ -123,7 +133,7 @@ function notEmpty(element) {
   </div>
 
   <div class="fr"><label for="ce_elevation">Elevation</label>
-  <div class="fld"> 
+  <div class="fld">
   <div style="float:left;"><label for="ce_elev_min"  style="color:gray;width:auto;margin:0 4px;">Min</label><%= text_field 'ce', 'elev_min', 'title' => 'minimum elevation', :size => 5  %></div>
   <div style="float:left;"><label for="ce_elev_max"  style="color:gray;width:auto;margin:0 4px;">Max </label><%= text_field 'ce', 'elev_max', 'title' => 'maximum elevation', :size => 5 %></div>
   <div style="float:left;"><label for="ce_elev_unit" style="color:gray;width:auto;margin:0 4px;">Units </label><%= select('ce', 'elev_unit', ['meters', 'feet']) %></div>
@@ -132,20 +142,42 @@ function notEmpty(element) {
   </div>
 
   <div class="fr">  <label for="ce_collectors">Collector(s)</label>
-  <span class="fld"> <%= text_field_with_auto_complete 'ce', 'collectors', 'title' => 'name(s) of collector(s)', :size => 40, :style => 'width: 98%;', :class => 'free_text_autocomplete'  %></span>
+  <span class="fld">
+    <input type='text'
+      mx-autocomplete-url="<%= auto_complete_for_ces_ces_path(:field=>'collectors')%>"
+      title="name(s) of collector(s)"
+      size="40"
+      style='width: 98%;'
+      class='free_text_autocomplete'>
+    </input>
+  </span>
   </div>
 
-  <div class="header"> Collecting method  </div> 
+  <div class="header"> Collecting method  </div>
 
   <div class="fr"><label for="ce_verbatim_method">Verbatim</label>
-  <span class="fld">   <%= text_field_with_auto_complete 'ce', 'verbatim_method', 'title' => 'collection method on label', :class => 'free_text_autocomplete' , :style => 'width: 98%;' %> </span>
+  <span class="fld">
+    <input type="text"
+      data-mx-autocomplete-url="<% auto_complete_for_ces_ces_path(:field=>'verbatim_method') %>"
+      title="collection method on label"
+      class='free_text_autocomplete'
+      style='width: 98%;' >
+    </input>
+  </span>
   </div>
 
   <div class="fr"><label for="ce_mthd">Determined</label>
-  <span class="fld"> <%= text_field_with_auto_complete 'ce', 'mthd', 'title' => 'collection method', :class => 'free_text_autocomplete' , :style => 'width: 98%;' %></span>
+  <span class="fld">
+    <input type="text"
+      data-mx-autocomplete-url="<%= auto_complete_for_ces_ces_path(:field=>'mthd') %>"
+      title='collection method'
+      class='free_text_autocomplete'
+      style='width: 98%;' >
+    </input>
+  </span>
   </div>
 
-  <div class="header"> Georeferencing </div> 
+  <div class="header"> Georeferencing </div>
   <div class="fr"><label for="ce_cords">Verbatim</label>
   <span class="fld">
   <div style="float: left;"> <label for="ce_dc_verbatim_latitude" style="color:gray;width:auto;margin:0 4px;">Latitude</label> <%= text_field 'ce', 'dc_verbatim_latitude', 'title' => 'verbatim latitude from label', :size => 12 %></div>
@@ -171,7 +203,7 @@ function notEmpty(element) {
   <span class="fld"><%= confidence_picker_tag(:ce, :locality_accuracy_confidence_id, @ce.locality_accuracy_confidence_id) -%> </span>
   </div>
 
-  <div class="header"> Trip code </div> 
+  <div class="header"> Trip code </div>
 
   <div class="fr"><label for="ce_trip_code"> Code</label>
   <span class="fld">
@@ -183,20 +215,40 @@ function notEmpty(element) {
   <span class="fld"><%= render :partial => "namespaces/picker", :locals => { :f_name => "trip_namespace_id", :c_name => "ce"} %></span>
   </div>
 
-  <div class="header"> Host / Habitat  </div> 
+  <div class="header"> Host / Habitat  </div>
   <div class="fr"> <label for="ce_host_genus">Host Genus</label> <span class="fld"><%= text_field 'ce', 'host_genus' %> </span>  </div>
   <div class="fr"> <label for="ce_host_species">Host Species</label> <span class="fld"><%= text_field 'ce', 'host_species' %></span>  </div>
 
-  <div class="fr"> <label for="ce_host_species">Macro Habitat</label> <span class="fld"><%= text_field_with_auto_complete 'ce', 'macro_habitat', :style => 'width:98%;', :class => 'free_text_autocomplete' %></span></div>
-  <div class="fr"> <label for="ce_host_species">Micro Habitat</label> <span class="fld"><%= text_field_with_auto_complete 'ce', 'micro_habitat', :style => 'width:98%;', :class => 'free_text_autocomplete' %></span></div>
+  <div class="fr">
+    <label for="ce_host_species">Macro Habitat</label>
+    <span class="fld">
+      <input type="text"
+        data-mx-autocomplete-url="<%= auto_complete_for_ces_ces_path(:field=>'macro_habitat') %>"
+        style="width:98%"
+        class="free_text_autocomplete"
+      >
+      </input>
+    </span>
+  </div>
+  <div class="fr">
+    <label for="ce_host_species">Micro Habitat</label>
+    <span class="fld">
+      <input type="text"
+        data-mx-autocomplete-url="<%= auto_complete_for_ces_ces_path(:field=>'macro_habitat') %>"
+        style='width:98%;'
+        class='free_text_autocomplete'>
+      </input>
+    </span>
+  </div>
 
-  <div class="header"> Errors / Checking  </div> 
+
+  <div class="header"> Errors / Checking  </div>
   <%= check_box( "ce", "err_entry") %><label for="ce_err_entry"> Error in data entry (label/data was incorrectly entered)</label><br/>
   <%= check_box( "ce", "err_label") %><label for="ce_err_label"> Error due to label (nothing can be done)</label><br/>
   <%= check_box( "ce", "err_checked") %><label for="ce_err_checked"> Error checked (whatever appears to be an error, isn't)</label><br/>
   <%= check_box( "ce", "undetgeog") %><label for="ce_undetgeog"> Undeterminable finest geography (can not determine a geographic unit)</label><br/>
 
-  <div class="header"><label for="ce_notes">Notes</label>  </div> 
+  <div class="header"><label for="ce_notes">Notes</label>  </div>
   <%= text_area 'ce', 'notes', 'title' => 'notes about collecting event', :rows => 3, :cols => 60  %>
 
 
@@ -209,7 +261,7 @@ function notEmpty(element) {
 
   <div style="width: 400; float: left; padding-left:0.5em;">
 
-  <div class="header"> Labels </div> 
+  <div class="header"> Labels </div>
 
   <div class="fr"><label for="ce_num_to_print">Number to Print</label>
   <span class="fld"><%= text_field 'ce', 'num_to_print', 'title' => 'used to generate labels', :size => 6 %></span>
@@ -247,4 +299,3 @@ function notEmpty(element) {
 
   <br style="clear:both;" />
   </div>
-

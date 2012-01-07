@@ -5,9 +5,9 @@ function initialize_js(root) {
   var find = function(expr){
     return $($root).is(expr) ? $(expr, $root).add($root) : $(expr, $root);
   };
-  find('.mx-autocomplete').mx_autocompleter();
   find("a[data-ajaxify], input[data-ajaxify]").ajaxify();
   find("input[data-color-picker]").mx_color_picker();
+  find('*[data-mx-autocomplete-url]').mx_autocompleter();
   find("*[data-insert-content]").mx_insert_content();
   find("*[data-sortable]").mx_sortable();
   find("*[data-tooltip]").mx_tooltip();

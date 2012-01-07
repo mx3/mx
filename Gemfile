@@ -52,5 +52,6 @@ end
 group :test do
   # gem "rspec"
   # gem "faker"
+  gem 'machinist', '>= 2.0.0.beta2'
   gem 'minitest'
 end

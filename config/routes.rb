@@ -3,8 +3,8 @@ Edge::Application.routes.draw do
   root :to => "projs#index"
 
   # matrix/coding routes
- match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id/:chr_state_id", :controller => 'mxes', :action => "fast_code" , :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
- match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id", :controller => 'mxes', :action => "fast_code", :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/}
+  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id/:chr_state_id", :controller => 'mxes', :action => "fast_code" , :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id", :controller => 'mxes', :action => "fast_code", :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/}
 
 
   # All non-RESTful routes that are unique to a Resource are defined here.
@@ -52,13 +52,7 @@ Edge::Application.routes.draw do
     get clone
   },
     collections: %w{
-    get auto_complete_for_ce
-    get auto_complete_for_ce_collectors
-    get auto_complete_for_ce_locality
-    get auto_complete_for_ce_macro_habitat
-    get auto_complete_for_ce_micro_habitat
-    get auto_complete_for_ce_mthd
-    get auto_complete_for_ce_verbatim_method
+    get auto_complete_for_ces
     get batch_create
     get batch_geocode
     get batch_load
@@ -175,10 +169,11 @@ Edge::Application.routes.draw do
     members: %w{
 	  get popup
 	  post merge
-	  post sort_confidences
   	post apply_from_popup
   },
-    collections: %w{}
+    collections: %w{
+      post sort
+    }
   },
 
 
@@ -327,7 +322,7 @@ Edge::Application.routes.draw do
    get show_image_descriptions
   },
   collections: %w{
-   get auto_complete_for_image_maker
+   get auto_complete_for_images
    get browse_figure_markers
    get list_by_id
    get search_list
@@ -460,8 +455,8 @@ Edge::Application.routes.draw do
     post _set_overlay_preference
     post add_chr
     post add_otu
-    post clone    
-    post code  
+    post clone
+    post code
     post remove_chr
     post remove_otu
     post reset_chr_positions

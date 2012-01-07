@@ -3,12 +3,16 @@ ENV["RAILS_ROOT"] = File.expand_path("../", File.dirname(__FILE__))
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require File.expand_path(File.dirname(__FILE__) + '/blueprints')
 
 # include #fixture_file_upload
 # TODO: R3 check for alternatives
 include ActionDispatch::TestProcess
 
 class ActiveSupport::TestCase
+  # Reset the Machinist cache before each test.
+  setup { Machinist.reset_before_test }
+
   # These fixtures are required for all functional tests. TODO: scope for functionals only?
   fixtures :people, :projs #, :people_projs
 
@@ -18,9 +22,10 @@ class ActiveSupport::TestCase
 
     @request.session[:person] = @p
     @request.session['proj_id'] = Proj.find(1).id
-    proj = Proj.find(@request.session['proj_id'])
-    proj.people << @p
-    proj.save!
+    @proj = Proj.find(@request.session['proj_id'])
+    @proj.people << @p
+    @proj.save!
+    $proj_id = @proj.id
     true
   end
 
