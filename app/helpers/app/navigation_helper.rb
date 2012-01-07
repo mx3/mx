@@ -76,13 +76,13 @@ module App::NavigationHelper
        content_tag(:div, :style => 'width: 100%; font-size:smaller;padding:2px;' ) do
 
         if opt[:obj].respond_to?('taggable?') && opt[:obj].taggable?
-         tg = new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp|&nbsp".html_safe
+         tg = new_tag_tag(:object=>opt[:obj], :html_selector=>"#inner_wrapper") + "&nbsp;|&nbsp;".html_safe
         else
           tg = ''
         end
 
-        tg + content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ))
-
+        tg += content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ) )
+        tg.html_safe
        end
     end
 
@@ -354,99 +354,12 @@ module App::NavigationHelper
     end
   end
 
-
-  # ripped straight out of Rails docs, modified for ajax
-  # see also here http://www.reality.com/roberts/markus/software/ruby/rails/wiki/How%20to%20Paginate%20With%20Ajax.textile
-  def pagination_links_with_ajax(paginator, options={})
-    return  "<span>This is being converted over to Kaminari!</span>"
-    options.merge!(ActionView::Helpers::PaginationHelper::DEFAULT_OPTIONS) {|key, old, new| old}
-    options[:window_size] = 5
-
-    window_pages = paginator.current.window(options[:window_size]).pages
-    url_options = {
-      :action => options[:action].andand.html_safe,
-      :genus => params[:genus].andand.html_safe,
-      :species => params[:species].andand.html_safe,
-      :author => params[:author].andand.html_safe,
-      :other => params[:other].andand.html_safe,
-      :proj_to_search => options[:proj_to_search].andand.html_safe
-    }
-
-    next_page = paginator.current.next
-    previous_page = paginator.current.previous
-
-    return if window_pages.length <= 1 unless
-    options[:link_to_current_page]
-
-    first, last = paginator.first, paginator.last
-
-    html = ''.html_safe
-    html.tap  do
-      html << link_to("previous",
-        url_options.merge(:page => previous_page),
-        :remote => true,
-    :class => 'ajax_page_nav_link'
-      )
-      html << '&nbsp;|&nbsp;'.html_safe
-      html <<  link_to("next",
-        url_options.merge(:page => next_page),
-        :remote => true,
-        :class => 'ajax_page_nav_link')
-
-      html << '&nbsp;|&nbsp;'.html_safe
-
-      if options[:always_show_anchors] and not window_pages[0].first?
-        html << link_to(first.number,
-          url_options.merge(:page => first),
-          :remote => true,
-            :class => 'ajax_page_nav_link'
-          )
-        html << ' ... ' if window_pages[0].number - first.number > 1
-        html << ' '
-      end
-
-      window_pages.each do |page|
-        if paginator.current == page && !options[:link_to_current_page]
-          html << content_tag(:span, page.number.to_s, :class => 'box1', :style => 'padding:.1em;')
-        else
-          html << link_to(page.number,
-            url_options.merge(:page => page),
-            :remote => true,
-            :class => 'ajax_page_nav_link'
-            )
-        end
-        html << ' '
-      end
-
-      if options[:always_show_anchors] && !window_pages.last.last?
-        html << ' ... ' if last.number - window_pages[-1].number > 1
-        html << link_to(last.number,
-          url_options.merge(:page => last),
-          :remote => true,
-          :class => 'ajax_page_nav_link'
-          )
-      end
-
-      html << '&nbsp;|&nbsp;'.html_safe
-      html << link_to("refresh current",
-        url_options.merge(:page => paginator.current),
-        :remote => true,
-          :class => 'ajax_page_nav_link'
-        )
-      html << '&nbsp;&nbsp;'.html_safe
-      html << image_tag('/images/spinner.gif', :alt => 'Loading', :class => 'pg_spinner', :style => "display: none; vertical-align:text-top;")
-
-      html
-    end
-    html.html_safe
-
-  end
-
+  # TODO: Determine whether to keep singular controller help in wiki, or migrate wiki to plural
   def wiki_help_link
     if "#{self.controller.action_name}" != "index"
-      "<a href=\"http://#{HELP_WIKI}/index.php/app/#{self.controller.request.parameters[:controller]}/#{self.controller.action_name}\" target=\"blank\" >wiki-help</a>".html_safe
+      "<a href=\"http://#{HELP_WIKI}/index.php/app/#{self.controller.request.parameters[:controller].singularize}/#{self.controller.action_name}\" target=\"blank\" >wiki-help</a>".html_safe
     else
-      "<a href=\"http://#{HELP_WIKI}/index.php/app/#{self.controller.request.parameters[:controller]}\" target=\"blank\" >wiki-help</a>".html_safe
+      "<a href=\"http://#{HELP_WIKI}/index.php/app/#{self.controller.request.parameters[:controller].singularize}\" target=\"blank\" >wiki-help</a>".html_safe
     end
   end
 

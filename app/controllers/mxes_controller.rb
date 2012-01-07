@@ -201,6 +201,19 @@ class MxesController < ApplicationController
     redirect_to :action => :index
   end
 
+  def code_with
+    redirect_to :action => :fast_code, :chr_id => params[:chr_id], :otu_id => params[:otu_id], :mode => params[:mode], :id => params[:mx][:id] 
+  end
+
+  def otus_select
+    debugger
+    if mx = Mx.find(params[:id])
+      @otus = mx.otus
+    else
+      @otus = nil
+    end
+  end
+
   # TODO: move logic to model where possible
   # This method provides one-click coding, iterating through either chrs or OTUs
   # It handles both the post and show aspects.

@@ -13,11 +13,11 @@
 
 <div style="border-bottom: 1px dotted silver; margin-bottom:1em;"> States </div>
 <div class="subform" style = "min-width: 460;" >
-  <%= render(:partial => 'cs_form') -%>
+  <%= render(:partial => 'chr_states/form') -%>
 </div>
 
 <% if @chr_states.size > 0 -%>
-<%= render(:partial => 'cs', :collection => @chr_states) -%>
+<%= render(:partial => 'chr_states/cs', :collection => @chr_states) -%>
 <% else -%>
 <div class="failed" style="text-align:center; border: 1px solid silver; padding: 1em; margin:1em;"> No states have been added. </div>
 <% end -%>
@@ -63,7 +63,6 @@
 
 <b>Document character code: </b><%= @chr.doc_char_code -%><br />
 
-
 <div>
   <%= render_figs_for_obj(@chr, 'medium') %>
 </div>
@@ -76,7 +75,6 @@
 <% end -%>
 
 <% content_for :right do -%>
-<%= render(:partial => 'shared/tag_cloud', :object => @chr) -%>
-<%= render(:partial => 'code_with_form', :object => @chr) -%>
-
+  <%= render(:partial => 'shared/tag_cloud', :object => @chr) -%>
+  <%= render(:partial => 'code_with_form', :object => @chr) -%>
 <% end -%>

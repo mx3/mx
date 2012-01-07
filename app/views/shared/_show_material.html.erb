@@ -124,7 +124,7 @@ function changeDate(y,m,d) {
         </div>
 
         <div class="fr"> <label for="specimen_determination_determination_confidence"  class="lbl4"> Determination confidence: </label>
-          <span class="fld"> <%= render(:partial => 'confidence/picker', :locals => {:c_name => 'specimen_determination', :f_name => 'confidence_id'}) %> </span>
+          <span class="fld"> <%= render(:partial => 'confidences/picker', :locals => {:c_name => 'specimen_determination', :f_name => 'confidence_id'}) %> </span>
         </div>
 
         <div class="fr"> <label for="specimen_determination_determination_basis"  class="lbl4"> Determination basis: </label>

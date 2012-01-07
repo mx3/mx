@@ -5,7 +5,7 @@
 	<% end %>
 	<br />
 	<%= render(:partial => 'shared/nav_functions', :object => @chr) -%>
-	<%= link_to('Clone', {:action => :clone_chr, :id => @chr.id} , :method => :post,  :confirm => "Clone this character? \n    States will be included cloned, figures and tags will not. You will be taken to the new character on confirmation. " ) -%>
+	<%= link_to('Clone', {:action => :clone_chr, :id => @chr.id} , :method => :post, :confirm => "Clone this character? \n States will be included cloned, figures and tags will not. You will be taken to the new character on confirmation. " ) -%>
 
 	<% if !@chr.continuous? -%>
 	<%= show_nav_link(:obj => @chr, :link => 'merge states')%>
