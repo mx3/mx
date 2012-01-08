@@ -43,6 +43,7 @@ end
 
 group :development do
   gem "rails-footnotes"
+#  gem "thin"
   gem "mongrel", "1.2.0.pre2"
   # gem 'cgi_multipart_eof_fix'
   # gem 'fastthread'

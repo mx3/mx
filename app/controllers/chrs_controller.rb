@@ -30,11 +30,6 @@ class ChrsController < ApplicationController
     end
   end
 
-  def _find_otus_for_mx
-    @otus = Mx.find(params[:id]).otus
-    render :partial => 'otus/dropdown_picker'
-  end
-
   def index
     list
     render :action =>  :list
@@ -375,5 +370,6 @@ class ChrsController < ApplicationController
    @chrs = Chr.find(:all, :conditions => conditions, :limit => 35, :order => 'chrs.name')
    render :json => autocomplete_result(:entries => @chrs, :method => method)
  end
-  
+
+
 end

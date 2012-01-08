@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html>
   <head>
-    <title>MX - <%= self.controller.controller_name.pluralize.humanize -%></title>
+    <title>MX - <%= self.controller.controller_name.humanize -%></title>
     <%
       # Pulling in from Google CDN.
       # Commented out now, b/c it slows things WAY down locally.
@@ -21,12 +21,8 @@
   </head>
   <body>
 
-  <% if @proj -%>
-    <%= illustrate_tag(@proj.chrs.first) -%>
-  <% end %>
-
     <div id="container">
-      <div id="header">
+      <div id="header"> 
         <% if session && session[:person] -%>
           <div style="float:right; padding-top: 2px;" class="links">
             <span class="links">Logged in as <%= session[:person].login -%>
@@ -74,6 +70,7 @@
 
 
     </div>
+
     <!-- Flash display here -->
     <script type='text/javascript' >
       $(document).ready(function() {

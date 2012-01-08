@@ -1,0 +1,7 @@
+<% if @otus.size > 0 -%>
+  $("#otus_to_code").html("<%= escape_javascript( render(:text => 'FOO') ) -%>");
+  $("#otus_to_code").append('<br style="clear:both;" />');
+<% else -%>
+  $("#otus_to_code").html('<em style="color:red">Search complete, no OTUs in that matrix.</em>');
+<% end -%>
+$("#otus_to_code").mx_spinner('hide');

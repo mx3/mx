@@ -1,7 +1,8 @@
 
 /*
  * Attaches a mouseover to the given DOM element.
- * looks for data-tooltip = " .... "
+ * To use, include a data-tooltip="..." in your element (span, div, whatever) like:
+ *  <span data-tooltip="Stuff that will popup in tooltip."> Mouse over target text here </span>
  *
  * put these styles in your CSS:
     .mx-tooltip {

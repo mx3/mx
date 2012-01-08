@@ -54,7 +54,7 @@ class MaterialExamined
 
   # return the hash^hashes
   def me
-   @me
+   @me.html_safe
   end
    
   def total_specimens
@@ -231,7 +231,7 @@ class MaterialExamined
           end
         end
       end
-     s
+     s.html_safe
    end
 
    # female: &#9792; 

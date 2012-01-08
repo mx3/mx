@@ -9,7 +9,6 @@ module FiguresHelper
     "id=\"image-search-id-#{image_description.id}\""
   end
 
-
   def create_figure_tag(options ={})
     opt = {
       :object => nil,        # required
@@ -158,9 +157,9 @@ module FiguresHelper
     # MODE IS A HACK
     # hmm- this needs to be :partial in some case, :templates in others?
     if mode == 'js'
-      render(:template => '/figure/attached_figures') if render_w_no_figs || @figures.size > 0
+      render(:template => '/figures/attached_figures') if render_w_no_figs || @figures.size > 0
     else
-      render(:partial => '/figure/attached_figures') if render_w_no_figs || @figures.size > 0
+      render(:partial => '/figures/attached_figures') if render_w_no_figs || @figures.size > 0
     end
   end
 

@@ -3,16 +3,25 @@
 <div class="subform" >
   <div class="header"> Code with this character </div>
   <div class="content" style="font-size:smaller;">
-    <%= form_tag :action => 'fast_code',  :controller => :mxes, :chr_id => @chr.id, :mode => 'col' do %>
-      matrix
-      <br/>
-        <%=  collection_select(:mx, :id, @chr.mxes.with_otus, :id, :truncated_name, {:prompt => ''},
-              'data-observe-field' => true,
-              'data-observe-field-action'  =>
-                url_for(:action=> :_find_otus_for_mx, :css_target => "#otus_to_code", :chr_id=>@chr.id),
-              'data-observe-field-spinner-target' => "#otus_to_code"
-           ) -%>
-      <br/>
+    <%= form_tag :action => 'code_with', :controller => :mxes do %>
+    <%= hidden_field_tag(:chr_id, @chr.id) -%>
+    <%= hidden_field_tag('mode', 'col') -%>
+    matrix
+
+    <br />
+
+    <select 
+          id="mx_id"
+          name="mx[id]" 
+          data-observe-field="true"
+          data-observe-field-spinner-target="otus_to_code"
+          data-observe-field-action="<%= url_for(:action=> :otus_select, :controller => :mxes, :css_target => "#otus_to_code") %>"
+      >
+        <%= content_tag(:option,  '-none-', :value => nil) -%>
+        <%= options_from_collection_for_select(@chr.mxes.with_otus, :id, :name) -%>
+    </select>
+
+      <br />
       OTU <div id="otus_to_code"><%= select_tag('otu_id', :disabled => true) -%>  </div>
       <%= submit_tag "code" -%>
     <% end %>
