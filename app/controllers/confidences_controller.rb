@@ -78,29 +78,16 @@ class ConfidencesController < ApplicationController
 
   def popup
     @obj = ActiveRecord::const_get(params[:confidence_obj_class]).find(params[:confidence_obj_id]) # creates variable objects
-    # works
+
     respond_to do |format|
-		  format.html {} # default .rhtml
-	    format.js {
-        render :update do |page|
-          page.visual_effect :fade, "cl_#{@obj.class.to_s}_#{@obj.id}"
-          page.insert_html :bottom, "c_#{@obj.class.to_s}_#{@obj.id}", :partial => 'popup', :locals => {:confidences => @proj.confidences.by_namespace(@obj.class), :obj => @obj}
-        end
-      }
-		end
+      format.html {} # default .rhtml
+      format.js { }
+    end
   end
 
   def apply_from_popup
    @obj = ActiveRecord::const_get(params[:obj_class]).find(params[:obj_id])
    @obj.update_attributes(:confidence_id => (params[:confidence][:id] == '-1' ? nil : params[:confidence][:id] ))
-   render :update do |page|
-      page.visual_effect :appear, "cl_#{@obj.class.to_s}_#{@obj.id}" # unhide the link
-      page.replace "c_#{@obj.class}_#{@obj.id}", :partial => 'confidence/confidence_link', :locals => {:confidence_obj_id => @obj.id, :confidence_obj_class => @obj.class.to_s, :obj => @obj, :msg => ''  }
-      page.visual_effect :fade, "cp_#{@obj.class.to_s}_#{@obj.id}"
-      page.delay(2) do # need a delay so top effect works?
-        page.remove "cp_#{@obj.class.to_s}_#{@obj.id}"  # and get rid of the popup
-      end
-    end
   end
 
   def auto_complete_for_confidence

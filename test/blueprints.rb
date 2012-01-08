@@ -42,10 +42,45 @@ Ce.blueprint do
 end
 
 Confidence.blueprint do
-  name { ActiveSupport::SecureRandom.hex(6) }
   proj { Proj.make! }
+  name { ActiveSupport::SecureRandom.hex(6) }
   creator { object.proj.people.first }
   updator { object.creator }
   html_color { "abcdef" }
   applicable_model {Confidence::MODELS_WITH_CONFIDENCE.values.sample}
+end
+
+Pcr.blueprint do
+  proj        { Proj.make! }
+  creator     { object.proj.people.first }
+  updator     { object.creator }
+  confidence  { Confidence.make!(:proj => object.proj )}
+  extract     { Extract.make!(:proj => object.proj) }
+  fwd_primer  { Primer.make!(:proj => object.proj) }
+  rev_primer  { Primer.make!(:proj => object.proj) }
+end
+Primer.blueprint do
+  proj { Proj.make! }
+  creator { object.proj.people.first }
+  updator { object.creator }
+  name { "primer_#{sn}" }
+  sequence { "sequence_#{sn}" }
+end
+Extract.blueprint do
+  proj { Proj.make! }
+  creator { object.proj.people.first }
+  updator { object.creator }
+  specimen { Specimen.make!(:proj => object.proj )}
+end
+Seq.blueprint do
+  proj { Proj.make! }
+  creator { object.proj.people.first }
+  updator { object.creator }
+  genbank_identifier { "id_#{sn}" }
+end
+Specimen.blueprint do
+  proj { Proj.make! }
+  creator { object.proj.people.first }
+  updator { object.creator }
+  #Seq.make(:proj => object.proj, :specimen => object)
 end

@@ -34,7 +34,7 @@ class Extract < ActiveRecord::Base
   has_many :pcrs, :dependent => :destroy # in DB context they are as good as gone
   has_many :genes, :through => :pcrs
   has_many :status_levels, :class_name => 'ExtractsGene'
-  has_many :seqs, :through => :pcrs 
+  has_many :seqs, :through => :pcrs
 
   scope :from_specimen, lambda {|*args| {:conditions => ["specimen_id = ?", (args.first || -1)] }}
   scope :from_lot, lambda {|*args| {:conditions => ["lot_id = ?", (args.first || -1)] }}
@@ -55,10 +55,10 @@ class Extract < ActiveRecord::Base
 
   validate :check_record
   def check_record
-    errors.add(specimen_id, 'Choose either specimen or lot, not both.') if specimen_id? && lot_id? 
+    errors.add(specimen_id, 'Choose either specimen or lot, not both.') if specimen_id? && lot_id?
     errors.add(specimen_id, 'Choose a specimen or lot the extract came from.') if specimen_id.blank? && lot_id.blank?
   end
- 
+
   def display_name(options = {})
     @opt = {
       :type => :line # :list, :head, :select, :sub_select, :selected
@@ -79,7 +79,7 @@ class Extract < ActiveRecord::Base
       end
       s << " " + parts_extracted_from + " #{extracted_on}" if parts_extracted_from
     else
-      s << "<div class=\"dn_#{@opt[:type].to_s}\">" 
+      s << "<div class=\"dn_#{@opt[:type].to_s}\">"
       s << '<span class="small_grey">extract: </span>' if @opt[:type] == :sub_select
       s << "<div>id: #{id} <span class='small_grey'>from "
       if specimen_id
@@ -94,21 +94,21 @@ class Extract < ActiveRecord::Base
       elsif lot_id
         s << "<div> #{self.lot.display_name} </div>"
       end
-      s << '</div>'   
-    end 
-    s.html_safe   
+      s << '</div>'
+    end
+    s.html_safe
   end
- 
+
   def display_source_identifiers  # :yields: String identifying the lot or specimen the extract came from
     specimen_id && (return Specimen.find(specimen_id).display_name(:type => :identifiers))
     return Lot.find(lot_id).display_name(:type => :identifiers)
   end
-    
+
   def display_source_determinations  # :yields: String identifying the lot or specimen the extract came from
     specimen_id && (return Specimen.find(specimen_id).display_name(:type => :determinations))
     return Lot.find(lot_id).display_name(:type => :determination)
   end
-  
+
   def display_source_ce # :yields: String
     if specimen_id
       return Specimen.find(specimen_id).display_name(:type => :ce_for_list)
@@ -127,14 +127,14 @@ class Extract < ActiveRecord::Base
     elsif lot_id
       return self.lot.otu
     else
-      return false 
+      return false
     end
 
   end
 
   def tied_determination # :yields: String
     if specimen_id
-      return self.specimen.display_name(:type => :verbose_taxon) 
+      return self.specimen.display_name(:type => :verbose_taxon)
     elsif lot_id
       return self.lot.otu.display_name
     end
@@ -148,20 +148,20 @@ class Extract < ActiveRecord::Base
 
   def self.summarize_by(options = {})
     result = {:genes => [], :extracts => []}
- 
+
     result[:extracts] += Specimen.find(options[:specimen_id]).extracts                                                  if !options[:specimen_id].blank?
     result[:extracts] += OtuGroup.find(options[:otu_group_id]).extracts                                                 if !options[:otu_group_id].blank?
     result[:extracts] += Otu.find(options[:otu_id]).extracts                                                            if !options[:otu_id].blank?
-    result[:extracts] += Extract.tagged_with_keyword(Keyword.find(options[:keyword_id]))                                if !options[:keyword_id].blank? 
+    result[:extracts] += Extract.tagged_with_keyword(Keyword.find(options[:keyword_id]))                                if !options[:keyword_id].blank?
 
-    result[:extracts] += Extract.by_proj(options[:proj_id]).by_confidence_from_status(options[:extract_confidence_id])  if !options[:extract_confidence_id].blank? 
+    result[:extracts] += Extract.by_proj(options[:proj_id]).by_confidence_from_status(options[:extract_confidence_id])  if !options[:extract_confidence_id].blank?
 
     ArrayHelper.range_as_array(options[:extract_range]).each do |i|
       if e = Extract.find_by_id_and_proj_id(i, options[:proj_id])
         result[:extracts] += [e]
       end
     end
-    
+
     result[:genes] += GeneGroup.find(options[:gene_group_id]).genes if !options[:gene_group_id].blank?
     result[:genes] += [Gene.find(options[:gene_id])] if !options[:gene_id].blank?
     result[:genes] += [Primer.find(options[:primer_id]).gene] if !options[:primer_id].blank?
@@ -169,7 +169,7 @@ class Extract < ActiveRecord::Base
     result[:extracts].uniq!
     result[:genes].uniq!
 
-    result[:extracts].sort!{|a,b| a.id <=> b.id} 
+    result[:extracts].sort!{|a,b| a.id <=> b.id}
     result[:genes].sort!{|a,b| a.name <=> b.name}
 
     result
@@ -182,13 +182,13 @@ class Extract < ActiveRecord::Base
       LEFT JOIN identifiers i ON s.id = i.addressable_id
       LEFT JOIN specimen_determinations sd ON s.id = sd.specimen_id
       LEFT JOIN otus o on o.id = sd.otu_id
-      LEFT JOIN taxon_names t ON o.taxon_name_id = t.id 
+      LEFT JOIN taxon_names t ON o.taxon_name_id = t.id
       LEFT JOIN ces c on s.ce_id = c.id
       LEFT JOIN geogs g on c.geog_id = g.id
       WHERE e.proj_id = #{$proj_id}
       AND (
        e.id = ? OR
-       e.specimen_id = ? OR 
+       e.specimen_id = ? OR
        o.name LIKE ? OR
        o.matrix_name LIKE ? OR
        o.manuscript_name LIKE ? OR

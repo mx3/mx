@@ -153,8 +153,8 @@ Edge::Application.routes.draw do
     post delete_couplet
   },
     collections: %w{
-    get	show_all
-	  get show_all_print
+    get show_all
+    get show_all_print
   }
   },
 
@@ -167,12 +167,12 @@ Edge::Application.routes.draw do
 
   'confidences' => {
     members: %w{
-	  get popup
-	  post merge
-  	post apply_from_popup
+    post merge
   },
     collections: %w{
       post sort
+      get popup
+      post apply_from_popup
     }
   },
 
@@ -207,8 +207,8 @@ Edge::Application.routes.draw do
 
   'data_sources' => {
     members: %w{
-	  get show_convert
-	  get show_file_contents
+    get show_convert
+    get show_file_contents
     post _delete_dataset
   },
     collections: %w{}
@@ -230,7 +230,7 @@ Edge::Application.routes.draw do
   'extracts_genes' => {
     members: %w{},
     collections: %w{
-	  get popup
+    get popup
     post apply_from_popup
   }
   },
@@ -289,7 +289,7 @@ Edge::Application.routes.draw do
     members: %w{},
     collections: %w{
     get sort
-	  post sort_genes
+    post sort_genes
   }
   },
 
@@ -305,12 +305,12 @@ Edge::Application.routes.draw do
 
   'image_descriptions' => {
     members: %w{
-	  post destroy_from_image
-	  get more
+    post destroy_from_image
+    get more
   },
     collections: %w{
-    get	add
-	  post add_list
+    get add
+    post add_list
     post summarize
   }
   },
@@ -375,7 +375,7 @@ Edge::Application.routes.draw do
   'lot_groups' => {
     members: %w{
      get show_members
-     post	add_lot
+     post add_lot
      post remove_lot
   },
   collections: %w{
@@ -401,7 +401,7 @@ Edge::Application.routes.draw do
     members: %w{},
     collections: %w{
     post batch_create
-    get	batch_new
+    get batch_new
   }
   },
 
@@ -480,8 +480,8 @@ Edge::Application.routes.draw do
 
   'object_relationships' => {
     members: %w{
-   post	down
-	 post up
+   post down
+   post up
   },
     collections: %w{}
   },
@@ -550,7 +550,7 @@ Edge::Application.routes.draw do
 
   'otus' => {
     members: %w{
-    get	_refresh_compare_content
+    get _refresh_compare_content
     get _update_codings
     get _update_compare_content
     get _update_content_page
@@ -645,8 +645,8 @@ Edge::Application.routes.draw do
 
   'protocols' => {
     members: %w{
- 	  post add_step
-	  post remove_step
+    post add_step
+    post remove_step
   },
     collections: %w{}
   },
@@ -695,8 +695,8 @@ Edge::Application.routes.draw do
     members: %w{},
     collections: %w{
     get batch_load
-	  get batch_verify_or_create
-	  post batch_verify_or_create
+    get batch_verify_or_create
+    post batch_verify_or_create
     post sort_sensus
   }
   },
@@ -988,7 +988,7 @@ Edge::Application.routes.draw do
     members: %w{},
     collections: %w{
     get _markup_description
-	  get show_kml_text
+    get show_kml_text
   },
   },
 

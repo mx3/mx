@@ -1,0 +1,32 @@
+<div id="<%= "cp_#{@obj.class.to_s}_#{@obj.id}" -%>" class="popupform" style="width: 420px;">
+  <div>
+    <span style="float: right;" >
+      <a class='basic-modal-close' href='#'>X</a>
+    </span>
+    <span style="float: left;">Confidence for: <%= @obj.id %></span>
+  </div>
+  <br style="clear: both;" />
+  <% if @proj.confidences.size > 0 %>
+    <%= form_for 'confidence', :url =>  {:action=>:apply_from_popup, :controller=>:confidences}, :method=>:post do |f| %>
+      <input type='hidden' name='obj_class' value='<%=@obj.class.to_s%>' >
+      <input type='hidden' name='obj_id'    value='<%=@obj.id%>' >
+      <input type='hidden' name='html_selector'    value='<%=params[:html_selector]%>' >
+      <ul class='confidences-selection'>
+        <li>
+          <input data-ajaxify='submit' type="radio" name='confidence[id]' value='-1' <%= @obj.confidence_id.blank? ? 'checked' : ''%> >
+            none
+          </input>
+        </li>
+        <% @proj.confidences.each do |c| -%>
+          <li style='color: <%= contrasting_text_color(c.html_color)%>' >
+            <input data-ajaxify='submit' type="radio" name='confidence[id]' value='<%=c.id%>' <%= @obj.confidence_id == c.id ? 'checked' : ''%> >
+              <%= c.display_name.html_safe %>
+            </input>
+          </li>
+        <% end -%>
+      </ul>
+    <% end -%>
+  <% else -%>
+    <em> First create some Confidences like "<%= @obj.class.to_s.downcase -%>: foo" </em>
+  <% end -%>
+</div>

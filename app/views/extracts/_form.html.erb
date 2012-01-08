@@ -2,7 +2,7 @@
 
 <!--[form:extract]-->
 
-    
+
 <div class="fr"> <label for="extract_specimen_id" class="lbl4">From specimen</label>
   <span class="fld"><%= render :partial => 'shared/picker', :locals => {
     :controller => 'specimens',
@@ -16,9 +16,12 @@
 <div class="fr"><label><b>OR</b> (not both)</label></div>
 
 <div class="fr"> <label for="extract_lot_id" class="lbl4">From lot</label>
-  <span class="fld">  <%= render :partial => "lots/picker", :locals => {
-    :object => 'extract', :method => 'lot_id', :tag_id => "lot_to_find", 
-    :display => "" } -%> </span>
+  NEED TO IMPLEMENT THE LOTS PICKER?
+  <!--
+  <span class="fld">  = render :partial => "lots/picker", :locals => {
+    :object => 'extract', :method => 'lot_id', :tag_id => "lot_to_find",
+    :display => "" } - </span>
+  -->
 </div>
 
 <div class="fr"> <label for="extract_protocol_id" class="lbl4">via Protocol</label>

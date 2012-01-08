@@ -66,7 +66,7 @@ class SpecimensController < ApplicationController
 
   def params_for_new_specimen
     #  @specimen = Specimen.new  <- don't put this here! (for cloning purposes)
-    @type_specimen = TypeSpecimen.new 
+    @type_specimen = TypeSpecimen.new
     @identifier = Identifier.new(params[:identifier])
     @specimen.ce_id = params[:start_with_ce_id] if !params[:start_with_ce_id].blank?
 
@@ -92,7 +92,7 @@ class SpecimensController < ApplicationController
   end
 
   def create
-    @specimen = Specimen.new(params[:specimen])  
+    @specimen = Specimen.new(params[:specimen])
     begin
       Specimen.transaction do
         @specimen.save!
@@ -101,17 +101,17 @@ class SpecimensController < ApplicationController
         end
         if @type_specimen = TypeSpecimen.create_new(params[:type_specimen].merge(:specimen_id => @specimen.id))
           @type_specimen.save!
-        end 
-        unless (params[:specimen_determination][:otu_id].blank?) and (params[:specimen_determination][:name].blank?) 
+        end
+        unless (params[:specimen_determination][:otu_id].blank?) and (params[:specimen_determination][:name].blank?)
           @specimen_determination = SpecimenDetermination.new(params[:specimen_determination])
-          @specimen.specimen_determinations << @specimen_determination 
+          @specimen.specimen_determinations << @specimen_determination
         end
       end
 
     rescue ActiveRecord::RecordInvalid => e
-      flash[:notice] = e.message 
+      flash[:notice] = e.message
       respond_to do |format|
-        format.html { 
+        format.html {
           params_for_new_specimen
           render(:action => :new) and return
         }
@@ -119,13 +119,13 @@ class SpecimensController < ApplicationController
           render :update do |page|
           page.replace_html :notice, flash[:notice]
           flash.discard
-          end and return        
+          end and return
         }
       end
-    end 
+    end
 
     respond_to do |format|
-      format.html { 
+      format.html {
         case params[:commit]
         when 'Create'
           flash[:notice] = "Specimen (mxID #{@specimen.id}) was successfully created."
@@ -166,9 +166,9 @@ class SpecimensController < ApplicationController
   end
 
   def quick_create
-    begin 
-      Specimen.transaction do 
-        @specimen = Specimen.new(params[:specimen]) 
+    begin
+      Specimen.transaction do
+        @specimen = Specimen.new(params[:specimen])
         @ce = Ce.new(params[:ce])
         @ce.save
         @specimen.ce = @ce
@@ -178,20 +178,20 @@ class SpecimensController < ApplicationController
           @identifier.save!
         end
 
-        if !(params[:specimen_determination][:otu_id].blank?) && (params[:specimen_determination][:name].blank?) 
+        if !(params[:specimen_determination][:otu_id].blank?) && (params[:specimen_determination][:name].blank?)
           @specimen_determination = SpecimenDetermination.new(params[:specimen_determination])
-          @specimen.specimen_determinations << @specimen_determination 
+          @specimen.specimen_determinations << @specimen_determination
         end
 
         @specimen.save!
 
         if @specimen_determination.nil?
-          flash[:notice] = "Specimen created with no determination!" 
+          flash[:notice] = "Specimen created with no determination!"
           redirect_to(:action => :edit, :id => @specimen) and return
         end
 
         case params[:commit]
-        when 'Create' 
+        when 'Create'
           flash[:notice] = "Specimen (mxID #{@specimen.id}) was successfully created."
           redirect_to :action => :show, :id => @specimen and return
         when 'Create and next'
@@ -209,8 +209,8 @@ class SpecimensController < ApplicationController
 
     rescue Exception => e
       flash[:notice] = "Something went wrong. #{e}"
-      redirect_to :action => :quick_new 
-    end 
+      redirect_to :action => :quick_new
+    end
   end
 
   def quick_new
@@ -235,14 +235,14 @@ class SpecimensController < ApplicationController
         end
         if @type_specimen = TypeSpecimen.create_new(params[:type_specimen].merge(:specimen_id => @specimen.id))
           @type_specimen.save!
-        end 
-        unless (params[:specimen_determination][:otu_id].blank?) && (params[:specimen_determination][:name].blank?) 
+        end
+        unless (params[:specimen_determination][:otu_id].blank?) && (params[:specimen_determination][:name].blank?)
           @specimen_determination = SpecimenDetermination.new(params[:specimen_determination])
-          @specimen.specimen_determinations << @specimen_determination 
+          @specimen.specimen_determinations << @specimen_determination
         end
       end
 
-    rescue ActiveRecord::RecordInvalid => e 
+    rescue ActiveRecord::RecordInvalid => e
       flash[:notice] = "Failed to update the record: #{e.message}."
       redirect_to :back and return
     end
@@ -281,17 +281,17 @@ class SpecimensController < ApplicationController
           'specimen[id]' => specimen.id
           # :hidden_field_class_name => @tag_id_str # not Sure wht this is for, probably delete.
        },
-       :label_html => specimen.display_name(:type => :for_select_list) 
+       :label_html => specimen.display_name(:type => :for_select_list)
       }
     end
-    render :json => data 
+    render :json => data
   end
 
   def clone
     s = Specimen.find(params[:id])
     @specimen = s.make_clone
     flash[:notice] = "Editing newly cloned specimen."
-    redirect_to :action => :edit, :id => @specimen 
+    redirect_to :action => :edit, :id => @specimen
   end
 
   def batch_load
@@ -300,7 +300,7 @@ class SpecimensController < ApplicationController
   def batch_verify_or_create
     if params[:file].blank?
       flash[:notice] = "Provide a file."
-      redirect_to :action => :batch_load and return 
+      redirect_to :action => :batch_load and return
     end
 
     @file =  params[:file].read
@@ -333,7 +333,7 @@ class SpecimensController < ApplicationController
   end
 
   def identifier_search
-    @specimens = Specimen.find_by_identifiers(:project => @proj, :string => params[:string]) 
+    @specimens = Specimen.find_by_identifiers(:project => @proj, :string => params[:string])
     respond_to do |format|
       format.js {
         render :update do |page|
@@ -343,10 +343,10 @@ class SpecimensController < ApplicationController
           page.replace_html :result, content_tag(:em, 'No matches found.')
         end
         flash.discard
-        end and return        
+        end and return
       }
     end
-  end 
+  end
 
   def group_result_update
     respond_to do |format|
@@ -359,15 +359,15 @@ class SpecimensController < ApplicationController
           page.replace_html :details, content_tag(:div, 'Update error, please check form details.', :style => 'color:red;font-weight:777;')
         end
         flash.discard
-        end and return        
-      } 
+        end and return
+      }
     end
   end
 
   # TODO:remove this test
   def accordion
     @specimen = Specimen.find(:first, :conditions => "proj_id = #{@proj.id}")
-  end 
+  end
 
   private
 

@@ -68,4 +68,25 @@ class ConfidencesControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
+  test "popup link gives modal dialog" do
+    pcr = Pcr.make!(:proj => @proj)
+    get :popup, :confidence_obj_class => pcr.class.to_s, :confidence_obj_id => pcr.id, :html_selector => "body_123", :proj_id=>@proj.id
+    assert_response :success
+  end
+
+  test "popup update works from modal dialog" do
+    pcr = Pcr.make!(:proj => @proj)
+    confidence_2 = Confidence.make!(:proj=>@proj)
+    xhr :post, :apply_from_popup, :confidence=>{:id=>confidence_2.id}, :obj_class => pcr.class.to_s, :obj_id => pcr.id, :html_selector => "body_123", :proj_id=>@proj.id
+    assert_response :success
+    pcr.reload
+    assert_equal confidence_2.id, pcr.confidence_id
+  end
+  test "popup update works to clear from modal dialog" do
+    pcr = Pcr.make!(:proj => @proj)
+    xhr :post, :apply_from_popup, :confidence=>{:id=>'-1'}, :obj_class => pcr.class.to_s, :obj_id => pcr.id, :html_selector => "body_123", :proj_id=>@proj.id
+    assert_response :success
+    pcr.reload
+    assert_equal nil, pcr.confidence_id
+  end
 end

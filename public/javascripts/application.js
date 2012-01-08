@@ -31,3 +31,9 @@ $(document).ready(function(){
       $('body').mx_spinner('hide');
     });
 });
+
+/* Replace the DOM element and then inject the content */
+function mx_replace(element, content) {
+  $(element).replaceWith(content);
+  initialize_js($(element));
+}

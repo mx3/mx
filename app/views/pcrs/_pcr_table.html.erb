@@ -1,18 +1,17 @@
   <table>
     <%= t_col_heads( ["id", "extract", "fwd", "rev", "protocol", "confidence", "notes", "creator", "mod by", "mod age"   ] ) %>
     <% @pcrs.each_with_index do |pcr,i| %>
-    <%=  t_row({ 'obj' => pcr, 'tr_css' => i, 
+    <%=  t_row({ 'obj' => pcr, 'tr_css' => i,
     'cell_data' =>[
-        confidence_link(pcr),
+        confidence_tag(pcr),
         pcr.extract.display_name,
         pcr.fwd_primer_id? ? pcr.fwd_primer.display_name : "",
         pcr.rev_primer_id? ? pcr.rev_primer.display_name : "",
         (pcr.protocol.blank? ? "" :  pcr.protocol.display_name ),
-        (pcr.confidence ? pcr.confidence.display_name : ''), 
+        (pcr.confidence ? pcr.confidence.display_name : ''),
         pcr.notes,
         pcr.creator.display_name,
         pcr.updator.display_name,
         time_ago_in_words(pcr.updated_on)]} ) %>
     <% end %>
   </table>
-

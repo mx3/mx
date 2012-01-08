@@ -1,0 +1,6 @@
+<span id="<%= span_id%>">
+  <a href="<%= url %>" data-basic-modal
+     style='color: <%= object.confidence ? contrasting_text_color(object.confidence.html_color) : "" %>'>
+    <%= object.display_name(:type => :confidence).html_safe %>
+  </a>
+</span>
