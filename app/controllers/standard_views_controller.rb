@@ -61,7 +61,7 @@ class StandardViewsController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  def auto_complete_for_standard_view
+  def auto_complete_for_standard_views
     value = params[:term]
     @standard_views = StandardView.find_for_auto_complete(params.merge(:proj_id => @proj.id)) # TODO: refactor
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @standard_views, :method => params[:method])

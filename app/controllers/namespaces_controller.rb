@@ -54,7 +54,7 @@ class NamespacesController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  def auto_complete_for_namespace
+  def auto_complete_for_namespaces
     value = params[:term]
     @namespaces = Namespace.auto_complete_search_result(params) 
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @namespaces, :method => params[:method])

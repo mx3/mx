@@ -1039,7 +1039,7 @@ Edge::Application.routes.draw do
             get 'list'
             get "auto_complete_for_#{c}"
           end
-
+          
           member do
             get "show_figures"
             get "show_tags"

@@ -94,7 +94,7 @@ class ContentTemplatesController < ApplicationController
     redirect_to :action => 'list'
   end 
 
-  def auto_complete_for_content_template
+  def auto_complete_for_content_templates
     value = params[:term]
     if value.nil?
       redirect_to(:action => 'index', :controller => 'content_templates') and return

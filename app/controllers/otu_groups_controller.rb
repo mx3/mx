@@ -246,7 +246,7 @@ class OtuGroupsController < ApplicationController
     @otus = OtuGroup.otus_without_groups(@proj.id)
   end
 
-  def auto_complete_for_otu_group
+  def auto_complete_for_otu_groups
     value = params[:term]
     method = params[:method]
 

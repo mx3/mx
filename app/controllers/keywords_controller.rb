@@ -65,7 +65,7 @@ class KeywordsController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  def auto_complete_for_keyword
+  def auto_complete_for_keywords
     value = params[:term]
     @keywords = Keyword.find(:all, :conditions => ["(keyword LIKE ? OR shortform LIKE ? OR id = ?) AND proj_id=?", "#{value}%", "#{value}%", value.gsub(/\%/, ""), @proj.id], :limit => 20, :order => "keyword")
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @keywords, :method => params[:method])

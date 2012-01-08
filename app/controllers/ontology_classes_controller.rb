@@ -190,7 +190,7 @@ class OntologyClassesController < ApplicationController
     @class_parents = @ontology_class.logical_relatives(:direction => :parents)
   end
 
-  def auto_complete_for_ontology_class
+  def auto_complete_for_ontology_classes
     value = params[:term]
     @ontology_classes = OntologyClass.auto_complete_search_result(params.merge!(:proj_id => @proj.ontology_id_to_use)) # TODO: need refactoring
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @ontology_classes, :method => params[:method])

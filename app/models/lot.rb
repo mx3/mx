@@ -86,12 +86,16 @@ class Lot < ActiveRecord::Base
   def self.find_for_auto_complete(value)
     find_by_sql [
       "SELECT l.* FROM lots l
-    LEFT JOIN identifiers i ON l.id = i.addressable_id
-    LEFT JOIN otus o ON l.otu_id = o.id 
-    LEFT JOIN taxon_names t ON o.taxon_name_id = t.id 
-    WHERE o.proj_id = #{$proj_id}
-    AND i.addressable_type = 'Lot'
-    AND (o.name LIKE ? OR o.matrix_name LIKE ? OR t.name LIKE ? OR i.identifier LIKE ? or l.id = ?) LIMIT 30",
+        LEFT JOIN identifiers i ON l.id = i.addressable_id
+        LEFT JOIN otus o ON l.otu_id = o.id 
+        LEFT JOIN taxon_names t ON o.taxon_name_id = t.id 
+        WHERE o.proj_id = #{$proj_id}
+        AND i.addressable_type = 'Lot'
+        AND (o.name LIKE ? OR
+        o.matrix_name LIKE ? OR
+        t.name LIKE ? OR
+        i.identifier LIKE ? OR
+        l.id = ?) LIMIT 30",
       "#{value.downcase}%", "#{value.downcase}%", "#{value.downcase}%", "%#{value.downcase}%", "#{value}"]
   end
  

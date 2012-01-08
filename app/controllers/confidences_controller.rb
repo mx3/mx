@@ -90,7 +90,7 @@ class ConfidencesController < ApplicationController
    @obj.update_attributes(:confidence_id => (params[:confidence][:id] == '-1' ? nil : params[:confidence][:id] ))
   end
 
-  def auto_complete_for_confidence
+  def auto_complete_for_confidences
     value = params[:term].split.join('%')
     lim = case params[:term].length
           when 1..2 then  10

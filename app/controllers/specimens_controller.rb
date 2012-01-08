@@ -270,7 +270,7 @@ class SpecimensController < ApplicationController
     redirect_to :back
   end
 
-  def auto_complete_for_specimen
+  def auto_complete_for_specimens
     value = params[:term]
     method = params[:method]
     @specimens = Specimen.find_for_auto_complete(value)

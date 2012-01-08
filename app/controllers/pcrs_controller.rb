@@ -191,7 +191,7 @@ class PcrsController < ApplicationController
     end and return
   end
 
-  def auto_complete_for_pcr
+  def auto_complete_for_pcrs
     value = params[:term]
     @pcrs = Pcr.find_for_auto_complete(value) 
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @pcrs, :method => params[:method])

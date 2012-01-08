@@ -73,7 +73,7 @@ class RepositoriesController < ApplicationController
     redirect_to :action => 'list'
   end
   
-  def auto_complete_for_repository
+  def auto_complete_for_repositories
     value = params[:term]
     @reps = Repository.find(:all, :conditions => ["name LIKE ? OR coden LIKE ?", "%#{value}%", "%#{value}%"], :limit => 10, :order => 'coden')
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @reps, :method => params[:method])
