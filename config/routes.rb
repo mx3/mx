@@ -173,7 +173,6 @@ Edge::Application.routes.draw do
     }
   },
 
-
   'content_templates' => {
     members: %w{
     get show_page

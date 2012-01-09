@@ -47,7 +47,8 @@ class Otu < ActiveRecord::Base
   has_many :seqs, :dependent => :destroy
   has_many :specimen_determinations, :dependent => :destroy
   has_many :specimens, :through => :specimen_determinations
-  has_many :mxes_otus
+  has_many :mxes_otus, :dependent => :destroy # Added in mx3
+  has_many :mxes_plus_otus, :dependent => :destroy # Added in mx3
   has_many :mxes, :through => :mxes_otus, :order => 'mxes.name'
   has_many :otu_groups_otus, :dependent => :destroy
   has_many :otu_groups, :through => :otu_groups_otus, :source => :otu_group, :order => 'otu_groups.name'

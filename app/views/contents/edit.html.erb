@@ -17,7 +17,7 @@
   <%= render(:partial => '/shared/show/record/record_details', :locals => {:obj => @content}) -%>
 </div>
 
-<%= form_tag(:action => :update, :id => @content.id, :content_template_id => @content_template.id) do -%>
+<%= form_tag({:action => :update, :content_template_id => @content_template.id}, :method => "put" ) do -%>
   <%= render(:partial => 'form') -%>
   <%= submit_tag 'Edit' -%>
 <% end %>

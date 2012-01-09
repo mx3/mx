@@ -1,46 +1,3 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: taxon_names
-#
-#  id                     :integer(4)      not null, primary key
-#  name                   :string(255)     not null
-#  author                 :string(128)
-#  year                   :string(4)
-#  nominotypical_subgenus :boolean(1)
-#  parent_id              :integer(4)
-#  valid_name_id          :integer(4)
-#  namespace_id           :integer(4)
-#  external_id            :integer(4)
-#  taxon_name_status_id   :integer(4)
-#  l                      :integer(4)
-#  r                      :integer(4)
-#  orig_genus_id          :integer(4)
-#  orig_subgenus_id       :integer(4)
-#  orig_species_id        :integer(4)
-#  iczn_group             :string(8)
-#  type_type              :string(255) ## ALL TYPE_ FIELDS ARE DEPRECATED!! - Use type_specimens
-#  type_count             :integer(4)
-#  type_sex               :string(255)
-#  type_repository_id     :integer(4)
-#  type_repository_notes  :string(255)
-#  type_geog_id           :integer(4)
-#  type_locality          :text
-#  type_notes             :string(255)
-#  type_taxon_id          :integer(4)
-#  type_by                :string(64)
-#  type_lost              :boolean(1)
-#  ref_id                 :integer(4)
-#  page_validated_on      :integer(4)
-#  page_first_appearance  :integer(4)
-#  notes                  :text
-#  import_notes           :text
-#  display_name           :string(255)  # now cached_display_name
-#  creator_id             :integer(4)      not null
-#  updator_id             :integer(4)      not null
-#  updated_on             :timestamp       not null
-#  created_on             :timestamp       not null
-#  original_spelling
 
 class TaxonName < ActiveRecord::Base
   has_standard_fields  
@@ -64,25 +21,21 @@ class TaxonName < ActiveRecord::Base
   belongs_to :original_genus, :class_name => "TaxonName", :foreign_key => "orig_genus_id"
   belongs_to :original_subgenus, :class_name => "TaxonName", :foreign_key => "orig_subgenus_id"
   belongs_to :original_species, :class_name => "TaxonName", :foreign_key => "orig_species_id"
- 
   belongs_to :ref
   belongs_to :type_geog, :class_name => "Geog", :foreign_key => "type_geog_id"
   belongs_to :type_repository, :class_name => "Repository", :foreign_key => "type_repository_id"
-  
   belongs_to :status, :class_name => "TaxonNameStatus", :foreign_key => "taxon_name_status_id"
   belongs_to :type_taxon, :class_name => "TaxonName", :foreign_key => "type_taxon_id"
   belongs_to :valid_name, :class_name => "TaxonName", :foreign_key => "valid_name_id"
 
   scope :ordered_by_date_of_availability, :order => '"taxon_names.year" ASC, refs.year ASC', :include => [{:ref => :authors}]
 
+  # because of indexing we can't validate_presence_of parent_id here
   validates_presence_of :iczn_group
   validates_presence_of :name
-
   validate :format_of_name
   validate :format_of_iczn_group 
-
   validate :that_agreement_name_used_only_for_species_group_names 
-  # because of indexing we can't validate_presence_of parent_id here
   validate :that_species_group_names_do_not_have_family_group_parents
 
   def original_combination_genus

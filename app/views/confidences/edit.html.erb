@@ -1,7 +1,6 @@
 <h3>Editing confidence</h3>
 
-<%= form_tag confidence_path(@confidence), :method=>:put do -%>
-  <input type='hidden' value='put' name="_method"/>
+<%= form_tag confidence_path(@confidence, :proj_id => @proj.id), :method => :put do -%>
   <%= render :partial => "form" %>
   <%= submit_tag "Edit" %>
 <% end -%>

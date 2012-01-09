@@ -1,7 +1,6 @@
 <%= error_messages_for 'otu_group' %>
 <h3>Edit OTU group</h3>
-
-<%= form_tag(:action => :update) do  -%>
+<%= form_tag({:action => :update}, :method => "put") do  -%>
 <%= hidden_field 'otu_group', 'id' %>
 <%= render(:partial => 'form') %>
   <input type="submit" name="submit" value="Edit" />

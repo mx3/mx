@@ -1,14 +1,8 @@
 <h3>Editing tree</h3>
-
-<%= form_tag :action => 'update', :id => @tree do %>
+<%= form_tag({:action => 'update'}, :method => "put") do -%>
   <%= render :partial => 'form' %>
-
   <div class="fr"><label for="tree_notes" class="lbl4"> <%= submit_tag 'Edit' %></label>
-
     <br style="clear: both;" />
-    
-</div>
-
- 
+  </div>
 <% end %>
 

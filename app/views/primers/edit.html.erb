@@ -1,9 +1,5 @@
 <h3>Editing primer</h3>
-
-<%= form_tag :action => 'update', :id => @primer do -%>
+<%= form_tag({:action => 'update'}, :method => "put") do -%>
   <%= render :partial =>"form" %>
   <%= submit_tag "Edit" %>
 <% end -%>
-
-<%= link_to 'Show', :action => 'show', :id => @primer %> |
-<%= link_to 'Back', :action => 'list' %>

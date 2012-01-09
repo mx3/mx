@@ -1,7 +1,7 @@
 <%= render :partial => "associations/association" %> 
 <h3>Edit support</h3>
 
-<%= form_tag :action => 'update', :id => @association_support, :association_id => @association do -%>
+<%= form_tag({:action => 'update', :id => @association_support, :association_id => @association}, :method => "put") do -%>
 <%= render :partial => "form" %>
 <%= submit_tag "Edit" %>
 <% end -%>

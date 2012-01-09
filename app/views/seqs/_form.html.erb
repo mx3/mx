@@ -1,5 +1,7 @@
 <!--[form:seq]-->
 
+<%= error_messages_for(@seq) -%>
+
 <div class="fr"> <label for="seq_sequence" class="lbl4">Sequence (5'- 3')</label>
   <span class="fld">  <%= text_area 'seq', 'sequence', 'title' => 'paste edited sequence here', :cols => 50, :rows => 6 %></span>
 </div>

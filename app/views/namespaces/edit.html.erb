@@ -1,9 +1,5 @@
 <h3>Editing namespace</h3>
-
-<%= form_tag :action => 'update', :id => @namespace do -%>
+<%= form_tag({:action => 'update'}, :method => "put") do -%>
   <%= render :partial => "form" %>
   <%= submit_tag "Edit" %>
 <% end -%>
-
-<%= link_to 'Show', :action => 'show', :id => @namespace %> |
-<%= link_to 'Back', :action => 'list' %>

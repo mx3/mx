@@ -15,12 +15,10 @@
   </ul>
 <% end %>
 
-
-
 <br />
 
 <div class="box4">
-  <%= form_tag({:action => 'update', :id => @specimen.id}, {:name => 'specimen_form'}) do -%>
+  <%= form_tag({:action => 'update'}, :html => {:name => 'specimen_form', :method => "put"}) do -%>
     <%= submit_tag "Update" %>
 
     <div class="subform">
