@@ -100,16 +100,19 @@ class Extract < ActiveRecord::Base
     s.to_s.html_safe
   end
 
+  # TODO: make a helper tag
   def display_source_identifiers  # :yields: String identifying the lot or specimen the extract came from
     specimen_id && (return Specimen.find(specimen_id).display_name(:type => :identifiers))
     return Lot.find(lot_id).display_name(:type => :identifiers)
   end
 
+  # TODO: make a helper tag
   def display_source_determinations  # :yields: String identifying the lot or specimen the extract came from
     specimen_id && (return Specimen.find(specimen_id).display_name(:type => :determinations))
     return Lot.find(lot_id).display_name(:type => :determination)
   end
 
+  # TODO: make a helper tag
   def display_source_ce # :yields: String
     if specimen_id
       return Specimen.find(specimen_id).display_name(:type => :ce_for_list)
