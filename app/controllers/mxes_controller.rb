@@ -25,12 +25,12 @@ class MxesController < ApplicationController
 
   def show
     id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
-    id ||= params[:id] 
+    id ||= params[:id]
     @mx = Mx.find(id)
-   
+
     respond_to do |format|
       format.html {
-        @show = ['default'] # not redundant with above- @show necessary for multiple display of items 
+        @show = ['default'] # not redundant with above- @show necessary for multiple display of items
       }
       format.xml {
         @xml = serialize(:mx => @mx)
@@ -51,7 +51,7 @@ class MxesController < ApplicationController
   end
 
   def show_trees
-    @mx = Mx.find(params[:id]) 
+    @mx = Mx.find(params[:id])
     @trees = @mx.trees
     @no_right_col = true
     render :action => :show
@@ -60,13 +60,13 @@ class MxesController < ApplicationController
   def show_otus
     @mx = Mx.find(params[:id])
     _set_otus
-    @chr = @mx.chrs.first # first chr to point 'code' at 
+    @chr = @mx.chrs.first # first chr to point 'code' at
     @no_right_col = true
     render :action => :show
   end
 
   def show_characters
-    @mx = Mx.find(params[:id])  
+    @mx = Mx.find(params[:id])
     _set_chrs
     @otu = @mx.otus.first # first otu to 'code' at
     @no_right_col = true
@@ -74,7 +74,7 @@ class MxesController < ApplicationController
   end
 
   def show_batch_code
-    @mx = Mx.find(params[:id])  
+    @mx = Mx.find(params[:id])
     @chrs = @mx.chrs
     @otus = @mx.otus
     @no_right_col = true
@@ -82,34 +82,34 @@ class MxesController < ApplicationController
   end
 
   def show_data_sources
-    @mx = Mx.find(params[:id], :include => :data_sources)  
+    @mx = Mx.find(params[:id], :include => :data_sources)
     @no_right_col = true
     render :action => :show
   end
 
   def show_figures
-    @mx = Mx.find(params[:id], :include => :data_sources)  
+    @mx = Mx.find(params[:id], :include => :data_sources)
     @no_right_col = true
     render :action => :show
   end
 
   def show_nexus
-    # see before_filter set_export_variables  
+    # see before_filter set_export_variables
     @no_right_col = true
     render :action => :show
   end
 
   def show_tnt
-    # see before_filter set_export_variables  
+    # see before_filter set_export_variables
     @no_right_col = true
     render :action => :show
   end
 
   def show_ascii
     # has its own layout
-    # see before_filter set_export_variables  
-    @interleave_width = Person.find($person_id).pref_mx_display_width 
-    render :layout =>  false, :action => 'export/show_ascii' 
+    # see before_filter set_export_variables
+    @interleave_width = Person.find($person_id).pref_mx_display_width
+    render :layout =>  false, :action => 'export/show_ascii'
   end
 
   def new
@@ -144,17 +144,17 @@ class MxesController < ApplicationController
     @mx = Mx.find(params[:id])
     begin
       Mx.transaction do
-        @mx.destroy 
+        @mx.destroy
       end
       flash[:notice] = 'Matrix destroyed.'
-    rescue 
+    rescue
       flash[:notice] = "Error destroying matrix: #{@mx.errors.collect{|e| e.message.to_s}.join(";")}."
     end
     redirect_to :action => :list
   end
 
   def as_file
-    # see before_filter set_export_variables 
+    # see before_filter set_export_variables
     @as_file = true
     case params[:filetype].to_sym
     when :tnt
@@ -172,7 +172,7 @@ class MxesController < ApplicationController
     mx = Mx.find(params[:id])
     case params[:clone_type].to_sym
     when :simple
-      @mx = mx.clone_to_simple 
+      @mx = mx.clone_to_simple
       flash[:notice] = "This is the cloned matrix."
     else
       # do nothing
@@ -202,7 +202,7 @@ class MxesController < ApplicationController
   end
 
   def code_with
-    redirect_to :action => :fast_code, :chr_id => params[:chr_id], :otu_id => params[:otu_id], :mode => params[:mode], :id => params[:mx][:id] 
+    redirect_to :action => :fast_code, :chr_id => params[:chr_id], :otu_id => params[:otu_id], :mode => params[:mode], :id => params[:mx][:id]
   end
 
   def otus_select
@@ -219,7 +219,7 @@ class MxesController < ApplicationController
   # It handles both the post and show aspects.
   def fast_code
     id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
-    id ||= params[:id] 
+    id ||= params[:id]
 
     # regardless of whether we navigate with ajax, or by post, we need these:
     @mx = Mx.find(id)
@@ -308,13 +308,13 @@ class MxesController < ApplicationController
     @confidences = @proj.confidences
 
     codings = []
-    # move logic to model? 
+    # move logic to model?
     if request.post?
       @codings = Coding.by_chr(@chr).by_otu(@otu)
 
       if @chr.is_continuous
         @codings.destroy_all
-        
+
         coding = Coding.create(
           "otu_id" => @otu.id,
           "chr_id" => @chr.id,
@@ -328,17 +328,17 @@ class MxesController < ApplicationController
         codings.push coding
 
       else
-        
+
         params[:state].each_pair { |chr_state_id, coded|
           chr_state = ChrState.find(chr_state_id.to_i)
-          if (coding = @codings.detect {|c| c.chr_state_id == chr_state.id}) # coding exists? 
+          if (coding = @codings.detect {|c| c.chr_state_id == chr_state.id}) # coding exists?
             if coded == "0"
               coding.destroy
             else # exists, but confidence might have changed
               coding.update_attributes(:confidence_id => ((params[:confidence] && params[:confidence][chr_state.id.to_s]) ? params[:confidence][chr_state.id.to_s] : nil) )
               codings.push coding
             end
-          else # coding doesn't exist 
+          else # coding doesn't exist
             if coded == "1"
               coding = Coding.create(
                 "otu_id" => @otu.id,
@@ -347,26 +347,26 @@ class MxesController < ApplicationController
                 # "chr_state_state" => chr_state.state, # set on before_filter
                 # "chr_state_name" => chr_state.name,
                 :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
-                "proj_id" => @proj.id 
-              ) 
+                "proj_id" => @proj.id
+              )
               codings.push coding
             end
-          end        
+          end
         }
       end
 
       flash[:notice] = "Updated."
     end
-  
+
     if params[:from_grid_coding]
-      # should make these locals 
+      # should make these locals
       @x = params[:x]
       @y = params[:y]
       cell_type = session["#{$person_id}_mx_overlay"] if not session["#{$person_id}_mx_overlay"].blank?
-      cell_type ||= 'none' 
+      cell_type ||= 'none'
       render :update do |page|
-        page.replace_html :cell_zoom, :partial => 'grid_cell_zoom' 
-        page.replace_html "cell_#{@x}_#{@y}", :partial => "/mx/cells/cell_#{cell_type}", :locals => {:i => params[:x], :j => params[:y], :o => @otu, :c => @chr, :mx_id => @mx.id, :codings => codings} 
+        page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
+        page.replace_html "cell_#{@x}_#{@y}", :partial => "/mx/cells/cell_#{cell_type}", :locals => {:i => params[:x], :j => params[:y], :o => @otu, :c => @chr, :mx_id => @mx.id, :codings => codings}
       end and return
     else
 
@@ -374,13 +374,13 @@ class MxesController < ApplicationController
       @no_right_col = true
       render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
     end
-  end 
- 
+  end
+
   #== Managing characters
 
   def add_chr
     @mx = Mx.find(params[:mx][:id])
-    begin 
+    begin
       if !params[:chr_group_id].blank?
         @mx.add_group(ChrGroup.find(params[:chr_group_id]))
         flash[:notice] = "Added a character group."
@@ -389,12 +389,12 @@ class MxesController < ApplicationController
       if params[:mx_chr] && !params[:mx_chr][:plus_id].blank?
         c = Chr.find(params[:mx_chr][:plus_id])
         @mx.chrs_plus << c if c
-        @mx.save! 
+        @mx.save!
       end
 
       if params[:mx_chr] && !params[:mx_chr][:minus_id].blank?
         c = Chr.find(params[:mx_chr][:minus_id])
-        @mx.chrs_minus << c if c 
+        @mx.chrs_minus << c if c
       end
     rescue
       flash[:notice] = "Problem with the addition, is choice, ready present?"
@@ -416,7 +416,7 @@ class MxesController < ApplicationController
   end
 
   # managing OTUs
-  
+
   def add_otu
     redirect_to :action => :list and return if params[:mx].blank?
     @mx = Mx.find(params[:mx][:id])
@@ -428,36 +428,36 @@ class MxesController < ApplicationController
         flash[:notice] = "Problem adding character group, is it already present?"
       end
     end
-     
+
     if params[:add_otu_minus]
-      if params[:otu_minus] && !params[:otu_minus][:id].blank? 
+      if params[:otu_minus] && !params[:otu_minus][:id].blank?
         o = Otu.find(params[:otu_minus][:id])
         @mx.otus_minus << o if o
-      end 
+      end
     elsif params[:add_otu_plus]
-      if params[:otu_plus] && !params[:otu_plus][:id].blank? 
+      if params[:otu_plus] && !params[:otu_plus][:id].blank?
         o = Otu.find(params[:otu_plus][:id])
         @mx.otus_plus << o if o
-      end 
+      end
     end
 
-    @mx.save! 
-    
-    redirect_to :action => :show_otus, :id => @mx.id    
+    @mx.save!
+
+    redirect_to :action => :show_otus, :id => @mx.id
   end
- 
+
   def remove_otu
     @mx = Mx.find(params[:id])
-    if @mx 
+    if @mx
       @mx.remove_group(OtuGroup.find(params[:otu_group_id])) if params[:otu_group_id]
       @mx.remove_from_plus(Otu.find(params[:otu_id])) if params[:otu_id]
       @mx.remove_from_minus(Otu.find(params[:minus_otu_id])) if params[:minus_otu_id]
     else
       render :action => :list and return
     end
-    redirect_to :action => :show_otus, :id => @mx.id    
+    redirect_to :action => :show_otus, :id => @mx.id
   end
-  
+
   # otu sorting
 
   def show_sort_otus
@@ -489,7 +489,7 @@ class MxesController < ApplicationController
 
 
   # character sorting
-  
+
   def show_sort_characters
     @mx = Mx.find(params[:id])
     @chrs_mxes = @mx.chrs_mxes
@@ -522,10 +522,10 @@ class MxesController < ApplicationController
   # misc
   def auto_complete_for_mx
     value = params[:term]
-    if value.nil? 
+    if value.nil?
       redirect_to(:action => 'list', :controller => 'mxes') and return
     else
-      val = value.split.join('%') 
+      val = value.split.join('%')
       @mxes = Mx.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id=?", "%#{val}%", val.gsub(/\%/, ""), @proj.id], :order => "name")
     end
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @mxes, :method => params[:method])
@@ -535,40 +535,40 @@ class MxesController < ApplicationController
     @matrix = Mx.find(params[:id], :include => [:chrs, :otus])
     @total_chrs = @matrix.chrs.count
     @total_otus = @matrix.otus.count
- 
+
     if @total_chrs == 0 || @total_otus == 0
       flash[:notice] = "Populate your matrix with some characters or OTUs before browsing it."
       redirect_to :action => :show, :id => @matrix and return
-    end 
+    end
 
     @cell_type = session["#{$person_id}_mx_overlay"] if !session["#{$person_id}_mx_overlay"].blank?
-    @cell_type ||= 'none' 
+    @cell_type ||= 'none'
 
     person = Person.find($person_id)
 
     respond_to do |format|
-      
+
 		  format.html {} # default .rhtml
       @window = {:chr_start => 1, :otu_start => 1, :chr_end => person.pref_mx_display_width, :otu_end => person.pref_mx_display_height}
       @mx = @matrix.codings_in_grid(@window)
-        
+
       # simplify several calculations for the view
-      @oes = @window[:otu_end] - @window[:otu_start] 
+      @oes = @window[:otu_end] - @window[:otu_start]
       @ces = @window[:chr_end] - @window[:chr_start]
 
-      format.js { 
-        _get_window_params 
+      format.js {
+        _get_window_params
         render :update do |page|
           page.replace_html :window_to_update, :partial => 'window'
           page.replace_html :cell_zoom, :text => nil
           # page.visual_effect :fade, "tl_#{@obj.class.to_s}_#{@obj.id}"
           # page.insert_html :bottom, "t_#{@obj.class.to_s}_#{@obj.id}", :partial => 'popup_form'
-        end and return 
+        end and return
       }
 		end
   end
 
-  
+
   def owl_export
     matrix = Mx.find(params[:id])
     graph = RDF::Graph.new
@@ -611,7 +611,7 @@ class MxesController < ApplicationController
   def _otu_zoom
     @matrix = Mx.find(params[:id])
     @otu = Otu.find(params[:otu_id])
-    @unique_codings = @otu.unique_codings 
+    @unique_codings = @otu.unique_codings
     render :update do |page|
       page.replace_html :cell_zoom, :partial => 'otu_zoom'
     end
@@ -629,10 +629,10 @@ class MxesController < ApplicationController
   def test
     mx = Mx.find(240)
     @xml = serialize(:mx => mx)
-  
+
     respond_to do |format|
       format.html {
-        @show = ['default'] # not redundant with above- @show necessary for multiple display of items 
+        @show = ['default'] # not redundant with above- @show necessary for multiple display of items
       }
       format.xml {
         render :xml => @xml, :layout => false
@@ -647,9 +647,9 @@ class MxesController < ApplicationController
   end
 
   private
-  
+
   def set_export_variables
-    @mx = Mx.find(params[:id])  
+    @mx = Mx.find(params[:id])
     @multistate_characters = @mx.chrs.that_are_multistate
     @continuous_characters = @mx.chrs.that_are_continuous
     @otus = @mx.otus
@@ -660,7 +660,7 @@ class MxesController < ApplicationController
   # TODO: before_filter this if used elsewhere
   def _set_otus
     @otus = @mx.otus
-    @otus_plus = @mx.otus_plus 
+    @otus_plus = @mx.otus_plus
     @otus_minus = @mx.otus_minus
     @otu_groups_in = @mx.otu_groups
     @otu_groups_out = @proj.otu_groups - @otu_groups_in
@@ -672,8 +672,8 @@ class MxesController < ApplicationController
   def _set_chrs
     @chrs = @mx.chrs
 
-    @chrs_plus = @mx.chrs_plus 
-    # @chrs_plus_out = @proj.chrs - @chrs  
+    @chrs_plus = @mx.chrs_plus
+    # @chrs_plus_out = @proj.chrs - @chrs
 
     @chrs_minus = @mx.chrs_minus
     # @chrs_minus_out = @proj.chrs - @chrs_minus
@@ -686,7 +686,7 @@ class MxesController < ApplicationController
 
   # before_filter this
   def set_grid_coding_params
-    @mx = Mx.find(params[:id])  
+    @mx = Mx.find(params[:id])
     @chrs = @mx.chrs
     @otus = @mx.otus
 
