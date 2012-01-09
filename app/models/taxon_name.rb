@@ -277,7 +277,7 @@ class TaxonName < ActiveRecord::Base
       end
     when :string_with_author_year
       xml << (self.display_name(:type => :string_no_author_year) + " #{self.display_author_year}" ).strip
-    else # These cached names won't have italics
+    else 
       xml << (cached_display_name || "ERROR - cached_display_name has not yet been built, contact your adminstrator!")
     end
     return opt[:target]

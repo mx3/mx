@@ -8,6 +8,7 @@ module Json
       }
     end
   end
+
   def self.format_for_autocomplete_with_display_name(options = {})
     opt = {
        :entries => [],
