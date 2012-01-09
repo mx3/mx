@@ -165,7 +165,9 @@ class Specimen < ActiveRecord::Base
       end 
       xml <<  " <span style='color:grey;font-size:smaller;'>mx_id:#{id.to_s}</span>"
     when :selected
-      xml << self.display_name(:type => :select)
+      xml << self.display_name(:type => :identifiers)
+      xml << " : " 
+      xml << self.display_name(:type => :verbose_taxon)
     when :taxon # returns a string 
       if self.most_recent_determination
         xml << self.most_recent_determination.display_name(:type => :selected)
@@ -195,7 +197,7 @@ class Specimen < ActiveRecord::Base
         xml << self.ce.display_name(:type => :sub_select) if self.ce 
       end 
     end
-    opt[:target] 
+    opt[:target]
   end
 
   def verbose_material_examined_string(options = {}) # :yields: String, as used in /lib/material_examined.rb

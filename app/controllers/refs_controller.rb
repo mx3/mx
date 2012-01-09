@@ -225,7 +225,7 @@ class RefsController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  def auto_complete_for_ref
+  def auto_complete_for_refs
     value = params[:term]
     method = params[:method]
 

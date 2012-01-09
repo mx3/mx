@@ -520,7 +520,7 @@ class MxesController < ApplicationController
   end
 
   # misc
-  def auto_complete_for_mx
+  def auto_complete_for_mxes
     value = params[:term]
     if value.nil? 
       redirect_to(:action => 'list', :controller => 'mxes') and return

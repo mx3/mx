@@ -59,7 +59,7 @@ class GeogsController < ApplicationController
     redirect_to :action => 'list'
   end
   
-  def auto_complete_for_geog
+  def auto_complete_for_geogs
     value = params[:term]
     if params[:geog_types] != 'all'
       type_cond = params[:geog_types].split(",").collect{|t| "geogs.geog_type_id = #{t}"}.join(" OR ")

@@ -270,21 +270,25 @@ class SpecimensController < ApplicationController
     redirect_to :back
   end
 
-  def auto_complete_for_specimen
+  def auto_complete_for_specimens
     value = params[:term]
-    method = params[:method]
+    # method = params[:method]
     @specimens = Specimen.find_for_auto_complete(value)
-    data = @specimens.collect do |specimen|
-      {:id=> specimen.id,
-       :label=> specimen.display_name,
-       :response_values=> {
-          'specimen[id]' => specimen.id
-          # :hidden_field_class_name => @tag_id_str # not Sure wht this is for, probably delete.
-       },
-       :label_html => specimen.display_name(:type => :for_select_list)
-      }
-    end
-    render :json => data
+    
+    render :json => Json::format_for_autocomplete_with_display_name(:entries => @specimens, :method => params[:method])
+    
+#   data = @specimens.collect do |specimen|
+#     {:id=> specimen.id,
+#      :label=> specimen.display_name,
+#      :response_values=> {
+#         params[:method] => specimen.id,
+#         'specimen[id]' => specimen.id
+#         :hidden_field_class_name => @tag_id_str # not sure what this is for, probably delete.
+#      },
+#      :label_html => specimen.display_name(:type => :for_select_list)
+#     }
+#   end
+#   render :json => data
   end
 
   def clone

@@ -70,7 +70,7 @@ class StandardViewGroupsController < ApplicationController
   end
  
 
-  def auto_complete_for_standard_view_group
+  def auto_complete_for_standard_view_groups
     value = params[:term]
     if value.nil? 
       redirect_to(:action => 'index', :controller => 'standard_views') and return

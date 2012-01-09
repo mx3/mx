@@ -5,9 +5,9 @@
     'cell_data' =>[
     o.id,
     o.specimen_id,
-    o.display_source_identifiers,
-    o.display_source_determinations,
-    o.display_source_ce,
+    o.display_source_identifiers.html_safe,
+    o.display_source_determinations.html_safe,
+    o.display_source_ce.html_safe,
     o.quality,  
     {o.notes => 'smaller_font'},
     o.other_extract_identifier,

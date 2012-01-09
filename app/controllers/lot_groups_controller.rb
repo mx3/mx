@@ -84,7 +84,7 @@ class LotGroupsController < ApplicationController
     @lot_groups = @proj.lot_groups(:order => 'name ASC') 
   end
 
-  def auto_complete_for_lot_group
+  def auto_complete_for_lot_groups
     value = params[:term]
     if value.nil? 
       redirect_to :previous 

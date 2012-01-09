@@ -128,7 +128,7 @@ class DataSourcesController < ApplicationController
      redirect_to :action => 'edit', :id => params[:id]
   end
 
-   def auto_complete_for_data_source
+   def auto_complete_for_data_sources
      value = params[:term]
      if value.nil?
        redirect_to(:action => 'list', :controller => 'data_sources') and return

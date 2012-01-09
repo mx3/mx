@@ -73,7 +73,7 @@ class TaxonHistsController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  def auto_complete_for_taxon_hist
+  def auto_complete_for_taxon_hists
     @taxon_hists = TaxonHist.find_for_auto_complete(params[:term].split, @proj.sql_for_taxon_names("taxon_names"))    
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @taxon_hists, :method => params[:method])
   end
