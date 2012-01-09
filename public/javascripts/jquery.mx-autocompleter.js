@@ -88,7 +88,7 @@
           .data( "item.autocomplete", item )
           .append(
             $("<a>")
-            .append(item.label_html  || item.label ) // Just add the HTML from the label in directly
+            .append(item.label_html || item.label ) // Just add the HTML from the label in directly
           )
           .appendTo( ul );
       };

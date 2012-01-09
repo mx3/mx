@@ -105,7 +105,7 @@ module App::DisplayHelper
     end
     r << content_tag(:td, link_to('Show', :action => 'show', :controller => klass , :id => o.id, :target =>'show'), :class => :list_action)
     r << content_tag(:td, link_to('Edit', :action => 'edit', :controller => klass, :id => o.id), :class => :list_action)
-    r << content_tag(:td, link_to('Destroy', {:action => 'destroy', :controller => klass, :id => o.id}, :method => "post", :confirm => ([Ref, Otu].include?(o.class) ? "WARNING! You are about to delete EVERYTHING in this project that is directly tied to this #{o.class}.  Are you sure you want to do this?" : "Are you sure?")), :class => :list_action)
+    r << content_tag(:td, link_to('Destroy', {:action => :destroy, :controller => klass, :id => o.id}, :method => "post", :confirm => ([Ref, Otu].include?(o.class) ? "WARNING! You are about to delete EVERYTHING in this project that is directly tied to this #{o.class}.  Are you sure you want to do this?" : "Are you sure?")), :class => :list_action)
     r.html_safe
   end
 

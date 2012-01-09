@@ -246,7 +246,7 @@ class TaxonNamesController < ApplicationController
     redirect_to :action => :visibility
   end
  
-  def auto_complete_for_taxon_name
+  def auto_complete_for_taxon_names
     table_name = "tn"  # alias for the TaxonName joins needed
     value = params[:term]
     if params[:use_proj] == 'false'

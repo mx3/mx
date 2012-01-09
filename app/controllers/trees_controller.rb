@@ -81,7 +81,7 @@ class TreesController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  def auto_complete_for_tree
+  def auto_complete_for_trees
     value = params[:term]
     conditions = ["(trees.tree_string LIKE ? OR trees.name LIKE ? OR trees.id = ?) and proj_id = ?",  "%#{value}%", "%#{value}%", value, @proj.id]
     @trees = Tree.find(:all, :conditions => conditions, :limit => 35, :order => 'trees.name')

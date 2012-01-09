@@ -181,7 +181,7 @@ class SensusController < ApplicationController
     end
   end
 
-  def auto_complete_for_sensu
+  def auto_complete_for_sensus
     @sensus = Sensu.auto_complete_search_result(params.merge!(:proj_id => @proj.id))
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @sensus, :method => params[:method])
   end

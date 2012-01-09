@@ -25,10 +25,9 @@ source :gemcutter
   gem "obo_parser"   ,  "0.3.4"
   gem "nexus_parser" ,  "1.1.4"
   gem "rubyMorphbank",  "~>0.2.4"
+
   # gem "exception_notification", "2.3.3.0" # 2.4 doesn't work
   # config.gem "fastercsv", "1.5.3"
-  # require 'fastercsv'
-  # require 'csv'
   # config.gem 'addressable',  '2.2.4' # !! 2.2.5 will not work, uninstall from your library completely.
 
   # gem 'prototype_legacy_helper', '0.0.0', :git => 'git://github.com/rails/prototype_legacy_helper.git'

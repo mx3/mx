@@ -46,7 +46,7 @@ class SpecimenDetermination < ActiveRecord::Base
     case opt[:type]
     when :selected
       if self.otu
-        s << self.otu.display_name 
+        s << self.otu.display_name(:type => :selected) 
       else 
         s << self.name
       end

@@ -54,9 +54,10 @@ class Extract < ActiveRecord::Base
   scope :in_id_range, lambda {|*args| { :conditions => ["extracts.id >= ? and extracts.id <= ?", (args.first || -1), (args[1] || -1)] }  }
 
   validate :check_record
+
   def check_record
-    errors.add(specimen_id, 'Choose either specimen or lot, not both.') if specimen_id? && lot_id?
-    errors.add(specimen_id, 'Choose a specimen or lot the extract came from.') if specimen_id.blank? && lot_id.blank?
+    errors.add(:specimen_id, 'Choose a specimen or lot the extract came from.') if specimen_id.blank? && lot_id.blank?
+    errors.add(:specimen_id, 'Choose a specimen or lot, not both.') if !specimen_id.blank? && !lot_id.blank?
   end
 
   def display_name(options = {})
@@ -96,19 +97,22 @@ class Extract < ActiveRecord::Base
       end
       s << '</div>'
     end
-    s.html_safe
+    s.to_s.html_safe
   end
 
+  # TODO: make a helper tag
   def display_source_identifiers  # :yields: String identifying the lot or specimen the extract came from
     specimen_id && (return Specimen.find(specimen_id).display_name(:type => :identifiers))
     return Lot.find(lot_id).display_name(:type => :identifiers)
   end
 
+  # TODO: make a helper tag
   def display_source_determinations  # :yields: String identifying the lot or specimen the extract came from
     specimen_id && (return Specimen.find(specimen_id).display_name(:type => :determinations))
     return Lot.find(lot_id).display_name(:type => :determination)
   end
 
+  # TODO: make a helper tag
   def display_source_ce # :yields: String
     if specimen_id
       return Specimen.find(specimen_id).display_name(:type => :ce_for_list)

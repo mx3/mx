@@ -39,7 +39,7 @@ class ContentsController < ApplicationController
     render :action => :edit 
   end 
 
-  def auto_complete_for_content
+  def auto_complete_for_contents
     value = params[:term]
     if value.nil?
       redirect_to(:action => 'index', :controller => 'contents') and return

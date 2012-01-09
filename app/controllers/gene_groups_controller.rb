@@ -67,7 +67,7 @@ class GeneGroupsController < ApplicationController
     redirect_to :action => 'show', :id => @gene_group.id    
   end
 
-  def auto_complete_for_gene_group
+  def auto_complete_for_gene_groups
     value = params[:term]
     if value.nil? 
       redirect_to(:action => 'index', :controller => 'gene_groups') and return

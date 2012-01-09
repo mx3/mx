@@ -61,7 +61,7 @@ class GenesController < ApplicationController
     @genes = @proj.genes
   end
 
-  def auto_complete_for_gene
+  def auto_complete_for_genes
     value = params[:term]
     if value.nil?
       redirect_to(:action => 'index', :controller => 'genes') and return

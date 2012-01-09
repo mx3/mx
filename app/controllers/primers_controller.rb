@@ -54,7 +54,7 @@ class PrimersController < ApplicationController
     render :action => 'list'
   end
 
-  def auto_complete_for_primer
+  def auto_complete_for_primers
     value = params[:term]
     if @tag_id_str == nil
       redirect_to(:action => 'index', :controller => 'primers') and return

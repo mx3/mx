@@ -363,12 +363,11 @@ class ChrsController < ApplicationController
     render(:text => (rdf + '\n\n' + triples))
  end
 
- def autocomplete_for_chr
+ def auto_complete_for_chrs
    value = params[:term]
-   method = params[:method]
    conditions = ["(chrs.name LIKE ? OR chrs.id = ?) and proj_id = ?",  "%#{value}%", value, @proj.id]
    @chrs = Chr.find(:all, :conditions => conditions, :limit => 35, :order => 'chrs.name')
-   render :json => autocomplete_result(:entries => @chrs, :method => method)
+   render :json => Json::format_for_autocomplete_with_display_name(:entries => @chrs, :method => params[:method])
  end
 
 

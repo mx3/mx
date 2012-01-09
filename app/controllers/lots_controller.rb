@@ -113,7 +113,7 @@ class LotsController < ApplicationController
     redirect_to :action => 'list'
   end
   
-  def auto_complete_for_lot
+  def auto_complete_for_lots
     value = params[:term]
     @lots = Lot.find_for_auto_complete(value)
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @lots, :method => params[:method])

@@ -53,7 +53,7 @@ class ContentTypesController < ApplicationController
     redirect_to :action => 'list'
   end
 
-  def auto_complete_for_content_type
+  def auto_complete_for_content_types
     value = params[:term]
     conditions = ["name LIKE ? AND proj_id = ?", "%#{value}%", @proj.id]
     @content_types = ContentType.find(:all, :conditions => conditions, :order => 'name')

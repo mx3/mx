@@ -159,7 +159,7 @@ class ClavesController < ApplicationController
     end
   end
     
-  def auto_complete_for_clave
+  def auto_complete_for_claves
     value = params[:term]
     val = value.split.join('%')
     lim = case value.length

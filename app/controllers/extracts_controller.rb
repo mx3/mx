@@ -127,7 +127,7 @@ class ExtractsController < ApplicationController
     end
   end
  
-  def auto_complete_for_extract
+  def auto_complete_for_extracts
     value = params[:term]
     @extracts = Extract.find_for_auto_complete(value)
     render :json => Json::format_for_autocomplete_with_display_name(:entries => @extracts, :method => params[:method])

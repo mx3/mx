@@ -73,7 +73,7 @@ class SerialsController < ApplicationController
   def find_many
   end
 
-  def auto_complete_for_serial
+  def auto_complete_for_serials
     value = params[:term]
     val = value.split.join('%') # hmm... perhaps should make this order-independent
     @serials = Serial.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND synonymous_with_id is NULL", "%#{val}%", val],
