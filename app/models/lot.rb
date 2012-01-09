@@ -40,7 +40,6 @@ class Lot < ActiveRecord::Base
 
   has_one :ipt_record, :dependent => :destroy
   has_many :extracts, :dependent => :destroy
-  has_many :lot_identifiers, :dependent => :delete_all # TODO: deprecate
 
   has_and_belongs_to_many :lot_groups
 

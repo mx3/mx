@@ -69,8 +69,13 @@ class SeqsController < ApplicationController
   end
 
   def destroy
-    Seq.find(params[:id]).destroy
+    if Seq.find(params[:id]).destroy
+     notice "Sequence destroyed."
+    else
+      notice "Failed to destroy sequence."
+    end 
     redirect_to :action => :list
+    
   end
 
   def list_by_scope
