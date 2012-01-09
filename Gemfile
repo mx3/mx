@@ -1,6 +1,6 @@
 source :gemcutter
   # bundler requires these gems in all environments
-  gem "rails", "3.0.10"
+  gem "rails", "3.0.11"
   gem "mysql2", '< 0.3'
   gem 'kaminari'
   gem 'alchemist',  '0.1.2.1'
