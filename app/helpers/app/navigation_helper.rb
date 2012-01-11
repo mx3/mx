@@ -357,9 +357,9 @@ module App::NavigationHelper
   # TODO: Determine whether to keep singular controller help in wiki, or migrate wiki to plural
   def wiki_help_link
     if "#{self.controller.action_name}" != "index"
-      "<a href=\"http://#{HELP_WIKI}/index.php/app/#{self.controller.request.parameters[:controller].singularize}/#{self.controller.action_name}\" target=\"blank\" >wiki-help</a>".html_safe
+      "<a href=\"http://#{HELP_WIKI}/index.php/app/#{self.controller.request.parameters[:controller].to_s.singularize}/#{self.controller.action_name}\" target=\"blank\" >wiki-help</a>".html_safe
     else
-      "<a href=\"http://#{HELP_WIKI}/index.php/app/#{self.controller.request.parameters[:controller].singularize}\" target=\"blank\" >wiki-help</a>".html_safe
+      "<a href=\"http://#{HELP_WIKI}/index.php/app/#{self.controller.request.parameters[:controller].to_s.singularize}\" target=\"blank\" >wiki-help</a>".html_safe
     end
   end
 

@@ -3,6 +3,7 @@ Edge::Application.routes.draw do
   root :to => "projs#index"
 
  # matrix/coding routes
+ match "/projects/:proj_id/mxes_set_fast_coding_mode" => "mxes#set_fast_coding_mode", :as => :set_fast_coding_mode_for_mxes
  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id/:chr_state_id", :controller => 'mxes', :action => "fast_code" , :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
  match "/projects/:proj_id/mxes/:id/fast_code/:mode/:position/:otu_id/:chr_id", :controller => 'mxes', :action => "fast_code", :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/}
 
@@ -456,7 +457,7 @@ Edge::Application.routes.draw do
     post otus_select
   },
     collections: %w{
-    post code_with 
+    post code_with
   }
   },
 
@@ -1038,7 +1039,7 @@ Edge::Application.routes.draw do
             get 'list'
             get "auto_complete_for_#{c}"
           end
-          
+
           member do
             get "show_figures"
             get "show_tags"

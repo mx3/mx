@@ -37,3 +37,7 @@ function mx_replace(element, content) {
   $(element).replaceWith(content);
   initialize_js($(element));
 }
+function mx_update(element, content) {
+  $(element).html(content);
+  initialize_js($(element));
+}
