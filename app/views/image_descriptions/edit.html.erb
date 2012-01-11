@@ -1,15 +1,11 @@
 <h3>Editing image description</h3>
-
 <%= image_thumb_tag(@image_description.image) -%>
-
-<%= form_tag :action => 'update', :id => @image_description do -%>
+<%= form_tag({:action => 'update'}, :method => "put") do -%>
   <%= submit_tag 'Update' %>
-    <%= submit_tag 'Update and next', :name => 'update_and_next' %>
-    <%= link_to 'Cancel and Show', :action => 'show', :controller => :images, :id => @image_description.image.id %>
+  <%= submit_tag 'Update and next', :name => 'update_and_next' %>
+  <%= link_to 'Cancel and Show', :action => 'show', :controller => :images, :id => @image_description.image.id %>
 
-   <%= render :partial => 'form' -%>
+  <%= render :partial => 'form' -%>
   <%= submit_tag 'Update' %>
-   <%= submit_tag 'Update and next', :name => 'update_and_next' %>
+  <%= submit_tag 'Update and next', :name => 'update_and_next' %>
 <% end -%>
-
- 

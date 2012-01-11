@@ -9,21 +9,21 @@
     data-sortable-on-change-url="<%= sort_confidences_path %>"
     data-sortable-items="li.confidence"
     data-sortable-handle='.drag-handle' >
-    <%= @confidences.each do |c| -%>
-      <%= content_tag_for :li, c do -%>
+    <% @confidences.each do |c| -%>
+      <% content_tag_for :li, c do -%>
         <%= render 'shared/drag_handle' %>
         <span> &nbsp; <%= c.id -%></span> &nbsp;
         <% bg_color = "##{c.html_color.blank? ? "ffffff" : c.html_color}"
            fg_color = contrasting_text_color(bg_color)
         %>
         <span style="background-color:<%=bg_color-%>;">
-          <a href="<%= confidence_path(@proj, c)%>" style='color:<%= fg_color%>'>
+          <a href="<%= confidence_path(:proj_id => @proj, :id =>  c)%>" style='color:<%= fg_color%>'>
             <%= c.display_name.html_safe %>
           </a>
         </span>
-        <%= "(#{c.short_name})" if c.short_name -%>
-        &nbsp; <%= link_to 'Edit', :action => 'edit', :id => c -%>
-        &nbsp; <%= link_to 'x', {:action => 'destroy', :id => c}, :confirm => "Are you sure?" -%>
+        <%= "&nbsp;(#{c.short_name})".html_safe if !c.short_name.blank? -%>
+        &nbsp; <%= link_to 'Edit', :action => :edit, :id => c.id -%>
+        &nbsp; <%= link_to 'x', {:action => :destroy, :id => c.id}, :confirm => "Are you sure?" -%>
      <% end -%>
    <% end -%>
   </ul>

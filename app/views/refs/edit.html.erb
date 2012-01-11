@@ -11,7 +11,7 @@
 <% end -%>
 <p> Current citation rendering: <span class="passed" id="display_name"><%= @ref.display_name -%></span></p>
 
-<%= form_for(:ref, :url => {:action => :update, :id => @ref}, :html => { :multipart => true}) do |f| -%>
+<%= form_for(:ref, :url => {:action => :update, :id => @ref}, :html => { :multipart => true, :method => "put"}) do |f| -%>
   <%= submit_tag 'Update' %>
   or <%= submit_tag 'Update and next', :name => 'update_and_next' %>
   or <%= link_to 'Cancel and next', :action => 'edit', :id => next_rec(@ref)  %>

@@ -1,5 +1,5 @@
 <h3>Editing matrix</h3>
-<%= form_tag :action => 'update', :id => @mx.id do -%>
+<%= form_tag({:action => 'update'}, :method => "put") do -%>
 <%= render :partial => "form" %>
   <%= submit_tag "Update" %>
 <% end -%>

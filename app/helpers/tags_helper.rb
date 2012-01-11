@@ -38,8 +38,8 @@ module TagsHelper
   end
 
   def link_to_tagged(tag)
-    return "<strong style='color:red'>ERROR? #{tag.addressable_type}:#{tag.addressable_id}</strong>".html_safe if !tag.tagged_obj
-    link_to(tag.tagged_obj.display_name, :action => :show, :id => tag.addressable_id, :controller => tag.addressable_type.underscore.pluralize)
+    return content_tag(:strong, "ERROR? #{tag.addressable_type}:#{tag.addressable_id}".html_safe, :style => 'color:red') if !tag.tagged_obj
+    link_to(tag.tagged_obj.display_name.html_safe, :action => :show, :id => tag.addressable_id, :controller => tag.addressable_type.underscore.pluralize)
   end
 
   def link_to_referenced_object(tag)

@@ -1,5 +1,5 @@
 <p><b>Editing Collecting Event</b> <span class="small_grey">(id: <%= @ce.id %>)</span></p>
-<%= form_tag({:action => 'update', :id => @ce}, {:name => 'ce_form'}) do -%>
+<%= form_tag({:action => 'update'}, {:name => 'ce_form', :method => "put"}) do -%>
 
   <div style="border-bottom: 1px dotted silver; padding: 2px;margin: 2px;">
     <%= submit_tag "Update" %>

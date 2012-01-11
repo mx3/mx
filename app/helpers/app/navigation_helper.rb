@@ -81,7 +81,7 @@ module App::NavigationHelper
           tg = ''
         end
 
-        tg += content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "post", :confirm => "Are you sure?", :style => 'display:inline;' ) )
+        tg += content_tag(:span, link_to('Destroy', {:action => :destroy, :id => opt[:obj]}, :method => "delete", :confirm => "Are you sure?", :style => 'display:inline;' ) )
         tg.html_safe
        end
     end

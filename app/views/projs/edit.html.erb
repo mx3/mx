@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'proj' %>
 <%= link_to 'Cancel and back', :action => 'list' %>
-<%= form_tag(:action => @target, :id => @proj) do %>
+<%= form_tag({:action => @target}, :method => "put") do %>
 
   <input type="submit" name="submit" value="<%= @target == "update" ? "Update" : "Create" %>" class="primary" />
 

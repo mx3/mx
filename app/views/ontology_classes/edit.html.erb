@@ -1,8 +1,6 @@
 <h3>Editing ontology class</h3>
-
 <p> existing labels: <%= labels_banner_tag(@ontology_class) -%> </p>
-
-<%= form_for(:ontology_class, :url => {:action => :update, :id => @ontology_class}) do |f| %>
+<%= form_for(:ontology_class, :url => {:action => :update, :id => @ontology_class}, :html => {:method => "put"}) do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
   <div style="clear:both;">
     <%= f.submit "Update" %>

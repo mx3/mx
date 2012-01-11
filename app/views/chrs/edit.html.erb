@@ -1,6 +1,6 @@
 <h3>Editing character</h3>
 
-<%= form_tag :action => 'update' do -%>
+<%= form_tag({:action => 'update'}, :method => "put") do -%>
   <%= hidden_field 'chr', 'id' %>
   <%= submit_tag "Update" %> <%= link_to('cancel', :action => :show, :id => @chr) -%>
   <div style="border-bottom: 1px dotted silver; margin-bottom:1em;"> Character metadata </div>

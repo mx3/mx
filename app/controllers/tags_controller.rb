@@ -32,7 +32,6 @@ class TagsController < ApplicationController
 
   def new
     @tag = Tag.new
-    debugger
     @obj = ActiveRecord::const_get(params[:tag_obj_class]).find(params[:tag_obj_id])
     @keyword_id = params[:keyword_id]
   end

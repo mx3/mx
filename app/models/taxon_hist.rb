@@ -1,28 +1,3 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: taxon_hists
-#
-#  id                   :integer(4)      not null, primary key
-#  taxon_name_id        :integer(4)      not null
-#  higher_id            :integer(4)
-#  genus_id             :integer(4)
-#  subgenus_id          :integer(4)
-#  species_id           :integer(4)
-#  subspecies_id        :integer(4)
-#  author               :string(255)
-#  year                 :string(6)
-#  varietal_id          :integer(4)
-#  varietal_usage       :string(24)
-#  ref_id               :integer(4)
-#  ref_page             :string(64)
-#  taxon_name_status_id :integer(4)
-#  notes                :text
-#  creator_id           :integer(4)      not null
-#  updator_id           :integer(4)      not null
-#  updated_on           :timestamp       not null
-#  created_on           :timestamp       not null
-#
 
 class TaxonHist < ActiveRecord::Base
   
@@ -90,7 +65,7 @@ class TaxonHist < ActiveRecord::Base
       s += " #{author}"
     end
     s += " #{year}" if year 
-    s
+    s.html_safe
   end
 
 

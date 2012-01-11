@@ -1,5 +1,5 @@
 <h3> <%= "Edit OTU id:" + @otu.id.to_s -%></h3>
-<%= form_tag(:action => :update, :id => @otu) do -%>
+<%= form_tag({:action => :update}, :method => "put" ) do -%>
 <%= render(:partial => 'form') -%> 
  <%= submit_tag 'update' -%>
  or <%= submit_tag 'update and next', :name => 'update_and_next' -%>

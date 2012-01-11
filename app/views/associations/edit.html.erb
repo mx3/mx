@@ -7,7 +7,7 @@
 
 <%= error_messages_for 'new_part' %>
 
-<%= form_tag :action => 'update', :id => @association do -%>
+<%= form_tag({:action => 'update', :id => @association}, :method => "put") do -%>
   <%= render :partial => "new_part", :locals => { :part => @new_part } %>
   <%= render :partial => "form" %>
   <%= submit_tag "Update" %>

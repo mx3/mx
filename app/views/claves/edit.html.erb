@@ -4,7 +4,7 @@
     <%= render(:partial => 'history', :locals => {:act => 'edit'}) -%>
   </div>
 
-  <%= form_tag :action => 'update', :id => @claves do -%>
+  <%= form_tag({:action => 'update'}, :method => "put") do -%>
     <div style="text-align: center; clear: both;" >
       <p><label for="clave_manual_id">Manual couplet number: </label>
         <%= hidden_field "clave", "id" -%>
