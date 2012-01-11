@@ -78,23 +78,60 @@
       return true;
     }
   };
+  var spinner = function($e, action) {
+    var target = $e.data('ajaxifySpinnerTarget');
+    if (target) {
+      if (action === 'show') {
+        $(target).mx_spinner('show');
+      } else {
+        $(target).mx_spinner('hide');
+      }
+
+    } else {
+      if (action === 'show') {
+        $.basicModal('loading');
+      } else {
+        $.basicModal('hide');
+      }
+    }
+
+  }
 
   $.fn.ajaxify = function(options) {
     var handlers = {
-      submit: function($e, options) {
-        $e.click(function(evt) {
-          $.basicModal("loading");
+      onchange: function($e, options) {
+        $e.bind('change', function(evt) {
+          spinner($e, 'show');
           if (confirmed($e)) {
             var request_options = $.extend({}, options, {
               dataType: 'script html',
               complete: function(xhr, status) {
-                $.basicModal("hide");
+                spinner($e, 'hide');
                 Ajaxify.eval_html(xhr.responseText);
               }
             });
             Ajaxify.request($e, request_options);
           } else {
-            $.basicModal("hide");
+            spinner($e, 'hide');
+          }
+          evt.preventDefault();
+        });
+
+      },
+      submit: function($e, options) {
+        $e.click(function(evt) {
+          spinner($e, 'show');
+          if (confirmed($e)) {
+            var request_options = $.extend({}, options, {
+              dataType: 'script html',
+              complete: function(xhr, status) {
+                spinner($e, 'hide');
+                Ajaxify.eval_html(xhr.responseText);
+              }
+            });
+            Ajaxify.request($e, request_options);
+          } else {
+            spinner($e, 'hide');
           }
           evt.preventDefault();
         });

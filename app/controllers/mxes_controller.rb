@@ -119,7 +119,7 @@ class MxesController < ApplicationController
   def create
     @mx = Mx.new(params[:mx])
     if @mx.save
-      flash[:notice] = 'Mx was successfully created.'
+      notice 'Mx was successfully created.'
       redirect_to :action => 'show', :id => @mx.id
     else
       render :action => :edit
@@ -133,7 +133,7 @@ class MxesController < ApplicationController
   def update
     @mx = Mx.find(params[:id])
     if @mx.update_attributes(params[:mx])
-      flash[:notice] = 'Mx was successfully updated.'
+      notice 'Mx was successfully updated.'
       redirect_to :action => 'show', :id => @mx.id
     else
       render :action => :edit
@@ -146,9 +146,9 @@ class MxesController < ApplicationController
       Mx.transaction do
         @mx.destroy
       end
-      flash[:notice] = 'Matrix destroyed.'
+      notice 'Matrix destroyed.'
     rescue
-      flash[:notice] = "Error destroying matrix: #{@mx.errors.collect{|e| e.message.to_s}.join(";")}."
+      notice "Error destroying matrix: #{@mx.errors.collect{|e| e.message.to_s}.join(";")}."
     end
     redirect_to :action => :list
   end
@@ -173,7 +173,7 @@ class MxesController < ApplicationController
     case params[:clone_type].to_sym
     when :simple
       @mx = mx.clone_to_simple
-      flash[:notice] = "This is the cloned matrix."
+      notice "This is the cloned matrix."
     else
       # do nothing
     end
@@ -185,11 +185,11 @@ class MxesController < ApplicationController
     case params[:generate_type].to_sym
     when :chr_group
       @group = @mx.generate_chr_group
-      flash[:notice] = "This character group generated from #{@mx.name}."
+      notice "This character group generated from #{@mx.name}."
       redirect_to :action => :show, :controller => :chr_groups, :id => @group and return
     when :otu_group
       @group = @mx.generate_otu_group
-      flash[:notice] = "This OTU group generated from #{@mx.name}."
+      notice "This OTU group generated from #{@mx.name}."
       redirect_to :action => :show, :controller => :otu_groups, :id => @group and return
     when :concensus_otu
       @mx.generate_concensus_otu
@@ -197,7 +197,7 @@ class MxesController < ApplicationController
     else
       # do nothing
     end
-    flash[:notice] = 'Something went wrong.'
+    notice 'Something went wrong.'
     redirect_to :action => :index
   end
 
@@ -206,12 +206,20 @@ class MxesController < ApplicationController
   end
 
   def otus_select
-    debugger
     if mx = Mx.find(params[:id])
       @otus = mx.otus
     else
       @otus = nil
     end
+  end
+
+  # This is a method that is called in the fast coding view.
+  # It does an AJAX POST to here, and you need to re-render the fast_coding view
+  # So that you'll redraw any of the HTML which need to be re-rendered.
+  def set_fast_coding_mode
+    session[:fast_coding_mode] = params[:fast_coding_mode].blank? ? :standard : :one_click
+    notice "Set fast coding mode to #{session[:fast_coding_mode].to_s.titleize}"
+    redirect_to params[:return_to]
   end
 
   # TODO: move logic to model where possible
@@ -238,14 +246,14 @@ class MxesController < ApplicationController
     # this block checks for Ajax, the checks below check for POST
     if @mode == 'row'
       unless @chrs.length > @present_position
-        flash[:notice] = "You've finished one-click coding for that OTU."
+        notice "You've finished one-click coding for that OTU."
         redirect_to :action => :show_otus, :id => @mx.id and return
       end
       @otu = Otu.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:otu_id]}, :include => [{:taxon_name => :parent}])
       @chr = @chrs[@present_position]
     elsif @mode == 'col'
       unless @otus.length > @present_position
-        flash[:notice] = "You've finished one-click coding for that character."
+        notice "You've finished one-click coding for that character."
         redirect_to :action => 'show_characters', :id => @mx.id and return
       end
       @chr = Chr.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:chr_id]}, :include => [:chr_states])
@@ -269,12 +277,12 @@ class MxesController < ApplicationController
     if @mode == 'row'
       @chr = @chrs[@present_position]
       unless @chrs.length > @present_position # these check for POST, the checks above check for AJAX
-        flash[:notice] = "You've finished one-click coding for that OTU."
+        notice "You've finished one-click coding for that OTU."
         redirect_to :action =>'show_otus', :id => @mx.id and return
       end
     elsif @mode == 'col'
       unless @otus.length > @present_position # these check for POST, the checks above check for AJAX
-        flash[:notice] = "You've finished one-click coding for that character."
+        notice "You've finished one-click coding for that character."
         redirect_to :action =>'show_characters', :id => @mx.id and return
       end
       @otu = @otus[@present_position]
@@ -292,12 +300,7 @@ class MxesController < ApplicationController
         @show = ['fast_coding']
         render :action => :show
       }
-      format.js { # AJAX
-        render :update do |page|
-          page.replace_html :notice, flash[:notice]
-          page.replace_html :fast_coding_form, :partial => 'fc'
-          flash.discard
-        end and return }
+      format.js { render :action => :fast_code }
     end
   end
 
@@ -355,7 +358,7 @@ class MxesController < ApplicationController
         }
       end
 
-      flash[:notice] = "Updated."
+      notice "Updated."
     end
 
     if params[:from_grid_coding]
@@ -383,7 +386,7 @@ class MxesController < ApplicationController
     begin
       if !params[:chr_group_id].blank?
         @mx.add_group(ChrGroup.find(params[:chr_group_id]))
-        flash[:notice] = "Added a character group."
+        notice "Added a character group."
       end
 
       if params[:mx_chr] && !params[:mx_chr][:plus_id].blank?
@@ -397,7 +400,7 @@ class MxesController < ApplicationController
         @mx.chrs_minus << c if c
       end
     rescue
-      flash[:notice] = "Problem with the addition, is choice, ready present?"
+      notice "Problem with the addition, is choice, ready present?"
     end
 
     redirect_to :action => :show_characters, :id => @mx.id
@@ -423,9 +426,9 @@ class MxesController < ApplicationController
     if !params[:otu_group_id].blank?
       begin
         @mx.add_group(OtuGroup.find(params[:otu_group_id]))
-        flash[:notice] = "Added a character group."
+        notice "Added a character group."
       rescue
-        flash[:notice] = "Problem adding character group, is it already present?"
+        notice "Problem adding character group, is it already present?"
       end
     end
 
@@ -471,10 +474,10 @@ class MxesController < ApplicationController
   def reset_otu_positions
     if @mx = Mx.find(params[:id])
       @mx.reset_otu_positions
-      flash[:notice] = 'order reset'
+      notice 'order reset'
     else
       redirect_to :action => :list
-      flash[:notice] = "Can't find matrix with id #{params[:id]}."
+      notice "Can't find matrix with id #{params[:id]}."
     end
     redirect_to :action => :show_sort_otus, :id => @mx.id
   end
@@ -500,10 +503,10 @@ class MxesController < ApplicationController
   def reset_chr_positions
     if @mx = Mx.find(params[:id])
       @mx.reset_chr_positions
-      flash[:notice] = 'order reset'
+      notice 'order reset'
     else
       redirect_to :action => :list
-      flash[:notice] = "Can't find matrix with id #{params[:id]}."
+      notice "Can't find matrix with id #{params[:id]}."
     end
     redirect_to :action => :show_sort_chrs, :id => @mx
   end
@@ -537,7 +540,7 @@ class MxesController < ApplicationController
     @total_otus = @matrix.otus.count
 
     if @total_chrs == 0 || @total_otus == 0
-      flash[:notice] = "Populate your matrix with some characters or OTUs before browsing it."
+      notice "Populate your matrix with some characters or OTUs before browsing it."
       redirect_to :action => :show, :id => @matrix and return
     end
 
