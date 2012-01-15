@@ -1,12 +1,24 @@
 <!-- char state choices -->
-<select style="width: 420px;"
-  id="chr_state_id"
-  size="<%= @chr.chr_states.length + 1 -%>" 
-  multiple="multiple"
-  data-observe-select 
-  >
+<% @chr.chr_states.each do |s| -%>
+  <% coded = s.coded?(@otu.id) %>
+  <li>
+    <% if one_click %>
+      <% if coded %>
+        <input type='submit' value="&#8722;" >
+      <% else %>
+        <input type='submit' value="&#43;" >
+      <% end %>
+      &nbsp;
+      <input type='checkbox' <%= coded ? "checked" : "" %> disabled ></input>
 
-  <% @chr.chr_states.each do |s| -%>
-    <option value="<%= s.id -%>" <%= "class='passed'" if s.coded?(@otu.id) -%>><%= s.s_and_m -%></option>
-  <% end -%>
-</select>  
+      <% # If this is coded, we have a hidden field, which is not coded. So when we submit -
+         # The value is serialized and stored in the DB  - comes across as what you *want* to set it to
+      %>
+      <input type="hidden" name="%<= s.id %>" value="<%= (!coded).to_s %>"></input>
+      <%= s.s_and_m -%>
+    <% else %>
+      <input type="checkbox" value="<%= s.id -%>" <%= "checked" if coded -%>>
+      <%= s.s_and_m -%>
+    <% end %>
+  </li>
+<% end %>
