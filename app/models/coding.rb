@@ -1,25 +1,3 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: codings
-#
-#  id               :integer(4)      not null, primary key
-#  otu_id           :integer(4)      not null
-#  chr_id           :integer(4)      not null
-#  chr_state_id     :integer(4)      not null
-#  continuous_state :float
-#  cited_in         :integer(4)
-#  notes            :text
-#  chr_state_state  :string(8)       not null
-#  chr_state_name   :string(255)
-#  qualifier        :text
-#  proj_id          :integer(4)      not null
-#  creator_id       :integer(4)      not null
-#  updator_id       :integer(4)      not null
-#  updated_on       :timestamp       not null
-#  created_on       :timestamp       not null
-#  confidence_id    :integer(4)
-#
 
 class Coding < ActiveRecord::Base 
   has_standard_fields
@@ -33,9 +11,7 @@ class Coding < ActiveRecord::Base
   belongs_to :confidence
   belongs_to :chr
   belongs_to :chr_state
-
-  # belongs_to :coded_by, :class_name => "Person"
-  # belongs_to :cited_in, :class_name => "Ref"
+  belongs_to :ref
 
   scope :in_matrix, lambda {|*args| {:include => :confidence, :conditions => ["(codings.chr_id IN (SELECT chr_id FROM chrs_mxes WHERE chrs_mxes.mx_id = ?)) AND (codings.otu_id IN (SELECT otu_id FROM mxes_otus WHERE mxes_otus.mx_id = ?))", (args.first || -1), (args.first || -1)]}}
   scope :in_chr_group, lambda {|*args| {:conditions => ["codings.chr_id IN (SELECT chr_id FROM chr_groups_chrs WHERE chr_group.id = ?)", args.first || -1]}} 

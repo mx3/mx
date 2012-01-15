@@ -1,4 +1,4 @@
-<li class="handle" id="sensu_<%= "#{s.id}" -%>">
+<li class="drag-handle" id="sensu_<%= "#{s.id}" -%>">
   <div style="padding: 2px; border-bottom: 1px dotted silver; width: 100%;" >
     <div style="float:left; width: 20%;"> <%= link_to s.label.name, :action => :show, :controller => :labels, :id => s.label -%></div>
     <div style="float:left; width: 38%;" id="<%= "sensu_#{s.id}" -%>"> <%= expandable_caption(s.ontology_class.definition, "sensu_#{s.id}") -%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129035626) do
+ActiveRecord::Schema.define(:version => 20120115163321) do
 
   create_table "association_parts", :force => true do |t|
     t.integer "association_id",         :null => false
@@ -289,6 +289,7 @@ ActiveRecord::Schema.define(:version => 20111129035626) do
     t.integer   "standard_view_id"
     t.boolean   "is_continuous",                  :default => false
     t.string    "phenotype_class"
+    t.string    "restriction"
   end
 
   add_index "chrs", ["cited_in"], :name => "cited_in_ind"
@@ -353,7 +354,7 @@ ActiveRecord::Schema.define(:version => 20111129035626) do
     t.integer   "chr_id",           :null => false
     t.integer   "chr_state_id"
     t.float     "continuous_state"
-    t.integer   "cited_in"
+    t.integer   "ref_id"
     t.text      "notes"
     t.string    "chr_state_state"
     t.string    "chr_state_name"
@@ -370,12 +371,12 @@ ActiveRecord::Schema.define(:version => 20111129035626) do
   add_index "codings", ["chr_state_id", "chr_state_state", "chr_state_name"], :name => "chr_state_id_2"
   add_index "codings", ["chr_state_id", "otu_id"], :name => "chr_state_id_otu_id", :unique => true
   add_index "codings", ["chr_state_id"], :name => "chr_state_id"
-  add_index "codings", ["cited_in"], :name => "cited_in_ind"
   add_index "codings", ["confidence_id"], :name => "codings_confidence_fk"
   add_index "codings", ["creator_id"], :name => "creator_id"
   add_index "codings", ["otu_id", "chr_id", "chr_state_id"], :name => "coding_speed"
   add_index "codings", ["otu_id"], :name => "otu_id_ind"
   add_index "codings", ["proj_id"], :name => "proj_id"
+  add_index "codings", ["ref_id"], :name => "cited_in_ind"
   add_index "codings", ["updator_id"], :name => "updator_id"
 
   create_table "confidences", :force => true do |t|

@@ -8,8 +8,8 @@
   <%= render :partial => 'oc', :object => @ontology_class -%>
 
   <div style="margin-left: 0.2em; padding:0.2em;"> 
-    <div> Is a parents: <strong> <%= @ontology_class.is_a_parents.sort{|a,b| a.preferred_label.name <=> b.preferred_label.name}.collect{|o| link_to(o.preferred_label.name, :action => :show, :id => o.id) }.join(", ") -%></strong></div>
-    <div> Part of parents: <strong> <%= @ontology_class.part_of_parents.sort{|a,b| a.preferred_label.name <=> b.preferred_label.name}.collect{|o| link_to(o.preferred_label.name, :action => :show, :id => o.id)}.join(", ") -%></strong></div>
+    <div> Is a parents: <strong> <%= @ontology_class.is_a_parents.sort{|a,b| a.preferred_label.name <=> b.preferred_label.name}.collect{|o| link_to(o.preferred_label.name, :action => :show, :id => o.id) }.join(", ").html_safe -%></strong></div>
+    <div> Part of parents: <strong> <%= @ontology_class.part_of_parents.sort{|a,b| a.preferred_label.name <=> b.preferred_label.name}.collect{|o| link_to(o.preferred_label.name, :action => :show, :id => o.id)}.join(", ").html_safe -%></strong></div>
   </div>
 
   <% if @ontology_class.relationships_are_sufficient %>
@@ -34,7 +34,7 @@
         <% if @class_parents.size == 0 -%>
         <i> none </i>
         <% else -%>
-        <div class="content"><ol> <%= @class_parents.keys.collect{|t| content_tag :li, link_to(ontology_class_postfixed_with_label(t), :action => :show, :id => t.id, :controller => :ontology_classes), :style => (@class_parents[t] ? 'color: red;' : '')} -%></ol> </div>
+        <div class="content"><ol> <%= @class_parents.keys.collect{|t| content_tag :li, link_to(ontology_class_postfixed_with_label(t), :action => :show, :id => t.id, :controller => :ontology_classes), :style => (@class_parents[t] ? 'color: red;' : '')}.join.html_safe -%></ol> </div>
         <% end -%>
       </div>
     </div>

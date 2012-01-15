@@ -58,7 +58,6 @@ class OtusController < ApplicationController
 
   # TODO: this is probably deprecated?
   def show_matrix_sync
-    debugger
     @foo = 'bar' # @content = @otu.text_content # a hash with content_type_id => Content
     render :action => 'show'
   end
