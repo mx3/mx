@@ -580,10 +580,27 @@ class Mx < ActiveRecord::Base
   def self.fast_code(params = {}) 
     codings = []
 
-    foo = []
+    # TODO: resolve continuous states
+
     # the two possible 'standard' clicks, or you've hit a continuous character
     if params[:save] || params[:save_and_next]
-    
+        params[:chr].chr_states.each do |chr_state|
+          if params[:codings][:chr_states][chr_state.id.to_s] # checked create if not there
+            coding = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ? AND chr_state_id = ?", params[:otu].id, params[:chr].id, chr_state.id])
+            next if coding 
+            coding = Coding.new(:otu_id => params[:otu].id, :chr_id => params[:chr].id, :chr_state_id => chr_state.id) 
+            coding.confidence_id =  params[:codings][:confidence_id] if params[:codings][:confidence_id]
+            coding.ref_id =  params[:codings][:ref_id] if params[:codings][:ref_id]
+            coding.save
+            codings.push coding
+          else # not checked, find and delete if there
+            coding = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ? AND chr_state_id = ?", params[:otu].id, params[:chr].id, chr_state.id])
+            coding.destroy if !coding.nil?
+          end
+        end
+
+        return codings
+
     else # coming from  from 1click
       params[:one_click_state].keys.each do |chr_state_id| # we technically only get one here
         if params[:one_click_state][chr_state_id] == '+'
@@ -625,7 +642,7 @@ class Mx < ActiveRecord::Base
   #   # from form: otu_id, chr_id, chr_state_id
   #   # handled by model: chr_state_state, chr_state_name
 
-  #   coding.chr_state_id = params[:chr_state_id]
+ #   coding.chr_state_id = params[:chr_state_id]
 
   #   # chr_state = ChrState.find(params[:chr_state_id])
   # end 

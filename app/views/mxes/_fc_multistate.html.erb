@@ -19,9 +19,10 @@
       </td>
     <% else %><!-- not one click -->
       <td>
-        <input type="checkbox" name="codings[chr_states][<%=s.id-%>]" value="<%= s.id -%>" <%= "checked" if coded -%>>
+        <input type="checkbox" name="codings[chr_states][<%=s.id-%>]" value="<%= s.id -%>" <%= "checked" if coded -%>> 
         <%= s.s_and_m -%>
-     </td>
+      </td>
+      <td> MORE | TAG </td>
     <% end %>
   </tr>
 <% end %>
