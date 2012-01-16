@@ -2,16 +2,16 @@
 <div id='fast_coding_center_content'>
   <div id="fast_coding_mode_selection">
     <%= form_tag set_fast_coding_mode_for_mxes_path, method: :post do %>
-      <input type="hidden" name="return_to" value="<%= request.fullpath%>"></input>
+      <input type="hidden" name="return_to" value="<%= request.fullpath %>" />
       <input id="fast_coding_mode_checkbox"
         type="checkbox"
         data-ajaxify="onchange"
         data-ajaxify-spinner-target="#fast_coding_center_content"
         name="fast_coding_mode" value="one_click_mode"
         <% if one_click_coding %>
-          checked
+          checked="checked" 
         <% end %>
-      </input>
+       / >
       <label for='fast_coding_mode_checkbox'> One-Click Coding Mode </label>
     <% end %>
   </div>
@@ -57,13 +57,13 @@
               <br style="clear:both;" /> 
             </div>
 
-            <%= form_tag(:url => {
+            <%= form_tag({
                 :action => 'fast_code',
                 :controller => :mxes,
-                :id => @mx,
+                :id => @mx.id,
                 :otu_id => @otu,
                 :position => @present_position},
-                :html => {:id => 'one_click_form', :name => 'myform', 'data-ajaxify'=>'submit', :style => 'width:400px;'} ) do -%>
+                :html => {:id => 'one_click_form', :name => 'myform', 'data-ajaxify' => 'submit', :style => 'width:400px;'} ) do -%>
 
               <%= hidden_field_tag('mode', @mode) -%>
               <%= hidden_field_tag('chr_id', @chr.id) -%>
@@ -83,7 +83,7 @@
                   
                   <!-- confidence levels -->
                   <div style="border-bottom:1px dotted silver;font-size:smaller; padding: 2px;"> 
-                        Confidence: <%= select("coding", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200px; color:red;"}) -%>  
+                        Confidence: <%= select("codings", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200px; color:red;"}) -%>  
 TODO: style the confidence chosen with the confidence colors (if we can't be that fine-grained on a select we need to use another solution), make the select a little more prominent.  Confidence levels are sticky.
                 </div> 
 
@@ -92,7 +92,7 @@ TODO: style the confidence chosen with the confidence colors (if we can't be tha
                     
                    Ref/source:  <%= render :partial => 'shared/picker', :locals => {
                               :controller => 'refs',
-                              :object => 'coding',
+                              :object => 'codings',
                               :method => 'ref_id',
                               :tag_id => "ref_id_to_find_for_codings",
                               :display => (), # TODO
@@ -124,17 +124,19 @@ TODO: style the confidence chosen with the confidence colors (if we can't be tha
               <% end -%> <!-- end taggable/confidenceable cells -->
               <% unless one_click_coding %>
                 <div style='text-align: right'>
-                  <input type='submit' value="Save Coding"></input>
+                  <%= submit_tag  'Save', :name => 'save' -%>
+                  <%= submit_tag  'Save & Next', :name => 'save_and_next' -%>
                 </div>
               <% end %>
 
+                  
             <% end -%> <!-- End of form -->
 
             <table style="clear: both;">
               <tr>
 
                   <td style="padding-left: 5em;"><%= link_to("<< previous",              {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}) if @previous_position != 0 -%></td>
-                  <td style="padding-left: 5em;"><%= link_to "destroy existing codings", {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position, :nuke => 'true'}, :confirm => 'This will delete all the states presently coded? Are you sure?' -%></td>
+                  <td style="padding-left: 5em;">  <%= submit_tag  'Clear all', :name => 'nuke', :confirm => 'This will remove all existing codings, their tags, and figures, for this "cell" are you sure?' -%> </td>
                   <td style="padding-left: 5em;"><%= link_to "skip >>",                  {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position + 1} -%></td>
 
               </tr>

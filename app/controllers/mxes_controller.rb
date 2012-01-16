@@ -262,18 +262,20 @@ class MxesController < ApplicationController
       redirect_to :action => :index and return # illegal mode
     end
 
-    # add/delete actions
-    if params[:nuke] == 'true'   # nuke states for this combination, comes in as get?
-      Coding.destroy_by_otu_and_chr(Otu.find(params[:otu_id]), Chr.find(params[:chr_id]))
-    elsif request.post?
-      if !params[:chr_state_id].blank? || !params[:continuous_value].blank? # we navigated here from another form
+    # Add/Delete Codings, both 1click and standard are handled in Mx.fast_code
+    if request.post?
+      if params[:nuke]   # you clear all the settings (in both 1click and standard)
+        Coding.destroy_by_otu_and_chr(Otu.find(params[:otu_id]), Chr.find(params[:chr_id]))
+      else # you one-click or submit a form, the logic is handled in Mx.self_code
         @coding = Mx.fast_code(params.merge(:chr => @chr, :otu => @otu))
         @present_position = @present_position + 1
-      end
+      end 
     end
+      
+    # CRUD done, now navigate onwards
 
     # A lot of this code is repeated from above, but that avoids the need to call this action
-    # twice per coding, which improves performance a lot
+    # twice per coding, which improves performance  
     if @mode == 'row'
       @chr = @chrs[@present_position]
       unless @chrs.length > @present_position # these check for POST, the checks above check for AJAX
@@ -285,14 +287,14 @@ class MxesController < ApplicationController
         notice "You've finished one-click coding for that character."
         redirect_to :action =>'show_characters', :id => @mx.id and return
       end
-      @otu = @otus[@present_position]
+    @otu = @otus[@present_position]
     end
 
     @last_otu = (@mode == 'row' ? @otu : @otus[@present_position - 1])
     @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
     @previous_position ||= @present_position
 
-    #  @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
+    # @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
 
     # render the updates
     respond_to do |format|

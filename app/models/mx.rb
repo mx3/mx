@@ -575,55 +575,72 @@ class Mx < ActiveRecord::Base
     self.otus & Otu.find(otu_ids)
   end
 
-  def self.fast_code(params = {}) # :yields: Coding or nil
-    # used in MxController::fast_code post
+  # Code to handle the fast_code logic in mx_controller.rb
+  # returns nil, or an array of codings representing the result of 1click or standard codings
+  def self.fast_code(params = {}) 
+    codings = []
 
-    # background check
-    if params[:continuous_value].blank? && !params[:chr_state_id].blank?
-      if c = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ? AND chr_state_id = ?", params[:otu].id, params[:chr].id, params[:chr_state_id]])
-        # toggling the state "off", destroy it, return nil
-        c.destroy
-        return nil 
+    foo = []
+    # the two possible 'standard' clicks, or you've hit a continuous character
+    if params[:save] || params[:save_and_next]
+    
+    else # coming from  from 1click
+      params[:one_click_state].keys.each do |chr_state_id| # we technically only get one here
+        if params[:one_click_state][chr_state_id] == '+'
+       
+          coding = Coding.new(:otu_id => params[:otu].id, :chr_id => params[:chr].id, :chr_state_id => chr_state_id) 
+          coding.confidence_id =  params[:codings][:confidence_id] if params[:codings][:confidence_id]
+          coding.ref_id =  params[:codings][:ref_id] if params[:codings][:ref_id]
+          coding.save!
+          return [coding]
+     
+          # add Tag if we request this
+
+        elsif params[:one_click_state][chr_state_id] == '-'
+          c = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ? AND chr_state_id = ?", params[:otu].id, params[:chr].id, chr_state_id])
+          c.destroy
+          return []
+        else
+          raise
+        end
       end
     end
 
-    coding = nil
+  # # still here, we need coding to work with
 
-    # still here, we need coding to work with
+  # # check for existing continuous coding
+  # if !params[:continuous_value].blank?
+  #   coding = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ?", params[:otu].id, params[:chr].id])
+  # end
 
-    # check for existing continuous coding
-    if !params[:continuous_value].blank?
-      coding = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ?", params[:otu].id, params[:chr].id])
-    end
+  # # couldn't find one to use, generate new coding
+  # coding = Coding.new(:otu_id => params[:otu].id, :chr_id => params[:chr].id) if coding.nil?
 
-    # couldn't find one to use, generate new coding
-    coding = Coding.new(:otu_id => params[:otu].id, :chr_id => params[:chr].id) if coding.nil?
+  # # add coding agnostic properties
+  # coding.confidence_id =  params[:coding][:confidence_id] if params[:coding] && params[:coding][:confidence_id]
 
-    # add coding agnostic properties
-    coding.confidence_id =  params[:coding][:confidence_id] if params[:coding] && params[:coding][:confidence_id]
+  # if params[:chr].is_continuous?
+  #   coding.continuous_state = params[:continuous_value]
+  # else
+  #   # from form: otu_id, chr_id, chr_state_id
+  #   # handled by model: chr_state_state, chr_state_name
 
-    if params[:chr].is_continuous?
-      coding.continuous_state = params[:continuous_value]
-    else
-      # from form: otu_id, chr_id, chr_state_id
-      # handled by model: chr_state_state, chr_state_name
+  #   coding.chr_state_id = params[:chr_state_id]
 
-      coding.chr_state_id = params[:chr_state_id]
+  #   # chr_state = ChrState.find(params[:chr_state_id])
+  # end 
 
-      # chr_state = ChrState.find(params[:chr_state_id])
-    end 
+  # coding.save!
 
-    coding.save!
+  # # include a tag if requested
+  # if !params[:tag].blank? && !params[:tag][:keyword_id].blank? 
+  #   t = Tag.new(params[:tag])
+  #   t.addressable_id = @coding.id
+  #   t.addressable_type = 'Coding'
+  #   t.save
+  # end
 
-    # include a tag if requested
-    if !params[:tag].blank? && !params[:tag][:keyword_id].blank? 
-      t = Tag.new(params[:tag])
-      t.addressable_id = @coding.id
-      t.addressable_type = 'Coding'
-      t.save
-    end
-
-    return coding
+  #return coding
   end
 
   def clone_to_simple # :yields: Mx (cloned, with OTU+, Chr+ only based on parent)

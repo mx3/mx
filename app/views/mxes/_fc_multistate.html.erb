@@ -4,11 +4,7 @@
   <tr>
     <% if one_click %>
       <td>
-      <% if coded %>
-        <input type='submit' value="&#8722;" >
-      <% else %>
-        <input type='submit' value="&#43;" >
-      <% end %>
+        <input type='submit' value="<%= coded ? "-".html_safe : "&#43;".html_safe -%>" name="one_click_state[<%= s.id -%>]" >
       </td> 
 
       <td class="<%= coded ? 'passed' : '' -%>">
@@ -18,12 +14,12 @@
          # The value is serialized and stored in the DB  - comes across as what you *want* to set it to
          %>
 
-      <input type="hidden" name="%<= s.id %>" value="<%= (!coded).to_s %>"></input>
+      <input type="hidden" name="<%= s.id %>" value="<%= (!coded).to_s %>"></input>
       <%= s.s_and_m -%>
       </td>
     <% else %><!-- not one click -->
       <td>
-        <input type="checkbox" value="<%= s.id -%>" <%= "checked" if coded -%>>
+        <input type="checkbox" name="codings[chr_states][<%=s.id-%>]" value="<%= s.id -%>" <%= "checked" if coded -%>>
         <%= s.s_and_m -%>
      </td>
     <% end %>
