@@ -2,27 +2,17 @@
 <% @chr.chr_states.each do |s| -%>
   <% coded = s.coded?(@otu.id) %>
   <tr>
-    <% if one_click %>
-      <td>
-        <input type='submit' value="<%= coded ? "-".html_safe : "&#43;".html_safe -%>" name="one_click_state[<%= s.id -%>]" >
-      </td> 
-
-      <td class="<%= coded ? 'passed' : '' -%>">
-      <input type='checkbox' <%= coded ? "checked" : "" %> disabled ></input>
-
-      <% # If this is coded, we have a hidden field, which is not coded. So when we submit -
-         # The value is serialized and stored in the DB  - comes across as what you *want* to set it to
-         %>
-
-      <input type="hidden" name="<%= s.id %>" value="<%= (!coded).to_s %>"></input>
+    <td>
+      <% if coded %>
+        <input type='submit' value="&#10008;" >
+      <% else %>
+        <input type='submit' value="&#10004;">
+      <% end %>
+    </td>
+    <td>
+      <input type="checkbox" value="<%= s.id -%>" <%= "checked" if coded -%>>
       <%= s.s_and_m -%>
-      </td>
-    <% else %><!-- not one click -->
-      <td>
-        <input type="checkbox" name="codings[chr_states][<%=s.id-%>]" value="<%= s.id -%>" <%= "checked" if coded -%>> 
-        <%= s.s_and_m -%>
-      </td>
-      <td> MORE | TAG </td>
-    <% end %>
+      <b>MORE | TAG</b>
+    </td>
   </tr>
 <% end %>

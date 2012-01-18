@@ -1,19 +1,16 @@
-<%= error_messages_for 'tag' %>
-
-<!--[form:tag]-->
-
-<div style="padding: 2px;">
-
-<!-- The form can be used to create both a new @obj and a new Tag at the same time.  Check to see if this is the case. -->
-<% if @obj -%>
-  <input type=hidden name='tag_obj[obj_class]' value="<%= @obj.class.name %>" />
-  <input type=hidden name='tag_obj[obj_id]'    value="<%= @obj.id %>" />
-  <input type=hidden name='return_to'          value="<%= params[:return_to] %>" />
-<% end %>
-
-<table>
+<table class='table-form'>
+  <tr class='plain'>
+    <td colspan='2'>
+      <%= error_messages_for 'tag' %>
+      <% if @obj -%>
+        <input type=hidden name='tag_obj[obj_class]' value="<%= @obj.class.name %>" />
+        <input type=hidden name='tag_obj[obj_id]'    value="<%= @obj.id %>" />
+        <input type=hidden name='return_to'          value="<%= params[:return_to] %>" />
+      <% end %>
+    </td>
+  </tr>
   <tr>
-    <td style="text-align:right;">
+    <td>
       <label for="tag_keyword_name">keyword</label>
     </td>
     <td>
@@ -32,14 +29,12 @@
     <% end -%>
     </td>
   </tr>
-
   <tr>
     <%# only show if object is not a reference %>
-    <td style="text-align:right;">
+    <td>
       <label for="tag_ref_name">Ref</label>
     </td>
     <td>
-
         <%= render(:partial=>'shared/picker', :locals=> {
               :controller=>'refs',
               :object=> 'tag',
@@ -51,10 +46,8 @@
         %>
     </td>
   </tr>
-
-  <%# end only show %>
   <tr>
-    <td style="text-align:right;">
+    <td>
       <label for="tag_pg_start">Page start</label><br/>
     </td>
     <td>
@@ -62,7 +55,7 @@
     </td>
   </tr>
   <tr>
-    <td style="text-align:right;">
+    <td>
       <label for="tag_pg_end">Page end</label>
     </td>
     <td>
@@ -70,16 +63,15 @@
     </td>
   </tr>
   <tr>
-    <td style="text-align: right;">
+    <td>
       <label for="tag_pg_start">Page other</label>
     </td>
     <td>
       <%= text_field 'tag', 'pages', :size => 8 %>
     </td>
   </tr>
-
   <tr>
-    <td style="text-align:right;">
+    <td>
       <label for="tag_notes">Referenced object</label>
     </td>
     <td>
@@ -87,7 +79,7 @@
     </td>
   </tr>
   <tr>
-    <td style="text-align:right;">
+    <td>
       <label for="tag_notes">Notes</label>
     </td>
     <td>
@@ -95,5 +87,3 @@
     </td>
   </tr>
 </table>
-<!--[eoform:tag]-->
-</div>

@@ -58,6 +58,10 @@
 
 @import "bourbon/bourbon";
 
+.t-r { text-align: right; }
+.t-l { text-align: left; }
+.t-c { text-align: center; }
+
 form.delete-link {
   display: inline;
   background: #F6C3D4;
@@ -167,11 +171,32 @@ nav.list_pagination {
   vertical-align: middle;
 }
 
-#fast_coding_mode_selection {
-  position: absolute;
-  top: -20px;
-  left: -150px;
-}
 .coding-list {
   padding-left: 5px;
+}
+
+
+/*
+  This is a simple form - first TDs are labels, rest are normal.
+*/
+.table-form {
+  tr {
+    &.plain {
+      & > td:first-child { font-weight: normal; }
+    }
+    & > td {
+      vertical-align: middle;
+      text-align: left;
+      &:nth-child(odd) { text-align: right; }
+      &.t-r { text-align: right; }
+      &.t-l { text-align: left; }
+      &.t-c { text-align: center; }
+      &:first-child {
+        font-weight: bold;
+      }
+      .spaced-link {
+        padding: 4px 6px;
+      }
+    }
+  }
 }

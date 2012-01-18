@@ -84,3 +84,8 @@ Specimen.blueprint do
   updator { object.creator }
   #Seq.make(:proj => object.proj, :specimen => object)
 end
+Chr.blueprint do
+  proj { Proj.make! }
+  creator { object.proj.people.first }
+  updator { object.creator }
+end

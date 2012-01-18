@@ -13,14 +13,17 @@ class MxesControllerTest < ActionController::TestCase
     @opts =  {:controller => "mxes", :proj_id => "1"}
   end
 
-  test "toggling the fast coding mode" do
-    post :set_fast_coding_mode, fast_coding_mode: 'one_click', return_to: 'fribble', :proj_id => @proj.id
-    assert_redirected_to 'fribble'
-    assert_equal session[:fast_coding_mode], :one_click
-
-    post :set_fast_coding_mode, return_to: 'fribble', :proj_id => @proj.id
-    assert_redirected_to 'fribble'
-    assert_equal session[:fast_coding_mode], :standard
+  test "fast coding - just update one field" do
+    skip "Not Implemented"
+  end
+  test "fast coding - change confidence" do
+    skip "Not Implemented"
+  end
+  test "fast coding - moves by OTU or character" do
+    skip "Not Implemented"
+  end
+  test "fast coding - invalid continuous coding" do
+    skip "Not Implemented"
   end
 
   # just testing loads
@@ -127,4 +130,9 @@ class MxesControllerTest < ActionController::TestCase
         assert_routing           'projects/1/mxes/1/fast_code/row/5/1/2/2', opts
   end
 
+  private
+
+  def setup_fast_coding
+
+  end
 end

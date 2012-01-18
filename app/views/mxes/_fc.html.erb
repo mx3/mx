@@ -1,20 +1,4 @@
-<% one_click_coding = session[:fast_coding_mode] == :one_click %>
 <div id='fast_coding_center_content'>
-  <div id="fast_coding_mode_selection">
-    <%= form_tag set_fast_coding_mode_for_mxes_path, method: :post do %>
-      <input type="hidden" name="return_to" value="<%= request.fullpath %>" />
-      <input id="fast_coding_mode_checkbox"
-        type="checkbox"
-        data-ajaxify="onchange"
-        data-ajaxify-spinner-target="#fast_coding_center_content"
-        name="fast_coding_mode" value="one_click_mode"
-        <% if one_click_coding %>
-          checked="checked" 
-        <% end %>
-       / >
-      <label for='fast_coding_mode_checkbox'> One-Click Coding Mode </label>
-    <% end %>
-  </div>
   <div id="fast_coding_form" >
     <div><!-- outer containter -->
       <table><!-- chr nav -->
@@ -38,112 +22,98 @@
             <% end -%>
           </td>
 
-          <td style="width:430px; margin:0 10px;">
-            <!-- coding by info -->
+          <td style="width: 430px; margin: 0 10px;">
             <div style='margin: 0 5px;'>
-              <div style=''>Coding (by <%= @mode == 'col' ? 'character' : 'OTU' %>)</div>
-
+              <div class='t-r'><b>Coding (by <%= @mode == 'col' ? 'character' : 'OTU' %>)</b></div>
               <%=@otu.display_name %> (matrix name: <%= @otu.display_name(:type => :matrix_name) -%>)&nbsp;
               <span class="small_grey">
                 id: <%= link_to(@otu.id, :action => 'show', :controller => 'otus', :id => @otu) %>
               </span>
               <br/>
               <em class='small_grey'>for</em>
-              <br />
+              <br/>
               <%= @chr.name %>
               <span class="small_grey">
                 id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chrs', :id => @chr}, :target => '_blank') -%>
               </span>
-              <br style="clear:both;" /> 
             </div>
-
-            <%= form_tag({
-                :action => 'fast_code',
-                :controller => :mxes,
-                :id => @mx.id,
-                :otu_id => @otu,
-                :position => @present_position},
-                :html => {:id => 'one_click_form', :name => 'myform', 'data-ajaxify' => 'submit', :style => 'width:400px;'} ) do -%>
-
+            <%= form_tag(:url => {:action => 'fast_code', :controller => :mxes, :id => @mx, :otu_id => @otu, :position => @present_position}, :html => {:id => 'one_click_form', :name => "myform", "data-ajaxify"=>"submit", :style => "width: 400px;"} ) do -%>
               <%= hidden_field_tag('mode', @mode) -%>
               <%= hidden_field_tag('chr_id', @chr.id) -%>
 
-              <% if one_click_coding %>
-
-              <% else %>
-
-              <% end %>
-
-              <div   style="width: 400px; border-top:1px dotted silver;">
-                <% if @chr.continuous? && !@chr.is_continuous -%>
-                  <!-- auto filed from measurements, no tags/confidence -->
-                  <div> From specimens TODO</div>
-                <% else %>
-                  <!-- can have confidence/tags -->
-                  
-                  <!-- confidence levels -->
-                  <div style="border-bottom:1px dotted silver;font-size:smaller; padding: 2px;"> 
-                        Confidence: <%= select("codings", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200px; color:red;"}) -%>  
-TODO: style the confidence chosen with the confidence colors (if we can't be that fine-grained on a select we need to use another solution), make the select a little more prominent.  Confidence levels are sticky.
-                </div> 
-
-                  <!-- ref/source levels -->
-                  <div style="border-bottom:1px dotted silver;font-size:smaller; padding: 2px;"> 
-                    
-                   Ref/source:  <%= render :partial => 'shared/picker', :locals => {
+              <div class="subform" style="width: 404px;">
+                <table class='table-form'>
+                  <tr class='t-c plain'>
+                    <td colspan=2 class='t-c'>
+                      <%= link_to("<< previous", {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}, class: 'spaced-link') if @previous_position != 0 -%>
+                      <%= link_to("skip >>",     {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position + 1}, class: 'spaced-link') -%>
+                    </td>
+                  </tr>
+                  <tr><td colspan=2><hr/></td></tr>
+                  <% if @chr.continuous? && !@chr.is_continuous -%>
+                    <tr>
+                      <td> &nbsp; </td>
+                      <td> From Specimens TODO </td>
+                    </tr>
+                  <% else %>
+                    <!-- can have confidence/tags -->
+                    <!-- confidence levels -->
+                    <% if @confidences.size > 0 -%>
+                      <tr>
+                        <td>
+                          Confidence
+                        </td>
+                        <td>
+                          <%= select("coding", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200px; color:red;"}) -%>
+                          <% # TODO: style the confidence chosen with the confidence colors (if we can't be that fine-grained on a select we need to use another solution), make the select a little more prominent.  Confidence levels are sticky. %>
+                        </td>
+                      </tr>
+                    <% end %>
+                    <tr>
+                      <td> Ref/source: </td>
+                      <td>
+                        <%= render :partial => 'shared/picker', :locals => {
                               :controller => 'refs',
                               :object => 'codings',
                               :method => 'ref_id',
                               :tag_id => "ref_id_to_find_for_codings",
                               :display => (), # TODO
-                              :size => 40 } -%> TODO: values sticky/displayed
-                  </div> 
-
-                  <!-- tablified for easier display of long state names -->
-                  <table class='coding-list' style="border-bottom:1px dotted silver;padding:2px;">
+                              :size => 40 } -%>
+                        <br/>
+                        TODO: values sticky/displayed
+                        </td>
+                      </tr>
+                    <tr><td colspan=2><hr/></td></tr>
                     <% if @chr.is_continuous -%>
-                      <%= render(:partial => 'fc_continuous', :locals=>{:one_click => one_click_coding}) %>
+                      <%= render(:partial => 'fc_continuous') %>
                     <% else -%>
-                      <%= render(:partial => 'fc_multistate', :locals=>{:one_click => one_click_coding}) %>
+                      <tr>
+                        <td class='plain' colspan='2'>
+                          <span class='small_grey'> Click to code (&#10008; to remove, &#10004; to add)</span>
+                        </td>
+                      </tr>
+                      <%= render(:partial => 'fc_multistate') %>
                     <% end -%>
-                  </table>
-
-                <!-- tag form --> 
-                NEED TO RETHINK THIS IN TOGGLED MODE.  UNTIL WE TALK IGNORE.
-                <div class="subform" style="width: 400px;">
-                  <div class="header">
-                    include a tag with this coding &nbsp;&nbsp;&nbsp;&nbsp;
-                  </div>
-                  <div id="tag_form">
-                    <span class='small_grey'>
-                      <i> tag will not be saved if you skip </i>
-                    </span>
-                    <%= render(:partial => 'tags/form') %>
-                  </div>
-                </div>
-              <% end -%> <!-- end taggable/confidenceable cells -->
-              <% unless one_click_coding %>
-                <div style='text-align: right'>
-                  <%= submit_tag  'Save', :name => 'save' -%>
-                  <%= submit_tag  'Save & Next', :name => 'save_and_next' -%>
-                </div>
-              <% end %>
-
-                  
+                    <tr><td colspan=2><hr/></td></tr>
+                  <% end -%> <!-- end taggable/confidenceable cells -->
+                  <tr><td colspan=2><hr/></td></tr>
+                  <tr>
+                    <td class='t-l'>
+                      <input type='submit' name="nuke" value='Destroy'
+                        onclick="return(confirm('This will delete all the states presently coded? Are you sure?'));">
+                      </input>
+                    </td>
+                    <td class='t-r'>
+                      <input type='submit' value="Save"></input>
+                      <input type='submit' value="Save & Next"></input>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             <% end -%> <!-- End of form -->
 
-            <table style="clear: both;">
-              <tr>
-
-                  <td style="padding-left: 5em;"><%= link_to("<< previous",              {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}) if @previous_position != 0 -%></td>
-                  <td style="padding-left: 5em;">  <%= submit_tag  'Clear all', :name => 'nuke', :confirm => 'This will remove all existing codings, their tags, and figures, for this "cell" are you sure?' -%> </td>
-                  <td style="padding-left: 5em;"><%= link_to "skip >>",                  {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position + 1} -%></td>
-
-              </tr>
-            </table>
-
-            <div class="box4" style="border: none;">
-              <div class="header" style="border: none;"> character description </div>
+            <div class="subform box4" >
+              <div class="header" > character description </div>
               <div class="content">
                 <% if @chr.doc_char_descr.blank? %>
                   <i> none </i>

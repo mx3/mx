@@ -213,15 +213,6 @@ class MxesController < ApplicationController
     end
   end
 
-  # This is a method that is called in the fast coding view.
-  # It does an AJAX POST to here, and you need to re-render the fast_coding view
-  # So that you'll redraw any of the HTML which need to be re-rendered.
-  def set_fast_coding_mode
-    session[:fast_coding_mode] = params[:fast_coding_mode].blank? ? :standard : :one_click
-    notice "Set fast coding mode to #{session[:fast_coding_mode].to_s.titleize}"
-    redirect_to params[:return_to]
-  end
-
   # TODO: move logic to model where possible
   # This method provides one-click coding, iterating through either chrs or OTUs
   # It handles both the post and show aspects.
@@ -269,13 +260,13 @@ class MxesController < ApplicationController
       else # you one-click or submit a form, the logic is handled in Mx.self_code
         @coding = Mx.fast_code(params.merge(:chr => @chr, :otu => @otu))
         @present_position = @present_position + 1
-      end 
+      end
     end
-      
+
     # CRUD done, now navigate onwards
 
     # A lot of this code is repeated from above, but that avoids the need to call this action
-    # twice per coding, which improves performance  
+    # twice per coding, which improves performance
     if @mode == 'row'
       @chr = @chrs[@present_position]
       unless @chrs.length > @present_position # these check for POST, the checks above check for AJAX
