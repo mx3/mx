@@ -41,75 +41,72 @@
               <%= hidden_field_tag('mode', @mode) -%>
               <%= hidden_field_tag('chr_id', @chr.id) -%>
 
-              <div class="subform" style="width: 404px;">
-                <table class='table-form'>
-                  <tr class='t-c plain'>
-                    <td colspan=2 class='t-c'>
-                      <%= link_to("<< previous", {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}, class: 'spaced-link') if @previous_position != 0 -%>
-                      <%= link_to("skip >>",     {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position + 1}, class: 'spaced-link') -%>
-                    </td>
-                  </tr>
-                  <tr><td colspan=2><hr/></td></tr>
-                  <% if @chr.continuous? && !@chr.is_continuous -%>
-                    <tr>
-                      <td> &nbsp; </td>
-                      <td> From Specimens TODO </td>
-                    </tr>
-                  <% else %>
-                    <!-- can have confidence/tags -->
-                    <!-- confidence levels -->
-                    <% if @confidences.size > 0 -%>
-                      <tr>
-                        <td>
-                          Confidence
-                        </td>
-                        <td>
-                          <%= select("coding", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200px; color:red;"}) -%>
-                          <% # TODO: style the confidence chosen with the confidence colors (if we can't be that fine-grained on a select we need to use another solution), make the select a little more prominent.  Confidence levels are sticky. %>
-                        </td>
-                      </tr>
-                    <% end %>
-                    <tr>
-                      <td> Ref/source: </td>
-                      <td>
-                        <%= render :partial => 'shared/picker', :locals => {
-                              :controller => 'refs',
-                              :object => 'codings',
-                              :method => 'ref_id',
-                              :tag_id => "ref_id_to_find_for_codings",
-                              :display => (), # TODO
-                              :size => 40 } -%>
-                        <br/>
-                        TODO: values sticky/displayed
-                        </td>
-                      </tr>
-                    <tr><td colspan=2><hr/></td></tr>
-                    <% if @chr.is_continuous -%>
-                      <%= render(:partial => 'fc_continuous') %>
-                    <% else -%>
-                      <tr>
-                        <td class='plain' colspan='2'>
-                          <span class='small_grey'> Click to code (&#10008; to remove, &#10004; to add)</span>
-                        </td>
-                      </tr>
-                      <%= render(:partial => 'fc_multistate') %>
-                    <% end -%>
-                    <tr><td colspan=2><hr/></td></tr>
-                  <% end -%> <!-- end taggable/confidenceable cells -->
-                  <tr><td colspan=2><hr/></td></tr>
+              <table class='table-form subform'>
+                <tr class='t-c plain'>
+                  <td colspan=2 class='t-c' style='width: 400px;'>
+                    <%= link_to("<< previous", {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}, class: 'spaced-link') if @previous_position != 0 -%>
+                    <%= link_to("skip >>",     {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position + 1}, class: 'spaced-link') -%>
+                  </td>
+                </tr>
+                <tr><td colspan=2><hr/></td></tr>
+                <% if @chr.continuous? && !@chr.is_continuous -%>
                   <tr>
-                    <td class='t-l'>
-                      <input type='submit' name="nuke" value='Destroy'
-                        onclick="return(confirm('This will delete all the states presently coded? Are you sure?'));">
-                      </input>
-                    </td>
-                    <td class='t-r'>
-                      <input type='submit' value="Save"></input>
-                      <input type='submit' value="Save & Next"></input>
-                    </td>
+                    <td> &nbsp; </td>
+                    <td> From Specimens TODO </td>
                   </tr>
-                </table>
-              </div>
+                <% else %>
+                  <!-- can have confidence/tags -->
+                  <!-- confidence levels -->
+                  <% if @confidences.size > 0 -%>
+                    <tr>
+                      <td>
+                        Confidence
+                      </td>
+                      <td>
+                        <%= select("coding", "confidence_id", @confidences.collect{|p| [ p.name, p.id ] }, { :include_blank => true }, {:style =>"font-size: smaller; width: 200px; color:red;"}) -%>
+                        <% # TODO: style the confidence chosen with the confidence colors (if we can't be that fine-grained on a select we need to use another solution), make the select a little more prominent.  Confidence levels are sticky. %>
+                      </td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <td> Ref / Source: </td>
+                    <td>
+                      <%= render :partial => 'shared/picker', :locals => {
+                            :controller => 'refs',
+                            :object => 'codings',
+                            :method => 'ref_id',
+                            :tag_id => "ref_id_to_find_for_codings",
+                            :display => (), # TODO
+                            :size => 40 } -%>
+                      <br/>
+                      TODO: values sticky/displayed
+                      </td>
+                    </tr>
+                  <tr><td colspan=2><hr/></td></tr>
+                  <% if @chr.is_continuous -%>
+                    <%= render(:partial => 'fc_continuous') %>
+                  <% else -%>
+                    <tr>
+                      <td class='plain' colspan='2'>
+                        <span class='small_grey'> Click to code (&#10008; to remove, &#10004; to add)</span>
+                      </td>
+                    </tr>
+                    <%= render(:partial => 'fc_multistate') %>
+                  <% end -%>
+                <% end -%> <!-- end taggable/confidenceable cells -->
+                <tr><td colspan=2><hr/></td></tr>
+                <tr>
+                  <td class='t-l'>
+                    <input type='submit' name="nuke" value='Destroy'
+                      onclick="return(confirm('This will delete all the states presently coded? Are you sure?'));">
+                    </input>
+                  </td>
+                  <td class='t-r'>
+                    <input type='submit' value="Save"></input>
+                    <input type='submit' value="Save & Next"></input>
+                  </td>
+                </tr>
+              </table>
             <% end -%> <!-- End of form -->
 
             <div class="subform box4" >
