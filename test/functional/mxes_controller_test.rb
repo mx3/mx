@@ -12,6 +12,15 @@ class MxesControllerTest < ActionController::TestCase
     login
     @opts =  {:controller => "mxes", :proj_id => "1"}
   end
+  test "toggling the fast coding mode" do
+    post :set_fast_coding_mode, fast_coding_mode: 'one_click', return_to: 'fribble', :proj_id => @proj.id
+    assert_redirected_to 'fribble'
+    assert_equal session[:fast_coding_mode], :one_click
+
+    post :set_fast_coding_mode, return_to: 'fribble', :proj_id => @proj.id
+    assert_redirected_to 'fribble'
+    assert_equal session[:fast_coding_mode], :standard
+  end
 
   test "fast coding - just update one field" do
     skip "Not Implemented"

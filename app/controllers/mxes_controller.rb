@@ -212,6 +212,14 @@ class MxesController < ApplicationController
       @otus = nil
     end
   end
+  # This is a method that is called in the fast coding view.
+  # It does an AJAX POST to here, and you need to re-render the fast_coding view
+  # So that you'll redraw any of the HTML which need to be re-rendered.
+  def set_fast_coding_mode
+    session[:fast_coding_mode] = params[:fast_coding_mode].blank? ? :standard : :one_click
+    notice "Set fast coding mode to #{session[:fast_coding_mode].to_s.titleize}"
+    redirect_to params[:return_to]
+  end
 
   # TODO: move logic to model where possible
   # This method provides one-click coding, iterating through either chrs or OTUs
