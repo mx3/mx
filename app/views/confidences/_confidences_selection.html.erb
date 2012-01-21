@@ -1,0 +1,14 @@
+<ul class='confidences-selection'>
+  <li>
+    <input data-ajaxify='submit' type="radio" name='confidence[id]' value='-1' <%= @obj.confidence_id.blank? ? 'checked' : ''%> >
+      none
+    </input>
+  </li>
+  <% @proj.confidences.each do |c| -%>
+    <li style='color: <%= contrasting_text_color(c.html_color)%>' >
+      <input data-ajaxify='submit' type="radio" name='confidence[id]' value='<%=c.id%>' <%= @obj.confidence_id == c.id ? 'checked' : ''%> >
+        <%= c.display_name.html_safe %>
+      </input>
+    </li>
+  <% end -%>
+</ul>
