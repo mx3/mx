@@ -20,8 +20,7 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
   </head>
   <body>
-
-    <div id="container">
+    <div id="container" class='<%= controller_name.dasherize %>-controller'>
       <div id="header">
         <% if session && session[:person] -%>
           <div style="float:right; padding-top: 2px;" class="links">

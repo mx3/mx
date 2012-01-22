@@ -1,0 +1,83 @@
+<%= form_tag(:url => mxes_fast_coding_path, :html => {:id => 'one_click_form', :name => "myform", "data-ajaxify"=>"submit"} ) do -%>
+  <%= hidden_field_tag('id',        @mx.id)  -%>
+  <%= hidden_field_tag('otu_id',    @otu.id)  -%>
+  <%= hidden_field_tag('position',  @present_position) -%>
+  <%= hidden_field_tag('mode',      @mode) -%>
+  <%= hidden_field_tag('chr_id',    @chr.id) -%>
+
+  <table class='table-form'>
+    <tr class='t-l'>
+      <td> 1 Click Coding Settings</td>
+      <td class='small_grey'> When you click a coding, these settings will be applied</td>
+    </tr>
+    <tr><td colspan=2><hr/></td></tr>
+    <tr>
+      <td>
+        Confidence
+      </td>
+      <td>
+        <select name='confidence[id]'>
+          <% @confidences.each do |c| -%>
+            <option style='color: <%= contrasting_text_color(c.html_color)%>' >
+              <%= c.display_name.html_safe -%>
+            </option>
+          <% end -%>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> Ref / Source: </td>
+      <td>
+        <%= render :partial => 'shared/picker', :locals => {
+              :controller => 'refs',
+              :object => 'codings',
+              :method => 'ref_id',
+              :tag_id => "ref_id_to_find_for_codings",
+              :display => (), # TODO
+              :size => 40 } -%>
+      </td>
+    </tr>
+    <tr class='t-c plain'>
+      <td colspan=2 class='t-c' style='width: 400px;'>
+        <%= link_to("<< previous", {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}, class: 'spaced-link') if @previous_position != 0 -%>
+        <%= link_to("skip >>",     {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position + 1}, class: 'spaced-link') -%>
+      </td>
+    </tr>
+    <tr><td colspan=2><hr/></td></tr>
+    <% if @chr.continuous? && !@chr.is_continuous -%>
+      <tr>
+        <td> &nbsp; </td>
+        <td> From Specimens TODO </td>
+      </tr>
+    <% else %>
+      <!-- can have confidence/tags -->
+      <% debugger %>
+      <tr>
+        <td> Current Confidence </td>
+        <td> <%= @current_confidence %> </td>
+      </tr>
+      <tr>
+        <td> Current Source </td>
+        <td> <%= @current_source %> </td>
+      </tr>
+
+      <!-- confidence levels -->
+      <% if @chr.is_continuous -%>
+        <%= render(:partial => 'fc_continuous') %>
+      <% else -%>
+        <%= render(:partial => 'fc_multistate') %>
+      <% end -%>
+      <tr><td colspan=2><hr/></td></tr>
+    <% end -%> <!-- end taggable/confidenceable cells -->
+
+    <tr>
+      <td class='t-l'>
+        <input type='submit' name="nuke" value='Destroy'
+          onclick="return(confirm('This will delete all the states presently coded? Are you sure?'));">
+        </input>
+      </td>
+      <td class='t-r'>
+      </td>
+    </tr>
+  </table>
+<% end -%> <!-- End of form -->
