@@ -54,12 +54,18 @@
                 id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chrs', :id => @chr}, :target => '_blank') -%>
               </span>
             </div>
-            <% if one_click_coding %>
-              <%= render :partial => "fc_one_click" %>
-            <% else %>
-              <%= render :partial => "fc_standard" %>
-            <% end %>
-
+            <%= form_tag(:url => mxes_fast_coding_path, :html => {:id => 'one_click_form', :name => "myform", "data-ajaxify"=>"submit"} ) do -%>
+              <%= hidden_field_tag('id',        @mx.id)  -%>
+              <%= hidden_field_tag('otu_id',    @otu.id)  -%>
+              <%= hidden_field_tag('position',  @present_position) -%>
+              <%= hidden_field_tag('mode',      @mode) -%>
+              <%= hidden_field_tag('chr_id',    @chr.id) -%>
+              <% if one_click_coding %>
+                <%= render :partial => "fc_one_click", :f => f %>
+              <% else %>
+                <%= render :partial => "fc_standard", :f => f %>
+              <% end %>
+            <% end -%> <!-- End of form -->
 
             <div class="subform box4" >
               <div class="header" > character description </div>
