@@ -228,6 +228,12 @@ class MxesController < ApplicationController
     @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
     @previous_position ||= @present_position
 
+    # TODO - Matt
+    @current_confidence = "Current Confidence?"
+    @current_source     = "Current Source?"
+    #  How do I set the current ref/source in the UI?
+
+
     # render the updates
     respond_to do |format|
       format.html {

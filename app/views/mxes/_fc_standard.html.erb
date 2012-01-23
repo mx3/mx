@@ -1,27 +1,17 @@
 <table class='table-form'>
+  <tr><td colspan=2><hr/></td></tr>
   <tr>
     <td>
       Confidence
     </td>
     <td>
-      <table class='table-form'>
-        <tr>
-          <td>
-            <input type='radio' name='confidence[id]' value='-1' ></input>
-          </td>
-          <td> None </td>
-        </tr>
+      <select name='confidence[id]'>
         <% @confidences.each do |c| -%>
-          <tr style='color: <%= contrasting_text_color(c.html_color)%>' >
-            <td>
-              <input type="radio" name='confidence[id]' value='<%=c.id%>'></input>
-            </td>
-            <td>
-              <%= c.display_name.html_safe %>
-            </td>
-          </tr>
+          <option style='color: <%= contrasting_text_color(c.html_color)%>' >
+            <%= c.display_name.html_safe -%>
+          </option>
         <% end -%>
-      </table>
+      </select>
     </td>
   </tr>
   <tr>
@@ -38,13 +28,8 @@
     </tr>
   </table>
 
-<table class='table-form subform'>
-  <tr class='t-c plain'>
-    <td colspan=2 class='t-c' style='width: 400px;'>
-      <%= link_to("<< previous", {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}, class: 'spaced-link') if @previous_position != 0 -%>
-      <%= link_to("skip >>",     {:action => 'fast_code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,     :position => @present_position + 1}, class: 'spaced-link') -%>
-    </td>
-  </tr>
+<table class='table-form'>
+  <%= render :partial => "fc_coding_navigation" %>
   <tr><td colspan=2><hr/></td></tr>
   <% if @chr.continuous? && !@chr.is_continuous -%>
     <tr>
@@ -70,14 +55,5 @@
     <% end -%>
     <tr><td colspan=2><hr/></td></tr>
   <% end -%> <!-- end taggable/confidenceable cells -->
-
-  <tr>
-    <td class='t-l'>
-      <input type='submit' name="nuke" value='Destroy'
-        onclick="return(confirm('This will delete all the states presently coded? Are you sure?'));">
-      </input>
-    </td>
-    <td class='t-r'>
-    </td>
-  </tr>
+  <%= render :partial => "fc_bottom_controls" %>
 </table>

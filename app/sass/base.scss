@@ -183,6 +183,11 @@ nav.list_pagination {
   #one_click_form {
     width: 400px;
   }
+  .navigation {
+    td {
+      width: 400px;
+    }
+  }
 }
 
 /*
@@ -190,6 +195,10 @@ nav.list_pagination {
 */
 .table-form {
   tr {
+    &.spacer {
+      height: 15px;
+      width: 100%;
+    }
     &.plain {
       & > td:first-child { font-weight: normal; }
     }
