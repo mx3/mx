@@ -54,7 +54,7 @@
                 id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chrs', :id => @chr}, :target => '_blank') -%>
               </span>
             </div>
-            <%= form_tag(:url => mxes_fast_coding_path, :html => {:id => 'one_click_form', :name => "myform", "data-ajaxify"=>"submit"} ) do -%>
+            <%= form_tag(:url => mxes_fast_coding_path, :html => {:id => 'one_click_form', :name => "myform", "data-ajaxify"=>"submit"} ) do |f| -%>
               <%= hidden_field_tag('id',        @mx.id)  -%>
               <%= hidden_field_tag('otu_id',    @otu.id)  -%>
               <%= hidden_field_tag('position',  @present_position) -%>
