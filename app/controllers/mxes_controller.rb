@@ -1,12 +1,11 @@
 class MxesController < ApplicationController
-
-  # TODO: this should be elsewhere?
   include ActionView::Helpers::TextHelper
   require 'nexml/nexml'
-  # include Nexml::Nexml
 
   before_filter :set_export_variables, :only => [:show_nexus, :show_tnt, :show_ascii, :as_file]
   before_filter :set_grid_coding_params, :only => [:show_grid_coding, :show_grid_coding2, :show_grid_tags]
+
+  before_filter :load_and_check_fast_coding, :only => [:fast_code, :perform_fast_code]
 
   layout "layouts/application",  :except => [:as_file]
 
@@ -225,42 +224,23 @@ class MxesController < ApplicationController
   # This method provides one-click coding, iterating through either chrs or OTUs
   # It handles both the post and show aspects.
   def fast_code
-    id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
-    id ||= params[:id]
+    @last_otu = (@mode == 'row' ? @otu : @otus[@present_position - 1])
+    @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
+    @previous_position ||= @present_position
 
-    # regardless of whether we navigate with ajax, or by post, we need these:
-    @mx = Mx.find(id)
-    @confidences = @proj.confidences
-    @mode = params[:mode]                       # 'row' or 'col', depending on the direction we're coding
-    @present_position = params[:position].to_i
-
-    # general setup
-    @tag = Tag.new
-    @no_right_col = true
-
-    @otus = @mx.otus
-    @chrs = @mx.chrs
-
-    # Pull up a particular Otu and Chr based on present_position
-    # this block checks for Ajax, the checks below check for POST
-    if @mode == 'row'
-      unless @chrs.length > @present_position
-        notice "You've finished one-click coding for that OTU."
-        redirect_to :action => :show_otus, :id => @mx.id and return
-      end
-      @otu = Otu.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:otu_id]}, :include => [{:taxon_name => :parent}])
-      @chr = @chrs[@present_position]
-    elsif @mode == 'col'
-      unless @otus.length > @present_position
-        notice "You've finished one-click coding for that character."
-        redirect_to :action => 'show_characters', :id => @mx.id and return
-      end
-      @chr = Chr.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:chr_id]}, :include => [:chr_states])
-      @otu = @otus[@present_position]
-    else
-      redirect_to :action => :index and return # illegal mode
+    # render the updates
+    respond_to do |format|
+      format.html {
+        # general setup
+        @no_right_col = true
+        @show = ['fast_coding']
+        render :action => :show
+      }
+      format.js { render :action => :fast_code }
     end
+  end
 
+  def perform_fast_code
     # Add/Delete Codings, both 1click and standard are handled in Mx.fast_code
     if request.post?
       if params[:nuke]   # you clear all the settings (in both 1click and standard)
@@ -271,38 +251,7 @@ class MxesController < ApplicationController
       end
     end
 
-    # CRUD done, now navigate onwards
-
-    # A lot of this code is repeated from above, but that avoids the need to call this action
-    # twice per coding, which improves performance
-    if @mode == 'row'
-      @chr = @chrs[@present_position]
-      unless @chrs.length > @present_position # these check for POST, the checks above check for AJAX
-        notice "You've finished one-click coding for that OTU."
-        redirect_to :action =>'show_otus', :id => @mx.id and return
-      end
-    elsif @mode == 'col'
-      unless @otus.length > @present_position # these check for POST, the checks above check for AJAX
-        notice "You've finished one-click coding for that character."
-        redirect_to :action =>'show_characters', :id => @mx.id and return
-      end
-    @otu = @otus[@present_position]
-    end
-
-    @last_otu = (@mode == 'row' ? @otu : @otus[@present_position - 1])
-    @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
-    @previous_position ||= @present_position
-
-    # @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
-
-    # render the updates
-    respond_to do |format|
-      format.html {
-        @show = ['fast_coding']
-        render :action => :show
-      }
-      format.js { render :action => :fast_code }
-    end
+    redirect_to :action=>:fast_code
   end
 
   def show_code
@@ -651,6 +600,39 @@ class MxesController < ApplicationController
   end
 
   private
+  def load_and_check_fast_coding
+    id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
+    id ||= params[:id]
+
+    # regardless of whether we navigate with ajax, or by post, we need these:
+    @mx = Mx.includes(:otus, :chrs).find(id)
+    @confidences = @proj.confidences
+    @mode = params[:mode]                       # 'row' or 'col', depending on the direction we're coding
+    @present_position = params[:position].to_i
+
+    @otus = @mx.otus
+    @chrs = @mx.chrs
+
+    # Pull up a particular Otu and Chr based on present_position
+    # this block checks for Ajax, the checks below check for POST
+    if @mode == 'row'
+      unless @chrs.length > @present_position
+        notice "You've finished one-click coding for that OTU."
+        redirect_to :action => :show_otus, :id => @mx.id and return
+      end
+      @otu = Otu.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:otu_id]}, :include => [{:taxon_name => :parent}])
+      @chr = @chrs[@present_position]
+    elsif @mode == 'col'
+      unless @otus.length > @present_position
+        notice "You've finished one-click coding for that character."
+        redirect_to :action => 'show_characters', :id => @mx.id and return
+      end
+      @otu = @otus[@present_position]
+      @chr = Chr.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:chr_id]}, :include => [:chr_states])
+    else
+      redirect_to :action => :index and return # illegal mode
+    end
+  end
 
   def set_export_variables
     @mx = Mx.find(params[:id])

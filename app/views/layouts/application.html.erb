@@ -75,7 +75,7 @@
       $(document).ready(function() {
         <% flash.each_pair do |type, msgs| -%>
           <% [msgs].flatten.each do |msg| -%>
-            $.mx_flash('<%=type%>', '<%=msg%>');
+            $.mx_flash("<%=escape_javascript(type.to_s)%>", "<%=escape_javascript(msg.to_s)%>");
           <% end %>
         <% end %>
       });
