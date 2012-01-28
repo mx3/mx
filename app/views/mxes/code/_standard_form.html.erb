@@ -29,7 +29,7 @@
   </table>
 
 <table class='table-form'>
-  <%= render :partial => "fc_coding_navigation" %>
+  <%= render :partial => "mxes/code/navigation" %>
   <tr><td colspan=2><hr/></td></tr>
   <% if @chr.continuous? && !@chr.is_continuous -%>
     <tr>
@@ -49,11 +49,11 @@
 
     <!-- confidence levels -->
     <% if @chr.is_continuous -%>
-      <%= render(:partial => 'fc_continuous') %>
+      <%= render(:partial => 'mxes/code/continuous_form_fields') %>
     <% else -%>
-      <%= render(:partial => 'fc_multistate') %>
+      <%= render(:partial => 'mxes/code/multistate_form_fields') %>
     <% end -%>
     <tr><td colspan=2><hr/></td></tr>
   <% end -%> <!-- end taggable/confidenceable cells -->
-  <%= render :partial => "fc_bottom_controls" %>
+  <%= render :partial => "mxes/code/bottom_controls" %>
 </table>

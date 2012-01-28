@@ -61,7 +61,7 @@
               <tr>
                 <td>
                   <%= otu.display_name(:type => :matrix_name) -%> &nbsp;&nbsp; <%= link_to('(show)', :action => :show, :controller => :otus, :id => otu.id) -%> &nbsp;&nbsp;
-                  <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :otu_id => otu, :chr_id => @chr.id, :mode => 'row', :position => '0'}) if @chr -%>
+                  <%= link_to("(code)", {:action => 'code', :id => @mx, :otu_id => otu, :chr_id => @chr.id, :mode => 'row', :position => '0'}) if @chr -%>
                 </td>
                 <td style="background-color:rgb(
                 <%= ColorHelper::ranged_color(@hash_heat[otu.id] || 0, 'green') -%>

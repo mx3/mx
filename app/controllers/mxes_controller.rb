@@ -5,7 +5,7 @@ class MxesController < ApplicationController
   before_filter :set_export_variables, :only => [:show_nexus, :show_tnt, :show_ascii, :as_file]
   before_filter :set_grid_coding_params, :only => [:show_grid_coding, :show_grid_coding2, :show_grid_tags]
 
-  before_filter :load_and_check_fast_coding, :only => [:fast_code, :perform_fast_code]
+  before_filter :load_and_check_fast_coding, :only => [:code, :perform_code]
 
   layout "layouts/application",  :except => [:as_file]
 
@@ -211,19 +211,20 @@ class MxesController < ApplicationController
       @otus = nil
     end
   end
+
   # This is a method that is called in the fast coding view.
   # It does an AJAX POST to here, and you need to re-render the fast_coding view
   # So that you'll redraw any of the HTML which need to be re-rendered.
-  def set_fast_coding_mode
-    session[:fast_coding_mode] = params[:fast_coding_mode].blank? ? :standard : :one_click
-    notice "Set fast coding mode to #{session[:fast_coding_mode].to_s.titleize}"
+  def set_coding_mode
+    session[:coding_mode] = params[:coding_mode].blank? ? :standard : :one_click
+    notice "Set coding mode to #{session[:coding_mode].to_s.titleize}"
     redirect_to params[:return_to]
   end
 
   # TODO: move logic to model where possible
   # This method provides one-click coding, iterating through either chrs or OTUs
   # It handles both the post and show aspects.
-  def fast_code
+  def code
     @last_otu = (@mode == 'row' ? @otu : @otus[@present_position - 1])
     @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
     @previous_position ||= @present_position
@@ -233,20 +234,16 @@ class MxesController < ApplicationController
     @current_source     = "Current Source?"
     #  How do I set the current ref/source in the UI?
 
-
     # render the updates
     respond_to do |format|
       format.html {
-        # general setup
-        @no_right_col = true
-        @show = ['fast_coding']
-        render :action => :show
+        render :template => 'mxes/code/code' # :action => :show
       }
-      format.js { render :action => :fast_code }
+      format.js { render :action => 'mxes/code/code' } # :fast_code 
     end
   end
 
-  def perform_fast_code
+  def perform_code
     # Add/Delete Codings, both 1click and standard are handled in Mx.fast_code
     if request.post?
       if params[:nuke]   # you clear all the settings (in both 1click and standard)
@@ -257,7 +254,7 @@ class MxesController < ApplicationController
       end
     end
 
-    redirect_to :action=>:fast_code
+    redirect_to :action=> :code
   end
 
   def show_code

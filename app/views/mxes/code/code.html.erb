@@ -1,7 +1,7 @@
-<% one_click_coding = session[:fast_coding_mode] == :one_click %>
+<% one_click_coding = session[:coding_mode] == :one_click %>
 <div id='fast_coding_center_content'>
   <div id="fast_coding_mode_selection">
-    <%= form_tag set_fast_coding_mode_for_mxes_path, method: :post do %>
+    <%= form_tag set_coding_mode_for_mxes_path, method: :post do %>
       <input type="hidden" name="return_to" value="<%= request.fullpath %>" />
       <input id="fast_coding_mode_checkbox"
         type="checkbox"
@@ -23,7 +23,7 @@
           <td colspan="2" style="padding-left: 15px; background-color: <%= @mode =='row' ? 'rgb(243,243,243)' : 'none' -%>;">
             <% @chrs.each_with_index do |c, i| -%>
               <% coded = Coding.by_chr(c).by_otu(@otu).count  -%>
-              <a class="quicknavbox" style="background-color:<%= (c == @chr ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(c.display_name) -%>" href="/projects/<%= @proj.id -%>/mxes/<%= @mx.id -%>/fast_code/<%= @mode -%>/<%= @mode == 'row' ? i : @present_position -%>/<%= @otu.id -%>/<%= c.id -%>" id="chr_<%= c.id -%>"></a>
+              <a class="quicknavbox" style="background-color:<%= (c == @chr ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(c.display_name) -%>" href="/projects/<%= @proj.id -%>/mxes/<%= @mx.id -%>/code/<%= @mode -%>/<%= @mode == 'row' ? i : @present_position -%>/<%= @otu.id -%>/<%= c.id -%>" id="chr_<%= c.id -%>"></a>
             <% end -%>
           </td>
         </tr>
@@ -35,7 +35,7 @@
           <td style="width: 10px; background-color: <%= @mode =='col' ? 'rgb(243,243,243)' : 'none' -%>;">
             <% @otus.each_with_index do |o, i| -%>
               <% coded = Coding.by_chr(@chr).by_otu(o).count  -%>
-              <a  class="quicknavbox" style="background-color:<%= (o == @otu ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(o.display_name) -%>" href="/projects/<%= @proj.id -%>/mxes/<%= @mx.id -%>/fast_code/<%= @mode -%>/<%= @mode == 'col' ? i : @present_position -%>/<%= o.id -%>/<%= @chr.id -%>" id="otu_<%= o.id -%>"></a>
+              <a  class="quicknavbox" style="background-color:<%= (o == @otu ? "red" : (coded > 0 ? "green" : "white")) -%>;" title="<%= html_escape(o.display_name) -%>" href="/projects/<%= @proj.id -%>/mxes/<%= @mx.id -%>/code/<%= @mode -%>/<%= @mode == 'col' ? i : @present_position -%>/<%= o.id -%>/<%= @chr.id -%>" id="otu_<%= o.id -%>"></a>
             <% end -%>
           </td>
 
@@ -54,16 +54,16 @@
                 id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chrs', :id => @chr}, :target => '_blank') -%>
               </span>
             </div>
-            <%= form_tag(:url => mxes_fast_coding_path, :html => {:id => 'one_click_form', :name => "myform", "data-ajaxify"=>"submit"} ) do |f| -%>
+            <%= form_tag(:url => mxes_coding_path, :html => {:id => 'one_click_form', :name => "myform", "data-ajaxify"=>"submit"} ) do |f| -%>
               <%= hidden_field_tag('id',        @mx.id)  -%>
               <%= hidden_field_tag('otu_id',    @otu.id)  -%>
               <%= hidden_field_tag('position',  @present_position) -%>
               <%= hidden_field_tag('mode',      @mode) -%>
               <%= hidden_field_tag('chr_id',    @chr.id) -%>
               <% if one_click_coding %>
-                <%= render :partial => "fc_one_click", :f => f %>
+                <%= render :partial => "mxes/code/one_click_form", :f => f %>
               <% else %>
-                <%= render :partial => "fc_standard", :f => f %>
+                <%= render :partial => "mxes/code/standard_form", :f => f %>
               <% end %>
             <% end -%> <!-- End of form -->
 
@@ -108,3 +108,4 @@
     </div>
   </div>
 </div>
+

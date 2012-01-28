@@ -3,9 +3,10 @@ Edge::Application.routes.draw do
   root :to => "projs#index"
 
  # matrix/coding routes
- match "/projects/:proj_id/mxes_set_fast_coding_mode" => "mxes#set_fast_coding_mode", :as => :set_fast_coding_mode_for_mxes
- post "/projects/:proj_id/mxes/:id/fast_code" => "mxes#perform_fast_code", :as => :mxes_fast_coding, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
- get  "/projects/:proj_id/mxes/:id/fast_code" => "mxes#fast_code",         :as => :mxes_fast_coding, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+ match "/projects/:proj_id/mxes_set_coding_mode" => "mxes#set_coding_mode", :as => :set_coding_mode_for_mxes
+ post "/projects/:proj_id/mxes/:id/code" => "mxes#perform_code", :as => :mxes_coding, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+ get  "/projects/:proj_id/mxes/:id/code" => "mxes#code",         :as => :mxes_coding, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+
 
   # All non-RESTful routes that are unique to a Resource are defined here.
   # Shared restful routes (e.g. 'autocomplete_for_xxx') are defined together
