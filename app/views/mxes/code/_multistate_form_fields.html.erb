@@ -18,6 +18,8 @@
         <input type="checkbox" disabled value="<%= s.id -%>" <%= "checked" if coded -%>>
       <% end %>
       <%= s.s_and_m -%>
+    </td>
+    <td>
       <span class='r'>
         <a data-ajaxify='modal' href="<%= coding_details_path(@proj, s) %>"> More </a>
         |

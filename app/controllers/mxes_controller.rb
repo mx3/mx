@@ -227,14 +227,9 @@ class MxesController < ApplicationController
     @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
     @previous_position ||= @present_position
 
+    @coding_mode = session[:coding_mode] ? session[:coding_mode] : :standard
     #  How do I set the current ref/source in the UI?
-
-    # render the updates
-    respond_to do |format|
-      format.html {
-        render :template => 'mxes/code/code' # :action => :show
-      }
-    end
+    render :template => 'mxes/code/code' # :action => :show
   end
 
   def perform_code
