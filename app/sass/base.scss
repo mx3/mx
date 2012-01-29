@@ -61,6 +61,8 @@
 .t-r { text-align: right; }
 .t-l { text-align: left; }
 .t-c { text-align: center; }
+.r { float: right; }
+.l { float: left; }
 
 form.delete-link {
   display: inline;
@@ -175,7 +177,7 @@ nav.list_pagination {
   padding-left: 5px;
 }
 .mxes-controller {
-  #fast_coding_mode_selection {
+  #coding_mode_selection {
    // position: absolute;
    //  top: -20px;
    // left: -150px;
@@ -186,6 +188,11 @@ nav.list_pagination {
   .navigation {
     td {
       width: 400px;
+    }
+  }
+  tr.coding {
+    td {
+      font-size: larger;
     }
   }
 }

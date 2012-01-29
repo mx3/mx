@@ -5,9 +5,7 @@ class MxesController < ApplicationController
   before_filter :set_export_variables, :only => [:show_nexus, :show_tnt, :show_ascii, :as_file]
   before_filter :set_grid_coding_params, :only => [:show_grid_coding, :show_grid_coding2, :show_grid_tags]
 
-  before_filter :load_and_check_fast_coding, :only => [:code, :perform_code]
-
-  layout "layouts/application",  :except => [:as_file]
+  before_filter :load_and_check_coding, :only => [:code, :perform_code]
 
   def index
     list
@@ -201,7 +199,7 @@ class MxesController < ApplicationController
   end
 
   def code_with
-    redirect_to :action => :fast_code, :chr_id => params[:chr_id], :otu_id => params[:otu_id], :mode => params[:mode], :id => params[:mx][:id]
+    redirect_to :action => :code, :chr_id => params[:chr_id], :otu_id => params[:otu_id], :mode => params[:mode], :id => params[:mx][:id]
   end
 
   def otus_select
@@ -212,8 +210,8 @@ class MxesController < ApplicationController
     end
   end
 
-  # This is a method that is called in the fast coding view.
-  # It does an AJAX POST to here, and you need to re-render the fast_coding view
+  # This is a method that is called in the coding view.
+  # It does an AJAX POST to here, and you need to re-render the coding view
   # So that you'll redraw any of the HTML which need to be re-rendered.
   def set_coding_mode
     session[:coding_mode] = params[:coding_mode].blank? ? :standard : :one_click
@@ -229,9 +227,6 @@ class MxesController < ApplicationController
     @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
     @previous_position ||= @present_position
 
-    # TODO - Matt
-    @current_confidence = "Current Confidence?"
-    @current_source     = "Current Source?"
     #  How do I set the current ref/source in the UI?
 
     # render the updates
@@ -239,7 +234,6 @@ class MxesController < ApplicationController
       format.html {
         render :template => 'mxes/code/code' # :action => :show
       }
-      format.js { render :action => 'mxes/code/code' } # :fast_code 
     end
   end
 
@@ -255,6 +249,12 @@ class MxesController < ApplicationController
     end
 
     redirect_to :action=> :code
+  end
+
+  def coding_state_details
+    respond_to do |wants|
+      wants.html {}
+    end
   end
 
   def show_code
@@ -603,7 +603,7 @@ class MxesController < ApplicationController
   end
 
   private
-  def load_and_check_fast_coding
+  def load_and_check_coding
     id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
     id ||= params[:id]
 

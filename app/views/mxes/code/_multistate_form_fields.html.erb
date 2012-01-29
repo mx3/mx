@@ -1,18 +1,28 @@
 <!-- char state choices -->
 <% @chr.chr_states.each do |s| -%>
   <% coded = s.coded?(@otu.id) %>
-  <tr>
+  <tr class='coding'>
     <td>
-      <% if coded %>
-        <input type='submit' value="&#10008;" >
+      <% if one_click %>
+        <% if coded %>
+          <input type='submit' value="&#10008;" >
+        <% else %>
+          <input type='submit' value="&#10004;">
+        <% end %>
       <% else %>
-        <input type='submit' value="&#10004;">
+        <input type="checkbox" value="<%= s.id -%>" <%= "checked" if coded -%>>
       <% end %>
     </td>
     <td>
-      <input type="checkbox" disabled value="<%= s.id -%>" <%= "checked" if coded -%>>
+      <% if one_click %>
+        <input type="checkbox" disabled value="<%= s.id -%>" <%= "checked" if coded -%>>
+      <% end %>
       <%= s.s_and_m -%>
-      <b>MORE | TAG</b>
+      <span class='r'>
+        <a data-ajaxify='modal' href="<%= mxes_coding_state_details_path(@proj, @mx, @chr, s) %>"> More </a>
+        |
+        <%= new_tag_tag(:object => s) %>
+      </span>
     </td>
   </tr>
 <% end %>

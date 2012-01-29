@@ -6,6 +6,7 @@ Edge::Application.routes.draw do
  match "/projects/:proj_id/mxes_set_coding_mode" => "mxes#set_coding_mode", :as => :set_coding_mode_for_mxes
  post "/projects/:proj_id/mxes/:id/code" => "mxes#perform_code", :as => :mxes_coding, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
  get  "/projects/:proj_id/mxes/:id/code" => "mxes#code",         :as => :mxes_coding, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+ get "/projects/:proj_id/mxes/:id/code/:chr_id/:state/details" => "mxes#coding_state_details", :as => :mxes_coding_state_details
 
 
   # All non-RESTful routes that are unique to a Resource are defined here.

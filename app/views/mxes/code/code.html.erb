@@ -1,22 +1,22 @@
 <% one_click_coding = session[:coding_mode] == :one_click %>
-<div id='fast_coding_center_content'>
-  <div id="fast_coding_mode_selection">
+<div id='coding_center_content'>
+  <div id="coding_mode_selection">
     <%= form_tag set_coding_mode_for_mxes_path, method: :post do %>
       <input type="hidden" name="return_to" value="<%= request.fullpath %>" />
-      <input id="fast_coding_mode_checkbox"
+      <input id="coding_mode_checkbox"
         type="checkbox"
         data-ajaxify="onchange"
-        data-ajaxify-spinner-target="#fast_coding_center_content"
-        name="fast_coding_mode" value="one_click_mode"
+        data-ajaxify-spinner-target="#coding_center_content"
+        name="coding_mode" value="one_click_mode"
         <% if one_click_coding %>
           checked="checked"
         <% end %>
        / >
-      <label for='fast_coding_mode_checkbox'> One-Click Coding Mode </label>
+      <label for='coding_mode_checkbox'> One-Click Coding Mode </label>
     <% end %>
   </div>
 
-  <div id="fast_coding_form" >
+  <div id="coding_form" >
     <div><!-- outer containter -->
       <table><!-- chr nav -->
         <tr>
@@ -108,4 +108,3 @@
     </div>
   </div>
 </div>
-

@@ -1,34 +1,4 @@
 <table class='table-form'>
-  <tr><td colspan=2><hr/></td></tr>
-  <tr>
-    <td>
-      Confidence
-    </td>
-    <td>
-      <select name='confidence[id]'>
-        <% @confidences.each do |c| -%>
-          <option style='color: <%= contrasting_text_color(c.html_color)%>' >
-            <%= c.display_name.html_safe -%>
-          </option>
-        <% end -%>
-      </select>
-    </td>
-  </tr>
-  <tr>
-    <td> Ref / Source: </td>
-    <td>
-      <%= render :partial => 'shared/picker', :locals => {
-            :controller => 'refs',
-            :object => 'codings',
-            :method => 'ref_id',
-            :tag_id => "ref_id_to_find_for_codings",
-            :display => (), # TODO
-            :size => 40 } -%>
-      </td>
-    </tr>
-  </table>
-
-<table class='table-form'>
   <%= render :partial => "mxes/code/navigation" %>
   <tr><td colspan=2><hr/></td></tr>
   <% if @chr.continuous? && !@chr.is_continuous -%>
@@ -40,20 +10,37 @@
     <!-- can have confidence/tags -->
     <tr>
       <td> Current Confidence </td>
-      <td> None </td>
+      <td>
+        <select name='confidence[id]'>
+          <% @confidences.each do |c| -%>
+            <option style='color: <%= contrasting_text_color(c.html_color)%>' >
+              <%= c.display_name.html_safe -%>
+            </option>
+          <% end -%>
+        </select>
+      </td>
     </tr>
     <tr>
-      <td> Current Source </td>
-      <td> Mickey Mouse (OTU: 4) </td>
+      <td> Ref / Source: </td>
+      <td>
+        <%= render :partial => 'shared/picker', :locals => {
+              :controller => 'refs',
+              :object => 'codings',
+              :method => 'ref_id',
+              :tag_id => "ref_id_to_find_for_codings",
+              :display => (), # TODO
+              :size => 40 } -%>
+      </td>
     </tr>
 
     <!-- confidence levels -->
+    <tr><td colspan=2>&nbsp;</td></tr>
     <% if @chr.is_continuous -%>
-      <%= render(:partial => 'mxes/code/continuous_form_fields') %>
+      <%= render :partial => 'mxes/code/continuous_form_fields', :locals=> {:one_click => false } %>
     <% else -%>
-      <%= render(:partial => 'mxes/code/multistate_form_fields') %>
+      <%= render :partial => 'mxes/code/multistate_form_fields', :locals=> {:one_click => false } %>
     <% end -%>
     <tr><td colspan=2><hr/></td></tr>
   <% end -%> <!-- end taggable/confidenceable cells -->
-  <%= render :partial => "mxes/code/bottom_controls" %>
+  <%= render :partial => "mxes/code/bottom_controls", :locals => {:destroy => true, :save => true }%>
 </table>

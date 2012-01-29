@@ -1,9 +1,15 @@
 <tr>
   <td class='t-l'>
+    <% if destroy %>
     <input type='submit' name="nuke" value='Destroy'
-      onclick="return(confirm('This will delete all the states presently coded? Are you sure?'));">
+      onclick="return(confirm('This will delete all the states presently coded! Are you sure?'));">
     </input>
+    <% end %>
   </td>
   <td class='t-r'>
+    <% if save %>
+      <input type='submit' name="save" value='Save'> </input>
+      <input type='submit' name="save" value='Save & Next'> </input>
+    <% end %>
   </td>
 </tr>
