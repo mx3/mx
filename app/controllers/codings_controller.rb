@@ -8,7 +8,13 @@ class CodingsController < ApplicationController
     c = Coding.find(params[:id])
     redirect_to :action => :show_codings, :controller => :otus, :id => c.otu_id
   end
-  
+
+  def coding_details
+    respond_to do |wants|
+      wants.html {}
+    end
+  end
+
   def owl_export
     graph = RDF::Graph.new
     owl = OWL::OWLDataFactory.new(graph)

@@ -251,12 +251,6 @@ class MxesController < ApplicationController
     redirect_to :action=> :code
   end
 
-  def coding_state_details
-    respond_to do |wants|
-      wants.html {}
-    end
-  end
-
   def show_code
     @mx = Mx.find(params[:id])
     @otu = Otu.find(params[:otu_id])

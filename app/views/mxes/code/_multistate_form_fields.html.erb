@@ -19,7 +19,7 @@
       <% end %>
       <%= s.s_and_m -%>
       <span class='r'>
-        <a data-ajaxify='modal' href="<%= mxes_coding_state_details_path(@proj, @mx, @chr, s) %>"> More </a>
+        <a data-ajaxify='modal' href="<%= coding_details_path(@proj, s) %>"> More </a>
         |
         <%= new_tag_tag(:object => s) %>
       </span>
