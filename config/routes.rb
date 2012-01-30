@@ -4,8 +4,8 @@ Edge::Application.routes.draw do
 
  # matrix/coding routes
  match "/projects/:proj_id/mxes_set_coding_mode" => "mxes#set_coding_mode", :as => :set_coding_mode_for_mxes
- post "/projects/:proj_id/mxes/:id/code" => "mxes#perform_code", :as => :mxes_coding, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
- get  "/projects/:proj_id/mxes/:id/code" => "mxes#code",         :as => :mxes_coding, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+ post "/projects/:proj_id/mxes/:id/code_cell/:mode/:position/:chr_id/:otu_id" => "mxes#code_cell", :as => :code_cell, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
+ get  "/projects/:proj_id/mxes/:id/code/:mode/:position/:chr_id/:otu_id" => "mxes#code", :as => :code_mx, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
  get "/projects/:proj_id/codings/:id/details" => "codings#coding_details", :as => :coding_details
 
   # All non-RESTful routes that are unique to a Resource are defined here.

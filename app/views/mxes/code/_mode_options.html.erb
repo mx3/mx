@@ -1,6 +1,5 @@
-<div id='coding_center_content'>
-  
-  coding mode:  <%= @coding_mode -%>
+<div id="mode_options">
+  DEBUG: coding mode: <%= @coding_mode -%>  <%= url_for(params) -%>
 
   <div id="coding_mode_selection">
     <%= form_tag set_coding_mode_for_mxes_path, method: :post do %>
@@ -17,4 +16,4 @@
       <label for='coding_mode_checkbox'> One-Click Coding Mode </label>
     <% end %>
   </div>
-
+</div>

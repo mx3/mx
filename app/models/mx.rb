@@ -577,7 +577,7 @@ class Mx < ActiveRecord::Base
 
   # Code to handle the fast_code logic in mx_controller.rb
   # returns nil, or an array of codings representing the result of 1click or standard codings
-  def self.fast_code(params = {}) 
+  def self.code_cell(params = {}) 
     codings = []
 
     # TODO: resolve continuous states

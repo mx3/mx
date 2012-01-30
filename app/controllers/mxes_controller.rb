@@ -5,7 +5,7 @@ class MxesController < ApplicationController
   before_filter :set_export_variables, :only => [:show_nexus, :show_tnt, :show_ascii, :as_file]
   before_filter :set_grid_coding_params, :only => [:show_grid_coding, :show_grid_coding2, :show_grid_tags]
 
-  before_filter :load_and_check_coding, :only => [:code, :perform_code]
+ before_filter :set_coding_variables, :only => [:code, :code_cell]
 
   def index
     list
@@ -210,6 +210,8 @@ class MxesController < ApplicationController
     end
   end
 
+  # --- Cell coding ---
+   
   # This is a method that is called in the coding view.
   # It does an AJAX POST to here, and you need to re-render the coding view
   # So that you'll redraw any of the HTML which need to be re-rendered.
@@ -219,33 +221,47 @@ class MxesController < ApplicationController
     redirect_to params[:return_to]
   end
 
-  # TODO: move logic to model where possible
-  # This method provides one-click coding, iterating through either chrs or OTUs
-  # It handles both the post and show aspects.
-  def code
-    @last_otu = (@mode == 'row' ? @otu : @otus[@present_position - 1])
-    @last_chr = (@mode == 'col' ? @chr : @chrs[@present_position - 1])
-    @previous_position ||= @present_position
 
-    @coding_mode = session[:coding_mode] ? session[:coding_mode] : :standard
-    #  How do I set the current ref/source in the UI?
-    render :template => 'mxes/code/code' # :action => :show
-  end
-
-  def perform_code
-    # Add/Delete Codings, both 1click and standard are handled in Mx.fast_code
-    if request.post?
-      if params[:nuke]   # you clear all the settings (in both 1click and standard)
-        Coding.destroy_by_otu_and_chr(Otu.find(params[:otu_id]), Chr.find(params[:chr_id]))
-      else # you one-click or submit a form, the logic is handled in Mx.self_code
-        @coding = Mx.fast_code(params.merge(:chr => @chr, :otu => @otu))
-        @present_position = @present_position + 1
+  # Incoming variables set in #set_coding_variables 
+  def code_cell
+    # Code the cell (logic in code_cell here)
+    # @codings = Mx.code_cell(params)
+    
+    # Navigate between cells if you are in on click
+    if @coding_mode == :one_click && params[:advance]
+      @position += 1
+      if @mode == 'row'
+        unless @chrs.length > @position
+          notice "You've finished one-click coding for that OTU."
+          redirect_to :action => :show_otus, :id => @mx.id and return
+        end
+      @chr = @chrs[@position] # update the @chr, the @otu stays the same
+      elsif @mode == 'col'
+        unless @otus.length > @position
+          notice "You've finished one-click coding for that character."
+          redirect_to :action => 'show_characters', :id => @mx.id and return
+        end
+      @otu = @otus[@position]  # update the @otu, the @chr stays the same
+      else
+        raise
       end
     end
-
-    redirect_to :action=> :code
+  
+   # TODO: This really is not optimal, because we have to laod all the variables again
+   # Ideally (in the AJAX call here) we'd just render the template 'mxes/code/code' without the redirect
+   # If we get here in a standard POST we'd get a :code_cell action in the URL/browser using a render :template, which we don't want
+   redirect_to code_mx_path(@proj, @mx, @mode, @position, @chr, @otu) 
   end
 
+  # Incoming variables set in #set_coding_variables 
+  # No navigation between cells occurs here, this just renders the requested cell
+  def code
+    render :template => 'mxes/code/code' 
+  end
+
+  # --- End Cell Coding ---
+
+  # TODO: DEPRECATED FOR NEW def code
   def show_code
     @mx = Mx.find(params[:id])
     @otu = Otu.find(params[:otu_id])
@@ -432,7 +448,6 @@ class MxesController < ApplicationController
     render :nothing => true
   end
 
-
   # character sorting
 
   def show_sort_characters
@@ -533,7 +548,6 @@ class MxesController < ApplicationController
     render(:text => (rdf))
   end
 
-
   # TODO protect
   def _get_window_params
     @window = @matrix.slide_window(params)
@@ -592,38 +606,33 @@ class MxesController < ApplicationController
   end
 
   private
-  def load_and_check_coding
-    id = params[:mx][:id] if params[:mx] # for autocomplete/ajax picker use (must come first!)
-    id ||= params[:id]
 
-    # regardless of whether we navigate with ajax, or by post, we need these:
-    @mx = Mx.includes(:otus, :chrs).find(id)
-    @confidences = @proj.confidences
+  def set_coding_variables
+    # Set the incoming variables
+    # regardless of whether we navigate with AJAX or not, we need these:
+    @mx = Mx.includes(:otus, :chrs).find(params[:id]) 
     @mode = params[:mode]                       # 'row' or 'col', depending on the direction we're coding
-    @present_position = params[:position].to_i
-
+    @position = params[:position].to_i
     @otus = @mx.otus
     @chrs = @mx.chrs
+    @coding_mode = session[:coding_mode] ? session[:coding_mode] : :standard
+    @confidences = @proj.confidences
 
-    # Pull up a particular Otu and Chr based on present_position
-    # this block checks for Ajax, the checks below check for POST
+    # Pull up a particular Otu and Chr based on position and coding mode
     if @mode == 'row'
-      unless @chrs.length > @present_position
-        notice "You've finished one-click coding for that OTU."
-        redirect_to :action => :show_otus, :id => @mx.id and return
-      end
-      @otu = Otu.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:otu_id]}, :include => [{:taxon_name => :parent}])
-      @chr = @chrs[@present_position]
+      @otu = Otu.includes({:taxon_name => :parent}).find(params[:otu_id]) 
+      @chr = @chrs[@position]
+      @last_otu = @otu 
+      @last_chr = @chrs[@position -1] 
     elsif @mode == 'col'
-      unless @otus.length > @present_position
-        notice "You've finished one-click coding for that character."
-        redirect_to :action => 'show_characters', :id => @mx.id and return
-      end
-      @otu = @otus[@present_position]
-      @chr = Chr.find(:first, :conditions => {:proj_id => @proj.id, :id => params[:chr_id]}, :include => [:chr_states])
-    else
-      redirect_to :action => :index and return # illegal mode
+      @otu = @otus[@position]
+      @chr = Chr.includes(:chr_states).find(params[:chr_id]) 
+      @last_otu = @otus[@position -1]
+      @last_chr = @chr
     end
+
+    # TODO might be able to avoid this
+    @previous_position ||= @position
   end
 
   def set_export_variables

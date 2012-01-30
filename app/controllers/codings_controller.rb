@@ -15,6 +15,24 @@ class CodingsController < ApplicationController
     end
   end
 
+#  Individual codings, i.e. from one-click should hit the standard fields
+# def create
+#   redirect_to params[:return_to] 
+# end
+
+# def update
+#   redirect_to :back => true # params[:return_to] 
+# end
+
+# def destroy
+#   if params[:nuke]
+#     Coding.destroy_by_otu_and_chr(Otu.find(params[:otu_id]), Chr.find(params[:chr_id]))
+#   else
+#     Coding.find(params[:id]).destroy
+#   end
+#   redirect_to params[:return_to] 
+# end
+
   def owl_export
     graph = RDF::Graph.new
     owl = OWL::OWLDataFactory.new(graph)

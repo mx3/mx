@@ -5,17 +5,17 @@
     <td>
       <% if one_click %>
         <% if coded %>
-          <input type='submit' value="&#10008;" >
+          <input type='submit' value="&#10008;" name="clicked_chr_state[<%= s.id %>]" >
         <% else %>
-          <input type='submit' value="&#10004;">
+          <input type='submit' value="&#10004;" name="clicked_chr_state[<%= s.id %>]" >
         <% end %>
       <% else %>
-        <input type="checkbox" value="<%= s.id -%>" <%= "checked" if coded -%>>
+        <input type="checkbox"  name="chr_states[<%= s.id %>]"  value="<%= s.id -%>" <%= "checked" if coded -%>>
       <% end %>
     </td>
     <td>
       <% if one_click %>
-        <input type="checkbox" disabled value="<%= s.id -%>" <%= "checked" if coded -%>>
+        <input type="checkbox" disabled  <%= "checked" if coded -%>>
       <% end %>
       <%= s.s_and_m -%>
     </td>

@@ -1,0 +1,29 @@
+<% objs.each_with_index do |o, i| -%>
+
+  <% if o.class == Chr -%>
+    <% coded = Coding.by_chr(o).by_otu(otu).count  -%>
+  <% elsif o.class == Otu -%>
+    <% coded = Coding.by_chr(chr).by_otu(o).count  -%>
+  <% else %>
+   <% raise %>
+  <% end %>
+
+  <!-- TODO: id the boxes for individual updates when AJAXIFIED -->
+
+  <% if o.class == Chr -%>
+  <a class="quicknavbox" 
+    style="background-color:<%= (o == chr ? "red" : (coded > 0 ? "green" : "white")) -%>;" 
+    title="<%= html_escape(o.display_name) -%>" 
+    href="<%= code_mx_path(@proj, @mx, mode, (mode == 'row' ? i : position), o, otu) -%>" </a>  
+  <% elsif o.class == Otu -%>
+  <a class="quicknavbox" 
+    style="background-color:<%= (o == otu ? "red" : (coded > 0 ? "green" : "white")) -%>;"
+    title="<%= html_escape(o.display_name) -%>"
+    href="<%= code_mx_path(@proj, @mx, mode, (mode == 'col' ? i : position), chr, o) -%>"
+  </a>
+  <% else %>
+   <% raise %>
+  <% end %>
+
+<% end -%>
+
