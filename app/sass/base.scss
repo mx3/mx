@@ -225,3 +225,26 @@ nav.list_pagination {
     }
   }
 }
+
+.subnav-wrapper {
+  position: relative;
+  height: 45px;
+  background: white;
+  .subnav {
+    height: 45px;
+    &.sticky {
+      border: 0px;
+      position: fixed;
+      width: 100%;
+      top: -3px;
+      left: 0px;
+      margin-top: 3px;
+      padding-right: 24px;
+      @include box-sizing( border-box);
+      .class_navigator {
+        @include box-shadow(0px 0px 6px #aaaaaa);
+        border: 3px solid white;
+      }
+    }
+  }
+}
