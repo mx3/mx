@@ -277,6 +277,10 @@ class MxesController < ApplicationController
 
   # --- End Cell Coding ---
 
+  def code_matrix
+    render :template => 'mxes/code/matrix/index' 
+  end
+
 # # TODO: DEPRECATED FOR NEW def code
 # def show_code
 #   @mx = Mx.find(params[:id])

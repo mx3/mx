@@ -424,6 +424,8 @@ Edge::Application.routes.draw do
     get as_file
     get auto_link
     get browse
+    get code
+    get code_matrix 
     get current_cycle
     get cycle
     get excerpt
@@ -434,8 +436,6 @@ Edge::Application.routes.draw do
     get show_ascii
     get show_batch_code
     get show_characters
-    get show_code
-    post show_code
     get show_data_sources
     get show_nexus
     get show_otus
@@ -452,13 +452,12 @@ Edge::Application.routes.draw do
     post add_chr
     post add_otu
     post clone
-    post code
+    post otus_select
     post remove_chr
     post remove_otu
     post reset_chr_positions
     post reset_cycle
     post reset_otu_positions
-    post otus_select
   },
     collections: %w{
     post code_with
