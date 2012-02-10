@@ -134,6 +134,19 @@ class Coding < ActiveRecord::Base
     end
   end
 
+  # Find codings representing the + (intersection) of a row/col
+  # Use find_by_sql as per example when we need more speed 
+  def self.for_vector_nav(chr_id, chr_ids, otu_id, otu_ids)
+   Coding.where("(chr_id = ? AND otu_id IN (?) ) OR (otu_id = ? AND chr_id IN (?))", chr_id, otu_ids, otu_id, chr_ids)
+   #Coding.find_by_sql("SELECT concat(chr_id, 'A', otu_id) ndx FROM codings 
+   #                    WHERE (
+   #                     (chr_id = #{chr_id} AND otu_id IN (#{*otu_ids}) ) OR 
+   #                     (otu_id = #{otu_id} AND chr_id IN (#{*chr_ids}) )
+   #                   )
+   #                    ORDER BY chr_id, otu_id;"
+   #                  )
+
+  end
 
   def set_non_normalized
     if !self.chr_state_id.blank?

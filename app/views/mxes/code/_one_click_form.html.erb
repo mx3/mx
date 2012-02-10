@@ -1,62 +1,46 @@
-<table class='table-form'>
-  <tr><td colspan=3><hr /></td></tr>
-  <tr class='t-l'>
-    <td> 1 Click Coding Settings</td>
-    <td class='small_grey'> When you click a coding, these settings will be applied</td>
-  </tr>
-  <tr><td colspan=2><hr /></td></tr>
-  <tr>
-    <td>
-      Confidence
-    </td>
-    <td>
-      <select name='confidence[id]'>
-        <% @confidences.each do |c| -%>
-          <option style='color: <%= contrasting_text_color(c.html_color)%>' >
-            <%= c.display_name.html_safe -%>
-          </option>
-        <% end -%>
-      </select>
-    </td>
-  </tr>
-  <tr>
-    <td> Ref / Source: </td>
-    <td>
-      <%= render :partial => 'shared/picker', :locals => {
-            :controller => 'refs',
-            :object => 'codings',
-            :method => 'ref_id',
-            :tag_id => "ref_id_to_find_for_codings",
-            :display => (), # TODO
-            :size => 40 } -%>
-    </td>
-  </tr>
-  <%= render :partial => "mxes/code/navigation" %>
-  <tr><td colspan=2><hr/></td></tr>
-  <% if @chr.continuous? && !@chr.is_continuous -%>
-    <tr>
-      <td> &nbsp; </td>
-      <td> From Specimens TODO </td>
-    </tr>
-  <% else %>
-    <!-- can have confidence/tags -->
-    <tr>
-      <td> Current Confidence </td>
-      <td> <%= @current_confidence %> </td>
-    </tr>
-    <tr>
-      <td> Current Source </td>
-      <td> <%= @current_source %> </td>
-    </tr>
+<div class="cell_coding_defaults_highlight" style="background-color:orange;"> 
+  &#8592; Clicks applied with settings
+</div>
 
-    <!-- confidence levels -->
-    <tr><td colspan=2>&nbsp;</td></tr>
-    <% if @chr.is_continuous -%>
-      <%= render :partial => 'mxes/code/continuous_form_fields', :locals=> {:one_click => true } %>
-    <% else -%>
-      <%= render :partial => 'mxes/code/multistate_form_fields', :locals=> {:one_click => true } %>
-    <% end -%>
-    <tr><td colspan=2><hr/></td></tr>
-  <% end -%> <!-- end taggable/confidenceable cells -->
-  <%= render :partial => "mxes/code/bottom_controls", :locals => {:destroy => true, :save => false }%>
-</table>
+<% if @chr.is_continuous? -%>
+
+  <div>
+    <%= hidden_field_tag("codings[0][ref_id]", @ref.andand.id)  -%>
+    <%= hidden_field_tag("codings[0][confidence_id]", @confidence.andand.id) -%>
+    <%= render(:partial => 'mxes/code/continuous_state_text_field', :locals => {:coding => @codings.first}) -%>
+    <input type='submit' name="save" value='Save & Next' style="float:right;"> </input>
+  </div> 
+      
+<% else %>
+  <% @chr.chr_states.each_with_index do |cs, i| -%>
+    <%= hidden_field_tag("codings[#{i}][ref_id]", @ref.andand.id)  -%>
+    <%= hidden_field_tag("codings[#{i}][confidence_id]", @confidence.andand.id) -%>
+    <%= hidden_field_tag("codings[#{i}][id]", cs.id) -%>
+    <%= hidden_field_tag("checked[#{i}]", true) if !@codings[i].new_record? -%>
+
+    <%= render(:partial => 'mxes/code/multistate_hidden_coding_fields', :locals => {:chr_state => cs, :otu => @otu, :chr => @chr, :index => i, :coding => @codings[i]}) -%>
+
+  <div> 
+    <div> <!-- check box -->
+      <div style="float:left;">
+        <% if @codings[i].new_record? %>
+        <input type='submit' value="&#10004;" name="clicked[<%=i%>]" >               
+        <% else %>
+        <input type='submit' value="&#10008;" name="clicked[<%=i%>]" >
+        <% end %>
+      </div>
+
+      <div style="float:left;">
+        <input type="checkbox"  name="dummy" disabled <%= "checked" if !@codings[i].new_record? -%> >
+      </div> 
+
+      <div style="float:left;"> 
+        <%= cs.s_and_m -%>
+      </div>
+
+      <br style="clear:both;" />
+    </div>
+  </div>
+
+  <% end %>
+<% end %>

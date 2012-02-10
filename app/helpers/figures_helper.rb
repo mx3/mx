@@ -70,7 +70,7 @@ module FiguresHelper
   def caption_tag(figure, size = :thumb) # :yields: String (<div> element containing enumerated figure caption)
     return "" if figure.caption.blank? && (size != :thumb) # maintain numbering for Content referencing with thumbs.
     content_tag :div, :style => "text-align: left; width: #{figure.image.width_for_size(size).to_i}px; height: 2em;" do
-      figure.position.to_s + "." + expandable_caption((figure.caption.blank? ? '' : figure.caption), figure.id, figure.text_width_chrs)
+      figure.position.to_s + "." + expandable_caption((figure.caption.blank? ? '' : figure.caption), figure.id, figure.text_width_chrs).html_safe
     end
   end
 

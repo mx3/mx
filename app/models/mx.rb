@@ -211,6 +211,44 @@ class Mx < ActiveRecord::Base
     Coding.find(:all, :conditions => {:otu_id => o.id, :chr_id => c.id})
   end
 
+  # Returns an array of existing or new Coding objects
+  def self.codings_for_code_form(options = {})
+    opt = {
+      :chr => nil,       # A Chr found like this: Chr.includes({:chr_states => :codings}).find(params[:chr_id]) 
+      :otu => nil,       # An Otu 
+      :ref => nil,       # A Ref 
+      :confidence => nil # A Confidence 
+    }.merge!(options)
+
+    raise if opt[:chr].nil? || opt[:otu].nil?
+
+    codings = []
+
+    # Just find them, it's a single query
+    codings_to_check = Coding.where(:otu_id => opt[:otu], :chr_id => opt[:chr])
+    if opt[:chr].is_continuous? 
+      if codings_to_check.size > 0  # There will be only one
+        codings.push codings_to_check.first
+      else
+        codings.push Coding.new(:confidence => opt[:confidence], :ref => opt[:ref]) 
+      end
+    else
+      opt[:chr].chr_states.each do |cs|
+        found = false
+        codings_to_check.each do |c|
+          if cs.id == c.chr_state_id
+            found = true
+            codings.push c 
+            break
+          end
+        end
+        codings.push Coding.new(:confidence => opt[:confidence], :ref => opt[:ref]) if !found
+      end
+    end
+
+    codings
+  end
+
   # otus in the matrix sorted by name TODO: MOVE TO A NAMED SCOPE for OTUs :sorted_by_name
   def otus_by_name
     Otu.find_by_sql(["Select o.* from otus o right join mxes_otus on mxes_otus.otu_id = o.id where mx_id = ? ORDER BY o.matrix_name, o.name, o.manuscript_name, o.id;", self.id])
@@ -370,16 +408,17 @@ class Mx < ActiveRecord::Base
       :chr_id => nil,
     }.merge!(options.to_options!)
 
+    # TODO: REDO- use position and > <
+    # e.g. Chr.where(:id => ChrsMxes.where(position > chr.position).first) ...
+
     cells = {}
     return false if !@opts[:otu_id] && !@opts[:chr_id]
     x = self.chrs.index(Chr.find(@opts[:chr_id]))
     y = self.otus.index(Otu.find(@opts[:otu_id]))
    
     cells[:above] = [@opts[:chr_id], self.otus[y-1].id] 
-    
     cells[:below] = [@opts[:chr_id], self.otus[(y == self.otus.count - 1 ? 0 : y+1)].id]  
     cells[:right] = [self.chrs[(x == self.chrs.count - 1 ? 0 : x+1)].id, @opts[:otu_id]]
-    
     cells[:left] = [self.chrs[x-1].id, @opts[:otu_id] ]
     cells 
   end
@@ -544,9 +583,11 @@ class Mx < ActiveRecord::Base
   # returns a hash of hashes with the key a Character.id, and the value the percentage of states that character is coded for
   def percent_coded_by_chr
     h = {}
+    otu_ids = self.otus.collect{|o| o.id}
     tot = self.otus.count
     for c in self.chrs
-      h[c.id] = (tot == 0 ? 0 : ( self.otus_coded_by_chr_id(c.id).size.to_f / tot.to_f))
+      h[c.id] = (tot == 0 ? 0 : (Otu.where(:id => Coding.where(:chr_id => c, :otu_id => otu_ids).collect{|i| i.otu_id})
+.count.to_f / tot.to_f))
     end
     h
   end
@@ -563,101 +604,52 @@ class Mx < ActiveRecord::Base
   
   # returns Chrs coded by otu_id in this matrix # MOVE TO NAMED SCOPE in CHRS
   def chrs_coded_by_otu_id(otu_id)
-    chr_ids = Coding.find(:all, :conditions => "otu_id = #{otu_id}").collect{|i| i.chr_id}
-    return [] if chr_ids.size == 0
-    self.chrs & Chr.find(chr_ids)
+    Chr.where(:id => Coding.where(:otu_id => otu_id, :chr_id => self.chrs).collect{|i| i.chr_id})
   end
 
   # returns Otus coded by chr_id in this matrix (NAMED SCOPE THIS)
   def otus_coded_by_chr_id(chr_id) 
-    otu_ids = Coding.find(:all, :conditions => "chr_id = #{chr_id}").collect{|i| i.otu_id}
-    return [] if otu_ids.size == 0
-    self.otus & Otu.find(otu_ids)
+    Otu.where(:id => Coding.where(:chr_id => chr_id, :otu_id => self.otus).collect{|i| i.otu_id})
   end
 
-  # Code to handle the fast_code logic in mx_controller.rb
-  # returns nil, or an array of codings representing the result of 1click or standard codings
+  # Handles incoming codings from MxController#code methods 
+  # A little boolean logic lets us determine what to do 
+  # Returns true or false
+  #  params[:clicked] comes from one_click mode
+  #  params[:checked] comes from the form itself
   def self.code_cell(params = {}) 
-    codings = []
-
-    # TODO: resolve continuous states
-
-    # the two possible 'standard' clicks, or you've hit a continuous character
-    if params[:save] || params[:save_and_next]
-        params[:chr].chr_states.each do |chr_state|
-          if params[:codings][:chr_states][chr_state.id.to_s] # checked create if not there
-            coding = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ? AND chr_state_id = ?", params[:otu].id, params[:chr].id, chr_state.id])
-            next if coding 
-            coding = Coding.new(:otu_id => params[:otu].id, :chr_id => params[:chr].id, :chr_state_id => chr_state.id) 
-            coding.confidence_id =  params[:codings][:confidence_id] if params[:codings][:confidence_id]
-            coding.ref_id =  params[:codings][:ref_id] if params[:codings][:ref_id]
-            coding.save
-            codings.push coding
-          else # not checked, find and delete if there
-            coding = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ? AND chr_state_id = ?", params[:otu].id, params[:chr].id, chr_state.id])
-            coding.destroy if !coding.nil?
+    # params.symbolize_keys!
+    begin
+      Coding.transaction do 
+        params[:codings].keys.each do |k|
+          if params[:checked] && params[:checked][k] # checked 
+            if params[:clicked] && params[:clicked][k] # checked & clicked (destroy)
+              c = Coding.find(params[:codings][k][:id])
+              c.destroy
+              break
+            else # checked & !clicked (udpate/new)
+              if !params[:codings][k][:id].blank?
+                c = Coding.find(params[:codings][k][:id])
+                c.update_attributes(params[:codings][k]) 
+              else
+                c = Coding.new(params[:codings][k])
+                c.save!
+              end
+            end
+          else # !checked
+            if params[:clicked] && params[:clicked][k] #!checked & clicked (new)
+              c = Coding.new(params[:codings][k])
+              c.save!
+              break
+            end
+            # Don't need to check for !checked & !clicked (nothing)
           end
         end
-
-        return codings
-
-    else # coming from  from 1click
-      params[:one_click_state].keys.each do |chr_state_id| # we technically only get one here
-        if params[:one_click_state][chr_state_id] == '+'
-       
-          coding = Coding.new(:otu_id => params[:otu].id, :chr_id => params[:chr].id, :chr_state_id => chr_state_id) 
-          coding.confidence_id =  params[:codings][:confidence_id] if params[:codings][:confidence_id]
-          coding.ref_id =  params[:codings][:ref_id] if params[:codings][:ref_id]
-          coding.save!
-          return [coding]
-     
-          # add Tag if we request this
-
-        elsif params[:one_click_state][chr_state_id] == '-'
-          c = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ? AND chr_state_id = ?", params[:otu].id, params[:chr].id, chr_state_id])
-          c.destroy
-          return []
-        else
-          raise
-        end
       end
+    rescue
+      raise 
     end
-
-  # # still here, we need coding to work with
-
-  # # check for existing continuous coding
-  # if !params[:continuous_value].blank?
-  #   coding = Coding.find(:first, :conditions => ["otu_id = ? AND chr_id = ?", params[:otu].id, params[:chr].id])
-  # end
-
-  # # couldn't find one to use, generate new coding
-  # coding = Coding.new(:otu_id => params[:otu].id, :chr_id => params[:chr].id) if coding.nil?
-
-  # # add coding agnostic properties
-  # coding.confidence_id =  params[:coding][:confidence_id] if params[:coding] && params[:coding][:confidence_id]
-
-  # if params[:chr].is_continuous?
-  #   coding.continuous_state = params[:continuous_value]
-  # else
-  #   # from form: otu_id, chr_id, chr_state_id
-  #   # handled by model: chr_state_state, chr_state_name
-
- #   coding.chr_state_id = params[:chr_state_id]
-
-  #   # chr_state = ChrState.find(params[:chr_state_id])
-  # end 
-
-  # coding.save!
-
-  # # include a tag if requested
-  # if !params[:tag].blank? && !params[:tag][:keyword_id].blank? 
-  #   t = Tag.new(params[:tag])
-  #   t.addressable_id = @coding.id
-  #   t.addressable_type = 'Coding'
-  #   t.save
-  # end
-
-  #return coding
+    true
   end
 
   def clone_to_simple # :yields: Mx (cloned, with OTU+, Chr+ only based on parent)

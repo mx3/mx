@@ -1,19 +1,16 @@
-<div id="mode_options">
-  DEBUG: coding mode: <%= @coding_mode -%>  <%= url_for(params) -%>
-
-  <div id="coding_mode_selection">
-    <%= form_tag set_coding_mode_for_mxes_path, method: :post do %>
-      <input type="hidden" name="return_to" value="<%= request.fullpath %>" />
-      <input id="coding_mode_checkbox"
-        type="checkbox"
-        data-ajaxify="onchange"
-        data-ajaxify-spinner-target="#coding_center_content"
-        name="coding_mode" value="one_click_mode"
-        <% if @coding_mode == :one_click %>
-          checked="checked"
-        <% end %>
-       / >
-      <label for='coding_mode_checkbox'> One-Click Coding Mode </label>
+<div id="coding_mode_selection">
+  <div style="float:right;"> <%= link_to('back', :action => :show, :id => @mx) -%> </div>
+  <%= form_tag set_coding_mode_for_mxes_path, method: :post do %>
+    <input type="hidden" name="return_to" value="<%= request.fullpath %>" />
+    <input id="coding_mode_checkbox"
+    type="checkbox"
+    data-ajaxify="onchange"
+    data-ajaxify-spinner-target="#cell_coding"
+    name="coding_mode" value="one_click_mode"
+    <% if @coding_mode == :one_click %>
+      checked="checked"
     <% end %>
-  </div>
+    / >
+    <label for='coding_mode_checkbox'> One-Click Coding Mode </label>
+  <% end %>
 </div>

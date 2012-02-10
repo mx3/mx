@@ -1,4 +1,7 @@
-<!-- SET @coding_mode in controller -->
-<div id="coding_center_content">
+<h3> Coding matrix <%= @mx.display_name -%> </h3>
+<div id="cell_coding">
+  <div id="coding_mode_options">  
+    <%= render(:partial => 'mxes/code/mode_options') -%>
+  </div>
   <%= render :partial => 'mxes/code/code' -%>
 </div>

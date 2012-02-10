@@ -10,7 +10,7 @@
     <div style="border-bottom: 1px dotted silver; margin-bottom:1em;"> States </div>
 
     <% if @chr.chr_states.count > 0 -%>
-      <%= render(:partial => "chr_state", :collection => @chr.chr_states) -%><br />
+      <%= render(:partial => "chr_states/chr_state", :collection => @chr.chr_states) -%><br />
     <% else-%>
       <i> no states added</i>
     <% end -%>

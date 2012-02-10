@@ -1,0 +1,28 @@
+<div id="coding_options_selection">
+  <%= form_tag set_coding_options_for_mxes_path, method: :post do %>
+  <input type="hidden" name="return_to" value="<%= request.fullpath %>" />
+
+  <div> Confidence:  <br />
+    <%= render(:partial => 'confidences/picker', :locals => {:width => 200, :confidences => @confidences, :selected_confidence_id => @confidence.andand.id }) -%>
+  </div>
+
+  <div> Reference/source: <br />
+    <%= render :partial => 'shared/picker', :locals => {
+    :controller => 'refs',
+    :object => 'ref',
+    :method => 'id',
+    :tag_id => "default_ref_id_for_codings",
+    :display => @ref.andand.display_name(:type => :selected),
+    :size => 25 } -%>
+  </div>
+
+  <input type='submit'
+         data-ajaxify="onchange"
+         data-ajaxify-spinner-target="#cell_coding"
+         name="save"
+         value='Save'
+         style='float:right;'> 
+  </input>
+  <% end %>
+</div>
+

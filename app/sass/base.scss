@@ -176,7 +176,100 @@ nav.list_pagination {
 .coding-list {
   padding-left: 5px;
 }
+
+
 .mxes-controller {
+  #cell_coding {
+    .col {
+      margin-left:2px;
+      border-left:1px solid silver;
+    }
+
+    #coding_mode_options {
+      //  background-color:purple;
+      #coding_mode_selection {
+      }
+    }
+
+    #code_interface {
+     div {
+      padding: 2px;
+     }
+
+   .header {
+      font-weight:bold;
+      border-bottom:1px dotted silver; 
+    }
+
+    .minor_text {
+      font-size:smaller;
+      color:gray;
+     }
+   
+     #neighbor_navigation {
+      //background-color:magenta;
+      margin-bottom:2px;
+      border:1px solid silver;
+      text-align:center;
+     }
+
+     .vector_nav {
+
+      a.quicknavbox {
+          position: relative;
+          display: block;
+          float: left;
+          width: 5px;
+          margin: 1px;
+          border: 1px solid silver;
+          height: 5px;
+        }
+
+      } 
+     .chr {}
+     .otu {
+       // background-color:yellow;
+        width: 12px; float:left;
+      } 
+
+      #coding_options { 
+        width:205px;
+       // background-color:orange; 
+        float:left;
+      }
+
+      #cell_choices {
+        width:400px;
+      //   background-color:red;
+        float:left;   
+
+        #code_form {
+          background-color:#e1e1e1;
+          .chr_state {
+            border-bottom:1px dotted silver;
+            padding:5px;
+          }
+          .chr_state_options {
+            font-size:smaller;
+           // background-color:maroon;
+           float:right;
+           text-align:right;
+           background-color:#d1d1d1;
+          }
+        }
+      }
+
+      #chr_details {
+      //  background-color:cyan;
+        width:300px; 
+        float:left;
+      }
+    }
+  }
+}
+
+/*
+
   #coding_mode_selection {
    // position: absolute;
    //  top: -20px;
@@ -195,7 +288,8 @@ nav.list_pagination {
       font-size: larger;
     }
   }
-}
+#}
+*/
 
 /*
   This is a simple form - first TDs are labels, rest are normal.

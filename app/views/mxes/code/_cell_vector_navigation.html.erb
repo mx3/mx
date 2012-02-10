@@ -1,29 +1,25 @@
 <% objs.each_with_index do |o, i| -%>
-
   <% if o.class == Chr -%>
-    <% coded = Coding.by_chr(o).by_otu(otu).count  -%>
+    <% coded = @vector_nav_codings.select{|c| c.otu_id == otu.id && c.chr_id == o.id}.empty? ? false : true -%>
   <% elsif o.class == Otu -%>
-    <% coded = Coding.by_chr(chr).by_otu(o).count  -%>
+    <% coded = @vector_nav_codings.select{|c| c.chr_id == chr.id && c.otu_id == o.id}.empty? ? false : true -%>
   <% else %>
    <% raise %>
   <% end %>
 
-  <!-- TODO: id the boxes for individual updates when AJAXIFIED -->
-
   <% if o.class == Chr -%>
   <a class="quicknavbox" 
-    style="background-color:<%= (o == chr ? "red" : (coded > 0 ? "green" : "white")) -%>;" 
+    style="background-color:<%= (o == chr ? "red" : (coded ? "green" : "white")) -%>;" 
     title="<%= html_escape(o.display_name) -%>" 
-    href="<%= code_mx_path(@proj, @mx, mode, (mode == 'row' ? i : position), o, otu) -%>" </a>  
+    href="<%= code_mx_path(@proj, @mx, mode, (mode == 'row' ? i : position), o, otu) -%>" ></a>
   <% elsif o.class == Otu -%>
   <a class="quicknavbox" 
-    style="background-color:<%= (o == otu ? "red" : (coded > 0 ? "green" : "white")) -%>;"
-    title="<%= html_escape(o.display_name) -%>"
+    style="background-color:<%= (o == otu ? "red" : (coded ? "green" : "white")) -%>;"
+    title="<%= html_escape(o.display_name(:type => :matrix_name  )) -%>"
     href="<%= code_mx_path(@proj, @mx, mode, (mode == 'col' ? i : position), chr, o) -%>"
-  </a>
+  ></a>
   <% else %>
    <% raise %>
   <% end %>
 
 <% end -%>
-

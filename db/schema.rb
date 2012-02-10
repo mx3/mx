@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120115163321) do
+ActiveRecord::Schema.define(:version => 20120209202344) do
 
   create_table "association_parts", :force => true do |t|
     t.integer "association_id",         :null => false
@@ -367,6 +367,7 @@ ActiveRecord::Schema.define(:version => 20120115163321) do
     t.integer   "confidence_id"
   end
 
+  add_index "codings", ["chr_id", "otu_id"], :name => "matrixspeed"
   add_index "codings", ["chr_id"], :name => "chr_id"
   add_index "codings", ["chr_state_id", "chr_state_state", "chr_state_name"], :name => "chr_state_id_2"
   add_index "codings", ["chr_state_id", "otu_id"], :name => "chr_state_id_otu_id", :unique => true

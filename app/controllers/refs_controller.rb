@@ -239,7 +239,7 @@ class RefsController < ApplicationController
        :label=>ref.display_name,
        :response_values=> {
           'ref[id]' => ref.id,
-          :hidden_field_class_name => @tag_id_str
+          params[:method] => ref.id
        },
        :label_html => ref.display_name(:type => :for_select_list)
       }

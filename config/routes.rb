@@ -3,7 +3,10 @@ Edge::Application.routes.draw do
   root :to => "projs#index"
 
  # matrix/coding routes
+ # TODO: matches should get added via the default manner
  match "/projects/:proj_id/mxes_set_coding_mode" => "mxes#set_coding_mode", :as => :set_coding_mode_for_mxes
+ match "/projects/:proj_id/mxes_set_coding_options" => "mxes#set_coding_options", :as => :set_coding_options_for_mxes
+
  post "/projects/:proj_id/mxes/:id/code_cell/:mode/:position/:chr_id/:otu_id" => "mxes#code_cell", :as => :code_cell, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
  get  "/projects/:proj_id/mxes/:id/code/:mode/:position/:chr_id/:otu_id" => "mxes#code", :as => :code_mx, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
  get "/projects/:proj_id/codings/:id/details" => "codings#coding_details", :as => :coding_details

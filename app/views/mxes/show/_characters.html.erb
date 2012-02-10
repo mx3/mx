@@ -55,7 +55,7 @@
       <div class="box4">
         <div class="header" >characters in matrix</div>
         <div class="content">
-          <%= '<i>none</i>' if @chrs.size == 0 -%>
+          <%= '<i>none</i>'.html_safe if @chrs.size == 0 -%>
           <table style="width: 100%;">
             <% @chrs.each do |chr| %>
               <tr>
@@ -78,7 +78,7 @@
       <div class="box4">
         <div class="header" >character groups</div>
         <div class="content">
-          <%= '<i>none</i>' if @chr_groups_in.size == 0 -%>
+          <%= '<i>none</i>'.html_safe if @chr_groups_in.size == 0 -%>
           <ul style="list-style-type:square;" >
             <% @chr_groups_in.each do |chr_group| -%>
               <li style="color: silver;"><%= chr_group.name -%>&nbsp;<%= link_to "x", {:action => 'remove_chr', :id => @mx.id, :params => {"chr_group_id" => chr_group.id}} -%></li>
@@ -91,7 +91,7 @@
       <div class="box4">
         <div class="header" >characters +</div>
         <div class="content">
-          <%= '<i>none</i>' if @chrs_plus.size == 0 -%>
+          <%= '<i>none</i>'.html_safe if @chrs_plus.size == 0 -%>
           <ul style="list-style-type:square;">
             <% @chrs_plus.each do |chr| -%>
               <li >
@@ -105,7 +105,7 @@
       <div class="box4">
         <div class="header" >characters -</div>
         <div class="content">
-          <%= '<i>none</i>' if @chrs_minus.size == 0 -%>
+          <%= '<i>none</i>'.html_safe if @chrs_minus.size == 0 -%>
           <ul style="list-style-type:square;">
             <% @chrs_minus.each do |chr| -%>
               <li>

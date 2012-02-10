@@ -1,1 +1,24 @@
-<%= select(c_name, f_name, @proj.confidences.collect {|c| [c.name, c.id] }, { :include_blank => true }) %>
+<% none ||= 'true' -%>
+<% selected_confidence_id ||= 'none' -%>
+<% method ||= 'confidence[id]' -%>
+<% width ||= 200 -%>
+
+<% if !confidences -%>
+    No confidence levels available to select.
+<% else %>
+
+<select name="<%= method -%>" style="width:<%= width -%>px;" > 
+  <% confidences.each do |c| -%>
+  <option style='color:<%= contrasting_text_color(c.html_color) -%>; background-color:#<%= c.html_color -%>' value="<%= c.id -%>" <%= 'selected="selected"' if c.id == selected_confidence_id -%> >
+    <%= c.name.html_safe -%>
+  </option>
+  <% end -%>
+  <% if none -%>
+  <option style='color:silver;' value="" <%= 'selected="selected"' if selected_confidence_id == 'none' -%> >
+      -- None -- 
+  </option>
+  <% end %>
+</select>
+
+<% end %>
+

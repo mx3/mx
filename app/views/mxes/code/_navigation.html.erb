@@ -1,6 +1,4 @@
-<tr class='t-c plain navigation'>
-  <td colspan=2 class='t-c'>
-    <%= link_to("<< previous", {:action => 'code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}, class: 'spaced-link') if @previous_position != 0 -%>
-    <%= link_to("skip >>",     {:action => 'code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,  :position => @position + 1}, class: 'spaced-link') -%>
-  </td>
-</tr>
+<!-- Adopt the updated:  @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id) -->
+
+<%= link_to("<< previous", {:action => 'code', :id => @mx, :mode => @mode, :otu_id => @last_otu, :chr_id => @last_chr, :position => @previous_position - 1}, class: 'spaced-link') if @previous_position != 0 -%> |
+  <%= link_to("skip >>", {:action => 'code', :id => @mx, :mode => @mode, :otu_id => @otu.id, :chr_id => @chr.id,  :position => @position + 1}, class: 'spaced-link') -%>

@@ -39,8 +39,9 @@
          * -- add those values in the 'response_values' to the current form.
          *  This lets you add things like
          *  otu[id] as a response value.
-         * If you want a controller[:method] combination in the response do
-         *   params[:method] => obj.id in the autocomplete response.
+         * !! If you want a controller[:method] combination in the response do
+         *   params[:method] => obj.id in the autocomplete response. Set this in the autocomplete method of the respective controller, see ref_controller.rb for example.  
+         * When the shared/picker partial is used params[:method] is set to "#{object}[#{method}]".
          * There is no name parameter in the visible picker, the name is set in the hidden field set here.
          */
         .bind( "autocompleteselect", function( event, ui ) {

@@ -1,0 +1,26 @@
+<div>
+  <h3>Description</h3> 
+  <div class="chr_description"> 
+    <% if @chr.doc_char_descr.blank? %>
+    <em> Character description not provided. </em>
+    <% else %>
+    <%= @chr.doc_char_descr -%>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <h3>State details</h3>
+  <% if @chr.continuous? -%>
+  <em>Character is continuous.</em>
+  <% else -%>
+  <% @chr.chr_states.each do |state| -%>
+  <div style="border-bottom:1px solid silver;">
+    <b><%= state.s_and_m  -%></b>
+    <%= render_figs_for_obj(state, 'thumb') -%>
+  </div>
+  <% end -%>
+  <% end %>
+</div>
+
+

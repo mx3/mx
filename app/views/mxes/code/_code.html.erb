@@ -1,94 +1,57 @@
-<!-- SET @coding_mode in controller -->
+<div id="code_interface">
+  <div>
+    <div id="neighbor_navigation">
+      <%= render(:partial => 'mxes/code/navigation') -%>
+    </div>
 
-<%= render(:partial => 'mxes/code/mode_options') -%>
+    <div class="vector_nav chr" style="background-color:<%= @mode =='col' ? 'rgb(213,213,213)' : 'none' -%>;" > 
+      <%= render(:partial => 'mxes/code/cell_vector_navigation', :locals => {:objs => @chrs, :chr => @chr, :otu => @otu, :mode => @mode, :position => @position}) -%> 
+      <br style="clear:both;" />
+    </div> 
 
-<div id="coding_form" >
-  <div><!-- outer containter -->
+    <div>
+      <div class='vector_nav otu' style="background-color:<%= @mode =='row' ? 'rgb(213,213,213)' : 'none' -%>;">
+        <%= render(:partial => 'mxes/code/cell_vector_navigation', :locals => {:objs => @otus, :chr => @chr, :otu => @otu, :mode => @mode, :position => @position}) -%> 
+      </div>
 
-    <table><!-- chr nav -->
-      <tr>
-        <td colspan="2" style="padding-left: 15px; background-color: <%= @mode =='row' ? 'rgb(243,243,243)' : 'none' -%>;">
-          <%= render(:partial => 'mxes/code/cell_vector_navigation', :locals => {:objs => @chrs, :chr => @chr, :otu => @otu, :mode => @mode, :position => @position}) -%>
-        </td>
-      </tr>
-    </table>
+      <div id='coding_options' class="col" >
+        <h3>Persistant Options</h3>
+        <%= render(:partial => 'mxes/code/coding_options') -%>
+      </div>
 
-    <table>
-      <tr>
-        <!-- otu nav -->
-        <td style="width: 10px; background-color: <%= @mode =='col' ? 'rgb(243,243,243)' : 'none' -%>;">
-          <%= render(:partial => 'mxes/code/cell_vector_navigation', :locals => {:objs => @otus, :chr => @chr, :otu => @otu, :mode => @mode, :position => @position}) -%>
-        </td>
+      <div id="cell_choices" class="col"> 
+        <h3>Coding (by <%= @mode == 'col' ? 'character' : 'OTU' %>)</h3>
+        <div class="chr_otu_name">
+          <%=@otu.display_name %> (matrix name: <%= @otu.display_name(:type => :matrix_name) -%>)
+          <span class="minor_text">
+            <%= link_to("id: #{@otu.id}", {:action => 'show', :controller => 'otus', :id => @otu}, :target => '_blank') %>
+          </span>
+          <br />
+          <em class='minor_text'>for</em>
+          <br />
+          <%= @chr.name %>
+          <span class="minor_text">
+            <%= link_to("id: #{@chr.id}", {:action => 'show', :controller => 'chrs', :id => @chr}, :target => '_blank') -%>
+          </span>
+        </div>
+        <%= render(:partial => 'mxes/code/form') -%>
+      </div>
 
-        <td style="width: 430px; margin: 0 10px;">
-          <div style='margin: 0 5px;'>
-            <div class='t-r'><b>Coding (by <%= @mode == 'col' ? 'character' : 'OTU' %>)</b></div>
-            <%=@otu.display_name %> (matrix name: <%= @otu.display_name(:type => :matrix_name) -%>)&nbsp;
-            <span class="small_grey">
-              id: <%= link_to(@otu.id, :action => 'show', :controller => 'otus', :id => @otu) %>
-            </span>
-            <br/>
-            <em class='small_grey'>for</em>
-            <br/>
-            <%= @chr.name %>
-            <span class="small_grey">
-              id: <%= link_to(@chr.id, {:action => 'show', :controller => 'chrs', :id => @chr}, :target => '_blank') -%>
-            </span>
-          </div>
-          
-          <%= form_tag(code_cell_path(@proj, @mx, @mode, @position, @chr, @otu), :id => 'one_click_form', 'data-ajaxify' => 'submit', :name => "myform" ) do |f| -%>
-            <%= hidden_field_tag('id',        @mx.id)  -%>
-            <%= hidden_field_tag('otu_id',    @otu.id)  -%>
-            <%= hidden_field_tag('position',  @position) -%>
-            <%= hidden_field_tag('mode',      @mode) -%>
-            <%= hidden_field_tag('chr_id',    @chr.id) -%>
-            <% if @coding_mode == :one_click %>
-            <%= hidden_field_tag('advance', true) -%>
-            <%= render :partial => "mxes/code/one_click_form", :f => f %>
-            <% else %>
-              <%= render :partial => "mxes/code/standard_form", :f => f %>
-            <% end %>
-          <% end -%> <!-- End of form -->
+      <div id="chr_details" class="col"> 
+        <h3> Character Details</h3> 
+        <%= render(:partial => 'mxes/code/character_details') -%>
+      </div>
 
-          <!-- TODO: partial this out -->
-          <div class="subform box4" >
-            <div class="header" > character description </div>
-            <div class="content">
-              <% if @chr.doc_char_descr.blank? %>
-              <i> none </i>
-              <% else %>
-              <%= @chr.doc_char_descr -%>
-              <% end %>
-            </div>
-          </div>
+      <br style="clear:both;" />
+    </div>
 
-        </td>
+    <div style="background-color:blue;"> 
+      footer
+    </div>
 
-        <!-- coding data -->
-        <td style="border-left: 1px solid silver;">
-          <div class="box4" style="border: none;">
-            <div class="header">
-              state details and cell tagging
-            </div>
-
-            <% if @chr.continuous? -%>
-            Character is continuous.
-            <% else -%>
-
-            <% @chr.chr_states.each do |state| -%>
-            <div class="content" style="border-bottom:1px solid silver;">
-              <b><%= state.s_and_m  -%></b>
-              <% if @s = state.coded?(@otu.id) -%>
-              <% if @s.confidence -%><br/>&nbsp;&nbsp; coded with confidence: <span style="color:red;"><%= @s.confidence.display_name -%></span> <% end %>
-              <% end -%>
-              <%= render_figs_for_obj(state, 'thumb') -%>
-            </div>
-            <% end -%>
-
-            <% end %>
-          </div>
-        </td>
-      </tr>
-    </table>
+    <br style="clear:both;" />
   </div>
-</div>
+
+</div> <!-- end code_interface -->
+
+<br style="clear:both;" />

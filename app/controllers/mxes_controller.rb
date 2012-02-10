@@ -56,15 +56,25 @@ class MxesController < ApplicationController
 
   def show_otus
     @mx = Mx.find(params[:id])
-    _set_otus
+    @otus = @mx.otus
+    @otus_plus = @mx.otus_plus
+    @otus_minus = @mx.otus_minus
+    @otu_groups_in = @mx.otu_groups
+    @otu_groups_out = @proj.otu_groups - @otu_groups_in
+    @hash_heat = @mx.percent_coded_by_otu
     @chr = @mx.chrs.first # first chr to point 'code' at
     @no_right_col = true
     render :action => :show
   end
 
   def show_characters
-    @mx = Mx.find(params[:id])
-    _set_chrs
+    @mx = Mx.includes(:chrs, :chr_groups, :chrs_minus, :chrs_plus, :otus).find(params[:id])
+    @chrs = @mx.chrs
+    @chrs_plus = @mx.chrs_plus
+    @chrs_minus = @mx.chrs_minus
+    @chr_groups_in = @mx.chr_groups
+    @chr_groups_out = @proj.chr_groups - @chr_groups_in
+    @hash_heat = @mx.percent_coded_by_chr
     @otu = @mx.otus.first # first otu to 'code' at
     @no_right_col = true
     render :action => :show
@@ -221,14 +231,20 @@ class MxesController < ApplicationController
     redirect_to params[:return_to]
   end
 
+  def set_coding_options
+    session[:coding_default_confidence_id] = params[:confidence][:id]
+    session[:coding_default_ref_id] = params[:ref][:id]
+    notice "Updated default confidence and references." 
+    redirect_to params[:return_to]
+  end
 
   # Incoming variables set in #set_coding_variables 
   def code_cell
     # Code the cell (logic in code_cell here)
-    # @codings = Mx.code_cell(params)
-    
+    codings = Mx.code_cell(params)
+ 
     # Navigate between cells if you are in on click
-    if @coding_mode == :one_click && params[:advance]
+    if @coding_mode == :one_click 
       @position += 1
       if @mode == 'row'
         unless @chrs.length > @position
@@ -261,81 +277,81 @@ class MxesController < ApplicationController
 
   # --- End Cell Coding ---
 
-  # TODO: DEPRECATED FOR NEW def code
-  def show_code
-    @mx = Mx.find(params[:id])
-    @otu = Otu.find(params[:otu_id])
-    @chr = Chr.find(params[:chr_id])
-    @confidences = @proj.confidences
+# # TODO: DEPRECATED FOR NEW def code
+# def show_code
+#   @mx = Mx.find(params[:id])
+#   @otu = Otu.find(params[:otu_id])
+#   @chr = Chr.find(params[:chr_id])
+#   @confidences = @proj.confidences
 
-    codings = []
-    # move logic to model?
-    if request.post?
-      @codings = Coding.by_chr(@chr).by_otu(@otu)
+#   codings = []
+#   # move logic to model?
+#   if request.post?
+#     @codings = Coding.by_chr(@chr).by_otu(@otu)
 
-      if @chr.is_continuous
-        @codings.destroy_all
+#     if @chr.is_continuous
+#       @codings.destroy_all
 
-        coding = Coding.create(
-          "otu_id" => @otu.id,
-          "chr_id" => @chr.id,
-          "continuous_state" => params[:continuous_value],
-          # "chr_state_state" => chr_state.state, # set on before_filter
-          # "chr_state_name" => chr_state.name,
-          :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
-          "proj_id" => @proj.id
-        )
+#       coding = Coding.create(
+#         "otu_id" => @otu.id,
+#         "chr_id" => @chr.id,
+#         "continuous_state" => params[:continuous_value],
+#         # "chr_state_state" => chr_state.state, # set on before_filter
+#         # "chr_state_name" => chr_state.name,
+#         :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
+#         "proj_id" => @proj.id
+#       )
 
-        codings.push coding
+#       codings.push coding
+#     
+#     else
 
-      else
+#       params[:state].each_pair { |chr_state_id, coded|
+#         chr_state = ChrState.find(chr_state_id.to_i)
+#         if (coding = @codings.detect {|c| c.chr_state_id == chr_state.id}) # coding exists?
+#           if coded == "0"
+#             coding.destroy
+#           else # exists, but confidence might have changed
+#             coding.update_attributes(:confidence_id => ((params[:confidence] && params[:confidence][chr_state.id.to_s]) ? params[:confidence][chr_state.id.to_s] : nil) )
+#             codings.push coding
+#           end
+#         else # coding doesn't exist
+#           if coded == "1"
+#             coding = Coding.create(
+#               "otu_id" => @otu.id,
+#               "chr_id" => @chr.id,
+#               "chr_state_id" => chr_state.id,
+#               # "chr_state_state" => chr_state.state, # set on before_filter
+#               # "chr_state_name" => chr_state.name,
+#               :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
+#               "proj_id" => @proj.id
+#             )
+#             codings.push coding
+#           end
+#         end
+#       }
+#     end
 
-        params[:state].each_pair { |chr_state_id, coded|
-          chr_state = ChrState.find(chr_state_id.to_i)
-          if (coding = @codings.detect {|c| c.chr_state_id == chr_state.id}) # coding exists?
-            if coded == "0"
-              coding.destroy
-            else # exists, but confidence might have changed
-              coding.update_attributes(:confidence_id => ((params[:confidence] && params[:confidence][chr_state.id.to_s]) ? params[:confidence][chr_state.id.to_s] : nil) )
-              codings.push coding
-            end
-          else # coding doesn't exist
-            if coded == "1"
-              coding = Coding.create(
-                "otu_id" => @otu.id,
-                "chr_id" => @chr.id,
-                "chr_state_id" => chr_state.id,
-                # "chr_state_state" => chr_state.state, # set on before_filter
-                # "chr_state_name" => chr_state.name,
-                :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
-                "proj_id" => @proj.id
-              )
-              codings.push coding
-            end
-          end
-        }
-      end
+#     notice "Updated."
+#   end
 
-      notice "Updated."
-    end
+#   if params[:from_grid_coding]
+#     # should make these locals
+#     @x = params[:x]
+#     @y = params[:y]
+#     cell_type = session["#{$person_id}_mx_overlay"] if not session["#{$person_id}_mx_overlay"].blank?
+#     cell_type ||= 'none'
+#     render :update do |page|
+#       page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
+#       page.replace_html "cell_#{@x}_#{@y}", :partial => "/mx/cells/cell_#{cell_type}", :locals => {:i => params[:x], :j => params[:y], :o => @otu, :c => @chr, :mx_id => @mx.id, :codings => codings}
+#     end and return
+#   else
 
-    if params[:from_grid_coding]
-      # should make these locals
-      @x = params[:x]
-      @y = params[:y]
-      cell_type = session["#{$person_id}_mx_overlay"] if not session["#{$person_id}_mx_overlay"].blank?
-      cell_type ||= 'none'
-      render :update do |page|
-        page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
-        page.replace_html "cell_#{@x}_#{@y}", :partial => "/mx/cells/cell_#{cell_type}", :locals => {:i => params[:x], :j => params[:y], :o => @otu, :c => @chr, :mx_id => @mx.id, :codings => codings}
-      end and return
-    else
-
-      @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
-      @no_right_col = true
-      render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
-    end
-  end
+#     @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
+#     @no_right_col = true
+#     render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
+#   end
+# end
 
   #== Managing characters
 
@@ -610,29 +626,35 @@ class MxesController < ApplicationController
   def set_coding_variables
     # Set the incoming variables
     # regardless of whether we navigate with AJAX or not, we need these:
-    @mx = Mx.includes(:otus, :chrs).find(params[:id]) 
-    @mode = params[:mode]                       # 'row' or 'col', depending on the direction we're coding
+    @mx = Mx.includes({:otus => :taxon_name}, :chrs).find(params[:id])  # We never need the full matrix, just a slice
+    @mode = params[:mode]               # 'row' or 'col', depending on the direction we're coding
     @position = params[:position].to_i
+
     @otus = @mx.otus
-    @chrs = @mx.chrs
+    @chrs = @mx.chrs 
+    
     @coding_mode = session[:coding_mode] ? session[:coding_mode] : :standard
-    @confidences = @proj.confidences
+    @confidence = session[:coding_default_confidence_id].blank? ? nil : Confidence.find(session[:coding_default_confidence_id]) 
+    @ref =        session[:coding_default_ref_id].blank? ? nil :  Ref.find(session[:coding_default_ref_id]) 
+    @confidences = Confidence.where(:proj_id => @proj.id, :applicable_model => 'mx') 
 
     # Pull up a particular Otu and Chr based on position and coding mode
     if @mode == 'row'
       @otu = Otu.includes({:taxon_name => :parent}).find(params[:otu_id]) 
       @chr = @chrs[@position]
       @last_otu = @otu 
-      @last_chr = @chrs[@position -1] 
+      @last_chr = @chrs[@position - 1] 
     elsif @mode == 'col'
       @otu = @otus[@position]
-      @chr = Chr.includes(:chr_states).find(params[:chr_id]) 
-      @last_otu = @otus[@position -1]
+      @chr = Chr.includes({:chr_states => [:codings, :figures]}).find(params[:chr_id]) 
+      @last_otu = @otus[@position - 1]
       @last_chr = @chr
     end
 
-    # TODO might be able to avoid this
-    @previous_position ||= @position
+    @codings = Mx.codings_for_code_form(:chr => @chr, :otu => @otu, :ref => @ref, :confidence => @confidence)
+    # TODO: toggle this
+    @vector_nav_codings = Coding.for_vector_nav(@chr.id, @chrs.collect{|c| c.id}, @otu.id, @otus.collect{|o| o.id})
+    @previous_position ||= @position  # TODO: might be able to avoid this
   end
 
   def set_export_variables
@@ -643,33 +665,6 @@ class MxesController < ApplicationController
     @codings_mx = @mx.codings_mx
   end
 
-
-  # TODO: before_filter this if used elsewhere
-  def _set_otus
-    @otus = @mx.otus
-    @otus_plus = @mx.otus_plus
-    @otus_minus = @mx.otus_minus
-    @otu_groups_in = @mx.otu_groups
-    @otu_groups_out = @proj.otu_groups - @otu_groups_in
-
-    @hash_heat = @mx.percent_coded_by_otu
-  end
-
-  # before_filter this
-  def _set_chrs
-    @chrs = @mx.chrs
-
-    @chrs_plus = @mx.chrs_plus
-    # @chrs_plus_out = @proj.chrs - @chrs
-
-    @chrs_minus = @mx.chrs_minus
-    # @chrs_minus_out = @proj.chrs - @chrs_minus
-
-    @chr_groups_in = @mx.chr_groups
-    @chr_groups_out = @proj.chr_groups - @chr_groups_in
-
-    @hash_heat = @mx.percent_coded_by_chr
-  end
 
   # before_filter this
   def set_grid_coding_params
