@@ -15,6 +15,7 @@ function initialize_js(root) {
   find("*[data-observe-select]").mx_select_observer();
   find("*[data-basic-modal]").basicModal();
   find("*[data-inplace-editor]").mx_inplace_editor();
+  find("*[data-sticky-header]").mx_sticky_header();
 }
 
 

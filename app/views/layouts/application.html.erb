@@ -55,12 +55,15 @@
 
       <div id="content">
         <% unless no_subnav.include?(self.controller.controller_name) -%>
-          <div class="subnav">
-            <div style="float:right;"><%= render(:partial => 'shared/class_navigator') unless no_sidenav.include?(self.controller.controller_name) -%></div>
-            <div><%= menu_tabs("subnav") -%></div>
-            <div style="clear:both;"></div>
+          <div class='subnav-wrapper'>
+            <div data-sticky-header class="subnav">
+              <div style="float:right;"><%= render(:partial => 'shared/class_navigator') unless no_sidenav.include?(self.controller.controller_name) -%></div>
+              <div><%= menu_tabs("subnav") -%></div>
+              <div style="clear:both;"></div>
+            </div>
           </div>
         <% end -%>
+
 
         <%= yield -%>
 
