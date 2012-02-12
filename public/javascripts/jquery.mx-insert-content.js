@@ -16,7 +16,7 @@
     if (!this.length) {   return this; }
     return this.each(function() {
       var $this = $(this);
-      var content = $this.data('insertContent');
+      var content = $("<div/>").html($this.data('insertContent')).text();
       var parent   = $this.data('insertContentParent');
       var selector = $this.data('insertContentTarget');
 
