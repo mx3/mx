@@ -1,0 +1,77 @@
+<div id="matrix_coding">
+  <div id="mx_selection">
+    <h3>Matrix</h3>
+    The current matrix is: <em> <br /> <%= @mx.display_name -%>.</em> <br />
+    <div class="header"> <%= @mx.notes.blank? ? 'No notes on this matrix.' : @mx.notes -%> </div> 
+    <div class="selection_form mx">
+    <%= form_tag(matrix_coding_mx_path(@proj, @mx)) do -%>
+      Set matrix to: <br />
+      <%= select_tag :id, options_from_collection_for_select(@matrices, :id, :name), :style => 'width:140px;' -%>
+      <%= submit_tag 'Set' -%>
+    </div>
+    <% end -%>
+  </div>
+
+  <div id="coding_column">
+    <div id="otu_selection">
+      <h3> OTU </h3>
+      The current OTU is: <%= link_to(@otu.display_name, otu_path(@proj, @otu), :target => '_blank') -%>. <br />
+      Reference: <%= @otu.ref ? @otu.ref.display_name : content_tag(:em, 'Not provided.') -%> <br />
+      <div class="selection_form otu">
+      <!-- TODO: display_name call is sub-optimal -->
+      <%= form_tag(matrix_coding_mx_path(@proj, @mx)) do -%>
+        <%= select_tag :otu_id, options_from_collection_for_select(@otus, :id, :display_name, @otu.id) -%>
+        <%= hidden_field_tag(:id, @mx.id) -%>
+        <%= submit_tag 'Set' -%>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <%= form_tag(code_matrix_mx_path(@proj, @mx), :id => 'one_click_form', 'data-ajaxify' => 'submit', :name => "myform" ) do |f| -%>
+        <%= hidden_field_tag('otu_id', @otu.id)  -%>
+        <div> 
+          <div id="chr_form_fields">
+            <h3> Characters </h3>
+            <% i = 0 -%>
+            <% @mx.chrs.each do |c| -%>
+              <div class="header">
+                <span style="font-weight:bold;"><%= c.display_name -%></span>
+                <span class="more">
+                  <a data-ajaxify='modal' href="<%= chr_details_path(@proj, c.id) %>"> More </a>
+                 </span>
+              </div> 
+              <% if c.is_continuous? -%>
+                <% if @codings["#{c.id}A#{@otu.id}B"] -%>
+                  <% coding = @codings["#{c.id}A#{@otu.id}B"] -%>
+                <% else %>
+                  <% coding = Coding.new(:chr => c, :otu => @otu) -%> 
+                <% end %>
+                <%= render(:partial => 'mxes/code/continuous_state_text_field', :locals => {:i => i, :coding => coding}) -%> 
+                <% i += 1 -%>
+              <% else %>
+                <% c.chr_states.each do |cs| -%> 
+                <% if @codings["#{c.id}A#{@otu.id}B#{cs.id}"] -%>
+                  <% coding = @codings["#{c.id}A#{@otu.id}B#{cs.id}"] -%>
+                <% else %>
+                  <% coding = Coding.new(:chr => c, :chr_state => cs, :otu => @otu) -%> 
+                <% end %>
+                  <%= render(:partial => 'mxes/code/matrix/multistate_field', :locals => {:coding => coding, :i => i}) -%>
+                  <% i += 1 -%>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div id="chr_form_submits">
+            <%= submit_tag 'Save' -%>
+          </div>
+          <br style="clear:both;" ?>
+        </div> 
+      <% end %> <!-- End character form -->
+    </div>
+  </div>
+  <br style="clear:both;" />
+</div>
+
+

@@ -1,6 +1,6 @@
 <% if @chr.is_continuous? -%>
   <div>
-    <%= render(:partial => 'mxes/code/continuous_state_text_field', :locals => {:coding => @codings.first}) -%>
+    <%= render(:partial => 'mxes/code/continuous_state_text_field', :locals => {:i => 0, :coding => @codings.first}) -%>
     <div style="float:right;"> 
       <% if !@codings.first.new_record? -%> 
       <%= new_tag_tag(:object => @codings.first) -%> | <a data-ajaxify='modal' href="<%= coding_details_path(@proj, @codings.first) %>"> More </a>

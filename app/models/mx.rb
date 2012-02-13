@@ -245,9 +245,10 @@ class Mx < ActiveRecord::Base
         codings.push Coding.new(:confidence => opt[:confidence], :ref => opt[:ref]) if !found
       end
     end
-
     codings
   end
+
+
 
   # otus in the matrix sorted by name TODO: MOVE TO A NAMED SCOPE for OTUs :sorted_by_name
   def otus_by_name
@@ -622,27 +623,45 @@ class Mx < ActiveRecord::Base
     begin
       Coding.transaction do 
         params[:codings].keys.each do |k|
-          if params[:checked] && params[:checked][k] # checked 
-            if params[:clicked] && params[:clicked][k] # checked & clicked (destroy)
-              c = Coding.find(params[:codings][k][:id])
-              c.destroy
-              break
-            else # checked & !clicked (udpate/new)
-              if !params[:codings][k][:id].blank?
-                c = Coding.find(params[:codings][k][:id])
-                c.update_attributes(params[:codings][k]) 
-              else
-                c = Coding.new(params[:codings][k])
-                c.save!
-              end
-            end
-          else # !checked
-            if params[:clicked] && params[:clicked][k] #!checked & clicked (new)
+          # continuous?
+          if !params[:codings][k][:continuous_state].blank? 
+            if params[:codings][k][:id].blank? 
               c = Coding.new(params[:codings][k])
               c.save!
-              break
+            else
+              c = Coding.find(params[:coding][k][:id])
+              params[:codings][k].delete(:id) # prevent mass assign warning 
+              c.update_attributes(params[:codings][k]) 
             end
-            # Don't need to check for !checked & !clicked (nothing)
+            # not continuous
+          else 
+            if params[:checked] && params[:checked][k] # checked 
+              if params[:clicked] && params[:clicked][k] # checked & clicked (destroy)
+                c = Coding.find(params[:codings][k][:id])
+                c.destroy
+                # break
+              else # checked & !clicked (udpate/new)
+                if !params[:codings][k][:id].blank?
+                  c = Coding.find(params[:codings][k][:id])
+                  params[:codings][k].delete(:id) # prevent mass assign warning 
+                  c.update_attributes(params[:codings][k]) 
+                else
+                  c = Coding.new(params[:codings][k])
+                  c.save!
+                end
+              end
+            else # !checked
+              if params[:clicked] && params[:clicked][k] #!checked & clicked (new)
+                c = Coding.new(params[:codings][k])
+                c.save!
+                break
+              else # !checked & !clicked & continuous_state.blank? (destroy when present)
+                if params[:codings][k][:id]
+                  c = Coding.find(params[:codings][k][:id])
+                  c.destroy
+                end
+              end
+            end
           end
         end
       end

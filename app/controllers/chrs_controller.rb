@@ -157,6 +157,13 @@ class ChrsController < ApplicationController
     end
   end
 
+  def chr_details
+    @chr = Chr.find(params[:id])
+    respond_to do |wants|
+      wants.html {}
+    end
+  end
+
   def update_state(state_h)
     @chr_state = ChrState.find(state_h['id'])
     @chr_state.update_attributes(state_h)

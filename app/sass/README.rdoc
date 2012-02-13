@@ -1,0 +1,20 @@
+
+TODO: 
+* set a standard div padding/margin size
+
+--- 
+
+** ALL NEW CSS SHOULD BE SCSS **
+
+// The use of CSS3 / HTML5 is encouraged. //
+
+CSS/Styles are organized (or in the process of being organized) as such:
+
+base.scss 
+  Generic markup that must not reference controller/model names or be view specific.
+
+mx/_[mx model name].scss 
+  Controller and/or view specific markup.
+
+public/standard.css
+  Legacy CSS not yet ported to base or a respective partial. DO NOT ADD TO THIS FILE.
