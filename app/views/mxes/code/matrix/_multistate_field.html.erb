@@ -1,0 +1,24 @@
+<% more ||= false -%>
+<div class="multistate_field">
+  <%= hidden_field_tag "codings[#{i}][chr_state_id]", coding.chr_state_id -%>
+  <%= hidden_field_tag "codings[#{i}][chr_id]", coding.chr_id -%>
+  <%= hidden_field_tag "codings[#{i}][otu_id]", coding.otu_id -%>
+  <%= hidden_field_tag("codings[#{i}][id]", coding.id) if !coding.new_record? -%>
+
+  <div style="float:left;"> 
+    <%= check_box_tag "checked[#{i}]", coding.chr_state_id, !coding.new_record? -%>
+  </div>
+  <div style="float:left;"> 
+    <%= coding.chr_state.s_and_m -%>
+  </div>
+
+  <% if more -%>
+  <div style="float:right;"> 
+    <% if !coding.new_record? -%> 
+    <%= new_tag_tag(:object => coding) -%> | <a data-ajaxify='modal' href="<%= coding_details_path(@proj, coding) %>"> More </a>
+    <% end %>
+  </div>
+  <% end %>
+  <br style="clear:both;" />
+</div>
+

@@ -1,3 +1,148 @@
+// TODO: used?!
+.coding-list {
+  padding-left: 5px;
+}
+
+
+.mxes-controller { // TODO: decide whether to continue with this pattern
+  #cell_coding {
+    .col {
+      margin-left:2px;
+      border-left:1px solid silver;
+    }
+
+    #coding_mode_options {
+      //  background-color:purple;
+      #coding_mode_selection {
+      }
+    }
+
+    #code_interface {
+     div {
+      padding: 2px;
+     }
+    .header {
+      font-weight:bold;
+      border-bottom:1px dotted silver; 
+    }
+    .minor_text {
+      font-size:smaller;
+      color:gray;
+     }
+   
+     #neighbor_navigation {
+      //background-color:magenta;
+      margin-bottom:2px;
+      border:1px solid silver;
+      text-align:center;
+     }
+
+     .vector_nav {
+      a.quicknavbox {
+          position: relative;
+          display: block;
+          float: left;
+          width: 5px;
+          margin: 1px;
+          border: 1px solid silver;
+          height: 5px;
+        }
+      } 
+     .chr {}
+     .otu {
+       // background-color:yellow;
+        width: 12px; float:left;
+      } 
+
+      #coding_options { 
+        width:205px;
+       // background-color:orange; 
+        float:left;
+      }
+
+      #cell_choices {
+        width:400px;
+      //   background-color:red;
+        float:left;   
+
+        #code_form {
+          background-color:#e1e1e1;
+          .chr_state {
+            border-bottom:1px dotted silver;
+            padding:5px;
+          }
+          .chr_state_options {
+            font-size:smaller;
+           // background-color:maroon;
+           float:right;
+           text-align:right;
+           background-color:#d1d1d1;
+          }
+        }
+      }
+
+      #chr_details {
+      //  background-color:cyan;
+        width:300px; 
+        height:400px;
+        overflow-y:scroll;
+        float:left;
+      }
+    }
+  } // end cell coding
+
+  #matrix_coding {
+    div {padding:2px;}
+    #mx_selection {
+      float:left;
+      // background-color:red;
+      width:200px;
+    }
+    .header {
+      font-weight:bold;
+      border-bottom:1px dotted silver; 
+    }
+    .selection_form {
+      background-color:#e1e1e1; // TODO: make a default related-form class
+      .mx {}
+      .otu {}   
+    }
+    #coding_column {
+      float:left;
+      border-left:1px dotted silver;
+      // background-color:orange; 
+      .otu_select {
+        // background-color:purple;
+      } 
+    }
+    #chr_form_fields {
+      float:left;
+      overflow-y:scroll;
+      height:1000px;
+      width:660px;
+      // background-color:yellow;
+      .more {
+        float:right;
+        text-size:smaller;
+      } 
+      .continuous_field {
+        text-align:center; padding:5px;
+      } 
+      .multistate_field {
+        // background-color:green;
+        padding-left:5px;
+      }
+    }
+    #chr_form_submits {
+      margin-top: 5px;
+      // background-color:blue;
+      float:left;height:1000px;
+      width:60px;
+      text-align:center;
+    }
+  }
+}
+
 table.mx {
   border-collapse: collapse;
 
@@ -39,7 +184,8 @@ div.nexus {
   border: 1px dotted silver;
   font-family: "Courier New", Courier, monospace;
   padding: 1em;
-  width: 98%; overflow: auto; 
+  width: 98%;
+ overflow: auto; 
 
   td.taxname {
     padding-right: 2em;

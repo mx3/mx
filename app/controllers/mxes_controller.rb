@@ -278,6 +278,21 @@ class MxesController < ApplicationController
   # --- End Cell Coding ---
 
   def code_matrix
+    codings = Mx.code_cell(params)
+    notice "Codings saved."
+    redirect_to :action => :matrix_coding, :otu_id => params[:otu_id], :id => params[:id] 
+  end
+
+  def matrix_coding
+    @matrices = @proj.mxes
+    @mx = Mx.includes({:otus => :taxon_name}, {:chrs => :chr_states}).find(params[:id])
+    
+    @otus = @mx.otus 
+    @otu = Otu.find(params[:otu_id]) if params[:otu_id]
+    @otu ||= @otus.first
+    notice "Matrix set to to #{@mx.display_name}. <br />OTU set to #{@otu.display_name}.".html_safe
+    @codings = Coding.where(:chr_id => @mx.chrs, :otu_id => @otu).includes(:chr_state).
+      inject({}){|hsh, c| hsh.merge("#{c.chr_id}A#{c.otu_id}B#{c.chr_state_id}" => c)}
     render :template => 'mxes/code/matrix/index' 
   end
 
@@ -638,8 +653,8 @@ class MxesController < ApplicationController
     @chrs = @mx.chrs 
     
     @coding_mode = session[:coding_mode] ? session[:coding_mode] : :standard
-    @confidence = session[:coding_default_confidence_id].blank? ? nil : Confidence.find(session[:coding_default_confidence_id]) 
-    @ref =        session[:coding_default_ref_id].blank? ? nil :  Ref.find(session[:coding_default_ref_id]) 
+    @confidence  = session[:coding_default_confidence_id].blank? ? nil : Confidence.find(session[:coding_default_confidence_id]) 
+    @ref         =  session[:coding_default_ref_id].blank? ? nil :  Ref.find(session[:coding_default_ref_id]) 
     @confidences = Confidence.where(:proj_id => @proj.id, :applicable_model => 'mx') 
 
     # Pull up a particular Otu and Chr based on position and coding mode

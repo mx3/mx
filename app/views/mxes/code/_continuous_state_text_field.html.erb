@@ -1,3 +1,6 @@
-<div style="text-align:center; padding:5px;">  
-  Value: <%= text_field_tag "codings[0][continuous_state]", coding.continuous_state -%>
+<div class="continuous_field"> 
+  <%= hidden_field_tag "codings[#{i}][chr_id]", coding.chr_id -%>
+  <%= hidden_field_tag "codings[#{i}][otu_id]", coding.otu_id -%>
+  <%= hidden_field_tag("codings[#{i}][id]", coding.id) if !coding.new_record? -%>
+  Value: <%= text_field_tag "codings[#{i}][continuous_state]", coding.continuous_state -%>
 </div>

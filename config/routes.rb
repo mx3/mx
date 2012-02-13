@@ -10,6 +10,7 @@ Edge::Application.routes.draw do
  post "/projects/:proj_id/mxes/:id/code_cell/:mode/:position/:chr_id/:otu_id" => "mxes#code_cell", :as => :code_cell, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
  get  "/projects/:proj_id/mxes/:id/code/:mode/:position/:chr_id/:otu_id" => "mxes#code", :as => :code_mx, :constraints => { :id => /\d+/, :otu_id => /\d+/, :chr_id => /\d+/, :mode => /row|col/} # mode is "row" or "col"
  get "/projects/:proj_id/codings/:id/details" => "codings#coding_details", :as => :coding_details
+ get "/projects/:proj_id/chrs/:id/details" => "chrs#chr_details", :as => :chr_details
 
   # All non-RESTful routes that are unique to a Resource are defined here.
   # Shared restful routes (e.g. 'autocomplete_for_xxx') are defined together
@@ -425,7 +426,10 @@ Edge::Application.routes.draw do
     get auto_link
     get browse
     get code
-    get code_matrix 
+    get matrix_coding 
+    post matrix_coding
+    post code_matrix
+    post set_matrix_to_code 
     get current_cycle
     get cycle
     get excerpt
