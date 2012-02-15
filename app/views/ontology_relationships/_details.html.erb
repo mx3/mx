@@ -1,0 +1,32 @@
+<div id='ontology_relationships_details'>
+  <% if @ontology_class.relationships_are_sufficient %>
+  <div> <!-- necessary and sufficient relationships section -->
+    <%= render :partial => 'ontology_relationships/relationships', :locals => {:relationships => @ontology_class.primary_relationships, :ontology_class => @ontology_class, :intersections => true} -%>
+  </div>
+  <% end %>
+  <div> <!-- the relationship/properties section -->
+    <%= render :partial => 'ontology_relationships/relationships', :locals => {:relationships => @ontology_class.relationships, :ontology_class => @ontology_class, :intersections => false} -%>
+    <div style="width:100%;">
+      <div style="float:left; width: 50%;">
+        <div class="box4">
+          <div class="header">Part of</div>
+          <% class_parents = @ontology_class.logical_relatives(:direction => :parents) %>
+          <% if class_parents.size == 0 -%>
+          <i> none </i>
+          <% else -%>
+          <div class="content"><ol> <%= class_parents.keys.collect{|t| content_tag :li, link_to(ontology_class_postfixed_with_label(t), :action => :show, :id => t.id, :controller => :ontology_classes), :style => (@class_parents[t] ? 'color: red;' : '')}.join.html_safe -%></ol> </div>
+          <% end -%>
+        </div>
+      </div>
+
+      <div style="float:left; width: 50%;">
+        <div class="box4">
+          <div class="header">Constituent parts</div>
+          <div class="content" style="text-align: center;" id="constituent_parts"> <%= link_to('show', :remote => true, :loading => "Element.show('child_spinner')", :complete => "Element.hide('child_spinner')", :url => {:action => :_populate_consituent_parts, :controller => :ontology_classes, :id => @ontology_class.id}) -%>  <%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'child_spinner', :style => "display: none; vertical-align:middle;" ) %> </div>
+        </div>
+      </div>
+      <br style="clear: both;" />
+    </div>
+    <br style="clear: both;" />
+  </div><!-- end rel section -->
+</div>

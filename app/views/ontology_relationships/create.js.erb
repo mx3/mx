@@ -1,0 +1,8 @@
+<script>
+  <% if @success %>
+    $.basicModal('hide');
+    mx_replace($("#ontology_relationships_details"), '<%= escape_javascript(render :partial=>'ontology_relationships/details')%>');
+  <% else %>
+    $.basicModal('error_shake');
+  <% end %>
+</script>

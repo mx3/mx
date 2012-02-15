@@ -22,7 +22,7 @@ class OntologyClassesController < ApplicationController
     @ontology_classes = OntologyClass.by_proj(@proj)
      .page(params[:page])
      .per(20)
-     .includes(:written_by, :obo_label, :creator, :labels, :updator, :taxon_name) 
+     .includes(:written_by, :obo_label, :creator, :labels, :updator, :taxon_name)
   end
 
   def list_tip_figures
@@ -187,7 +187,6 @@ class OntologyClassesController < ApplicationController
     id = params[:ontology_class][:id] if params[:ontology_class]
     id ||= params[:id]
     @ontology_class = OntologyClass.find(id, :include => [:labels, :sensus, :figures, :tags])
-    @class_parents = @ontology_class.logical_relatives(:direction => :parents)
   end
 
   def auto_complete_for_ontology_classes

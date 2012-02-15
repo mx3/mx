@@ -232,19 +232,19 @@ class OntologyClass < ActiveRecord::Base
   # The is_a, part_of methods here are for convienience. They not optimized to repeated calls since they have to find the required relationship(s).
 
   def is_a_children        # :yields: Array of immediate is_a related OntologyClasses
-    self.child_ontology_relationships(:relationship_type => ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id).collect{|o| o.ontology_class1}
+    self.child_ontology_relationships(:relationship_type => ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id).collect{|o| o.ontology_class1} rescue []
   end
 
   def is_a_parents         # :yields: Array of immediate is_a related OntologyClasses
-    self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 1, :direction => :parents).collect{|o| o.ontology_class2}
+    self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 1, :direction => :parents).collect{|o| o.ontology_class2} rescue []
   end
 
   def is_a_descendants     # :yields: Array of all is_a related OntologyClasses
-    self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 20000, :direction => :children).collect{|o| o.ontology_class1}
+    self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 20000, :direction => :children).collect{|o| o.ontology_class1} rescue []
   end
 
   def is_a_ancestors       # :yields: Array of all is_a related OntologyClasses
-    self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 20000, :direction => :parents).collect{|o| o.ontology_class2}
+    self.related_ontology_relationships(:relationship_type => [ObjectRelationship.find_by_interaction_and_proj_id('is_a', self.proj_id).id], :max_depth => 20000, :direction => :parents).collect{|o| o.ontology_class2} rescue []
   end
 
   def part_of_ancestors    # :yields: Array of all the OntologyClasses this instance is part of (additionally logically chained through is_a)

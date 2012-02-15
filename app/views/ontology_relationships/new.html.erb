@@ -1,0 +1,13 @@
+<!-- with some hints from http://demo.script.aculo.us/ajax/update_element -->
+<div id="ontology_relationship_to_close" class="popupform" style="width: 250px;">
+	<div>
+    <a class='basic-modal-close' href='#'>X</a>
+	</div>
+	<h4>New relationship for this class</h4>
+	<br style="clear: both;">
+
+	<% form_for @ontology_relationship, :html => {:id => "ontology_relationship_to_close"}, :url => url_for(:action => "create") do |f| %>
+		<%= render :partial => 'ontology_relationships/form', :locals => {:f => f} -%>
+		<%= submit_tag "Create", 'data-ajaxify' => 'submit' -%>
+	<% end -%>
+</div>

@@ -1,27 +1,25 @@
 <div class="box4">
   <div class="header"> Sensus for <%= sensus_for -%> <span style="font-size:smaller;">(<%= sensus.size  -%>)</span>
-    <%= image_tag('/images/spinner.gif', :alt => 'Updating', :id => 'sensu_move_spinner', :style => "display: none; vertical-align:middle;"  ) -%> 
+    <%= image_tag('/images/spinner.gif', :alt => 'Updating', :id => 'sensu_move_spinner', :style => "display: none; vertical-align:middle;"  ) -%>
   </div>
   <div class="content">
     <p><i>new sensus added to bottom of list</i> &nbsp;&nbsp;&nbsp; <%= link_to('jump to next w/o sensus', :action => :show_next_without, :filter => :without_sensus, :id => parent_id, :controller => :ontology_classes) -%>  <em style="float: right;"> drag to reorder (page refresh required if new sensus added to list) </em></p>
     <div style="padding: 2px; border-bottom: 1px dotted silver; width: 100%; font-weight:bolder;">
-      <div style="float:left; width: 20%;"> label </div> 
+      <div style="float:left; width: 20%;"> label </div>
       <div style="float:left; width: 38%;"> class </div>
       <div style="float:left; width: 25%;"> reference </div>
       <div style="float:left; width: 10%;"> modified </div>
-      <div style="float:left; width: 3%;"> </div> 
+      <div style="float:left; width: 3%;"> </div>
       <br style="clear: both;">
     </div>
     <ul id="sensus_for_<%= sensus_for + "_" + parent_id.to_s -%>" style="border:0; padding: 0; list-style-type:none;"
       data-sortable
       data-sortable-on-change-url="<%= sort_confidences_path %>"
       data-sortable-items="li.confidence"
-      data-sortable-handle='.drag-handle' 
+      data-sortable-handle='.drag-handle'
     >
-    
+
       <%= render(:partial => '/sensus/s', :collection => sensus) -%>
     </ul>
   </div>
 </div>
-
-<%= sortable_element("sensus_for_#{sensus_for}_#{parent_id.to_s}", :url => {:action => 'sort_sensus', :controller => 'sensus'}, :handle => 'handle',  :loading => "Element.show('sensu_move_spinner')", :complete => "Element.hide('sensu_move_spinner')" )-%>
