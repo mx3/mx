@@ -9,7 +9,8 @@ module SensuHelper
       :div_id => 'new_sensu'
     }.merge!(params)
 
-    content_tag :div, link_to("Add sensu", :remote => true, :url =>  opts.merge(:action => :new, :controller => :sensu) ), :id => opts[:div_id]
+    content_tag :div,
+      link_to("Add sensu", opts.merge(:action => :new, :controller => :sensus), 'data-ajaxify'=>'modal'), :id => opts[:div_id]
   end
 
   def public_sensu_tag(sensu)

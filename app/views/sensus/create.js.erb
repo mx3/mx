@@ -1,0 +1,9 @@
+<script>
+  <% if @success %>
+    $.basicModal('hide');
+    mx_replace($("#sensus_details"),
+      '<%= escape_javascript( render :partial => 'sensus/sensus', :locals => {:sensus => @ontology_class.sensus.ordered_by_position, :parent_id => @ontology_class.id, :sensus_for => "class"}) -%>');
+  <% else %>
+    $.basicModal('error_shake');
+  <% end %>
+</script>

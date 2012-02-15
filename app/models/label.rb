@@ -4,14 +4,14 @@ class Label < ActiveRecord::Base
   include ModelExtensions::Taggable
   include ModelExtensions::DefaultNamedScopes
 
-  # IMPORTANT: callbacks must come before the has_many :dependent => :nullify statements 
+  # IMPORTANT: callbacks must come before the has_many :dependent => :nullify statements
   before_validation :validate_plurals_are_not_further_pluralized
   before_destroy :validate_label_not_used_with_xrefed_ontology_class_as_obo_id
   before_update :validate_label_spelling_is_not_changed_when_used_as_obo_label
 
   validates_presence_of :name
 
-  # TODO: revisit, no non-latin characters? 
+  # TODO: revisit, no non-latin characters?
   # validates_format_of :name, :with => /\A\w+(\Z|.*\w+\Z)/i, :message => 'invalid label, you may need to trim space or you have non-alphabetical characters'
   validates_uniqueness_of :name, :scope => :proj_id, :message => 'that label is already present in this project'
   validates_length_of :active_msg, :within => 5..144, :allow_nil => true
@@ -25,38 +25,38 @@ class Label < ActiveRecord::Base
   has_many :ontology_classes, :through => :sensus, :uniq => true # directly tied, plural ties are not included here
   has_many :ontology_classes_as_plural, :through => :sensus, :primary_key => 'plural_of_label_id' # #TEST directly tied, plural ties are not included here
   has_many :ontology_classes_in_OBO, :foreign_key => 'obo_label_id', :class_name => 'OntologyClass', :dependent => :nullify
-  has_many :labels_refs, :dependent => :destroy 
+  has_many :labels_refs, :dependent => :destroy
 
-  # has_many :tags_with_count, :source => :tag, :through => :taggings, 
+  # has_many :tags_with_count, :source => :tag, :through => :taggings,
   #   :group => "tags.id", :joins => :taggings,
   #   :select = "tags.*, COUNT('taggings.id') AS frequency"
 
   scope :singular, :conditions => 'plural_of_label_id is null'
   scope :with_definitions, :conditions => "labels.id IN (SELECT label_id FROM sensus)"  # alias for with_ontology_classes
-  scope :without_ontology_classes, :conditions => "labels.id NOT IN (SELECT label_id FROM sensus)" 
+  scope :without_ontology_classes, :conditions => "labels.id NOT IN (SELECT label_id FROM sensus)"
   scope :all_for_ontology_class, lambda {|*args| {:conditions => ["(labels.id in (select s.label_id from sensus s where s.ontology_class_id = ?)) OR (labels.id in (select lp.id from labels lp where lp.plural_of_label_id in (select s.label_id from sensus s where s.ontology_class_id = ?))) ", args.first || -1, args.first || -1]}}
-  scope :all_singular_tied_to_ontology_classes, lambda {|*args| {:conditions => "(labels.id in (select s.label_id from sensus s))"}} 
+  scope :all_singular_tied_to_ontology_classes, lambda {|*args| {:conditions => "(labels.id in (select s.label_id from sensus s))"}}
   scope :ordered_by_label_length, :order => 'length(labels.name)'
 
   # TODO: this throws a mutex- what's the right form?
   # scope :ordered_by_active_on, :order => 'labels.active_on DESC', :conditions => 'labels.active_on IS NOT NULL'
 
-  # pass an Array of strings, escape results *before* you use with_label_from_array 
+  # pass an Array of strings, escape results *before* you use with_label_from_array
   scope :with_label_from_array, lambda {|*args| {:conditions => (args.first.size > 0 ? "(" + args.first.collect{|a| "(labels.name = \"#{a.gsub(/\"/, "\"")}\")"}.join(" OR ") + ")" : "labels.name = '-1'") }}
 
   scope :that_are_homonyms, {
     :group => "sensus.label_id",
     :joins => 'JOIN sensus on labels.id = sensus.label_id',
-    :having => 'count(distinct sensus.ontology_class_id) > 1' 
+    :having => 'count(distinct sensus.ontology_class_id) > 1'
   }
 
   # TODO: optimize
   scope :that_are_synonyms, :conditions => 'id in (select distinct label_id from sensus s where s.ontology_class_id in
       (select ontology_class_id from (
-          select ontology_class_id, count(distinct label_id) c from sensus group by ontology_class_id 
+          select ontology_class_id, count(distinct label_id) c from sensus group by ontology_class_id
       ) t1 where t1.c > 1))'
 
-  scope :with_first_letter, lambda {|*args| { :conditions => ["name LIKE ?", (args.first ? "#{args.first}%" : -1)]}} 
+  scope :with_first_letter, lambda {|*args| { :conditions => ["name LIKE ?", (args.first ? "#{args.first}%" : -1)]}}
   scope :without_plural_forms, :conditions => 'id NOT IN (SELECT plural_of_label_id id FROM labels where plural_of_label_id IS NOT NULL)'
 
   before_validation :strip_whitespace_from_label
@@ -70,7 +70,7 @@ class Label < ActiveRecord::Base
   before_update :energize_update_label
   def energize_create_label
     self.energize(creator_id, "created the label")
-    true 
+    true
   end
 
   def energize_update_label
@@ -117,7 +117,7 @@ class Label < ActiveRecord::Base
   end
 
   def has_ontology_class_with_xref?
-    self.ontology_classes.with_populated_xref.size > 0 
+    self.ontology_classes.with_populated_xref.size > 0
   end
 
   def has_definition?
@@ -129,21 +129,21 @@ class Label < ActiveRecord::Base
     plural_form.blank? ? [name] : [plural_form.name, name].sort
   end
 
-  # returns a Hash of {Label => [OntologyClass1...OntologyClassn]} where 
+  # returns a Hash of {Label => [OntologyClass1...OntologyClassn]} where
   # OntologyClass has Label.name in definition AND Label.ontology_classes.size == 0
   def self.without_ontology_classes_but_used_in_ontology_class_definitions(params)
-    opts = {:proj_id => nil}.merge!(params) 
+    opts = {:proj_id => nil}.merge!(params)
     if proj = Proj.find(opts[:proj_id])
-      labels = {} 
+      labels = {}
       proj.labels.without_ontology_classes.each do |l|
         ocs = proj.ontology_classes.with_definition_containing(l.name)
         labels.merge!(l => ocs) if ocs.size > 0
       end
-    else 
-      return {} 
+    else
+      return {}
     end
-    return labels 
-  end 
+    return labels
+  end
 
   def synonyms_by_ontology_class(ontology_class)
     Sensu.by_ontology_class(ontology_class).excluding_label(self).collect{|s| s.label}.uniq.sort{|a,b| a.name <=> b.name}
@@ -153,13 +153,13 @@ class Label < ActiveRecord::Base
     tag_id_str = params[:tag_id]
     return false if (tag_id_str == nil  || params[:proj_id].blank?)
 
-    value = params[tag_id_str.to_sym].split.join('%')
+    value = params[:term].split.join("%")
 
-    lim = case params[tag_id_str.to_sym].length
-          when 1..2 then 3 
-          when 3..4 then 5 
+    lim = case params[:term].length
+          when 1..2 then 3
+          when 3..4 then 5
           else lim = false # no limits
-          end 
+          end
     Label.find(:all, :conditions => ["(name LIKE ? OR id = ?) AND proj_id = ?", "%#{value}%", value.gsub(/\%/, ""), params[:proj_id]], :order => "length(name)", :limit => lim ).uniq
   end
 
@@ -185,9 +185,9 @@ class Label < ActiveRecord::Base
     when 0..10
       active_level + factor - 1
     when 10..1000000
-      10 
+      10
     else
-      nil 
+      nil
     end
   end
 
@@ -218,7 +218,7 @@ class Label < ActiveRecord::Base
     end
   end
 
-  def validate_plurals_are_not_further_pluralized 
+  def validate_plurals_are_not_further_pluralized
     if !plural_of_label_id.blank? && Label.find_by_plural_of_label_id(plural_of_label_id)
       errors.add(:plural_of_label_id, "The root of this label is already pluralized.")
       false

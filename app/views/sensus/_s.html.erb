@@ -1,11 +1,18 @@
-<li class="drag-handle" id="sensu_<%= "#{s.id}" -%>">
-  <div style="padding: 2px; border-bottom: 1px dotted silver; width: 100%;" >
+<li id="sensu_<%= "#{s.id}" -%>">
+  <%= render :partial=>"shared/drag_handle" %>
+  <div style="padding: 2px; margin-left: 15px; border-bottom: 1px dotted silver; width: 100%;" >
     <div style="float:left; width: 20%;"> <%= link_to s.label.name, :action => :show, :controller => :labels, :id => s.label -%></div>
     <div style="float:left; width: 38%;" id="<%= "sensu_#{s.id}" -%>"> <%= expandable_caption(s.ontology_class.definition, "sensu_#{s.id}") -%>
       <%= content_tag "span", link_to(s.ontology_class.id, :action => :show, :controller => :ontology_classes, :id => s.ontology_class), :style => "font-size: smaller; background-color: #dddddd; padding: 1px;" -%>  </div>
     <div style="float:left; width: 25%;"> <%= link_to s.ref.display_name(:type => :authors_year), :action => :show, :controller => :refs, :id => s.ref -%> </div>
     <div style="float:left; width: 10%;"> <%= time_ago_in_words(s.updated_on) -%> </div>
-    <div style="float:left; width: 3%;">  <%= link_to('x', :remote => true, :url => {:action => :destroy, :controller => :sensus, :id => s.id}, :method => "post", :confirm => 'Are you sure?') -%></div>
+    <div style="float:left; width: 3%;">
+      <form class='inline' method='post' action="<%= url_for({:action => :destroy, :controller => :sensus, :id => s.id}) %>" >
+        <input name="<%=request_forgery_protection_token%>" type="hidden" value="<%=form_authenticity_token%>"/>
+        <input type='hidden' name='_method' value='delete'></input>
+        <input type='submit' value='&#10008;' data-ajaxify='submit' data-ajaxify-confirm='Are you sure?'></input>
+      </form>
+    </div>
     <br style="clear: both;" />
   </div>
 </li>

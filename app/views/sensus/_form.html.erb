@@ -2,13 +2,14 @@
 <!--[form:sensu]-->
 
 <div class="fr"><label for="sensu_ontology_class_id" class="lbl4">class</label><span class="fld">
+<input type='hidden' name='sensu[ontology_class_id]' value="<%=@sensu.ontology_class.id rescue '' %>"></input>
 <%= render :partial => 'shared/picker', :locals => {
     :controller => 'ontology_classes',
 		:object => 'sensu',
 		:size => 50,
 		:method => 'ontology_class_id',
     :tag_id => "sensu_popup_ontology_class_id",
-    :display =>  (@sensu.ontology_class.display_name(:type => :selected) if @sensu.ontology_class) } -%> 
+    :display =>  (@sensu.ontology_class.display_name(:type => :selected) if @sensu.ontology_class) } -%>
 </span></div>
 
 <div class="fr"><label for="sensu_label_id" class="lbl4">label</label><span class="fld">
@@ -18,7 +19,7 @@
 		:size => 50,
 		:method => 'label_id',
     :tag_id => "sensu_popup_label_id",
-    :display =>  (@sensu.label.display_name if @sensu.label) } -%> 
+    :display =>  (@sensu.label.display_name if @sensu.label) } -%>
 </span></div>
 
 <div class="fr"><label for="sensu_ref_id" class="lbl4">reference</label><span class="fld">

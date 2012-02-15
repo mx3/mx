@@ -11,73 +11,35 @@ class SensusController < ApplicationController
 
   def new
     @sensu = Sensu.new
-    @sensu.label = Label.find(params[:label_id]) if !params[:label_id].blank? 
-    @sensu.ontology_class = OntologyClass.find(params[:ontology_class_id]) if !params[:ontology_class_id].blank? 
-    @sensu.ref = Ref.find(params[:ref_id]) if !params[:ref_id].blank? 
+    @sensu.label = Label.find(params[:label_id]) if !params[:label_id].blank?
+    @sensu.ontology_class = OntologyClass.find(params[:ontology_class_id]) if !params[:ontology_class_id].blank?
+    @sensu.ref = Ref.find(params[:ref_id]) if !params[:ref_id].blank?
 
     respond_to do |format|
       format.html {} # default .rhtml
-      format.js { 
-        render :update do |page|
-          #  page.visual_effect :fade, params[:div_id] 
-          page.insert_html :bottom, params[:div_id], :partial => 'sensu/popup_form'
-        end
-      }
+      format.js { }
     end
   end
 
   def create
-    @sensu = Sensu.new(params[:sensu])  
-    if @sensu.save
-      respond_to do |format|
-        format.html {redirect_to :action => :show, :id => @sensu}  # can't hit this yet in views 
-        format.js { 
-          render :update do |page|
-            page[:sensu_to_close].remove
-            #  page.insert_html :bottom, params[:div_id], :partial => 'sensu/popup_form'
-
-            #    page << "if($('sensus_for_#{params[:parent_id]}')) {"   # have a sensu list on the page?
-            #      page.insert_html :bottom, "sensus_for_#{params[:parent_id]}", :partial => '/sensu/s', :object => @sensu
-            #    page << "}"
-
-            # need to update multiple divs with same class 
-            page << "if($('sensus_for_class_#{@sensu.ontology_class.id}')) {"   # have a sensu list on the page?
-            page.insert_html :bottom, "sensus_for_class_#{@sensu.ontology_class.id}", :partial => '/sensu/s', :object => @sensu
-            page << "}"
-
-            page << "if($('sensus_for_label_#{@sensu.label.id}')) {"   # have a sensu list on the page?
-            page.insert_html :bottom, "sensus_for_label_#{@sensu.label.id}", :partial => '/sensu/s', :object => @sensu
-            page << "}"
-
-            # have a labels banner on page?
-            page << "if($('ontology_class_labels_for_id#{@sensu.ontology_class.id}')) {"   # have a sensu list on the page?
-            page.replace_html "ontology_class_labels_for_id#{@sensu.ontology_class.id}", :text => labels_banner_tag(@sensu.ontology_class)
-            page << "}"
-          end
-        }
-      end
-    else
-      respond_to do |format|
-        format.html {render :action => :new} # can't hit this yet in views 
-        format.js { 
-          render :update do |page|
-            page.visual_effect :shake, "sensu_to_close" 
-          end
-        }
-      end
+    @sensu = Sensu.new(params[:sensu])
+    @ontology_class = @sensu.ontology_class
+    @success = @sensu.save
+    if @success
+      notice "Created sensu"
     end
   end
 
   def show
     id = params[:sensu][:id] if params[:sensu]
-    id ||= params[:id]    
+    id ||= params[:id]
     @sensu = Sensu.find(id)
-    @show = ['default'] 
+    @show = ['default']
   end
 
   def edit
     id = params[:sensu][:id] if params[:sensu]
-    id ||= params[:id]    
+    id ||= params[:id]
     @sensu = Sensu.find(id)
   end
 
@@ -90,33 +52,15 @@ class SensusController < ApplicationController
 
   def destroy
     @sensu = Sensu.find(params[:id])
-    if @sensu.destroy
-      respond_to do |format|
-        format.html {
-          flash[:notice] = "Destroyed sensu."
-          redirect_to :action => :index, :controller => :sensus
-          } # can't hit this yet in views 
-          format.js { 
-            render :update do |page|
-              page["sensu_#{params[:id]}"].remove
-            end
-          }
-        end
+    @ontology_class = @sensu.ontology_class
+    @success = @sensu.destroy
+    if @success
+      notice "Destroyed sensu"
     else
-      respond_to do |format|
-        format.html {
-          flash[:notice] = "Failed to destroyed sensu."
-          redirect_to :back
-          } # can't hit this yet in views 
-          format.js { 
-            render :update do |page|
-              page["sensu_#{params[:id]}"].shake
-            end
-          }
-        end
-      end
+      notice "Failed to destroy sensu"
     end
-
+    render :action => :create
+  end
   def sort_sensus
     if params.keys.grep(/sensus_for/).empty?
       flash[:notice] = 'Error in sorting, you may have reloaded the page.'
@@ -128,7 +72,7 @@ class SensusController < ApplicationController
     end
     respond_to do |format|
       format.html {}  # shouldn't be hitting this from anywhere yet
-      format.js { 
+      format.js {
         render :update do |page|
           # update the labels header, the topmost sensu being the "preferred"
           page << "if($('ontology_class_labels_for_id#{id_to_find}')) {"   # have a sensu list on the page?
@@ -145,7 +89,7 @@ class SensusController < ApplicationController
   def batch_verify_or_create
     if params[:file].blank?
       flash[:notice] = "Provide a file."
-      redirect_to :action => :batch_load and return 
+      redirect_to :action => :batch_load and return
     end
 
     @file =  params[:file]

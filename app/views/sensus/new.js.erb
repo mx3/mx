@@ -1,0 +1,11 @@
+<div id="sensu_to_close" class="popupform" style="width: 400px;">
+  <div>
+    <a class='basic-modal-close' href='#'>X</a>
+  </div>
+  <br style="clear: both;">
+  <%= form_for :sensu, :html => {:id => "sensu_to_close"}, :url => url_for(:action => "create") do |f| %>
+    <%= submit_tag "Create", 'data-ajaxify'=>'modal'-%>
+    <%= render :partial => '/sensus/form', :locals => {:f => f} -%>
+    <%= submit_tag "Create", 'data-ajaxify' => 'modal' -%>
+  <% end -%>
+</div>
