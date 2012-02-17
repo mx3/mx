@@ -16,6 +16,7 @@ function initialize_js(root) {
   find("*[data-basic-modal]").basicModal();
   find("*[data-inplace-editor]").mx_inplace_editor();
   find("*[data-sticky-header]").mx_sticky_header();
+  find("*[data-sortable-table]").mx_sortable_table();
 }
 
 

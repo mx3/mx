@@ -40,6 +40,7 @@ javascripts:
     - public/javascripts/jquery.mx-spinner.js
     - public/javascripts/jquery.mx-tooltip.js
     - public/javascripts/jquery.mx-sticky-header.js
+    - public/javascripts/jquery.mx-sortable-table.js
     - public/javascripts/jquery.notifications.js
     - public/javascripts/rails.js
     - public/colorpicker/js/colorpicker.js
