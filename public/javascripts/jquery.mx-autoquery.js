@@ -32,8 +32,8 @@
       var params = uri.queryKey;
       var query_count = 0;
 
-      // We max out at one call every 200 milliseconds
-      $this.bind('keydown', $.debounce( 0, function(e) {
+      // We max out at one call every 250 milliseconds
+      $this.bind('keydown', $.debounce( 250, function(e) {
         var data = uri.queryKey;
         data.term = $this.val();
 
