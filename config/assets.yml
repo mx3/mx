@@ -29,6 +29,7 @@ javascripts:
     - public/javascripts/jquery.ajaxify.js
     - public/javascripts/jquery.basic-modal.js
     - public/javascripts/jquery.mx-autocompleter.js
+    - public/javascripts/jquery.mx-autoquery.js
     - public/javascripts/jquery.mx-color-picker.js
     - public/javascripts/jquery.mx-effects.js
     - public/javascripts/jquery.mx-field-observer.js
@@ -45,6 +46,8 @@ javascripts:
     - public/javascripts/jquery.notifications.js
     - public/javascripts/rails.js
     - public/colorpicker/js/colorpicker.js
+    - public/javascripts/jquery.ba-throttle-debounce.js
+
 
 stylesheets:
   application:

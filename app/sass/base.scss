@@ -89,7 +89,7 @@ form.delete-link {
   }
 }
 
-.ui-autocomplete-loading { background: white url('/images/spinner.gif') right center no-repeat; }
+.autoquery-loading, .ui-autocomplete-loading { background: white url('/images/spinner.gif') right center no-repeat; }
 .ui-autocomplete { background: white; position: absolute; text-align: left; }
 #ui-active-menuitem {
   background: #ffa;
