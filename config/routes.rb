@@ -1087,9 +1087,6 @@ Edge::Application.routes.draw do
     end
   end
 
-
-
-
   resource :account, :controller => 'account', :only => [] do
     collection do
       get :index
@@ -1162,6 +1159,13 @@ Edge::Application.routes.draw do
      get :visualize_dot
      post :analyze
      post :proofer_batch_create
+    end
+  end
+  
+  resource :trait, :controller => 'trait', :path => '/projects/:proj_id/trait', :only => [] do
+    collection do
+      get :index
+      get :start_from_an_otu 
     end
   end
 

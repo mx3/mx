@@ -232,7 +232,8 @@ module App::NavigationHelper
       "keywords" => {"text" => "keywords", "group" => "tags", "subnav" =>{ 'default' => {"controller" => "keywords", "text" => "Keywords"}}},
       "tags" => {"text" => "Tags", "group" => "tags", "subnav" =>{ 'default' => {"controller" => "tags", "text" => "Tags"}}},
 
-      "ontology" => {"text" => "Ontology", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "ontology", "text" => "Home"}}},
+      
+      "trait" => {"text" => "Trait", "group" => "trait", "subnav" =>{ 'default' => {"controller" => "trait", "text" => "Home"}}},
       "ontology_classes" => {"text" => "classes", "group" => "ontology", "subnav" =>{'default' => {"controller" => "ontology_classes", "text" => "Classes"}}},
       "sensus" => {"text" => "sensu", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "sensus", "text" => "Sensu"}}},
       "labels" => {"text" => "labels", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "labels", "text" => "Labels"}}},
@@ -259,7 +260,7 @@ module App::NavigationHelper
 
   # The default Tab layout, elements are controller names
   def calc_nav_tabs
-    ["otus", "chrs", "mxes", "contents", "specimens", "measurements", "seqs", "refs", "associations",  "taxon_names", "images", "ontology", "claves", "tags", "trees" ] # statements are not developed
+    ["otus", "chrs", "mxes", "contents", "specimens", "measurements", "seqs", "refs", "associations",  "taxon_names", "images", "ontology", "claves", "tags", "trees", "trait" ] # statements are not developed
   end
 
   # Array containing the first level tabs/keys to subtabs
@@ -278,6 +279,7 @@ module App::NavigationHelper
       "projs" => ["namespaces"],
       "main" => main_navbar,
       "otus" => ["otus", "otu_groups"],
+      "trait" => ["trait"], 
       "ontology" => ["ontology", "labels", "ontology_classes", "sensus", "object_relationships"],
       "chrs" => ["chrs", "chr_groups"],
       "associations" => ["associations", "object_relationships" ],

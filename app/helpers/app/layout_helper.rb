@@ -17,17 +17,17 @@ module App::LayoutHelper
 
   # subnav sidenav (class nav) on/off, is off if no subnav
   def no_sidenav
-    ['public_contents', 'image_descriptions', 'multikey'] 
+    ['public_contents', 'image_descriptions', 'multikey', 'trait'] 
   end
   
   # determines whether or not to render a picker in the sidenav, remove as pickers are built, is redundant if no_sidenav true
   def no_pickers
-    ['image_views', 'people', 'associations','chromatograms','morphbank_images', 'distributions', 'object_relationships', 'news', 'measurements', 'ontology', 'protocols', 'tags', 'figures'] 
+    ['trait', 'image_views', 'people', 'associations','chromatograms','morphbank_images', 'distributions', 'object_relationships', 'news', 'measurements', 'ontology', 'protocols', 'tags', 'figures'] 
   end
   
   # toggles new and list buttons in the top right blue box, redundant if no_sidenav is true
   def no_new_or_list
-    ['tags', 'contents','morphbank_images', 'people', 'ontology', 'figures']
+    ['tags', 'contents','morphbank_images', 'people', 'ontology', 'figures', 'trait']
   end
   
 end
