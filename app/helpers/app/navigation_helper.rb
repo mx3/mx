@@ -206,7 +206,7 @@ module App::NavigationHelper
 
       "chrs" => { "text" => "Characters", "group" => "main" , "subnav" => {'default' => {"controller" => "chrs" , "text" => "Characters"}}},
       "mxes" => { "text" => "Matrices", "group" => "main"},
-      "chr_groups" => {"text" => 'Character groups', "group" => "chrs", "subnav" => { 'default' => {'controller' => "otu_groups", "text" => 'Character groups'}}},
+      "chr_groups" => {"text" => 'Character groups', "group" => "chrs", "subnav" => { 'default' => {'controller' => "chr_groups", "text" => 'Character groups'}}},
       "chr_states" => { "text" => "Character state", "group" => "chrs" , "subnav" => {'default' => {"controller" => "chr_states" , "text" => "Character state"}}},
       "phenotypes" => { "text" => "Phenotype", "group" => "chrs" , "subnav" => {'default' => {"controller" => "phenotypes" , "text" => "Phenotype"}}},
 
@@ -232,8 +232,8 @@ module App::NavigationHelper
       "keywords" => {"text" => "keywords", "group" => "tags", "subnav" =>{ 'default' => {"controller" => "keywords", "text" => "Keywords"}}},
       "tags" => {"text" => "Tags", "group" => "tags", "subnav" =>{ 'default' => {"controller" => "tags", "text" => "Tags"}}},
 
-      
       "trait" => {"text" => "Trait", "group" => "trait", "subnav" =>{ 'default' => {"controller" => "trait", "text" => "Home"}}},
+      "ontology" => {"text" => "Ontology", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "ontology", "text" => "Home"}}},
       "ontology_classes" => {"text" => "classes", "group" => "ontology", "subnav" =>{'default' => {"controller" => "ontology_classes", "text" => "Classes"}}},
       "sensus" => {"text" => "sensu", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "sensus", "text" => "Sensu"}}},
       "labels" => {"text" => "labels", "group" => "ontology", "subnav" =>{ 'default' => {"controller" => "labels", "text" => "Labels"}}},
@@ -329,6 +329,7 @@ module App::NavigationHelper
 
     (type == 'none') && return
 
+   
     # render the bars
     navbars[type].each{|tab|
       if not (type == "main" && @proj && @proj.hidden_tabs && @proj.hidden_tabs.include?(tab))
