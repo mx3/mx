@@ -12,6 +12,20 @@ Edge::Application.routes.draw do
  get "/projects/:proj_id/codings/:id/details" => "codings#coding_details", :as => :coding_details
  get "/projects/:proj_id/chrs/:id/details" => "chrs#chr_details", :as => :chr_details
 
+ get  "/account/login" => "account#login", :as => :account_login
+ get  "/account/change_password" => "account#change_password", :as => :account_change_password
+ post  "/account/change_password" => "account#change_password"
+ get  "/account/change_email" => "account#change_email", :as => :account_change_email
+ post  "/account/change_password" => "account#change_password"
+
+ get  "/account/reset_password" => "account#reset_password", :as => :reset_password
+ post "/account/reset_password" => "account#do_reset_password"
+ get  "/account/reset_password_response/:token_key" => "account#respond_reset_password", :as => :respond_reset_password
+ post "/account/reset_password_response/:token_key" => "account#do_respond_reset_password"
+
+ get "/people/preferences" => "people#preferences", :as => :preferences
+ post "/people/preferences" => "people#update"
+
   # All non-RESTful routes that are unique to a Resource are defined here.
   # Shared restful routes (e.g. 'autocomplete_for_xxx') are defined together
   # below, and need not be included here.
@@ -426,10 +440,10 @@ Edge::Application.routes.draw do
     get auto_link
     get browse
     get code
-    get matrix_coding 
+    get matrix_coding
     post matrix_coding
     post code_matrix
-    post set_matrix_to_code 
+    post set_matrix_to_code
     get current_cycle
     get cycle
     get excerpt
@@ -610,11 +624,6 @@ Edge::Application.routes.draw do
     post _worksheet
     post list_in_range
   }
-  },
-
-  'people' => {
-    members: %w{},
-    collections: %w{}
   },
 
   'phenotypes' => {
@@ -1090,8 +1099,6 @@ Edge::Application.routes.draw do
   resource :account, :controller => 'account', :only => [] do
     collection do
       get :index
-      get :change_email
-      get :change_password
       post :delete
       get :login
       post :login
@@ -1161,11 +1168,11 @@ Edge::Application.routes.draw do
      post :proofer_batch_create
     end
   end
-  
+
   resource :trait, :controller => 'trait', :path => '/projects/:proj_id/trait', :only => [] do
     collection do
       get :index
-      get :start_from_an_otu 
+      get :start_from_an_otu
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120209202344) do
+ActiveRecord::Schema.define(:version => 20120308020236) do
 
   create_table "association_parts", :force => true do |t|
     t.integer "association_id",         :null => false
@@ -525,6 +525,14 @@ ActiveRecord::Schema.define(:version => 20120209202344) do
   add_index "distributions", ["creator_id"], :name => "creator_id"
   add_index "distributions", ["proj_id"], :name => "proj_id"
   add_index "distributions", ["updator_id"], :name => "updator_id"
+
+  create_table "email_response_tokens", :force => true do |t|
+    t.string   "token_key",  :null => false
+    t.text     "data"
+    t.integer  "ttl"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "extracts", :force => true do |t|
     t.integer   "lot_id"

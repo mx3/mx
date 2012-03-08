@@ -3,7 +3,7 @@ class AccountController < ApplicationController
   # override method from LoginSystem to allow users to login
   # signup must be done by a registered user at the moment
   def protect?(action)
-    if ['login'].include?(action)
+    if ['login', 'respond_reset_password', 'do_respond_reset_password','reset_password', 'do_reset_password'].include?(action)
       return false
     else
       return true
@@ -16,7 +16,7 @@ class AccountController < ApplicationController
   end
 
   def login
-   @news = News.current_app_news('warning')  
+   @news = News.current_app_news('warning')
    @page_title = "Please login"
     case request.method
       when 'POST'
@@ -26,17 +26,17 @@ class AccountController < ApplicationController
           redirect_back_or_default(:controller => :projs, :action => :list)
         else
           @login = params[:person_login]
-          flash[:notice]  = "Login unsuccessful" 
+          flash[:notice]  = "Login unsuccessful"
         end
-    end 
+    end
   end
-  
+
   def signup
     case request.method
       when 'POST'
         @person = Person.new(params[:person])
-        
-        if @person.save      
+
+        if @person.save
           session[:person] = Person.authenticate(@person.login, params[:person][:password])
           flash[:notice]  = "Signup successful"
           session['group_ids'] = {}
@@ -45,9 +45,60 @@ class AccountController < ApplicationController
       when :get
         @page_title = "Signup"
         @person = Person.new
-    end      
+    end
   end
-  
+
+  def reset_password
+    @page_title = "Request a password reset email"
+
+  end
+
+  def do_reset_password
+    # First look up the person record...
+    person = Person.find_by_login(params[:person_login])
+
+    # If we find it, make a response token in the DB and send the email
+    if (person)
+      token = EmailResponseToken.create_token!(:person_id => person.id, :ttl => 7.days)
+      AccountMailer.password_reset(person, respond_reset_password_url(token.token_key)).deliver
+      notice "Password reset email sent"
+      redirect_to account_login_path
+    else
+      error "Could not find an account with that login"
+      redirect_to reset_password_path
+    end
+  end
+
+  def respond_reset_password
+    @page_title = "Set a new password for your account"
+    @token = EmailResponseToken.find_token(params[:token_key])
+    if @token
+
+    else
+      error "Could not find that email response"
+      redirect_to account_login_path
+    end
+  end
+
+  def do_respond_reset_password
+    @token = EmailResponseToken.find_token(params[:token_key])
+    if @token
+      person = Person.find_by_id(@token.data[:person_id])
+      person.password = params[:person_password]
+      person.password_confirmation = params[:person_password_confirmation]
+      if (person.save)
+        notice "Updated password, please login"
+        redirect_to account_login_path
+      else
+        person.errors.full_messages.each {|msg| error msg }
+        redirect_to respond_reset_password_path(@token.token_key)
+      end
+    else
+      error "Could not find that email response"
+      redirect_to account_login_path
+    end
+  end
+
   def change_email
     @person = session[:person]
     if request.post?
@@ -64,7 +115,7 @@ class AccountController < ApplicationController
       end
     end
   end
-  
+
   def change_password
     @page_title = "Change password"
     @person = session[:person]
@@ -82,7 +133,7 @@ class AccountController < ApplicationController
       end
     end
   end
-  
+
   def delete
     if params[:id]
       @person = Person.find(params[:id])
@@ -93,12 +144,12 @@ class AccountController < ApplicationController
       end
     end
     redirect_back_or_default :controller => "projs", :action => "list"
-  end  
-    
+  end
+
   def logout
     @page_title = "Logout"
     session[:person] = nil
-    session['group_ids'] = {} 
+    session['group_ids'] = {}
   end
-  
+
 end
