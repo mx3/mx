@@ -28,7 +28,7 @@ module LoginSystem
 
    # login_required filter. added to all controllers (through application.rb), so everything requires
    # login by default. override the relevant methods in the individual controllers to free things up.
-   # The only time fals is returned is if the session[:person] is not previously set. 
+   # The only time fals is returned is if the session[:person] is not previously set.
    def login_required
 
     $person_id = nil
@@ -72,9 +72,9 @@ module LoginSystem
 
     session[:proj] = nil unless params[:proj_id]
 
-    # TODO: this is borked somewhat re hitting the /projs/ controller. 
+    # TODO: this is borked somewhat re hitting the /projs/ controller.
     # exceptions: you do not need to have selected a project to use these controllers
-    if ['account', 'admin', 'geog_types',  'namespaces','image_views'].include?(controller_name)
+    if ['people', 'account', 'admin', 'geog_types',  'namespaces','image_views'].include?(controller_name)
       return true
     end
 

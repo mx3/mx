@@ -7,43 +7,68 @@ class AccountControllerTest < ActionController::TestCase
 
   # An observation regarding passwords, using 'test01' as an example. Two different values are returned:
   #  Digest::SHA1.hexdigest() c25a79c57906ba7027b36d380230db92bbc0fd64
-  #  sha1() = 2ccbc867d91a5f8c50362c03b32adaa26b70a593  
+  #  sha1() = 2ccbc867d91a5f8c50362c03b32adaa26b70a593
   # Therefor following the example that uses Digest::SHA1.hexdigest() in .yml fails here. ... ?Because
   # we use Digest::SHA1.hexdigest("foo#{pass}bar")- foo and bar should realy be randomized ultimately?
-  
+  # CWF ---
+  # They should probably just have a 'salt' which is stored in plain text in the DB.
+  # SHA1.hexdigest("#{salt}#{pass}")
+  # The salt can be generated when the account is created (something like SecureRandom.hex(32))
+  # ..?
+  #
   # rewritten to work with fixtures
-  
+
   def setup
     @controller = AccountController.new
     @request, @response = ActionController::TestRequest.new, ActionController::TestResponse.new
     # request.host = "localhost"  # modified in application controller to handle 0.0.0.0 (bad??)
     # we do not use login() here because we need it to fail in some cases, and the function properly works only for success
   end
-  
+
+  test "that you can get the reset password page" do
+    get :reset_password
+    assert_response :success
+  end
+
+  test "that we generate an email response token when we press reset password with a good login" do
+    person = Person.make!
+    assert_difference "EmailResponseToken.count", 1 do
+      post :do_reset_password, :person_login => person.login
+      assert_redirected_to account_login_path
+    end
+  end
+  test "that we do not generate an email response token when we press reset password with a bad login" do
+    person = Person.make!
+    assert_difference "EmailResponseToken.count", 0 do
+      post :do_reset_password, :person_login => person.login + "foo"
+      assert_redirected_to reset_password_path
+    end
+  end
+
   def test_index
     get :index
     assert_redirected_to :action => "login"
   end
-  
+
   def test_valid_login
     post :login, "person_login" => "test", "person_password" => "test01"
     assert(@request.session[:person])
     assert_equal "Login successful", flash[:notice]
-    
+
     assert_response(:redirect)
   end
-  
+
   def test_admin_tester_login
     post :login, "person_login" => "test", "person_password" => "test01"
-    
+
     assert_equal "Login successful", flash[:notice]
     assert_redirected_to :action => "list", :controller => 'projs' # we assume a root request (not necessarily the case)
-    
+
     assert_not_nil(@request.session[:person])
     assert(@request.session[:person])
-      
+
     admin_tester = Person.where(:login => 'test').first #  @people['admin_tester'].find
-    
+
     assert_equal admin_tester, @request.session[:person]
     assert_response(:redirect)
   end
@@ -65,31 +90,31 @@ class AccountControllerTest < ActionController::TestCase
     post :signup, "person" => { "login" => "newbob", "password" => "newpassword", "password_confirmation" => "wrong" }
     assert(assigns("person").errors[:password].any?)
     assert_response(:success)
-    
+
     post :signup, "person" => { "login" => "yo", "password" => "newpassword", "password_confirmation" => "newpassword" }
     assert(assigns("person").errors[:login].any?)
     assert_response(:success)
 
     post :signup, "person" => { "login" => "yo", "password" => "newpassword", "password_confirmation" => "wrong" }
     person = assigns("person")
-    
+
     %w(first_name last_name login password).each do |col|
       assert(person.errors[col].any?)
     end
-    
+
     assert(!assigns("person").errors[:middle_name].any?)
     assert_response(:success)
   end
 
   def test_invalid_login
     post :login, "person_login" => "bob", "person_password" => "not_correct"
-     
+
     #assert_session_has_no "person"
     assert(!@request.session[:person])
     assert_equal "Login unsuccessful", flash[:notice]
-    assert assigns(:login) 
+    assert assigns(:login)
   end
- 
+
   def test_login_logoff
     test_admin_tester_login
     assert(@request.session[:person])
