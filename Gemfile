@@ -1,7 +1,9 @@
 source :gemcutter
   # bundler requires these gems in all environments
-  gem "rails", "3.0.11"
+  gem "rails", "3.0.12"
+  gem "rake", "0.9.2.2"
   gem "mysql2", '< 0.3'
+  gem "win32-open3-19", :platforms => :mingw
   gem 'kaminari'
   gem 'alchemist',  '0.1.2.1'
   gem 'andand', :git => 'https://github.com/panozzaj/andand.git' # contains a couple of fixes to 1.3.1, seems to be the most uptodate
