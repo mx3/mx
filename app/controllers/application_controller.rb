@@ -132,9 +132,10 @@ class ApplicationController < ActionController::Base
       public_route_failure and return
     end
 
-    # TODO: just make this test for Rails.env == development?
+    # TODO: just make this test for Rails.env == development?  --sjh  I'm going to add this test and comment out the other line where I added the nescent server sjh--
     # recognizes both http://www.foo.org and http://foo.org
-    if ["0.0.0.0", "127.0.0.1"].include?(self.request.remote_addr)
+#   if ["0.0.0.0", "127.0.0.1"].include?(self.request.remote_addr) || ["mx-dev.nescent.org"].include?(self.request.server_name)
+    if Rails.env.development?
       @server_name = 'development'
     else
       @server_name = self.request.server_name.sub(/^www\./, "")
