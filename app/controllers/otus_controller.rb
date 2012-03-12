@@ -291,7 +291,6 @@ class OtusController < ApplicationController
       notice 'Problem creating the OTU(s)!'
       render :action => :new and return
     end
-
   end
 
   def edit

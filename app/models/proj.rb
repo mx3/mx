@@ -24,14 +24,17 @@
 #  obo_remark                    :text
 #  ontology_inclusion_keyword_id :integer(4)
 #  ontology_exclusion_keyword_id :integer(4)
-#
+
 
 class Proj < ActiveRecord::Base
+  WITHIN_PROJ_UNIQUENESS_OPTIONS = %w(name manuscript_name matrix_name taxon_name_id source_human source_ref_id source_protocol_id source_ce_id)
+  
   has_standard_fields
   
-  serialize :hidden_tabs # store as array
-  serialize :public_controllers
-  
+  serialize :hidden_tabs         # Array 
+  serialize :public_controllers  # Array
+  serialize :otu_uniqueness      # Array with values from WITHIN_PROJ_UNIQUENESS_OPTIONS
+
   has_many :associations, :dependent => :destroy
   has_many :association_supports # destroyed through associations. this is here so ref merging is smoother
   has_many :ces, :dependent => :destroy ## not sure if we want to destroy specimens/ lots through this

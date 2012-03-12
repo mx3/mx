@@ -19,7 +19,6 @@ mx3 uses bundler, ruby 1.9.2, and MySQL at present
 * create an admin user (Person.create!(....,:is_admin=>true, :is_ontology_admin=>true, :creates_projects=>true)
 * log in
 
-
-=== Notes on migrating the database
-* Check projs#public_controller, it will have to be cleared and reconfigured manually
-
+=== Notes on developing against a mx 2.3.10 database
+* In MySQL truncate your sessions table ('truncate sessions') 
+* To access "settings" for projects manually clear the public_controller and hidden_tabs fields (e.g. 'update projs set public_controller = null')
