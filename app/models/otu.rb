@@ -97,10 +97,12 @@ class Otu < ActiveRecord::Base
     # TODO: When a project updates valid field combination all data should be checked again.
     if self.proj_id
       proj = Proj.find(self.proj_id)
-      opts = proj.otu_uniqueness.inject({}){|hsh, o| hsh.merge(o.to_sym => self.send(o.to_sym) )}
-      opts.merge!(:proj_id => proj.id)
-      if Otu.where(opts).size > 0
-        errors.add(opts.keys.first, "The data for fields [#{proj.otu_uniqueness.join(', ')}] are not unique for OTUs in this project.") 
+      if proj.otu_uniqueness && proj.otu_uniqueness.size > 0
+        opts = proj.otu_uniqueness.inject({}){|hsh, o| hsh.merge(o.to_sym => self.send(o.to_sym) )}
+        opts.merge!(:proj_id => proj.id)
+        if Otu.where(opts).size > 0
+          errors.add(opts.keys.first, "The data for fields [#{proj.otu_uniqueness.join(', ')}] are not unique for OTUs in this project.") 
+        end
       end
     end
   end

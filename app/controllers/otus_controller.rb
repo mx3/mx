@@ -282,20 +282,21 @@ class OtusController < ApplicationController
   end
 
   def create
-    @otu_groups = @proj.otu_groups
     # Called to allow recursive addition of Otus from a TaxonName and its children
-    if id = Otu._create_r(:otu => params[:otu], :include_children => params[:include_children], :otu_group_id => params[:otu_group_id], :proj_id => @proj.id)
-      notice (params[:include_children] ? 'OTUs were successfully created.' : 'OTU was successfully created.')
-      redirect_to :action => :show, :id => id
+    @otu = Otu.new(params[:otu])
+    if @otu.save
+      notice "Created a new OTU." 
+      @show = ['default'] # see /app/views/shared/layout
+      render :action => :show 
     else
       notice 'Problem creating the OTU(s)!'
+      @otu_groups = @proj.otu_groups
       render :action => :new and return
     end
   end
 
   def edit
     @otu = Otu.find(params[:id])
-    @otu_groups = @proj.otu_groups
     render :action => 'edit'
   end
 
@@ -549,7 +550,7 @@ class OtusController < ApplicationController
     @default_chr_group = ChrGroup.find(session['group_ids']['chr']) if session['group_ids'] && session['group_ids']['chr']
 
     if @otu = Otu.find(:first, :conditions => ["id = ?", id])
-      @syn_otus = @otu.all_synonymous_otus
+      # @syn_otus = @otu.all_synonymous_otus
       @parents =  @otu.taxon_name.parents if @otu.taxon_name
     else
       flash[:notice] =  "can't find that OTU!"
