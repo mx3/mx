@@ -1,33 +1,10 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: otus
-#
-#  id               :integer(4)      not null, primary key
-#  taxon_name_id    :integer(4)
-#  is_child         :boolean(1)
-#  name             :string(255)
-#  manuscript_name  :string(255)
-#  matrix_name      :string(64)
-#  parent_otu_id    :integer(4)
-#  as_cited_in      :integer(4)
-#  revision_history :text
-#  iczn_group       :string(32)
-#  syn_with_otu_id  :integer(4)
-#  sensu            :string(255)
-#  notes            :text
-#  proj_id          :integer(4)      not null
-#  creator_id       :integer(4)      not null
-#  updator_id       :integer(4)      not null
-#  updated_on       :timestamp       not null
-#  created_on       :timestamp       not null
 
 class Otu < ActiveRecord::Base
   has_standard_fields
   # has_pulse
 
   include ModelExtensions::Taggable
-  # Otus are not directly figurable ... yet
+  # Otus are not directly figurable
   include ModelExtensions::MiscMethods
   include ModelExtensions::DefaultNamedScopes
 
@@ -53,11 +30,16 @@ class Otu < ActiveRecord::Base
   has_many :otu_groups_otus, :dependent => :destroy
   has_many :otu_groups, :through => :otu_groups_otus, :source => :otu_group, :order => 'otu_groups.name'
 
-  belongs_to :parent_otu, :class_name => "Otu", :foreign_key => "parent_otu_id"
-  belongs_to :ref, :foreign_key => "as_cited_in"
-  belongs_to :sensu_ref, :class_name => "Ref", :foreign_key => "sensu_ref_id"
-  belongs_to :syn_otu, :class_name => "Otu", :foreign_key => "syn_with_otu_id"
   belongs_to :taxon_name
+  belongs_to :syn_otu, :class_name => "Otu", :foreign_key => "syn_with_otu_id"
+ 
+  # These relationships, and Otu#source_human are intended to define
+  # a "source" of a given OTU, i.e. the provide informtion that would
+  # allow someone to reconstruct where data attached to this OTU
+  # is derived from. 
+  belongs_to :protocol, :foreign_key => "source_protocol_id"
+  belongs_to :ce, :foreign_key => "source_ce_id"
+  belongs_to :ref, :foreign_key => "source_ref_id"
 
   # Careful- Otu.in_matrix_range will return Otus from different matrices, use as Mx#otus#in_mx_position
   # starts at 1!!
@@ -109,6 +91,19 @@ class Otu < ActiveRecord::Base
     # TODO: need to add check for circularity
     if (syn_with_otu_id == self.id) && !self.id.nil?
       errors.add(:syn_with_otu_id, "can not be synonymous with self")
+    end
+
+    # Project specific validation
+    # TODO: When a project updates valid field combination all data should be checked again.
+    if self.proj_id
+      proj = Proj.find(self.proj_id)
+      if proj.otu_uniqueness && proj.otu_uniqueness.size > 0
+        opts = proj.otu_uniqueness.inject({}){|hsh, o| hsh.merge(o.to_sym => self.send(o.to_sym) )}
+        opts.merge!(:proj_id => proj.id)
+        if Otu.where(opts).size > 0
+          errors.add(opts.keys.first, "The data for fields [#{proj.otu_uniqueness.join(', ')}] are not unique for OTUs in this project.") 
+        end
+      end
     end
   end
 

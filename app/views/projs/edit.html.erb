@@ -36,6 +36,7 @@
 
   <table>
     <tr>
+
       <td>
         <div class="subform">
           <div class="header">Hidden navigation tabs (click to reveal)</div>
@@ -47,6 +48,24 @@
           </div>
         </div>
       </td>
+
+      <td style="width:200px;">
+        <div class="subform">
+          <div class="header">OTU Uniqueness</div>
+          <div class="content">
+            <div class="warning"> Warning, these settings are convience level restrictions only, use extreme caution when updating them. </div>
+            <% Proj::WITHIN_PROJ_UNIQUENESS_OPTIONS.sort.each do |o| %>
+              <%= check_box_tag("otu_uniqueness[" + o + "]", value = "1", checked = ( @proj.otu_uniqueness && @proj.otu_uniqueness.include?(o))) %>
+              <%= o %> <br />
+            <% end %>
+          </div>
+        </div>
+      </td>
+
+
+
+
+
       <td>
         <div class="subform">
           <div class="header">Public Controllers</div>

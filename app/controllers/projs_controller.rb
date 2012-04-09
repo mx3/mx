@@ -39,7 +39,7 @@ class ProjsController < ApplicationController
     @proj = Proj.find(params['id'])
 
     if @proj.update_attributes(params['proj'].merge(
-                                                    {'hidden_tabs' => make_ar('hidden_tabs'), 'public_controllers' => make_ar('public_controllers')}))
+                                                    {'hidden_tabs' => make_ar('hidden_tabs'), 'public_controllers' => make_ar('public_controllers'), 'otu_uniqueness' => make_ar('otu_uniqueness')}))
       @proj.people.clear
       @people = Person.find(:all)
       for person in @people                       # if it is saved we can add the people-projects links
