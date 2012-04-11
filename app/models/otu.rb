@@ -430,4 +430,11 @@ class Otu < ActiveRecord::Base
     return @otu.id # true return the id of the last OTU created
   end
 
+#   Added for NESCent
+
+  def self.associated_with_ref(ref_id)
+    find_by_sql(["select name from otus where source_ref_id = ?;", ref_id])
+  end
+
+
 end
