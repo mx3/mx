@@ -4,8 +4,9 @@
 	<span class="nfld"><%= render :partial => 'shared/picker', :locals => {
 		:controller => 'refs',
 		:object => 'otu',
-		:method => 'new',
-		:tag_id => "ref_id_to_find_for_otu",
+		:method => 'source_ref_id',
+		:tag_id => "source_ref_id_to_find_for_otu",
+		:display => (@otu.ref.display_name if @otu.ref),
 		:size => 80 } -%></span>
 	<p align="left">
 		<br>

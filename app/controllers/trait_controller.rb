@@ -15,26 +15,32 @@ class TraitController < ApplicationController
 
  def new
     @otu = Otu.new
+    @ce = Ce.new
     #@otu_groups = @proj.otu_groups
   end
   
   def create
     # Called to allow recursive addition of Otus from a TaxonName and its children
     @otu = Otu.new(params[:otu])
+    @ce = Ce.new(params[:ce])
+    @ce.save
+    @otu[:source_ce_id] = @ce.id
     if @otu.save
       notice "Created a new OTU." 
-      @show = ['default'] # see /app/views/shared/layout
-      render :action => :show 
+      # @show = ['default'] # see /app/views/shared/layout
+      # render :action => :show 
+       render :action => :enter_from_ref and return
     else
       notice 'Problem creating the OTU(s)!'
       # @otu_groups = @proj.otu_groups
-      render :action => :new and return
+      render :action => :enter_from_ref and return
     end
   end
   
  # Match these methods to Cory's stories 
  def enter_from_ref
     @otu = Otu.new
+    @ce = Ce.new
   end
 
   def browse_data

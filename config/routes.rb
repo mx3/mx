@@ -1173,7 +1173,7 @@ Edge::Application.routes.draw do
     collection do
       get :index
       get :new
-      get :create
+      post :create
       get :enter_from_ref
       get :browse_data
     end
