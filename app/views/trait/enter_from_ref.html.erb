@@ -3,7 +3,8 @@
 <%= form_tag(:action => 'create') do -%>
 <div id="nform">
 	<div id="nform_left" class="column">
-		<%= error_messages_for 'otu' %>
+		<%= error_messages_for 'otu' %>	
+		<%= error_messages_for 'ce' %>
 		<%= hidden_field "otu", "id" %>
 		
 		<%= render :partial => 'choose_ref' -%>
