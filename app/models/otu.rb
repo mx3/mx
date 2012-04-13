@@ -432,17 +432,18 @@ class Otu < ActiveRecord::Base
 
 #   Added for NESCent
 
+  # TODO: rewrite as scope
   def self.associated_with_ref(ref_id)
     find_by_sql(["select name from otus where source_ref_id = ?;", ref_id])
   end
   
-  # TODO: make this more generic and test for nulls before adding to name
+  # TODO: make this more generic, take in a list and use case maybe, and test for nulls before adding to name
   def create_otu_name(taxon_id, ref_id, ce_id)
-    tn = TaxonName.find(taxon_id)
-    ref = Ref.find(ref_id)
-    author = Author.find(ref_id)
-    ce = Ce.find(ce_id)
-    otuname = tn.name + "_" + author.last_name + ref.year.to_s + "_" + ce.locality
+    tn = TaxonName.find(taxon_id).name
+    ref = Ref.find(ref_id).year.to_s
+    author = Author.where("ref_id = ?", ref_id)[0].last_name
+    ce = Ce.find(ce_id).locality
+    otuname = [tn, author+ref, ce].join('_')
     return otuname
   end
 
