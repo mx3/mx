@@ -1,0 +1,12 @@
+<div id="choose_taxon" class="nfr">
+	<label for="trait_choose_taxon">Taxon Name:<span class="sublabel">Search by any combination of genus and species, or common name.</span></label>
+	<br>
+	<span class="nfld"><%= render :partial => 'shared/picker', :locals => {
+		:controller => 'taxon_names',
+		:object => 'otu',
+		:method => 'taxon_name_id',
+		:use_proj => true,
+		:tag_id => "taxon_name",
+		:display => @otu.taxon_name.andand.display_name(:type => :for_select_list),
+		:size => 80 } -%></span>
+</div>

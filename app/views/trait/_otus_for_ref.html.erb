@@ -1,0 +1,11 @@
+<div class="listing">
+	<table class='ntable'>
+		<th class='ntable'>Otus for this Reference</th>
+		<%#= Rails.logger.info "otu: " + Otu.associated_with_ref(1)[0].name%>
+		<% Otu.associated_with_ref(1).each do |item|  %>
+		<tr class='ntable'>
+			<td class='ntable'><%= item.name %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>
