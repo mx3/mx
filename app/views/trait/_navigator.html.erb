@@ -1,0 +1,5 @@
+<div class='navigator'>
+  <% ['enter from ref', 'browse data'].each do |l| -%>
+    <%= link_to(l, "trait/" + l.split(' ').join('_')) -%>
+  <% end %>
+</div>

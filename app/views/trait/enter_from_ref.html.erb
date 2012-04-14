@@ -1,0 +1,27 @@
+<% content_for :center do -%>
+
+<%= form_tag(:action => 'create') do -%>
+<div id="nform">
+	<div id="nform_left" class="column">
+		<%= error_messages_for 'otu' %>	
+		<%= error_messages_for 'ce' %>
+		<%= hidden_field "otu", "id" %>
+		
+		<%= render :partial => 'choose_ref' -%>
+
+		<%= render :partial => 'choose_taxon' -%>
+
+		<%= render :partial => 'enter_species_name' -%>
+
+		<%= render :partial => 'enter_population_name' -%>
+		<input type="submit" name="submit" value="create" />
+	</div>
+	<div id="nform_right" class="column">
+		<%= render :partial => 'otus_for_ref' -%>
+	</div>
+</div>
+<p style="clear: both;"></p>
+<% end -%>
+
+<% end %>
+<%= render :partial => 'layout' -%> 
