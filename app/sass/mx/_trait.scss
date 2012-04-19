@@ -43,23 +43,26 @@ div.nfr { /* nfr = form row */
   margin: 2em;
   border: 1px solid black;
   background-color:white;
-}
 
-.nfr label {
- text-align: left;
- font-size:larger;
-}
+ label {
+  text-align: left;
+  font-size:larger;
+  }
 
-.nfr span.sublabel {
- font-style:italic;
- font-size:smaller;
-}
+ span.sublabel {
+  font-style:italic;
+  font-size:smaller;
+  }
 
-.nfr span.nfld {
+ span.nfld {
  float: left; 
  text-align: left;
+  }
+ 
+ span.nfldshort {
+ text-align: left;
+  }
 }
-
 .nlbl4 { font-size: 9pt;
       text-align: right;
       padding-right: 4px;
@@ -73,4 +76,8 @@ div.nfr { /* nfr = form row */
   border: 1px solid black;
   background-color:white;
 
+}
+
+div.hidden {
+  display:none;
 }

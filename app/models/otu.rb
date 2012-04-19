@@ -442,8 +442,10 @@ class Otu < ActiveRecord::Base
     tn = TaxonName.find(taxon_id).name
     ref = Ref.find(ref_id).year.to_s
     author = Author.where("ref_id = ?", ref_id)[0].last_name
-    ce = Ce.find(ce_id).locality
-    otuname = [tn, author+ref, ce].join('_')
+    ce_geog = Ce.find(ce_id).geography
+    ce_date = Ce.find(ce_id).sd_y
+    ce_loc = Ce.find(ce_id).locality
+    otuname = [tn, author+ref, ce_geog+ce_date, ce_loc].join('_')
     return otuname
   end
 
