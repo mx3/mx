@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308020236) do
+ActiveRecord::Schema.define(:version => 20120311221755) do
 
   create_table "association_parts", :force => true do |t|
     t.integer "association_id",         :null => false
@@ -1277,25 +1277,29 @@ ActiveRecord::Schema.define(:version => 20120308020236) do
 
   create_table "otus", :force => true do |t|
     t.integer   "taxon_name_id"
-    t.boolean   "is_child",                      :default => false
+    t.boolean   "is_child",                         :default => false
     t.string    "name"
     t.string    "manuscript_name"
-    t.string    "matrix_name",     :limit => 64
-    t.integer   "as_cited_in"
-    t.string    "iczn_group",      :limit => 32
+    t.string    "matrix_name",        :limit => 64
+    t.integer   "source_ref_id"
+    t.string    "iczn_group",         :limit => 32
     t.integer   "syn_with_otu_id"
-    t.string    "sensu"
+    t.string    "source_human"
     t.text      "notes"
-    t.integer   "proj_id",                                          :null => false
-    t.integer   "creator_id",                                       :null => false
-    t.integer   "updator_id",                                       :null => false
-    t.timestamp "updated_on",                                       :null => false
-    t.timestamp "created_on",                                       :null => false
+    t.integer   "proj_id",                                             :null => false
+    t.integer   "creator_id",                                          :null => false
+    t.integer   "updator_id",                                          :null => false
+    t.timestamp "updated_on",                                          :null => false
+    t.timestamp "created_on",                                          :null => false
+    t.integer   "source_protocol_id"
+    t.integer   "source_ce_id"
   end
 
-  add_index "otus", ["as_cited_in"], :name => "as_cited_in_ind"
   add_index "otus", ["creator_id"], :name => "creator_id"
   add_index "otus", ["proj_id"], :name => "proj_id"
+  add_index "otus", ["source_ce_id"], :name => "index_otus_on_source_ce_id"
+  add_index "otus", ["source_protocol_id"], :name => "index_otus_on_source_protocol_id"
+  add_index "otus", ["source_ref_id"], :name => "as_cited_in_ind"
   add_index "otus", ["syn_with_otu_id"], :name => "syn_with_otu_id"
   add_index "otus", ["taxon_name_id"], :name => "taxon_name_id_ind"
   add_index "otus", ["updator_id"], :name => "updator_id"
@@ -1449,6 +1453,7 @@ ActiveRecord::Schema.define(:version => 20120308020236) do
     t.boolean   "is_eol_exportable",                                      :default => false
     t.string    "collection_code"
     t.boolean   "is_exportable_to_gbif",                                  :default => false
+    t.text      "otu_uniqueness"
   end
 
   add_index "projs", ["creator_id"], :name => "creator_id"

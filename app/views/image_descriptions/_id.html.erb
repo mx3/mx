@@ -6,18 +6,13 @@
   <div class="box1" >
     <div class="browse_otu"><%= image_description_taxon_tag(id) -%></div>
     <div class="browse_label_view"><%= id.display_name(:type => :label_view) -%></div>
-     <!-- TODO: ug, terrible old code, can be greatly simplified  
-      <span class="small_grey" style="text-align: right;">
-      <%# link_to("more", :remote => true, :update =>  "more_#{id.id}", :postion => :top, :url => { :action => 'more', :controller => 'image_descriptions', :id => id}) -%></span>
-    -->
-
     <div style="position: absolute; z-index: 300;" id = "more_<%= id.id -%>"> </div>
   </div>
 
   <table>
     <tr class="small_grey">
       <td>id: <%= id.image.id -%><%= ", mb_id:#{id.image.mb_id}" if id.image.is_morphbank -%></td>
-      <td>    
+      <td>
         <%= link_to('edit', :action => :edit, :controller => ((id.image.is_morphbank == true) ? 'morphbank_images' : 'images'), :id => id.image.id) -%>
       </td>
       <td>

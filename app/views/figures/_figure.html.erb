@@ -1,5 +1,5 @@
-<div class="fig" style="text-align: center; width:<%= figure.image.width_for_size(:thumb).to_i + 10 -%>px;" >
-  <% if !@public -%> 
+<div class="fig" style="text-align: center; ">
+  <% if !@public -%>
     <div style="text-align:center;">
       <span style="border-right: 1px dotted silver; padding: 2px;"><%= link_to("annotate", :action => :annotate, :controller => :figures, :id => figure) -%></span>
       <span style="border-right: 1px dotted silver; padding: 2px;"><%= link_to("edit", :action => :edit, :controller => :figures, :id => figure) -%>  </span>
@@ -9,12 +9,12 @@
     </div>
   <% end -%>
 
-  <%= figure_thumbnail_with_svg_tag(figure) -%> 
-  
+  <%= figure_thumbnail_with_svg_tag(figure) -%>
+
   <% if !@public -%>
     <div style="text-align: left; margin-top: 3px; padding: 4px; background-color: #cdcdcd; width:<%= figure.image.width_for_size(:thumb) -%>px;" >
       <em>on</em>: <%= figure.display_name(:type => :on)  -%>
-    </div> 
+    </div>
   <% end -%>
 
   <%= caption_tag(figure) -%>

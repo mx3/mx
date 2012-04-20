@@ -1,8 +1,4 @@
 require 'machinist/active_record'
-Machinist.configure do |config|
-  config.cache_objects = false
-end
-
 # Here you can define the blueprints for objects in the system
 # So you can create 'valid' objects quickly for testing... setting up relationships
 # and things of that nature.

@@ -30,20 +30,9 @@ module FiguresHelper
                   )
 
     # note the link has an ID that we can flash or higlight after the form it pops up successfully creates a new tag
-
-    # Cary - TODO - this should call
     link_to(opt[:link_text], url, 'data-remote' => 'true', :onclick=>opt[:onclick], :method => 'post')
   end
 
-
-  # collective renders appended figures on non-ajax loads
-  def render_svged_figures # :yields: String (svgweb ineractive HTML)
-    if !request.xml_http_request?
-      update_page_tag do |page|
-        page.call 'appendFigsToSvgonload'
-      end
-    end
-  end
 
   def url_for_zoom_figure(figure) # :yields: String (URL)
     base = 'http://'
@@ -56,14 +45,13 @@ module FiguresHelper
   end
 
   def figure_thumbnail_with_svg_tag(figure) # :yields: String
-    content_tag(:div, :id => "figure_#{figure.id}_img", :class => 'image') do
-      if figure.figure_markers.size > 0
-        update_page_tag do |page|
-          page.call 'createSvgObjRoot', (request.xml_http_request? ? 'ajax' : 'http'), *figure.svgObjRoot_params(:size => :thumb, :link => url_for_zoom_figure(figure) )
-        end
-      else
-         content_tag(:a, image_thumb_tag(figure.image), :href => url_for_zoom_figure(figure), :target => '_blank', :alt => "mx_image_#{figure.image.id}")
-      end
+    if figure.figure_markers.size > 0
+      image_with_svg_tag(figure, :size => :thumb, :link => url_for_zoom_figure(figure))
+    else
+      content_tag(:a, image_thumb_tag(figure.image),
+                      :href => url_for_zoom_figure(figure),
+                      :target => '_blank',
+                      :alt => "mx_image_#{figure.image.id}")
     end
   end
 

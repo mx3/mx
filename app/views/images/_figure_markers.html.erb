@@ -6,16 +6,16 @@
 
   <div style="padding:0.5em; margin:0.5em; float:left; width: 400;">
 
-    <div class="show_rec"> 
+    <div class="show_rec">
       <div class="show_category">Figure markers</div>
       <% @image.figure_markers.each_with_index do |fm,i| -%>
         <div style="padding:0.2em;">
           <% o = fm.figure.figured_obj -%>
           <% if o.class.to_s == 'OntologyClass' -%>
             <%=  o.display_name(:type => :label_first) -%>
-          <% else %> 
+          <% else %>
             <%= o.display_name -%>
-          <% end -%> 
+          <% end -%>
           <%= link_to_function("toggle visibility", "toggleFigureMarkerVisibility('img_svg_root_#{@image.id}', 'marker_#{fm.id}')") -%>  <br />
         </div>
 
@@ -27,6 +27,3 @@
   <br style="clear:both;" />
 
 </div>
-
-
-<%= render_svged_figures -%>

@@ -1,6 +1,6 @@
 # If you have problems with your gems you can rebuild them like so:
 #   rvm gemset empty     (answer yes)
-#   rvm @global gem install bundler  
+#   rvm @global gem install bundler
 #   gem update --system
 #   bundle
 
@@ -34,6 +34,8 @@ source :gemcutter
   gem "obo_parser"   ,  "0.3.4"
   gem "rubyMorphbank",  "~>0.2.4"
 
+  # For SVG tag creation - we need to know the browser
+  gem "useragent", "~> 0.4.8"
   # Rails 2.3.10, perhaps deprecated in 3.0
   #   gem 'cmess',  '0.2.4' # character encoding guessing
   #   gem "echoe" # !! This may need to be commented out for recent versions of passenger.

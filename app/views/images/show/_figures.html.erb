@@ -1,7 +1,7 @@
 <% content_for(:center) do -%>
 <div class="show_rec">
 
-  <% if @without_figure_markers.length > 0 -%> 
+  <% if @without_figure_markers.length > 0 -%>
   <div class="show_category"> Without figure markers  (<%= @without_figure_markers.length -%>) </div>
   <div>
     <%= render(:partial => '/figures/figure', :collection => @without_figure_markers) -%>
@@ -9,7 +9,7 @@
   </div>
   <% end -%>
 
-  <% if @with_figure_markers.length > 0 -%> 
+  <% if @with_figure_markers.length > 0 -%>
   <div class="show_category"> With figure markers (<%= @with_figure_markers.length -%>) </div>
   <div>
     <%= render(:partial => '/figures/figure', :collection => @with_figure_markers) -%>
@@ -19,6 +19,3 @@
 
 </div>
 <% end -%>
-
-<%= render_svged_figures -%>
-
