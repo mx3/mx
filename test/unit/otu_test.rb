@@ -1,30 +1,4 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: otus
-#
-#  id               :integer(4)      not null, primary key
-#  taxon_name_id    :integer(4)
-#  is_child         :boolean(1)
-#  name             :string(255)
-#  manuscript_name  :string(255)
-#  matrix_name      :string(64)
-#  parent_otu_id    :integer(4)
-#  as_cited_in      :integer(4)
-#  revision_history :text
-#  iczn_group       :string(32)
-#  syn_with_otu_id  :integer(4)
-#  sensu            :string(255)
-#  notes            :text
-#  proj_id          :integer(4)      not null
-#  creator_id       :integer(4)      not null
-#  updator_id       :integer(4)      not null
-#  updated_on       :timestamp       not null
-#  created_on       :timestamp       not null
-#
-
 require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
-
 
 class OtuTest < ActiveSupport::TestCase
   fixtures :otus, :contents, :taxon_names
@@ -33,6 +7,10 @@ class OtuTest < ActiveSupport::TestCase
     $person_id = 10
     $proj_id = 11
     @otu = Otu.create!(:name => "foo")
+  end
+
+  def dont_test_that_project_uniqueness_scope_is_used
+    @proj = Proj.new(:name => "Foo") 
   end
 
   def test_deletion_of_otu_syn_with_another_otu
@@ -251,7 +229,6 @@ class OtuTest < ActiveSupport::TestCase
     @content.reload # update to get the pub_content_id
     @otu.reload # publishable_content should remain the same
     assert_equal [@content], @otu.contents.that_are_publishable
-  
   end
 
 end
