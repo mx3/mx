@@ -1,0 +1,16 @@
+<div class="nfr">
+	<label for="trait_choose_ref">Reference:<span class="sublabel">Search by any combination of author, title, year, or journal.</span></label>
+	<br>
+	<span class="nfld"><%= render :partial => 'shared/picker', :locals => {
+		:controller => 'refs',
+		:object => 'otu',
+		:method => 'source_ref_id',
+		:tag_id => "source_ref_id_to_find_for_otu",
+		:display => (@otu.ref.display_name if @otu.ref),
+		:size => 80 } -%></span>
+	<p align="left">
+		<br>
+		OR
+		<input type="BUTTON" value="Enter New Reference" onclick="">
+	</p>
+</div>

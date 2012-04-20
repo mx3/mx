@@ -97,10 +97,12 @@ class Otu < ActiveRecord::Base
     # TODO: When a project updates valid field combination all data should be checked again.
     if self.proj_id
       proj = Proj.find(self.proj_id)
-      opts = proj.otu_uniqueness.inject({}){|hsh, o| hsh.merge(o.to_sym => self.send(o.to_sym) )}
-      opts.merge!(:proj_id => proj.id)
-      if Otu.where(opts).size > 0
-        errors.add(opts.keys.first, "The data for fields [#{proj.otu_uniqueness.join(', ')}] are not unique for OTUs in this project.") 
+      if proj.otu_uniqueness && proj.otu_uniqueness.size > 0
+        opts = proj.otu_uniqueness.inject({}){|hsh, o| hsh.merge(o.to_sym => self.send(o.to_sym) )}
+        opts.merge!(:proj_id => proj.id)
+        if Otu.where(opts).size > 0
+          errors.add(opts.keys.first, "The data for fields [#{proj.otu_uniqueness.join(', ')}] are not unique for OTUs in this project.") 
+        end
       end
     end
   end
@@ -427,5 +429,25 @@ class Otu < ActiveRecord::Base
     end
     return @otu.id # true return the id of the last OTU created
   end
+
+#   Added for NESCent
+
+  # TODO: rewrite as scope
+  def self.associated_with_ref(ref_id)
+    find_by_sql(["select name from otus where source_ref_id = ?;", ref_id])
+  end
+  
+  # TODO: make this more generic, take in a list and use case maybe, and test for nulls before adding to name
+  def create_otu_name(taxon_id, ref_id, ce_id)
+    tn = TaxonName.find(taxon_id).name
+    ref = Ref.find(ref_id).year.to_s
+    author = Author.where("ref_id = ?", ref_id)[0].last_name
+    ce_geog = Ce.find(ce_id).geography
+    ce_date = Ce.find(ce_id).sd_y
+    ce_loc = Ce.find(ce_id).locality
+    otuname = [tn, author+ref, ce_geog+ce_date, ce_loc].join('_')
+    return otuname
+  end
+
 
 end

@@ -143,7 +143,7 @@ class Ce < ActiveRecord::Base
         s << "</div>"
      end
     return nil if s == ""
-    s
+    s.html_safe
   end
 
   def start_day_of_year

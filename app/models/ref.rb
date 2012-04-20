@@ -329,9 +329,7 @@ class Ref < ActiveRecord::Base
 
   def authors_for_display 
     as = self.authors.reject{|a| a.auth_is != "author"}
-   
     return '' if !as
-
     case as.size
     when 0
       author.blank? ? "<i>no authors given</i>" : author # DEPRECATED
@@ -344,6 +342,7 @@ class Ref < ActiveRecord::Base
     end 
   end
 
+  
   def editors_for_display 
     # see authors_for_display for this hack
     eds =[] 
@@ -444,7 +443,6 @@ class Ref < ActiveRecord::Base
       s << "#{city}" unless city.blank?
       s << "." unless city.blank? or not publisher.blank?
       s << " #{pages} pp" unless pages.blank?
-       
       # when "Conference Proceedings"
         
     else # nothing special - render as serial/journal article
