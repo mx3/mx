@@ -9,16 +9,16 @@
     <% if figure_markers.size > 0 -%>
       <%= image_with_svg_markers_tag(:image => image, :figure_markers => figure_markers   )  -%>
     <% else -%>
-      <%= image_tag(image.path_for(:size => :medium)) -%> 
+      <%= image_tag(image.path_for(:size => :medium)) -%>
     <% end -%>
-    
+
     <p> <%= link_to("original file", image.path_for(:size => :original) ) -%> </p>
 
     <br style="clear:both;" />
 
   </div>
 
-  <div style="float:left;padding:0.5em;border-left:1px dotted silver;">  
+  <div style="float:left;padding:0.5em;border-left:1px dotted silver;">
     <% figures.each do |f| -%>
     <div>
       <%= link_to("annotate",{ :action => :annotate, :controller => :figures, :id => f.id}, :target => '_blank') -%>
@@ -29,7 +29,7 @@
         non character state tagging: <%= o.display_name -%>
       <% end %>
     </div>
-    <% end -%> 
+    <% end -%>
     <br style="clear:both;" />
   </div>
 
@@ -38,8 +38,4 @@
 </div>
 
 <% end -%>
-
-<%= render_svged_figures -%>
-
-
 <% end -%>

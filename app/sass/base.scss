@@ -55,6 +55,7 @@
 @import "mx/otu_group";
 @import "mx/ref";
 @import "mx/seq";
+@import "mx/trait";
 
 @import "bourbon/bourbon";
 
@@ -224,3 +225,30 @@ nav.list_pagination {
     }
   }
 }
+
+
+/* Figure markers are related to SVG images.
+   Color them here.
+*/
+.figure-marker {
+  opacity: 0.55;
+}
+
+@mixin figure_marker($equation, $color) {
+  .figure-marker:nth-child(#{$equation}) {
+    fill: $color;
+  }
+}
+
+@include figure_marker(12n,     #8dd3c7);
+@include figure_marker(12n+1,   #ffffb3);
+@include figure_marker(12n+2,   #bebada);
+@include figure_marker(12n+3,   #fb8072);
+@include figure_marker(12n+4,   #80b1d3);
+@include figure_marker(12n+5,   #fdb462);
+@include figure_marker(12n+6,   #b3de69);
+@include figure_marker(12n+7,   #fccde5);
+@include figure_marker(12n+8,   #d9d9d9);
+@include figure_marker(12n+9,   #bc80bd);
+@include figure_marker(12n+10,  #ccebc5);
+@include figure_marker(12n+11,  #ffed6f);

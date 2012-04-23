@@ -2,10 +2,10 @@
   <table>
     <tr>
       <td>
-        <%= render :partial => 'figures/svg_anchored', :locals => {:size => :medium, :figure => @figure} -%>
+        <%= image_with_svg_tag(@figure.image, :figure_markers => @figure.figure_markers, :size => :medium ) -%>
       </td>
       <td>
-        <p> Adding markers to figure id: <%= @figure.id -%>, with caption <%= @figure.caption.blank? ? '<em>none</em>' : @figure.caption -%>.</p>
+        <p> Adding markers to figure id: <%= @figure.id -%>, with caption <%= @figure.caption.blank? ? '<em>none</em>'.html_safe : @figure.caption.html_safe -%>.</p>
         <p><em>This figure is attached to:</em><br /><%= figured_object_tag(@figure) -%></p>
         <p>Attached to image <%= link_to(@figure.image.id, :action => :show, :id => @figure.image.id, :controller => :images) -%>.</p>
 
@@ -26,7 +26,7 @@
 <div id="annotations" style="width:100%;">
   <div class="box4">
 
-    <div class="header"> Markers <%= spinner_tag('move_spinner') -%> </div>
+    <div class="header"> Markers </div>
 
     <div id="add_marker" style="display:none; padding: 3px;">
       <%= link_to_function 'add marker' do |page|
@@ -54,4 +54,3 @@
 
   </div>
 </div>
-
