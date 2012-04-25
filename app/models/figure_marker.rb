@@ -21,7 +21,7 @@ class FigureMarker < ActiveRecord::Base
      figure.figured_obj.labels.each do |l|
        l.energize(creator_id, 'added a SVG annotation to a class labeled with')
        l.save!
-     end 
+     end
    end
    true
  end
@@ -30,104 +30,15 @@ class FigureMarker < ActiveRecord::Base
 
   def energize_destroy_figure_marker
     if figure.addressable_type == "OntologyClass"
-      figure.figured_obj.labels.each do |l| 
+      figure.figured_obj.labels.each do |l|
         l.energize(creator_id, "destroyed a SVG annotation on a class labeled with")
         l.save!
-      end 
+      end
     end
     true
   end
 
   before_save :strip_unused_attributes_from_svg
-
-  # return a valid svg element including stroke and fill
-  def render(options = {})
-    opt = {
-      :id => "marker_#{self.id}",
-      :stroke => '#14eddd',
-      :fill => '#14eddd',
-      :opacity => DEFAULT_OPACITY, 
-      :display => 'inline',
-      'stroke-width' => 2
-    }.merge!(options)
-
-    target = ''
-
-    xml = Builder::XmlMarkup.new(:indent=> 2, :target => target)
-    if opt['xlink:href']
-    xml.a('xlink:href' => opt['xlink:href'], :target => '_parent') {
-        opt.delete('xlink:href')
-        opt.delete('link_target')
-        xml.g(opt) {
-        xml << self.svg
-      }
-    }
-
-    else 
-    xml.g(opt) {
-      xml << self.svg
-    }
-    end
-    
-    target 
-  end
-
-  def stroke_width_for_image_and_size(img, size = :medium)
-
-    return false if img.nil?
-
-    case marker_type
-    when 'area'
-      case size
-      when :thumb
-      0 # might be zero
-      else
-      1
-      end
-    else
-      a = [img.height, img.width].max 
-      case size
-      when :thumb
-        case a
-        when 0..100
-          5  
-        when 101..1000
-          5 
-        else # what is this case?
-          60 
-        end 
-      when :medium
-        case a
-        when 0..100
-          10  
-        when 101..1000
-          20 
-        else
-          30 
-        end 
-      when :big
-        case a
-        when 0..100
-          20  
-        when 101..1000
-          30 
-        else
-          40 
-        end 
-      when :original
-        case a
-        when 0..100
-          30  
-        when 101..1000
-          40 
-        else
-          50 
-        end 
-      else
-        0 
-      end
-    end
-  end
 
   protected
 
@@ -148,9 +59,9 @@ class FigureMarker < ActiveRecord::Base
       REXML::XPath.match(s, "//").each do |e|
         # strip the unecessary Text nodes that might have been picked up
         if e.class == REXML::Text
-          e.parent.delete(e) 
+          e.parent.delete(e)
           next
-        end 
+        end
         e.attributes.keys.each do |k|
           # we likely don't need this, it's cleaned in sanitize!
           # if Application::ALLOWED_SVG_ATTRIBUTES.include?(k) # see environment.rb

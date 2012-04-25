@@ -10,6 +10,63 @@ module ImageHelper
     image_tag(image.path_for(:size => :thumb), image.thumb_scaler) # .gsub(/\.png/, '')
   end
 
+  def figure_image_stroke_width(img, figure, size = :medium)
+    return 0 if img.nil?
+
+    stroke = case figure.marker_type
+      when 'area'
+        case size
+        when :thumb
+        0 # might be zero
+        else
+        1
+        end
+      else
+        a = [img.height, img.width].max
+        case size
+        when :thumb
+          case a
+          when 0..100
+            5
+          when 101..1000
+            5
+          else # what is this case?
+            60
+          end
+        when :medium
+          case a
+          when 0..100
+            10
+          when 101..1000
+            20
+          else
+            30
+          end
+        when :big
+          case a
+          when 0..100
+            20
+          when 101..1000
+            30
+          else
+            40
+          end
+        when :original
+          case a
+          when 0..100
+            30
+          when 101..1000
+            40
+          else
+            50
+          end
+        else
+          0
+        end
+      end
+
+  end
+
   def image_with_svg_tag(image, options = {}) # :yields: String
     options = {:size => :medium,
                :link => '',
@@ -17,68 +74,5 @@ module ImageHelper
                :image => image
               }.merge(options)
     render :partial => "shared/svg_image", :locals=> options
-    #image.svgObjRoot_params(:size => :medium, :link => '' )
-    #{ :image => image, :size => :medium , :link => ''}
   end
-
-  def image_with_svg_markers_tag(options = {}) # :yields: String
-    opt = {
-      :image => nil,
-      :figure_markers => []
-    }.merge!(options)
-
-    content_tag(:div, :id => "image_#{opt[:image].id}_img", :class => 'image') do
-      if opt[:figure_markers].size > 0
-        update_page_tag do |page|
-          page.call 'createSvgObjRoot', (request.xml_http_request? ? 'ajax' : 'http'), *opt[:image].svgObjRoot_params(:size => :medium, :link => '' )
-        end
-      end
-    end
-  end
-
-  # TODO: need an image with figure markers version
-
-  def svg_test(options = {})
-    opt = {
-      :image => nil,
-      :target => "",
-      :scale => nil,
-      :size => :medium,                  # :thumb, :medium, :big, :original
-      :link_target => '_blank',
-      :link => nil # 'http://127.0.0.1:3000/'
-    }.merge!(options.symbolize_keys)
-
-    img = opt[:image]
-
-     xml = Builder::XmlMarkup.new(:indent=> 2, :target => opt[:target])
-
-     xml.svg(:id => "fig_svg_#{self.id}",
-             :width => img.width_for_size(opt[:size]).round.to_i,
-             :height => img.height_for_size(opt[:size]).round.to_i,
-             :display => 'inline', # was block
-             :xmlns => 'http://www.w3.org/2000/svg',
-             'xmlns:xlink' => "http://www.w3.org/1999/xlink"
-            ) {
-
-       xml.a('xlink:href' => opt[:link], :target => opt[:link_target])  {
-         xml.image( :x => 0,
-                    :y => 0,
-                   'width' => img.width_for_size(opt[:size]).round.to_i,
-                   'height' => img.height_for_size(opt[:size]).round.to_i,
-                   'id' => 'someid',
-                   'xlink:href' => img.xlink_href(opt[:size])
-          )
-
-          xml.g(:id => "markers_for_fig_#{self.id}", :transform => "scale(#{img.width_scale_for_size(opt[:size])})") {  # to 6 decimal places
-            img.figure_markers.ordered_by_position.each do |fm|
-              xml << fm.render('stroke-width' => fm.stroke_width_for_image_and_size(img, opt[:size]))
-            end
-          }
-        }
-     }
-
-
-    opt[:target]
-  end
-
 end
