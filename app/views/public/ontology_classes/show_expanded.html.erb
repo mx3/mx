@@ -11,7 +11,7 @@
   <% end -%>
 
   <!-- ontology class base  -->
-  <div style="color:#aaa; margin:0.5em;"> mx id: <%= @ontology_class.id -%> | OBO id: <%=  @ontology_class.xref.blank? ? content_tag(:em, 'none') : @ontology_class.xref -%> | URI: <%= obo_uri(@ontology_class) ? link_to(obo_uri(@ontology_class), obo_uri(@ontology_class)) : content_tag(:em, 'none')  -%>  </div> 
+  <div style="color:#aaa; margin:0.5em;"> mx id: <%= @ontology_class.id -%> | OBO id: <%=  @ontology_class.xref.blank? ? content_tag(:em, 'none') : @ontology_class.xref -%> | URI: <%= obo_uri(@ontology_class) ? link_to(obo_uri(@ontology_class), obo_uri(@ontology_class)) : content_tag(:em, 'none')  -%>  </div>
 
   <%= render :partial => 'public/ontology_classes/oc', :object => @ontology_class -%>
 
@@ -54,5 +54,3 @@
 
   <br style="clear:both;" />
 </div>
-
-<%= render_svged_figures -%>

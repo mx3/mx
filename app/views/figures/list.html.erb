@@ -4,5 +4,3 @@
   <%= render(:partial => 'record_table') -%>
   <%= paginate(@figures, :total_count => @figures.total_count) -%>
 </div>
-
-<%= render_svged_figures -%><!-- collectively renders appended figures on non-ajax calls -->

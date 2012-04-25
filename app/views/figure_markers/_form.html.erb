@@ -1,7 +1,7 @@
 <div id="<%= "fm_form_#{(figure_marker.new_record? ? 'new' : figure_marker.id)}" -%>">
   <%= error_messages_for 'figure_marker' -%>
 
-  <% remote_form_for(:figure_marker, :url => {:controller => :figure_markers, :action => (figure_marker.new_record? ? 'create' : 'update'), :figure_id => @figure, :figure_marker_id => figure_marker.id}, :html => {}) do |f| -%>
+  <% form_for(:figure_marker, :url => {:controller => :figure_markers, :return_to => request.url, :action => (figure_marker.new_record? ? 'create' : 'update'), :figure_id => @figure, :figure_marker_id => figure_marker.id}, :html => {}) do |f| -%>
   <%= f.hidden_field('position') if !figure_marker.new_record?  %>
 
   <div style="width: 100%;">
@@ -10,7 +10,8 @@
     <div style="width:5%; float:left;">&nbsp;</div>
     <div style="width:10%; float:left;"><%= submit_tag 'save' -%></div>
   </div>
-  <br style="clear: both;" /> 
+  <br style="clear: both;" />
+
   <% end %><!-- end form -->
 
 </div>
