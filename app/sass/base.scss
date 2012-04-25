@@ -226,29 +226,30 @@ nav.list_pagination {
   }
 }
 
-
+.image-with-markers {
+  overflow: hidden;
+}
 /* Figure markers are related to SVG images.
    Color them here.
 */
-.figure-marker {
-  opacity: 0.55;
-}
 
-@mixin figure_marker($equation, $color) {
-  .figure-marker:nth-child(#{$equation}) {
+@mixin figure_marker($number, $color) {
+  .figure-marker-#{$number} {
     fill: $color;
+    opacity: 0.55;
   }
 }
 
-@include figure_marker(12n,     #8dd3c7);
-@include figure_marker(12n+1,   #ffffb3);
-@include figure_marker(12n+2,   #bebada);
-@include figure_marker(12n+3,   #fb8072);
-@include figure_marker(12n+4,   #80b1d3);
-@include figure_marker(12n+5,   #fdb462);
-@include figure_marker(12n+6,   #b3de69);
-@include figure_marker(12n+7,   #fccde5);
-@include figure_marker(12n+8,   #d9d9d9);
-@include figure_marker(12n+9,   #bc80bd);
-@include figure_marker(12n+10,  #ccebc5);
-@include figure_marker(12n+11,  #ffed6f);
+/* Copied from lib/toolbox/colors.rb (cb_qual_12) */
+@include figure_marker(0,     #8dd3c7);
+@include figure_marker(1,   #ffffb3);
+@include figure_marker(2,   #bebada);
+@include figure_marker(3,   #fb8072);
+@include figure_marker(4,   #80b1d3);
+@include figure_marker(5,   #fdb462);
+@include figure_marker(6,   #b3de69);
+@include figure_marker(7,   #fccde5);
+@include figure_marker(8,   #d9d9d9);
+@include figure_marker(9,   #bc80bd);
+@include figure_marker(10,  #ccebc5);
+@include figure_marker(11,  #ffed6f);
