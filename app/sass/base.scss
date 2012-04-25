@@ -236,12 +236,16 @@ nav.list_pagination {
 @mixin figure_marker($number, $color) {
   .figure-marker-#{$number} {
     fill: $color;
-    opacity: 0.55;
+    stroke: $color;
   }
 }
 
+.figure-marker {
+    opacity: 0.55;
+}
+
 /* Copied from lib/toolbox/colors.rb (cb_qual_12) */
-@include figure_marker(0,     #8dd3c7);
+@include figure_marker(0,   #8dd3c7);
 @include figure_marker(1,   #ffffb3);
 @include figure_marker(2,   #bebada);
 @include figure_marker(3,   #fb8072);

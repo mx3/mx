@@ -22,7 +22,7 @@
     figure_xlink_href = ModelExtensions::MiscMethods.host_url + "/projects/#{marker.proj_id}/ontology_class/show/#{marker.figure.figured_obj.id}"
     %>
     <a xlink:href="<%= figure_xlink_href %>" target="_parent" >
-      <g class='figure-marker-<%= i % 12 %> '> <%= marker.svg.html_safe %> </g>
+      <g style='stroke-width: <%= figure_image_stroke_width(image, marker, size)%>px; ' class='figure-marker figure-marker-<%= i % 12 %> '> <%= marker.svg.html_safe %> </g>
     </a>
   <% end %>
 </svg>
@@ -38,7 +38,8 @@
       figure_xlink_href = ModelExtensions::MiscMethods.host_url + "/projects/#{marker.proj_id}/ontology_class/show/#{marker.figure.figured_obj.id}"
       %>
       <a xlink:href="<%= figure_xlink_href %>" target="_parent" >
-        <g transform="scale(<%= scale %>)" class='figure-marker-<%= i % 12 %> '>
+        <g transform="scale(<%= scale %>)" class='figure-marker figure-marker-<%= i % 12 %> '
+          style="stroke-width: <%= figure_image_stroke_width(image, marker,size) %>px;" >
           <%= marker.svg.html_safe %>
         </g>
       </a>
@@ -54,8 +55,10 @@
       figure_xlink_href = ModelExtensions::MiscMethods.host_url + "/projects/#{marker.proj_id}/ontology_class/show/#{marker.figure.figured_obj.id}"
       %>
       <a xlink:href="<%= figure_xlink_href %>" target="_parent" >
-        <g style="-webkit-transform: scale(<%= scale %> <%= scale %>); transform: scale(<%= scale %> <%= scale %>)" transform="scale(<%= scale %>)"
-          class='figure-marker-<%= i % 12 %> '>
+        <g style="
+            stroke-width: <%= figure_image_stroke_width(image, marker, size) %>px;
+            -webkit-transform: scale(<%= scale %> <%= scale %>); transform: scale(<%= scale %> <%= scale %>)" transform="scale(<%= scale %>)"
+          class='figure-marker figure-marker-<%= i % 12 %> '>
           <%= marker.svg.html_safe %>
         </g>
       </a>
