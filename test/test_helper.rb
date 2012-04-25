@@ -10,8 +10,6 @@ require File.expand_path(File.dirname(__FILE__) + '/blueprints')
 include ActionDispatch::TestProcess
 
 class ActiveSupport::TestCase
-  # Reset the Machinist cache before each test.
-  setup { Machinist.reset_before_test }
 
   # These fixtures are required for all functional tests. TODO: scope for functionals only?
   fixtures :people, :projs #, :people_projs
