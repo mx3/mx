@@ -1,22 +1,3 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: chr_states
-#
-#  id               :integer(4)      not null, primary key
-#  chr_id           :integer(4)      not null
-#  state            :string(8)       not null
-#  name             :string(255)
-#  cited_polarity   :string(15)      default("none")
-#  hh_id            :integer(4)
-#  revision_history :text
-#  notes            :text
-#  creator_id       :integer(4)      not null
-#  updator_id       :integer(4)      not null
-#  updated_on       :timestamp       not null
-#  created_on       :timestamp       not null
-#
-
 --- 
 cs1: 
   id: "1"
@@ -25,7 +6,7 @@ cs1:
   state: "0"
   cited_polarity: plesiomorphic
   updated_on: 2005-03-10 10:39:29
-  created_on: 0000-00-00 00:00:00
+  created_on: 2005-03-10 10:39:29
   notes: ''
   updator_id: "1"
   creator_id: "1"
@@ -35,7 +16,7 @@ cs2:
   state: "1"
   chr_id: "1"
   cited_polarity: apomorphic
-  created_on: 0000-00-00 00:00:00
+  created_on: 2005-03-10 10:39:29
   updated_on: 2005-03-10 10:39:29
   notes: ''
   updator_id: "1"
@@ -66,9 +47,9 @@ mk3:
   id: "13"
   state: 0
   name: absent
-  created_on: 2005-03-10 12:43:52
   chr_id: "16"
   cited_polarity: none
+  created_on: 2005-03-10 12:43:52
   updated_on: 2005-03-10 12:43:52
   notes: polarity = none
   updator_id: "1"

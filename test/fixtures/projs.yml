@@ -77,3 +77,12 @@ proj_with_ontology_namespace:
   created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
   updated_on: <%= 2.days.ago.to_date.to_s(:db) %> 
   starting_tab: "otus"
+projs11:
+  id: "11"
+  name: "Project 11"
+  creator_id: "1"
+  updator_id: 1
+  created_on: <%= 5.days.ago.to_date.to_s(:db) %> 
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>
+  starting_tab: "otus"
+

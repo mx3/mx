@@ -1,25 +1,4 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: otus
-#
-#  id               :integer(4)      not null, primary key
-#  taxon_name_id    :integer(4)
-#  is_child         :boolean(1)
-#  name             :string(255)
-#  manuscript_name  :string(255)
-#  matrix_name      :string(64)
-#  as_cited_in      :integer(4)
-#  iczn_group       :string(32)
-#  syn_with_otu_id  :integer(4)
-#  sensu            :string(255)
-#  notes            :text
-#  proj_id          :integer(4)      not null
-#  creator_id       :integer(4)      not null
-#  updator_id       :integer(4)      not null
-#  updated_on       :timestamp       not null
-#  created_on       :timestamp       not null
-#
+
 
 --- 
 otus5: 
@@ -34,8 +13,8 @@ otus5:
   iczn_group: species
   syn_with_otu_id: 
   taxon_name_id: "7703"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   updator_id: "0"
 otus1: 
   id: "2"
@@ -49,8 +28,8 @@ otus1:
   syn_with_otu_id: 
   proj_id: "1"
   taxon_name_id: "7643"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   updator_id: "0"
 otus2: 
   id: "3"
@@ -64,8 +43,8 @@ otus2:
   syn_with_otu_id: 
   proj_id: "1"
   taxon_name_id: "7477"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   updator_id: "0"
 otus3: 
   id: "4"
@@ -79,8 +58,8 @@ otus3:
   syn_with_otu_id: 
   proj_id: "1"
   taxon_name_id: "7648"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   updator_id: "0"
 otus4: 
   id: "5"
@@ -94,8 +73,8 @@ otus4:
   syn_with_otu_id: 
   proj_id: "1"
   taxon_name_id: "7497"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   updator_id: "0"
 mk1:
   id: "6"
@@ -104,8 +83,8 @@ mk1:
   manuscript_name: 'manuscript_mk1'
   taxon_name_id: "7497"
   proj_id: "1"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   iczn_group: species
   syn_with_otu_id: 
   updator_id: "1"
@@ -119,8 +98,8 @@ mk2:
   manuscript_name: 'manuscript_mk2'
   taxon_name_id: "7497"
   proj_id: "1"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   iczn_group: species
   syn_with_otu_id: 
   updator_id: "1"
@@ -134,8 +113,8 @@ mk3:
   manuscript_name: 'manuscript_mk3'
   taxon_name_id: "7497"
   proj_id: "1"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   iczn_group: species
   syn_with_otu_id: 
   updator_id: "1"
@@ -149,8 +128,8 @@ mk4:
   manuscript_name: 'manuscript_mk4'
   taxon_name_id: "7497"
   proj_id: "1"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   iczn_group: species
   syn_with_otu_id: 
   updator_id: "1"
@@ -164,8 +143,8 @@ mk5:
   manuscript_name: 'manuscript_mk5'
   taxon_name_id: "7497"
   proj_id: "1"
-  as_cited_in: 
-  sensu: 
+  source_ref_id: 
+  source_human: 
   iczn_group: species
   syn_with_otu_id: 
   updator_id: "1"

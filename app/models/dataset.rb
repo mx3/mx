@@ -107,7 +107,7 @@ class Dataset < ActiveRecord::Base
           if !@otu
             name = ( @opt[:generate_otu_name_with_ds_id] ? "#{o.name} [dsid:#{@opt[:generate_otu_name_with_ds_id]}]" : o.name )
             @otu = Otu.new(:name => name,
-                          :as_cited_in => (@opt[:generate_otu_with_ds_ref_id] ? @opt[:generate_otu_with_ds_ref_id] : nil)
+                          :source_ref_id => (@opt[:generate_otu_with_ds_ref_id] ? @opt[:generate_otu_with_ds_ref_id] : nil)
                           )
             @otu.save!
           end

@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + "/../test_helper")
 
 class OtuTest < ActiveSupport::TestCase
-  fixtures :otus, :contents, :taxon_names
+  fixtures :otus, :contents, :taxon_names, :projs
   
   def setup
     $person_id = 10
@@ -10,7 +10,8 @@ class OtuTest < ActiveSupport::TestCase
   end
 
   def dont_test_that_project_uniqueness_scope_is_used
-    @proj = Proj.new(:name => "Foo") 
+    @proj = Proj.new(:name => "Foo", :otu_uniqueness => %w{name, source_ce_id, source_human, source_ref_id})
+    @proj.save 
   end
 
   def test_deletion_of_otu_syn_with_another_otu

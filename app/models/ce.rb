@@ -31,6 +31,7 @@ class Ce < ActiveRecord::Base
   has_many :lots, :dependent => :nullify
   has_many :specimens, :dependent => :nullify
   has_many :ipt_records, :dependent => :nullify
+  has_many :otus, :dependent => :nullify, :foreign_key => 'source_ce_id'
 
   scope :to_print, {:conditions => "ces.num_to_print > 0"}
   scope :with_verbatim_label, {:conditions => 'length(verbatim_label) > 0'}
@@ -142,7 +143,7 @@ class Ce < ActiveRecord::Base
 
         s << "</div>"
      end
-    return nil if s == ""
+    return "" if s == "" # mx3 was return nil
     s.html_safe
   end
 

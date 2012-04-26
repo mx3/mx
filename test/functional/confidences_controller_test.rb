@@ -19,7 +19,7 @@ class ConfidencesControllerTest < ActionController::TestCase
 
   def test_show
     confidence = Confidence.make!(:proj => @proj)
-    get :show, :proj_id=>@proj.id, :id=>confidence.id
+    get :show, :proj_id=>@proj.id, :id=> confidence.id
     assert_response(:success)
   end
 

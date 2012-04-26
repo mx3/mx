@@ -67,9 +67,9 @@ class Ref < ActiveRecord::Base
   has_many :association_supports, :dependent => :nullify
   has_many :chrs, :foreign_key => "cited_in", :dependent => :nullify
   has_many :claves, :class_name => 'Clave', :dependent => :nullify
-  has_many :codings, :foreign_key => "cited_in", :dependent => :nullify
+  has_many :codings, :foreign_key => "ref_id", :dependent => :nullify
   has_many :images, :dependent => :nullify
-  has_many :otus, :foreign_key => "as_cited_in", :dependent => :nullify
+  has_many :otus, :foreign_key => "source_ref_id", :dependent => :nullify
   has_many :primers, :dependent => :nullify
   has_many :seqs, :dependent => :nullify
   has_many :sensus, :dependent => :nullify

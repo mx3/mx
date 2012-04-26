@@ -12,9 +12,9 @@
         <div style="padding:0.2em;">
           <% o = fm.figure.figured_obj -%>
           <% if o.class.to_s == 'OntologyClass' -%>
-            <%=  o.display_name(:type => :label_first) -%>
+            <%=  o.display_name(:type => :label_first).html_safe -%>
           <% else %>
-            <%= o.display_name -%>
+            <%= o.display_name.html_safe -%>
           <% end -%>
           <%= link_to_function("toggle visibility", "toggleFigureMarkerVisibility('img_svg_root_#{@image.id}', 'marker_#{fm.id}')") -%>  <br />
         </div>

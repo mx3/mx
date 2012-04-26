@@ -4,10 +4,10 @@
   <%= t_col_heads( [ "name", "# couplets", "id", "is public", "mod on", "mod by" ] ) -%>
   <% for c in @claves -%>
   <%=  t_row( { 'obj' =>  c, 'close_tr' => false, 
-  'cell_data' => [c.couplet_text,
+  'cell_data' => [c.couplet_text.html_safe,
     c.all_children.size / 2,
     c.id,
-    (c.is_public ? '<span class="passed">yes</span>' : '<span class="failed">no</span>'),
+    (c.is_public ? '<span class="passed">yes</span>'.html_safe : '<span class="failed">no</span>'.html_safe),
     c.m_on,
     c.m_by] }) -%>
     <td><span class="small_grey"><%= link_to('Duplicate', {:action => 'duplicate', :id => c}, :method => "post", :confirm => 'Duplicate this key?') -%></span></td>

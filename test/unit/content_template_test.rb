@@ -139,7 +139,7 @@ class ContentTemplateTest < ActiveSupport::TestCase
   end
 
   def test_publish
-    $proj_id = 2912
+    $proj_id = 11
     o = Otu.create!(:name => 'foo')
     ctype1 = ContentType.create!(:name => 'foo', :is_public => true)
     ctype2 = ContentType::BUILT_IN_TYPES[0].constantize.create!() # :sti_type => ContentType.custom_types[0]
