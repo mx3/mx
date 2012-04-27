@@ -1,16 +1,20 @@
 <h3>New OTU</h3>
 <%= form_tag(:action => 'create') do -%>
-  <input type="submit" name="submit" value="create" />
-  <div class="subform">
-      <input type="checkbox" id="include_children" name="include_children" value="1"/> Create OTUs for all children of this taxon name as well? (creates multiple OTUs, one for the taxon name and each of its children, fields below Taxon Name are ignored)
-  </div>
-  
+<input type="submit" name="submit" value="create" />
+
   <%= render(:partial => 'form') -%> 
+  
+  <br class="cb" />
+  <br class="cb" />
 
-  <div class="fr"> <label for="otu_group" class="lbl4">Add to group</label><span class="small_grey">(you can add to additional groups after creation)</span>
-    <span class="fld"> <%= select_tag("otu_group_id", "<option value=\"\"></option>" + options_for_select(@otu_groups.collect {|o| [ o.name, o.id ]})) %></span>
+  <div class="subform">
+    <div class="header"> 
+      Add to OTU group </div>
+    <div class="fr"> 
+      <span class="fld"> <%= select_tag("otu_group_id", "<option value=\"\"></option>".html_safe + options_for_select(@otu_groups.collect {|o| [ o.name, o.id ]})) %></span>
+    </div>
+    <br class="cb" />
   </div>
 
-   <p style="clear: both;"></p>
- <input type="submit" name="submit" value="create" />
+  <input type="submit" name="submit" value="create" />
 <% end -%>

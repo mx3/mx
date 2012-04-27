@@ -32,7 +32,6 @@ class ProtocolsController < ApplicationController
   def edit
     @protocol = Protocol.find(params[:id])
     @steps =  @protocol.protocol_steps
-
   end
 
   def update

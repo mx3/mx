@@ -1,0 +1,24 @@
+<%# if you want to render more than 1 partial populate @show, it defaults to the present action -%>
+<% #@show ||= [params[:action].split(/_/)[1..-1].join('_') ] -%>
+<% #@show.collect{|s| render :partial => ("#{params[:controller]}/show/#{s}")} -%>
+<div id="inner_wrapper">
+	<div id="inner_header" style="text-align: center;"></div>
+	<div id="inner_container" <%= 'style="padding-right:0;"'.html_safe if @no_right_col %>>
+		<div id="inner_center" class="column">
+			<% content_for :left do -%>
+
+			<%= render :partial => "navigator" %>
+
+			<% end %>
+
+			<%= yield :center -%>
+		</div>
+		<div id="inner_left" class="column">
+			<%#= render :partial => "navigator" %>
+			<%= yield :left -%>
+		</div>
+		<div id="inner_right" class="column" <%= 'style="width:0; margin-right:0;"'.html_safe if @no_right_col %> >
+			<%= yield :right -%>
+		</div>
+		<br style="clear:both;" />
+	</div>
