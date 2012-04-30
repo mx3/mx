@@ -1,13 +1,13 @@
-# A mockup.
-# Search for 'trait' in layout_helper.rb and navigation helper to see how I configured the tabs. Ultimately we'll write some code that hides the rest of the world (you can select tabs to show in settings at present)
+# Search for 'trait' in layout_helper.rb and navigation helper to see how I configured the tabs. 
+# Ultimately we'll write some code that hides the rest of the world (you can select tabs to show in settings at present)
 # http://127.0.0.1:3000/projects/12/trait
 
 # There is no Trait model in the database.
-
 # These actions are specific to the trait-based data-capture workflow
 # being developed in conjunection with NESCent projects.
 class TraitController < ApplicationController
-  # Maps to a splash page?
+  respond_to :html, :js
+  
   def index
   end
 
@@ -27,7 +27,7 @@ class TraitController < ApplicationController
       notice "Created a new OTU."
       # @show = ['default'] # see /app/views/shared/layout
       # render :action => :show
-      render :action => :enter_from_ref and return
+      render :action => :code_otu, :id => @otu and return
     else
       notice 'Problem creating the OTU!'
       # @otu_groups = @proj.otu_groups
@@ -39,38 +39,26 @@ class TraitController < ApplicationController
   def enter_from_ref
     @otu = Otu.new
     @ce = Ce.new
-    
-    # Couldn't get this to work with the js.erb file
-    # working js is in enter_from_ref.html.erb
-    # respond_to do |format|
-      # format.js { render :layout => false } 
-    # end
   end
 
   def browse_data
   end
 
-  # Not sure if I need these, put them in for the navigator
-  # but if I go with sub-nav can probably remove
-  def choose_ref
+  def code_otu
+    @otu = Otu.find(params[:id])
   end
 
-  def new_ref
+  def show_codings
+    @mxes = @otu.mxes
+    @codings = []
+    if params[:show_all]
+      @uniques = Coding.unique_for_otu(@otu)
+    @codings = @otu.codings.ordered_by_chr
+    end
+
+    @no_right_col = true
+    render :action => 'code_otu'
   end
 
-  def choose_taxon
-  end
-
-  def otus_for_ref
-  end
-
-  def enter_species_name
-  end
-
-  def enter_population_name
-  end
-
-  def include_multi_populations
-  end
-
+  
 end
