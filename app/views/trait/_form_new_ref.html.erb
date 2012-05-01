@@ -1,4 +1,9 @@
-
+<div id="trait_newRef" class="popupform" style='width: 420px;'>
+  <div>
+    <a class='basic-modal-close' href='#'>X</a>
+    <span style="float: left;">Enter new ref: </span>
+  </div>
+  <br style="clear: both;" />
 <!-- <%#= form_tag(:action => 'save_new_ref', :remote => true) do %> -->
 <%= form_tag(:action => 'save_new_ref') do %>
 <%= error_messages_for 'ref' %>
@@ -34,5 +39,6 @@
 <p><%= submit_tag "Submit"%></p>
 
 <% end %> 
+</div>
 
 
