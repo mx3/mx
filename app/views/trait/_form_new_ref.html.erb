@@ -1,0 +1,38 @@
+
+<!-- <%#= form_tag(:action => 'save_new_ref', :remote => true) do %> -->
+<%= form_tag(:action => 'save_new_ref') do %>
+<%= error_messages_for 'ref' %>
+<%= error_messages_for 'author' %>
+
+
+<p>
+	<%= label_tag 'last_name', 'Author Last Name' %>
+	<br />
+	<%= text_field_tag 'last_name' %>
+</p>
+<p>
+	<%= label_tag 'first_name' ,'Author First Name' %>
+	<br />
+	<%= text_field_tag 'first_name' %>
+</p>
+
+<p>
+	<%= label_tag 'title' ,'Title' %>
+	<br />
+	<%= text_field_tag 'title' %>
+</p>
+<p>
+	<%= label_tag 'year', 'Year' %>
+	<br />
+	<%= text_field_tag 'year' %>
+</p>
+<p>
+	<%= label_tag 'full_citation', 'Full Citation' %>
+	<br />
+	<%= text_field_tag 'full_citation' %>
+</p>
+<p><%= submit_tag "Submit"%></p>
+
+<% end %> 
+
+

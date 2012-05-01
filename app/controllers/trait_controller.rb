@@ -40,6 +40,32 @@ class TraitController < ApplicationController
     @otu = Otu.new
     @ce = Ce.new
   end
+  
+  def new_ref
+    @ref = Ref.new
+    @author = Author.new
+  end
+  
+  def save_new_ref
+    @ref = Ref.new
+    @author = Author.new
+    @ref[:title] = params[:title]
+    @ref[:year] = params[:year]
+    @ref[:full_citation] = params[:full_citation]
+    @proj.refs << @ref  # make sure the ref is in this project as well
+    if @ref.save
+      @author[:ref_id] = @ref.id
+      @author[:last_name] = params[:last_name]
+      @author[:first_name] = params[:first_name]     
+      @author.save
+      notice "Created a new Reference."
+      render :action => :new_ref and return
+    else
+      notice 'Problem creating the OTU!'
+      # @otu_groups = @proj.otu_groups
+      render :action => :new_ref and return
+    end
+  end
 
   def browse_data
   end

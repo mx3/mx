@@ -1175,6 +1175,8 @@ Edge::Application.routes.draw do
       get :new
       post :create
       get :enter_from_ref
+      get :new_ref
+      post :save_new_ref
       get :browse_data
       get :show_codings
       get :code_otu
