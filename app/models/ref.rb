@@ -98,6 +98,7 @@ class Ref < ActiveRecord::Base
   scope :from_proj, lambda { |*args| {:conditions => ["refs.id IN (SELECT ref_id from projs_refs where projs_refs.proj_id = ?)", (args.first ||= 1)]} } # NOT the same as in ModelExtensions::DefaultNamedScopes
   scope :with_ocr_text_containing, lambda { |*args| {:conditions => ["refs.ocr_text like ?", args.first ? "%#{args.first}%" : -1]} }
   scope :without_serials, :conditions => 'refs.serial_id is null'
+  
 
   # validates_format_of :xref, :with => /\A\w+\:\w+\Z/i, :message => 'must be in the format "foo:bar"', :if => Proc.new{|o| !o.xref.blank?} 
   validates_associated :authors

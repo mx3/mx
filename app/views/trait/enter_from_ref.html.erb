@@ -20,13 +20,11 @@
 		<%= error_messages_for 'otu' %>
 		<%= error_messages_for 'ce' %>
 		<%= hidden_field "otu", "id" %>
+		<%= hidden_field "taxon_name", "taxon_name_id" %>
 
 		<%= render partial: 'choose_ref' -%>
 		<div id="taxon" class="hidden">
 			<%= render partial: 'choose_taxon' -%>
-		</div>
-		<div id="species" class="hidden">
-			<%= render partial: 'enter_species_name' -%>
 		</div>
 		<div id="study_data" class="hidden">
 			<%= render partial: 'enter_study_data' -%>

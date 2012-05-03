@@ -53,7 +53,8 @@ class Person < ActiveRecord::Base
   def editable_taxon_ranges
     # because the person (and their associations) get cached in the session, it is necessary to reload
     # otherwise you will hit problems if new taxon names have been added
-    editable_taxon_names.reload.collect {|t| (t.l)..(t.r) }
+    editable_taxon_names.reload.collect {|t| (t.l)..(t.r)}
+
   end
   
   #-- authentication/login stuff --#  

@@ -1,0 +1,425 @@
+#NEXUS
+[written Tue Mar 16 10:53:33 CET 2010 by Mesquite  version 1.12 (build h66) at ZM429/192.38.114.120]
+
+BEGIN TAXA;
+	TITLE Apocrita;
+	DIMENSIONS NTAX=89;
+	TAXLABELS
+		Chrysopa Micropterix Panorpa Macroxyela Athalia Heteroperreyia Monoctenus Notofenusa Onycholyda Cephus Syntexis Tremex Urocerus Xiphydria Orussobaius Orussus Ceraphron Lagynodes Megaspilus Acanthochalcis Cales Cirrospilus Cleonymus Coccophagus Eurytoma Gonatocerus Megastigmus Nasonia Spalangia Anacharis Diplolepis Ibalia Melanips Parnips Periclistus Aulacus Pristaulacus Gasteruption Pseudofoenus Brachygaster Evania Evaniella Aleiodes Doryctes Orgilus Rhysipolis Urosigalphus Wroughtonia Dusona Labena Lymeon Pimpla Zagryphus Dinapsis Megalyra Mymaromma Isostasius Proplatygaster Archaeoteleia Sparasion Telenomus Belyta Ismarus Pantolytomia Poecilospilus Helorus Maaminga Monomachus Pelecinus Austroserphus Phaenoserphus Proctotrupes Ropronia Vanhornia Megischus Schlettererius Orthogonalys Taeniogonalos Ampulex Pison Stangeella Cephalonomia Chrysis Plumarius Ycaploca Aporus Metapolybia Rhopalosoma Sapyga 
+	;
+
+END;
+
+
+BEGIN CHARACTERS;
+	TITLE  Hymesoma281004;
+	DIMENSIONS  NCHAR=273;
+	FORMAT DATATYPE = STANDARD GAP = - MISSING = ? SYMBOLS = "  0 1 2 3";
+	CHARSTATELABELS 
+		1 'Pronotum, anteriorly ' /  protruding reduced, 2 'Pronotum, anteroventral longitudinal carinae' /  absent two_parallel_carinae_with_concave_area_inbetween_present_, 3 'Pronotum, submedian depressions' /  absent pits_corresponding_to_internal_concavities_present, 4 'Pronotum, length (R99, 28)' /  long_dorsally_of_transverse_sulcus short_dorsally_of_transverse_sulcus, 5 'Orientation, pronotum' /  pronotum_posteriorly_of_transverse_sulcus_oblique pronotum_posteriorly_of_transverse_sulcus_vertical, 6 'Pronotum, transverse carina' /  absent 'present, traversing pronotum dorsally of transverse sulcus', 7 'Pronotum, anterior surface (V01, 40)' /  'convex or straight, not accommodating head' 'concave, smooth, delimited by lateral projections, accommodating head', 8 'Pronotum, dorsomedially' /  without_shelf with_smooth_shelf_accommodating_prophragma, 9 'Pronotum, submedian apodemes' /  absent small_apodemes_present, 10 'Pronotum, anterolateral corners' /  rounded with_distinct_notch_acommodating_anterolateral_corner_of_mesoscutum, 11 'Pronotum, anterolateral internal carina' /  absent_or_weakly_developed distinct_transverse_carina_present_anterolaterally, 12 'Pronotum, posterodorsal corner' /  without_notch 'with notch above anterior spiracle, accommodating tegula', 13 'Pronotum, posterolateral margin (R99, 30 V01, 41 in part)' /  with_incurvation_accommodating_anterior_spiracle straight with_extended_lobe, 14 'Pronotum, anterior spiracle (V01, 41 in part)' /  'visible, posterior to posterolateral margin of pronotum' covered_by_posterolateral_margin_of_pronotum 'visible, surrounded by continuous cuticle', 15 'Pronotum, mesopleural attachment (R99, 29, V01, 42 in part)' /  'movable relative to mesopleuron, or not abutting' rigidly_attached_to_mesopleuron, 16 'Pronotum, lateroventral corners' /  not_projecting_medially with_medial_inflexions_abutting_mesopleuron 'fused, forming bridge behind procoxae', 17 Prepectus /  absent independent_sclerite_present, 18 'Prepectus, externally (R99, 41)' /  exposed concealed, 19 'Prepectus, pronotal inflection (R99, 45)' /  absent present, 20 'Prepectus/inflection, dorsal extent (R99, 42)' /  not_extending_dorsally_of_anterior_spiracle extending_dorsally_of_anterior_spiracle, 21 'Prepectus/inflection, ventral configuration (R99, 46)' /  separate_or_at_most_slightly_abutting broadly_abutting fused_together_or_with_prospinasternum, 22 'Position of occlusor muscle apodeme (R99, 31)' /  midway_on_posterolateral_pronotal_margin ventrally_on_posterolateral_pronotal_margin, 23 'Position, anterior thoracic spiracle' /  more_than_one_spiracular_diameter_from_posterodorsal_corner_of_pronotum at_posterodorsal_corner_of_pronotum dorsally_between_pronotum_and_mesoscutum, 24 Projection_ventrally_of_anterior_spiracle /  absent narrow_projection_ventrally_of_spiracle_present, 25 'Propleura, cervical prominences (V01, 44)' /  'not retracted, cervical swellings exposed' 'retracted, swellings concealed', 26 'Propleura, position of cervical prominences (V01, 45)' /  at_anterodorsal_corners_of_propleura ventrally_of_anterodorsal_corners_of_propleura, 27 'Propleuron, cervical apodeme (V01: 46)' /  entirely_absent 'short, inconspicuous' 'well developed, distinct', 28 'Propleuron, cervical apodeme configuration' /  separate_from_propleura_posteriorly curves_laterally_to_fuse_with_propleura_posteriorly, 29 'Propleuron, cervical lines (V01: 48)' /  laterocervicalia_and_propleuron_proper_at_most_articulating 'laterocervicalia and propleuron partly fused, cervical line present' 'laterocervicalia and propleuron completely fused, cervical line absent', 30 'Propleura, dorsal part (V01, 53)' /  'not inflected, sculpture similar to rest of propleura' inflected_with_smooth_or_shagreened_sculpture, 31 Dorsal_margins_of_propleura /  widely_separated_for_most_of_their_length abutting_for_at_least_half_their_length, 32 'Propleuron, propleural arm (V01: 55)' /  absent present, 33 'Configuration, propleural arms' /  'erect, not abutting profurca posteriorly' 'horisontal, extending medially posteriorly of profurca', 34 'Propleura, lateroventral carina' /  absent longitudinal_carina_on_lateroventral_margin_of_propectus_present, 35 'Propleura, median margins' /  widely_separate_for_their_entire_length 'diverging posteriorly, prosternum broadly exposed' 'abutting for most of their length, prosternum partly concealed', 36 'Propleura, epicoxal lobes' /  posterolateral_corner_of_propleuron_not_extended 'extended as epicoxal lobe, covering procoxa proximally', 37 'Propleura, posterolateral groove' /  absent 'distinct groove dorsally on corners, articulating with pronotum', 38 'Propleura, prothoracic katepisterna (V01, 58)' /  absent present, 39 'Propleuron, katepisternum configuration (modified from V01: 59)' /  abutting_propleuron_at_articulation_with_procoxa separate_from_propleuron, 40 'Prosternum, anteroventral part' /  at_most_extending_slightly_anterior_to_posterior_margin_of_propleura extending_well_anterior_to_posterior_margin_of_propleura, 41 Prosternal_spine /  absent median_posteriorly_directed_spine_present, 42 'Prosternum, laterosternal sclerites (V01, 60)' /  absent present, 43 'Prosternum, subdivision' /  not_subdivided transversely_subdivided_dorsally_by_deep_lateral_incisions, 44 'Profurca, number of profurcal pits' /  one two, 45 'Profurca, anterior apodemes' /  absent_or_weakly_developed 'well developed, continuous with tendons', 46 'Profurca, bridge (V01, 64)' /  absent 'present, low' 'present, high and curving posteriorly', 47 'Profurca, articulation with propleuron (modified from V01: 62)' /  lateral_profurcal_arm_not_articulating_with_propleuron lateral_profurcal_arm_articulating_with_propleuron_posterodorsdally, 48 'Foreleg, procoxa' /  'broad basally, proximal foramen width at least half maximal width of procoxa' 'constricted basally, proximal foramen width less than half maximal width', 49 'Foreleg, procoxal transverse carina' /  absent developed_for_at_least_part_of_coxa, 50 'Foreleg, protibial furrow' /  absent 'U-shaped furrow present', 51 'Foreleg, calcar (V01: 72)' /  anterior_apical_protibial_spur_unmodified anterior_apical_protibial_spur_modified_into_calcar_for_antenna_cleaning, 52 'Foreleg, posterior apical protibial spurs (R99, 69 V01, 71)' /  absent_or_reduced present, 53 'Foreleg, probasitarsal notches (V01, 74)' /  absent present, 54 'Foreleg, probasitarsal combs (V01, 75)' /  absent_or_weakly_developed 'present, well developed', 55 'Foreleg, probasitarsal spur' /  absent present, 56 'Mesonotum, prophragma' /  absent_or_reduced well_developed, 57 'Mesonotum, prophragma shape' /  bilobed not_subdivided_by_slit, 58 'Mesonotum, prophragma laterally' /  'not extended, higher submedially than laterally' 'extended, higher laterally than submedially', 59 'Mesonotum, anterior mesoscutal sulcus' /  absent transverse_groove_accommodating_dorsal_margin_of_pronotum_present, 60 'Mesonotum, anterior mesoscutal sulcus configuration' /  at_most_extending_slightly_onto_prophragma_anteromedially with_distinct_ventral_extension_onto_prophragma_anteromedially, 61 'Mesonotum, median mesoscutal sulcus (R99, 35, V01, 77)' /  well_developed_internally_and_externally developed_only_externally absent_or_not_fully_developed_posteriorly, 62 'Mesonotum, anteroadmedian signum' /  absent present, 63 'Mesonotum, notauli' /  well_developed_internally_and_externally developed_only_externally 'absent, at least posteriorly', 64 'Mesonotum, notauli configuration' /  'separate, do not join prior to reaching transscutal fissure' converge_medially_to_join_prior_to_reaching_fissure 'merge into U-shaped sulcus, not reaching fissure', 65 'Mesonotum, parapside (R99, 36, V01, 78)' /  absent present, 66 'Mesonotum, parascutal carina' /  absent area_accommodating_tegula_delimited_by_longitudinal_carina_present, 67 'Mesonotum, transscutal articulation (V01, 79)' /  absent 'present, not less sclerotised than adjacent cuticle' 'present, less sclerotised than adjacent cuticle', 68 'Mesonotum, transscutal carina' /  absent present, 69 'Mesonotum, size of dorsal axillar surface' /  'large, mesoscutellar sulcus U- or V-shaped' 'small, mesoscutellar sulcus straight medially', 70 'Mesonotum, axillar carina' /  absent longitudinal_carina_extending_dorsally_from_scutellar_arm_present, 71 'Mesonotum, lateral corners of axillae' /  'rounded, no distinct projection dorsally' axillar_carina_with_distinct_posterior_projection_dorsally, 72 'Mesonotum, axillar phragma (R99, 38)' /  absent present, 73 'Mesonotum, mesoscutellar sulcus' /  different_configuration_than_state_1 consisting_of_one_or_two_wide_depressions_with_small_pits_laterally, 74 'Mesonotum, mesoscutellar carina' /  absent_or_weakly_developed_medially 'present, distinct throughout', 75 'Mesonotum, configuration of mesoscutellar carina' /  'reaching transscutal carina/articulation medially' 'not reaching transscutal carina/articulation', 76 'Mesonotum, internal median longitudinal mesoscutellar carina' /  absent present, 77 'Mesonotum, internal septum' /  absent septum_with_small_fenestrum_spanning_at_least_part_of_mesoscutellum_ventrally, 78 'Mesonotum, longitudinal subdivision of scutellum' /  not_subdivided subdivided_by_submedian_longitudinal_grooves, 79 'Mesonotum, frenum' /  mesoscutellum_not_subdivided 'mesoscutellum transversely subdivided by line, fold, or carina', 80 'Mesonotum, mesoscutellum posteriorly' /  not_as_state_1 medially_with_row_of_sculptured_depressions, 81 'Mesonotum, mesoscutellar appendage' /  absent_or_weakly_developed projection_separated_from_scutellum_by_distinct_line_present, 82 'Mesonotum, mesoscutellar arm configuration' /  'narrow, erect, slender' 'broad, low, smooth', 83 'Mesonotum, origin of mesoscutellar arms' /  at_posterolateral_corners_of_mesoscutellum anterolaterally_on_mesoscutellum, 84 'Mesonotum, mesoscutellar arm distally (Vilhelmsen 2003, 81)' /  not_extending distinctly_extended_laterally, 85 'Mesophragma, pseudophragmal lobe(s) (V01, 88)' /  absent_or_weakly_developed 'well developed, distinct lobes', 86 'Mesophragma, anterior margin position' /  at_most_displaced_slightly_posterior_to_posterior_margin_of_mesoscutellum displaced_posteriorly_into_propodeum_for_at_least_the_length_of_the_mesoscutellum, 87 'Mesophragma, mesophragmal pockets' /  'weakly developed, no curved line anterodorsally on mesophragma' 'well developed, with deeply curved posterior margin', 88 'Mesophragma, median longitudinal carina' /  absent_or_weakly_developed distinct_carina_extending_ventrally_for_most_of_phragma, 89 'Mesophragma, mesolaterophragmal lobes (V01, 81)' /  reduced_or_absent 'present, well developed', 90 'Mesophragma, number of mesolaterophragmal lobes (V01, 83)' /  one two, 91 'Mesophragma, mesolaterophragmal apodeme shape (V01, 84)' /  'short, rounded' 'elongate, slender', 92 'Mesophragma, mesopostnotum (V01, 87)' /  exposed concealed_by_anterior_part_of_metanotum, 93 'Mesophragma, lateral attachment of mesopostnotum (V01, 89)' /  'broad, exposed' 'invaginated, but still developed' 'reduced, mesopostnotum entirely internal', 94 'Mesophragma, lateral flanges' /  absent distinct_flanges_present_anteromedially, 95 'Mesopectus, configuration with mesonotum' /  'not broadly abutting, tegulum and pronotum adjacent' 'abutting for considerable distance, tegulum well separated from pronotum', 96 'Mesopectus, tegulum configuration (S03, 241)' /  exposed concealed_by_dorsolateral_corner_of_pronotum, 97 'Mesopleuron, external part of basalare (V01, 93)' /  not_enlarged 'conspicuously enlarged, extending ventrally of anterior spiracle', 98 'Mesopleuron, basalar apodeme' /  'large, cup-shaped' 'reduced, tendon-like', 99 'Mesopleuron, postspiracular sclerite (R99, 39, V01, 92)' /  absent present, 100 'Mesopleuron, posterior thoracic spiracle configuration' /  'exposed, in concavity in mesopleural margin' 'exposed, above mesopleural margin' not_visible_externally, 101 'Mesopleuron, supramesopleural sclerite' /  absent sclerite_between_mesopleuron_and_metapleural_arm_present, 102 'Mesopleuron, mesepimeral ridge' /  absent_or_weakly_developed distinct_ridge_extending_from_dorsal_margin_of_mesopleuron_to_approx._halfway_to_mesocoxal_articulation distinct_ridge_extending_from_dorsal_margin_of_mesopleuron_to_mesocoxal_articulation, 103 'Mesopectus, mesopleural ridge' /  absent ridge_extending_between_anterior_margin_of_mesopleuron_and_mesocoxal_articulation, 104 'Mesopleuron, mesopleural pit' /  absent small_pit_present, 105 'Mesopleuron, mesopleural apodeme' /  absent_or_weakly_developed apodeme_present, 106 'Mesopleuron, apodeme configuration' /  separate_from_mesepimeral_ridge continuous_with_mesepimeral_ridge, 107 'Mesopectus, mesopleural triangle' /  at_most_slight_depression_present_dorsally_on_mesopleuron distinct_triangular_depression_extending_across_dorsal_mesopleuron, 108 'Mesopleuron, prospinasternum (R99, 47, V01, 65)' /  separate_sclerite 'fused with mesopleuron and/or pronotum', 109 'Mesopleuron, prospinasternal apodeme (V01, 66)' /  absent 'present, well developed', 110 'Mesopleuron, acetabular/epicnemial carina' /  absent_or_weakly_defined 'distinct, extends below procoxae', 111 'Mesopleuron, procoxal concavities' /  absent_or_weakly_developed concavities_accommodating_procoxae_present, 112 'Mesopleuron, subpleural signum' /  absent longitudinal_line_or_crease_present, 113 'Mesopectus, pseudosternal sulci (V01, 96)' /  absent_or_not_developed_internally well_developed_internally_and_externally, 114 'Mesopectus, sternaular carina' /  absent_or_weakly_developed oblique_internal_carina_on_mesepisternum_present, 115 'Mesopleuron, posterior transverse carina' /  absent 'present, delimiting concave or smooth area just anteriorly of mesocoxal foramina', 116 'Mesopleuron, mesocoxal foramina' /  'widely open dorsally, not surrounded by mesopleural cuticle' 'foramen constricted, but still with narrow opening dorsally' 'closed dorsally, surrounded by continuous mesopleural cuticle', 117 'Mesopleuron, median mesocoxal articulation' /  absent 'present, on projection', 118 'Mesopleuron, medial mesocoxal articulation position (R99, 50, V01, 107)' /  'situated proximally, articulations not elongated' 'situated distally, on medial surface of mesocoxa', 119 'Mesofurca, mesofurcal pit' /  situated_at_level_with_mesocoxal_foramina situated_anteriorly_of_mesocoxal_foramina, 120 'Mesofurca, mesospina and metafurco-mesospinal muscle (V01, 102-3)' /  absent 'present, short, erect' 'elongate, projecting posteriorly between metafurcal arms', 121 'Mesofurca, arms proximally' /  with_at_most_shallow_depressions with_distinct_concavities_dorsally, 122 'Mesofurca, anterior arm (R99, 53, V01, 98)' /  'short, inconspicuous' elongate, 123 'Mesofurca, bridge (R99, 54)' /  absent present, 124 'Mesofurca, anterior projection on bridge' /  absent present, 125 'Mesofurca, lateral arm (V01, 100)' /  'short, not extending towards mesopleuron' 'elongate, extending towards mesopleuron', 126 'Midleg, mesocoxa (V01, 106)' /  not_subdivided subdivided, 127 'Midleg, proximal part of mesocoxa (R99, 70)' /  well_developed very_reduced, 128 'Midleg, coxo-trochanter articulation' /  'broad, trochanter cylindrical proximally' 'narrow, trochanter with flattened disk proximally', 129 'Midleg, trochantellus (V01: 111)' /  absent 'femur subdivided proximally, forming small trochantellus', 130 Metanotum /  'reduced, antecostal sulcus adjacent to mesoscutellum' 'well developed, antecostal sulcus well separated from mesoscutellum', 131 'Metanotum, orientation' /  'more or less horisontal, angled less than 90o relative to mesoscutellum' 'vertical, angled 90o relative to mesoscutellum', 132 'Metanotum, cenchri (R99, 55, V01, 116)' /  absent present, 133 'Metanotum, hindwing tegula (V01, 123)' /  absent present, 134 'Metanotum, humeral sclerite' /  'absent, anterior metanotal wing process continuous with remainder of metanotum' anterior_metanotal_wing_process_situated_on_separate_sclerite, 135 'Metanotum, metascutellum ' /  absent_or_reduced 'present, well developed', 136 'Metanotum, metascutellum configuration' /  'reaching anterior margin of metanotum, abutting mesoscutellum' not_reaching_anterior_margin_of_metanotum, 137 'Metanotum, incurvation posteriorly of metascutellum' /  at_most_weakly_developed 'present, distinct', 138 'Metanotum, lateral longitudinal carina' /  'absent or reduced, not traversing metanotum' 'well developed, traversing entire metanotum', 139 'Metanotum, lateral incision' /  absent anterolateral_membraneous_area_present, 140 'Metapleuron, apodemal part of metabasalare (V01, 132 in part)' /  absent_or_reduced 'present, independent cup-shaped sclerite' 'present, continuous with metapleuron', 141 'Metapleuron, metapleural arm - T1 association (V01, 134)' /  not_abutting_T1 abutting_T1 fused_with_T1, 142 'Metapleuron, metapleural arm configuration' /  continuous_with_rest_of_metapleuron separated_from_rest_of_metapleuron_by_anterolateral_part_of_T1, 143 'Metapleuron, metepisternal anapleural cleft (V01, 136)' /  absent present, 144 'Metapleuron, metepimeron - T1 association (V01, 139 in part)' /  at_most_fused_for_short_distance broadly_fused, 145 'Metapleuron, metepimeron (V01, 138)' /  well_developed_throughout reduced_posteriorly, 146 'Metapleuron, articular inflection (V01, 140)' /  absent present, 147 'Metapleuron, dorsal longitudinal ridge' /  absent distinct_ridge_ventral_to_propodeal_spiracle_present, 148 'Metapleuron, metapleural pit' /  entirely_absent at_least_shallow_depression_present, 149 'Metapleuron, metapleural apodeme (V01, 142)' /  absent_or_weakly_developed 'present, well developed', 150 'Metapleuron, mesopleural-metapleural association' /  'might articulate or abut ventrally, but not fused' fused_ventrally fused_ventrally_and_laterally, 151 'Metapleuron, paracoxal notches (V01, 145)' /  absent present, 152 'Metapleuron, median longitudinal carina/projection' /  absent 'present, separating metepisternal depressions' depressions_separated_by_broad_swelling, 153 'Metapleuron, lateral longitudinal carina' /  absent low_carina_laterally_of__metepisternal_depressions_present projections_at_anterolateral_corners_of_metepisternal_depressions_present, 154 'Metapleuron, ventral transverse carina' /  absent_or_weakly_developed transverse_carina_anterior_to_metacoxal_foramina_present, 155 'Metapleuron, area anterior to paracoxal ridge/sulcus' /  reduced_medially well_developed, 156 'Metapleuron, anterior paracoxal sulci/ridges  (V01, 146 in part)' /  absent present, 157 'Metapleuron, posterior paracoxal ridge (V01, 146 in part)' /  absent present, 158 'Metapleuron, anterior paracoxal ridge' /  not_reaching_metapleural_apodemes extending_to_metapleural_apodemes 'continuous with marginal metapleural apodeme, separate from metapleural apodeme', 159 'Metapleuron, metapectal plates' /  absent low_lobe_present_laterally_on_anterior_paracoxal_ridge, 160 'Metapleuron, metacoxal foramina' /  well_separated_from_mesocoxal_foramina 'adjacent to mesocoxal foramina, ventral metepisternum reduced', 161 'Metapleuron, median coxal articulation' /  'reduced, at most developed as low  swelling' articulation_point_well_developed, 162 'Metapleuron, median coxal articulation position' /  'ventromedial to lateral articulation, axis of movement oblique' 'approx. ventral to lateral articulation, axis of movement vertical', 163 'Metapleuron, lateral coxal articulation' /  'exposed, visible laterally' concealed_in_lateral_view, 164 'Metapleuron, articulation notch' /  absent_or_weakly_developed notch_in_foraminal_rim_at_metacoxal_lateral_articulation_well_developed, 165 'Metafurca, metafurcal pit position' /  closer_to_metacoxal_foramina_than_to_anterior_margin_of_metapectus closer_to_anterior_margin_of_metapectus_than_to_metacoxal_foramina, 166 'Metafurca, number of metafurcal pits' /  one_ two, 167 'Metafurca, position (V01: 155)' /  metafurcal_arms_arise_posteriorly_on_metadiscrimen metafurcal_arms_arise_at_or_close_to_anterior_end_of_metadiscrimen, 168 'Metafurca, furca-discrimen configuration' /  'adjacent, arise from discrimen' 'widely separate, not converging, detached from discrimen', 169 'Metafurca, connection to mesofurca' /  separate_from_mesofurca fused_with_mesofurca_for_some_distance, 170 'Metafurca, anterior metafurcal arm (V01, 156)' /  'elongate, at most slightly shorter than lateral arm' 'reduced, considerably shorter than lateral arm', 171 'Metafurca, lateral metafurcal arm (V01, 157)' /  short 'elongate, extending towards metapleural apodeme' fused_with_metapleural_apodeme, 172 'Hindleg, trochantins (V01, 148)' /  absent present, 173 'Hindleg, size of coxa' /  'short, less than 3/4 length of hindfemur+trochanter' 'elongate, more than 3/4 length of hindfemur+trochanter', 174 'Hindleg, femoral spines' /  absent_or_weakly_developed at_least_one_distinct_spine_present_ventrally, 175 'Hindleg, tibial preapical spurs (R99, 67, V01, 158)' /  absent present, 176 'Hindleg, tibial brush  (Vilhelmsen 2003, 106)' /  absent dense_brush_of_setae_present_on_at_least_part_of_median_side, 177 'Hindleg, tarsal plantulae (Schulmeister 2003, 1 in part)' /  absent present, 178 'Propodeum, T1 medially  (R99, 60, V01, 129)' /  divided_ continuous_, 179 'Propodeum, metapostnotum association (R99, 58)' /  'separated by unsclerotised line, connection movable' immovably_fused, 180 'Propodeum, median antecostal projections' /  absent one_projection_present_anteriorly_and_posteriorly_of_antecosta_ several_projections_present_anteriorly_and_posteriorly_of_antecosta_, 181 'Propodeum, lateral antecostal projections' /  absent present_anteriorly_and_posteriorly_of_antecosta, 182 'Propodeum, metaphragma (V01, 125 part)' /  absent present_only_laterally_ 'present, continuous medially', 183 'Propodeum, metalaterophragmal lobes (V01, 126)' /  weakly_developed_or_absent well_developed, 184 'Propodeum, metaphragma-metapleural apodeme configuration' /  separate metaphragma_and_metapleural_apodeme_fused, 185 'Propodeum, metapostnotum (V01, 128)' /  continuous_medially subdivided_medially, 186 'Propodeum, median projection' /  absent distinct_projection_present_medially, 187 'Propodeum, median longitudinal carina' /  absent 'present, well developed', 188 'Propodeum, lateral longitudinal carina (''plica'')' /  absent distinct_ridge_dorsal_to_propodeal_spiracle_present, 189 'Propodeum, propodeal spiracle configuration' /  'elongate, slit-like' rounded, 190 'Propodeum, propodeal spiracle laterally' /  exposed covered_by_flap, 191 'Propodeum, spiracle position (horizontal)' /  not_further_than_halfway_between_antecosta_and_T1_posterior_margin closer_to_T1_posterior_margin_than_to_antecosta, 192 'Propodeum, spiracle position (vertical)' /  'not adjacent to propodeal-metapleuron boundary' abutting_boundary, 193 'Propodeum, transverse carina' /  absent _distinct_carina_present_some_distance_from_propodeal_foramen, 194 'Propodeum, propodeal foramen (R99, 61, V01, 130 in part)' /  'not developed, T2 broadly attached to T1' T1_articulating_with_T2_but_not_constricted_laterally 'T1 posteriorly constricted laterally, articulating with T2', 195 'Propodeum, propodeal foramen configuration (R99, 57, V01, 130 in part)' /  continuous_with_metacoxal_foramina separated_from_metacoxal_foramina_by_sclerotised_bridges, 196 'Propodeum, position of propodeal foramen (R99, 62 in part)' /  situated_posteriorly_of_anterior_margin_of_metacoxal_foramen situated_at_level_with_metacoxal_foramen 'dorsally, at least halfway between metacoxal foramina and metapostnotum' 'adjacent to antecostal sulcus, compressing sulcus medially', 197 'Propodeum, prodeal foramen ventrally' /  straight distinctly_incurved, 198 'Propodeum, propodeal foramen shelf' /  absent distinct_shelf_extending_ventrally_into_body_cavity_from_foramen, 199 'Propodeum, articulating teeth  (R99, 63)' /  absent_or_weakly_developed distinct_teeth_present, 200 'Propodeum, 1st abdominal sternum (V01: 186)' /  absent_or_reduced present, 201 'Petiole, T2 and S2 configuration (R99, 113)' /  separate 'fused, at least anteriorly', 202 'Petiole, posteriorly (R99, 114 in part)' /  wider_than_anterior_foramen 'narrow, approx. same width as anterior foramen', 203 'Petiole, articulating condyle' /  'reduced or absent, petiolar foramen subcircular' 'well developed, T-shaped in anterior view', 204 'Petiole, anterior width' /  'not broad, condyle occupying at least 1/2 of anterior width' 'broad, condyle less than 1/3 of anterior width ', 205 'Petiole, transverse carina on T2' /  absent 'present, situated just posteriorly of articulation', 206 'Petiole, T2 longitudinal internal carina' /  absent 'carina present posteriorly, externally indicated by furrow', 207 'Petiole, S2 ' /  at_least_partly_sclerotised membraneous_medioventrally, 208 'Petiole, S2 posteriorly' /  equally_sclerotised_or_membraneous_throughout less_heavily_sclerotised_posteriorly_for_at_least_half_the_length_of_T2, 209 'Petiole, transverse carina anteriorly on S2' /  absent transverse_carina_posteriorly_of_sensillar_patches_present, 210 'Petiole, longitudinal carina anteriorly on S2' /  absent present_posteriorly_of_anterior_margin, 211 'Muscles, median pronoto-prophragmal muscle' /  absent present, 212 'Muscles, site of origin of the dorsal pronoto-procoxal muscle' /  from_along_the_dorsal_margin_of_the_pronotum distinctly_ventrally_of_the_dorsal_margin_of_the_pronotum from_the_ventral_surface_of_the_anterior_thoracic_spiracle_occlusor_muscle_apodeme, 213 'Muscles, ventral pronoto-procoxal muscle' /  absent present, 214 'Muscles, pronoto-mesobasalar muscle' /  absent present, 215 'Muscles, pronoto-profurcal muscle' /  absent present, 216 'Muscles, pronoto-third axillary sclerite of fore wing muscle' /  absent present, 217 'Prepectus, anterior spiracle occlusor muscle (V01, 91)' /  arise_from_free_prepectus arise_from_mesopleuron arise_from_pronotum, 218 'Muscles, site of pronotal origin of the anterior thoracic spiracle occlusor muscle' /  originates_at_least_partly_from_the_occlusor_muscle_apodeme originates_from_the_wall_of_the_pronotum, 219 'Muscles, lateral metapleuro-postoccipital muscle' /  absent present, 220 'Muscles, propleural arm-postoccipital muscle' /  absent present, 221 'Muscles, propleural arm-protrochanteral muscle' /  absent present, 222 'Muscles, mesofurco-propleural arm muscle' /  absent present, 223 'Muscles, profurco-prophragmal muscle' /  absent present, 224 'Muscles, origin of median profurco-procoxal muscle' /  from_the_posteroventral_part_of_the_profurca from_the_ventral_part_of_the_propleural_arm, 225 'Muscles, profurco-protrochanteral muscle' /  absent present, 226 'Muscles, prospinasterno-profurcal muscle' /  absent present, 227 'Muscles, dorsal mesofurco-profurcal muscle' /  absent present, 228 'Muscles, prospinasterno-procoxal muscle origin' /  from_independent_prospinasternum from_anterior_mesopleural_margin from_ventral_pronotal_sclerotisation from_independent_prepectus, 229 'Muscles, mesonoto-mesobasalar muscle' /  absent present, 230 'Muscles, mesonoto-mesolaterophragmal muscle' /  absent present, 231 'Muscles, mesonoto-mesocoxal muscle' /  absent present, 232 'Muscles, anterior mesonoto-mesotrochanteral muscle' /  absent present, 233 'Muscles, posterior mesonoto-mesotrochanteral muscle' /  absent present, 234 'Muscles, anterior mesonoto-metanotal muscle' /  absent present, 235 'Muscles, posterior mesonoto-metanotal muscle' /  the_two_bands_of_the_paired_muscle_inserts_medially_on_the_metanotum the_two_bands_of_the_paired_muscle_inserts_laterally_on_the_metanotum, 236 'Muscles, site of origin of second mesopleuro-mesonotal muscle' /  from_the_mesopleural_ridge_or_posterior_to_the_mesopleural_ridge_from_the_mesopleural_arm_ anteriorly_of_the_mesopleural_ridge_or_from_the_wall_of_the_mesopleuron_sometimes_at_least_partly_from_the_mesopleural_apodeme, 237 'Muscles, intersegmental membrane-mesobasalar muscle ' /  absent present, 238 'Muscles, mesocoxo-mesobasalar muscle' /  absent present, 239 'Muscles, mesotrochantero-mesobasalar muscle' /  absent present, 240 'Muscles, mesopleuro-mesosubalar muscle' /  absent present, 241 'Muscles, mesocoxo-mesosubalar muscle' /  absent present, 242 'Muscles, mesofurco-mesopleural muscle' /  absent present, 243 'Muscles, site of origin of the mesopleuro-mesocoxal muscle' /  originates_from_the_anterior_surface_of_the_mesopleural_ridge originates_from_the_wall_of_the_mesopleuron_sometimes_partly_from_the_mesopleural_apodeme, 244 'Muscles, mesopleuro-third axillary sclerite of hind wing muscle' /  absent present, 245 'Muscles, posterior mesofurco-mesolaterophragmal muscle' /  absent present, 246 'Muscles, lateral mesofurco-mesotrochanteral muscle' /  absent present, 247 'Muscles, medial mesofurco-mesotrochanteral muscle' /  absent present, 248 'Muscles, site of origin of the median mesofurco-mesotrochanteral muscle' /  originates_submedially_from_the_lateral_part_of_the_mesofurcal_arm originates_from_the_mesofurcal_bridge_or_from_the_anterior_mesofurcal_arm, 249 'Muscles, mesofurco-metabasalar muscle' /  absent present, 250 'Muscles, mesospinasterno-metafurcal muscle' /  absent present, 251 'Muscles, metanoto-metabasalar muscle' /  absent present, 252 'Muscles, median metapleuro-metanotal muscle' /  absent present, 253 'Muscles, site of origin of the median metapleuro-metanotal muscle' /  originates_anteriorly_of_the_paracoxal_ridge originates_posteriorly_of_the_paracoxal_ridge, 254 'Muscles, metalaterophragmo-metafurcal muscle' /  absent present, 255 'Muscles, metanoto-metalaterophragmal muscle' /  absent present, 256 'Muscles, anterior metanoto-metacoxal muscle' /  absent present, 257 'Muscles, posterior metanoto-metacoxal muscle' /  absent present, 258 'Muscles, metanoto-metatrochanteral muscle' /  absent present, 259 'Muscles, site of origin of the anterior metapleuro-metabasalare muscle' /  'from anteriorly of the paracoxal ridge, but posterior to the anterior margin of the metapleuron' 'from the wall of the fused meso-metapectus', 260 'Muscles, lateral metapleuro-metabasalar muscle' /  absent present, 261 'Muscles, posterior metapleuro-metabasalare muscle' /  absent present, 262 'Muscles, metacoxo-metabasalar muscle' /  absent present, 263 'Muscles, metacoxo-metasubalar muscle' /  absent present, 264 'Muscles, anterior metapleuro-metafurcal muscle' /  absent present, 265 'Muscles, posterior metapleuro-metafurcal muscle' /  absent present, 266 'Muscles, lateral metapleuro-metacoxal muscle' /  'originates from the metapleural apodeme and sometimes from the metapleuron ventrally of the metapleural apodeme, site of origin limited by the metapleural ridge' originates_exclusively_from_the_paracoxal_ridge, 267 'Muscles, site of origin of the lateral metapleuro-metacoxal muscle' /  does_not_extend_to_the_propodeum extends_to_the_propodeum, 268 'Muscles, metapleuro-propodeal muscle' /  absent present, 269 'Muscles, metasterno-second abdominal sternal muscle' /  absent present, 270 'Muscles, site of origin of the metapleuro-metatrochanteral muscle' /  does_not_extend_to_the_propodeum extending_to_the_propodeum, 271 'Muscles, second abdominal sternal-metacoxal muscle' /  absent present, 272 'Muscles, propodeo-second abdominal segment muscle' /  absent present, 273 'Muscles, site of origin of the dilator muscle of the propodeal spiracle ' /  originates_just_dorsally_of_the_lateral_metacoxal_articulation 'originates from the metapleural apodeme, anteriorly of the propodeal spiracle' originates_from_the_propodeum_on_the_level_of_the_propodeal_foramen ; 
+	MATRIX
+	Chrysopa        -00--000000000000-0--?00000-0000-0000111000100000?-000?10010000-0000000001-00000000010?111000000000100111-00100000021000000-000001000011000200100101100000110100100-00000101000001000110100010010001---100--000000???????????????????????????????????????????????????????????????
+	Micropterix     1-001000000010000-0--?00000-0000-000010000010000000100011110002-0000-00001-000000000000?10111000??0200100-00100000001000000-000001001?11000200101000000000----00100-0000010100100000000--0-0?0000001---100--000000???????????????????????????????????????????????????????????????
+	Panorpa         1-000000001000100-0--?00000-0001000001100001000000010001001000000000100001-000000000001110000010000100111-0--00000001000000-000001001011000200100001100000110000100-00000101000001100210000000000001---000--000000???????????????????????????????????????????????????????????????
+	Macroxyela      1-0000000000100010000?00001-1001000001000101001000110001000000010000000001-000001000001110000000000100110-00100010001001010-000011011011001100100100001000110000100-0010000100101000010000-0000-0001---000--0000000010000-1011111100111101001101110010111111111110010111100000110
+	Athalia         1-0010000001001010-00-0000202001000001100001001000010001001000010000000001-000001000001110000000001200111-01100000001000000-100011011011001100100100100000110100100-1010011000011000011000-0100-0001---000--0000000010000-0111110101110101000001110010111011110101000111100000110
+	Heteroperreyia  1-01-000000100100-0---0000202001000000-00001101000010001000000010000000001-000000000001110000000000000111-011000100010?0000-100011011011001000110-00100000010000100-00100110000111100110000000100001---000--000000??????2????????????????????????????????????????????????????????
+	Monoctenus      1-01-0000001001010000-0000202001000001100001101000010000001000010000000001-000001000001110000000001000111-01100000001001000-100011011011001000100101100000010000100-0010001000011000011000-010000001---000--000000??????0????????1???????????????????????????????????????????????
+	Notofenusa      1-01-000000100100-0---000020200100000110000110100?1100?1001000010000000001-0000010000011100000000010?0111-01100000001000000-100011011011001100100000000000010000100-0010001000011000011-00-010000001---000--000000??????2????????????????????????????????????????????????????????
+	Onycholyda      1-000000000010100-0---000120200100200100000110100?1100?1001000010000000000-000001000001110000000001100100-00100000001001010-000011011011001100100101001000101000100-0010000100101010010000-0000-0001---000--0000000010001-1011111100110101001111110010111111111011010111100000110
+	Cephus          1-0000000000100010000-0001202001002001000101001000101001000000010000000001-000000000101110001000001100100-000000100010010111000011001011001000100000100000101000100-101000010011100000--10-0000-0101---000--0000000010000-001111000011110101011?110010111101111110010111100100110
+	Syntexis        1-0100000000200010-00-00002020010020010001010010001000011000000-0000000001-000001000001110000001001100100-000010100010010111100011011011001100101100000000010000100-0010000100000010010-10-0000-0001---000--000000??????0????????0?0?????????????????????11??????????????????????
+	Tremex          0-0011100000100011010-00002020010020010001001010001000010001202-0010100001-000001000101110011001000100101-0??000000010020111100011011011001100000100000000110000100-0010000100001000011010-0000-0001---000--000000??????0????????????????????????????????????????????????????????
+	Urocerus        1-0010100000100011-00-00002020010020010001001010001000011001202-0010100001-000001000101110001001001100101-000000000010020111100011011011001100000100000000110000100-0010000100001000011010-0000-0001---000--000000??????0????????0?0?????????????????????10??????????????????????
+	Xiphydria       1-01-0000000000011-00-0001202001102001000101111000100000--0-010111200100011000000000101111112000001000011-001110000010010111100011010010000100101111100000101000100-0010001000011000011010-0000-0101---000--0000000010000-00101-0000110101010000101010111101?11010010011000?00110
+	Orussobaius     000010000000210011-00-0011212101002010-000011110011011110010202-1120110001100000001100010--12000100200001-00011100001001011111001101010--10011101010100110110100100-00100010000101100100-00100000101---000--000001???????????????????????????????????????????????????????????????
+	Orussus         000010000000210011-00-0001212101002010-001011110011011110000212-1020010001100000001100110--12000100200011-00000100001001011111001101010--10011101010100110111100100-001000100001011002000001000-0101---000--0000010010000-00101110001001000000001100?0111100-1001101001?000100110
+	Ceraphron       0001-000011012110-0--10-101-2101002100-00001001100111100-01-002-01210100011000000001100011112?0001020?011-010111000-1100000-110000--?1-----020-1--1012---------1101000100010000101100100?101100012110000100-100010??????2????????????????????????????????????????????????????????
+	Lagynodes       0001-000000122110-0--10-1120210100210??00?0100111?1111?10010002-11210100010000000001001011112000??0200011-011110000-110??10-?10010--??-----?20-1--0112-----???-1101000?????0000101100100?100010?02101010100-100011??????2????????????????????????????????????????????????????????
+	Megaspilus      0001-000011012110-0--10-11202101002100-0000100111?1111?1101001000121011001000001000110001111200001020?011?011111000-1100000-110010--01-----?20-1--1112-----???-1101000100010000101100200?101000012110000100-1000110001002011100000110101100100000010000?0001?00100100010000000010
+	Acanthochalcis  000000000000000011-02?2011202101101000-100011011001011010100200001210101010000100001100010112010010201000-01111000121010111111101110011001002001--111000010101000-10101001?0110101100100-0001000121100001110000000???????????????????????????????????????????????????????????????
+	Cales           10000000?000000010-00?20001-2101?0000??10?01001?00????011100200001211001010000000?01???0101120100?0200100-01100000101010100-1110?100??0--1??20?1--0010?10?----?01010??11011?000101100???-00010000011???0?0??00??00???????????????????????????????????????????????????????????????
+	Cirrospilus     1-0000000??0000010002-20001-210100100??10?01001100?0000101002?00?1211101010000000001?000???12010010?00100-0110100010101011101110?1000?1001??2001--001000000101000-101010011?000101100???-00010000211100011100?10--??????0????????????????????????????????????????????????????????
+	Cleonymus       000000000000100010002?20112?2101001000-010010011001011011100200001211101010000000001100010112010010200000-01000000101010111011101100?11101002001--101000210101100-1010100120100101100100-0101000021000001110000000???????????????????????????????????????????????????????????????
+	Coccophagus     1-0000000000000010-0-?2000202101000000-1000?1011001011010100200001211101010000000001000010000010??0202100-01100000101010010-11101100??10010?2001--001000001100100-100001012?00010110010?-000100002110000000-001010???????????????????????????????????????????????????????????????
+	Eurytoma        000001000000110010002?2011202101?01000-000011011101011010100200001211101010000000001100010112010010200000-01011000121010111011101110?11011002001--001001110100100-1011110120000101120100-0010000021000001110100011???????????????????????????????????????????????????????????????
+	Gonatocerus     1-0000000000020010-01?2001202101001000-1000100110010110101002000012111010100100000011000101120100?0200000-01011?00111010100-111011000110000?2001--111000110100000-101111012?000101120----00110000211000011100000000100000-100000000-0001100110010011000?0000-0000100000??00000010
+	Megastigmus     1-0000000000000010-02?20112?2101001000-100010011001011010100200001211101010000100001100010112010010200000-01000000101010111011100100?11111002001--00100011010010101110110120000101100100-01010000210000010101010--0100000-10100000030001100110010011000?0000-0000100000??00000010
+	Nasonia         1-0000000000000010-02?2010202101001000-110011011001011010100200001211101010000100001100010112010010200000-011000001010101110111011000?11110?2001--001000011??0100-1111110120000101100100-01100001210100010100010--???????????????????????????????????????????????????????????????
+	Spalangia       000000000010000010002?201120210??0200??010011011101011010100200001211101010000100001100010112010010200000-01001000121010111011101100011101002001--1?1001010100000-1011110120000101100?00-01011000210100011100?00010100000-10100000030001100110011011000?0000-0000100000??00000010
+	Anacharis       1-101100000100100-11000-11202101012000-0000011111?1011?1001021101120110010-000000001100011112000010202001111011100020-00011111100110?011110?2101--111001100100000-1000100110000101121100-000110002101000????????????????2????????????????????????????????????????????????????????
+	Diplolepis      1-01-000000100100-11000-11202101012000-00001111110101100--1-210011211100010000000001100011112000010202000-11011100020-00011111101110001011002001--001000010100000-10001001100001011212000000110002100000101010001001000020101100000101000001000010100010000101100100011??00000000
+	Ibalia          00101100000110100-11000-11202101?12000-000001111101011010010111011211100110000000001100011112000010102001111011100020-00011011101110001011002101--101000100100000-1000100110000101121100-0110100021010001110000000010000201011000001010000010000101000100001011001001011000000000
+	Melanips        1-101000000100100-11000-11202101012000-0000011111?1011?1001020101120110010-000000001100011112000010202001111011100020-00011011101110??10110?2101--111000000100000-1000100110000101121100-001110002101000????????????????2????????????????????????????????????????????????????????
+	Parnips         1-101100000100100-11000-11202101012000-0000011111?1011?1101011101120110010-000000001100011112000010202011111011100020-00011111101110?01011002101--111000100100000-1100100110000101121100-0011100021010001010100010??????2????????????????????????????????????????????????????????
+	Periclistus     1-101000000100100-11000-11202101012001000000111110101101101021101120110010-000000001100011112000010202000-11011100020-00011011101110?00-110?2101--111000100100000-1000100010000101121100-0010100021010001010100010??????2????????????????????????????????????????????????????????
+	Aulacus         00001000001021100-0--?00112021111020010101011010001011010010210011201100011000000001101110112000000201011001111100001100011011001100011001002001--011001100102001011001001200001011002000000000012121000000-000000??????2????????????????????????????????????????????????????????
+	Pristaulacus    1001-000001000100-0--?00112021111020010101010010001011010010210011211100010000000001101110112000000201011001111101001100011011001100011001002001--111001100112001011001001200001011002000000000012121000000-000000100100211011010001?00000011000101000100001110000001010000000011
+	Gasteruption    1001-000001021100-0--?00112?2111102001010101111000101100--1-210211211100010001000001100110112100000201000-01111100001100011111001100011001002001--01100110010200101100100120000101100211--10000102131000110-000000???????????????????????????????????????????????????????????????
+	Pseudofoenus    1001-000001021100-0--?0011212111102001010001101000101100--1-210211211100010001000001100110112100010201001101111100001100011011001100011001002001--01100110010200101100100120000101100211--00000002131000100-000000100100211011010001?00000011000101000100001110000001010000000011
+	Brachygaster    10001100000021100-110?0-11202101112101?11001111100?011010010210001201100010000?00001000010112000010201000-01011?000-110001101101?100010-01002001--0011-110-10100101000100120?00101100201-00000?1021201101110000010110100211011010001000000010000101001100001100000001110000001012
+	Evania          00001000000021100-110?0-112021010121010110011111101011010010210011201100010000000001101010112000010001000-011111000-1100011011011100011001002001--0111-200-11100111000100120000101100201-00000010212011011100000101100002110010?0001000000011000101001100001100000001110000001012
+	Evaniella       10001100000021100-110?0-1120210111210101100111111?1011?10010210001201100010000000001101010112000010011000-011110000-1100011011011100010-01002001--0111-200-11100101000100120000101100201-0000001021201101110000010110100211011010001000000010000101001100001100000001110000001012
+	Aleiodes        ?00??001000021100-0--011112021010021110010010011001011010010200101201100010000000101101010112000000202011101111000011000011111101100?11111002001--111000211100000-1100100110000101110200-01010010201--100011100101??????2????????????????????????????????????????????????????????
+	Doryctes        00000000000021100-???0111120210100211100100110110010110100102001012011100100000001011010100120000002020111011110000-1000011111101100?11101002001--11110120-101000-1000100110000101111201-01110010201--100011000101?00100200010001011100000010000101100100000-0000001001??01000010
+	Orgilus         0001-000000020100-0--011112021010021110100010011001011?10010200101201100010000000001101110012000000202011001011000000-00011111101100?11101002001--01100121110000101000100110000101110101-00010000201--100011000100??????2????????????????????????????????????????????????????????
+	Rhysipolis      0001-001000021100-0--0101120210100211100000100110?1011?10010200101201100010000000101101010012000000202011101110001001000011111101100?11101002001--111001201101000-1000100110000101110201-01110011201--100011100100??????2????????????????????????????????????????????????????????
+	Urosigalphus    0001-000000021100-0--011112021010021110000010011001011010010201101201110011000010101101110112000000202001101111000110-00011111101100010--?002001--11100120110100101000100110000101110201-0011000121100101011100100?20100201010001011?00001010000101000100000-0000001001??01000010
+	Wroughtonia     0001-000000020100-0--0111120210100211101000110110010110100102011012011100100000001011011100120?0000202011101011000021000011111101100011101002001--11100121110100101000100120010101110200-0111000021100100011000100??????2????????????????????????????????????????????????????????
+	Dusona          0001-000001000100-0--01111202101012110-110011011001011011010202-0100110001-000000001101010112000000202000-01111000101000011111101100011001002001--11100111110100101110100120000101121200-0010000021010101111000001??????2????????????????????????????????????????????????????????
+	Labena          00001000000000100-0--01111202101-1210101000110110?1011?10011202-0100-11001-000000001001010112000100202011101011000001000011111101100011101002001--111000210101001-1000100120000101120200-001000?021100100010000100??????2????????????????????????????????????????????????????????
+	Lymeon          0001-000000010100-0--01111202101012100-110011011001011010010202-0100010001-0000000010010101120?0000202011001011000001000011111101100011001002001--11100010010100101110100120000101100201-0000000121110101011000000??????2????????????????????????????????????????????????????????
+	Pimpla          10001000000000100-0--01111202101002100-110011011001011010011202-0100110001-000000001101010112000000202011001111000001000011111101100011001002001--11100021010000101010100110000101120200-0001000021100100011000100??????2????????????????????????????????????????????????????????
+	Zagryphus       0001-100000000100-0--01111202101012100-110011011001011010011202-0100110011-000000001101010112000000202011001111001001000011111101100011101002001--111001210101001010101001100001011212010001100012110010001?000100??????2????????????????????????????????????????????????????????
+	Dinapsis        1001-001001112110-0--?0-11202101002110-100010211001011010010012-112101000100000000011?0010112000010200011-011011000-1100011011001100011001002001--1111-100-10000100-0010011000010110020?-00100000201--100010000001???????????????????????????????????????????????????????????????
+	Megalyra        1001-000001112110-0--?0-112021010021110100010210001011010010012-012101000100000000011000101120000102010110011001000-1100011111001100011101002001--1111-110-10000100-00100120000101100200-00000001201--000010000001010110210000000011000100011000101000100000-00000100010000001010
+	Mymaromma       1001-100000011100-1-0?-?0020210100-11??-0?00001100?011011010202-0121-101-0-01010000100?01011200-??0200000-010000001-0-00000-1110?1000?0--0??20-1--0102-111-101000-1100-----?000001120??0-000110012100000110-1?0011???????????????????????????????????????????????????????????????
+	Isostasius      00001100000110120-110?0-102?2100?1210??01001101100101100--1-21001120111011??00000001100010112000??0202000-01011?00120-00000-11101100?110110?2001--111000100100100-1000100120000101120200-001110012100000100-100010???????????????????????????????????????????????????????????????
+	Proplatygaster  00001000000110120-110?0-11202100-1210??01001101100101100--1-210011201110111000000001100010112000010202011001011100120-00010-11101100??11010?2001--111000000101100-1010100120000101120200-00101000210001010101?0010???????????????????????????????????????????????????????????????
+	Archaeoteleia   01001100000110120-11000-11202101102100-010111011001011011011210011201100011000010001000010012000010202010-01011100110-00011011101100?11101002001--11100011010100101010110120000101100100-00001001211001000101?0010000111200000000011000000011000101101?00000-00001000010000000010
+	Sparasion       01001100000110120-110?0-11202100-02100-010111011001011010011202-01201100011000010001000010012000010202000-01011000120-00011011100100011101002001--11100121010100101000100120000101100?00-00101001211001000111000110100112110000?0011000000011000101101100000-00000000010000000010
+	Telenomus       0001-000000100120-110?0-112?2100-0210??01011101110101100--1-212-0120110001-000010001000010012000010202011101011000120-00011011101100?11001002001--111000110100000-1000000020000101100?00-000010112100000000-100010000011211000000011000000011000101101100000-00001000010000000010
+	Belyta          00101000000120110-11001-11202100-02100-0100110110?1011?11010210000200110110000000001000011112000010200011-11011101111000011011101100?11001002001--111010101101001010001001100001011212010001110012101000111010001002000020100000?001010010010000101100110000-00001000010000000010
+	Ismarus         0?001100000100100-11010-11202101012100-0000110110?1011?10011202-01201100011000010001000011112000010202011?0101110?011000011011101110?11101002001--01100011010?000-1010100110000101121???00011100121000101110100010??????2????????????????????????????????????????????????????????
+	Pantolytomia    001010000000201111-00?0011202-00-02100-110011011001011011010200011201110010000000001100011112000010200000-11000100111000011011111100??1101002001--11-000101101-00-1000-----000010112120100011101121000001110100010???????????????????????????????????????????????????????????????
+	Poecilospilus   01001000000100110-11000-11202101?02100-0100110110010110110102000112011001100000100010000111120000102020111010110000110000110111?11000?1101002001--111000101101000-100010011000010112120100001100021010001110100010010000200000001001010010010000101100110000-00000000010000000010
+	Helorus         00001000100110110-11000-112021010121010010011011001011010011200011201110011000010101000011112000010202000-01011100111000011111100100011101002001--001001101101001010001001200001011212000001010002110010111010000012000020101000100100000101100010110010000100000100001??00000010
+	Maaminga        1-001100000000100-100?000120200100200??00?00001100101100--1-20000121-100-11010100001101010112000010201000-01100001000-00010-01101100??0--10?2001--0?1000000101000-1010110110000101100??0-000100?021100001100000000???????????????????????????????????????????????????????????????
+	Monomachus      000001000000200011-10-00112021010021010010011011001011010000200011200110010000010101001011112000010202011001001100001010011111101100011101002001--00100000110100101010100110000101121100-00000000210100011101000100100000-1010001001010001011000101100110001000001000010000000010
+	Pelecinus       00001100000112120-11-00-11202101002100-00001101100?011010011211111201110011000010001001011112000000202010-01100100121000000-1110?100011101002001--0010000101010010100010011000010112120000010100021000101110100010110000211010001002?00000010000101101100000-00001000010010000010
+	Austroserphus   00001100100100120-11-00-11202101012101000001101110101101001121011120111001-000010101101010112000010202000-01101100010-00011111100100?11011002001--011000111101000-110010001000010112120000010100021000101110000010??????2????????????????????????????????????????????????????????
+	Phaenoserphus   00001000100112120-11-00-11202101012101?0100100111?1011?11011202-0100111000-000010101101011012000010202000-01111001010-00011111100100011011002001--111001111101000-10001000200001011211000011010012101010????????????????2????????????????????????????????????????????????????????
+	Proctotrupes    00001000100112120-11-00-112021010121010010010011001011010011202-1100111001-000010101101011012000010202000-01111001011000011111100100011001002001--011001111101000-1000100020000101121200-0100100021010101?10100010110000201010001002000001011000101101100000-00001000010010000010
+	Ropronia        000011000001001011-10?0011202101002100-100011011001011010001210011201110011000010001001010012000010202000-01011100110-00011111101100011101002001--101001101101000-11001001100001011011000000100002101010111010000001000021101000?00?00000001100010110110000100000100001??00000010
+	Vanhornia       00001100100110110-110?0-112021010121010000010011001011010011210001201110011000010101101011112000010202000-01011100121000011111100100011101002001--001001011101001010001001100001011212000011010002100010001010001112000120101000101?010000011000101101100000-0000100001??10000010
+	Megischus       010000000001210011-00-00112121010021010100011010101011010010210001210100011000000001101110112000100200000-01100100101000011111001100010--1002001--01100111110000110-00100020110101100211000000100201--0011101?00001000000-100100100?000010011000101000000?00-00000000010000000000
+	Schlettererius  000011000001210011-00-00112021010020010100011010001011010000010111210100011000000001101110112000100200000-01100100001001011111001100010--1002001--01100110110000110-00100000110101100211000000110201--000110100001??????0????????????????????????????????????????????????????????
+	Orthogonalys    0001-000001021100-11010-11202101002000-000011110101011010010210011200100011000010001001010112000010211000-011111010-1100011111001100011001002001--01110110-01000101000100120000111100200001101010201--100010000000110100201011010001000000011000101000100000-00000001010000000010
+	Taeniogonalos   00001000001021100-11010-11202101002000-000011110001011010010210011201100011000010001001010112000010211000-011111010-1100011111001100011000002001--01110011-01000101000100120000111100200-00001010201--100010000000110100201011010001000000011000101000100000-00000001010000000010
+	Ampulex         00000000000021110-0--?0011202101002100-1110110101010110100102100112011000110000000010101101120100102110110010011001-10100111111011000?1001002001--1112-110-10100111010100120000101100101-0110001121110101011010010???????????????????????????????????????????????????????????????
+	Pison           00000000000021110-0---0011202101002110-110011011101011010010212-11211100010000000001110010112010010200011-010001010-10000111110011000110010?2001--0111-120-10100101000101-20000101100101-00001000201--1000110100000000001-1011011001000000111000101001100001?10000000010001010010
+	Stangeella      00001000001021110-0---0011202101002000-1100111100?1011?10010212-112111000100000000011101101120100102110110011001010-1010011111001100011001002001--0111-120-10100101000101-20000101100201-0000100021010101111000010??????1????????????????????????????????????????????????????????
+	Cephalonomia    000000000000210011-02-0011202101102100-0100100110?1011?111002?2-1020100001100000000101?010112000010200011-01000100011010011111101100??0--1002001--010002110102000-00101101100000011000---0011000121100100011010000??????0????????????????????????????????????????????????????????
+	Chrysis         001001100000210011-10?1011202101011101011001101000101101000021001120-110-10000000001001000012010010211001101000100001010011111000100011001002001--01110111010000101010100110000101101101-00100000201--1000110000000000000-1001000003000000011001?11000110000-00000001010001010010
+	Plumarius       1-0010000010210011-11?00111-2101002100-1100100110??011?10000212-10201100011000000001101010112000000210011-0100010001101001111110?100011101002001--01100001010000101010100110000101100110000000000211001000110100000000000-100?00000-?00000011001?11001110001010000001110001010010
+	Ycaploca        1-0000000000210011-10-00111-2111001011?000010011001011010000210010201000011000000001001010112000010110011-01000100001000011111001100010--1002001--11100100110100101000100110000101100101000000000201--100011010001??????0????????????????????????????????????????????????????????
+	Aporus          00000000000021000-0--?10111-2101012100-1100102110?1011?10000212-11201100010000000001101010112010010211011001000101101001011011101100011001002001--01100121010100111000100020000101100201-00000000201--100011000011???????????????????????????????????????????????????????????????
+	Metapolybia     0001-000000021100-0--000112021010020010100011011101011010011212-11201100010100000001000010112000010212011001000100001000011011001100011001002001--0111-120-10100101000100120000101100201-00001000201--101011010000??????2????????????????????????????????????????????????????????
+	Rhopalosoma     000000000010211011010?0011202101002000-110011210001011010010212-10201000011000000001000010112100010212011001000100001001011111100100011101002001--11100110101000101100100010000101100201000000000201--100011000010???????????????????????????????????????????????????????????????
+	Sapyga          00000110000021000-0---10112021010020010100011011001011010000212010201000-10100000001001010112000010211011101100100001001011011001100011000002001--01100100011000101000100020000101100201000000000201--1000110100101000001-10?101?00-000000111001?11000110001011000001010001010010
+
+;
+
+END;
+BEGIN CODONS;
+CODESET * UNTITLED   =  universal:  1 -  273;
+
+
+END;
+
+BEGIN TREES;
+	Title k10mesosomablock;
+	LINK Taxa = Apocrita;
+	TRANSLATE
+		1 Chrysopa,
+		2 Micropterix,
+		3 Panorpa,
+		4 Macroxyela,
+		5 Athalia,
+		6 Heteroperreyia,
+		7 Monoctenus,
+		8 Notofenusa,
+		9 Onycholyda,
+		10 Cephus,
+		11 Syntexis,
+		12 Tremex,
+		13 Urocerus,
+		14 Xiphydria,
+		15 Orussobaius,
+		16 Orussus,
+		17 Ceraphron,
+		18 Lagynodes,
+		19 Megaspilus,
+		20 Acanthochalcis,
+		21 Cales,
+		22 Cirrospilus,
+		23 Cleonymus,
+		24 Coccophagus,
+		25 Eurytoma,
+		26 Gonatocerus,
+		27 Megastigmus,
+		28 Nasonia,
+		29 Spalangia,
+		30 Anacharis,
+		31 Diplolepis,
+		32 Ibalia,
+		33 Melanips,
+		34 Parnips,
+		35 Periclistus,
+		36 Aulacus,
+		37 Pristaulacus,
+		38 Gasteruption,
+		39 Pseudofoenus,
+		40 Brachygaster,
+		41 Evania,
+		42 Evaniella,
+		43 Aleiodes,
+		44 Doryctes,
+		45 Orgilus,
+		46 Rhysipolis,
+		47 Urosigalphus,
+		48 Wroughtonia,
+		49 Dusona,
+		50 Labena,
+		51 Lymeon,
+		52 Pimpla,
+		53 Zagryphus,
+		54 Dinapsis,
+		55 Megalyra,
+		56 Mymaromma,
+		57 Isostasius,
+		58 Proplatygaster,
+		59 Archaeoteleia,
+		60 Sparasion,
+		61 Telenomus,
+		62 Belyta,
+		63 Ismarus,
+		64 Pantolytomia,
+		65 Poecilospilus,
+		66 Helorus,
+		67 Maaminga,
+		68 Monomachus,
+		69 Pelecinus,
+		70 Austroserphus,
+		71 Phaenoserphus,
+		72 Proctotrupes,
+		73 Ropronia,
+		74 Vanhornia,
+		75 Megischus,
+		76 Schlettererius,
+		77 Orthogonalys,
+		78 Taeniogonalos,
+		79 Ampulex,
+		80 Pison,
+		81 Stangeella,
+		82 Cephalonomia,
+		83 Chrysis,
+		84 Plumarius,
+		85 Ycaploca,
+		86 Aporus,
+		87 Metapolybia,
+		88 Rhopalosoma,
+		89 Sapyga;
+	TREE 'K10mesosomatree+' = (((1,(2,(3,(4,(9,((((6,7),5),8),(11,((12,13),(10,(14,((15,16),((17,18),(19,(20,21)))))))))))))),((((22,23),(24,(25,26))),((27,(28,29)),(30,(31,32)))),(((33,(34,35)),(36,(37,38))),((39,(40,41)),(42,(43,44)))))),(((((45,46),(47,(48,49))),((50,(51,52)),(53,(54,55)))),(((56,57),(58,(59,60))),((61,(62,63)),(64,(65,66))))),((((67,68),(69,(70,71))),((72,(73,74)),(75,(76,77)))),(((78,(79,80)),(81,(82,83))),((84,(85,86)),(87,(88,89)))))));
+
+END;
+
+
+BEGIN NOTES;
+
+	TEXT   TAXON = 7 CHARACTER = 226 TEXT = Scored_from_Vilhelmsen_2000a;
+	TEXT   TAXON = 11 CHARACTER = 226 TEXT = Scored_from_Vilhelmsen_2000a;
+	TEXT   TAXON = 13 CHARACTER = 226 TEXT = Scored_from_Vilhelmsen_2000a;
+
+	TEXT   TAXON = 11 CHARACTER = 250 TEXT = Scored_from_Vilhelmsen_2000b;
+	TEXT   TAXON = 13 CHARACTER = 250 TEXT = Scored_from_Vilhelmsen_2000b;
+
+	TEXT   TAXON = 11 CHARACTER = 251 TEXT = Scored_from_Vilhelmsen_2000b;
+	TEXT   TAXON = 13 CHARACTER = 251 TEXT = Scored_from_Vilhelmsen_2000b;
+
+	TEXT  FILE TEXT = '''Mesospina'' present in Sapyga, but no muscles connecting it to metafurca';
+
+	AN T = 52 C = 106  AU = _ DATECREATED = 'Tue Apr 05 09:06:52 CEST 2005' DM = 2005.11.17.15.29.45 ID = 0107614aace11 I = _ TF = (CM ) ;
+
+END;
+
+BEGIN ASSUMPTIONS;
+	TYPESET * UNTITLED   =  unord:  1 -  273;
+
+END;
+
+BEGIN MESQUITECHARMODELS;
+	ProbModelSet * UNTITLED   =  'Mk1 (est.)':  1 -  6 8 -  9 12 -  26 30 -  31 33 -  38 40 -  42 45 -  46 48 -  50 52 -  77 79 -  85 88 -  93 95 97 -  102 104 -  106 108 -  115 117 -  128 130 -  146 149 -  153 155 158 160 -  164 168 170 -  181 183 185 189 -  199 201 -  273;
+END;
+
+Begin MESQUITE;
+		MESQUITESCRIPTVERSION 2;
+		TITLE AUTO;
+		tell ProjectCoordinator;
+		getEmployee #mesquite.minimal.ManageTaxa.ManageTaxa;
+		tell It;
+			setID 0 8396445096320921811;
+			tell It;
+				setDefaultOrder  0 1 2 3 4 5 6 86 7 8 9 10 11 12 13 14 15 89 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 56 57 55 58 59 60 88 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 87 85;
+				attachments ;
+			endTell;
+		endTell;
+		getEmployee #mesquite.charMatrices.ManageCharacters.ManageCharacters;
+		tell It;
+			setID 0 4065123863345794518;
+			tell It;
+				setDefaultOrder  1 2 6 0 3 7 8 4 5 9 10 11 12 13 14 15 16 17 18 19 20 22 23 24 25 26 27 28 29 30 32 33 34 327 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 60 59 61 232 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 83 80 81 82 90 89 91 84 85 86 87 88 92 93 94 95 96 97 98 99 100 102 101 103 104 105 106 108 109 110 111 112 113 107 114 115 233 124 116 122 117 118 119 120 121 123 125 126 127 128 129 130 131 235 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 236 237 238 240 241 242 21 244 247 248 249 251 252 274 254 255 256 291 258 259 260 298 299 300 301 302 303 304 305 308 309 310 311 312 313 314 315 316 317 318 319 320 321 285 261 262 263 264 266 267 268 269 270 272 273 280 283 284 288 289 294 295 281;
+				attachments ;
+			endTell;
+			checksum 0 196817979;
+		endTell;
+		getEmployee  #mesquite.charMatrices.BasicDataWindowCoord.BasicDataWindowCoord;
+		tell It;
+			showDataWindow #4065123863345794518 #mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindowMaker;
+			tell It;
+				getWindow;
+				tell It;
+					setSize 1280 881;
+					setLocation -4 0;
+					setFont SanSerif;
+					setFontSize 10;
+					onInfoBar;
+					setExplanationSize 30;
+					setAnnotationSize 20;
+					setFontIncAnnot 0;
+					setFontIncExp 0;
+					getToolPalette;
+					tell It;
+						setTool mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindow.ibeam;
+					endTell;
+					setActive;
+					setTool mesquite.charMatrices.BasicDataWindowMaker.BasicDataWindow.ibeam;
+					colorCells  #mesquite.charMatrices.NoColor.NoColor;
+					setBackground White;
+					toggleShowNames on;
+					toggleTight off;
+					toggleShowChanges on;
+					toggleSeparateLines off;
+					toggleShowStates on;
+					toggleAutoWCharNames on;
+					toggleShowDefaultCharNames off;
+					toggleConstrainCW on;
+					setColumnWidth 16;
+					toggleBirdsEye off;
+					toggleColorsPanel off;
+					birdsEyeWidth 2;
+					toggleLinkedScrolling on;
+					toggleScrollLinkedTables off;
+				endTell;
+				showWindow;
+				getEmployee #mesquite.categ.StateNamesEditor.StateNamesEditor;
+				tell It;
+					makeWindow;
+					tell It;
+						setSize 1280 881;
+						setLocation -4 0;
+						setFont SanSerif;
+						setFontSize 10;
+						onInfoBar;
+						setExplanationSize 30;
+						setAnnotationSize 20;
+						setFontIncAnnot 0;
+						setFontIncExp 0;
+						getToolPalette;
+						tell It;
+							setTool mesquite.categ.StateNamesEditor.StateNamesWindow.ibeam;
+						endTell;
+						rowsAreCharacters on;
+						toggleConstrainChar on;
+						toggleConstrainCharNum 3;
+						togglePanel off;
+					endTell;
+					showWindow;
+				endTell;
+				getEmployee #mesquite.categ.StateNamesStrip.StateNamesStrip;
+				tell It;
+					showStrip off;
+				endTell;
+				getEmployee #mesquite.charMatrices.AnnotPanel.AnnotPanel;
+				tell It;
+					togglePanel off;
+				endTell;
+				getEmployee #mesquite.charMatrices.ColorCells.ColorCells;
+				tell It;
+					setColor Red;
+					removeColor off;
+				endTell;
+				getEmployee #mesquite.charMatrices.QuickKeySelector.QuickKeySelector;
+				tell It;
+					autotabOff;
+				endTell;
+			endTell;
+		endTell;
+		getEmployee  #mesquite.trees.BasicTreeWindowCoord.BasicTreeWindowCoord;
+		tell It;
+			makeTreeWindow #8396445096320921811  #mesquite.trees.BasicTreeWindowMaker.BasicTreeWindowMaker;
+			tell It;
+				setTreeSource  #mesquite.trees.DefaultTrees.DefaultTrees;
+				setAssignedID 657.1219217429026.2813832430213809212;
+				getTreeWindow;
+				tell It;
+					setSize 1280 877;
+					setLocation -4 0;
+					setFont SanSerif;
+					setFontSize 10;
+					onInfoBar;
+					setExplanationSize 30;
+					setAnnotationSize 20;
+					setFontIncAnnot 0;
+					setFontIncExp 0;
+					getToolPalette;
+					tell It;
+						setTool mesquite.trees.BasicTreeWindowMaker.BasicTreeWindow.arrow;
+					endTell;
+					getTreeDrawCoordinator #mesquite.trees.BasicTreeDrawCoordinator.BasicTreeDrawCoordinator;
+				tell It;
+					suppress;
+					setTreeDrawer  #mesquite.trees.DiagonalDrawTree.DiagonalDrawTree;
+					tell It;
+						setNodeLocs #mesquite.trees.NodeLocsStandard.NodeLocsStandard;
+						tell It;
+							stretchToggle off;
+							branchLengthsToggle off;
+							toggleScale on;
+							toggleCenter off;
+							toggleEven off;
+							namesAngle ?;
+						endTell;
+						setEdgeWidth 12;
+						orientUp;
+					endTell;
+					setBackground White;
+					setBranchColor Black;
+					showNodeNumbers off;
+					labelBranchLengths off;
+					desuppress;
+					getEmployee #mesquite.trees.BasicDrawTaxonNames.BasicDrawTaxonNames;
+					tell It;
+						setColor Black;
+						toggleColorPartition on;
+						toggleShadePartition off;
+						toggleNodeLabels on;
+						toggleShowNames on;
+					endTell;
+				endTell;
+					setTreeNumber 1;
+					setTree '(1,(2,(3,(4,(9,((8,(5,(6,7))),(11,((12,13),(10,(14,((15,16),((75,76),((((54,55),(18,(17,19))),((77,78),((40,(41,42)),(36,(37,(38,39)))))),(((((45,46),(47,(48,49))),((43,44),(53,(50,(51,52))))),(((79,80),(81,(82,83))),((84,(85,86)),(87,(88,89))))),(((56,67),(20,(29,((25,26),(23,((27,28),(22,(21,24)))))))),(68,(((65,(62,64)),(63,(31,(32,((30,34),(33,35)))))),(73,(((57,58),(61,(59,60))),(69,((74,66),(70,(72,71)))))))))))))))))))))));';
+					useSuggestedSize off;
+					toggleSizeToFit on;
+					toggleTextOnTree off;
+				endTell;
+				showWindow;
+				getEmployee #mesquite.ornamental.BranchNotes.BranchNotes;
+				tell It;
+					setAlwaysOn off;
+				endTell;
+				getEmployee #mesquite.ornamental.ColorTreeByPartition.ColorTreeByPartition;
+				tell It;
+					colorByPartition off;
+				endTell;
+				getEmployee #mesquite.trees.ColorBranches.ColorBranches;
+				tell It;
+					setColor Red;
+					removeColor off;
+				endTell;
+			endTell;
+		endTell;
+		endTell;
+end;
+
+

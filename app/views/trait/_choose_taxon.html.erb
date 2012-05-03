@@ -7,6 +7,11 @@
 		:method => 'taxon_name_id',
 		:use_proj => true,
 		:tag_id => "taxon_name",
-		:display => @otu.taxon_name.andand.display_name(:type => :for_select_list),
+		# :display => @taxon_name.parent.andand.display_name(:type => :for_select_list),
 		:size => 80 } -%></span>
+	<p align="left">
+		<br>
+		or <span class="more"> <a data-ajaxify='modal' href="<%= new_taxon_name_trait_path %>"> Enter Species Name from Reference </a> </span>
+	</p>
+
 </div>
