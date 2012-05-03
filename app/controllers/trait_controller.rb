@@ -1,13 +1,11 @@
-# Search for 'trait' in layout_helper.rb and navigation helper to see how I configured the tabs. 
+# Search for 'trait' in layout_helper.rb and navigation helper to see how I configured the tabs.
 # Ultimately we'll write some code that hides the rest of the world (you can select tabs to show in settings at present)
 # http://127.0.0.1:3000/projects/12/trait
-
 # There is no Trait model in the database.
 # These actions are specific to the trait-based data-capture workflow
 # being developed in conjunection with NESCent projects.
 class TraitController < ApplicationController
   respond_to :html, :js
-  
   def index
   end
 
@@ -40,12 +38,12 @@ class TraitController < ApplicationController
     @otu = Otu.new
     @ce = Ce.new
   end
-  
+
   def new_ref
     @ref = Ref.new
     @author = Author.new
   end
-  
+
   def save_new_ref
     @ref = Ref.new
     @author = Author.new
@@ -58,7 +56,7 @@ class TraitController < ApplicationController
       @otu[:source_ref_id] = @ref.id
       @author[:ref_id] = @ref.id
       @author[:last_name] = params[:last_name]
-      @author[:first_name] = params[:first_name]     
+      @author[:first_name] = params[:first_name]
       @author.save
       notice "Created a new Reference."
       render :action => :enter_from_ref and return
@@ -68,7 +66,33 @@ class TraitController < ApplicationController
     end
   end
 
-  def browse_data
+  def new_taxon_name
+    @taxon_name = TaxonName.new
+  end
+
+  def save_new_taxon_name
+    @taxon_name = TaxonName.create_new(:taxon_name => params[:taxon_name], :person => session[:person])
+    begin 
+      TaxonName.transaction do
+      if @taxon_name.errors.size > 0
+        raise @taxon_name.errors
+      end
+
+      @taxon_name.save!
+
+      if @taxon_name.errors.size > 0
+         notice = @taxon_name.errors.size + ' errors.' 
+        render :action => :new_taxon_name
+      else
+        notice = 'Species Name was successfully created.'
+        redirect_to :action => :enter_from_ref and return
+      end
+    end
+
+    rescue  Exception => e 
+      notice = e.message 
+      render :action => :new_taxon_name and return
+    end
   end
 
   def code_otu
@@ -87,5 +111,7 @@ class TraitController < ApplicationController
     render :action => 'code_otu'
   end
 
-  
+  def browse_data
+  end
+
 end
