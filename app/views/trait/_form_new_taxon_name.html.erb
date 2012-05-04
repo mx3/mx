@@ -1,0 +1,31 @@
+<div id="trait_new_taxon_name" class="popupform" style='width: 420px;'>
+  <div>
+    <a class='basic-modal-close' href='#'>X</a>
+    <span style="float: left;">Enter species name from paper: </span>
+  </div>
+  <br style="clear: both;" />
+
+<%= form_tag(:action => 'save_new_taxon_name') do %>
+<%= error_messages_for 'taxon_name' %>
+
+
+
+<div class="fr"><label for="taxon_name_name" class="lbl4">Species Name</label><span class="fld">
+    <%= text_field 'taxon_name', 'name', 'title' => 'taxonomic name'  %>
+  </span></div>
+  
+<div class="fr"><label for="taxon_name_iczn_group" class="lbl4">ICZN group</label>
+  <span class="fld">
+    <%= select("taxon_name", "iczn_group", TaxonName.iczn_groups, { :include_blank => false, :selected => 'species' }) %></span>
+</div>
+
+<div class="fr"><label for="parent" class="lbl4">Parent</label>
+  <span class="fld"><%= render :partial => "shared/picker", :locals => {:controller => 'taxon_names',
+    :object => 'taxon_name', :method => 'parent_id', :tag_id => "parent_id_for_new_name", :display => @taxon_name.parent.andand.display_name(:type => :for_select_list)  } %>
+  </span>
+</div>
+
+<p><%= submit_tag "Submit"%></p>
+
+<% end %> 
+</div>
