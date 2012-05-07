@@ -1178,7 +1178,7 @@ Edge::Application.routes.draw do
       get :new_ref
       post :save_new_ref
       get :new_ce
-      post :create_ce
+      post :save_new_ce
       get :new_taxon_name
       post :save_new_taxon_name
       get :browse_data
