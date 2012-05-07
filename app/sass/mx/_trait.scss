@@ -23,19 +23,19 @@
   background-color:#C6DBEF;
   padding: 2em;
   overflow:hidden;
+
+  #nform_left {
+  padding-right: 2em;}
+
+  #nform_right {
+  float:right;
+  padding-left: 2em;}
 }
 
-#nform .column {
+.column {
   position:relative;
-  float:left;
-}
+  float:left;}
 
-#nform_left {
-  padding-right: 2em;
-}
-#nform_right {
-  padding-left: 2em;
-}
 
 div.nfr { /* nfr = form row */
   overflow:hidden;
@@ -63,6 +63,7 @@ div.nfr { /* nfr = form row */
  text-align: left;
   }
 }
+
 .nlbl4 { font-size: 9pt;
       text-align: right;
       padding-right: 4px;
@@ -75,9 +76,13 @@ div.nfr { /* nfr = form row */
 .ntable {
   border: 1px solid black;
   background-color:white;
-
 }
 
 div.hidden {
   display:none;
+}
+
+.simple {
+  color:purple;
+  float:none;
 }

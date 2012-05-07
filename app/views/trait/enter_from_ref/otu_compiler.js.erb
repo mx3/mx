@@ -1,0 +1,40 @@
+/* Visualize the Otu#name */
+
+$('#trait_new_otu_name').html('<div><%= Trait.trait_otu_name(@ref, @taxon_name, @ce).html_safe -%></div>');
+
+/* Display the OTUs for the ref if they exist */
+<% if @ref && @ref.otus.size > 0 %>
+  /* could turn this next line into a partial render, that has a "code" link beside ach one */
+  $('#trait_otus_for_ref').html('<%= @ref.otus.collect{|o| content_tag(:tr, content_tag(:td, o.name, {class: 'ntable'}))}.join.html_safe -%>');
+<% else %>
+  $('#trait_otus_for_ref').html('<tr><td><em>No otus are currently recorded from this reference.</em></td></tr>');
+<% end %>
+
+/* Handle the otu_attributes for each of ref, taxon_name, ce */
+<% if @ref -%>
+  /* You could disable the assign button here, perhaps */
+  $('#taxon').show();
+  $('#otu_attributes #otu_source_ref_id').val(<%= @ref.id %>);
+<% else %>
+	$('#taxon').hide();
+<% end %>
+
+<% if @taxon_name -%>
+  $('#study').show();
+  $('#otu_attributes #otu_taxon_name_id').val(<%= @taxon_name.id %>);
+<% else %>
+	$('#study').hide();
+<% end %>
+
+<% if @ce -%>
+  $('#otu_attributes #otu_source_ce_id').val(<%= @ce.id %>);
+<% end %>
+
+/* If user has selected all three enable the create button */
+<% if @ref && @ce && @taxon_name -%>
+  $('#new_otu_button').attr('disabled', false);
+<% else %>
+  $('#new_otu_button').attr('disabled', true);
+<% end %>
+
+

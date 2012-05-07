@@ -47,7 +47,6 @@ javascripts:
     - public/javascripts/rails.js
     - public/colorpicker/js/colorpicker.js
     - public/javascripts/jquery.ba-throttle-debounce.js
-    - public/svgweb/svg.js
 
 stylesheets:
   application:

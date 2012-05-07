@@ -1172,11 +1172,13 @@ Edge::Application.routes.draw do
   resource :trait, :controller => 'trait', :path => '/projects/:proj_id/trait', :only => [] do
     collection do
       get :index
-      get :new
-      post :create
+      get :otu_compiler 
+      post :create_otu
       get :enter_from_ref
       get :new_ref
       post :save_new_ref
+      get :new_ce
+      post :create_ce
       get :new_taxon_name
       post :save_new_taxon_name
       get :browse_data

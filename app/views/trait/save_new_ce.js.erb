@@ -1,0 +1,8 @@
+<% if @ce -%>
+  $('#source_ce_id_for_otu').val('<%= @ce.display_name(:type => :selected).html_safe -%>');
+  $('#assign_ce_form input[name|="obj[id]"]').remove(); 
+  $('#assign_ce_form').append('<%= hidden_field_tag('obj[id]', @taxon_name.id) -%>');
+<% else %>
+  $('#source_ce_id_for_otu').val('');
+<% end %>
+

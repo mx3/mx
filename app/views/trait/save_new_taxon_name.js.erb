@@ -1,0 +1,7 @@
+<% if @taxon_name -%>
+  $('#source_taxon_name_id_for_otu').val('<%= @taxon_name.display_name(:type => :selected).html_safe -%>');
+  $('#assign_taxon_name_form input[name|="obj[id]"]').remove(); 
+  $('#assign_taxon_name_form').append('<%= hidden_field_tag('obj[id]', @taxon_name.id) -%>');
+<% else %>
+  $('#source_taxon_name_id_for_otu').val('');
+<% end %>

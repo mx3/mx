@@ -4,8 +4,7 @@ class MxesController < ApplicationController
 
   before_filter :set_export_variables, :only => [:show_nexus, :show_tnt, :show_ascii, :as_file]
   before_filter :set_grid_coding_params, :only => [:show_grid_coding, :show_grid_coding2, :show_grid_tags]
-
- before_filter :set_coding_variables, :only => [:code, :code_cell]
+  before_filter :set_coding_variables, :only => [:code, :code_cell]
 
   def index
     list
@@ -597,9 +596,6 @@ class MxesController < ApplicationController
     @chr = Chr.find(params[:chr_id])
     @confidences = @proj.confidences
     @mx = Mx.find(params[:mx_id])
-    render :update do |page|
-      page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
-    end
   end
 
   def _otu_zoom

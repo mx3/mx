@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Include these helpers all the time
-  helper 'app/layout', 'app/layout' , 'app/display', 'app/navigation',  :javascript, :otus, :seq, :specimen, :taxon_name, :figures, :image, :confidence,  :ref, :sensu, :content, :geog, :ontology_relationship, :ontology_class, :tags, :image_description, :public_content, :extracts_gene, :label, :ontology, :phenotype, :ce, :namespace
+  helper 'app/layout', 'app/layout' , 'app/display', 'app/navigation',  :javascript, :otus, :seq, :specimen, :taxon_name, :figures, :image, :confidence, :trait, :ref, :sensu, :content, :geog, :ontology_relationship, :ontology_class, :tag, :image_description, :public_content, :extracts_gene, :label, :ontology, :phenotype, :ce, :namespace
 
   include LoginSystem
 

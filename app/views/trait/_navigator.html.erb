@@ -1,5 +1,8 @@
 <div class='navigator'>
-  <% ['enter from ref', 'browse data'].each do |l| -%>
-    <%= link_to(l, "trait/" + l.split(' ').join('_')) -%>
+  <% ['browse data'].each do |l| -%>
+  <%= link_to(l, "/trait/" + l.split(' ').join('_')) -%>
+
   <% end %>
+  <%= link_to 'enter from ref', :action => 'enter_from_ref' -%>
+  <%= link_to('matrix coding', {:action => :matrix_coding, :controller => :mxes, :id => @proj.mxes.first}, :method => 'get' ) -%>
 </div>

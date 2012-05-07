@@ -13,7 +13,7 @@ class OtusController < ApplicationController
 
   def list
     @otus = Otu.by_proj(@proj)
-          .includes(:taxon_name)
+          .includes(:taxon_name, :updator)
           .page(params[:page])
           .per(20)
           .order('taxon_names.l, otus.name, otus.matrix_name')

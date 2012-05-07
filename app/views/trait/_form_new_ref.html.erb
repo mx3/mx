@@ -1,44 +1,44 @@
-<div id="trait_new_ref" class="popupform" style='width: 420px;'>
+<div id="trait_new_ref" class="popupform" style='width: 420px; height: 300px;'>
   <div>
     <a class='basic-modal-close' href='#'>X</a>
     <span style="float: left;">Enter new ref: </span>
   </div>
   <br style="clear: both;" />
 
-<%= form_tag(:action => 'save_new_ref') do %>
-<%= error_messages_for 'ref' %>
-<%= error_messages_for 'author' %>
+  <%= form_tag({:action => 'save_new_ref'}, :remote => true) do %>
 
+<!-- 
 
-<p>
-	<%= label_tag 'last_name', 'Author Last Name' %>
-	<br />
-	<%= text_field_tag 'last_name' %>
-</p>
-<p>
-	<%= label_tag 'first_name' ,'Author First Name' %>
-	<br />
-	<%= text_field_tag 'first_name' %>
-</p>
+Sandy- just use 'author', 'year', 'full citation' fields here I think.
+You can't handle multiple authors etc. easily, so no point in 
+confusing that here. "Ref#Author is intended to hold all authors".
 
-<p>
-	<%= label_tag 'title' ,'Title' %>
-	<br />
-	<%= text_field_tag 'title' %>
-</p>
-<p>
-	<%= label_tag 'year', 'Year' %>
-	<br />
-	<%= text_field_tag 'year' %>
-</p>
-<p>
-	<%= label_tag 'full_citation', 'Full Citation' %>
-	<br />
-	<%= text_field_tag 'full_citation' %>
-</p>
-<p><%= submit_tag "Submit"%></p>
+-->
 
-<% end %> 
+    <div>
+      <div>
+        <div class="fr"><label for="ref_author" class="lbl4">Author(s):</label>
+          <span class="fld"><%= text_field 'ref', 'author', 'title' => 'Author(s)' %></span>
+        </div>
+
+        <div class="fr"><label for="ref_year" class="lbl4">Year:</label>
+          <span class="fld"><%= text_field 'ref', 'year', 'title' => 'Year'  %></span>
+        </div>
+
+        <div class="fr"><label for="ref_full_citation" class="lbl4">Full Citation:</label>
+          <span class="fld"><%= text_area 'ref', 'full_citation', 'title' => 'Full Citation', :style => 'width: 220px;height:200px;'  %></span>
+        </div>
+
+        <br class="cb" />
+      </div>
+
+    <div>
+      <%= submit_tag "Create", {class: "basic-modal-close", style: "float: left; clear:both;border: none none;"} %>
+    </div>
+
+    <br class="cb" />
+    </div>
+  <% end %> 
 </div>
 
 

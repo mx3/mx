@@ -1,0 +1,51 @@
+<% content_for :center do -%>
+<!-- See otu_compiler.js.erb for the "state-machine" logi -->
+
+  <div id="nform">
+    <div id="nform_left" class="column">
+
+      <div id="ref" >
+        <%= render partial: '/trait/enter_from_ref/choose_ref' -%>
+      </div>
+
+      <div id="taxon" class="hidden" >
+        <%= render partial: '/trait/enter_from_ref/choose_taxon' -%>
+      </div>
+
+      <div id="study" class="hidden" >
+        <%= render partial: '/trait/enter_from_ref/choose_study' -%>
+      </div>
+
+      <div class="nfr" >
+        <label for="trait_choose_ref">New OTU name<span class="sublabel"> How the new OTU name will display. </span></label>
+        <div class="nfr" id="trait_new_otu_name">
+          <em> Not yet specified. </em>
+        </div>
+        <br class="cb" />
+
+        <div id='create_otu_form' >
+          <%= form_tag(create_otu_trait_path) do -%>
+          <div id='otu_attributes'>
+              <%= hidden_field_tag('otu[source_ref_id]') -%>
+              <%= hidden_field_tag('otu[source_ce_id]') -%>
+              <%= hidden_field_tag('otu[taxon_name_id]') -%>
+          </div>    
+          <input type="submit" name="submit" value="create" disabled="true" id="new_otu_button" />
+          <% end %>
+        </div>
+      </div>
+
+      <br style="cb" />
+    </div>
+
+    <div id="nform_right" class="column">
+      <%= render :partial => 'otus_for_ref', :locals => {otus: @ref ? @ref.otus : []} -%>
+      <br style="cb" />
+    </div>
+
+      <br style="cb" />
+  </div>
+
+<% end %> <!-- middle column -->
+
+<%= render :partial => 'layout' -%> 

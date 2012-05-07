@@ -1,0 +1,25 @@
+<div id="choose_study" class="nfr">
+<%= form_tag(otu_compiler_trait_path(:assign => :ce_id), :method => :get, :remote => true) do -%>
+
+	<label for="trait_choose_ce">Study:<span class="sublabel">Search.</span></label>
+	<br />
+	<span class="nfld"><%= render :partial => 'shared/picker', :locals => {
+		:controller => 'ces',
+		:object => 'obj',
+		:method => 'id',
+		:tag_id => "ce_name",
+		:size => 80 } -%></span>
+	
+	<p align="left">
+		<br />
+		or
+    <span class="more">
+      <a data-ajaxify='modal' href="<%= new_ce_trait_path %>"> Enter New Study Data </a>
+    </span>
+	</p>
+
+  <%= submit_tag :assign -%>
+</div>
+
+<% end %>
+

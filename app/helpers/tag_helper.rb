@@ -1,5 +1,4 @@
-# encoding: utf-8
-module TagsHelper
+module TagHelper
 
   def tag_class(tag)
     "tag-class-#{tag.id}"

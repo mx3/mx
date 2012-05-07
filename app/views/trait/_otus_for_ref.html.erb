@@ -1,11 +1,16 @@
-<div class="listing">
-	<table class='ntable'>
-		<th class='ntable'>Otus for this Reference</th>
-		<%#= Rails.logger.info "otu: " + Otu.associated_with_ref(1)[0].name%>
-		<% Otu.associated_with_ref(1).each do |item|  %>
-		<tr class='ntable'>
-			<td class='ntable'><%= item.name %></td>
-		</tr>
-		<% end %>
-	</table>
+<div class="nfr listing">
+  <h4>Otus for this Reference</h4>
+  <table class='ntable' id="trait_otus_for_ref">
+    <% otus.each do |otu|  %>
+      <tr>
+        <td class='ntable'><%= otu.name -%></td>
+      </tr>
+    <% end %>
+
+    <% if otus.size == 0 -%>
+      <tr>
+        <td> <em> None yet recorded or reference not selected. </em> </td>
+      </tr>
+    <% end %>
+ </table>
 </div>

@@ -26,6 +26,7 @@ class Ce < ActiveRecord::Base
   belongs_to :trip_namespace, :class_name => 'Namespace', :foreign_key => 'trip_namespace_id'
   belongs_to :locality_confidence, :class_name => 'Confidence', :foreign_key => 'locality_accuracy_confidence_id'
   belongs_to :georeference_protocol, :class_name => 'Protocol', :foreign_key => 'dc_georeference_protocol_id'
+  belongs_to :ref
 
   has_many :public_tags, :as => :addressable, :class_name => "Tag", :include => [:keyword, :ref], :order => 'refs.cached_display_name ASC', :conditions => 'keywords.is_public = true'
   has_many :lots, :dependent => :nullify

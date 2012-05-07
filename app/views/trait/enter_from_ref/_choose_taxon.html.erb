@@ -1,0 +1,22 @@
+<div id="choose_taxon" class="nfr">
+  <%= form_tag(otu_compiler_trait_path(:assign => :taxon_name_id), :method => :get, :remote => true) do -%>
+
+	<label for="trait_choose_taxon">Taxon Name:<span class="sublabel">Search by any combination of genus and species, or common name.</span></label>
+	<br />
+	<span class="nfld"><%= render :partial => 'shared/picker', :locals => {
+		:controller => 'taxon_names',
+		:object => 'obj',
+		:method => 'id',
+		:use_proj => true,
+		:tag_id => "source_taxon_name_id_for_otu",
+		:size => 80 } -%></span>
+	<p align="left">
+		<br />
+    or <span class="more"> <a data-ajaxify='modal' href="<%= new_taxon_name_trait_path %>"> Enter Species Name from Reference </a> </span>
+	</p>
+
+<%= submit_tag :assign -%>
+</div>
+
+<% end %>
+

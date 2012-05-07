@@ -1,10 +1,10 @@
 <!-- this is getting a big merge from edge -->
 <%  if taxon_name.valid_name_id.blank?  -%>
-  <%= content_tag(:span, taxon_name.display_name(:type => :for_select_list) + " " + content_tag("span", taxon_name.parent_name, :style => 'color: #888')) -%>
+  <%= content_tag(:span, taxon_name.display_name(:type => :for_select_list).html_safe + " " + content_tag("span", taxon_name.parent_name, :style => 'color: #888')) -%>
 <%  else %>
   <span style='color:red;'>
-    <%= taxon_name.display_name(:type => :for_select_list) -%>
-    [<%= content_tag(:span, taxon_name.valid_name.display_name(:type => :for_select_list)) -%>]
-    <%= content_tag(:span, taxon_name.valid_name.parent.display_name(:type => :for_select_list), :style => 'color: #888') -%>
+    <%= taxon_name.display_name(:type => :for_select_list).html_safe -%>
+    [<%= content_tag(:span, taxon_name.valid_name.display_name(:type => :for_select_list).html_safe) -%>]
+    <%= content_tag(:span, taxon_name.valid_name.parent.display_name(:type => :for_select_list).html_safe, :style => 'color: #888') -%>
   <span>
 <%  end %>

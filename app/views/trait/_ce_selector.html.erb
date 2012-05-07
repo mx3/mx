@@ -1,0 +1,2 @@
+<!-- Not used, could be implmented to simplify the Study picker --!>
+<%= select_tag('ce[id]', options_for_select(@proj.ces.collect{|c| [ ce_trait_name(c), c.id]} )) -%>

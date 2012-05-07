@@ -1,0 +1,32 @@
+
+<div id="trait_new_taxon_name" class="popupform" style='width: 420px;'>
+  <div>
+    <a class='basic-modal-close' href='#'>X</a>
+    <span style="float: left;">Enter the new study data from paper: </span>
+  </div>
+  <br style="clear: both;" />
+
+  <%= form_tag(:action => 'save_new_ce') do %>
+  <%= error_messages_for 'ce' %>
+
+  <div class="fr"><label for="ce_geograph" class="lbl4">Study location:</label><span class="fld">
+      <%= text_field 'ce', 'locality', 'title' => 'study location'  %>
+  </span></div>
+
+  <div class="fr"><label for="ce_sd_y" class="lbl4">Year study started (YYYY):</label><span class="fld">
+      <%= text_field 'ce', 'sd_y', 'title' => 'study start year'  %>
+  </span></div>
+
+  <div class="fr"><label for="ce_sd_y" class="lbl4">Year study ended (YYYY):</label><span class="fld">
+      <%= text_field 'ce', 'ed_y', 'title' => 'study end year'  %>
+  </span></div>
+
+  <div class="fr"><label for="ce_sd_y" class="lbl4">Population (optional):</label><span class="fld">
+      <%= text_field 'ce', 'population', 'title' => 'population name'  %>
+  </span></div>
+
+  <p><%= submit_tag "Submit"%></p>
+
+  <% end %> 
+</div>
+
