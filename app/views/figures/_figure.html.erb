@@ -13,7 +13,7 @@
 
   <% if !@public -%>
     <div style="text-align: left; margin-top: 3px; padding: 4px; background-color: #cdcdcd; width:<%= figure.image.width_for_size(:thumb) -%>px;" >
-      <em>on</em>: <%= figure.display_name(:type => :on)  -%>
+      <em>on</em>: <%= figure.display_name(:type => :on).html_safe  -%>
     </div>
   <% end -%>
 

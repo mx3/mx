@@ -46,7 +46,7 @@ module FiguresHelper
 
   def figure_thumbnail_with_svg_tag(figure) # :yields: String
     if figure.figure_markers.size > 0
-      image_with_svg_tag(figure, :size => :thumb, :link => url_for_zoom_figure(figure))
+      image_with_svg_tag(figure.image, :size => :thumb, :figure_markers => figure.figure_markers, :link => url_for_zoom_figure(figure))
     else
       content_tag(:a, image_thumb_tag(figure.image),
                       :href => url_for_zoom_figure(figure),

@@ -6,7 +6,7 @@
       </td>
       <td>
         <p> Adding markers to figure id: <%= @figure.id -%>, with caption <%= @figure.caption.blank? ? '<em>none</em>'.html_safe : @figure.caption.html_safe -%>.</p>
-        <p><em>This figure is attached to:</em><br /><%= figured_object_tag(@figure) -%></p>
+        <p><em>This figure is attached to:</em><br /><%= figured_object_tag(@figure).html_safe -%></p>
         <p>Attached to image <%= link_to(@figure.image.id, :action => :show, :id => @figure.image.id, :controller => :images) -%>.</p>
 
         <div class="subform">

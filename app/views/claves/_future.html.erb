@@ -1,11 +1,11 @@
 <div style="font-size: smaller; font-weight:bold;">
     <% for o in future.reverse! -%>
     <div style="margin-left: <%= o[:depth].to_i * 5 %>px;">
-      <%= link_to(truncate(o[:cpl].couplet_text, :length => 38), :action => act, :id => o[:cpl].parent_id) -%>
+      <%= link_to(truncate(o[:cpl].couplet_text.html_safe, :length => 38), :action => act, :id => o[:cpl].parent_id) -%>
       <% if !o[:cpl].link_out_text.blank? && !o[:cpl].link_out.blank? -%>
-          <%= "... " + link_to(htmlize(o[:cpl].link_out_text), "http://#{ o[:cpl].link_out}", :popup  => true) -%>
+          <%= "... " + link_to(htmlize(o[:cpl].link_out_text).html_safe, "http://#{ o[:cpl].link_out}".html_safe, :popup  => true) -%>
       <% elsif o[:cpl].otu -%>
-          <%= " ... " + link_to(o[:cpl].otu.display_name, :action => 'show', :controller => 'otus', :id => o[:cpl].otu_id) -%>
+          <%= " ... " + link_to(o[:cpl].otu.display_name.html_safe, :action => 'show', :controller => 'otus', :id => o[:cpl].otu_id) -%>
       <% end -%>
     </div>
   <% end -%>

@@ -214,67 +214,6 @@ class Image < ActiveRecord::Base
     end
   end
 
-  # renders an SVG representation of the figure
-  def svg(options = {})
-    opt = {
-      :target => "",
-      :scale => nil,
-      :size => :medium,                  # :thumb, :medium, :big, :original
-      :link_target => '_blank',
-      :link => nil # 'http://127.0.0.1:3000/'
-    }.merge!(options.symbolize_keys)
-      xml = Builder::XmlMarkup.new(:indent=> 2, :target => opt[:target])
-
-     xml.svg(:id => "img_svg_#{self.id}",
-             :width => width_for_size(opt[:size]).round.to_i,
-             :height => height_for_size(opt[:size]).round.to_i,
-             :display => 'inline', # was block
-             :xmlns => 'http://www.w3.org/2000/svg',
-             'xmlns:xlink' => "http://www.w3.org/1999/xlink"
-            ) {
-
-         xml.image( :x => 0,
-                    :y => 0,
-                   'width' => width_for_size(opt[:size]).round.to_i,
-                   'height' => height_for_size(opt[:size]).round.to_i,
-                   'id' => "image_#{self.id}",
-                   'xlink:href' => xlink_href(opt[:size])
-          )
-
-
-          xml.g(:id => "markers_for_image_#{self.id}", :transform => "scale(#{width_scale_for_size(opt[:size])})") {  # to 6 decimal places
-
-       figure_markers.each_with_index do |fm,i  |
-        xml << fm.render(
-                         :opacity => '0.55',
-                         :fill => "#" + ColorHelper.palette(:index => i % 11, :hex => true, :palette => :cb_qual_12)[2..7],
-                         'xlink:href' =>  ModelExtensions::MiscMethods.host_url + "/projects/#{fm.proj_id}/ontology_class/show/#{fm.figure.figured_obj.id}"
-                      )
-       end
-     }
-
-     }
-
-
-    opt[:target]
-  end
-
-
-  def svgObjRoot_params(options = {})
-    opt = {
-      :size => :medium
-    }.merge!(options)
-    x = width_for_size(opt[:size]).round
-    y = height_for_size(opt[:size]).round
-    [
-      "image_#{self.id}_img",   # parentElementId
-      "img_svg_root_#{self.id}", # id
-      self.svg(:width => x, :height => y, :size => opt[:size], :link => opt[:link]), # svgTag
-       x,  # width
-       y   # height
-    ]
-  end
-
   private
 
   def record_image_details

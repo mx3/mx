@@ -1,0 +1,44 @@
+<div id="trait_new_ref" class="popupform" style='width: 420px; height: 300px;'>
+  <div>
+    <a class='basic-modal-close' href='#'>X</a>
+    <span style="float: left;">Enter new ref: </span>
+  </div>
+  <br style="clear: both;" />
+
+  <%= form_tag({:action => 'save_new_ref'}, :remote => true) do %>
+
+<!-- 
+
+Sandy- just use 'author', 'year', 'full citation' fields here I think.
+You can't handle multiple authors etc. easily, so no point in 
+confusing that here. "Ref#Author is intended to hold all authors".
+
+-->
+
+    <div>
+      <div>
+        <div class="fr"><label for="ref_author" class="lbl4">Author(s):</label>
+          <span class="fld"><%= text_field 'ref', 'author', 'title' => 'Author(s)' %></span>
+        </div>
+
+        <div class="fr"><label for="ref_year" class="lbl4">Year:</label>
+          <span class="fld"><%= text_field 'ref', 'year', 'title' => 'Year'  %></span>
+        </div>
+
+        <div class="fr"><label for="ref_full_citation" class="lbl4">Full Citation:</label>
+          <span class="fld"><%= text_area 'ref', 'full_citation', 'title' => 'Full Citation', :style => 'width: 220px;height:200px;'  %></span>
+        </div>
+
+        <br class="cb" />
+      </div>
+
+    <div>
+      <%= submit_tag "Create", {class: "basic-modal-close", style: "float: left; clear:both;border: none none;"} %>
+    </div>
+
+    <br class="cb" />
+    </div>
+  <% end %> 
+</div>
+
+

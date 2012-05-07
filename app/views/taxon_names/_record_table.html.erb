@@ -6,7 +6,7 @@
     link_to(tn.name, :action => :show, :id => tn),
     tn.display_author_year,
     tn.parent_id? ? {tn.parent.name => 'smaller_font'} : "",
-    tn.valid_name_id? ? {tn.valid_name.display_name => 'passed'} : "",
+    tn.valid_name_id? ? {tn.valid_name.display_name.html_safe => 'passed'} : "",
     tn.id,
     tn.updator.display_name,
     tn.m_on]} ) %>

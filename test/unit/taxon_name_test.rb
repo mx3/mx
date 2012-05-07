@@ -52,7 +52,7 @@ class TaxonNameTest < ActiveSupport::TestCase
   
   def setup
     $person_id = 1
-    $proj_id = 6
+    $proj_id = 11
     @bill = TaxonName.new(:name => "Bill", :iczn_group => "genus", :year => '1900')
   end
  

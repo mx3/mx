@@ -39,7 +39,7 @@ production: &production
   <% if mysql_socket %>
   socket: <%= mysql_socket %>
   <% else %>
-  host: localhost
+  host: db-dev
   port: 3306
   <% end %>
 

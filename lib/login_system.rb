@@ -60,7 +60,8 @@ module LoginSystem
     proj = Proj.find(id, :include => :people)
 
     if proj.people.include? session[:person]
-        session[:proj] = proj
+      #  session[:proj] = proj
+      session[:proj_id] = proj.id
       return true
     else
       return false
@@ -70,7 +71,9 @@ module LoginSystem
   # check if we are 'in' a project, and if so, if the user is a member of that project
   def proj_required
 
-    session[:proj] = nil unless params[:proj_id]
+#    session[:proj] = nil unless params[:proj_id]
+
+    session[:proj_id] = nil unless params[:proj_id]
 
     # TODO: this is borked somewhat re hitting the /projs/ controller.
     # exceptions: you do not need to have selected a project to use these controllers
@@ -98,7 +101,10 @@ module LoginSystem
     # the proj_id comes from routing
     if params[:proj_id]
       if load_proj(params[:proj_id]) # only succeeds if person is a member
-        @proj = session[:proj]
+
+#        @proj = session[:proj]
+        #
+        @proj = Proj.find(session[:proj_id])
         $proj_id = @proj.id
         return true
       end
