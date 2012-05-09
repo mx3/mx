@@ -90,8 +90,18 @@ function notEmpty(element) {
   :display => (@ce.geog.display_name if @ce.geog) } %>
   </span></div>
 
+<div class="fr"><label for="ce_locality">Locality</label>
+<span class="fld"><%= text_field 'ce', 'locality' , :size => 60 %></span>
+</div>
 
-  <div class="fr"><label for="ce_locality">Locality</label>
+<div class="fr"><label for="ce_population">Population</label>
+<span class="fld"><%= text_field 'ce', 'population' , :size => 60 %></span>
+</div>
+
+<!--   for Demo purposes, changed this to plain text field, 
+	need to revisit the Study Data discussion and decide where to put this info permanently
+	
+	<div class="fr"><label for="ce_locality">Locality</label>
   <span class="fld">
     <input type='text'
       data-mx-autocomplete-url="<%= auto_complete_for_ces_ces_path(:field=>'locality')%>"
@@ -103,7 +113,7 @@ function notEmpty(element) {
       >
       </input>
     </span>
-  </div>
+  </div> -->
 
   <div class="fr"><label for="ce_start_date">Start Date</label>
   <div class="fld">

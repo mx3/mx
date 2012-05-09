@@ -5,6 +5,7 @@
   <div class="show_row"><span class="show_lbl">Geography:</span><span class="show_data"><%= @ce.geography -%></span></div>
   <div class="show_row"><span class="show_lbl">Tied Geography:</span><span class="show_data"><%= @ce.geog ? @ce.geog.display_name : content_tag(:em, 'none') -%></span></div>
   <div class="show_row"><span class="show_lbl">Locality:</span><span class="show_data"><%= @ce.locality -%></span><span class="show_comment" style="float:right;"><%= link_to('more like this', :remote => true, :loading => "Element.show('sim_ce')", :complete => "Element.hide('sim_ce')", :url => { :action => :find_similar, :controller => :ces, :scope => 'with_locality_like', :arg => @ce.locality, :id => @ce.id}) if !@ce.locality.blank? -%></span></div>
+  <div class="show_row"><span class="show_lbl">Population:</span><span class="show_data"><%= @ce.population -%></span></div>  
   <div class="show_row"><span class="show_lbl">Elevation</span><span class="show_data"><%= @ce.elevation('meters') -%> (<%= @ce.elevation('feet') -%>)</span></div>
 
   <div class="show_category"> Date/time </div>

@@ -1,12 +1,12 @@
 
-<div id="trait_new_taxon_name" class="popupform" style='width: 420px;'>
+<div id="trait_new_taxon_name" class="popupform" style='width: 420px; height: 235px;'>
   <div>
     <a class='basic-modal-close' href='#'>X</a>
     <span style="float: left;">Enter the new study data from paper: </span>
   </div>
   <br style="clear: both;" />
 
-  <%= form_tag(:action => 'save_new_ce') do %>
+  <%= form_tag({:action => 'save_new_ce'}, :remote => true) do %>
   <%= error_messages_for 'ce' %>
 
   <div class="fr"><label for="ce_geograph" class="lbl4">Study location:</label><span class="fld">
@@ -24,8 +24,8 @@
   <div class="fr"><label for="ce_sd_y" class="lbl4">Population (optional):</label><span class="fld">
       <%= text_field 'ce', 'population', 'title' => 'population name'  %>
   </span></div>
-
-  <p><%= submit_tag "Submit"%></p>
+</br></br>
+  <p><%= submit_tag "Create", {class: "basic-modal-close", style: "float: left; clear:both;border: none none;"} %></p>
 
   <% end %> 
 </div>
