@@ -101,7 +101,6 @@ class TraitController < ApplicationController
         render :action => :new_taxon_name
       else
         notice = 'Species Name was successfully created.'
-        redirect_to :action => :enter_from_ref and return
       end
     end
 
