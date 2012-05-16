@@ -19,6 +19,7 @@ function initialize_js(root) {
   find("*[data-sortable-table]").mx_sortable_table();
   find("*[data-save-warning]").mx_save_warning();
   find("*[data-autoquery]").mx_autoquery();
+  find("*[data-figure-marker]").mx_figure_marker();
 }
 
 
@@ -36,6 +37,27 @@ $(document).ready(function(){
     });
 });
 
+
+function svg_hasClass(el, klass) {
+  var has_classes = $(el).attr('class').split(' ');
+  return -1 !== $.inArray(klass,has_classes);
+};
+function svg_addClass(el, klass) {
+  if (!svg_hasClass(el, klass)) {
+    $(el).attr('class', $(el).attr('class') + " " + klass);
+  }
+};
+function svg_removeClass(el, klass) {
+  if (svg_hasClass(el, klass)) {
+    var new_class = "";
+    $.each($(el).attr('class').split(' '), function(i, kls) {
+      if ($.trim(kls) !== $.trim(klass)) {
+        new_class += " " + $.trim(kls);
+      }
+    });
+    $(el).attr('class', new_class);
+  }
+};
 /* Replace the DOM element and then inject the content */
 function mx_replace(element, content) {
   $(element).replaceWith(content);

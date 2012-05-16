@@ -64,6 +64,7 @@
 .t-c { text-align: center; }
 .r { float: right; }
 .l { float: left; }
+.hide-element { display: none; }
 
 form.delete-link {
   display: inline;
@@ -241,7 +242,10 @@ nav.list_pagination {
 }
 
 .figure-marker {
-    opacity: 0.55;
+  opacity: 0.55;
+  &.highlight {
+    outline: 3px solid black;
+  }
 }
 
 /* Copied from lib/toolbox/colors.rb (cb_qual_12) */

@@ -1,7 +1,7 @@
 <div style="padding:0.5em;">
 
   <div style="padding:1em; margin:0.5em;border-right:1px dotted silver;float:left;" >
-  <%= image_with_svg_tag(@image) -%>
+  <%= image_with_svg_tag(@image, :figure_markers => @image.figure_markers) -%>
   </div>
 
   <div style="padding:0.5em; margin:0.5em; float:left; width: 400;">
@@ -9,14 +9,14 @@
     <div class="show_rec">
       <div class="show_category">Figure markers</div>
       <% @image.figure_markers.each_with_index do |fm,i| -%>
-        <div style="padding:0.2em;">
+        <div style="padding:0.2em;" data-figure-marker='highlight-hover' data-figure-marker-id="<%= figure_marker_id(fm)%>" >
           <% o = fm.figure.figured_obj -%>
           <% if o.class.to_s == 'OntologyClass' -%>
             <%=  o.display_name(:type => :label_first) -%>
           <% else %>
             <%= o.display_name -%>
           <% end -%>
-          <%= link_to_function("toggle visibility", "toggleFigureMarkerVisibility('img_svg_root_#{@image.id}', 'marker_#{fm.id}')") -%>  <br />
+          <a data-figure-marker='toggle-visibility' data-figure-marker-id="<%= figure_marker_id(fm)%>"> Hide </a>
         </div>
 
      <% end -%>

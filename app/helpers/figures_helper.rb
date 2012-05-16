@@ -1,6 +1,8 @@
 # encoding: utf-8
 module FiguresHelper
-
+  def figure_marker_id(fm)
+    "figure_marker_#{fm.id}"
+  end
   def figure_class(figure)
     "figure-class-#{figure.id}"
   end

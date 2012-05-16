@@ -19,14 +19,14 @@
       <div class="show_category">Figure markers</div>
 
       <% @image.figure_markers.each_with_index do |fm,i| -%>
-        <div style="padding:0.2em;">
+        <div data-figure-marker='highlight-hover' data-figure-marker-id="<%= figure_marker_id(fm)%>" style="padding:0.2em;">
           <% o = fm.figure.figured_obj -%>
           <% if o.class.to_s == 'OntologyClass' -%>
             <%=  o.display_name(:type => :label_first) -%>
           <% else %>
             <%= o.display_name -%>
           <% end -%>
-          <%= link_to_function("toggle visibility", "toggleFigureMarkerVisibility('img_svg_root_#{@image.id}', 'marker_#{fm.id}')") -%>   <br />
+          <a data-figure-marker='toggle-visibility' data-figure-marker-id="<%= figure_marker_id(fm)%>"> Hide </a>
         </div>
 
      <% end -%>
