@@ -6,10 +6,10 @@
 
 source :gemcutter
   # bundler requires these gems in all environments
+  gem "rails", "3.0.12"
   gem "RedCloth"
   gem "bio",  '1.4.1'
   gem "mysql2", '< 0.3'
-  gem "rails", "3.0.12"
   gem "rake", "0.9.2.2"
   gem "ruby-debug19",  '0.11.6'
   gem "ruby-graphviz", '0.9.21', :require => "graphviz"

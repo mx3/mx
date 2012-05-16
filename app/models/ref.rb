@@ -1,47 +1,3 @@
-# == Schema Information
-# Schema version: 20090930163041
-#
-# Table name: refs
-#
-#  id             :integer(4)      not null, primary key
-#  namespace_id   :integer(4)
-#  external_id    :integer(4)
-#  serial_id      :integer(4)
-#  valid_ref_id   :integer(4)
-#  language_id    :integer(4)
-#  pdf_id         :integer(4)
-#  year           :integer(2)
-#  year_letter    :string(255)
-#  ref_type       :string(50)
-#  title          :text
-#  volume         :string(255)
-#  issue          :string(255)
-#  pages          :string(255)
-#  pg_start       :string(8)
-#  pg_end         :string(8)
-#  book_title     :text
-#  city           :string(255)
-#  publisher      :string(255)
-#  institution    :string(255)
-#  date           :string(255)
-#  language_OLD   :string(255)
-#  notes          :text
-#  ISBN           :string(14)     # DEPRECATED
-#  DOI            :string(255)    # DEPRECATED
-#  is_public      :boolean(1)
-#  pub_med_url    :text           # DEPRECATED
-#  other_url      :text           # DEPRECATED
-#  full_citation  :text
-#  temp_citation  :text
-#  display_name   :string(2047) --- now cached_display_name
-#  short_citation :string(255)
-#  author         :string(255)
-#  journal        :string(255)
-#  creator_id     :integer(4)      not null
-#  updator_id     :integer(4)      not null
-#  updated_on     :timestamp       not null
-#  created_on     :timestamp       not null
-#
 
 class Ref < ActiveRecord::Base	
   require 'reph'
@@ -58,26 +14,27 @@ class Ref < ActiveRecord::Base
   # method below!
 
   belongs_to :language
+  belongs_to :namespace
   belongs_to :pdf, :dependent => :destroy
   belongs_to :serial
   belongs_to :valid_ref, :foreign_key => :valid_ref_id, :class_name => 'Ref'
-  belongs_to :namespace
-
+  
   # has_manys that are only :nullify
+
   has_many :association_supports, :dependent => :nullify
   has_many :chrs, :foreign_key => "cited_in", :dependent => :nullify
   has_many :claves, :class_name => 'Clave', :dependent => :nullify
-  has_many :codings, :foreign_key => "cited_in", :dependent => :nullify
+  has_many :codings, :foreign_key => "ref_id", :dependent => :nullify
   has_many :images, :dependent => :nullify
-  has_many :otus, :foreign_key => "as_cited_in", :dependent => :nullify
-  has_many :primers, :dependent => :nullify
-  has_many :seqs, :dependent => :nullify
-  has_many :sensus, :dependent => :nullify
-  has_many :ontology_classes, :through => :sensus
-  has_many :taxon_names, :dependent => :nullify
-  has_many :taxon_hists, :dependent => :nullify
-
   has_many :ontology_classes, :foreign_key => :written_by_ref_id # don't nullify or delete, throw an error
+  has_many :ontology_classes, :through => :sensus
+  has_many :otus
+  has_many :otus, :foreign_key => "source_ref_id", :dependent => :nullify
+  has_many :primers, :dependent => :nullify
+  has_many :sensus, :dependent => :nullify
+  has_many :seqs, :dependent => :nullify
+  has_many :taxon_hists, :dependent => :nullify
+  has_many :taxon_names, :dependent => :nullify
 
   # has_manys that are :destroy
   has_many :authors, :dependent => :destroy, :order => 'position' # both authors and editors
@@ -85,10 +42,10 @@ class Ref < ActiveRecord::Base
   has_many :distributions, :dependent => :destroy
   has_many :editors, :class_name => 'Author', :conditions => 'auth_is = "editor"', :order => 'position' # only editors
   has_many :labels_refs, :order => 'total DESC, labels.name ASC', :include => :label, :dependent => :destroy # a count, strictly utility now
-  has_many :projs_refs, :dependent => :destroy
   has_many :projs, :through => :projs_refs
+  has_many :projs_refs, :dependent => :destroy
   has_many :through_tags, :class_name => 'Tag', :foreign_key => "ref_id", :dependent => :destroy # tags using a given reference
-  
+ 
   # careful, these scopes are not Project specific, typically you should use them like @proj.refs.with_author_last_name('Foo')
   scope :with_author_last_name, lambda {|*args| {:order => 'refs.year', :include => :authors, :conditions => ["authors.last_name = ?", (args.first || -1)] }}
   scope :with_last_name_first_letter, lambda {|*args| {:include => :authors, :conditions => ["authors.last_name LIKE ?", ("#{args.first}%" || -1)] }}
@@ -342,7 +299,6 @@ class Ref < ActiveRecord::Base
     end 
   end
 
-  
   def editors_for_display 
     # see authors_for_display for this hack
     eds =[] 

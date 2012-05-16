@@ -8,6 +8,8 @@
 # mx specific ignores
 /public/generated/
 /db/dumps/*
+/db/schema.rb
+
 *.sql
 /public/files/*
 

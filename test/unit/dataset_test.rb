@@ -229,8 +229,8 @@ class DatasetTest < ActiveSupport::TestCase
     assert @ds.convert_nexus_to_db(options)
     @proj.reload
     
-    assert Otu.find(:first, :conditions => {:name => "Dictyna", :as_cited_in => @data_source.ref.id})
-    assert Otu.find(:first, :conditions => {:name => "Leucauge_venusta", :as_cited_in => @data_source.ref.id})
+    assert Otu.find(:first, :conditions => {:name => "Dictyna", :source_ref_id => @data_source.ref.id})
+    assert Otu.find(:first, :conditions => {:name => "Leucauge_venusta", :source_ref_id => @data_source.ref.id})
   end
 
   def test_convert_nexus_to_db_match_otu_to_db_using_name_true

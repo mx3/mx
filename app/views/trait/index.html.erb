@@ -1,62 +1,11 @@
 <%#= controller.class.name.to_s.html_safe -%>
 
 <% content_for :center do -%>
-<div id='splash'>
-	<fieldset>
-		<legend>
-			About Tree of Sex
-		</legend>
-		This is a box describing the intent of the Tree of Sex Project.  It will serve as a good point-of-entry to new users and will be a useful reminder for old users.
-	</fieldset>
-	<fieldset>
-		<legend>
-			As many Boxes As You Want
-		</legend>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec felis ullamcorper lacus eleifend mattis a et ipsum. Ut in est at metus vestibulum viverra non vitae eros. Sed eget dolor quis lacus dapibus vulputate in ac risus. Phasellus eleifend libero eu velit convallis quis lacinia odio hendrerit. Nullam vitae sapien nisi, non tincidunt nisl. Integer dui turpis, elementum non aliquam luctus, posuere id purus. Duis non enim arcu, ut euismod risus.
-		<br>
-	</fieldset>
-</div>
-<div id='splash'>
-	<fieldset>
-		<legend>
-			Navigation Help
-		</legend>
-		This box might describe how to accomplish specific tasks in the web interface.   Anything that you might want to highlight about the web interface could be listed here, too.
-		<br>
-		<br>
-		<b>To submit data:</b>
-		<br>
-		Click on something...
-		<br>
-		<br>
-		<b>To log out:</b>
-		<br>
-		Click on something...
-		<br>
-		<br>
-		<b>To view data you've submitted in the past:</b>
-		<br>
-		Click on something...
-		<br>
-		<br>
-	</fieldset>
-</div>
-<div id='splash'>
-	<fieldset>
-		<legend>
-			Frequently Asked Questions
-		</legend>
-		This box might list answers to a few of the top FAQs for new users.
-		<br>
-		<br>
-		Click on something...
-		<br>
-		Click on something...
-		<br>
-		Click on something...
-		<br>
-		<br>
-	</fieldset>
-</div>
+  <!-- Sandy - custom sites will have their own folders in public/site/FOO (were foo = test for sample development purposes)
+             We might consider a app/views/site/test for custom pages as well. 
+             We'll change "test" to #{proj.unix_name} for multiple sites in the example below.  
+  -->
+  <%= render(:partial => "public/site/test/trait_index") %>
 <% end %>
+
 <%= render :partial => 'layout' -%>

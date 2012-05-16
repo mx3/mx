@@ -72,7 +72,7 @@ class RefTest < ActiveSupport::TestCase
       person.editable_taxon_names.delete(n)
     end
 
-    @my_otu = Otu.create!(:as_cited_in => r.id, :name => "foo")
+    @my_otu = Otu.create!(:source_ref_id => r.id, :name => "foo")
     kw = Keyword.create!(:keyword => "foo")
     @my_tag = Tag.create!(:ref_id => r.id, :addressable_type => "Otu", :addressable_id => @my_otu.id, :keyword_id => kw.id)
     s = "'#{r.id}'"
@@ -86,7 +86,7 @@ class RefTest < ActiveSupport::TestCase
     refs = [refs(:ref2), refs(:ref3)]
     Proj.find(8).refs = refs
     r = refs[1]
-    @other_otu = Otu.create!(:as_cited_in => r.id, :name => "foo")
+    @other_otu = Otu.create!(:source_ref_id => r.id, :name => "foo")
     kw = Keyword.create!(:keyword => "foo") 
     @other_tag = Tag.create!(:ref_id => r.id, :addressable_type => "Otu", :addressable_id => @other_otu.id, :keyword_id => kw.id)
     @other_content = Content.create!(:text => "Hi <ref id='#{r.id}'>2007</ref> ho <ref id='12345'>Bar 2006</ref> fum<ref id='#{r.id}'> Foo</ref>.", :content_type => ct, :otu => otu)
@@ -115,7 +115,7 @@ class RefTest < ActiveSupport::TestCase
     assert_equal nil, Ref.find_by_id(ref.id) # deleted now that user can edit taxon name
     # all has_manys get merged to new ref
     assert_equal refs(:ref3).id, @my_tn.reload.ref_id # taxon_names get updated if owned
-    assert_equal refs(:ref3).id, @my_otu.reload.as_cited_in
+    assert_equal refs(:ref3).id, @my_otu.reload.source_ref_id
     assert_equal refs(:ref3).id, @my_tag.reload.ref_id
     # links in content get set to new id, but only for this ref in this project
     assert_equal "Hi <ref id=\"#{refs(:ref3).id}\">2007</ref> ho <ref id=\"12345\">Bar 2006</ref> fum<ref id=\"#{refs(:ref3).id}\"> Foo</ref>.", 
@@ -129,7 +129,7 @@ class RefTest < ActiveSupport::TestCase
     assert_equal [ref], Proj.find($proj_id).refs
     assert Ref.find_by_id(refs(:ref3).id)
     # other proj objects not affected
-    assert_equal refs(:ref3).id, @other_otu.reload.as_cited_in
+    assert_equal refs(:ref3).id, @other_otu.reload.source_ref_id
     assert_equal refs(:ref3).id, @other_tag.reload.ref_id
     assert_equal "Hi <ref id=\"#{refs(:ref3).id}\">2007</ref> ho <ref id=\"12345\">Bar 2006</ref> fum<ref id=\"#{refs(:ref3).id}\"> Foo</ref>.", 
               @other_content.reload.text
@@ -159,7 +159,7 @@ class RefTest < ActiveSupport::TestCase
     assert_equal nil, Ref.find_by_id(ref.id) # deleted now that user can edit taxon name
     # has_manys that are :nullify get set to null, but only in the current project
     assert_equal nil, @my_tn.reload.ref_id # taxon_names get updated if owned
-    assert_equal nil, @my_otu.reload.as_cited_in
+    assert_equal nil, @my_otu.reload.source_ref_id
     # has_manys that are :destroy get nuked, but only in the current project
     assert_equal nil, Tag.find_by_id(@my_tag.id)
     # links in content get set to '', but only for this ref in this project
@@ -172,7 +172,7 @@ class RefTest < ActiveSupport::TestCase
     assert_equal [], Proj.find($proj_id).refs
     assert Ref.find_by_id(refs(:ref3).id)
     # other proj objects not affected
-    assert_equal refs(:ref3).id, @other_otu.reload.as_cited_in
+    assert_equal refs(:ref3).id, @other_otu.reload.source_ref_id
     assert_equal refs(:ref3).id, @other_tag.reload.ref_id
     assert_equal "Hi <ref id=\"#{refs(:ref3).id}\">2007</ref> ho <ref id=\"12345\">Bar 2006</ref> fum<ref id=\"#{refs(:ref3).id}\"> Foo</ref>.", 
     @other_content.reload.text

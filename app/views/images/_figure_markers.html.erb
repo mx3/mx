@@ -12,9 +12,9 @@
         <div style="padding:0.2em;" data-figure-marker='highlight-hover' data-figure-marker-id="<%= figure_marker_id(fm)%>" >
           <% o = fm.figure.figured_obj -%>
           <% if o.class.to_s == 'OntologyClass' -%>
-            <%=  o.display_name(:type => :label_first) -%>
+            <%=  o.display_name(:type => :label_first).html_safe -%>
           <% else %>
-            <%= o.display_name -%>
+            <%= o.display_name.html_safe -%>
           <% end -%>
           <a data-figure-marker='toggle-visibility' data-figure-marker-id="<%= figure_marker_id(fm)%>"> Hide </a>
         </div>

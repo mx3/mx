@@ -3,6 +3,8 @@
 
 A fork of the Rails 2.3.10 version of mx.
 
+Developer discussion: see the mx-developer (not Adobe) Google group.
+
 This is no where near ready for use.
 
 == Installation

@@ -36,7 +36,7 @@ class Otu < ActiveRecord::Base
   # These relationships, and Otu#source_human are intended to define
   # a "source" of a given OTU, i.e. the provide informtion that would
   # allow someone to reconstruct where data attached to this OTU
-  # is derived from. 
+  # is derived from. See also Proj#otu_uniqueness.
   belongs_to :protocol, :foreign_key => "source_protocol_id"
   belongs_to :ce, :foreign_key => "source_ce_id"
   belongs_to :ref, :foreign_key => "source_ref_id"

@@ -1,0 +1,7 @@
+<% if @ref -%>
+  $('#source_ref_id_for_otu').val('<%= @ref.display_name(:type => :selected).html_safe -%>');
+  $('#assign_ref_form input[name|="obj[id]"]').remove(); 
+  $('#assign_ref_form').append('<%= hidden_field_tag('obj[id]', @ref.id) -%>');
+<% else %>
+  $('#source_ref_id_for_otu').val('');
+<% end %>

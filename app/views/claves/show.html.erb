@@ -1,11 +1,11 @@
 <div>
   <h3>Show Key</h3>
   <div id ="head">
-   <%= '<span class="lbl4">couplet #' +  @clave.manual_id + '</span>' unless @clave.manual_id.to_s == '' -%>
+    <%= content_tag(:span, "couplet ##{@clave.manual_id}", :class => 'lbl4')  unless @clave.manual_id.to_s == '' -%>
     
    <div id="history" class="box5" style="font-size: smaller;">
      <span class="lbl4">History</span><br/>
-     <%= render(:partial => 'clave/history', :locals => {:act => 'show'}) -%>
+     <%= render(:partial => 'claves/history', :locals => {:act => 'show'}) -%>
   </div>
 
   <% unless @clave.pub_annotation.to_s == '' -%>
