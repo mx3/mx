@@ -1,4 +1,5 @@
-(<%= link_to("back", :action => :show, :id => @matrix.id) -%>)  <h3 style="display: inline; margin-left: 10;"> <%= @matrix.display_name -%> </h3><%= image_tag('/images/spinner.gif', :alt => 'Loading', :id => 'update_spinner', :style => "display: none; vertical-align:middle;"  ) -%>
+(<%= link_to("back", (session['trait-mode'] == true ? trait_path : mx_path(:id => @matrix.id) )) -%>)  
+<h3 style="display: inline; margin-left: 10;"> <%= @matrix.display_name -%> </h3>
 <table>
   <tr> 
     <td>&nbsp;&nbsp; &nbsp;OTUs / Chrs: <%= "#{@total_otus} x #{@total_chrs}" -%></td>

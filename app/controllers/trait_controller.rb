@@ -128,7 +128,27 @@ class TraitController < ApplicationController
  #  render :action => 'code_otu'
  #end
 
- #def browse_data
- #end
+ def browse_data
+   # Sandy - we'll use this throught when we want to conditionally return to the trait homepage, see views/mxes/browse/browse.  We likely need a permanent toggle somewhere 
+   # in the overall layout that lets us switch modes... or some other solution.
+   # Note we just find the first matrix here, we'll need to make this toggleable.
+   session['trait-mode'] = true
+   redirect_to :action => :browse, :controller => :mxes, :id => @proj.mxes.first.id and return
+ end
+
+ def code_otu_demo
+   session['trait-mode'] = true # does nothing right now
+   @mx = @proj.mxes.first
+   @otu = @mx.otus.first
+   redirect_to :action => :code, :controller => :mxes, :id => @mx.id, :otu_id => @otu.id, :chr_id => @mx.chrs.first.id, :mode => 'row', :position => '0'
+ end
+
+ # might not be working 
+ def code_chr_demo
+   session['trait-mode'] = true # does nothing right now
+   @mx = @proj.mxes.first
+   @chr = @mx.chrs.first
+   redirect_to :action => :code, :controller => :mxes, :id => @mx.id, :otu_id => @mx.otus.first, :chr_id => @chr.id, :mode => 'col', :position => '0'
+ end
 
 end

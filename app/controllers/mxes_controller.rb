@@ -601,12 +601,12 @@ class MxesController < ApplicationController
     render(:text => (rdf))
   end
 
-  # TODO protect
-  def _get_window_params
-    @window = @matrix.slide_window(params)
-    @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start]
-    @mx = @matrix.codings_in_grid(@window)
-  end
+  # TODO protect ? deprecated?
+ #def _get_window_params
+ #  @window = @matrix.slide_window(params)
+ #  @oes = @window[:otu_end] - @window[:otu_start];  @ces = @window[:chr_end] - @window[:chr_start]
+ #  @mx = @matrix.codings_in_grid(@window)
+ #end
 
   def _cell_zoom
     @x = params[:x]
