@@ -433,9 +433,10 @@ Edge::Application.routes.draw do
 
   'mxes' => {
     members: %w{
-    get _cell_zoom
+    get cell_zoom
+    post update_cell
     get _get_window_params
-    get _otu_zoom
+    get otu_zoom
     get as_file
     get auto_link
     get browse
@@ -466,7 +467,6 @@ Edge::Application.routes.draw do
     get sort_chrs
     get sort_otus
     get test
-    post _set_overlay_preference
     post add_chr
     post add_otu
     post clone

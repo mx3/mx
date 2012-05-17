@@ -12,7 +12,7 @@ class MxesController < ApplicationController
   end
 
   def list
-   @mxes = Mx.by_proj(@proj)
+    @mxes = Mx.by_proj(@proj)
     .page(params[:page])
     .per(20)
     .includes(:creator, :updator, :otus, :chrs)
@@ -219,8 +219,32 @@ class MxesController < ApplicationController
     end
   end
 
+
   # --- Cell coding ---
-   
+
+  def cell_zoom
+    @x = params[:x]
+    @y = params[:y]
+    @otu = Otu.find(params[:otu_id])
+    @chr = Chr.find(params[:chr_id])
+    @mx = Mx.find(params[:id])
+    @confidences = []
+    @codings = Mx.codings_for_code_form(:chr => @chr, :otu => @otu, :ref => @ref, :confidence => nil)
+    render :template => 'mxes/cell/cell_zoom'
+  end
+
+  def update_cell 
+    @success = true
+    @x = params[:x]
+    @y = params[:y]
+    @otu = Otu.find(params[:otu_id])
+    @chr = Chr.find(params[:chr_id])
+    # @mx_id = params[:id]
+    Mx.code_cell(params)
+    @codings = Coding.where(:otu_id => @otu.id, :chr_id => @chr.id)
+    render :template => 'mxes/cell/update_cell'
+  end
+
   # This is a method that is called in the coding view.
   # It does an AJAX POST to here, and you need to re-render the coding view
   # So that you'll redraw any of the HTML which need to be re-rendered.
@@ -241,7 +265,7 @@ class MxesController < ApplicationController
   def code_cell
     # Code the cell (logic in code_cell here)
     codings = Mx.code_cell(params)
- 
+
     # Navigate between cells if you are in on click
     if @coding_mode == :one_click 
       @position += 1
@@ -261,11 +285,11 @@ class MxesController < ApplicationController
         raise
       end
     end
-  
-   # TODO: This really is not optimal, because we have to laod all the variables again
-   # Ideally (in the AJAX call here) we'd just render the template 'mxes/code/code' without the redirect
-   # If we get here in a standard POST we'd get a :code_cell action in the URL/browser using a render :template, which we don't want
-   redirect_to code_mx_path(@proj, @mx, @mode, @position, @chr, @otu) 
+
+    # TODO: This really is not optimal, because we have to laod all the variables again
+    # Ideally (in the AJAX call here) we'd just render the template 'mxes/code/code' without the redirect
+    # If we get here in a standard POST we'd get a :code_cell action in the URL/browser using a render :template, which we don't want
+    redirect_to code_mx_path(@proj, @mx, @mode, @position, @chr, @otu) 
   end
 
   # Incoming variables set in #set_coding_variables 
@@ -285,7 +309,7 @@ class MxesController < ApplicationController
   def matrix_coding
     @matrices = @proj.mxes
     @mx = Mx.includes({:otus => :taxon_name}, {:chrs => :chr_states}).find(params[:id])
-    
+
     @otus = @mx.otus 
     @otu = Otu.find(params[:otu_id]) if params[:otu_id]
     @otu ||= @otus.first
@@ -295,81 +319,81 @@ class MxesController < ApplicationController
     render :template => 'mxes/code/matrix/index' 
   end
 
-# # TODO: DEPRECATED FOR NEW def code
-# def show_code
-#   @mx = Mx.find(params[:id])
-#   @otu = Otu.find(params[:otu_id])
-#   @chr = Chr.find(params[:chr_id])
-#   @confidences = @proj.confidences
+  # # TODO: DEPRECATED FOR NEW def code
+  # def show_code
+  #   @mx = Mx.find(params[:id])
+  #   @otu = Otu.find(params[:otu_id])
+  #   @chr = Chr.find(params[:chr_id])
+  #   @confidences = @proj.confidences
 
-#   codings = []
-#   # move logic to model?
-#   if request.post?
-#     @codings = Coding.by_chr(@chr).by_otu(@otu)
+  #   codings = []
+  #   # move logic to model?
+  #   if request.post?
+  #     @codings = Coding.by_chr(@chr).by_otu(@otu)
 
-#     if @chr.is_continuous
-#       @codings.destroy_all
+  #     if @chr.is_continuous
+  #       @codings.destroy_all
 
-#       coding = Coding.create(
-#         "otu_id" => @otu.id,
-#         "chr_id" => @chr.id,
-#         "continuous_state" => params[:continuous_value],
-#         # "chr_state_state" => chr_state.state, # set on before_filter
-#         # "chr_state_name" => chr_state.name,
-#         :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
-#         "proj_id" => @proj.id
-#       )
+  #       coding = Coding.create(
+  #         "otu_id" => @otu.id,
+  #         "chr_id" => @chr.id,
+  #         "continuous_state" => params[:continuous_value],
+  #         # "chr_state_state" => chr_state.state, # set on before_filter
+  #         # "chr_state_name" => chr_state.name,
+  #         :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
+  #         "proj_id" => @proj.id
+  #       )
 
-#       codings.push coding
-#     
-#     else
+  #       codings.push coding
+  #     
+  #     else
 
-#       params[:state].each_pair { |chr_state_id, coded|
-#         chr_state = ChrState.find(chr_state_id.to_i)
-#         if (coding = @codings.detect {|c| c.chr_state_id == chr_state.id}) # coding exists?
-#           if coded == "0"
-#             coding.destroy
-#           else # exists, but confidence might have changed
-#             coding.update_attributes(:confidence_id => ((params[:confidence] && params[:confidence][chr_state.id.to_s]) ? params[:confidence][chr_state.id.to_s] : nil) )
-#             codings.push coding
-#           end
-#         else # coding doesn't exist
-#           if coded == "1"
-#             coding = Coding.create(
-#               "otu_id" => @otu.id,
-#               "chr_id" => @chr.id,
-#               "chr_state_id" => chr_state.id,
-#               # "chr_state_state" => chr_state.state, # set on before_filter
-#               # "chr_state_name" => chr_state.name,
-#               :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
-#               "proj_id" => @proj.id
-#             )
-#             codings.push coding
-#           end
-#         end
-#       }
-#     end
+  #       params[:state].each_pair { |chr_state_id, coded|
+  #         chr_state = ChrState.find(chr_state_id.to_i)
+  #         if (coding = @codings.detect {|c| c.chr_state_id == chr_state.id}) # coding exists?
+  #           if coded == "0"
+  #             coding.destroy
+  #           else # exists, but confidence might have changed
+  #             coding.update_attributes(:confidence_id => ((params[:confidence] && params[:confidence][chr_state.id.to_s]) ? params[:confidence][chr_state.id.to_s] : nil) )
+  #             codings.push coding
+  #           end
+  #         else # coding doesn't exist
+  #           if coded == "1"
+  #             coding = Coding.create(
+  #               "otu_id" => @otu.id,
+  #               "chr_id" => @chr.id,
+  #               "chr_state_id" => chr_state.id,
+  #               # "chr_state_state" => chr_state.state, # set on before_filter
+  #               # "chr_state_name" => chr_state.name,
+  #               :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
+  #               "proj_id" => @proj.id
+  #             )
+  #             codings.push coding
+  #           end
+  #         end
+  #       }
+  #     end
 
-#     notice "Updated."
-#   end
+  #     notice "Updated."
+  #   end
 
-#   if params[:from_grid_coding]
-#     # should make these locals
-#     @x = params[:x]
-#     @y = params[:y]
-#     cell_type = session["#{$person_id}_mx_overlay"] if not session["#{$person_id}_mx_overlay"].blank?
-#     cell_type ||= 'none'
-#     render :update do |page|
-#       page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
-#       page.replace_html "cell_#{@x}_#{@y}", :partial => "/mx/cells/cell_#{cell_type}", :locals => {:i => params[:x], :j => params[:y], :o => @otu, :c => @chr, :mx_id => @mx.id, :codings => codings}
-#     end and return
-#   else
+  #   if params[:from_grid_coding]
+  #     # should make these locals
+  #     @x = params[:x]
+  #     @y = params[:y]
+  #     cell_type = session["#{$person_id}_mx_overlay"] if not session["#{$person_id}_mx_overlay"].blank?
+  #     cell_type ||= 'none'
+  #     render :update do |page|
+  #       page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
+  #       page.replace_html "cell_#{@x}_#{@y}", :partial => "/mx/cells/cell_#{cell_type}", :locals => {:i => params[:x], :j => params[:y], :o => @otu, :c => @chr, :mx_id => @mx.id, :codings => codings}
+  #     end and return
+  #   else
 
-#     @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
-#     @no_right_col = true
-#     render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
-#   end
-# end
+  #     @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
+  #     @no_right_col = true
+  #     render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
+  #   end
+  # end
 
   #== Managing characters
 
@@ -531,35 +555,30 @@ class MxesController < ApplicationController
     @total_otus = @matrix.otus.count
 
     if @total_chrs == 0 || @total_otus == 0
-      notice "Populate your matrix with some characters or OTUs before browsing it."
+      warn "Populate your matrix with some characters or OTUs before browsing it."
       redirect_to :action => :show, :id => @matrix and return
     end
 
-    @cell_type = session["#{$person_id}_mx_overlay"] if !session["#{$person_id}_mx_overlay"].blank?
-    @cell_type ||= 'none'
+    if !params[:overlay].blank?
+      @cell_type = params[:overlay] 
+    else
+      @cell_type = session['mx_overlay'] if !session["mx_overlay"].blank?
+      @cell_type ||= 'none'
+    end
+    session["mx_overlay"] = @cell_type
 
     person = Person.find($person_id)
+    
+    if !params[:slide].blank?
+      @window = @matrix.slide_window(params)
+    else
+      @window = {:chr_start => 1, :otu_start => 1, :chr_end => person.pref_mx_display_width || 1, :otu_end => person.pref_mx_display_height || 1}
+    end
 
-    respond_to do |format|
-
-		  format.html {} # default .rhtml
-      @window = {:chr_start => 1, :otu_start => 1, :chr_end => person.pref_mx_display_width, :otu_end => person.pref_mx_display_height}
-      @mx = @matrix.codings_in_grid(@window)
-
-      # simplify several calculations for the view
-      @oes = @window[:otu_end] - @window[:otu_start]
-      @ces = @window[:chr_end] - @window[:chr_start]
-
-      format.js {
-        _get_window_params
-        render :update do |page|
-          page.replace_html :window_to_update, :partial => 'window'
-          page.replace_html :cell_zoom, :text => nil
-          # page.visual_effect :fade, "tl_#{@obj.class.to_s}_#{@obj.id}"
-          # page.insert_html :bottom, "t_#{@obj.class.to_s}_#{@obj.id}", :partial => 'popup_form'
-        end and return
-      }
-		end
+    @mx = @matrix.codings_in_grid(@window)   
+    @oes = @window[:otu_end] - @window[:otu_start]
+    @ces = @window[:chr_end] - @window[:chr_start]
+    render :template => 'mxes/browse/browse'
   end
 
 
@@ -598,24 +617,13 @@ class MxesController < ApplicationController
     @mx = Mx.find(params[:mx_id])
   end
 
-  def _otu_zoom
+  def otu_zoom
     @matrix = Mx.find(params[:id])
     @otu = Otu.find(params[:otu_id])
     @unique_codings = @otu.unique_codings
-    render :update do |page|
-      page.replace_html :cell_zoom, :partial => 'otu_zoom'
-    end
+    render :template => 'mxes/browse/otu_zoom'
   end
-
-  def _set_overlay_preference
-    @matrix = Mx.find(params[:id])
-    session["#{$person_id}_mx_overlay"]  =  params[:overlay]
-    _get_window_params
-    render :update do |page|
-      page.replace_html :window, :partial => 'grid_window', :locals => {:codings_in_grid => @mx, :mx_id => @matrix.id, :cell_type => params[:overlay] }
-    end and return
-  end
-
+  
   def test
     mx = Mx.find(240)
     @xml = serialize(:mx => mx)
@@ -647,7 +655,7 @@ class MxesController < ApplicationController
 
     @otus = @mx.otus
     @chrs = @mx.chrs 
-    
+
     @coding_mode = session[:coding_mode] ? session[:coding_mode] : :standard
     @confidence  = session[:coding_default_confidence_id].blank? ? nil : Confidence.find(session[:coding_default_confidence_id]) 
     @ref         =  session[:coding_default_ref_id].blank? ? nil :  Ref.find(session[:coding_default_ref_id]) 

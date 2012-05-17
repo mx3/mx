@@ -656,7 +656,7 @@ class Mx < ActiveRecord::Base
                 c.save!
                 break
               else # !checked & !clicked & continuous_state.blank? (destroy when present)
-                if params[:codings][k][:id]
+                if !params[:codings][k][:id].blank? #!!
                   c = Coding.find(params[:codings][k][:id])
                   c.destroy
                 end

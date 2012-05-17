@@ -1,9 +1,9 @@
 <%# all _cell partials require the locals: codings = [], mx_id, i, j, o = Otu, c = Chr -%>
 <% if codings.size == 0 -%>
-  <% txt = '<div style="background-color:#ddd; color: red; width: 9px; font-weight: bolder; margin: 0;">-</div>'   -%>
+  <% txt = '<div style="background-color:#ddd; color: red; width: 9px; font-weight: bolder; margin: 0;">-</div>'.html_safe   -%>
 <% elsif codings.size == 1 -%>
-  <% txt = codings.first.display_wrapped_in_tag_heat_map -%>
+  <% txt = coding_tag_wrapped_in_tag_heat_map(codings.first) -%>
 <% else -%>
-  <% txt = '<div style="background-color:#e5993a; width: 12px; font-weight: bolder; margin: 0;">#</div>' -%>
+  <% txt = '<div style="background-color:#e5993a; width: 12px; font-weight: bolder; margin: 0;">#</div>'.html_safe -%>
 <% end -%>
-<%= link_to(txt, {:action => :_cell_zoom, :mx_id => mx_id, :chr_id => c.id, :otu_id => o.id, :x => i, :y => j},  :remote => true )  -%>
+<%= link_to(txt, {:action => :cell_zoom, :mx_id => mx_id, :chr_id => c.id, :otu_id => o.id, :x => i, :y => j}, 'data-ajaxify' => 'modal' )  -%>

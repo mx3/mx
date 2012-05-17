@@ -19,6 +19,7 @@
 # VIM
 *~
 *.swp
+*.vim
 
 # various IDE environments
 /nbproject/*

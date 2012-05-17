@@ -56,45 +56,7 @@ class Coding < ActiveRecord::Base
     end
   end
 
-  def display_wrapped_in_confidence
-    return self.display_name(:type => :windowed_value) if self.confidence_id.blank?
-    "#{self.confidence.open_background_color_span}#{self.display_name(:type => :windowed_value)}</span>" 
-  end
-
-  def display_wrapped_in_age_heat_map
-    i = 255 - (255 - (Time.now - self.created_on).round / 86400).round
-    i = 255 if i > 255 || i < 0
-    # basically the same values below
-    # j = 255- (Time.now - self.updated_on).round / 86400 
-    # j = 255 if j > 255 || j < 0
-    "<span style=\"background-color:rgb(0,#{i},0);padding: 2px;\">#{self.display_name(:type => :windowed_value)}</span>"
-  end
-  
-  def display_wrapped_in_tag_heat_map
-   if self.tags.count == 1 
-      "<div style=\"background-color:##{self.tags.first.keyword.html_color}; width: 10; border: 1px solid #8b2973; font-weight: bolder; margin: 0;\">#{self.display_name(:type => :windowed_value)}</div>"
-    elsif self.tags.count > 1
-      i = 255 - (self.tags.count * 20) 
-      i = 255 if i < 0
-      "<div style=\"background-color:rgb(0,#{i},#{i}); width: 10; border: 1px solid #e5993a; color: white; margin: 0;\">#{self.display_name(:type => :windowed_value)}</div>"
-    else 
-      self.display_name(:type => :windowed_value) 
-    end
-  end
-
-  def display_wrapped_in_creator_heat_map
-    if !self.creator.pref_creator_html_color.blank?
-      i = self.creator.pref_creator_html_color
-    else
-      i = (255 - (2 * self.creator_id)).round
-      i = 0 if i < 0
-      i = "%x" % i
-      i = "eeee#{i}" 
-    end
-    "<span style=\"background-color:##{i}; padding: 2px;\">#{self.display_name(:type => :windowed_value)}</span>"
-  end
-
-  # requires Otu and Chr
+   # requires Otu and Chr
   def self.destroy_by_otu_and_chr(otu, chr)
     @otu = otu
     @chr = chr
