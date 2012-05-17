@@ -1,0 +1,7 @@
+<!-- Not used at present, extracted from _standard_form, where it doesn't make sense to keep -->
+<div style="float:right;"> 
+  <% if !@codings[i].new_record? -%> 
+    <%= new_tag_tag(:object => @codings[i]) -%> | <a data-ajaxify='modal' href="<%= coding_details_path(@proj, @codings[i]) %>"> More </a>
+  <% end %>
+</div>
+

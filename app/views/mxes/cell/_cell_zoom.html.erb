@@ -1,0 +1,7 @@
+<div class=popupform" style="width:80%;">
+  <a class='basic-modal-close' href='#'>X</a>
+  <%= form_tag update_cell_mx_path(:x => @x, :y => @y, :otu_id => @otu.id, :chr_id => @chr.id), :remote => true do -%>
+    <%= render :partial => 'mxes/code/standard_form_fields' -%>
+    <%= submit_tag "Save" , 'data-ajaxify'=>'modal' -%>
+  <% end %>
+</div>

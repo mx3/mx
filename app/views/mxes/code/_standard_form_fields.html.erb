@@ -1,0 +1,63 @@
+<%
+=begin
+You need the following variable to use this form:
+  @codings == Mx.codings_for_code_form result
+  @chr == Chr
+  @proj == Proj
+  @otu = @otu
+=end %>
+
+<% if @chr.is_continuous? -%>
+  <div>
+    <%= render(:partial => 'mxes/code/continuous_state_text_field', :locals => {:i => 0, :coding => @codings.first}) -%>
+    <div style="float:right;"> 
+      <% if !@codings.first.new_record? -%> 
+        <%= new_tag_tag(:object => @codings.first) -%> | <a data-ajaxify='modal' href="<%= coding_details_path(@proj, @codings.first) %>"> More </a>
+      <% end %>
+    </div>
+    <br style="clear:both;" />
+  </div>
+<% else %>
+
+  <!-- Codings in @codings map 1:1 with chr_state ids, in order -->
+  <% @chr.chr_states.each_with_index do |cs, i| -%>
+    <%= render(:partial => 'mxes/code/multistate_hidden_coding_fields', :locals => {:chr_state => cs, :otu => @otu, :chr => @chr, :index => i, :coding => @codings[i]}) -%>
+    <div class="chr_state"> 
+      <!-- check boxes -->
+      <div>
+        <div style="float:left;"> 
+          <%= check_box_tag "checked[#{i}]", cs.id, !@codings[i].new_record? -%>
+        </div>
+        <div style="float:left;"> 
+          <%= cs.s_and_m -%>
+        </div>
+
+        <br style="clear:both;" />
+      </div>
+
+      <!-- confidence/ref for each field -->
+      <div class="chr_state_options">
+        <div>
+          Confidence: 
+          <%= render(:partial => 'confidences/picker', :locals => {:width => 200, :confidences => @confidences, :method => "codings[#{i}][confidence_id]", :selected_confidence_id => @codings[i].confidence_id} ) -%>
+        </div>
+
+        <div>
+          Reference: 
+          <%= render :partial => 'shared/picker', :locals => {
+            :controller => 'refs',
+            :object => "codings[#{i}]",
+            :method => 'ref_id',
+              :tag_id => "ref_id_for_coding_#{i}",
+              :display => (@codings[i].ref.andand.display_name(:type => :selected)), # TODO: options for preset
+              :size => 27 } -%>
+            </div>
+          </div>
+
+          <br style="clear:both;" />
+        </div>
+
+      <% end %>
+<% end %>
+
+

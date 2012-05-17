@@ -1,0 +1,124 @@
+<table> 
+  <!-- first row -->
+  <tr> 
+    <td style="font-size: 10pt; min-width: 250;"> <!-- naviagtion -->
+      <table style="border-collapse: collapse; float: left;">
+        <tr> <td colspan="5"> navigate  </td> </tr>
+        <tr> 
+          <td> </td>
+          <td><%= link_to "&#8662;".html_safe,            browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :x => "-#{@ces}", :y => "-#{@oes}")   -%></td>
+          <td><!-- up --><%= link_to "&#8679;".html_safe, browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :y => "-#{@oes}"                  )  -%></td>
+          <td><%= link_to "&#8663;".html_safe,            browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :x => "#{@ces}", :y => "-#{@oes}" )  -%></td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td><%= link_to "&lt;&lt;".html_safe,  browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :x => "-#{@total_chrs}", :y => 0 )   -%></td>
+          <td><%= link_to "&#8678;".html_safe,   browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :x => "-#{@ces}"                 )   -%></td>
+          <td><%= link_to "&#8689;".html_safe,   browse_mx_path(:slide => true, :chr_start => 1, :chr_end => @window[:chr_end] - @window[:chr_start], :otu_start => 1, :otu_end => @window[:otu_end] - @window[:otu_start], :x => 0, :y => 0         )   -%></td>
+          <td><%= link_to "&#8680;".html_safe,   browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :x => "#{@ces}"                  )   -%></td>
+          <td><%= link_to "&gt;&gt;".html_safe,  browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :x => @total_chrs, :y => 0       )   -%></td>
+        </tr>
+        <tr>
+          <td> </td>
+          <td><%= link_to "&#8665;".html_safe,               browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :x => "-#{@ces}", :y => "#{@oes}" ) -%></td>
+          <td><!-- down --> <%= link_to "&#8681;".html_safe, browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :y => "#{@oes}"                   ) -%></td>
+          <td><%= link_to "&#8664;".html_safe,               browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end], :x => "#{@ces}", :y => "#{@oes}"  ) -%></td>
+          <td> </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse; border-left: 1px solid silver; padding-left: 2px; float:left;">
+        <tr> <td colspan="3"> size </td> </tr>
+        <tr>
+          <td><%= link_to "&#8598; &#189;".html_safe,               browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end] - (@ces / 2), :otu_start => @window[:otu_start], :otu_end => @window[:otu_end] - (@oes / 2)   )  -%> </td>       
+          <td><%= link_to "&#8613; &#189;".html_safe,               browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end] - (@oes / 2)                )  -%></td> 
+          <td><!-- one right --><%= link_to "+1 &#8594;".html_safe, browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end] + 1, :otu_start => @window[:otu_start], :otu_end => @window[:otu_end]                         )  -%></td> 
+        </tr>
+        <tr>
+          <td><!-- halve up --><%= link_to "&#8612; &#189;".html_safe,                 browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end] - (@ces / 2), :otu_start => @window[:otu_start], :otu_end => @window[:otu_end]   ) -%></td> 
+          <td><%= link_to "<span style='font-size: smaller;'>15x15</span>".html_safe,  browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_start] + 15, :otu_start => @window[:otu_start], :otu_end => @window[:otu_start] + 15  ) -%> </td> 
+          <td><%= link_to "2x &#8614;".html_safe,                                      browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end] + @ces, :otu_start => @window[:otu_start], :otu_end => @window[:otu_end]         ) -%></td> 
+        </tr>  
+        <tr>
+          <td><%= link_to "+1 &#8595;".html_safe,  browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end], :otu_start => @window[:otu_start], :otu_end => @window[:otu_end] + 1                                                      ) -%></td> 
+          <td><%= link_to "2x &#8615;".html_safe,  browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end] , :otu_start => @window[:otu_start], :otu_end => @window[:otu_end] + @oes                                                  ) -%></td> 
+          <td><%= link_to "2x &#8600;".html_safe,  browse_mx_path(:slide => true, :chr_start => @window[:chr_start], :chr_end => @window[:chr_end] + @ces, :otu_start => @window[:otu_start], :otu_end => @window[:otu_end] + ((@window[:otu_end] - @window[:otu_start]) / 2) ) -%></td> 
+        </tr>
+      </table>
+    </td>
+
+    <td>
+      <!-- Overlays -->
+      <table> 
+        <tr>
+          <td><%= form_tag browse_mx_path(:id => @matrix.id, :chr_start => @window[:chr_start],  :otu_start => @window[:otu_start], :chr_end => @window[:chr_end], :otu_end => @window[:otu_end]), :method => :get do -%>
+              overlay: <%= select_tag :overlay,  options_for_select(["none", "tags", "confidence", "age", "creator"], session["mx_overlay"]) -%> 
+              <%= submit_tag "Apply" -%>
+            <% end -%>
+          </td>
+        </tr> 
+      </table>
+    </td>
+  </tr>
+</table>
+
+
+<table>
+  <!-- second row -->
+  <tr><!-- the matrix -->
+    <td><!-- OTU list -->
+      <table style="text-align: right; width: 100%; position:relative; top: 9px;">   
+        <tr><td style="min-width: <%= @total_chrs / 2 > 180 ? @total_chrs / 2 : 180 -%>px;height:18px; line-height:18px; ">&nbsp;</td></tr>
+        <tr><td style="">&nbsp;</td></tr>
+        <% @mx[:otus].each do |o| -%>
+          <tr><td style="height:18px; line-height:18px; vertical-align: middle; padding: 0; margin: 0; border: 0;"><%= o.display_name(:type => :matrix_name) -%>
+              <span style="color: silver; font-weight: bolder; margin-left: 8px;">
+                <%= link_to("~", otu_zoom_mx_path( :otu_id => o.id, :id => @matrix.id), 'data-ajaxify' => 'modal') -%>
+              </span> 
+          </td></tr> 
+        <% end %>
+      </table>  
+    </td>
+
+    <!-- the angled labels --> 
+    <td>
+      <!--[if IE]>
+      get Firefox
+      <![endif]-->
+      <!--[if !IE]>-->
+      <object class="obj" type="image/svg+xml" data="<%= angled_char_text(@mx[:chrs]) -%>" ></object> 
+      <!--<![endif]-->
+
+      <!-- the cells -->
+      <div id="window"> <%= render :partial => 'mxes/browse/grid_window', :locals => {:codings_in_grid => @mx, :mx_id => @matrix.id, :cell_type => @cell_type} -%></div>
+    </td> 
+  </tr>
+
+  <!-- third row -->
+  <tr>
+    <td>
+      <!-- Radar, to evolve -->
+      <div id='radar' style="float:right; margin-right:10; margin-top: 10;">
+        <!--[if IE]>
+        get Firefox
+        <![endif]-->
+        <!--[if !IE]>-->
+        <object class="obj" type="image/svg+xml" data="<%= svg_radar(@window, @total_chrs, @total_otus) -%>" ></object>
+        <!--<![endif]-->
+      </div>
+    </td>
+
+    <td><!-- vertical character text -->
+      <div style="margin-left: 0;">
+        <!--[if IE]>
+        get Firefox
+        <![endif]-->
+        <!--[if !IE]>-->
+        <object class="obj" type="image/svg+xml" data="<%= vertical_char_text(@mx[:chrs]) -%>" ></object>
+        <!--<![endif]-->
+      </div>
+    </td>  
+  </tr>
+
+</table>
+
