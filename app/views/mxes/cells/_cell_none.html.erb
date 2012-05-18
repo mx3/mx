@@ -4,9 +4,7 @@
 <% elsif codings.size == 1 -%>
   <% txt = codings.first.display_name(:type => :windowed_value).html_safe -%>
 <% else -%>
-  <% txt = '<div style="background-color:#e5993a; width: 12px; font-weight: bolder; margin: 0;">#</div>'.html_safe -%> 
+  <% txt = '<div style="background-color:#e5993a; width: 12px; font-weight: bolder; margin: 0;">#</div>'.html_safe -%>
 <% end -%>
 
-<!-- Cary -> this partial gets rendered in several times.  On the initial page load it functions perfectly.
-When rendered via js (mxes/cell/update_cell.js.erb) the jQuery bind doesn't take, and the link is fired as HTML, not JS) --> 
 <%= link_to(txt, {:action => :cell_zoom, :mx_id => mx_id, :chr_id => c.id, :otu_id => o.id, :x => i, :y => j},  'data-ajaxify' => 'modal')  -%>

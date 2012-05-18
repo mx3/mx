@@ -1,7 +1,8 @@
 <script>
   <% if @success %>
   $.basicModal('hide');
-  mx_replace($('#cell_<%= @x %>_<%= @y %>'), '<%= escape_javascript(render :partial => "/mxes/cells/cell_#{session['mx_overlay']}", :locals => {:i => @x, :j => @y, :o => @otu, :c => @chr, :mx_id => @mx_id, :codings => @codings }) %>');
+  mx_update($('#cell_<%= @x %>_<%= @y %>'),
+    '<%= escape_javascript(render :partial => "/mxes/cells/cell_#{session['mx_overlay']}", :locals => {:i => @x, :j => @y, :o => @otu, :c => @chr, :mx_id => @mx_id, :codings => @codings }) %>');
   <% else %>
     $.basicModal('error_shake');
   <% end %>
