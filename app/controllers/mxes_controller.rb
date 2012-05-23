@@ -15,7 +15,6 @@ class MxesController < ApplicationController
     @mxes = Mx.by_proj(@proj)
     .page(params[:page])
     .per(20)
-    .includes(:creator, :updator, :otus, :chrs)
     .order('name')
   end
 
@@ -308,92 +307,19 @@ class MxesController < ApplicationController
 
   def matrix_coding
     @matrices = @proj.mxes
-    @mx = Mx.includes({:otus => :taxon_name}, {:chrs => :chr_states}).find(params[:id])
-
-    @otus = @mx.otus 
+    @mx = Mx.find(params[:id])
+    if @mx.otus.count > 50
+    @otus =  [] # @mx.otus.includes(:taxon_name) 
+    else
+      @otus = @mx.otus.includes(:taxon_name)
+    end
     @otu = Otu.find(params[:otu_id]) if params[:otu_id]
-    @otu ||= @otus.first
+    @otu ||= @mx.otus.first
     notice "Matrix set to to #{@mx.display_name}. <br />OTU set to #{@otu.display_name}.".html_safe
     @codings = Coding.where(:chr_id => @mx.chrs, :otu_id => @otu).includes(:chr_state).
       inject({}){|hsh, c| hsh.merge("#{c.chr_id}A#{c.otu_id}B#{c.chr_state_id}" => c)}
     render :template => 'mxes/code/matrix/index' 
   end
-
-  # # TODO: DEPRECATED FOR NEW def code
-  # def show_code
-  #   @mx = Mx.find(params[:id])
-  #   @otu = Otu.find(params[:otu_id])
-  #   @chr = Chr.find(params[:chr_id])
-  #   @confidences = @proj.confidences
-
-  #   codings = []
-  #   # move logic to model?
-  #   if request.post?
-  #     @codings = Coding.by_chr(@chr).by_otu(@otu)
-
-  #     if @chr.is_continuous
-  #       @codings.destroy_all
-
-  #       coding = Coding.create(
-  #         "otu_id" => @otu.id,
-  #         "chr_id" => @chr.id,
-  #         "continuous_state" => params[:continuous_value],
-  #         # "chr_state_state" => chr_state.state, # set on before_filter
-  #         # "chr_state_name" => chr_state.name,
-  #         :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
-  #         "proj_id" => @proj.id
-  #       )
-
-  #       codings.push coding
-  #     
-  #     else
-
-  #       params[:state].each_pair { |chr_state_id, coded|
-  #         chr_state = ChrState.find(chr_state_id.to_i)
-  #         if (coding = @codings.detect {|c| c.chr_state_id == chr_state.id}) # coding exists?
-  #           if coded == "0"
-  #             coding.destroy
-  #           else # exists, but confidence might have changed
-  #             coding.update_attributes(:confidence_id => ((params[:confidence] && params[:confidence][chr_state.id.to_s]) ? params[:confidence][chr_state.id.to_s] : nil) )
-  #             codings.push coding
-  #           end
-  #         else # coding doesn't exist
-  #           if coded == "1"
-  #             coding = Coding.create(
-  #               "otu_id" => @otu.id,
-  #               "chr_id" => @chr.id,
-  #               "chr_state_id" => chr_state.id,
-  #               # "chr_state_state" => chr_state.state, # set on before_filter
-  #               # "chr_state_name" => chr_state.name,
-  #               :confidence_id => (params[:confidence] ? params[:confidence][chr_state.id.to_s] : nil),
-  #               "proj_id" => @proj.id
-  #             )
-  #             codings.push coding
-  #           end
-  #         end
-  #       }
-  #     end
-
-  #     notice "Updated."
-  #   end
-
-  #   if params[:from_grid_coding]
-  #     # should make these locals
-  #     @x = params[:x]
-  #     @y = params[:y]
-  #     cell_type = session["#{$person_id}_mx_overlay"] if not session["#{$person_id}_mx_overlay"].blank?
-  #     cell_type ||= 'none'
-  #     render :update do |page|
-  #       page.replace_html :cell_zoom, :partial => 'grid_cell_zoom'
-  #       page.replace_html "cell_#{@x}_#{@y}", :partial => "/mx/cells/cell_#{cell_type}", :locals => {:i => params[:x], :j => params[:y], :o => @otu, :c => @chr, :mx_id => @mx.id, :codings => codings}
-  #     end and return
-  #   else
-
-  #     @adjacent_cells = @mx.adjacent_cells(:otu_id => @otu.id, :chr_id => @chr.id)
-  #     @no_right_col = true
-  #     render :action => :show, :id => @mx.id, :otu_id => @otu.id, :chr_id => @chr.id and return
-  #   end
-  # end
 
   #== Managing characters
 
@@ -550,7 +476,7 @@ class MxesController < ApplicationController
   end
 
   def browse
-    @matrix = Mx.find(params[:id], :include => [:chrs, :otus])
+    @matrix = Mx.find(params[:id])
     @total_chrs = @matrix.chrs.count
     @total_otus = @matrix.otus.count
 

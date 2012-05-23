@@ -6,8 +6,8 @@
     chr.id,
     chr.cited_in_ref.andand.authors_year,
     chr.cited_char_no,
-    chr.chr_states.size,
-    chr.codings.size,
+    chr.chr_states.count,
+    chr.codings.count,
     time_ago_in_words(chr.updated_on),
     chr.m_by] }).html_safe -%>
   <% end -%>

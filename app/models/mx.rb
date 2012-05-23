@@ -357,15 +357,12 @@ class Mx < ActiveRecord::Base
 
     # three dimensional array
     grid = Array.new(chrs.size){Array.new(otus.size){Array.new}}
-    
-    chrs.each do |chr|
-      Coding.in_matrix(self).by_chr(chr).each do |c|
-        if otus.index(c.otu_id)
-          grid[chrs.index(c.chr_id)][otus.index(c.otu_id)].push(c) 
-        end
-      end
+   
+    # find/sort all the codings
+    Coding.where(:chr_id => chrs, :otu_id => otus).each do |c|
+      grid[chrs.index(c.chr_id)][otus.index(c.otu_id)].push(c)
     end
-    
+   
     {:grid => grid, :chrs => @c, :otus => @o }
   end
 
@@ -459,7 +456,7 @@ class Mx < ActiveRecord::Base
     sql = "codings.chr_state_id IN (#{ids.join(",")})" # ids.inject([]){|sum, o| sum << "codings.chr_state_id = #{o}"}.join(' OR ')   # chr state conditions
     sql1 = "codings.otu_id IN (#{otus.map(&:id).join(",")})" # otus.inject([]){|sum, o| sum << "codings.otu_id = #{o.id}"}.join(' OR ')    # otus conditions
     
-    found = Otu.find(:all, :include => [:codings], :conditions => "(#{sql}) AND (#{sql1})")   
+    found = Otu.find(:all, :conditions => "(#{sql}) AND (#{sql1})")   
 
     if invert == true
       return otus - found

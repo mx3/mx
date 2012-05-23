@@ -18,12 +18,16 @@
       The current OTU is: <%= link_to(@otu.display_name, otu_path(@proj, @otu), :target => '_blank') -%>. <br />
       Reference: <%= @otu.ref ? @otu.ref.display_name : content_tag(:em, 'Not provided.') -%> <br />
       <div class="selection_form otu">
-      <!-- TODO: display_name call is sub-optimal -->
-      <%= form_tag(matrix_coding_mx_path(@proj, @mx)) do -%>
-        <%= select_tag :otu_id, options_from_collection_for_select(@otus, :id, :display_name, @otu.id) -%>
-        <%= hidden_field_tag(:id, @mx.id) -%>
-        <%= submit_tag 'Set' -%>
+        <!-- TODO: display_name call is sub-optimal -->
+        <% if @otus.size > 0 -%>
+        <%= form_tag(matrix_coding_mx_path(@proj, @mx)) do -%>
+          <%= select_tag :otu_id, options_from_collection_for_select(@otus, :id, :display_name, @otu.id) -%>
+          <%= hidden_field_tag(:id, @mx.id) -%>
+          <%= submit_tag 'Set' -%>
         <% end %>
+      <% else %>
+        <strong> Too many OTUs in this matrix, navigate to a new OTU via another interface. <br /> [TEMPORARY, TO BE UPDATED] </strong>
+      <% end %>
       </div>
     </div>
 

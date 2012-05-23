@@ -36,7 +36,7 @@ class ChrsController < ApplicationController
   end
 
   def list
-    @chrs = Chr.by_proj(@proj).page(params[:page]).per(20).includes({:cited_in_ref => :authors}, :chr_states, :creator, :updator, :codings)
+    @chrs = Chr.by_proj(@proj).page(params[:page]).per(20).includes({:cited_in_ref => :authors}, :chr_states, :creator, :updator)
   end
 
   def show
