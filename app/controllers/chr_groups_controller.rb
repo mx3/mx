@@ -26,7 +26,7 @@ class ChrGroupsController < ApplicationController
   def show_content_mapping
     @chr_group = ChrGroup.find(params[:id], :include => [:content_type, [:chrs => :chr_states]])
     @no_right_col = true
-    @l = Linker.new(:link_url_base => self.request.host, :proj_id => @proj.ontology_id_to_use, :incoming_text => @chr_group.all_chr_txt, :adjacent_words_to_fuse => 5)
+    @l =  Linker.new(:link_url_base => self.request.host, :proj_id => @proj.ontology_id_to_use, :incoming_text => @chr_group.all_chr_txt, :adjacent_words_to_fuse => 5)
     render :action => 'show' 
   end
 

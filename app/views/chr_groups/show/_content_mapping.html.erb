@@ -1,8 +1,10 @@
-<% content_for :center do -%>
-  <div class="box4">
-    <div class="header">All possible text in a mapping to content type (<%= @chr_group.content_type_id.blank? ? '<i> not mapped to a content type </i>' :  "mapped to @chr_group.content_type.display_name" -%>)</div>
-    <div class='content'>
+<%= content_for :center do -%>
+  <h3>All possible text in a mapping to content type (<%= @chr_group.content_type_id.blank? ? content_tag(:em, 'not mapped to a content type') :  "mapped to @chr_group.content_type.display_name".html_safe -%>)</h3>
+  <div class='content'>
+    <% if @l -%>
       <%= @l.linked_text(:proj_id => (@proj.default_ontology_id.blank? ? @proj.id : @proj.default_ontology_id)) -%>
-    </div>
+    <% else %>
+      <%= content_tag(:em, 'Nothing to display.  This view requires an mx ontology.  Check that one has been selected in the project settings.') -%>
+    <% end -%>
   </div>
 <% end %>

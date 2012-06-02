@@ -90,8 +90,8 @@ class Linker
     }.merge!(options)
 
     # some defaults if @text_to_link is not set
-    return '<em>none</em>' if @text_to_link == "" || @text_to_link.empty?
-    return '<em>configuration error</em>' if (opt[:is_public] && @link_url_base.blank?) 
+    return '<em>none</em>'.html_safe if @text_to_link == "" || @text_to_link.empty?
+    return '<em>configuration error</em>'.html_safe if (opt[:is_public] && @link_url_base.blank?) 
 
     # set root for various links
     case opt[:mode]
@@ -175,7 +175,7 @@ class Linker
     # some cleanup/final checking
     out.gsub!(/QQQQ/, lnk_root) if out.size > 0 && opt[:mode] != 'bracket' # gets rid of the problem of the link_root having a defined word in it, rare, but possible
     out.gsub!(/\n/, '<br />') if opt[:mode] == 'mx_link'
-    out.strip
+    out.strip.html_safe
   end
 
   def link_set(options = {}) # :yields: Array (of Labels)
