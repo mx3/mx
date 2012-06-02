@@ -1,27 +1,18 @@
 <% content_for :center do -%>
-  <div class="box4" ><div class="header">Document character description</div>
-    <div class="content">
-      <p>
-      <%= link_to_function 'markup description' do |page|
-      page.replace_html :description, :text => @linked_text
-      end %>
-      </p>
-
-      <span id="description"><%= htmlize(@chr.doc_char_descr) %></span>
-    </div>
+  <h3>Document character description</h3>
+  <div class="content">
+    <span id="description"><%= htmlize(@chr.doc_char_descr) %></span>
   </div>
 
-  <%= form_tag(:action => 'update') do -%>
-  <%= hidden_field 'chr', 'id' %>
-  <p><input type="submit" value="update" /></p>
-  <p><%= text_area('chr', 'doc_char_descr', 'title' => 'verbatim character description from publication', :rows => 20, 'class' => 'rc_markup', :style => "width: 100%") -%></p>
+  <%= form_tag({:action => 'update', :id => @chr.id}, :method => "put") do -%>
+    <p><input type="submit" value="update" /></p>
+    <p><%= text_area('chr', 'doc_char_descr', 'title' => 'verbatim character description from publication', :rows => 15, 'class' => 'rc_markup', :style => "width: 100%") -%></p>
 
-  <div class="box4"><div class="header">Notes</div>
+    <h3>Notes</h3>
     <div class="content">
       <span style="font-size: smaller;"><%= @chr.notes %></span>
     </div>
-  </div>
 
-  <p><%= text_area('chr' , 'notes', 'title' => 'notes about this character', :rows => 20, :style => "width: 100%") -%></p>
+    <p><%= text_area('chr' , 'notes', 'title' => 'notes about this character', :rows => 15, :style => "width: 100%") -%></p>
   <% end -%>
 <% end %>

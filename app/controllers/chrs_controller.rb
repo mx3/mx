@@ -73,12 +73,12 @@ class ChrsController < ApplicationController
 
   def show_edit_expanded
     @chr = Chr.find(params[:id])
-    @l = Linker.new(:incoming_text => @chr.doc_char_descr, :proj_id => @proj.ontology_id_to_use, :adjacent_words_to_fuse => 5, :link_url_base => self.request.host)
-    if @l.text_to_link.nil?
-      @linked_text = "No text to link" if @linked_text.nil?
-    else
-      @linked_text = @l.linked_text(:include_plural => true)
-    end
+    # @l = Linker.new(:incoming_text => @chr.doc_char_descr, :proj_id => @proj.ontology_id_to_use, :adjacent_words_to_fuse => 5, :link_url_base => self.request.host)
+    # if @l.text_to_link.nil?
+    #   @linked_text = "No text to link." if @linked_text.nil?
+    # else
+    #   @linked_text = @l.linked_text(:include_plural => true)
+    # end
     @no_right_col = true
     render :action => :show
   end
@@ -139,7 +139,7 @@ class ChrsController < ApplicationController
   end
 
   def update
-    @chr = Chr.find(params[:chr][:id])
+    @chr = Chr.find(params[:id])
 
     # move to before save filter
     if params[:chr][:short_name]
@@ -149,9 +149,10 @@ class ChrsController < ApplicationController
     if @chr.update_attributes(params[:chr])
       # need to update the states
       params[:chr_state].each_value {|h| update_state(h) } if params[:chr_state] && !@chr.continuous?
-      flash[:notice] = 'Chr was successfully updated.'
+      notice 'Character was successfully updated.'
       redirect_to :action => :show, :id => @chr.id
     else
+      warn "Failed to update character."
       @target = "update"
       render :action => :edit
     end
