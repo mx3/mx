@@ -12,6 +12,7 @@
       var frequency= $source.data('observeFieldFrequency') || 0.5;
       var url      = $source.data('observeFieldAction');
       var spinner_target = $($source.data('observeFieldSpinnerTarget') || $source);
+      var method = $source.data('observeMethod') || 'POST' ;
 
       $source.data('observeFieldActive', true);
 
@@ -31,12 +32,12 @@
 
           // Do the AJAX call to the server
           $.ajax({
-            type: 'POST',
+            type: method,
             url: url,
             data: data,
             dataType: 'script',
             complete: function() {
-              spinner_target.mx_spinner('hide');
+            spinner_target.mx_spinner('hide');
             }
           });
         }

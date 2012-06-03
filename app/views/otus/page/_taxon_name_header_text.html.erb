@@ -1,2 +1,2 @@
 <!-- remember we only have @otu in otu/page partials -->
-<div class="header"><%= @otu.taxon_name.blank? ? @otu.name : @otu.taxon_name.display_name(:type => :name_with_author_year) -%></div>
+<div class="header"><%= @otu.taxon_name.blank? ? @otu.name : @otu.taxon_name.display_name(:type => :name_with_author_year).html_safe -%></div>

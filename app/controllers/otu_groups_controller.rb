@@ -58,7 +58,7 @@ class OtuGroupsController < ApplicationController
   def show_descriptions
     id = params[:otu_group][:id] if params[:otu_group]
     id ||= params[:id]
-    @otu_group = OtuGroup.find(id, :include => :otus)
+    @otu_group = OtuGroup.find(id)
     @templates = @proj.content_templates
 
     respond_to do |wants|

@@ -4,6 +4,7 @@
   <!-- contents is an Array of ContentTemplate#content_by_otu -->
   <% otus.each do |otu| -%>
     <!-- might have to set @otu = otu here -->
+    <% @otu = otu -%>
     <%= render(:partial => 'text/description', :locals => {:content => contents[otu]} ) -%>
   <% end -%>
   <br style="clear:both;" />
