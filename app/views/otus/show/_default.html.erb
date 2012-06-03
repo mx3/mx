@@ -4,7 +4,7 @@
     <div class="show_row"><span class="show_lbl">Name:</span><span class="show_data"><%= @otu.name -%></span></div>
     <div class="show_row"><span class="show_lbl">Matrix:</span><span class="show_data"><%= @otu.matrix_name -%></span></div>
     <div class="show_row"><span class="show_lbl">Manuscript:</span><span class="show_data"><%= @otu.manuscript_name -%></span></div>
-    <div class="show_row"><span class="show_lbl">Tied to taxon:</span><span class="show_data"><%= @otu.taxon_name ? link_to(@otu.taxon_name.display_name, :action => :show, :id => @otu.taxon_name, :controller => :taxon_names) : content_tag(:em, "None.") -%></span></div>
+    <div class="show_row"><span class="show_lbl">Tied to taxon:</span><span class="show_data"><%= @otu.taxon_name ? link_to(@otu.taxon_name.display_name.html_safe, :action => :show, :id => @otu.taxon_name, :controller => :taxon_names) : content_tag(:em, "None.") -%></span></div>
     
     <div class="show_row"><span class="show_lbl">Child of taxon:</span><span class="show_data"><%= @otu.is_child ? 'yes' : 'no' -%></span><span class="show_comment">if yes OTU is classifed under taxon, if no OTU is a concept of taxon</span></div>
 
