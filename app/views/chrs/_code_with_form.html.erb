@@ -22,8 +22,8 @@
     </select>
 
       <br />
-      OTU <div id="otus_to_code"><%= select_tag('otu_id', :disabled => true) -%>  </div>
-      <%= submit_tag "code" -%>
+      OTU <div id="otus_to_code"> <%= select_tag('otu_id', :disabled => true) -%>  </div>
+      <%= submit_tag "code", :id => 'code_with_button', :disabled => true -%>
     <% end %>
 
     <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :chr_id => chr, :otu_id => @otu.id, :mode => 'col', :position => '0'}) if @otu -%>

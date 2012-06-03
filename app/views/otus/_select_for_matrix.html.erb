@@ -1,0 +1,7 @@
+<% if otus.size > 200 -%>
+  <em class='warning'> There are too many (>300) OTUs in this matrix to display here.  </em> 
+<% else -%>
+  <%= select_tag('otu_id', options_for_select(otus.collect{|o| [o.display_name(:type => :matrix_name), o.id]}))  -%>
+<% end -%>
+
+

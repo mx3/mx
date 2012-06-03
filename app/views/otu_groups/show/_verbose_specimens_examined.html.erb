@@ -2,10 +2,11 @@
   <div class="text_page">
     <div class="header"> Verbose specimens examined</div>
     <br />
-    <% @otu_group.otus.each do |@otu| -%>
-    <div class="header"><%= @otu.taxon_name.blank? ? @otu.name : @otu.taxon_name.display_name(:type => :name_with_author_year) -%></div>
-    <%= render(:partial => '/otus/page/specimens_text') -%>
-    <br /> 
+    <% @otu_group.otus.each do |otu| -%>
+      <% @otu = otu -%>
+      <div class="header"><%= @otu.taxon_name.blank? ? @otu.name : @otu.taxon_name.display_name(:type => :name_with_author_year).html_safe -%></div>
+      <%= render(:partial => '/otus/page/specimens_text') -%>
+      <br /> 
     <% end -%>
   </div>
 <% end %>

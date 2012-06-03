@@ -211,13 +211,13 @@ class MxesController < ApplicationController
   end
 
   def otus_select
-    if mx = Mx.find(params[:id])
+    # where else does this get called?
+    if mx = Mx.find(params[:mx][:id])
       @otus = mx.otus
     else
-      @otus = nil
+      @otus = []  
     end
   end
-
 
   # --- Cell coding ---
 
