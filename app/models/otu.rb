@@ -117,10 +117,12 @@ class Otu < ActiveRecord::Base
 
     case opt[:type]
     when :selected # TODO as it appears after selection (non-ajax?, no css)
-      if taxon_name
+      if name 
+        xml <<  name
+      elsif taxon_name
         xml << taxon_name.display_name(:type => :selected)
       else
-        xml <<  name
+        xml << display_name
       end
     when :list
       self.display_name(:target => xml, :type => :multi_name) # awesome, builds right on
