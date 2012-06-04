@@ -148,7 +148,7 @@ class TaxonNamesController < ApplicationController
     begin
       TaxonName.transaction do
         @taxon_name.update_attributes(params[:taxon_name])
-        if not (@taxon_name.temp_parent_id.to_i == @taxon_name.parent_id.to_i)
+        if !@taxon_name.temp_parent_id.nil? && !(@taxon_name.temp_parent_id.to_i == @taxon_name.parent_id.to_i)
           @taxon_name.move_checking_permissions(TaxonName.find(@taxon_name.temp_parent_id), TaxonName.find(@taxon_name.parent_id), session[:person]) # new_parent, old_parent, person
         end
         if @taxon_name.errors.size > 0

@@ -1,5 +1,5 @@
 <div class="show_category"> Child taxa </div>
 <div class="show_row"><span class="show_lbl">Total:</span><span class="show_data"><%= @children.length -%></span></div>
 <% @children.each do |c| -%>
-  <div class="show_row"><span class="show_data"  ><%= link_to(c.display_name(:type => :name_with_author_year), :action => :show, :id => c.id) -%></span></div>
+  <div class="show_row"><span class="show_data"  ><%= link_to(c.display_name(:type => :name_with_author_year).html_safe, :action => :show, :id => c.id) -%></span></div>
 <% end -%>
