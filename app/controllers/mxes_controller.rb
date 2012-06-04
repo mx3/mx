@@ -307,15 +307,15 @@ class MxesController < ApplicationController
 
   def matrix_coding
     @matrices = @proj.mxes
-    @mx = Mx.find(params[:id])
+    @mx = Mx.find(params[:set_id].blank? ? params[:id] : params[:set_id])
     if @mx.otus.count > 50
-    @otus =  [] # @mx.otus.includes(:taxon_name) 
+      @otus =  [] # @mx.otus.includes(:taxon_name) 
     else
       @otus = @mx.otus.includes(:taxon_name)
     end
     @otu = Otu.find(params[:otu_id]) if params[:otu_id]
     @otu ||= @mx.otus.first
-    notice "Matrix set to to #{@mx.display_name}. <br />OTU set to #{@otu.display_name}.".html_safe
+    notice "Matrix set to to #{@mx.display_name}. <br />OTU set to #{@otu.display_name}.".html_safe 
     @codings = Coding.where(:chr_id => @mx.chrs, :otu_id => @otu).includes(:chr_state).
       inject({}){|hsh, c| hsh.merge("#{c.chr_id}A#{c.otu_id}B#{c.chr_state_id}" => c)}
     render :template => 'mxes/code/matrix/index' 

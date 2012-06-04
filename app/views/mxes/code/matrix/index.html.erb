@@ -4,9 +4,9 @@
     The current matrix is: <em> <br /> <%= @mx.display_name -%>.</em> <br />
     <div class="header"> <%= @mx.notes.blank? ? 'No notes on this matrix.' : @mx.notes -%> </div> 
     <div class="selection_form mx">
-    <%= form_tag(matrix_coding_mx_path(@proj, @mx)) do -%>
+      <%= form_tag() do -%>
       Set matrix to: <br />
-      <%= select_tag :id, options_from_collection_for_select(@matrices, :id, :name), :style => 'width:140px;' -%>
+      <%= select_tag :set_id, options_from_collection_for_select(@matrices, :id, :name), :style => 'width:140px;' -%>
       <%= submit_tag 'Set' -%>
     </div>
     <% end -%>
