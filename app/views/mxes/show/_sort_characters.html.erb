@@ -1,17 +1,24 @@
 <%= content_for :center do -%>
-  <h4> sorting characters </h4>
+  <h3> sorting characters </h3>
   <p>  <%= link_to('reset character sorting', :action => :reset_chr_positions, :id => @mx) -%> <i>resets to alphabetical by character name</i> </p>
   <div>
-    <p><i> Drag to sort.</i>  <%= image_tag('/images/spinner.gif', :alt => 'Updating', :id => 'move_spinner', :style => "display: none; vertical-align:middle;"  ) %> </p>
-    <ul id="chrs">
+    <p><i> Drag to sort.</i> </p>
+    <table id="chrs"
+      style="margin-left: 2em;"
+      data-sortable
+      data-sortable-items="tr"
+      data-sortable-on-change-url="<%= url_for(:action=>'sort_chrs')%>">
+
       <% @chrs_mxes.each do |chrmx| -%>
-        <%= content_tag_for :li, chrmx do -%>
-          <span class="handle">[drag]</span><span> &nbsp; <%= chrmx.chr.id -%></span> &nbsp;
-          <%= link_to(chrmx.chr.display_name, :action => :show, :controller => :chrs, :id => chrmx.chr.id) -%>
+        <%= content_tag_for :tr, chrmx do -%>
+          <td class="handle"><%= render("shared/drag_handle")%></td>
+          <td> <%= chrmx.chr.id -%> </td>
+          <td>
+            <%= link_to(chrmx.chr.display_name.html_safe, :action => :show, :id => chrmx.chr.id, :controller => :chrs) -%>
+          </td>
         <% end %>
       <% end %>
-    </ul>
+    </table>
   </div>
-  <%= sortable_element("chrs", :url => {:action => 'sort_chrs'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
 
 <% end %>

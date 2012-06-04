@@ -433,24 +433,20 @@ Edge::Application.routes.draw do
 
   'mxes' => {
     members: %w{
-    get cell_zoom
-    post update_cell
     get _get_window_params
-    get otu_zoom
     get as_file
     get auto_link
     get browse
+    get cell_zoom
     get code
-    get matrix_coding
-    post matrix_coding
-    post code_matrix
-    post set_matrix_to_code
     get current_cycle
     get cycle
     get excerpt
     get generate
     get highlight
     get invalid_codings
+    get matrix_coding
+    get otu_zoom
     get owl_export
     get show_ascii
     get show_batch_code
@@ -464,18 +460,22 @@ Edge::Application.routes.draw do
     get show_trees
     get show_unused_character_states
     get simple_format
-    get sort_chrs
-    get sort_otus
     get test
     post add_chr
     post add_otu
     post clone
+    post code_matrix
+    post matrix_coding
     post otus_select
     post remove_chr
     post remove_otu
     post reset_chr_positions
     post reset_cycle
     post reset_otu_positions
+    post set_matrix_to_code
+    post sort_chrs
+    post sort_otus
+    post update_cell
   },
     collections: %w{
     post code_with

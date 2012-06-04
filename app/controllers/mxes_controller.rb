@@ -426,13 +426,17 @@ class MxesController < ApplicationController
 
 
   def sort_otus
-    params[:otus].each_with_index do |id, index|
+    params[:mxes_otu].each_with_index do |id, index|
       MxesOtu.update_all(['position=?', index+1], ['id=?', id])
     end
+
+    notice "Order updated."
     render :nothing => true
   end
 
-  # character sorting
+  #
+  # Character sorting
+  #
 
   def show_sort_characters
     @mx = Mx.find(params[:id])
@@ -441,6 +445,16 @@ class MxesController < ApplicationController
     render :action => :show, :id => @mx.id and return
   end
 
+  def sort_chrs
+    params[:chrs_mx].each_with_index do |id, index|
+      ChrsMx.update_all(['position=?', index+1], ['id=?', id])
+    end
+    notice "Order updated."
+    render :nothing => true
+  end
+
+
+  
   def reset_chr_positions
     if @mx = Mx.find(params[:id])
       @mx.reset_chr_positions
@@ -452,14 +466,7 @@ class MxesController < ApplicationController
     redirect_to :action => :show_sort_chrs, :id => @mx
   end
 
-  def sort_chrs
-    params[:chrs].each_with_index do |id, index|
-      ChrsMx.update_all(['position=?', index+1], ['id=?', id])
-    end
-    render :nothing => true
-  end
-
-  def invalid_codings
+    def invalid_codings
     @invalid_codings = Coding.invalid(@proj.id)
   end
 
