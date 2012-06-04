@@ -554,7 +554,7 @@ Edge::Application.routes.draw do
     get download_kml
     get edit_multiple_content
     get otus_without_groups
-    get sort_by_select
+    post sort_by_select
     post clear_default
     post combine
     post update_content

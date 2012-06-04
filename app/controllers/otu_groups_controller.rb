@@ -12,7 +12,7 @@ class OtuGroupsController < ApplicationController
   def show
     id = params[:otu_group][:id] if params[:otu_group]
     id ||= params[:id]
-    @otu_group = OtuGroup.find(id, :include => [:otus])
+    @otu_group = OtuGroup.find(id, :include => [{:otus])
     @otus_in = @otu_group.otu_groups_otus(:include => :otus)
     @show = ['default']
   end
@@ -173,7 +173,7 @@ class OtuGroupsController < ApplicationController
     OtuGroupsOtu.find(:all, :conditions => {:otu_group_id => params[:id]}, :order => "otus.#{params[:sort_by].gsub(/\s/,"_")}", :include => :otu).each_with_index do |o, i|
       o.update_attribute(:position, i)
     end
-    flash[:notice] = "Sorted by #{params[:sort_by]}."
+    notice "Sorted by #{params[:sort_by]}."
     redirect_to :action => :show, :id => params[:id]
   end
 

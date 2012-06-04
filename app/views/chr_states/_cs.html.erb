@@ -31,11 +31,11 @@
         <span class="lbl4">coded examples: </span>
         <% egs = cs.all_otus %>
         <% if egs.size > 0 %>
-          <%= egs[0..4].collect{|o| o.display_name}.join(', ') %>
+          <%= egs[0..4].collect{|o| o.display_name}.join(', ').html_safe %>
           <% if egs.size > 5 %>
           <div style='display:inline;' 
-            data-tooltip="<%= egs[5..6].collect{|o| o.display_name}.join(', ') %>
-            "><a href=''>remainder coded</a> 
+            data-tooltip="<%= egs[5..6].collect{|o| o.display_name}.join(', ').html_safe %>
+            "><a href='' class="smaller_font">[Display remainder.]</a> 
           </div>
           <% end %>
         <% else %>
@@ -45,7 +45,7 @@
     <tr><td><span class="lbl4">tags: </span><div style="display:inline;" id="tag_cloud_ChrState_<%= cs.id %>"><%= tag_cloud_for(cs) -%></div> </td></tr>
 <tr>
       <td><span class="lbl4">ontological description: </span>
-        <span id="chr_state_phenotype_id<%= cs.id -%>" ><%= cs.phenotype.nil? ? content_tag(:em, 'none') : manchester_phenotype(cs.phenotype) %> <span style="font-size: smaller"><%= link_to("[edit]", :controller => :phenotypes, :action => :edit, :id => cs.phenotype, :chr_state => cs) -%> <%= link_to("[x]", :controller => :chr_states, :action => :destroy_phenotype, :id => cs) if cs.phenotype -%></span></span>
+        <span id="chr_state_phenotype_id<%= cs.id -%>" ><%= cs.phenotype.nil? ? content_tag(:em, 'none') : manchester_phenotype(cs.phenotype) %> <span class="smaller_font"><%= link_to("[edit]", :controller => :phenotypes, :action => :edit, :id => cs.phenotype, :chr_state => cs) -%> <%= link_to("[x]", :controller => :chr_states, :action => :destroy_phenotype, :id => cs) if cs.phenotype -%></span></span>
       </td>
     </tr>
   </table>

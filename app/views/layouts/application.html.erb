@@ -12,7 +12,6 @@
 
     <%= include_javascripts :application %>
     <%= include_stylesheets :application %>
-
     <%= class_css -%>
     <%= csrf_meta_tag %>
 
@@ -26,9 +25,9 @@
           <div style="float:right; padding-top: 2px;" class="links">
             <span class="links">Logged in as <%= session[:person].login -%>
               (<%= link_to 'logout', :controller => '/account', :action => :logout -%> |
-               <%= link_to "my preferences", :action => 'preferences', :controller => 'people' -%> |
-              <span style="background: #F7B346; padding: 0 2px 0 2px; border: 1px;"><%= wiki_help_link -%></span> |
-              <span style="background: #D7D435; padding: 0 2px 0 2px; border: 1px;"><%= link_to('Github', 'https://github.com/mx3/mx', :target => "_blank") -%></span>)
+              <%= link_to "my preferences", :action => 'preferences', :controller => 'people' -%> |
+              <span class="wiki_help_link"><%= wiki_help_link -%></span> |
+              <span class="github_link"><%= link_to('Github', 'https://github.com/mx3/mx', :target => "_blank") -%></span>)
             </span>
           </div>
         <% end -%>
