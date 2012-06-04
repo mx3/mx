@@ -565,7 +565,6 @@ Edge::Application.routes.draw do
   'otus' => {
     members: %w{
     get _refresh_compare_content
-    get _update_codings
     get _update_compare_content
     get _update_content_page
     get compare_params

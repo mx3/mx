@@ -1,30 +1,30 @@
 
-<% @codings.each do |@c| -%>
-  <div style="border: 1px dotted  silver; padding: 4px; margin: 4px; clear: both;" <%= 'class="passed"' if @uniques.include?(@c) -%> >
+<% codings.each do |c| -%>
+  <div style="border: 1px dotted  silver; padding: 4px; margin: 4px; clear: both;" <%= 'class="passed"' if @uniques.include?(c) -%> >
     <div style="float:right; padding-left: 4px; font-size: smaller;">
       <table style="float: right; width: 80;">
         <tr><td>
-            <span style="font-size: 8pt;"><%= @c.display_name -%></span><br/>
-          <%= fig_link(@c) %>&nbsp; <%= new_tag_tag(:object=>@c) -%>&nbsp;
+            <span style="font-size: 8pt;"><%= c.display_name -%></span><br/>
+            <%= illustrate_tag(c) %>&nbsp; <%= new_tag_tag(:object=>c) -%>&nbsp;
           </td>
         </tr>
 
-        <% if !@c.confidence.blank? -%>
+        <% if !c.confidence.blank? -%>
            <tr><td>
-            <span style="padding: 2px; background-color:<%= !@c.confidence.html_color.blank? ? "#{@c.confidence.html_color}" : "#ffffff" -%>;">
-            <%= @c.confidence.display_name -%></span></td>
+            <span style="padding: 2px; background-color:<%= !c.confidence.html_color.blank? ? "#{c.confidence.html_color}" : "#ffffff" -%>;">
+            <%= c.confidence.display_name -%></span></td>
           </tr>
         <% end %>
 
       </table>
     </div>
     <div>
-      <%= render(:partial => 'codings/fs', :collection => [@c]) -%>
+      <%= render(:partial => 'codings/fs', :collection => [c]) -%>
       <br style="clear: both;" />
     </div>
-    <% if @c.tags.size > 0 -%>
+    <% if c.tags.size > 0 -%>
       <div style="background-color: #eeeeee; padding: 2px; margin: 2px; ">
-        tags: <%= render(:partial => 'tags/t', :collection => @c.tags) -%>
+        tags: <%= render(:partial => 'tags/t', :collection => c.tags) -%>
       </div>
     <% end %>
   </div>

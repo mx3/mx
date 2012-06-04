@@ -120,7 +120,7 @@ module FiguresHelper
 
   # TODO mx3: deprecate
   def fig_link(o)
-    'DEPRECATED FOR figure_tag' #    render(:partial => "figure/fig_link", :locals => { :fig_obj_id => o.id, :fig_obj_class => o.class.to_s, :msg => ''})
+    'DEPRECATED FOR illustrate_tag' #    render(:partial => "figure/fig_link", :locals => { :fig_obj_id => o.id, :fig_obj_class => o.class.to_s, :msg => ''})
   end
 
   # Pass an Instance of a Model that has include ModelExtensions::Figurable

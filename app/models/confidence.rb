@@ -47,16 +47,18 @@ class Confidence < ActiveRecord::Base
      @opt = {
       :type => :list # :list, :head, :select, :sub_select
      }.merge!(options.symbolize_keys)
+     str = ''
      case @opt[:type]
      when :selected
-        name
+       str = name
      when :for_select_list
-        name
+       str =  name
      when :short
-       open_background_color_span + short_name + '</span>'
+       str = open_background_color_span + short_name + '</span>'
      else
-       open_background_color_span + name + '</span>'
+       str = open_background_color_span + name + '</span>'
      end
+     str.html_safe
   end
 
   # TODO: move to helper

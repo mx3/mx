@@ -189,33 +189,27 @@ class OtusController < ApplicationController
     # don't allow left and right to match
 
     render(:layout => false, :partial => "content_type/compare", :locals => {:left_otu => @left_otu, :right_otu => @right_otu} )
-
   end
 
   def show_codings
-    @mxes = @otu.mxes
     @codings = []
+
     if params[:show_all]
       @uniques = Coding.unique_for_otu(@otu)
       @codings = @otu.codings.ordered_by_chr
     end
 
-    @no_right_col = true
-    render :action => 'show'
-  end
-
-  # merge with above
-  def _update_codings
-    # renders a template for show_content pages
-    @otu = Otu.find(params[:id])
-
-    @uniques = Coding.in_matrix(params[:mx][:id]).unique_for_otu(@otu)
-    @codings = @otu.codings.in_matrix(params[:mx][:id]).ordered_by_chr
-
-    render :update do |page|
-      page.replace_html :codings, :partial => "otu/codings"
-      flash.discard
-    end and return
+    respond_to do |format|
+      format.html {
+        @mxes = @otu.mxes
+        render :action => 'show'
+      }
+      format.js {
+        @uniques = Coding.in_matrix(params[:mx_id]).unique_for_otu(@otu)
+        @codings = @otu.codings.in_matrix(params[:mx_id]).ordered_by_chr
+      }
+      @no_right_col = true
+    end
   end
 
   def show_material
