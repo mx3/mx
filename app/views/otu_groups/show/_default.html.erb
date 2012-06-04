@@ -17,10 +17,10 @@
     <div>
       <p><i> Drag to sort.</i> </p>
       <table id="otus"
-          style="margin-left: 2em;"
-          data-sortable
-          data-sortable-items="tr"
-          data-sortable-on-change-url="<%= url_for(:action=>'sort_otus')%>">
+        style="margin-left: 2em;"
+        data-sortable
+        data-sortable-items="tr"
+        data-sortable-on-change-url="<%= url_for(:action=>'sort_otus')%>">
 
         <% @otus_in.each do |otugo| -%>
           <%= content_tag_for :tr, otugo do -%>
@@ -37,12 +37,15 @@
       </table>
     </div>
 
-    <div class="subform">
-      <%= form_tag :action => 'edit_multiple_content', :otu_group_id => @otu_group.id do %>
-        <h4 style="display: inline;"> <input type="submit" name="submit" value="edit" /> or  <input type="submit" name="submit" value="show" /> members for content: </h4>
+    <% if @proj.content_types.count > 0 -%>
+      <div class="subform">
+        <%= form_tag({:action => 'edit_multiple_content'}, :method => 'get') do %>
+          <%= hidden_field :otu_group, :id -%>
+          <h4 style="display: inline;"> <input type="submit" name="submit" value="edit" /> or  <input type="submit" name="submit" value="show" /> members for content: </h4>
           <%= render :partial => '/content_types/picker', :locals => {:c_name => 'content_type', :f_name => 'id'} -%>
         <% end %>
-    </div>
+      </div>
+    <% end -%>
   </div>
 
 <% end -%>
@@ -61,30 +64,28 @@
           :display =>  "",
           :css_class => 'ajaxPickerSmall',
           :size => 30} -%>
-        <input type="submit" value="add" />
-      <% end -%>
+          <input type="submit" value="add" />
+        <% end -%>
+      </div>
     </div>
-  </div>
 
-  <div class="subform">
-    <div class="header">Add/subtract another OTU group</div>
-    <div class="content">
-      <p><i> A one time addition of subtraction of OTUs to this group. See help.</i></p>
-      <%= form_tag :action => 'combine', :id => @otu_group do -%>
-        <%= select_tag('operation', options_for_select(['add', 'subtract'], 'add')) %>
-        <%= render :partial => 'shared/picker', :locals => {
-          :controller => 'otu_groups',
-          :object => 'group_to_find',
-          :method => 'id',
-          :tag_id => "otu_group_to_merge",
-          :display => "",
-          :size => 30,
-          :css_class => 'ajaxPickerSmall' } -%>
+    <div class="subform">
+      <div class="header">Add/subtract another OTU group</div>
+      <div class="content">
+        <p><i> A one time addition of subtraction of OTUs to this group. See help.</i></p>
+        <%= form_tag :action => 'combine', :id => @otu_group do -%>
+          <%= select_tag('operation', options_for_select(['add', 'subtract'], 'add')) %>
+          <%= render :partial => 'shared/picker', :locals => {
+            :controller => 'otu_groups',
+            :object => 'group_to_find',
+            :method => 'id',
+            :tag_id => "otu_group_to_merge",
+            :display => "",
+            :size => 30,
+            :css_class => 'ajaxPickerSmall' } -%>
+            <%= submit_tag 'submit' -%>
+          <% end -%>
+        </div>
+      </div>
 
-        <%= submit_tag 'submit' -%>
-      <% end -%>
-
-    </div>
-  </div>
-
-<% end -%>
+    <% end -%>

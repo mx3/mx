@@ -12,7 +12,7 @@ class OtuGroupsController < ApplicationController
   def show
     id = params[:otu_group][:id] if params[:otu_group]
     id ||= params[:id]
-    @otu_group = OtuGroup.find(id, :include => [{:otus])
+    @otu_group = OtuGroup.find(id, :include => [:otus])
     @otus_in = @otu_group.otu_groups_otus(:include => :otus)
     @show = ['default']
   end
@@ -193,17 +193,17 @@ class OtuGroupsController < ApplicationController
 
   def edit_multiple_content
     if not (params[:content_type] && params[:content_type][:id].to_i > 0)
-      flash[:notice] = "Pick a content type first."
-      redirect_to :action => 'show', :id => params[:otu_group_id]  and return
+      warning "Pick a content type first."
+      redirect_to :action => 'show', :id => params[:otu_group][:id]  and return
     end
 
-    @otu_group = OtuGroup.find(params[:otu_group_id], :include => :otus)
+    @otu_group = OtuGroup.find(params[:otu_group][:id], :include => :otus)
     @otus = @otu_group.otus
     @content_type = ContentType.find(params[:content_type][:id])
     @otu_cons = @content_type.contents(:proj_id => @proj.id)
 
     if params['submit'] == 'show'
-      @show = ['show_multiple_content']
+      @show = ['multiple_content']
     else
       @show = ['edit_multiple_content']
     end

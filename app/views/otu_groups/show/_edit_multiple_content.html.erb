@@ -1,5 +1,5 @@
 <% content_for :center do -%>
-  <p> Editing content <strong><%= @content_type.display_name %></strong>.</p>
+  <p> Editing content <strong><%= @content_type.display_name.html_safe %></strong>.</p>
   <%= form_tag :action => "update_multiple_content" do -%>
     <input type="submit" name="submit" value="submit" />
     <%= hidden_field "otu_group", "id", "id" => @otu_group.id %>
