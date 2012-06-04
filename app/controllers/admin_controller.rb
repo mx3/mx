@@ -61,7 +61,7 @@ class AdminController < ApplicationController
           redirect_to :action => :index and return
         end
       end
-      flash[:notice] = 'Failed to reset password'
+      warning 'Failed to reset password.'
     end          
     @people = Person.find(:all)
   end
@@ -73,7 +73,7 @@ class AdminController < ApplicationController
       @target = 'create'
       @page_title = 'Create a new project'
     else
-      flash[:notice] = "Hmm.  Clever.  You're not allowed to create projects and yet you still tried to.  We've made a note."
+      warning "Hmm.  Clever. You're not allowed to create projects and yet you still tried to.  We've made a note."
       logger.warn("#{session[:person].id} tried to create a project and they are not permitted to.")
       redirect_to :action => :index 
     end
@@ -89,7 +89,7 @@ class AdminController < ApplicationController
         render :action => 'new_proj' and return
       end
 
-      flash[:notice] = 'Project was successfully created.'
+      notice 'Project was successfully created.'
       redirect_to :action => :index
     else
       render :action => 'new_proj'
@@ -103,9 +103,9 @@ class AdminController < ApplicationController
       old_proj_id = $proj_id
       $proj_id = proj.id
       if proj.destroy
-        flash[:notice] = 'Project successfully deleted.'
+        notice 'Project successfully deleted.'
       else
-        flash[:notice] = 'Failed! Project NOT deleted.'
+        warning 'Failed! Project NOT deleted.'
       end
       $proj_id = old_proj_id
     end
@@ -123,9 +123,9 @@ class AdminController < ApplicationController
         old_id = $proj_id
         $proj_id = o.proj_id
         o.destroy 
-        flash[:notice] =  "Image destroyed."         
+        notice  "Image destroyed."         
       rescue StandardError => e
-        flash[:notice] =  "#{e}"
+        error  "#{e}"
       end
     end 
     $proj_id = old_id

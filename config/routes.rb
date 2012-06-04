@@ -1108,18 +1108,19 @@ Edge::Application.routes.draw do
 
   resource :admin, :controller => 'admin', :only => [] do
     collection do
-      get :index
-      post :create_proj
       get :debug
-      post :destroy_image
       get :eol_dump
+      get :index
       get :new_proj
-      post :nuke_proj
       get :orphaned_images
       get :people_tn
-      post :reset_password
+      get :reset_password
       get :stats
       get :title
+      post :create_proj
+      post :destroy_image
+      post :nuke_proj
+      post :reset_password
     end
   end
 
