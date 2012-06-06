@@ -55,7 +55,7 @@
       <div class="box4">
         <div class="header" >characters in matrix</div>
         <div class="content">
-          <%= '<i>none</i>'.html_safe if @chrs.size == 0 -%>
+          <%= '<i>none</i>'.html_safe if @chrs.count == 0 -%>
           <table style="width: 100%;">
             <% @chrs.each do |chr| %>
               <tr>
@@ -63,9 +63,13 @@
                   <%= chr.name -%> &nbsp;&nbsp; <%= link_to('(show)',  {:action => :show, :controller => 'chrs', :id => chr.id}) -%> &nbsp;&nbsp;
                   <%= link_to("(code)", {:action => 'code', :id => @mx, :chr_id => chr, :otu_id => @otu.id, :mode => 'col', :position => '0'}) if @otu -%>
                 </td>
-                <td style="background-color:rgb(<%= ColorHelper::ranged_color(@hash_heat[chr.id] || 0, 'green') -%>);">
-                  <%= ((@hash_heat[chr.id] || 0) * 100).to_i -%>%
-                </td>
+                <% if !@hash_heat.nil? -%>
+                  <td style="background-color:rgb(<%= ColorHelper::ranged_color(@hash_heat[chr.id] || 0, 'green') -%>);">
+                    <%= ((@hash_heat[chr.id] || 0) * 100).to_i -%>%
+                  </td>
+                <% else %>
+                  <td></td>
+                <% end %>
               </tr>
             <% end %>
           </table>
@@ -78,7 +82,7 @@
       <div class="box4">
         <div class="header" >character groups</div>
         <div class="content">
-          <%= '<i>none</i>'.html_safe if @chr_groups_in.size == 0 -%>
+          <%= '<i>none</i>'.html_safe if @chr_groups_in.count == 0 -%>
           <ul style="list-style-type:square;" >
             <% @chr_groups_in.each do |chr_group| -%>
               <li style="color: silver;"><%= chr_group.name -%>&nbsp;<%= link_to "x", {:action => 'remove_chr', :id => @mx.id, :params => {"chr_group_id" => chr_group.id}} -%></li>
@@ -91,7 +95,7 @@
       <div class="box4">
         <div class="header" >characters +</div>
         <div class="content">
-          <%= '<i>none</i>'.html_safe if @chrs_plus.size == 0 -%>
+          <%= '<i>none</i>'.html_safe if @chrs_plus.count == 0 -%>
           <ul style="list-style-type:square;">
             <% @chrs_plus.each do |chr| -%>
               <li >
@@ -105,7 +109,7 @@
       <div class="box4">
         <div class="header" >characters -</div>
         <div class="content">
-          <%= '<i>none</i>'.html_safe if @chrs_minus.size == 0 -%>
+          <%= '<i>none</i>'.html_safe if @chrs_minus.count == 0 -%>
           <ul style="list-style-type:square;">
             <% @chrs_minus.each do |chr| -%>
               <li>

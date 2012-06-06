@@ -60,20 +60,20 @@ class MxesController < ApplicationController
     @otu_groups_in = @mx.otu_groups
     @otu_groups_out = @proj.otu_groups - @otu_groups_in
     @hash_heat = @mx.percent_coded_by_otu
-    @chr = @mx.chrs.first # first chr to point 'code' at
+    @chr = @mx.chrs_mxes.first.chr # first chr to point 'code' at
     @no_right_col = true
     render :action => :show
   end
 
   def show_characters
-    @mx = Mx.includes(:chrs, :chr_groups, :chrs_minus, :chrs_plus, :otus).find(params[:id])
+    @mx = Mx.find(params[:id])
     @chrs = @mx.chrs
     @chrs_plus = @mx.chrs_plus
     @chrs_minus = @mx.chrs_minus
     @chr_groups_in = @mx.chr_groups
     @chr_groups_out = @proj.chr_groups - @chr_groups_in
     @hash_heat = @mx.percent_coded_by_chr
-    @otu = @mx.otus.first # first otu to 'code' at
+    @otu = @mx.mxes_otus.first.otu # first otu to 'code' at
     @no_right_col = true
     render :action => :show
   end

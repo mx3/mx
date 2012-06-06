@@ -581,11 +581,11 @@ class Mx < ActiveRecord::Base
   # returns a hash of hashes with the key a Character.id, and the value the percentage of states that character is coded for
   def percent_coded_by_chr
     h = {}
-    otu_ids = self.otus.collect{|o| o.id}
     tot = self.otus.count
+    otu_ids = self.otus.collect{|o| o.id}.join(",")
     for c in self.chrs
-      h[c.id] = (tot == 0 ? 0 : (Otu.where(:id => Coding.where(:chr_id => c, :otu_id => otu_ids).collect{|i| i.otu_id})
-.count.to_f / tot.to_f))
+      v = Coding.find_by_sql("SELECT count(distinct otu_id) as c FROM `codings` WHERE `codings`.`chr_id` = #{c.id} AND `codings`.`otu_id` IN (#{otu_ids});")
+      h[c.id] = v.first[:c].to_f / tot.to_f
     end
     h
   end
@@ -594,8 +594,10 @@ class Mx < ActiveRecord::Base
   def percent_coded_by_otu
     h = {}
     tot = self.chrs.count
+    chr_ids = self.chrs.collect{|c| c.id}.join(",")
     for o in self.otus
-      h[o.id] = (tot == 0 ? 0 : ( self.chrs_coded_by_otu_id(o.id).size.to_f / tot.to_f))
+      v = Coding.find_by_sql("SELECT count(distinct chr_id) as c FROM `codings` WHERE `codings`.`otu_id` = #{o.id} AND `codings`.`chr_id` IN (#{chr_ids});")
+      h[o.id] = v.first[:c].to_f / tot.to_f 
     end
     h
   end
