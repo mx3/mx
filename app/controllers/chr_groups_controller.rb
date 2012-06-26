@@ -82,16 +82,18 @@ class ChrGroupsController < ApplicationController
   end
  
   def sort_chrs
-    params[:chrs].each_with_index do |id, index|
+    params[:chr_groups_chr].each_with_index do |id, index|
       ChrGroupsChr.update_all(['position=?', index+1], ['id=?', id])
     end
+    notice 'Updated character order.'
     render :nothing => true
   end
 
+  # TODO: broken, rendering as JS
   def remove_chr
     @chr_group = ChrGroup.find(params[:id])
     @chr_group.remove_chr(Chr.find(params[:chr_id]))
-    redirect_to :action =>:show, :id => @chr_group.id    
+    redirect_to :back # (:controller => :chr_groups, :id  => @chr_group.id, :action => :show) and return
   end
   
   def make_default
@@ -103,12 +105,12 @@ class ChrGroupsController < ApplicationController
     session['group_ids']['chr'] = nil if session['group_ids']
     redirect_to :action => :list
   end
-  
-   def move    
-      @proj.chr_groups.find(params[:id]).send(params[:move])
-      flash[:notice] = 'moved'
-      redirect_to :action => :list
-   end
+
+  def move    
+    @proj.chr_groups.find(params[:id]).send(params[:move])
+    flash[:notice] = 'moved'
+    redirect_to :action => :list
+  end
   
    def reset_position
     i = 1

@@ -100,7 +100,7 @@ Edge::Application.routes.draw do
     post add_chr
     post make_default
     post move
-    post remove_chr
+    get remove_chr
     post sort_chrs
   },
     collections: %w{
@@ -468,7 +468,7 @@ Edge::Application.routes.draw do
     post matrix_coding
     post otus_select
     post remove_chr
-    post remove_otu
+    get remove_otu
     post reset_chr_positions
     post reset_cycle
     post reset_otu_positions
@@ -546,7 +546,7 @@ Edge::Application.routes.draw do
     get show_verbose_specimens_examined
     post add_otu
     post make_default
-    post remove_otu
+    get remove_otu
     post sort_otus
   },
   collections: %w{

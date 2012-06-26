@@ -1,36 +1,48 @@
 <% content_for :center do -%>
   <%= render_show(@chr_group, true, false) -%>
 
-  <p><b>Total members:</b> <%= @chrs_in.length -%></p>
-
   <%= form_tag :action => 'add_chr', :id => @chr_group.id do -%>
-  <%= hidden_field 'chr_group', 'id' %>
+    <%= hidden_field 'chr_group', 'id' %>
 
-  <div class="subform">
-    <div class="header"> Add a character </div>
-    <%= render :partial => 'shared/picker', :locals => {
-    :controller => 'chrs',
-    :object => 'chr',
-    :method => 'id',
-    :use_proj => true,
-    :tag_id => "chr_to_find",
-    :display => "" } -%>
+    <div class="subform">
+      <div class="header"> Add a character </div>
+      <%= render :partial => 'shared/picker', :locals => {
+        :controller => 'chrs',
+        :object => 'chr',
+        :method => 'id',
+        :use_proj => true,
+        :tag_id => "chr_to_find",
+        :display => "" } -%>
 
-    <%= submit_tag "add" -%>
+        <%= submit_tag "add" -%>
+
+      </div>
     <% end -%>
-  </div>
 
-  <div>
-    <p><i> Drag to sort.</i>  <%= image_tag('/images/spinner.gif', :alt => 'Updating', :id => 'move_spinner', :style => "display: none; vertical-align:middle;"  ) %> </p>
-    <ul id="chrs">
-      <% @chrs_in.each do |chrgc| -%>
-        <%= content_tag_for :li, chrgc do -%>
-          <span class="handle">[drag]</span><span> &nbsp; <%= chrgc.chr.id -%></span> &nbsp;
-          <%= link_to(chrgc.chr.display_name, :action => :show, :id => chrgc.chr.id, :controller => :chrs) -%>
-          &nbsp;&nbsp; <%= link_to("x", :action => :remove_chr, :id => @chr_group.id, :chr_id => chrgc.chr.id, :controller => :chr_groups) -%>
+    <div class="show_category"> Members <%= @chr_group.chrs.count -%> </div>
+
+    <div>
+      <p><em> Drag to sort.</em></p>
+      <table id="chrs"
+        style="margin-left: 2em;"
+        data-sortable
+        data-sortable-items="tr"
+        data-sortable-on-change-url="<%= url_for(:action=>'sort_chrs')%>">
+
+        <% @chrs_in.each do |chrgc| -%>
+          <%= content_tag_for :tr, chrgc do -%>
+            <td class="handle"><%= render("shared/drag_handle")%></td>
+            <td> <%= chrgc.chr.id -%> </td>
+            <td>
+              <%= link_to(chrgc.chr.display_name.html_safe, :action => :show, :id => chrgc.chr.id, :controller => :chrs) -%>
+            </td>
+            <td>
+              <a data-ajaxify='submit' href="<%= url_for(:action=>:remove_chr, :id => @chr_group.id, :chr_id => chrgc.chr.id, :controller => :chr_groups) %>">x</a>
+            </td>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  </div>
-  <%= sortable_element("chrs", :url => {:action => 'sort_chrs'}, :handle => 'handle',  :loading => "Element.show('move_spinner')", :complete => "Element.hide('move_spinner')" )-%>
-<% end %>
+      </table>
+    </div>
+
+
+  <% end %>

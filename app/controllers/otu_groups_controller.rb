@@ -155,17 +155,19 @@ class OtuGroupsController < ApplicationController
     redirect_to :action => 'show', :id => @otu_group.id
   end
 
+  # TODO: broken
   def remove_otu
     @otu_group = OtuGroup.find(params[:id])
     @otu_group.remove_otu(Otu.find(params[:otu_id]))  # !! NOT delete (see model)
-    redirect_to :action => 'show', :id => @otu_group.id
+    notice "Removed an OTU"
+    redirect_to :back #  :action => 'show', :id => @otu_group.id
   end
 
   def sort_otus
     params[:otu_groups_otu].each_with_index do |id, index|
       OtuGroupsOtu.update_all(['position=?', index+1], ['id=?', id])
     end
-    notice "Updated OTU Order"
+    notice "Updated OTU order."
     render :nothing => true
   end
 

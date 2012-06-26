@@ -21,10 +21,10 @@
       <td>   
       <div class="navigator">
         <div class="navigator_buttons">
-          <%= link_to('<span class="navigator_button">&lt;&lt;</span>', :controller => 'chr_groups', :action => 'move',  :move => 'move_to_top',  :id => chr_group.id) -%>
-          <%= link_to('<span class="navigator_button">&lt;</span>', :controller => 'chr_groups', :action => 'move',  :move => 'move_higher', :id => chr_group.id) -%>
-          <%= link_to('<span class="navigator_button">&gt;</span>', :controller => 'chr_groups', :action => 'move',  :move => 'move_lower', :id => chr_group.id) -%>
-          <%= link_to('<span class="navigator_button">&gt;&gt;</span>', :controller => 'chr_groups', :action => 'move',  :move => 'move_to_bottom',  :id => chr_group.id) -%>
+          <%= link_to('<span class="navigator_button">&lt;&lt;</span>'.html_safe, :controller => 'chr_groups', :action => 'move',  :move => 'move_to_top',  :id => chr_group.id) -%>
+          <%= link_to('<span class="navigator_button">&lt;</span>'.html_safe, :controller => 'chr_groups', :action => 'move',  :move => 'move_higher', :id => chr_group.id) -%>
+          <%= link_to('<span class="navigator_button">&gt;</span>'.html_safe, :controller => 'chr_groups', :action => 'move',  :move => 'move_lower', :id => chr_group.id) -%>
+          <%= link_to('<span class="navigator_button">&gt;&gt;</span>'.html_safe, :controller => 'chr_groups', :action => 'move',  :move => 'move_to_bottom',  :id => chr_group.id) -%>
         </div>
       </div>
       </td>  
