@@ -1,5 +1,5 @@
 class ChrGroupsController < ApplicationController
-    
+
   def index
     list
     render :action => :list
@@ -20,14 +20,14 @@ class ChrGroupsController < ApplicationController
     @chr_group = ChrGroup.find(params[:id])
     @chrs  = @chr_group.chrs
     @no_right_col = true
-    render :action => 'show' 
+    render :action => 'show'
   end
- 
+
   def show_content_mapping
     @chr_group = ChrGroup.find(params[:id], :include => [:content_type, [:chrs => :chr_states]])
     @no_right_col = true
     @l =  Linker.new(:link_url_base => self.request.host, :proj_id => @proj.ontology_id_to_use, :incoming_text => @chr_group.all_chr_txt, :adjacent_words_to_fuse => 5)
-    render :action => 'show' 
+    render :action => 'show'
   end
 
   def new
@@ -63,7 +63,7 @@ class ChrGroupsController < ApplicationController
     ChrGroup.find(params[:id]).destroy
     redirect_to :action => :list
   end
-  
+
   def add_chr
     if @chr_group = ChrGroup.find(params[:chr_group][:id])
       if c = Chr.find(params[:chr][:id])
@@ -73,14 +73,14 @@ class ChrGroupsController < ApplicationController
          flash[:notice] = "Problem adding character to group, perhaps it is in the list already?"
         end
       else
-        flash[:notice] = "Character not found, did you select from the list?"  
+        flash[:notice] = "Character not found, did you select from the list?"
       end
     else
       flash[:notice] = "Character group not found."
     end
-   redirect_to :action => :show, :id => @chr_group.id    
+   redirect_to :action => :show, :id => @chr_group.id
   end
- 
+
   def sort_chrs
     params[:chr_groups_chr].each_with_index do |id, index|
       ChrGroupsChr.update_all(['position=?', index+1], ['id=?', id])
@@ -89,29 +89,29 @@ class ChrGroupsController < ApplicationController
     render :nothing => true
   end
 
-  # TODO: broken, rendering as JS
   def remove_chr
     @chr_group = ChrGroup.find(params[:id])
     @chr_group.remove_chr(Chr.find(params[:chr_id]))
+    notice "Removed Chr"
     redirect_to :back # (:controller => :chr_groups, :id  => @chr_group.id, :action => :show) and return
   end
-  
+
   def make_default
     session['group_ids']['chr'] = params[:id]
     redirect_to :action => :list
   end
-  
+
   def clear_default
     session['group_ids']['chr'] = nil if session['group_ids']
     redirect_to :action => :list
   end
 
-  def move    
+  def move
     @proj.chr_groups.find(params[:id]).send(params[:move])
     flash[:notice] = 'moved'
     redirect_to :action => :list
   end
-  
+
    def reset_position
     i = 1
       for o in @proj.chr_groups
@@ -122,7 +122,7 @@ class ChrGroupsController < ApplicationController
       flash[:notice] = 'order reset'
     redirect_to :action => :list
    end
-   
+
   def chrs_without_groups
     @chrs = @proj.chrs.without_groups
   end
@@ -133,7 +133,7 @@ class ChrGroupsController < ApplicationController
 
   def add_ungrouped_characters
     redirect_to(:action => :chrs_without_groups) and return if (params[:cg].blank? || params[:cg][:id].blank?)
-    ChrGroup.find(params[:cg][:id]).add_ungrouped_chrs 
+    ChrGroup.find(params[:cg][:id]).add_ungrouped_chrs
     redirect_to :action => :show, :id => params[:cg][:id]
   end
 
