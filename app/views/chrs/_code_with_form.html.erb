@@ -1,31 +1,32 @@
 <!-- TODO mx3 -> rethink this functionality --!>
-
-<div class="subform" >
-  <div class="header"> Code with this character </div>
-  <div class="content" style="font-size:smaller;">
-    <%= form_tag :action => 'code_with', :controller => :mxes do %>
-    <%= hidden_field_tag(:chr_id, @chr.id) -%>
-    <%= hidden_field_tag('mode', 'col') -%>
-    matrix
-
-    <br />
-
-    <select 
-          id="mx_id"
-          name="mx[id]" 
-          data-observe-field="true"
-          data-observe-field-spinner-target="otus_to_code"
-          data-observe-field-action="<%= url_for(:action=> :otus_select, :controller => :mxes, :css_target => "#otus_to_code") %>"
-      >
-        <%= content_tag(:option,  '-none-', :value => nil) -%>
-        <%= options_from_collection_for_select(@chr.mxes.with_otus, :id, :name) -%>
-    </select>
+<div id='subform_for_otus_to_code'>
+  <div class="subform">
+    <div class="header"> Code with this character </div>
+    <div class="content" style="font-size:smaller;">
+      <%= form_tag :action => 'code_with', :controller => :mxes do %>
+      <%= hidden_field_tag(:chr_id, @chr.id) -%>
+      <%= hidden_field_tag('mode', 'col') -%>
+      matrix
 
       <br />
-      OTU <div id="otus_to_code"> <%= select_tag('otu_id', :disabled => true) -%>  </div>
-      <%= submit_tag "code", :id => 'code_with_button', :disabled => true -%>
-    <% end %>
 
-    <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :chr_id => chr, :otu_id => @otu.id, :mode => 'col', :position => '0'}) if @otu -%>
+      <select
+            id="mx_id"
+            name="mx[id]"
+            data-observe-field="true"
+            data-observe-field-spinner-target="#subform_for_otus_to_code"
+            data-observe-field-action="<%= url_for(:action=> :otus_select, :controller => :mxes, :css_target => "#otus_to_code") %>"
+        >
+          <%= content_tag(:option,  '-none-', :value => nil) -%>
+          <%= options_from_collection_for_select(@chr.mxes.with_otus, :id, :name) -%>
+      </select>
+
+        <br />
+        OTU <div id="otus_to_code"> <%= select_tag('otu_id', :disabled => true) -%>  </div>
+        <%= submit_tag "code", :id => 'code_with_button', :disabled => true -%>
+      <% end %>
+
+      <%= link_to("(code)", {:action => 'fast_code', :id => @mx, :chr_id => chr, :otu_id => @otu.id, :mode => 'col', :position => '0'}) if @otu -%>
+    </div>
   </div>
 </div>
