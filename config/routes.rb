@@ -100,7 +100,7 @@ Edge::Application.routes.draw do
     post add_chr
     post make_default
     post move
-    get remove_chr
+    post remove_chr
     post sort_chrs
   },
     collections: %w{
@@ -1172,7 +1172,7 @@ Edge::Application.routes.draw do
   resource :trait, :controller => 'trait', :path => '/projects/:proj_id/trait', :only => [] do
     collection do
       get :code_otu_demo
-      get :code_chr_demo 
+      get :code_chr_demo
       get :browse_data
       get :code_otu
       get :enter_from_ref
@@ -1180,7 +1180,7 @@ Edge::Application.routes.draw do
       get :new_ce
       get :new_ref
       get :new_taxon_name
-      get :otu_compiler 
+      get :otu_compiler
       get :show_codings
       post :create_otu
       post :save_new_ce

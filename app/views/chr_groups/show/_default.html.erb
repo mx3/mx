@@ -37,7 +37,7 @@
               <%= link_to(chrgc.chr.display_name.html_safe, :action => :show, :id => chrgc.chr.id, :controller => :chrs) -%>
             </td>
             <td>
-              <a data-ajaxify='submit' href="<%= url_for(:action=>:remove_chr, :id => @chr_group.id, :chr_id => chrgc.chr.id, :controller => :chr_groups) %>">x</a>
+              <a data-ajaxify='submit' href="<%= url_for(:action=>:remove_chr, :id => @chr_group.id, :chr_id => chrgc.chr.id, :controller => :chr_groups) %>" data-ajaxify-method='POST'>x</a>
             </td>
           <% end %>
         <% end %>
