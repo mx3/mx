@@ -12,7 +12,21 @@ module TagHelper
     content_tag(:a, "edit", :href=>url, 'data-basic-modal' => true)
       #<!--link_to('edit', :action => :edit, :controller => :tags, :id => ts.id) -->
   end
-  
+
+  def inline_tag_tag(options={})
+    opt = {
+      :object => nil,        # required
+      :keyword_id => nil,    # optional, to preset the form with this keyword
+      :ref_id => nil,        # options, to preset the form with this keyword
+      :html_selector => nil, # Optional, specifies what should 'highlight' on success
+      :link_text => 'Tag'    # if you want to use other text than "Tag" for the tag link
+    }.merge!(options)
+
+    # TODO have to render this form find the partial... and render: partial!
+    html = "<h1> Here is the form!</h1>"
+    content_tag(:a, opt[:link_text], :href => "javascript:void(0)", 'data-inline-form' => html , :style => 'display:inline;')
+  end
+
   def new_tag_tag(options ={})
     opt = {
       :object => nil,        # required

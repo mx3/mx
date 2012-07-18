@@ -20,6 +20,7 @@
   </head>
   <body>
     <div id="container" class='<%= controller_name.dasherize %>-controller'>
+      <%= inline_tag_tag %>
       <div id="header">
         <% if session && session[:person] -%>
           <div style="float:right; padding-top: 2px;" class="links">

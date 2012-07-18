@@ -28,22 +28,23 @@ javascripts:
     - public/javascripts/application.js
     - public/javascripts/jquery.ajaxify.js
     - public/javascripts/jquery.basic-modal.js
+    - public/javascripts/jquery.inline-form.js
     - public/javascripts/jquery.mx-autocompleter.js
     - public/javascripts/jquery.mx-autoquery.js
     - public/javascripts/jquery.mx-color-picker.js
     - public/javascripts/jquery.mx-effects.js
     - public/javascripts/jquery.mx-field-observer.js
-    - public/javascripts/jquery.mx-select-observer.js
     - public/javascripts/jquery.mx-figure-marker.js
     - public/javascripts/jquery.mx-flash.js
-    - public/javascripts/jquery.mx-insert-content.js
     - public/javascripts/jquery.mx-inplace-editor.js
+    - public/javascripts/jquery.mx-insert-content.js
     - public/javascripts/jquery.mx-save-warning.js
+    - public/javascripts/jquery.mx-select-observer.js
+    - public/javascripts/jquery.mx-sortable-table.js
     - public/javascripts/jquery.mx-sortable.js
     - public/javascripts/jquery.mx-spinner.js
-    - public/javascripts/jquery.mx-tooltip.js
     - public/javascripts/jquery.mx-sticky-header.js
-    - public/javascripts/jquery.mx-sortable-table.js
+    - public/javascripts/jquery.mx-tooltip.js
     - public/javascripts/jquery.notifications.js
     - public/javascripts/rails.js
     - public/colorpicker/js/colorpicker.js
