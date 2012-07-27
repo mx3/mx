@@ -21,13 +21,13 @@
         });
 
       wrapper
-        .on('click', '.ajax-modal-close', function(e) {
+        .on('click', '.basic-modal-close', function(e) {
           content_div.html('');
           $this.show();
         })
         // On an error - we shake it, and update with the response.
         .on('ajaxify:error',  function(e, data) {
-          content_div.mx_effect('error_shake');
+          mx_update(content_div, data.responseText);
         })
         .on('ajaxify:success', function(e) {
           content_div.html('');
