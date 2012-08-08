@@ -32,7 +32,7 @@
       var modal = $("<div>");
       modal.addClass(options.modal_class)
         .css({
-          position: 'fixed',
+          position: 'absolute',
           height: "100%",
           width: "100%",
           top: "0",
@@ -75,7 +75,7 @@
           left:     '0',
           backgroundColor: options.overlay_color,
           backgroundImage: "url("+options.overlay_spinner+")",
-          backgroundPosition: 'center 50px ',
+          backgroundPosition: 'center  -200000px' ,
           backgroundRepeat:   'no-repeat',
           opacity:         options.overlay_opacity,
           zIndex:          options.overlay_z_index
@@ -94,6 +94,7 @@
         overlay = basicModal.create_overlay();
         $('body').data('basicModalOverlay', overlay);
       }
+
       return overlay;
     },
     hide: function() {
@@ -114,6 +115,7 @@
       if (basicModal.get_modal()) {
         basicModal.get_modal().hide();
       }
+      basicModal.get_overlay().css('backgroundPosition','center ' + ($(document).scrollTop() + 40 + "px"));
       $(options.event_target).trigger("basicModal:loading");
     },
     // Create the content box and add this content into it.
@@ -129,6 +131,10 @@
       if (basicModal.get_overlay().is(":visible")) {
         var modal = basicModal.create_modal()
           .css({visibility: 'hidden'});
+
+        modal.css('top', ($(document).scrollTop()+40+"px"));
+        basicModal.get_overlay().css('backgroundPosition','center -99999px');
+
         try {
           modal.html(content);
         } catch (e) {
@@ -137,19 +143,22 @@
         if (options.on_show) {
           options.on_show(modal);
         }
+
+
         var padding = (modal.css('padding-left') !== '' ? parseInt(modal.css('padding-left'), 10) : 0) +
                       (modal.css('padding-right') !== '' ? parseInt(modal.css('padding-right'), 10) : 0);
+
         if ($.trim(modal.html()) === "") {
           // Don't show the thing!
           $.basicModal('hide');
         } else {
           var width = (modal.children().first().outerWidth() + padding) + "px";
-
           modal.css({
               visibility: 'visible',
               width: width
             });
         }
+
         $(show_options.event_target).trigger("basicModal:show", content);
       }
     }
