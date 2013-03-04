@@ -6,12 +6,13 @@
 
 source :gemcutter
   # bundler requires these gems in all environments
-  gem "rails", "3.0.12"
+  gem "rails", "3.2.12"
   gem "RedCloth"
   gem "bio",  '1.4.1'
-  gem "mysql2", '< 0.3'
+  gem "mysql2", '0.3.11'
   gem "rake", "0.9.2.2"
-  gem "ruby-debug19",  '0.11.6'
+  # gem "ruby-debug19", '0.11.6'
+  gem "debugger"
   gem "ruby-graphviz", '0.9.21', :require => "graphviz"
   gem "win32-open3-19", :platforms => :mingw
   gem 'alchemist',  '0.1.2.1'
@@ -25,8 +26,8 @@ source :gemcutter
 
   # gems added in 3.0.x
   gem "bourbon"
-  gem "haml", "3.1.1"
-  gem "sass", "3.1.1"
+  gem "haml", "4.0.0"
+  gem "sass", "~> 3.2.5"
   gem 'jammit', "0.6.3"
 
   # gems that have spawned from mx!
