@@ -43,7 +43,6 @@ class Ce < ActiveRecord::Base
   scope :with_macro_habitat, lambda {|*args| {:conditions => ["macro_habitat = ?",  (args.first ? args.first : -1)]}}
   scope :with_trip_namespace_id, lambda {|*args| {:conditions => ["trip_namespace_id = ?",  (args.first ? args.first : -1)]}}
   scope :with_locality_like, lambda {|*args| {:conditions => ["locality like ?",  (args.first ? "%#{args.first}%" : -1)]}}
-  scope :excluding_id, lambda {|*args| {:conditions => ["ces.id != ?",  (args.first ? args.first : -1)]}}
 
   validates_numericality_of :latitude, :longitude, :allow_nil => true
   validates_format_of :time_start, :with => /\d\d:\d\d/, :allow_nil => true, :allow_blank => false

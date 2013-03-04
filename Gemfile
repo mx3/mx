@@ -17,7 +17,9 @@ source :gemcutter
   gem "win32-open3-19", :platforms => :mingw
   gem 'alchemist',  '0.1.2.1'
   gem 'andand', :git => 'https://github.com/panozzaj/andand.git' # contains a couple of fixes to 1.3.1, seems to be the most uptodate
-  gem 'attachment_fu', :git =>  'https://github.com/jmoses/attachment_fu.git', :branch => 'rails3'
+  
+  # gem 'attachment_fu', :git =>  'https://github.com/jmoses/attachment_fu.git', :branch => 'rails3'
+  gem 'pothoven-attachment_fu'
   gem 'geokit'
   gem 'kaminari'
   gem 'rdf',  '0.3.3'
