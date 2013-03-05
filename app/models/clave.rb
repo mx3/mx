@@ -27,7 +27,7 @@
 #
 
 class Clave < ActiveRecord::Base
-  set_table_name 'claves' # spanish for key, which is likely reserved, or will become reserved
+  self.table_name = 'claves' # spanish for key, which is likely reserved, or will become reserved
   has_standard_fields
 
   include ModelExtensions::Taggable

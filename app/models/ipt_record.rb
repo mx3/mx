@@ -3,7 +3,8 @@ class IptRecord < ActiveRecord::Base
   # IptRecord is a write rarely read often table with read/write handled through the ipt module (lib/ipt.rb).
   # Individual attributes must not be edited.
 
-  set_table_name 'ipt_records'
+  self.table_name = 'ipt_records'
+
 
   belongs_to :proj
   belongs_to :specimen

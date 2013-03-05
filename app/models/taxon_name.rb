@@ -168,7 +168,7 @@ class TaxonName < ActiveRecord::Base
     }.merge!(options.symbolize_keys)
 
     # you must build with xml and return xml to support :target
-    xml = Builder::XmlMarkup.new(:target => opt[:target])
+    xml = ::Builder::XmlMarkup.new(:target => opt[:target])
 
     case opt[:type]
     when :for_select_list

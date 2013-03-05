@@ -13,7 +13,6 @@ class Sensu < ActiveRecord::Base
   validates_presence_of :ref, :ontology_class, :label
 
   # TODO: moved some of these to shared scopes
-  scope :by_proj, lambda {|*args| {:conditions => ['sensus.proj_id = ?', (args.first || -1)] }} 
   scope :by_ref, lambda {|*args| {:conditions => ['sensus.ref_id = ?', (args.first || -1)] }} 
   scope :by_label, lambda {|*args| {:conditions => ['sensus.label_id = ?', (args.first || -1)] }} 
   scope :by_ontology_class, lambda {|*args| {:conditions => ['sensus.ontology_class_id = ?', (args.first || -1)] }} 
@@ -54,7 +53,7 @@ class Sensu < ActiveRecord::Base
       :target => ""
       }.merge!(options.symbolize_keys)
 
-      xml = Builder::XmlMarkup.new(:indent=> 2, :target => opt[:target])
+      xml = ::Builder::XmlMarkup.new(:indent=> 2, :target => opt[:target])
 
       case opt[:type]
       when :selected

@@ -12,7 +12,7 @@
 #
 
 class TaxonNameStatus < ActiveRecord::Base
-  set_table_name "taxon_name_status"
+  self.table_name = "taxon_name_status"
   has_standard_fields
   has_many :taxon_names
   has_many :taxon_hists

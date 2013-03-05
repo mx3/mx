@@ -173,7 +173,7 @@ class ContentTemplate < ActiveRecord::Base
   def taxon_treatment(options = {})
     opt = { :target => ''}.merge!(options)
 
-    doc = Builder::XmlMarkup.new(:indent => 2, :target => opt[:target])
+    doc = ::Builder::XmlMarkup.new(:indent => 2, :target => opt[:target])
     doc.instruct!(:xml, :version => "1.0", :encoding => "ISO-8859-1")
 
     doc.body do |body|

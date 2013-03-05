@@ -31,7 +31,7 @@ class Keyword < ActiveRecord::Base
 
   # should make this a mixin sensu StandardFields, because it will get use everywhere
   # Part.find(:all).tagged_with_keyword(12)
-  scope :tagged_with_keyword, lambda {|*args| {:conditions => ["id IN (SELECT addressable_id FROM tags WHERE tags.addressable_type = 'Keyword' AND keyword_id = ?)", (args.first ? args.first : -1)]}}    
+  # scope :tagged_with_keyword, lambda {|*args| {:conditions => ["id IN (SELECT addressable_id FROM tags WHERE tags.addressable_type = 'Keyword' AND keyword_id = ?)", (args.first ? args.first : -1)]}}    
   scope :that_are_xrefs, :conditions => 'is_xref == 1'
 
   validate :check_record

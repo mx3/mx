@@ -123,7 +123,7 @@ class ContentType < ActiveRecord::Base
 
   # def tp_xml(options ={})
   #  opt = {:target => ''}.merge!(options)
-  #  doc = Builder::XmlMarkup.new(opt)
+  #  doc = ::Builder::XmlMarkup.new(opt)
   #  doc.foo(self.name)
   #  # do stuff!
   #  return opt[:target]

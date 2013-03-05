@@ -16,7 +16,7 @@ class ByTnDisplay
 
     # determine the unplaced items (i.e. those without a TaxonName)
     items.each do |i|
-      if i.taxon_name_id == nil
+      if i.taxon_name_id.empty?
         @unplaced_items << i
       end
     end
@@ -25,7 +25,7 @@ class ByTnDisplay
     @unplaced_items.each do |i| 
       items.delete(i)
     end
-
+ 
     # make use of the existing taxon_name heirarchy!! 
     items.sort!{|a, b| a.taxon_name.l <=> b.taxon_name.l}
 

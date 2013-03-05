@@ -7,9 +7,10 @@ class OntologyClass < ActiveRecord::Base
   # IMPORTANT in_place_editing has been hacked to handle versioned (when this is gemified it will have to be updated)
 
   # versioned presently has deprecations with hash/index
+  # !!!! 
   versioned
 
-  set_table_name "ontology_classes"
+  self.table_name = "ontology_classes"
   has_standard_fields
   include ModelExtensions::Taggable
   include ModelExtensions::Figurable
@@ -76,7 +77,7 @@ class OntologyClass < ActiveRecord::Base
   scope :without_figure_markers, lambda {|*args| {:conditions => "ontology_classes.id NOT IN (SELECT DISTINCT addressable_id FROM figures WHERE (addressable_type = 'OntologyClass') AND figures.id IN (SELECT DISTINCT figure_id FROM figure_markers)   )"}}
   scope :without_child_relationship, lambda {|*args| {:group => 'ontology_classes.id', :conditions => ["ontology_classes.id NOT IN (SELECT ontology_class2_id from ontology_relationships WHERE object_relationship_id = ?)", (args.first ?  args.first : -1)] }}
 
-  scope :include_tags, :include => [:tags]
+  # scope :include_tags, :include => [:tags]
   scope :that_are_obsolete, :conditions => "is_obsolete = 1"
   scope :that_are_not_obsolete, :conditions => "is_obsolete != 1"
 

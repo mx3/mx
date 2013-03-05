@@ -113,7 +113,7 @@ class Otu < ActiveRecord::Base
       :target => ""
     }.merge!(options.symbolize_keys)
 
-    xml = Builder::XmlMarkup.new(:indent=> 2, :target => opt[:target])
+    xml = ::Builder::XmlMarkup.new(:indent=> 2, :target => opt[:target])
 
     case opt[:type]
     when :selected # TODO as it appears after selection (non-ajax?, no css)

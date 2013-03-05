@@ -10,7 +10,7 @@
 #
 
 class ProjTaxonName < ActiveRecord::Base
-  set_table_name "projs_taxon_names"
+  self.table_name = "projs_taxon_names"
 
   belongs_to :taxon_name
   belongs_to :proj

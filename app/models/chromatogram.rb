@@ -34,8 +34,7 @@ class Chromatogram < ActiveRecord::Base
   has_many :seqs, :through => :pcr
 
   has_attachment  :content_type => ['application/octet-stream'], # careful, likely some security issues here.
-  :max_size => 10.megabytes,
-    :path_prefix =>  '/public/files/' + CHROMATOGRAM_FILE_PATH.gsub(FILE_PATH, '') # has_attachment adds the Rails.root.to_s, so we need to strip it from our config, this may not always work for custom configs
+  :max_size => 10.megabytes, :path_prefix =>  '/public/files/' + CHROMATOGRAM_FILE_PATH.gsub(FILE_PATH, '') # has_attachment adds the Rails.root.to_s, so we need to strip it from our config, this may not always work for custom configs
 
   validates_presence_of :primer, :pcr, :filename
   validates_as_attachment # file is required now

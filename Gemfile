@@ -24,7 +24,9 @@ source :gemcutter
   gem 'kaminari'
   gem 'rdf',  '0.3.3'
   gem 'rdf-rdfxml',  '0.3.3.1', :require => 'rdf/rdfxml'
-  gem 'vestal_versions',  :tag => 'v1.2.2', :git => 'https://github.com/adamcooper/vestal_versions.git'
+
+  gem 'vestal_versions',  :tag => 'master', :git => "https://github.com/laserlemon/vestal_versions.git" #  :git => 'https://github.com/adamcooper/vestal_versions.git' :tag => 'v1.2.2'
+  gem 'awesome_nested_set', :tag => 'master', :git => 'https://github.com/collectiveidea/awesome_nested_set.git'
 
   # gems added in 3.0.x
   gem "bourbon"

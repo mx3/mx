@@ -40,7 +40,7 @@ class Extract < ActiveRecord::Base
   scope :from_lot, lambda {|*args| {:conditions => ["lot_id = ?", (args.first || -1)] }}
   scope :from_specimens_determined_as_otu, lambda {|*args| {:conditions => ["specimen_id IN (SELECT specimen_id from specimen_determinations WHERE otu_id = ?)", (args.first || -1)] }}
   scope :from_lots_determined_as_otu, lambda {|*args| {:conditions => ["lot_id IN (SELECT id FROM lots WHERE otu_id = ?)", (args.first || -1)] }}
-  scope :recently_changed, lambda {|*args| {:conditions => ["(extracts.created_on > ?) OR (extracts.updated_on > ?)", (args.first || 2.weeks.ago), (args.first || 2.weeks.ago)] }}
+  # scope :recently_changed, lambda {|*args| {:conditions => ["(extracts.created_on > ?) OR (extracts.updated_on > ?)", (args.first || 2.weeks.ago), (args.first || 2.weeks.ago)] }}
 
   # referencing ExtractsGene
   scope :by_confidence_from_status, lambda {|*args| {:conditions => ["extracts.id IN (SELECT extract_id FROM extracts_genes WHERE extracts_genes.confidence_id = ?)", (args.first || -1)] }}  # pass a Confidence
@@ -50,7 +50,7 @@ class Extract < ActiveRecord::Base
   scope :without_pcrs, :conditions => "id NOT IN (select extract_id from pcrs)"
 
   # TODO: move BOTH to shared plugin
-  scope :tagged_with_keyword, lambda {|*args| {:include => [:keywords, :tags], :conditions => ["extracts.id IN (SELECT addressable_id FROM tags where addressable_type = 'Extract' AND keyword_id = ?)", (args.first || -1)] }  }
+  # scope :tagged_with_keyword, lambda {|*args| {:include => [:keywords, :tags], :conditions => ["extracts.id IN (SELECT addressable_id FROM tags where addressable_type = 'Extract' AND keyword_id = ?)", (args.first || -1)] }  }
   scope :in_id_range, lambda {|*args| { :conditions => ["extracts.id >= ? and extracts.id <= ?", (args.first || -1), (args[1] || -1)] }  }
 
   validate :check_record

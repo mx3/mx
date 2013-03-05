@@ -10,7 +10,7 @@
 #  notes         :text
 
 class TypeSpecimen < ActiveRecord::Base
-  set_table_name 'type_specimens'
+  self.table_name = 'type_specimens'
   belongs_to :specimen
   belongs_to :taxon_name
   belongs_to :ref
