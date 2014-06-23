@@ -4,15 +4,16 @@
 #   gem update --system
 #   bundle
 
-source :gemcutter
+source 'https://rubygems.org'
+
   # bundler requires these gems in all environments
   gem "rails", "3.2.12"
   gem "RedCloth"
   gem "bio",  '1.4.1'
-  gem "mysql2", '0.3.11'
+  gem "mysql2", '0.3.14'
   gem "rake", "0.9.2.2"
   # gem "ruby-debug19", '0.11.6'
-  gem "debugger"
+   gem "debugger"
   gem "ruby-graphviz", '0.9.21', :require => "graphviz"
   gem "win32-open3-19", :platforms => :mingw
   gem 'alchemist',  '0.1.2.1'
@@ -53,7 +54,7 @@ end
 group :development do
   gem "rails-footnotes"
   gem "mongrel", "1.2.0.pre2"
-  # gem "thin"
+  gem "thin"
   # gem 'cgi_multipart_eof_fix'
   # gem 'fastthread'
 end

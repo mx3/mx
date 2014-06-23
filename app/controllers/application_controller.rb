@@ -143,6 +143,7 @@ class ApplicationController < ActionController::Base
 
     if (@server_name == HOME_SERVER || @server_name == 'development') && (self.class.controller_path[0,7] != "public/")
       # Hitting the "private" application interface
+      
       if login_required
         proj_required    # ** Sets @proj when login is required.
       end
@@ -173,6 +174,7 @@ class ApplicationController < ActionController::Base
       # If its a home controller then it's OK.
       is_home_controller = (self.controller_name == "home")
       is_allowed_public_controller = (@proj && self.class.controller_path[0,7] == "public/" && @proj.public_controllers.include?(self.controller_name))
+   
       is_api_controller =  (self.class.controller_path[0,3] == 'api')
 
       if (!is_allowed_public_controller && !is_home_controller && !is_api_controller)
@@ -189,6 +191,5 @@ class ApplicationController < ActionController::Base
 
     true # Return true or Rails' filter chain halts
   end
-
 
 end

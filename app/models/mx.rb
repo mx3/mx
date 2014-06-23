@@ -318,6 +318,68 @@ class Mx < ActiveRecord::Base
     return @window
   end
 
+  # A clone of codings_in_grid rewritten for 
+  # for jMatrixBrowse
+  def jmatrix_browse_window(options = {})
+    opts = {
+      :row1 => 0,
+      :row2 => 'all',
+      :col1 => 0,
+      :col2 => 'all'
+    }.merge!(options.symbolize_keys)
+
+    result =  {
+      data: [[", "]],
+      row: {labels: {"" => "row "}},
+      column: {labels: {"" => "col "}}
+    }
+
+    if [0,0,0,0] == [opts[:row1].to_i, opts[:col1].to_i, opts[:row2].to_i, opts[:col2].to_i]
+      result.merge!(matrix: {height: self.otus.count, width: self.chrs.count})
+      return result
+    end
+
+    # return false if (opts[:col1] == 0) || (opts[:row1] == 0) # catch problems with forgetting index starts at 1
+
+    otus = []  # y axis
+    chrs = []  # x axis
+    @o = []
+    @c = []
+
+    if opts[:row2] == "all"
+      @o = self.otus
+      otus = @o.collect{|o| o.id}
+    else
+      @o = self.otus.within_mx_range(opts[:row1].to_i + 1, opts[:row2].to_i + 1)
+      otus = @o.collect{|o| o.id}
+    end
+
+    return result if otus.size == 0
+    result.merge!(row: {labels: @o.collect{|o| o.display_name(type: :matrix) }} )
+
+    if opts[:col2] == "all"
+      @c = self.chrs
+      chrs = @c.collect{|o| o.id}
+    else
+      @c = self.chrs.within_mx_range(opts[:col1].to_i + 1, opts[:col2].to_i + 1)
+      chrs = @c.collect{|c| c.id}
+    end
+
+    return result if chrs.size == 0
+    result.merge!(column: {labels: @c.collect{|c| c.name} } )
+
+    # three dimensional array
+    grid = Array.new(chrs.count){Array.new(otus.count)} # {Hash.new}} 
+
+    # find/sort all the codings
+    Coding.where(:chr_id => chrs, :otu_id => otus).each do |c|
+      grid[chrs.index(c.chr_id)][otus.index(c.otu_id)] = c.chr_state_state # .merge!(c.chr_state_state => {:creator => c.creator_id}) 
+    end
+
+    result.merge!(data: grid) 
+    result
+  end
+
   # this could definitely be optimized
   # position is from 1 but grid is from 0 !!
   # optimize by 
@@ -742,6 +804,9 @@ class Mx < ActiveRecord::Base
 
     figures.compact.uniq
   end
+
+
+  # jMatrixBrowse
 
   private
  

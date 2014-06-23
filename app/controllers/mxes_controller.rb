@@ -2,9 +2,15 @@ class MxesController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'nexml/nexml'
 
+
   before_filter :set_export_variables, :only => [:show_nexus, :show_tnt, :show_ascii, :as_file]
   before_filter :set_grid_coding_params, :only => [:show_grid_coding, :show_grid_coding2, :show_grid_tags]
   before_filter :set_coding_variables, :only => [:code, :code_cell]
+
+  def browse2
+    @mx = @proj.mxes.first
+    render :layout => false
+  end 
 
   def index
     list
@@ -513,7 +519,6 @@ class MxesController < ApplicationController
     @ces = @window[:chr_end] - @window[:chr_start]
     render :template => 'mxes/browse/browse'
   end
-
 
   def owl_export
     matrix = Mx.find(params[:id])

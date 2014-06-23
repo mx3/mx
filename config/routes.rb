@@ -12,6 +12,8 @@ Edge::Application.routes.draw do
  get "/projects/:proj_id/codings/:id/details" => "codings#coding_details", :as => :coding_details
  get "/projects/:proj_id/chrs/:id/details" => "chrs#chr_details", :as => :chr_details
 
+
+ get  "/account/signup" => "account#signup", :as => :account_signup
  get  "/account/login" => "account#login", :as => :account_login
  get  "/account/change_password" => "account#change_password", :as => :account_change_password
  post  "/account/change_password" => "account#change_password"
@@ -479,6 +481,7 @@ Edge::Application.routes.draw do
   },
     collections: %w{
     post code_with
+    get browse2 
   }
   },
 
@@ -1288,10 +1291,11 @@ Edge::Application.routes.draw do
    end
   end
 
-
   # resource :ontology, :path => '/api'
 
   # Some non-RESTfull API calls
+  
+  match "/projects/:proj_id/api/mxes/browse/:id", :action => :jmatrixbrowse, :controller => "api/mxes"
   match "/projects/:proj_id/api/ontology/obo_file", :action => :obo_file, :controller => "api/ontology"
   match "/projects/:proj_id/api/ontology/class_depictions", :action => :class_depictions, :controller => "api/ontology"
   match "api/ontology/obo_file", :action => :obo_file, :controller => "api/ontology"
